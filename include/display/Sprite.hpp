@@ -18,6 +18,8 @@
 #ifndef SPRITE_HPP_
 #define SPRITE_HPP_
 
+#include <initializer_list>
+
 #include "Image.hpp"
 #include "SpriteAnimation.hpp"
 
@@ -31,7 +33,7 @@ class Sprite : public Image {
 		
 		void drawFrame(s16 x, s16 y, u16 frame);
 		
-		void addAnimation(u8 size, u16 frames[], u16 delay);
+		void addAnimation(std::initializer_list<u16> frames, u16 delay);
 		void resetAnimation(u16 anim);
 		void startAnimation(u16 anim);
 		void stopAnimation(u16 anim);

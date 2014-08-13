@@ -46,8 +46,12 @@ void Sprite::drawFrame(s16 x, s16 y, u16 frame) {
 	draw(x, y);
 }
 
-void Sprite::addAnimation(u8 size, u16 frames[], u16 delay) {
-	m_animations.push_back(SpriteAnimation(size, frames, delay));
+void Sprite::addAnimation(std::initializer_list<u16> frames, u16 delay) {
+	m_animations.push_back(SpriteAnimation(delay));
+	
+	for(auto &it : frames) {
+		m_animations.back().frames.push_back(it);
+	}
 }
 
 void Sprite::resetAnimation(u16 anim) {
@@ -66,7 +70,7 @@ void Sprite::stopAnimation(u16 anim) {
 }
 
 bool Sprite::animationAtEnd(u16 anim) {
-	return m_animations[anim].timer.time() / m_animations[anim].delay >= m_animations[anim].size;
+	return m_animations[anim].timer.time() / m_animations[anim].delay >= m_animations[anim].frames.size();
 }
 
 bool Sprite::animationAtFrame(u16 anim, u16 frame) {
@@ -85,7 +89,7 @@ void Sprite::playAnimation(s16 x, s16 y, u16 anim) {
 		startAnimation(anim);
 	}
 	
-	u16 animToDraw = m_animations[anim].tabAnim[(u16)(m_animations[anim].timer.time() / m_animations[anim].delay)];
+	u16 animToDraw = m_animations[anim].frames[(u16)(m_animations[anim].timer.time() / m_animations[anim].delay)];
 	drawFrame(x, y, animToDraw);
 }
 

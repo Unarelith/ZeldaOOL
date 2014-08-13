@@ -18,14 +18,15 @@
 #ifndef SPRITEANIMATION_HPP_
 #define SPRITEANIMATION_HPP_
 
+#include <vector>
+
 #include "Timer.hpp"
 
 struct SpriteAnimation {
-	SpriteAnimation(u16 _size, u16 *_tabAnim, u16 _delay) :
-		size(_size), tabAnim(_tabAnim), delay(_delay), isPlaying(false) {}
+	SpriteAnimation(u16 _delay) :
+		delay(_delay), isPlaying(false) {}
 	
-	u16 size;
-	u16 *tabAnim;
+	std::vector<u16> frames;
 	u16 delay;
 	Timer timer;
 	bool isPlaying;
