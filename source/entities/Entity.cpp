@@ -26,6 +26,8 @@ Entity::Entity(s16 x, s16 y, u16 width, u16 height) {
 	
 	m_vx = 0;
 	m_vy = 0;
+	
+	m_hitbox = sf::IntRect(m_x, m_y, m_width, m_height);
 }
 
 Entity::~Entity() {

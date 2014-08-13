@@ -27,6 +27,8 @@ class Entity {
 		Entity(s16 x, s16 y, u16 width, u16 height);
 		~Entity();
 		
+		void setHitbox(sf::IntRect hitbox) { m_hitbox = hitbox; }
+		
 	private:
 		s16 m_x;
 		s16 m_y;
@@ -36,6 +38,8 @@ class Entity {
 		
 		s8 m_vx;
 		s8 m_vy;
+		
+		sf::IntRect m_hitbox;
 };
 
 #endif // ENTITY_HPP_
