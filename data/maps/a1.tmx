@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="8" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="Grassland" tilewidth="16" tileheight="16">
+  <image source="../../graphics/tilesets/plain.png" width="256" height="256"/>
+ </tileset>
+ <layer name="Ground" width="10" height="8">
+  <data>
+   <tile gid="148"/>
+   <tile gid="47"/>
+   <tile gid="48"/>
+   <tile gid="47"/>
+   <tile gid="48"/>
+   <tile gid="47"/>
+   <tile gid="48"/>
+   <tile gid="47"/>
+   <tile gid="48"/>
+   <tile gid="47"/>
+   <tile gid="116"/>
+   <tile gid="113"/>
+   <tile gid="113"/>
+   <tile gid="169"/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="18"/>
+   <tile gid="18"/>
+   <tile gid="19"/>
+   <tile gid="31"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="121"/>
+   <tile gid="33"/>
+   <tile gid="6"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="35"/>
+   <tile gid="47"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="144"/>
+   <tile gid="33"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="5"/>
+   <tile gid="35"/>
+   <tile gid="31"/>
+   <tile gid="132"/>
+   <tile gid="129"/>
+   <tile gid="129"/>
+   <tile gid="139"/>
+   <tile gid="49"/>
+   <tile gid="6"/>
+   <tile gid="5"/>
+   <tile gid="6"/>
+   <tile gid="51"/>
+   <tile gid="47"/>
+   <tile gid="148"/>
+   <tile gid="149"/>
+   <tile gid="149"/>
+   <tile gid="146"/>
+   <tile gid="3"/>
+   <tile gid="33"/>
+   <tile gid="5"/>
+   <tile gid="35"/>
+   <tile gid="3"/>
+   <tile gid="31"/>
+   <tile gid="148"/>
+   <tile gid="3"/>
+   <tile gid="42"/>
+   <tile gid="3"/>
+   <tile gid="17"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="6"/>
+   <tile gid="19"/>
+   <tile gid="47"/>
+   <tile gid="148"/>
+   <tile gid="3"/>
+   <tile gid="33"/>
+   <tile gid="18"/>
+   <tile gid="51"/>
+   <tile gid="31"/>
+   <tile gid="32"/>
+   <tile gid="33"/>
+   <tile gid="35"/>
+   <tile gid="31"/>
+  </data>
+ </layer>
+</map>
