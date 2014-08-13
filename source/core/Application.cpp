@@ -25,6 +25,9 @@ sf::RenderWindow Application::window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
 Application::Application() {
 	m_paused = false;
 	
+	window.setPosition(sf::Vector2i(425, 125));
+	window.setSize(sf::Vector2u(WINDOW_WIDTH * 3, WINDOW_HEIGHT * 3));
+	
 	StateManager::init();
 }
 
