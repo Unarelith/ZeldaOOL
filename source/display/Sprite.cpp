@@ -37,12 +37,12 @@ void Sprite::load(std::string filename, u16 frameWidth, u16 frameHeight) {
 }
 
 void Sprite::drawFrame(s16 x, s16 y, u16 frame) {
-	u16 frameX = frame / (width() / m_frameWidth);
-	u16 frameY = frame % (width() / m_frameWidth);
+	u16 frameX = frame % (width() / m_frameWidth);
+	u16 frameY = frame / (width() / m_frameWidth);
 	
 	m_lastFrameDisplayed = frame;
 	
-	setClipRect(frameX, frameY, m_frameWidth, m_frameHeight);
+	setClipRect(frameX * m_frameWidth, frameY * m_frameHeight, m_frameWidth, m_frameHeight);
 	draw(x, y);
 }
 

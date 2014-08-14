@@ -1,0 +1,6 @@
+- Should write a class "Scene":
+	-> Contains a Map
+	-> Contains a std::vector of Entity
+	-> Contains infos for Entity
+	-> Sets the way each Entity interacts with another
+	-> Draws on-map animations

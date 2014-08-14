@@ -26,12 +26,10 @@ struct SpriteAnimation {
 	SpriteAnimation(u16 _delay) :
 		delay(_delay), isPlaying(false) {}
 	
-	std::vector<u16> frames;
 	u16 delay;
-	Timer timer;
 	bool isPlaying;
+	Timer timer;
+	std::vector<u16> frames;
 };
-
-typedef SpriteAnimation SpriteAnimation;
 
 #endif // SPRITEANIMATION_HPP_

@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  Player.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/07/2014 13:58:00
+ *        Created:  14/08/2014 19:11:30
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,27 +15,17 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef PLAYER_HPP_
+#define PLAYER_HPP_
 
-#include "State.hpp"
+#include "Character.hpp"
 
-#include "Map.hpp"
-#include "Player.hpp"
-
-class MapState : public State {
+class Player : public Character {
 	public:
-		MapState(State *parent = nullptr);
-		~MapState();
+		Player();
+		~Player();
 		
-		void update();
-		
-		void render();
-		
-	private:
-		Image m_tileset;
-		Map m_currentMap;
-		Player m_player;
+		void move();
 };
 
-#endif // MAPSTATE_HPP_
+#endif // PLAYER_HPP_

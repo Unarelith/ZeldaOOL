@@ -27,17 +27,19 @@ class Entity {
 		Entity(s16 x, s16 y, u16 width, u16 height);
 		~Entity();
 		
+		bool inCollisionWith(Entity *e);
+		
 		void setHitbox(sf::IntRect hitbox) { m_hitbox = hitbox; }
 		
-	private:
-		s16 m_x;
-		s16 m_y;
+	protected:
+		double m_x;
+		double m_y;
 		
 		u16 m_width;
 		u16 m_height;
 		
-		s8 m_vx;
-		s8 m_vy;
+		float m_vx;
+		float m_vy;
 		
 		sf::IntRect m_hitbox;
 };

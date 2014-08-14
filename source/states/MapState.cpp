@@ -31,10 +31,12 @@ MapState::~MapState() {
 }
 
 void MapState::update() {
-	
+	m_player.move();
 }
 
 void MapState::render() {
 	Application::window.draw(m_currentMap);
+	
+	m_player.draw();
 }
 
