@@ -26,6 +26,18 @@ class Player : public Character {
 		~Player();
 		
 		void move();
+		
+		void draw();
+		
+		enum State {
+			Standing,
+			Moving,
+			Colliding,
+			Attacking
+		};
+		
+	private:
+		State m_state;
 };
 
 #endif // PLAYER_HPP_

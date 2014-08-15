@@ -27,12 +27,9 @@ class Character : public Sprite, public Entity {
 		Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		~Character();
 		
-		void draw();
+		void mapCollisions();
 		
-		enum State {
-			Standing,
-			Moving
-		};
+		void draw();
 		
 		enum Direction {
 			Down,
@@ -42,8 +39,6 @@ class Character : public Sprite, public Entity {
 		};
 		
 	protected:
-		State m_state;
-		
 		u8 m_direction;
 };
 

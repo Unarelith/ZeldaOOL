@@ -18,10 +18,22 @@
 #include "Player.hpp"
 
 Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Direction::Down) {
+	m_state = State::Standing;
+	
 	addAnimation({4, 0}, 135);
 	addAnimation({5, 1}, 135);
 	addAnimation({6, 2}, 135);
 	addAnimation({7, 3}, 135);
+	
+	addAnimation({ 8, 12}, 135);
+	addAnimation({ 9, 13}, 135);
+	addAnimation({10, 14}, 135);
+	addAnimation({11, 15}, 135);
+	
+	addAnimation({16, 20, 20, 20}, 90);
+	addAnimation({17, 21, 21, 21}, 90);
+	addAnimation({18, 22, 22, 22}, 90);
+	addAnimation({19, 23, 23, 23}, 90);
 }
 
 Player::~Player() {
@@ -81,8 +93,8 @@ void Player::move() {
 	 || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	&& (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
 	 || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))) {
-		m_vx /= 2;
-		m_vy /= 2;
+		m_vx /= 1.5;
+		m_vy /= 1.5;
 	}
 	
 	m_x += m_vx;
@@ -90,5 +102,22 @@ void Player::move() {
 	
 	m_vx = 0;
 	m_vy = 0;
+}
+
+void Player::draw() {
+	switch(m_state) {
+		case State::Standing:
+			drawFrame(m_x, m_y, m_direction);
+			break;
+		case State::Moving:
+			playAnimation(m_x, m_y, m_direction);
+			break;
+		case State::Colliding:
+			playAnimation(m_x, m_y, m_direction + 4);
+			break;
+		case State::Attacking:
+			playAnimation(m_x, m_y, m_direction + 8);
+			break;
+	}
 }
 

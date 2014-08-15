@@ -18,22 +18,17 @@
 #include "Character.hpp"
 
 Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) : Sprite(filename, width, height), Entity(x, y, width, height) {
-	m_state = Standing;
-	
 	m_direction = direction;
 }
 
 Character::~Character() {
 }
 
+void Character::mapCollisions() {
+	
+}
+
 void Character::draw() {
-	switch(m_state) {
-		case State::Standing:
-			drawFrame(m_x, m_y, m_direction);
-			break;
-		case State::Moving:
-			playAnimation(m_x, m_y, m_direction);
-			break;
-	}
+	playAnimation(m_x, m_y, m_direction);
 }
 
