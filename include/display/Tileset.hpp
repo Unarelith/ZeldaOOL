@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Character.cpp
+ *       Filename:  Tileset.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/08/2014 19:07:04
+ *        Created:  18/08/2014 20:06:30
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,16 +15,23 @@
  *
  * =====================================================================================
  */
-#include "Character.hpp"
+#ifndef TILESET_HPP_
+#define TILESET_HPP_
 
-Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) : Sprite(filename, width, height), Entity(x, y, width, height) {
-	m_direction = direction;
-}
+#include <SFML/Graphics.hpp>
 
-Character::~Character() {
-}
+#include "Types.hpp"
 
-void Character::draw() {
-	playAnimation(m_x, m_y, m_direction);
-}
+struct Tileset {
+	inline bool load(std::string filename, u16 *_info) {
+		info = _info;
+		
+		return texture.loadFromFile(filename);
+	};
+	
+	sf::Texture texture;
+	
+	u16 *info;
+};
 
+#endif // TILESET_HPP_

@@ -18,28 +18,33 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
-#include <SFML/Graphics.hpp>
+#include <vector>
 
-#include "Image.hpp"
+#include "Tileset.hpp"
 
 class Map : public sf::Drawable, public sf::Transformable {
 	public:
 		Map();
-		Map(std::string filename, Image &tileset);
+		Map(std::string filename, Tileset &tileset);
 		~Map();
 		
-		bool load(std::string filename, Image &tileset);
+		bool load(std::string filename, Tileset &tileset);
 		
 		void update();
+		
+		u16 getTile(u16 tileX, u16 tileY);
+		
+		Tileset tileset() const { return m_tileset; }
 		
 	private:
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 		
-		sf::Texture m_tileset;
+		Tileset m_tileset;
 		
 		sf::VertexArray m_vertices;
 		
-		s16* m_data;
+		std::vector<s16> m_baseData;
+		std::vector<s16> m_data;
 		
 		u16 m_width;
 		u16 m_height;

@@ -33,7 +33,7 @@ class MapState : public State {
 		void render();
 		
 	private:
-		Image m_tileset;
+		Tileset m_tileset;
 		Map m_currentMap;
 		Player m_player;
 };

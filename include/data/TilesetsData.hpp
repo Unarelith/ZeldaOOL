@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Character.cpp
+ *       Filename:  TilesetsData.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/08/2014 19:07:04
+ *        Created:  18/08/2014 19:44:53
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,16 +15,17 @@
  *
  * =====================================================================================
  */
-#include "Character.hpp"
+#ifndef TILESETSDATA_HPP_
+#define TILESETSDATA_HPP_
 
-Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) : Sprite(filename, width, height), Entity(x, y, width, height) {
-	m_direction = direction;
+#include "Types.hpp"
+
+namespace TilesetsData {
+	extern u16 plainInfo[256];
+	
+	extern u16 indoorInfo[256];
+	
+	extern u16 undergroundInfo[256];
 }
 
-Character::~Character() {
-}
-
-void Character::draw() {
-	playAnimation(m_x, m_y, m_direction);
-}
-
+#endif // TILESETSDATA_HPP_

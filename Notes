@@ -1,11 +1,8 @@
 - Write Character::testMapCollisions()
-	-> Create 'TilesetData' namespace
-		=> Tables like in the other games
-	-> Create 'TilesData' namespace
-		=> A big enum with all the tiles types
-	-> Create 'MapHelper' namespace
-		=> Functions like 'inTiles', 'passable', etc...
+	-> Dont forget that the original game tiles collisions are managed by 8x8
+	-> Add a 'Tileset' struct with a field 'infos' for MapHelper functions
 	-> Manager Player states to display 'pushing' animation when colliding
+- Fix 'moonwalk' bug
 - Add 'Weapon' pure virtual class, friend of 'Player' and child of 'Sprite'
 	-> Add a virtual function 'action()'
 - Add 'Sword' class, child of 'Weapon'

@@ -6,7 +6,7 @@ TARGET		:=  $(shell basename $(CURDIR))
 #---------------------------------------------------------------------------------
 # Source sub-folders
 #---------------------------------------------------------------------------------
-SUBFOLDERS	:=	core display entities states
+SUBFOLDERS	:=	core data display entities helpers managers states
 
 #---------------------------------------------------------------------------------
 # Compiler executables

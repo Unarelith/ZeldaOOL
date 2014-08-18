@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Character.cpp
+ *       Filename:  MapManager.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/08/2014 19:07:04
+ *        Created:  18/08/2014 20:21:23
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,16 +15,13 @@
  *
  * =====================================================================================
  */
-#include "Character.hpp"
+#ifndef MAPMANAGER_HPP_
+#define MAPMANAGER_HPP_
 
-Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) : Sprite(filename, width, height), Entity(x, y, width, height) {
-	m_direction = direction;
+#include "Map.hpp"
+
+namespace MapManager {
+	extern Map *currentMap;
 }
 
-Character::~Character() {
-}
-
-void Character::draw() {
-	playAnimation(m_x, m_y, m_direction);
-}
-
+#endif // MAPMANAGER_HPP_

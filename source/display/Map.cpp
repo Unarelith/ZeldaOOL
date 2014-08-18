@@ -22,16 +22,15 @@
 Map::Map() {
 }
 
-Map::Map(std::string filename, Image &tileset) {
+Map::Map(std::string filename, Tileset &tileset) {
 	load(filename, tileset);
 }
 
 Map::~Map() {
-	delete[] m_data;
 }
 
-bool Map::load(std::string filename, Image &tileset) {
-	m_tileset = tileset.getTexture();
+bool Map::load(std::string filename, Tileset &tileset) {
+	m_tileset = tileset;
 	
 	XMLFile doc(filename);
 	
@@ -43,15 +42,14 @@ bool Map::load(std::string filename, Image &tileset) {
 	m_tileWidth = mapElement->IntAttribute("tilewidth");
 	m_tileHeight = mapElement->IntAttribute("tileheight");
 	
-	m_data = new s16[m_width * m_height];
-	
-	u16 i = 0;
 	XMLElement *tileElement = mapElement->FirstChildElement("layer")->FirstChildElement("data")->FirstChildElement("tile");
 	while(tileElement) {
-		m_data[i++] = tileElement->IntAttribute("gid") - 1;
+		m_baseData.push_back(tileElement->IntAttribute("gid") - 1);
 		
 		tileElement = tileElement->NextSiblingElement("tile");
 	}
+	
+	m_data = m_baseData;
 	
 	update();
 	
@@ -68,8 +66,8 @@ void Map::update() {
 			
 			if(tileNb == -1) continue;
 			
-			u16 tilesetX = tileNb % (m_tileset.getSize().x / m_tileWidth);
-			u16 tilesetY = tileNb / (m_tileset.getSize().x / m_tileWidth);
+			u16 tilesetX = tileNb % (m_tileset.texture.getSize().x / m_tileWidth);
+			u16 tilesetY = tileNb / (m_tileset.texture.getSize().x / m_tileWidth);
 			
 			sf::Vertex *triangle = &m_vertices[(x + (y - 1) * m_width) * 6];
 			
@@ -93,8 +91,16 @@ void Map::update() {
 void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 	
-	states.texture = &m_tileset;
+	states.texture = &m_tileset.texture;
 	
 	target.draw(m_vertices, states);
+}
+
+u16 Map::getTile(u16 tileX, u16 tileY) {
+	if(tileX + (tileY - 1) * m_width < (u16)m_data.size()) {
+		return m_data[tileX + (tileY - 1) * m_width];
+	} else {
+		return 0;
+	}
 }
 

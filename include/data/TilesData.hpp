@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Character.cpp
+ *       Filename:  TilesData.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/08/2014 19:07:04
+ *        Created:  18/08/2014 19:44:28
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,16 +15,22 @@
  *
  * =====================================================================================
  */
-#include "Character.hpp"
+#ifndef TILESDATA_HPP_
+#define TILESDATA_HPP_
 
-Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) : Sprite(filename, width, height), Entity(x, y, width, height) {
-	m_direction = direction;
+#include "Types.hpp"
+
+#define TILE_NB 15
+
+namespace TilesData {
+	extern u16 infos[TILE_NB][4];
+	
+	enum TileTypes {
+		SlowingTile		= 11,
+		LowGrassTile	= 12,
+		LowWaterTile	= 13,
+		GrassTile		= 14
+	};
 }
 
-Character::~Character() {
-}
-
-void Character::draw() {
-	playAnimation(m_x, m_y, m_direction);
-}
-
+#endif // TILESDATA_HPP_

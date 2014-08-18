@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Character.cpp
+ *       Filename:  MapHelper.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/08/2014 19:07:04
+ *        Created:  18/08/2014 19:51:42
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,16 +15,16 @@
  *
  * =====================================================================================
  */
-#include "Character.hpp"
+#ifndef MAPHELPER_HPP_
+#define MAPHELPER_HPP_
 
-Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) : Sprite(filename, width, height), Entity(x, y, width, height) {
-	m_direction = direction;
+#include "Types.hpp"
+
+namespace MapHelper {
+	bool passable(s16 x, s16 y);
+	bool onDoor(s16 x, s16 y);
+
+	bool isTile(s16 x, s16 y, u16 tile);
 }
 
-Character::~Character() {
-}
-
-void Character::draw() {
-	playAnimation(m_x, m_y, m_direction);
-}
-
+#endif // MAPHELPER_HPP_
