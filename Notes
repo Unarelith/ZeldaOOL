@@ -1,7 +1,4 @@
-- Write Character::testMapCollisions()
-	-> Dont forget that the original game tiles collisions are managed by 8x8
-	-> Add a 'Tileset' struct with a field 'infos' for MapHelper functions
-	-> Manager Player states to display 'pushing' animation when colliding
+- Add maps and make transitions between maps
 - Fix 'moonwalk' bug
 - Add 'Weapon' pure virtual class, friend of 'Player' and child of 'Sprite'
 	-> Add a virtual function 'action()'
@@ -15,3 +12,4 @@
 	-> Sets the way each Entity interacts with another
 	-> Draws on-map animations
 - Add 'SceneManager'
+	-> It associates each map and its entities into a 'Scene'
