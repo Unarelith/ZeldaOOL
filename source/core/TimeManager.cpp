@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "Debug.hpp"
 #include "TimeManager.hpp"
 
 sf::Clock TimeManager::clock;
@@ -69,6 +70,7 @@ bool TimeManager::hasEnoughTimeToDraw() {
 }
 
 void TimeManager::waitUntilItsTime() {
+	debug("Time to wait: %ld", timeToWait - ((clock.getElapsedTime().asMilliseconds() - frameBegin) + (frameBegin - frameEnd)));
 	sf::sleep(sf::milliseconds(timeToWait - ((clock.getElapsedTime().asMilliseconds() - frameBegin) + (frameBegin - frameEnd))));
 }
 

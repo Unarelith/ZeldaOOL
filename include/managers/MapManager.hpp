@@ -18,10 +18,20 @@
 #ifndef MAPMANAGER_HPP_
 #define MAPMANAGER_HPP_
 
+#include <vector>
+
 #include "Map.hpp"
 
 namespace MapManager {
+	void init();
+	
+	void initTilesets();
+	void initMaps();
+	
 	extern Map *currentMap;
+	
+	extern std::vector<Tileset> tilesets;
+	extern std::vector<std::vector<Map>> maps;
 }
 
 #endif // MAPMANAGER_HPP_

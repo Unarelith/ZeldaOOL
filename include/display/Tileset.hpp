@@ -23,10 +23,12 @@
 #include "Types.hpp"
 
 struct Tileset {
-	inline bool load(std::string filename, u16 *_info) {
+	Tileset() {}
+	
+	Tileset(std::string filename, u16 *_info) {
 		info = _info;
 		
-		return texture.loadFromFile(filename);
+		texture.loadFromFile(filename);
 	};
 	
 	sf::Texture texture;

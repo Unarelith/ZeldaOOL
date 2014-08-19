@@ -16,19 +16,12 @@
  * =====================================================================================
  */
 #include "Debug.hpp"
-#include "TilesetsData.hpp"
 #include "Application.hpp"
 #include "MapManager.hpp"
 #include "MapState.hpp"
 
 MapState::MapState(State *parent) : State(parent) {
-	m_tileset.load("graphics/tilesets/plain.png", TilesetsData::plainInfo);
-	
-	if(!m_currentMap.load("data/maps/a1.tmx", m_tileset)) {
-		error("Couldn't load test map");
-	}
-	
-	MapManager::currentMap = &m_currentMap;
+	MapManager::init();
 }
 
 MapState::~MapState() {
@@ -39,7 +32,7 @@ void MapState::update() {
 }
 
 void MapState::render() {
-	Application::window.draw(m_currentMap);
+	Application::window.draw(*MapManager::currentMap);
 	
 	m_player.draw();
 }

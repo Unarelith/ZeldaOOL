@@ -20,7 +20,6 @@
 
 #include "State.hpp"
 
-#include "Map.hpp"
 #include "Player.hpp"
 
 class MapState : public State {
@@ -33,8 +32,6 @@ class MapState : public State {
 		void render();
 		
 	private:
-		Tileset m_tileset;
-		Map m_currentMap;
 		Player m_player;
 };
 

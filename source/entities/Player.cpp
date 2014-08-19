@@ -21,15 +21,15 @@
 Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Direction::Down) {
 	m_state = State::Standing;
 	
-	addAnimation({4, 0}, 135);
-	addAnimation({5, 1}, 135);
-	addAnimation({6, 2}, 135);
-	addAnimation({7, 3}, 135);
+	addAnimation({4, 0}, 90);
+	addAnimation({5, 1}, 90);
+	addAnimation({6, 2}, 90);
+	addAnimation({7, 3}, 90);
 	
-	addAnimation({ 8, 12}, 110);
-	addAnimation({ 9, 13}, 110);
-	addAnimation({10, 14}, 110);
-	addAnimation({11, 15}, 110);
+	addAnimation({ 8, 12}, 90);
+	addAnimation({ 9, 13}, 90);
+	addAnimation({10, 14}, 90);
+	addAnimation({11, 15}, 90);
 	
 	addAnimation({16, 20, 20, 20}, 90);
 	addAnimation({17, 21, 21, 21}, 90);
