@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  StatsBar.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/07/2014 13:58:00
+ *        Created:  20/08/2014 13:14:13
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,24 +15,23 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef STATSBAR_HPP_
+#define STATSBAR_HPP_
 
-#include "State.hpp"
+#include "Sprite.hpp"
 
-#include "StatsBar.hpp"
-
-class MapState : public State {
+class StatsBar {
 	public:
-		MapState(State *parent = nullptr);
-		~MapState();
+		StatsBar();
+		~StatsBar();
 		
-		void update();
-		
-		void render();
+		void draw();
 		
 	private:
-		StatsBar m_statsBar;
+		Image m_background;
+		
+		Sprite m_hearts;
+		Sprite m_numbers;
 };
 
-#endif // MAPSTATE_HPP_
+#endif // STATSBAR_HPP_

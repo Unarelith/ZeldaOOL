@@ -70,7 +70,7 @@ bool TimeManager::hasEnoughTimeToDraw() {
 }
 
 void TimeManager::waitUntilItsTime() {
-	debug("Time to wait: %ld", timeToWait - ((clock.getElapsedTime().asMilliseconds() - frameBegin) + (frameBegin - frameEnd)));
+	//debug("Time to wait: %ld", timeToWait - ((clock.getElapsedTime().asMilliseconds() - frameBegin) + (frameBegin - frameEnd)));
 	sf::sleep(sf::milliseconds(timeToWait - ((clock.getElapsedTime().asMilliseconds() - frameBegin) + (frameBegin - frameEnd))));
 }
 

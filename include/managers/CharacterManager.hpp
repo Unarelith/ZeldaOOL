@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  CharacterManager.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/07/2014 13:58:00
+ *        Created:  20/08/2014 13:05:18
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,24 +15,13 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef CHARACTERMANAGER_HPP_
+#define CHARACTERMANAGER_HPP_
 
-#include "State.hpp"
+#include "Player.hpp"
 
-#include "StatsBar.hpp"
+namespace CharacterManager {
+	extern Player player;
+}
 
-class MapState : public State {
-	public:
-		MapState(State *parent = nullptr);
-		~MapState();
-		
-		void update();
-		
-		void render();
-		
-	private:
-		StatsBar m_statsBar;
-};
-
-#endif // MAPSTATE_HPP_
+#endif // CHARACTERMANAGER_HPP_

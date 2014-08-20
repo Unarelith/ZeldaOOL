@@ -18,6 +18,7 @@
 #include "Debug.hpp"
 #include "Application.hpp"
 #include "MapManager.hpp"
+#include "CharacterManager.hpp"
 #include "MapState.hpp"
 
 MapState::MapState(State *parent) : State(parent) {
@@ -28,12 +29,14 @@ MapState::~MapState() {
 }
 
 void MapState::update() {
-	m_player.move();
+	CharacterManager::player.move();
 }
 
 void MapState::render() {
+	m_statsBar.draw();
+	
 	Application::window.draw(*MapManager::currentMap);
 	
-	m_player.draw();
+	CharacterManager::player.draw();
 }
 

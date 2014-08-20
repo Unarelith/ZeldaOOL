@@ -38,8 +38,18 @@ class Player : public Character {
 			Attacking
 		};
 		
+		u8 maxLife() const { return m_maxLife; }
+		u8 life() const { return m_life; }
+		
+		u16 rupees() const { return m_rupees; }
+		
 	private:
 		State m_state;
+		
+		u8 m_maxLife;
+		u8 m_life;
+		
+		u16 m_rupees;
 };
 
 #endif // PLAYER_HPP_

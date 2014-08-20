@@ -35,6 +35,11 @@ Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Dir
 	addAnimation({17, 21, 21, 21}, 90);
 	addAnimation({18, 22, 22, 22}, 90);
 	addAnimation({19, 23, 23, 23}, 90);
+	
+	m_maxLife = 13 * 4;
+	m_life = 11 * 4;
+	
+	m_rupees = 197;
 }
 
 Player::~Player() {

@@ -38,8 +38,8 @@ class Entity {
 		u16 m_width;
 		u16 m_height;
 		
-		float m_vx;
-		float m_vy;
+		double m_vx;
+		double m_vy;
 		
 		sf::IntRect m_hitbox;
 };
