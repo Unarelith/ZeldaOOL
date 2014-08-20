@@ -56,12 +56,12 @@ bool Map::load(std::string filename, Tileset &tileset) {
 	return true;
 }
 
-void Map::update() {
+void Map::update(u8 offsetX, u8 offsetY) {
 	m_vertices.setPrimitiveType(sf::Triangles);
 	m_vertices.resize(m_width * m_height * 6);
 	
-	for(u16 y = 1 ; y < m_height + 1 ; y++) {
-		for(u16 x = 0 ; x < m_width ; x++) {
+	for(u16 y = 1 + offsetY ; y < m_height + 1 + offsetY ; y++) {
+		for(u16 x = 0 + offsetX ; x < m_width + offsetX ; x++) {
 			s16 tileNb = m_data[x + (y - 1) * m_width];
 			
 			if(tileNb == -1) continue;
@@ -86,6 +86,10 @@ void Map::update() {
 			triangle[5].texCoords = sf::Vector2f((tilesetX + 1) * m_tileWidth, (tilesetY + 1) * m_tileHeight);
 		}
 	}
+}
+
+void Map::draw() {
+	Application::window.draw(*this);
 }
 
 void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {

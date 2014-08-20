@@ -35,7 +35,7 @@ void MapState::update() {
 void MapState::render() {
 	m_statsBar.draw();
 	
-	Application::window.draw(*MapManager::currentMap);
+	MapManager::currentMap->draw();
 	
 	CharacterManager::player.draw();
 }

@@ -29,9 +29,6 @@ class Application {
 		void mainLoop();
 		
 		static sf::RenderWindow window;
-		
-	private:
-		bool m_paused;
 };
 
 #endif // APPLICATION_HPP_

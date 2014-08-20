@@ -23,8 +23,6 @@
 sf::RenderWindow Application::window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), APP_NAME);
 
 Application::Application() {
-	m_paused = false;
-	
 	window.setPosition(sf::Vector2i(425, 125));
 	window.setSize(sf::Vector2u(WINDOW_WIDTH * 3, WINDOW_HEIGHT * 3));
 	
@@ -41,26 +39,20 @@ void Application::handleEvents() {
 		if(event.type == sf::Event::Closed) {
 			window.close();
 		}
-		else if(event.type == sf::Event::LostFocus) {
-			m_paused = true;
-		}
-		else if(event.type == sf::Event::GainedFocus) {
-			m_paused = false;
-		}
 	}
 }
 
 void Application::mainLoop() {
+	window.setFramerateLimit(30);
+	
 	while(window.isOpen()) {
-		if(TimeManager::isTimeToUpdate()) {
+//		if(TimeManager::isTimeToUpdate()) {
 			handleEvents();
-			
-			if(m_paused) continue;
 			
 			StateManager::top()->update();
 			
-			if(TimeManager::hasEnoughTimeToDraw()) {
-				TimeManager::beginMeasuringRenderingTime();
+//			if(TimeManager::hasEnoughTimeToDraw()) {
+//				TimeManager::beginMeasuringRenderingTime();
 				
 				window.clear();
 				
@@ -68,13 +60,13 @@ void Application::mainLoop() {
 				
 				window.display();
 				
-				TimeManager::endMeasuringRenderingTime();
-			}
-		} else {
-			TimeManager::waitUntilItsTime();
-		}
+//				TimeManager::endMeasuringRenderingTime();
+//			}
+//		} else {
+//			TimeManager::waitUntilItsTime();
+//		}
 		
-		TimeManager::measureFrameDuration();
+//		TimeManager::measureFrameDuration();
 	}
 }
 

@@ -27,7 +27,6 @@ u32 TimeManager::timeToWait = 0;
 std::vector<u32> TimeManager::renderingTimeValues;
 u16 TimeManager::maxFrameskip = 5;
 u16 TimeManager::frameskip = 0;
-u16 TimeManager::currentFrameDuration = 33;
 
 void TimeManager::beginMeasuringRenderingTime() {
 	tempBeginRendering = clock.getElapsedTime().asMilliseconds();
@@ -70,8 +69,8 @@ bool TimeManager::hasEnoughTimeToDraw() {
 }
 
 void TimeManager::waitUntilItsTime() {
-	//debug("Time to wait: %ld", timeToWait - ((clock.getElapsedTime().asMilliseconds() - frameBegin) + (frameBegin - frameEnd)));
-	sf::sleep(sf::milliseconds(timeToWait - ((clock.getElapsedTime().asMilliseconds() - frameBegin) + (frameBegin - frameEnd))));
+	//debug("Time to wait: %ld", timeToWait - (clock.getElapsedTime().asMilliseconds() - frameEnd));
+	sf::sleep(sf::milliseconds(timeToWait - (clock.getElapsedTime().asMilliseconds() - frameEnd)));
 }
 
 void TimeManager::measureFrameDuration() {
@@ -79,10 +78,8 @@ void TimeManager::measureFrameDuration() {
 		frameEnd = clock.getElapsedTime().asMilliseconds();
 		if(frameEnd - frameBegin <= 33) {
 			timeToWait = 33 - (frameEnd - frameBegin);
-			currentFrameDuration = 33;
 		} else {
 			timeToWait = 0;
-			currentFrameDuration = frameEnd - frameBegin + 1;
 		}
 	}
 }

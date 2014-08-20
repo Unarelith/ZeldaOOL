@@ -17,6 +17,7 @@
  */
 #include "TilesData.hpp"
 #include "MapManager.hpp"
+#include "CharacterManager.hpp"
 #include "MapHelper.hpp"
 
 bool MapHelper::passable(s16 x, s16 y) {
@@ -39,5 +40,24 @@ bool MapHelper::onDoor(s16 x, s16 y) {
 
 bool MapHelper::isTile(s16 x, s16 y, u16 tile) {
 	return MapManager::currentMap->tileset().info[MapManager::currentMap->getTile(x >> 4, y >> 4)] == tile;
+}
+
+void MapHelper::scrollMaps(u8 direction) {
+	u8 vx = 0;
+	u8 vy = 0;
+	
+	if(direction == Character::Direction::Left) {
+		vx = -1;
+	}
+	else if(direction == Character::Direction::Right) {
+		vx = 1;
+	}
+	else if(direction == Character::Direction::Up) {
+		vy = -1;
+	}
+	else if(direction == Character::Direction::Down) {
+		vy = 1;
+	}
+	
 }
 

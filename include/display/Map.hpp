@@ -30,7 +30,9 @@ class Map : public sf::Drawable, public sf::Transformable {
 		
 		bool load(std::string filename, Tileset &tileset);
 		
-		void update();
+		void update(u8 offsetX = 0, u8 offsetY = 0);
+		
+		void draw();
 		
 		u16 getTile(u16 tileX, u16 tileY);
 		
