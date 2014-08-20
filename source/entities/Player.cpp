@@ -75,7 +75,12 @@ void Player::mapCollisions() {
 			if(i < 2)	m_vx = 0;
 			else		m_vy = 0;
 			
-			m_state = State::Colliding;
+			if((i == 0 && m_direction == Direction::Right)
+			|| (i == 1 && m_direction == Direction::Left)
+			|| (i == 2 && m_direction == Direction::Up)
+			|| (i == 3 && m_direction == Direction::Down)) {
+				m_state = State::Colliding;
+			}
 			
 			if( MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])
 			&& !MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])) {
