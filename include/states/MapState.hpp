@@ -28,7 +28,7 @@ class MapState : public State {
 		MapState(State *parent = nullptr);
 		~MapState();
 		
-		void scrollMaps(s8 vx, s8 vy);
+		void scrollMaps(double vx, double vy);
 		
 		void update();
 		

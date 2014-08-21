@@ -37,7 +37,7 @@ MapState::MapState(State *parent) : State(parent) {
 MapState::~MapState() {
 }
 
-void MapState::scrollMaps(s8 vx, s8 vy) {
+void MapState::scrollMaps(double vx, double vy) {
 	if(!m_nextMap) {
 		m_nextMap = &MapManager::maps[MapManager::currentMap->area()][MapManager::currentMap->x() + vx + (MapManager::currentMap->y() + vy) * sqrt(MapManager::maps[MapManager::currentMap->area()].size())];
 		
@@ -47,10 +47,10 @@ void MapState::scrollMaps(s8 vx, s8 vy) {
 		Sprite::pause = true;
 	}
 	
-	vx *= TimeManager::dt;
-	vy *= TimeManager::dt;
+	vx *= 60 * TimeManager::dt;
+	vy *= 60 * TimeManager::dt;
 	
-	CharacterManager::player.move(4.6 * -vx, 4.3 * -vy);
+	CharacterManager::player.move(4.6 * -vx, 4.25 * -vy);
 	m_mapView.move(5 * vx, 5 * vy);
 	m_scrolled++;
 
@@ -106,10 +106,10 @@ void MapState::update() {
 			CharacterManager::player.setPosition(CharacterManager::player.x() - m_scrolled * 4.6, CharacterManager::player.y());
 		}
 		else if(m_mode == Mode::ScrollingUp) {
-			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() + m_scrolled * 4.3);
+			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() + m_scrolled * 4.25);
 		}
 		else if(m_mode == Mode::ScrollingDown) {
-			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() - m_scrolled * 4.3);
+			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() - m_scrolled * 4.25);
 		}
 		
 		m_mapView.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
