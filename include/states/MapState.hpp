@@ -48,7 +48,7 @@ class MapState : public State {
 		sf::View m_mapView;
 		
 		Map *m_nextMap;
-		u16 m_scrolled;
+		double m_scrolled;
 		
 		StatsBar m_statsBar;
 };
