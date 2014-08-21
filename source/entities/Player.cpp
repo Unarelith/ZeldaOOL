@@ -16,8 +16,10 @@
  * =====================================================================================
  */
 #include "TimeManager.hpp"
+#include "TilesData.hpp"
 #include "MapManager.hpp"
 #include "MapHelper.hpp"
+#include "EffectManager.hpp"
 #include "Player.hpp"
 
 Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Direction::Down) {
@@ -102,38 +104,18 @@ void Player::mapCollisions() {
 		}
 	}
 	
-	/*if(((stairsTile(m_x + 6, m_y + 11))
-	&&  (stairsTile(m_x + 7, m_y + 11))
-	&&  (stairsTile(m_x + 6, m_y + 12))
-	&&  (stairsTile(m_x + 7, m_y + 12)))
-	&& m_vy != 0) {
+	if(onTile(TilesData::TileType::SlowingTile)) {
 		m_vx /= 2;
 		m_vy /= 2;
 	}
 	
-	if((lowGrassTile(m_x + 6, m_y + 11))
-	&& (lowGrassTile(m_x + 7, m_y + 11))
-	&& (lowGrassTile(m_x + 6, m_y + 12))
-	&& (lowGrassTile(m_x + 7, m_y + 12))) {
+	if(onTile(TilesData::TileType::LowGrassTile)) {
 		m_vx /= 4;
 		m_vx *= 3;
 		
 		m_vy /= 4;
 		m_vy *= 3;
-		
-		SpriteManager::grassEffect->drawFrame(m_x, m_y, 0);
-	} else {
-		SpriteManager::grassEffect->clear();
 	}
-	
-	if((lowWaterTile(m_x + 6, m_y + 11))
-	&& (lowWaterTile(m_x + 7, m_y + 11))
-	&& (lowWaterTile(m_x + 6, m_y + 12))
-	&& (lowWaterTile(m_x + 7, m_y + 12))) {
-		SpriteManager::lowWaterEffect->playAnimation(m_x, m_y + 8, 0);
-	} else {
-		SpriteManager::lowWaterEffect->clear();
-	}*/
 }
 
 void Player::move() {
@@ -215,5 +197,7 @@ void Player::draw() {
 			playAnimation(m_x, m_y, m_direction + 8);
 			break;
 	}
+	
+	EffectManager::drawEffects(this);
 }
 

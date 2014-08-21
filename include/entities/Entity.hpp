@@ -29,12 +29,19 @@ class Entity {
 		
 		bool inCollisionWith(Entity *e);
 		
+		bool onTile(u16 tile);
+		
 		void setHitbox(sf::IntRect hitbox) { m_hitbox = hitbox; }
 		
 		void setPosition(double x, double y) { m_x = x; m_y = y; }
 		
+		void setVelocity(double vx, double vy) { m_vx = vx; m_vy = vy; }
+		
 		double x() const { return m_x; }
 		double y() const { return m_y; }
+		
+		double vx() const { return m_vx; }
+		double vy() const { return m_vy; }
 		
 	protected:
 		double m_x;

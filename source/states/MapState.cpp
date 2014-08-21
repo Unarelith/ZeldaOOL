@@ -21,6 +21,7 @@
 #include "TimeManager.hpp"
 #include "Application.hpp"
 #include "CharacterManager.hpp"
+#include "EffectManager.hpp"
 #include "MapState.hpp"
 
 MapState::MapState(State *parent) : State(parent) {
@@ -32,6 +33,8 @@ MapState::MapState(State *parent) : State(parent) {
 	m_scrolled = 0;
 	
 	MapManager::init();
+	
+	EffectManager::init();
 }
 
 MapState::~MapState() {
