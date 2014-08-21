@@ -17,6 +17,8 @@
  */
 #include "Sprite.hpp"
 
+bool Sprite::pause = false;
+
 Sprite::Sprite() {
 }
 
@@ -69,27 +71,31 @@ void Sprite::stopAnimation(u16 anim) {
 	m_animations[anim].isPlaying = false;
 }
 
-bool Sprite::animationAtEnd(u16 anim) {
-	return m_animations[anim].timer.time() / m_animations[anim].delay >= m_animations[anim].frames.size();
+#include "Debug.hpp"
+
+u16 Sprite::animationCurrentFrame(u16 anim) {
+	return floor(m_animations[anim].timer.time() / m_animations[anim].delay);
 }
 
-bool Sprite::animationAtFrame(u16 anim, u16 frame) {
-	return (u16)(m_animations[anim].timer.time() / m_animations[anim].delay) == frame;
+bool Sprite::animationAtEnd(u16 anim) {
+	return animationCurrentFrame(anim) >= m_animations[anim].frames.size();
 }
 
 void Sprite::playAnimation(s16 x, s16 y, u16 anim) {
-	if(!m_animations[anim].isPlaying) {
-		resetAnimation(anim);
-		startAnimation(anim);
-		m_animations[anim].isPlaying = true;
+	if(pause) {
+		stopAnimation(anim);
+		
+		if(animationAtEnd(anim)) {
+			resetAnimation(anim);
+			startAnimation(anim);
+		}
+	} else {
+		if(!m_animations[anim].isPlaying || animationAtEnd(anim)) {
+			resetAnimation(anim);
+			startAnimation(anim);
+		}
 	}
 	
-	if(animationAtEnd(anim)) {
-		resetAnimation(anim);
-		startAnimation(anim);
-	}
-	
-	u16 animToDraw = m_animations[anim].frames[(u16)(m_animations[anim].timer.time() / m_animations[anim].delay)];
-	drawFrame(x, y, animToDraw);
+	drawFrame(x, y, m_animations[anim].frames[animationCurrentFrame(anim)]);
 }
 
