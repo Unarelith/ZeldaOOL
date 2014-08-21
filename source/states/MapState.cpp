@@ -47,13 +47,11 @@ void MapState::scrollMaps(double vx, double vy) {
 		Sprite::pause = true;
 	}
 	
-	vx *= 60 * TimeManager::dt;
-	vy *= 60 * TimeManager::dt;
+	CharacterManager::player.move(272 * -vx * TimeManager::dt, 236 * -vy * TimeManager::dt);
+	m_mapView.move(300 * vx * TimeManager::dt, 280 * vy * TimeManager::dt);
 	
-	CharacterManager::player.move(4.6 * -vx, 4 * -vy);
-	m_mapView.move(5 * vx, 5 * vy);
-	m_scrolled++;
-
+	if(vx != 0) m_scrolled += TimeManager::dt * 300;
+	if(vy != 0) m_scrolled += TimeManager::dt * 280;
 }
 
 void MapState::update() {
@@ -87,9 +85,9 @@ void MapState::update() {
 		scrollMaps(0, 1);
 	}
 	
-	if((m_scrolled >= WINDOW_WIDTH / 5
+	if((m_scrolled >= WINDOW_WIDTH
 	 && (m_mode == Mode::ScrollingLeft || m_mode == Mode::ScrollingRight))
-	|| (m_scrolled >= WINDOW_HEIGHT / 5 - 2.5
+	|| (m_scrolled >= WINDOW_HEIGHT - 32
 	 && (m_mode == Mode::ScrollingUp || m_mode == Mode::ScrollingDown))) {
 		MapManager::currentMap = m_nextMap;
 		MapManager::currentMap->setPosition(0, 0);
@@ -98,19 +96,6 @@ void MapState::update() {
 		m_scrolled = 0;
 		
 		Sprite::pause = false;
-		
-		if(m_mode == Mode::ScrollingLeft) {
-			CharacterManager::player.setPosition(CharacterManager::player.x() + m_scrolled * 4.6, CharacterManager::player.y());
-		}
-		else if(m_mode == Mode::ScrollingRight) {
-			CharacterManager::player.setPosition(CharacterManager::player.x() - m_scrolled * 4.6, CharacterManager::player.y());
-		}
-		else if(m_mode == Mode::ScrollingUp) {
-			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() + m_scrolled * 4);
-		}
-		else if(m_mode == Mode::ScrollingDown) {
-			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() - m_scrolled * 4);
-		}
 		
 		m_mapView.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
 		
