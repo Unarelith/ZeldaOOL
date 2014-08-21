@@ -50,7 +50,7 @@ void MapState::scrollMaps(double vx, double vy) {
 	vx *= 60 * TimeManager::dt;
 	vy *= 60 * TimeManager::dt;
 	
-	CharacterManager::player.move(4.6 * -vx, 4.25 * -vy);
+	CharacterManager::player.move(4.6 * -vx, 4.2 * -vy);
 	m_mapView.move(5 * vx, 5 * vy);
 	m_scrolled++;
 
@@ -106,10 +106,10 @@ void MapState::update() {
 			CharacterManager::player.setPosition(CharacterManager::player.x() - m_scrolled * 4.6, CharacterManager::player.y());
 		}
 		else if(m_mode == Mode::ScrollingUp) {
-			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() + m_scrolled * 4.25);
+			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() + m_scrolled * 4.2);
 		}
 		else if(m_mode == Mode::ScrollingDown) {
-			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() - m_scrolled * 4.25);
+			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() - m_scrolled * 4.2);
 		}
 		
 		m_mapView.reset(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
