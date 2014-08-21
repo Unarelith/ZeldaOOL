@@ -1,4 +1,6 @@
-- Make transitions between maps
+- Fix transitions
+	-> Sometimes there's like a non passable tile out of the map
+	-> Smoother transitions (speed >>>> and <<<<<)
 - Load each tileset tiles infos like in Asylia
 - Fix 'moonwalk' bug
 - Add 'Weapon' pure virtual class, friend of 'Player' and child of 'Sprite'

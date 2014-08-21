@@ -40,16 +40,16 @@ void MapState::update() {
 	if(m_mode == Mode::Normal) {
 		CharacterManager::player.move();
 		
-		if(CharacterManager::player.x() < -4) {
+		if(CharacterManager::player.x() < -3) {
 			m_mode = Mode::ScrollingLeft;
 		}
-		else if(CharacterManager::player.x() + 12 > MapManager::currentMap->width() * 16) {
+		else if(CharacterManager::player.x() + 13 > MapManager::currentMap->width() * 16) {
 			m_mode = Mode::ScrollingRight;
 		}
-		else if(CharacterManager::player.y() < 10) {
+		else if(CharacterManager::player.y() < 15) {
 			m_mode = Mode::ScrollingUp;
 		}
-		else if(CharacterManager::player.y() + 14 > MapManager::currentMap->height() * 16 + 16) {
+		else if(CharacterManager::player.y() + 15 > MapManager::currentMap->height() * 16 + 16) {
 			m_mode = Mode::ScrollingDown;
 		}
 	}
@@ -86,7 +86,7 @@ void MapState::update() {
 			m_nextMap->setPosition(0, -MapManager::currentMap->height() * 16);
 		}
 		
-		CharacterManager::player.move(0, 4.4);
+		CharacterManager::player.move(0, 4.3);
 		m_mapView.move(0, -5);
 		m_scrolled++;
 	}
@@ -120,7 +120,7 @@ void MapState::update() {
 			CharacterManager::player.setPosition(CharacterManager::player.x() - m_scrolled * 4.6, CharacterManager::player.y());
 		}
 		else if(m_mode == Mode::ScrollingUp) {
-			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() + m_scrolled * 4.4);
+			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() + m_scrolled * 4.3);
 		}
 		else if(m_mode == Mode::ScrollingDown) {
 			CharacterManager::player.setPosition(CharacterManager::player.x(), CharacterManager::player.y() - m_scrolled * 4.3);
