@@ -31,6 +31,11 @@ class Entity {
 		
 		void setHitbox(sf::IntRect hitbox) { m_hitbox = hitbox; }
 		
+		void setPosition(double x, double y) { m_x = x; m_y = y; }
+		
+		double x() const { return m_x; }
+		double y() const { return m_y; }
+		
 	protected:
 		double m_x;
 		double m_y;

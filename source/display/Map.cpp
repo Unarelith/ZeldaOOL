@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "Config.hpp"
 #include "XMLFile.hpp"
 #include "Application.hpp"
 #include "Map.hpp"
@@ -22,15 +23,20 @@
 Map::Map() {
 }
 
-Map::Map(std::string filename, Tileset &tileset) {
-	load(filename, tileset);
+Map::Map(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
+	load(filename, tileset, area, x, y);
 }
 
 Map::~Map() {
 }
 
-bool Map::load(std::string filename, Tileset &tileset) {
+bool Map::load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
 	m_tileset = tileset;
+	
+	m_area = area;
+	
+	m_x = x;
+	m_y = y;
 	
 	XMLFile doc(filename);
 	
@@ -56,12 +62,12 @@ bool Map::load(std::string filename, Tileset &tileset) {
 	return true;
 }
 
-void Map::update(u8 offsetX, u8 offsetY) {
+void Map::update(s16 offsetX, s16 offsetY) {
 	m_vertices.setPrimitiveType(sf::Triangles);
 	m_vertices.resize(m_width * m_height * 6);
 	
-	for(u16 y = 1 + offsetY ; y < m_height + 1 + offsetY ; y++) {
-		for(u16 x = 0 + offsetX ; x < m_width + offsetX ; x++) {
+	for(s16 y = offsetY + 1 ; y < m_height + offsetY + 1 ; y++) {
+		for(s16 x = offsetX ; x < m_width + offsetX ; x++) {
 			s16 tileNb = m_data[x + (y - 1) * m_width];
 			
 			if(tileNb == -1) continue;

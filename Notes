@@ -1,10 +1,5 @@
-- Add maps and make transitions between maps
-	=> Add 'CharacterManager'
-		-> With a 'player' field
-	=> Add 'Player::move(double vx, double vy)'
-	=> Write 'MapHelper::scrollMaps(u8 direction)'
-	=> Write 'Player::testMapBorders()'
-- Check why it's slow when link moves on my EeePC
+- Make transitions between maps
+- Load each tileset tiles infos like in Asylia
 - Fix 'moonwalk' bug
 - Add 'Weapon' pure virtual class, friend of 'Player' and child of 'Sprite'
 	-> Add a virtual function 'action()'

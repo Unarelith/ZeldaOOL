@@ -21,6 +21,7 @@
 #include "State.hpp"
 
 #include "StatsBar.hpp"
+#include "MapManager.hpp"
 
 class MapState : public State {
 	public:
@@ -31,7 +32,22 @@ class MapState : public State {
 		
 		void render();
 		
+		enum Mode {
+			Normal,
+			ScrollingLeft,
+			ScrollingRight,
+			ScrollingUp,
+			ScrollingDown
+		};
+		
 	private:
+		Mode m_mode;
+		
+		sf::View m_mapView;
+		
+		Map *m_nextMap;
+		u16 m_scrolled;
+		
 		StatsBar m_statsBar;
 };
 

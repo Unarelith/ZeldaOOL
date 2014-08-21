@@ -38,14 +38,13 @@ void MapManager::initTilesets() {
 
 void MapManager::initMaps() {
 	std::vector<Map> overworld;
+	overworld.push_back(Map("data/maps/a1.tmx", tilesets[0], 0, 0, 0));
+	overworld.push_back(Map("data/maps/a2.tmx", tilesets[0], 0, 1, 0));
+	overworld.push_back(Map("data/maps/b1.tmx", tilesets[0], 0, 0, 1));
+	overworld.push_back(Map("data/maps/b2.tmx", tilesets[0], 0, 1, 1));
+	
 	std::vector<Map> indoor;
-	
-	overworld.push_back(Map("data/maps/a1.tmx", tilesets[0]));
-	overworld.push_back(Map("data/maps/a2.tmx", tilesets[0]));
-	overworld.push_back(Map("data/maps/b1.tmx", tilesets[0]));
-	overworld.push_back(Map("data/maps/b2.tmx", tilesets[0]));
-	
-	indoor.push_back(Map("data/maps/in1.tmx", tilesets[1]));
+	indoor.push_back(Map("data/maps/in1.tmx", tilesets[1], 1, 0, 0));
 	
 	maps.push_back(std::vector<Map>(overworld));
 	maps.push_back(std::vector<Map>(indoor));

@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "MapManager.hpp"
 #include "MapHelper.hpp"
 #include "Player.hpp"
 

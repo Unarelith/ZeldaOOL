@@ -25,7 +25,13 @@
 namespace TilesData {
 	extern u16 infos[TILE_NB][4];
 	
-	enum TileTypes {
+	enum SubTileType {
+		Passable		= 0,
+		NonPassable		= 1,
+		ChangeMap		= 2
+	};
+	
+	enum TileType {
 		SlowingTile		= 11,
 		LowGrassTile	= 12,
 		LowWaterTile	= 13,

@@ -27,6 +27,7 @@ class Player : public Character {
 		
 		void mapCollisions();
 		
+		void move(double dx, double dy) { m_x += dx; m_y += dy; }
 		void move();
 		
 		void draw();
