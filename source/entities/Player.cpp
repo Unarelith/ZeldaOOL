@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "TimeManager.hpp"
 #include "MapManager.hpp"
 #include "MapHelper.hpp"
 #include "Player.hpp"
@@ -182,21 +183,18 @@ void Player::move() {
 		}
 	}
 	
-	m_vx *= 2;
-	m_vy *= 2;
-	
 	if((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
 	 || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	&& (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
 	 || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))) {
-		m_vx /= 1.5;
-		m_vy /= 1.5;
+		m_vx /= 1.4;
+		m_vy /= 1.4;
 	}
 	
 	mapCollisions();
 	
-	m_x += m_vx;
-	m_y += m_vy;
+	m_x += m_vx * 60 * TimeManager::dt;
+	m_y += m_vy * 60 * TimeManager::dt;
 	
 	m_vx = 0;
 	m_vy = 0;

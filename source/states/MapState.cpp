@@ -18,6 +18,7 @@
 #include <cmath>
 
 #include "Debug.hpp"
+#include "TimeManager.hpp"
 #include "Application.hpp"
 #include "CharacterManager.hpp"
 #include "MapState.hpp"
@@ -34,6 +35,25 @@ MapState::MapState(State *parent) : State(parent) {
 }
 
 MapState::~MapState() {
+}
+
+void MapState::scrollMaps(s8 vx, s8 vy) {
+	if(!m_nextMap) {
+		m_nextMap = &MapManager::maps[MapManager::currentMap->area()][MapManager::currentMap->x() + vx + (MapManager::currentMap->y() + vy) * sqrt(MapManager::maps[MapManager::currentMap->area()].size())];
+		
+		m_nextMap->update();
+		m_nextMap->setPosition(MapManager::currentMap->width() * 16 * vx, MapManager::currentMap->height() * 16 * vy);
+		
+		Sprite::pause = true;
+	}
+	
+	vx *= TimeManager::dt;
+	vy *= TimeManager::dt;
+	
+	CharacterManager::player.move(4.6 * -vx, 4.3 * -vy);
+	m_mapView.move(5 * vx, 5 * vy);
+	m_scrolled++;
+
 }
 
 void MapState::update() {
@@ -55,60 +75,16 @@ void MapState::update() {
 	}
 	
 	if(m_mode == Mode::ScrollingLeft) {
-		if(!m_nextMap) {
-			m_nextMap = &MapManager::maps[MapManager::currentMap->area()][MapManager::currentMap->x() - 1 + MapManager::currentMap->y() * sqrt(MapManager::maps[MapManager::currentMap->area()].size())];
-			
-			m_nextMap->update();
-			m_nextMap->setPosition(-MapManager::currentMap->width() * 16, 0);
-			
-			Sprite::pause = true;
-		}
-		
-		CharacterManager::player.move(4.6, 0);
-		m_mapView.move(-5, 0);
-		m_scrolled++;
+		scrollMaps(-1, 0);
 	}
 	else if(m_mode == Mode::ScrollingRight) {
-		if(!m_nextMap) {
-			m_nextMap = &MapManager::maps[MapManager::currentMap->area()][MapManager::currentMap->x() + 1 + MapManager::currentMap->y() * sqrt(MapManager::maps[MapManager::currentMap->area()].size())];
-			
-			m_nextMap->update();
-			m_nextMap->setPosition(MapManager::currentMap->width() * 16, 0);
-			
-			Sprite::pause = true;
-		}
-		
-		CharacterManager::player.move(-4.6, 0);
-		m_mapView.move(5, 0);
-		m_scrolled++;
+		scrollMaps(1, 0);
 	}
 	else if(m_mode == Mode::ScrollingUp) {
-		if(!m_nextMap) {
-			m_nextMap = &MapManager::maps[MapManager::currentMap->area()][MapManager::currentMap->x() + (MapManager::currentMap->y() - 1) * sqrt(MapManager::maps[MapManager::currentMap->area()].size())];
-			
-			m_nextMap->update();
-			m_nextMap->setPosition(0, -MapManager::currentMap->height() * 16);
-			
-			Sprite::pause = true;
-		}
-		
-		CharacterManager::player.move(0, 4.3);
-		m_mapView.move(0, -5);
-		m_scrolled++;
+		scrollMaps(0, -1);
 	}
 	else if(m_mode == Mode::ScrollingDown) {
-		if(!m_nextMap) {
-			m_nextMap = &MapManager::maps[MapManager::currentMap->area()][MapManager::currentMap->x() + (MapManager::currentMap->y() + 1) * sqrt(MapManager::maps[MapManager::currentMap->area()].size())];
-			
-			m_nextMap->update();
-			m_nextMap->setPosition(0, MapManager::currentMap->height() * 16);
-			
-			Sprite::pause = true;
-		}
-		
-		CharacterManager::player.move(0, -4.3);
-		m_mapView.move(0, 5);
-		m_scrolled++;
+		scrollMaps(0, 1);
 	}
 	
 	if((m_scrolled >= WINDOW_WIDTH / 5

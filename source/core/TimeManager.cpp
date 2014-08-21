@@ -15,6 +15,8 @@
  *
  * =====================================================================================
  */
+#include <numeric>
+
 #include "Debug.hpp"
 #include "TimeManager.hpp"
 
@@ -27,6 +29,7 @@ u32 TimeManager::timeToWait = 0;
 std::vector<u32> TimeManager::renderingTimeValues;
 u16 TimeManager::maxFrameskip = 5;
 u16 TimeManager::frameskip = 0;
+double TimeManager::dt = 0;
 
 void TimeManager::beginMeasuringRenderingTime() {
 	tempBeginRendering = clock.getElapsedTime().asMilliseconds();
@@ -76,8 +79,8 @@ void TimeManager::waitUntilItsTime() {
 void TimeManager::measureFrameDuration() {
 	if(timeToWait == 0) {
 		frameEnd = clock.getElapsedTime().asMilliseconds();
-		if(frameEnd - frameBegin <= 33) {
-			timeToWait = 33 - (frameEnd - frameBegin);
+		if(frameEnd - frameBegin <= 16) {
+			timeToWait = 16 - (frameEnd - frameBegin);
 		} else {
 			timeToWait = 0;
 		}

@@ -25,6 +25,7 @@ sf::RenderWindow Application::window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT),
 Application::Application() {
 	window.setPosition(sf::Vector2i(425, 125));
 	window.setSize(sf::Vector2u(WINDOW_WIDTH * 3, WINDOW_HEIGHT * 3));
+	window.setFramerateLimit(60);
 	
 	StateManager::init();
 }
@@ -43,16 +44,16 @@ void Application::handleEvents() {
 }
 
 void Application::mainLoop() {
-	window.setFramerateLimit(30);
-	
+	sf::Clock deltaClock;
 	while(window.isOpen()) {
-//		if(TimeManager::isTimeToUpdate()) {
+			TimeManager::dt = deltaClock.restart().asSeconds();
+	//	if(TimeManager::isTimeToUpdate()) {
 			handleEvents();
 			
 			StateManager::top()->update();
 			
-//			if(TimeManager::hasEnoughTimeToDraw()) {
-//				TimeManager::beginMeasuringRenderingTime();
+	//		if(TimeManager::hasEnoughTimeToDraw()) {
+	//			TimeManager::beginMeasuringRenderingTime();
 				
 				window.clear();
 				
@@ -60,13 +61,13 @@ void Application::mainLoop() {
 				
 				window.display();
 				
-//				TimeManager::endMeasuringRenderingTime();
-//			}
-//		} else {
-//			TimeManager::waitUntilItsTime();
-//		}
+	//			TimeManager::endMeasuringRenderingTime();
+	//		}
+	//	} else {
+	//		TimeManager::waitUntilItsTime();
+	//	}
 		
-//		TimeManager::measureFrameDuration();
+	//	TimeManager::measureFrameDuration();
 	}
 }
 

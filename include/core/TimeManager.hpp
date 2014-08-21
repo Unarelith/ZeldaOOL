@@ -42,6 +42,7 @@ namespace TimeManager {
 	extern std::vector<u32> renderingTimeValues;
 	extern u16 maxFrameskip;
 	extern u16 frameskip;
+	extern double dt;
 };
 
 #endif // TIMEMANAGER_HPP_
