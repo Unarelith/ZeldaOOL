@@ -125,19 +125,16 @@ void Player::move() {
 		m_state = State::Moving;
 		m_vx = -1;
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Right)
-		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
+		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
 		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 			m_direction = Direction::Left;
 		}
 	}
-	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		m_state = State::Moving;
 		m_vx = 1;
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
-		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
+		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
 		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 			m_direction = Direction::Right;
 		}
@@ -148,19 +145,16 @@ void Player::move() {
 		m_vy = -1;
 		
 		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
-		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)
-		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 			m_direction = Direction::Up;
 		}
 	}
-	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 		m_state = State::Moving;
 		m_vy = 1;
 		
 		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
-		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)
-		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 			m_direction = Direction::Down;
 		}
 	}
