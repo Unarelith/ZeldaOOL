@@ -5,9 +5,10 @@
 - Add 'Weapon' pure virtual class, friend of 'Player' and child of 'Sprite'
 	-> Add a virtual function 'action()'
 - Add 'Sword' class, child of 'Weapon'
-- Add 'MapManager' and 'CharacterManager'
 - Add 'Enemy' pure virtual class, child of 'Character'
+- Replace sf::Clock in Application::mainLoop by 'Timer'
 - Should write a class "Scene":
+	=> Represents the current map
 	-> Contains a Map
 	-> Contains a std::vector of Entity
 	-> Contains infos for Entity

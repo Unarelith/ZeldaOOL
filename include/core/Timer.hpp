@@ -34,6 +34,8 @@ class Timer {
 		void start();
 		void reset();
 		
+		bool isStarted() const { return m_isStarted; }
+		
 	private:
 		u32 m_t;
 		u32 m_tick;

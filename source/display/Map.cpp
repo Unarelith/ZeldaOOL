@@ -101,7 +101,24 @@ void Map::update(s16 offsetX, s16 offsetY) {
 	}
 }
 
+u8 pos[2] = {5, 2};
+u8 anims[4] = {64, 65, 66, 67};
+u8 nextAnim = 0;
+u16 delay = 250;
+Timer timer;
 void Map::draw() {
+	if(!timer.isStarted()) {
+		timer.start();
+	}
+	
+	u32 currentTime = timer.time();
+	if(currentTime >= delay) {
+		setTile(pos[0], pos[1], anims[nextAnim % 4]);
+		nextAnim++;
+		timer.reset();
+		timer.start();
+	}
+	
 	Application::window.draw(*this);
 }
 
@@ -114,17 +131,17 @@ void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 u16 Map::getTile(u16 tileX, u16 tileY) {
-	if(tileX + (tileY - 1) * m_width < (u16)m_data.size()) {
-		return m_data[tileX + (tileY - 1) * m_width];
+	if(tileX + tileY * m_width < (u16)m_data.size()) {
+		return m_data[tileX + tileY * m_width];
 	} else {
 		return 0;
 	}
 }
 
 void Map::setTile(u16 tileX, u16 tileY, u16 tile) {
-	if(tileX + (tileY - 1) * m_width < (u16)m_data.size()) {
-		m_data[tileX + (tileY - 1) * m_width] = tile;
-		updateTile(tileX, tileY);
+	if(tileX + tileY * m_width < (u16)m_data.size()) {
+		m_data[tileX + tileY * m_width] = tile;
+		updateTile(tileX, tileY + 1);
 	}
 }
 

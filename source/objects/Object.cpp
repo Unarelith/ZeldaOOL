@@ -17,7 +17,7 @@
  */
 #include "Object.hpp"
 
-Object::Object(s16 tileX, s16 tileY) : Entity(tileX * 16, tileY * 16, 16, 16) {
+Object::Object(s16 tileX, s16 tileY) : Entity(tileX * 16, (tileY + 1) * 16, 16, 16) {
 }
 
 Object::~Object() {

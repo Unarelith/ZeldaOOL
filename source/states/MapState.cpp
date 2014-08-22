@@ -38,15 +38,15 @@ MapState::MapState(State *parent) : State(parent) {
 	
 	EffectManager::init();
 	
-	Object button(7, 3);
+	Object button(7, 2);
 	
 	button.setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
 		Sound::Effect::chest.play();
 		
-		MapManager::currentMap->setTile(obj->x() / 16, obj->y() / 16, 8);
+		MapManager::currentMap->setTile(obj->x() / 16, obj->y() / 16 - 1, 8);
 		
-		MapManager::currentMap->setTile(7, 8, 36);
-		MapManager::currentMap->setTile(8, 8, 36);
+		MapManager::currentMap->setTile(7, 7, 36);
+		MapManager::currentMap->setTile(8, 7, 36);
 	});
 	
 	MapManager::currentMap->addObject(button);

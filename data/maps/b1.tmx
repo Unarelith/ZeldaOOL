@@ -28,7 +28,7 @@
    <tile gid="146"/>
    <tile gid="37"/>
    <tile gid="49"/>
-   <tile gid="34"/>
+   <tile gid="2"/>
    <tile gid="19"/>
    <tile gid="47"/>
    <tile gid="63"/>
@@ -49,7 +49,7 @@
    <tile gid="47"/>
    <tile gid="48"/>
    <tile gid="33"/>
-   <tile gid="34"/>
+   <tile gid="2"/>
    <tile gid="19"/>
    <tile gid="4"/>
    <tile gid="47"/>
@@ -59,8 +59,8 @@
    <tile gid="242"/>
    <tile gid="37"/>
    <tile gid="33"/>
-   <tile gid="34"/>
-   <tile gid="34"/>
+   <tile gid="2"/>
+   <tile gid="2"/>
    <tile gid="18"/>
    <tile gid="18"/>
    <tile gid="18"/>
