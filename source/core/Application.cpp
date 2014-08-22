@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 #include "Config.hpp"
+#include "Sound.hpp"
 #include "TimeManager.hpp"
 #include "StateManager.hpp"
 #include "Application.hpp"
@@ -26,6 +27,8 @@ Application::Application() {
 	window.setPosition(sf::Vector2i(425, 125));
 	window.setSize(sf::Vector2u(WINDOW_WIDTH * 3, WINDOW_HEIGHT * 3));
 	window.setFramerateLimit(60);
+	
+	Sound::init();
 	
 	StateManager::init();
 }

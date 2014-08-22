@@ -18,6 +18,7 @@
 #include <cmath>
 
 #include "Debug.hpp"
+#include "Sound.hpp"
 #include "TimeManager.hpp"
 #include "Application.hpp"
 #include "CharacterManager.hpp"
@@ -40,6 +41,8 @@ MapState::MapState(State *parent) : State(parent) {
 	Object button(7, 3);
 	
 	button.setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
+		Sound::Effect::chest.play();
+		
 		MapManager::currentMap->setTile(obj->x() / 16, obj->y() / 16, 8);
 		
 		MapManager::currentMap->setTile(7, 8, 36);
@@ -47,6 +50,8 @@ MapState::MapState(State *parent) : State(parent) {
 	});
 	
 	MapManager::currentMap->addObject(button);
+	
+	Sound::Music::plain.play();
 }
 
 MapState::~MapState() {
@@ -102,10 +107,8 @@ void MapState::update() {
 		scrollMaps(0, 1);
 	}
 	
-	if((m_scrolled >= WINDOW_WIDTH
-	 && (m_mode == Mode::ScrollingLeft || m_mode == Mode::ScrollingRight))
-	|| (m_scrolled >= WINDOW_HEIGHT - 16
-	 && (m_mode == Mode::ScrollingUp || m_mode == Mode::ScrollingDown))) {
+	if((m_scrolled >= WINDOW_WIDTH && (m_mode == Mode::ScrollingLeft || m_mode == Mode::ScrollingRight))
+	|| (m_scrolled >= WINDOW_HEIGHT - 16 && (m_mode == Mode::ScrollingUp || m_mode == Mode::ScrollingDown))) {
 		MapManager::currentMap = m_nextMap;
 		MapManager::currentMap->setPosition(0, 0);
 		

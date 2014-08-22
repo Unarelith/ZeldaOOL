@@ -25,7 +25,7 @@ LDFLAGS	:=	-g
 #---------------------------------------------------------------------------------
 # Any extra libraries you wish to link with your project
 #---------------------------------------------------------------------------------
-LIBS	:=	-lsfml-graphics -lsfml-window -lsfml-system
+LIBS	:=	-lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
 
 #---------------------------------------------------------------------------------
 # Source folders
