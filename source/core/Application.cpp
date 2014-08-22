@@ -45,29 +45,19 @@ void Application::handleEvents() {
 
 void Application::mainLoop() {
 	sf::Clock deltaClock;
+	
 	while(window.isOpen()) {
-			TimeManager::dt = deltaClock.restart().asSeconds();
-	//	if(TimeManager::isTimeToUpdate()) {
-			handleEvents();
-			
-			StateManager::top()->update();
-			
-	//		if(TimeManager::hasEnoughTimeToDraw()) {
-	//			TimeManager::beginMeasuringRenderingTime();
-				
-				window.clear();
-				
-				StateManager::top()->render();
-				
-				window.display();
-				
-	//			TimeManager::endMeasuringRenderingTime();
-	//		}
-	//	} else {
-	//		TimeManager::waitUntilItsTime();
-	//	}
+		TimeManager::dt = deltaClock.restart().asSeconds();
 		
-	//	TimeManager::measureFrameDuration();
+		handleEvents();
+		
+		StateManager::top()->update();
+		
+		window.clear();
+		
+		StateManager::top()->render();
+		
+		window.display();
 	}
 }
 

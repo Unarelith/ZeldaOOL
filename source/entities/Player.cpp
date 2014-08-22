@@ -116,6 +116,10 @@ void Player::mapCollisions() {
 		m_vy /= 4;
 		m_vy *= 3;
 	}
+	
+	if(onTile(TilesData::TileType::Button)) {
+		MapManager::currentMap->sendEvent(Map::EventType::ButtonPressed);
+	}
 }
 
 void Player::move() {

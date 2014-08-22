@@ -21,6 +21,7 @@
 #include <vector>
 
 #include "Tileset.hpp"
+#include "Object.hpp"
 
 class Map : public sf::Drawable, public sf::Transformable {
 	public:
@@ -30,11 +31,21 @@ class Map : public sf::Drawable, public sf::Transformable {
 		
 		bool load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y);
 		
+		void updateTile(s16 x, s16 y);
 		void update(s16 offsetX = 0, s16 offsetY = 0);
 		
 		void draw();
 		
 		u16 getTile(u16 tileX, u16 tileY);
+		void setTile(u16 tileX, u16 tileY, u16 tile);
+		
+		void addObject(Object &obj) { m_objects.push_back(Object(obj)); }
+		
+		enum EventType {
+			ButtonPressed
+		};
+		
+		void sendEvent(EventType event);
 		
 		Tileset tileset() const { return m_tileset; }
 		
@@ -66,6 +77,8 @@ class Map : public sf::Drawable, public sf::Transformable {
 		
 		u16 m_tileWidth;
 		u16 m_tileHeight;
+		
+		std::vector<Object> m_objects;
 };
 
 #endif // MAP_HPP_

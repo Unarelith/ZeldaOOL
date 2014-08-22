@@ -76,6 +76,10 @@ u16 TilesData::infos[TILE_NB][4] = {
 	
 	// Tile 14: Grass tile
 	{1, 1,
-	 1, 1}
+	 1, 1},
+	
+	// Tile 15: Button
+	{0, 0,
+	 0, 0}
 };
 

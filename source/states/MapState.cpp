@@ -22,6 +22,7 @@
 #include "Application.hpp"
 #include "CharacterManager.hpp"
 #include "EffectManager.hpp"
+#include "MapEventManager.hpp"
 #include "MapState.hpp"
 
 MapState::MapState(State *parent) : State(parent) {
@@ -35,6 +36,17 @@ MapState::MapState(State *parent) : State(parent) {
 	MapManager::init();
 	
 	EffectManager::init();
+	
+	Object button(7, 3);
+	
+	button.setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
+		MapManager::currentMap->setTile(obj->x() / 16, obj->y() / 16, 8);
+		
+		MapManager::currentMap->setTile(7, 8, 36);
+		MapManager::currentMap->setTile(8, 8, 36);
+	});
+	
+	MapManager::currentMap->addObject(button);
 }
 
 MapState::~MapState() {
@@ -60,6 +72,8 @@ void MapState::scrollMaps(double vx, double vy) {
 void MapState::update() {
 	if(m_mode == Mode::Normal) {
 		CharacterManager::player.move();
+		
+		MapEventManager::update();
 		
 		if(CharacterManager::player.x() < -3) {
 			m_mode = Mode::ScrollingLeft;

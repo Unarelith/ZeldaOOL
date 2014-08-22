@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  TimeManager.cpp
+ *       Filename:  MapEventManager.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/07/2014 13:47:42
+ *        Created:  22/08/2014 01:47:16
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,8 +15,16 @@
  *
  * =====================================================================================
  */
-#include "TimeManager.hpp"
+#ifndef MAPEVENTMANAGER_HPP_
+#define MAPEVENTMANAGER_HPP_
 
-sf::Clock TimeManager::clock;
-double TimeManager::dt = 0;
+#include "Types.hpp"
 
+namespace MapEventManager {
+	void update();
+	
+	extern u16 lastPlayerX;
+	extern u16 lastPlayerY;
+}
+
+#endif // MAPEVENTMANAGER_HPP_

@@ -32,7 +32,7 @@
    <tile gid="33"/>
    <tile gid="2"/>
    <tile gid="34"/>
-   <tile gid="2"/>
+   <tile gid="8"/>
    <tile gid="35"/>
    <tile gid="47"/>
    <tile gid="40"/>
@@ -72,8 +72,8 @@
    <tile gid="17"/>
    <tile gid="50"/>
    <tile gid="50"/>
-   <tile gid="2"/>
-   <tile gid="19"/>
+   <tile gid="51"/>
+   <tile gid="37"/>
    <tile gid="47"/>
    <tile gid="148"/>
    <tile gid="37"/>
@@ -82,8 +82,8 @@
    <tile gid="51"/>
    <tile gid="31"/>
    <tile gid="32"/>
-   <tile gid="33"/>
-   <tile gid="35"/>
+   <tile gid="248"/>
+   <tile gid="248"/>
    <tile gid="31"/>
   </data>
  </layer>

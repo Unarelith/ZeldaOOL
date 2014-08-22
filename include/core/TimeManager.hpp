@@ -18,30 +18,11 @@
 #ifndef TIMEMANAGER_HPP_
 #define TIMEMANAGER_HPP_
 
-#include <vector>
-
 #include <SFML/System.hpp>
 
-#include "Types.hpp"
-
 namespace TimeManager {
-	void beginMeasuringRenderingTime();
-	void endMeasuringRenderingTime();
-	
-	bool isTimeToUpdate();
-	bool hasEnoughTimeToDraw();
-	void waitUntilItsTime();
-	void measureFrameDuration();
-	
 	extern sf::Clock clock;
-	extern u32 renderingTimeMean;
-	extern u32 tempBeginRendering;
-	extern u32 frameBegin;
-	extern u32 frameEnd;
-	extern u32 timeToWait;
-	extern std::vector<u32> renderingTimeValues;
-	extern u16 maxFrameskip;
-	extern u16 frameskip;
+	
 	extern double dt;
 };
 

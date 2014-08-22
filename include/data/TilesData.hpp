@@ -20,7 +20,7 @@
 
 #include "Types.hpp"
 
-#define TILE_NB 15
+#define TILE_NB 16
 
 namespace TilesData {
 	extern u16 infos[TILE_NB][4];
@@ -35,7 +35,8 @@ namespace TilesData {
 		SlowingTile		= 11,
 		LowGrassTile	= 12,
 		LowWaterTile	= 13,
-		GrassTile		= 14
+		GrassTile		= 14,
+		Button			= 15
 	};
 }
 
