@@ -20,7 +20,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Types.hpp"
+#include "TileAnimation.hpp"
 
 struct Tileset {
 	Tileset() {}
@@ -31,9 +31,19 @@ struct Tileset {
 		texture.loadFromFile(filename);
 	};
 	
+	void addAnimation(std::initializer_list<u16> frames, u16 delay) {
+		anims.push_back(TileAnimation(delay));
+		
+		for(auto &it : frames) {
+			anims.back().frames.push_back(it);
+		}
+	}
+	
 	sf::Texture texture;
 	
 	u16 *info;
+	
+	std::vector<TileAnimation> anims;
 };
 
 #endif // TILESET_HPP_

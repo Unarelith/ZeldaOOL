@@ -32,6 +32,8 @@ void MapManager::init() {
 
 void MapManager::initTilesets() {
 	tilesets.push_back(Tileset("graphics/tilesets/plain.png", TilesetsData::plainInfo));
+	tilesets.back().addAnimation({64, 65, 66, 67}, 250);
+	
 	tilesets.push_back(Tileset("graphics/tilesets/indoor.png", TilesetsData::indoorInfo));
 	tilesets.push_back(Tileset("graphics/tilesets/underground.png", TilesetsData::undergroundInfo));
 }

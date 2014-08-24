@@ -18,9 +18,8 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
-#include <vector>
-
 #include "Tileset.hpp"
+#include "AnimatedTile.hpp"
 #include "Object.hpp"
 
 class Map : public sf::Drawable, public sf::Transformable {
@@ -34,6 +33,7 @@ class Map : public sf::Drawable, public sf::Transformable {
 		void updateTile(s16 x, s16 y);
 		void update(s16 offsetX = 0, s16 offsetY = 0);
 		
+		void drawAnimatedTiles();
 		void draw();
 		
 		u16 getTile(u16 tileX, u16 tileY);
@@ -77,6 +77,8 @@ class Map : public sf::Drawable, public sf::Transformable {
 		
 		u16 m_tileWidth;
 		u16 m_tileHeight;
+		
+		std::vector<AnimatedTile> m_animatedTiles;
 		
 		std::vector<Object> m_objects;
 };

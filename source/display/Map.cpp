@@ -97,27 +97,35 @@ void Map::update(s16 offsetX, s16 offsetY) {
 	for(s16 y = 1 ; y < m_height + 1 ; y++) {
 		for(s16 x = 0 ; x < m_width ; x++) {
 			updateTile(x + offsetX, y + offsetY);
+			
+			for(auto &it : m_tileset.anims) {
+				for(auto &n : it.frames) {
+					if(getTile(x, y - 1) == n) {
+						m_animatedTiles.push_back(AnimatedTile(x, y - 1, n + 1 % it.frames.size(), it));
+					}
+				}
+			}
 		}
 	}
 }
 
-u8 pos[2] = {5, 2};
-u8 anims[4] = {64, 65, 66, 67};
-u8 nextAnim = 0;
-u16 delay = 250;
-Timer timer;
+void Map::drawAnimatedTiles() {
+	for(auto &it : m_animatedTiles) {
+		if(!it.timer.isStarted()) {
+			it.timer.start();
+		}
+		
+		if(it.timer.time() >= it.anim.delay) {
+			setTile(it.tileX, it.tileY, it.anim.frames[it.nextFrame % it.anim.frames.size()]);
+			it.nextFrame++;
+			it.timer.reset();
+			it.timer.start();
+		}
+	}
+}
+
 void Map::draw() {
-	if(!timer.isStarted()) {
-		timer.start();
-	}
-	
-	u32 currentTime = timer.time();
-	if(currentTime >= delay) {
-		setTile(pos[0], pos[1], anims[nextAnim % 4]);
-		nextAnim++;
-		timer.reset();
-		timer.start();
-	}
+	drawAnimatedTiles();
 	
 	Application::window.draw(*this);
 }
