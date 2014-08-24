@@ -30,10 +30,10 @@ Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Dir
 	addAnimation({6, 2}, 110);
 	addAnimation({7, 3}, 110);
 	
-	addAnimation({ 8, 12}, 90);
-	addAnimation({ 9, 13}, 90);
-	addAnimation({10, 14}, 90);
-	addAnimation({11, 15}, 90);
+	addAnimation({ 8, 12}, 110);
+	addAnimation({ 9, 13}, 110);
+	addAnimation({10, 14}, 110);
+	addAnimation({11, 15}, 110);
 	
 	addAnimation({16, 20, 20, 20}, 90);
 	addAnimation({17, 21, 21, 21}, 90);
