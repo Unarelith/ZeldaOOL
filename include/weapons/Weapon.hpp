@@ -18,12 +18,19 @@
 #ifndef WEAPON_HPP_
 #define WEAPON_HPP_
 
-class Weapon : public Sprite {
+#include "Sprite.hpp"
+#include "Entity.hpp"
+
+class Weapon : public Sprite, public Entity {
 	public:
 		Weapon(std::string filename, u16 frameWidth, u16 frameHeight);
 		virtual ~Weapon();
 		
-		virtual void action() = 0;
+		virtual void reset() = 0;
+		
+		virtual void update() = 0;
+		
+		virtual void draw() = 0;
 };
 
 #endif // WEAPON_HPP_

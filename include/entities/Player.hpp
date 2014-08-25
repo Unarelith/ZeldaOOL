@@ -19,6 +19,7 @@
 #define PLAYER_HPP_
 
 #include "Character.hpp"
+#include "Weapon.hpp"
 
 class Player : public Character {
 	public:
@@ -29,6 +30,8 @@ class Player : public Character {
 		
 		void move(double dx, double dy) { m_x += dx; m_y += dy; }
 		void move();
+		
+		void update();
 		
 		void draw();
 		
@@ -44,6 +47,8 @@ class Player : public Character {
 		
 		u16 rupees() const { return m_rupees; }
 		
+		void setWeapon(Weapon *weapon) { m_weapon = weapon; }
+		
 	private:
 		State m_state;
 		
@@ -51,6 +56,8 @@ class Player : public Character {
 		u8 m_life;
 		
 		u16 m_rupees;
+		
+		Weapon *m_weapon;
 };
 
 #endif // PLAYER_HPP_

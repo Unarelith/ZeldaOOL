@@ -36,6 +36,8 @@ class Character : public Sprite, public Entity {
 			Up
 		};
 		
+		u8 direction() const { return m_direction; }
+		
 	protected:
 		u8 m_direction;
 };

@@ -22,6 +22,8 @@
 #include "EffectManager.hpp"
 #include "Player.hpp"
 
+#include "Sword.hpp"
+
 Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Direction::Down) {
 	m_state = State::Standing;
 	
@@ -44,9 +46,12 @@ Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Dir
 	m_life = 11 * 4;
 	
 	m_rupees = 197;
+	
+	m_weapon = new Sword;
 }
 
 Player::~Player() {
+	delete m_weapon;
 }
 
 void Player::mapCollisions() {
@@ -180,6 +185,18 @@ void Player::move() {
 	m_vy = 0;
 }
 
+void Player::update() {
+	move();
+	
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		m_state = State::Attacking;
+	}
+	
+	if(m_state == State::Attacking && m_weapon) {
+		m_weapon->update();
+	}
+}
+
 void Player::draw() {
 	switch(m_state) {
 		case State::Standing:
@@ -197,5 +214,9 @@ void Player::draw() {
 	}
 	
 	EffectManager::drawEffects(this);
+	
+	if(m_state == State::Attacking && m_weapon) {
+		m_weapon->draw();
+	}
 }
 

@@ -20,12 +20,16 @@
 
 #include "Weapon.hpp"
 
-class Sword {
+class Sword : public Weapon {
 	public:
 		Sword();
 		~Sword();
 		
-		void action();
+		void reset();
+		
+		void update();
+		
+		void draw();
 };
 
 #endif // SWORD_HPP_

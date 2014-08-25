@@ -17,7 +17,7 @@
  */
 #include "Weapon.hpp"
 
-Weapon::Weapon(std::string filename, u16 frameWidth, u16 frameHeight) : Sprite(filename, frameWidth, frameHeight) {
+Weapon::Weapon(std::string filename, u16 frameWidth, u16 frameHeight) : Sprite(filename, frameWidth, frameHeight), Entity(0, 0, frameWidth, frameHeight) {
 }
 
 Weapon::~Weapon() {
