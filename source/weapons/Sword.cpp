@@ -26,10 +26,10 @@ s16 swordPosition[4][4][2] = {
 };
 
 Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
-	addAnimation({0, 4, 8, 8}, 100);
-	addAnimation({1, 5, 9, 9}, 100);
-	addAnimation({2, 6, 10, 10}, 100);
-	addAnimation({3, 7, 11, 11}, 100);
+	addAnimation({0, 4, 8, 8}, 90);
+	addAnimation({1, 5, 9, 9}, 90);
+	addAnimation({2, 6, 10, 10}, 90);
+	addAnimation({3, 7, 11, 11}, 90);
 }
 
 Sword::~Sword() {
@@ -39,14 +39,27 @@ void Sword::reset() {
 	resetAnimation(CharacterManager::player.direction());
 }
 
-void Sword::update() {
+bool Sword::update() {
 	using namespace CharacterManager;
 	
-	m_x = player.x() + swordPosition[player.direction()][animationCurrentFrame(player.direction())][0];
-	m_y = player.y() + swordPosition[player.direction()][animationCurrentFrame(player.direction())][1];
+	if(!animationAtEnd(player.direction())) {
+		m_x = player.x() + swordPosition[player.direction()][animationCurrentFrame(player.direction())][0];
+		m_y = player.y() + swordPosition[player.direction()][animationCurrentFrame(player.direction())][1];
+		
+		return false;
+	} else {
+		m_x = player.x();
+		m_y = player.y();
+		
+		return true;
+	}
 }
 
 void Sword::draw() {
-	playAnimation(m_x, m_y, CharacterManager::player.direction());
+	if(!animationAtEnd(CharacterManager::player.direction())) {
+		playAnimation(m_x, m_y, CharacterManager::player.direction());
+	} else {
+		drawFrame(m_x, m_y, CharacterManager::player.direction() + 8);
+	}
 }
 

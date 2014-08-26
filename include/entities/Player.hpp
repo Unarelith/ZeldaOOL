@@ -49,6 +49,8 @@ class Player : public Character {
 		
 		void setWeapon(Weapon *weapon) { m_weapon = weapon; }
 		
+		void useSword();
+		
 	private:
 		State m_state;
 		
@@ -58,6 +60,8 @@ class Player : public Character {
 		u16 m_rupees;
 		
 		Weapon *m_weapon;
+		
+		Sprite m_sword;
 };
 
 #endif // PLAYER_HPP_

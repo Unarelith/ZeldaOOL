@@ -27,7 +27,7 @@ class Sword : public Weapon {
 		
 		void reset();
 		
-		void update();
+		bool update();
 		
 		void draw();
 };

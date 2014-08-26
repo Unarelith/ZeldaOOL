@@ -28,7 +28,7 @@ class Weapon : public Sprite, public Entity {
 		
 		virtual void reset() = 0;
 		
-		virtual void update() = 0;
+		virtual bool update() = 0;
 		
 		virtual void draw() = 0;
 };

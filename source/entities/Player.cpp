@@ -48,6 +48,12 @@ Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Dir
 	m_rupees = 197;
 	
 	m_weapon = new Sword;
+	
+	m_sword.load("graphics/animations/sword.png", 16, 16);
+	m_sword.addAnimation({0, 4, 8, 8}, 90);
+	m_sword.addAnimation({1, 5, 9, 9}, 90);
+	m_sword.addAnimation({2, 6, 10, 10}, 90);
+	m_sword.addAnimation({3, 7, 11, 11}, 90);
 }
 
 Player::~Player() {
@@ -186,14 +192,20 @@ void Player::move() {
 }
 
 void Player::update() {
-	move();
+	if(m_state != State::Attacking) {
+		move();
+	}
 	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && m_state != State::Attacking) {
 		m_state = State::Attacking;
+		m_weapon->reset();
+		resetAnimation(m_direction + 8);
 	}
 	
 	if(m_state == State::Attacking && m_weapon) {
-		m_weapon->update();
+		if(m_weapon->update()) {
+			m_state = State::Standing;
+		}
 	}
 }
 
@@ -209,7 +221,11 @@ void Player::draw() {
 			playAnimation(m_x, m_y, m_direction + 4);
 			break;
 		case State::Attacking:
-			playAnimation(m_x, m_y, m_direction + 8);
+			if(!animationAtEnd(m_direction + 8)) {
+				playAnimation(m_x, m_y, m_direction + 8);
+			} else {
+				drawFrame(m_x, m_y, m_direction);
+			}
 			break;
 	}
 	

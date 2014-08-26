@@ -43,7 +43,7 @@ class Sprite : public Image {
 		
 		static bool pause;
 		
-	private:
+	protected:
 		u16 m_frameWidth;
 		u16 m_frameHeight;
 		
