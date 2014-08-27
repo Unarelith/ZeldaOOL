@@ -28,7 +28,7 @@ class Timer {
 		Timer();
 		~Timer();
 		
-		u32 time() { return (m_isStarted) ? TimeManager::clock.getElapsedTime().asMilliseconds() - m_t : m_tick; }
+		u32 time() { return (m_isStarted) ? TimeManager::getTicks() - m_t : m_tick; }
 		
 		void stop();
 		void start();

@@ -27,19 +27,19 @@ Timer::~Timer() {
 void Timer::stop() {
 	if(m_isStarted) {
 		m_isStarted = false;
-		m_tick = TimeManager::clock.getElapsedTime().asMilliseconds() - m_t;
+		m_tick = TimeManager::getTicks() - m_t;
 	}
 }
 
 void Timer::start() {
 	if(!m_isStarted) {
 		m_isStarted = true;
-		m_t = TimeManager::clock.getElapsedTime().asMilliseconds() - m_tick;
+		m_t = TimeManager::getTicks() - m_tick;
 	}
 }
 
 void Timer::reset() {
-	m_t = TimeManager::clock.getElapsedTime().asMilliseconds();
+	m_t = TimeManager::getTicks();
 	m_tick = 0;
 	m_isStarted = false;
 }

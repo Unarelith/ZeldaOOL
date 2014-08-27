@@ -19,7 +19,6 @@
 #define PLAYER_HPP_
 
 #include "Character.hpp"
-#include "Weapon.hpp"
 
 class Player : public Character {
 	public:
@@ -28,39 +27,24 @@ class Player : public Character {
 		
 		void mapCollisions();
 		
-		void move(double dx, double dy) { m_x += dx; m_y += dy; }
 		void move();
 		
-		void updatePosition();
 		void update();
 		
 		void draw();
-		
-		enum State {
-			Standing,
-			Moving,
-			Colliding,
-			UsingWeapon
-		};
 		
 		u8 maxLife() const { return m_maxLife; }
 		u8 life() const { return m_life; }
 		
 		u16 rupees() const { return m_rupees; }
 		
-		void setWeapon(Weapon *weapon) { m_weapon = weapon; }
-		
 	private:
-		State m_state;
+		State *m_currentState;
 		
 		u8 m_maxLife;
 		u8 m_life;
 		
 		u16 m_rupees;
-		
-		Weapon *m_weapon;
-		
-		Sprite m_sword;
 };
 
 #endif // PLAYER_HPP_

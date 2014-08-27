@@ -23,42 +23,40 @@
 #include "EffectManager.hpp"
 #include "Player.hpp"
 
-#include "Sword.hpp"
-
 Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Direction::Down) {
 	m_state = State::Standing;
 	
+	// Movement
 	addAnimation({4, 0}, 110);
 	addAnimation({5, 1}, 110);
 	addAnimation({6, 2}, 110);
 	addAnimation({7, 3}, 110);
 	
+	// Pushing
 	addAnimation({ 8, 12}, 90);
 	addAnimation({ 9, 13}, 90);
 	addAnimation({10, 14}, 90);
 	addAnimation({11, 15}, 90);
 	
-	addAnimation({16, 20, 20, 20}, 90);
-	addAnimation({17, 21, 21, 21}, 90);
-	addAnimation({18, 22, 22, 22}, 90);
-	addAnimation({19, 23, 23, 23}, 90);
+	// Using sword
+	addAnimation({16, 20, 20, 0}, 90);
+	addAnimation({17, 21, 21, 1}, 90);
+	addAnimation({18, 22, 22, 2}, 90);
+	addAnimation({19, 23, 23, 3}, 90);
 	
 	m_maxLife = 13 * 4;
 	m_life = 11 * 4;
 	
 	m_rupees = 197;
 	
-	m_weapon = new Sword;
-	
-	m_sword.load("graphics/animations/sword.png", 16, 16);
+	/*m_sword.load("graphics/animations/sword.png", 16, 16);
 	m_sword.addAnimation({0, 4, 8, 8}, 90);
 	m_sword.addAnimation({1, 5, 9, 9}, 90);
 	m_sword.addAnimation({2, 6, 10, 10}, 90);
-	m_sword.addAnimation({3, 7, 11, 11}, 90);
+	m_sword.addAnimation({3, 7, 11, 11}, 90);*/
 }
 
 Player::~Player() {
-	delete m_weapon;
 }
 
 void Player::mapCollisions() {
@@ -193,21 +191,7 @@ void Player::move() {
 }
 
 void Player::update() {
-	if(m_state != State::UsingWeapon) {
-		move();
-	}
-	
-	if(Keyboard::isKeyPressedOnce(Keyboard::A) && m_weapon) {
-		if(m_weapon->reset()) {
-			m_state = State::UsingWeapon;
-		}
-	}
-	
-	if(m_state == State::UsingWeapon) {
-		if(m_weapon->update()) {
-			m_state = State::Standing;
-		}
-	}
+	move();
 }
 
 void Player::draw() {
@@ -221,13 +205,8 @@ void Player::draw() {
 		case State::Colliding:
 			playAnimation(m_x, m_y, m_direction + 4);
 			break;
-		case State::UsingWeapon:
-			m_weapon->draw();
-			break;
 	}
 	
-	if(m_state != State::UsingWeapon) {
-		EffectManager::drawEffects(this);
-	}
+	EffectManager::drawEffects(this);
 }
 

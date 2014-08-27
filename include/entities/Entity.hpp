@@ -31,6 +31,8 @@ class Entity {
 		
 		bool onTile(u16 tile);
 		
+		void move(double dx, double dy) { m_x += dx; m_y += dy; }
+		
 		void setHitbox(sf::IntRect hitbox) { m_hitbox = hitbox; }
 		
 		void setPosition(double x, double y) { m_x = x; m_y = y; }
