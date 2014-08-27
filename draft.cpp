@@ -17,7 +17,7 @@
  */
 class Player : public Character {
 	public:
-		Player() : Character(/* ... */) {
+		Player() : Character(/*...*/) {
 			// ...
 		}
 		
@@ -27,25 +27,47 @@ class Player : public Character {
 		virtual void update() = 0;
 		
 		virtual void draw() = 0;
+		
+	private:
+		// ...
 };
 
-
-class PlayerPushing : public Player {
+class PlayerMoving : public Player {
 	public:
-		PlayerPushing() {
+		PlayerMoving() {
+			// ...
 		}
 		
-		~PlayerPushing() {
+		~PlayerMoving() {
 		}
 		
 		void update() {
-			
+			// Move the player
 		}
 		
 		void draw() {
-			playAnimation(m_x, m_y, m_direction + 4);
-			
-			EffectManager::drawEffects(this);
+			// Draw movement animation
 		}
-}
+};
+
+class PlayerSwordAttack : public Player {
+	public:
+		PlayerSwordAttack() {
+			// ...
+		}
+		
+		~PlayerSwordAttack() {
+		}
+		
+		void update() {
+			// Update player and sword position
+		}
+		
+		void draw() {
+			// Draw player and sword
+		}
+		
+	private:
+		Sprite m_sword;
+};
 

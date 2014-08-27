@@ -27,11 +27,18 @@ class Player : public Character {
 		
 		void mapCollisions();
 		
+		void move(double dx, double dy) { Entity::move(dx, dy); }
 		void move();
 		
 		void update();
 		
 		void draw();
+		
+		enum State {
+			Standing,
+			Moving,
+			Colliding
+		};
 		
 		u8 maxLife() const { return m_maxLife; }
 		u8 life() const { return m_life; }
@@ -39,7 +46,7 @@ class Player : public Character {
 		u16 rupees() const { return m_rupees; }
 		
 	private:
-		State *m_currentState;
+		State m_state;
 		
 		u8 m_maxLife;
 		u8 m_life;
