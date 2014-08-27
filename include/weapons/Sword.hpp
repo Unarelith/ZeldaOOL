@@ -30,10 +30,6 @@ class Sword : public Weapon {
 		bool update();
 		
 		void draw();
-		
-	private:
-		double m_tmpPlayerX;
-		double m_tmpPlayerY;
 };
 
 #endif // SWORD_HPP_

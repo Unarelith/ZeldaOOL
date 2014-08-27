@@ -33,9 +33,6 @@ Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
 	addAnimation({1, 5, 9, 9}, 90);
 	addAnimation({2, 6, 10, 10}, 90);
 	addAnimation({3, 7, 11, 11}, 90);
-	
-	m_tmpPlayerX = 0;
-	m_tmpPlayerY = 0;
 }
 
 Sword::~Sword() {
@@ -45,14 +42,6 @@ bool Sword::reset() {
 	if(animationCurrentFrame(player.direction()) > 2 || !m_animations[player.direction()].isPlaying) {
 		resetAnimation(player.direction());
 		player.resetAnimation(player.direction() + 8);
-		
-		if(m_tmpPlayerX != 0 || m_tmpPlayerY != 0) {
-			player.setPosition(m_tmpPlayerX, m_tmpPlayerY);
-			
-			m_tmpPlayerX = 0;
-			m_tmpPlayerY = 0;
-		}
-		
 		return true;
 	} else {
 		return false;
@@ -60,37 +49,12 @@ bool Sword::reset() {
 }
 
 bool Sword::update() {
-	if(animationCurrentFrame(player.direction()) == 2) {
-		if(m_tmpPlayerX == 0 && m_tmpPlayerY == 0) {
-			m_tmpPlayerX = player.x();
-			m_tmpPlayerY = player.y();
-			
-			if(player.direction() == Character::Direction::Left) {
-				player.move(-3, 0);
-			}
-			else if(player.direction() == Character::Direction::Right) {
-				player.move(3, 0);
-			}
-			else if(player.direction() == Character::Direction::Up) {
-				player.move(0, -3);
-			}
-			else if(player.direction() == Character::Direction::Down) {
-				player.move(0, 3);
-			}
-		}
-	}
-	
 	if(!animationAtEnd(player.direction())) {
 		m_x = player.x() + swordPosition[player.direction()][animationCurrentFrame(player.direction())][0];
 		m_y = player.y() + swordPosition[player.direction()][animationCurrentFrame(player.direction())][1];
 		
 		return false;
 	} else {
-		player.setPosition(m_tmpPlayerX, m_tmpPlayerY);
-		
-		m_tmpPlayerX = 0;
-		m_tmpPlayerY = 0;
-		
 		return true;
 	}
 }
