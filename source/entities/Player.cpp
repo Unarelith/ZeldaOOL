@@ -26,7 +26,7 @@
 #include "Sword.hpp"
 
 Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Direction::Down) {
-	m_state = State::Idle;
+	m_state = State::Standing;
 	
 	addAnimation({4, 0}, 110);
 	addAnimation({5, 1}, 110);
@@ -135,7 +135,7 @@ void Player::mapCollisions() {
 }
 
 void Player::move() {
-	m_state = State::Idle;
+	m_state = State::Standing;
 	
 	if(Keyboard::isKeyPressed(Keyboard::Left)) {
 		m_state = State::Moving;
@@ -198,20 +198,21 @@ void Player::update() {
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::A) && m_weapon) {
-		m_state = State::UsingWeapon;
-		m_weapon->reset();
+		if(m_weapon->reset()) {
+			m_state = State::UsingWeapon;
+		}
 	}
 	
 	if(m_state == State::UsingWeapon) {
 		if(m_weapon->update()) {
-			m_state = State::Idle;
+			m_state = State::Standing;
 		}
 	}
 }
 
 void Player::draw() {
 	switch(m_state) {
-		case State::Idle:
+		case State::Standing:
 			drawFrame(m_x, m_y, m_direction);
 			break;
 		case State::Moving:
@@ -221,14 +222,12 @@ void Player::draw() {
 			playAnimation(m_x, m_y, m_direction + 4);
 			break;
 		case State::UsingWeapon:
-			playAnimation(m_x, m_y, m_direction + 8);
+			m_weapon->draw();
 			break;
 	}
 	
-	EffectManager::drawEffects(this);
-	
-	if(m_state == State::UsingWeapon) {
-		m_weapon->draw();
+	if(m_state != State::UsingWeapon) {
+		EffectManager::drawEffects(this);
 	}
 }
 

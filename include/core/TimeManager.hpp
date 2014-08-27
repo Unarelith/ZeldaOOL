@@ -20,7 +20,11 @@
 
 #include <SFML/System.hpp>
 
+#include "Types.hpp"
+
 namespace TimeManager {
+	u32 getTicks();
+	
 	extern sf::Clock clock;
 	
 	extern double dt;

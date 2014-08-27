@@ -39,10 +39,11 @@ namespace Keyboard {
 	};
 	
 	bool isKeyPressed(Key key);
-	
 	bool isKeyPressedOnce(Key key);
+	bool isKeyPressedWithDelay(Key key, u16 delay);
 	
-	extern std::map<Key, u8> pressed;
+	extern std::map<Key, bool> pressed;
+	extern std::map<Key, u32> lastTimePressed;
 };
 
 #endif // KEYBOARD_HPP_

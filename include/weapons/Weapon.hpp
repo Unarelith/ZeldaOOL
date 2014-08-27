@@ -26,7 +26,7 @@ class Weapon : public Sprite, public Entity {
 		Weapon(std::string filename, u16 frameWidth, u16 frameHeight);
 		virtual ~Weapon();
 		
-		virtual void reset() = 0;
+		virtual bool reset() = 0;
 		
 		virtual bool update() = 0;
 		

@@ -31,12 +31,13 @@ class Player : public Character {
 		void move(double dx, double dy) { m_x += dx; m_y += dy; }
 		void move();
 		
+		void updatePosition();
 		void update();
 		
 		void draw();
 		
 		enum State {
-			Idle,
+			Standing,
 			Moving,
 			Colliding,
 			UsingWeapon

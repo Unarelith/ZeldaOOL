@@ -20,3 +20,7 @@
 sf::Clock TimeManager::clock;
 double TimeManager::dt = 0;
 
+u32 TimeManager::getTicks() {
+	return clock.getElapsedTime().asMilliseconds();
+}
+

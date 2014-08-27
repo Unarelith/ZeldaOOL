@@ -25,11 +25,15 @@ class Sword : public Weapon {
 		Sword();
 		~Sword();
 		
-		void reset();
+		bool reset();
 		
 		bool update();
 		
 		void draw();
+		
+	private:
+		double m_tmpPlayerX;
+		double m_tmpPlayerY;
 };
 
 #endif // SWORD_HPP_
