@@ -36,10 +36,10 @@ class Player : public Character {
 		void draw();
 		
 		enum State {
-			Standing,
+			Idle,
 			Moving,
 			Colliding,
-			Attacking
+			UsingWeapon
 		};
 		
 		u8 maxLife() const { return m_maxLife; }
@@ -48,8 +48,6 @@ class Player : public Character {
 		u16 rupees() const { return m_rupees; }
 		
 		void setWeapon(Weapon *weapon) { m_weapon = weapon; }
-		
-		void useSword();
 		
 	private:
 		State m_state;

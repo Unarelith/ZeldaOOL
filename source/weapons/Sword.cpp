@@ -19,10 +19,10 @@
 #include "Sword.hpp"
 
 s16 swordPosition[4][4][2] = {
-	{{-12,   0}, {-12,  12}, {  0,  16}, {  0,  16}},
-	{{  0, -12}, { 12, -12}, { 12,   0}, { 12,   0}},
-	{{  0, -12}, {-12, -12}, {-12,   0}, {-12,   0}},
-	{{ 12,   0}, { 12, -12}, {  0, -12}, {  0, -12}}
+	{{-12,   0}, {-12,  12}, { -1,  16}, { -1,  16}},
+	{{  0, -12}, { 12, -12}, { 15,   1}, { 15,   1}},
+	{{  0, -12}, {-12, -12}, {-15,   1}, {-15,   1}},
+	{{ 12,   0}, { 12, -12}, {  0, -15}, {  0, -15}}
 };
 
 Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
@@ -37,29 +37,23 @@ Sword::~Sword() {
 
 void Sword::reset() {
 	resetAnimation(CharacterManager::player.direction());
+	CharacterManager::player.resetAnimation(CharacterManager::player.direction() + 8);
 }
 
 bool Sword::update() {
-	using namespace CharacterManager;
-	
+ 	using namespace CharacterManager;
+ 	
 	if(!animationAtEnd(player.direction())) {
 		m_x = player.x() + swordPosition[player.direction()][animationCurrentFrame(player.direction())][0];
 		m_y = player.y() + swordPosition[player.direction()][animationCurrentFrame(player.direction())][1];
 		
 		return false;
 	} else {
-		m_x = player.x();
-		m_y = player.y();
-		
 		return true;
 	}
 }
 
 void Sword::draw() {
-	if(!animationAtEnd(CharacterManager::player.direction())) {
-		playAnimation(m_x, m_y, CharacterManager::player.direction());
-	} else {
-		drawFrame(m_x, m_y, CharacterManager::player.direction() + 8);
-	}
+	playAnimation(m_x, m_y, CharacterManager::player.direction());
 }
 

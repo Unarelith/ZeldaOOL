@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "Keyboard.hpp"
 #include "TimeManager.hpp"
 #include "TilesData.hpp"
 #include "MapManager.hpp"
@@ -25,7 +26,7 @@
 #include "Sword.hpp"
 
 Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Direction::Down) {
-	m_state = State::Standing;
+	m_state = State::Idle;
 	
 	addAnimation({4, 0}, 110);
 	addAnimation({5, 1}, 110);
@@ -134,50 +135,50 @@ void Player::mapCollisions() {
 }
 
 void Player::move() {
-	m_state = State::Standing;
+	m_state = State::Idle;
 	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+	if(Keyboard::isKeyPressed(Keyboard::Left)) {
 		m_state = State::Moving;
 		m_vx = -1;
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
-		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		if(!Keyboard::isKeyPressed(Keyboard::Up)
+		&& !Keyboard::isKeyPressed(Keyboard::Down)) {
 			m_direction = Direction::Left;
 		}
 	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	else if(Keyboard::isKeyPressed(Keyboard::Right)) {
 		m_state = State::Moving;
 		m_vx = 1;
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
-		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		if(!Keyboard::isKeyPressed(Keyboard::Up)
+		&& !Keyboard::isKeyPressed(Keyboard::Down)) {
 			m_direction = Direction::Right;
 		}
 	}
 	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+	if(Keyboard::isKeyPressed(Keyboard::Up)) {
 		m_state = State::Moving;
 		m_vy = -1;
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
-		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		if(!Keyboard::isKeyPressed(Keyboard::Left)
+		&& !Keyboard::isKeyPressed(Keyboard::Right)) {
 			m_direction = Direction::Up;
 		}
 	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+	else if(Keyboard::isKeyPressed(Keyboard::Down)) {
 		m_state = State::Moving;
 		m_vy = 1;
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
-		&& !sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		if(!Keyboard::isKeyPressed(Keyboard::Left)
+		&& !Keyboard::isKeyPressed(Keyboard::Right)) {
 			m_direction = Direction::Down;
 		}
 	}
 	
-	if((sf::Keyboard::isKeyPressed(sf::Keyboard::Left)
-	 || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	&& (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)
-	 || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))) {
+	if((Keyboard::isKeyPressed(Keyboard::Left)
+	 || Keyboard::isKeyPressed(Keyboard::Right))
+	&& (Keyboard::isKeyPressed(Keyboard::Up)
+	 || Keyboard::isKeyPressed(Keyboard::Down))) {
 		m_vx /= 1.4;
 		m_vy /= 1.4;
 	}
@@ -192,26 +193,25 @@ void Player::move() {
 }
 
 void Player::update() {
-	if(m_state != State::Attacking) {
+	if(m_state != State::UsingWeapon) {
 		move();
 	}
 	
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && m_state != State::Attacking) {
-		m_state = State::Attacking;
+	if(Keyboard::isKeyPressedOnce(Keyboard::A) && m_weapon) {
+		m_state = State::UsingWeapon;
 		m_weapon->reset();
-		resetAnimation(m_direction + 8);
 	}
 	
-	if(m_state == State::Attacking && m_weapon) {
+	if(m_state == State::UsingWeapon) {
 		if(m_weapon->update()) {
-			m_state = State::Standing;
+			m_state = State::Idle;
 		}
 	}
 }
 
 void Player::draw() {
 	switch(m_state) {
-		case State::Standing:
+		case State::Idle:
 			drawFrame(m_x, m_y, m_direction);
 			break;
 		case State::Moving:
@@ -220,18 +220,14 @@ void Player::draw() {
 		case State::Colliding:
 			playAnimation(m_x, m_y, m_direction + 4);
 			break;
-		case State::Attacking:
-			if(!animationAtEnd(m_direction + 8)) {
-				playAnimation(m_x, m_y, m_direction + 8);
-			} else {
-				drawFrame(m_x, m_y, m_direction);
-			}
+		case State::UsingWeapon:
+			playAnimation(m_x, m_y, m_direction + 8);
 			break;
 	}
 	
 	EffectManager::drawEffects(this);
 	
-	if(m_state == State::Attacking && m_weapon) {
+	if(m_state == State::UsingWeapon) {
 		m_weapon->draw();
 	}
 }
