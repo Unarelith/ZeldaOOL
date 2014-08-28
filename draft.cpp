@@ -15,59 +15,55 @@
  *
  * =====================================================================================
  */
-class Player : public Character {
+struct SpriteAnimation {
+	// ...
+	
+	std::vector<sf::Vector2i> positions;
+}
+
+class Sprite : public Image {
 	public:
-		Player() : Character(/*...*/) {
+		Sprite(std::string filename, u16 frameWidth, u16 frameHeight) : Image(filename) {
+			m_filename = filename;
+			
+			m_frameWidth = frameWidth;
+			m_frameHeight = frameHeight;
+		}
+		
+		~Sprite() {
+		}
+		
+		void addAnimation(std::initializer_list<u16> frames, u16 delay) {
+			// Add the animation
+			
+			// Fill 'positions' vector with sf::Vector2i(0, 0);
+			// Because that's the default position
+		}
+		
+		void addPosition(u16 anim, u16 animFrame, u16 x, u16 y) {
+			m_animations[anim].positions[animFrame] = sf::Vector2i(x, y);
+		}
+		
+		void drawFrame(s16 x, s16 y, u16 frame) {
+			// Draw the frame
+		}
+		
+		void drawPositionedFrame(s16 x, s16 y, u16 frame) {
+			// Draw the frame with its position informations
+		}
+		
+		void resetAnimation(u16 anim) {
 			// ...
 		}
 		
-		virtual ~Player() {
-		}
-		
-		virtual void update() = 0;
-		
-		virtual void draw() = 0;
-		
-	private:
 		// ...
-};
-
-class PlayerMoving : public Player {
-	public:
-		PlayerMoving() {
+		
+		void playAnimation(u16 anim) {
 			// ...
-		}
-		
-		~PlayerMoving() {
-		}
-		
-		void update() {
-			// Move the player
-		}
-		
-		void draw() {
-			// Draw movement animation
-		}
-};
-
-class PlayerSwordAttack : public Player {
-	public:
-		PlayerSwordAttack() {
-			// ...
-		}
-		
-		~PlayerSwordAttack() {
-		}
-		
-		void update() {
-			// Update player and sword position
-		}
-		
-		void draw() {
-			// Draw player and sword
+			
+			drawPositionedFrame(/*...*/);
 		}
 		
 	private:
-		Sprite m_sword;
+		std::vector<SpriteAnimation> m_animations;
 };
-
