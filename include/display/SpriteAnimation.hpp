@@ -30,6 +30,7 @@ struct SpriteAnimation {
 	bool isPlaying;
 	Timer timer;
 	std::vector<u16> frames;
+	std::vector<sf::Vector2i> positions;
 };
 
 #endif // SPRITEANIMATION_HPP_

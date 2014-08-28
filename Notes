@@ -1,3 +1,5 @@
+- Find a place for 'positions' table
+	-> Maybe 'Entity' shoud be a child of 'Sprite'?
 - Change map action is only available from moving state
 - Add 'Weapon' pure virtual class, friend of 'Player' and child of 'Sprite'
 	-> Add a virtual function 'action()'

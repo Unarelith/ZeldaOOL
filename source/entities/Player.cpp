@@ -48,12 +48,6 @@ Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Dir
 	m_life = 11 * 4;
 	
 	m_rupees = 197;
-	
-	/*m_sword.load("graphics/animations/sword.png", 16, 16);
-	m_sword.addAnimation({0, 4, 8, 8}, 90);
-	m_sword.addAnimation({1, 5, 9, 9}, 90);
-	m_sword.addAnimation({2, 6, 10, 10}, 90);
-	m_sword.addAnimation({3, 7, 11, 11}, 90);*/
 }
 
 Player::~Player() {
@@ -191,6 +185,8 @@ void Player::move() {
 }
 
 void Player::update() {
+	Character::update();
+	
 	move();
 }
 

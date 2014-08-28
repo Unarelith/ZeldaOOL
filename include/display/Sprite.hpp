@@ -31,9 +31,13 @@ class Sprite : public Image {
 		
 		void load(std::string filename, u16 frameWidth, u16 frameHeight);
 		
-		void drawFrame(s16 x, s16 y, u16 frame);
-		
 		void addAnimation(std::initializer_list<u16> frames, u16 delay);
+		
+		void setFramePosition(u16 anim, u16 animFrame, s16 x, s16 y);
+		
+		void drawFrame(s16 x, s16 y, u16 frame);
+		void drawPositionedFrame(s16 x, s16 y, u16 anim, u16 animFrame);
+		
 		void resetAnimation(u16 anim);
 		void startAnimation(u16 anim);
 		void stopAnimation(u16 anim);
@@ -50,6 +54,8 @@ class Sprite : public Image {
 		std::vector<SpriteAnimation> m_animations;
 		
 		u16 m_lastFrameDisplayed;
+		
+		s16 m_currentAnimation;
 };
 
 #endif // SPRITE_HPP_
