@@ -4,3 +4,5 @@ h3. By Quent42340
 
 * This game is a TLOZ: OO-like fangame
 
+!http://img4.hostingpics.net/pics/222919ZeldaOOTScreen.png!
+
