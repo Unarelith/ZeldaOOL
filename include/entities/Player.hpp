@@ -19,6 +19,7 @@
 #define PLAYER_HPP_
 
 #include "Character.hpp"
+#include "PlayerState.hpp"
 
 class Player : public Character {
 	public:
@@ -27,18 +28,11 @@ class Player : public Character {
 		
 		void mapCollisions();
 		
-		void move(double dx, double dy) { m_x += dx; m_y += dy; }
-		void move();
-		
 		void update();
 		
 		void draw();
 		
-		enum State {
-			Standing,
-			Moving,
-			Colliding
-		};
+		void setState(PlayerState *state);
 		
 		u8 maxLife() const { return m_maxLife; }
 		u8 life() const { return m_life; }
@@ -46,7 +40,7 @@ class Player : public Character {
 		u16 rupees() const { return m_rupees; }
 		
 	private:
-		State m_state;
+		PlayerState *m_state;
 		
 		u8 m_maxLife;
 		u8 m_life;

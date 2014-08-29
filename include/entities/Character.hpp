@@ -38,6 +38,8 @@ class Character : public Sprite, public Entity {
 		
 		u8 direction() const { return m_direction; }
 		
+		void setDirection(u8 direction) { m_direction = direction; }
+		
 	protected:
 		u8 m_direction;
 };

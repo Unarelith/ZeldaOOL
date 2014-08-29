@@ -21,11 +21,11 @@
 #include "MapManager.hpp"
 #include "MapHelper.hpp"
 #include "EffectManager.hpp"
+#include "StandingState.hpp"
+#include "MovingState.hpp"
 #include "Player.hpp"
 
 Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Direction::Down) {
-	m_state = State::Standing;
-	
 	// Movement
 	addAnimation({4, 0}, 110);
 	addAnimation({5, 1}, 110);
@@ -43,6 +43,8 @@ Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Dir
 	addAnimation({17, 21, 21, 1}, 90);
 	addAnimation({18, 22, 22, 2}, 90);
 	addAnimation({19, 23, 23, 3}, 90);
+	
+	m_state = new StandingState();
 	
 	m_maxLife = 13 * 4;
 	m_life = 11 * 4;
@@ -87,7 +89,7 @@ void Player::mapCollisions() {
 			|| (i == 1 && m_direction == Direction::Left)
 			|| (i == 2 && m_direction == Direction::Up)
 			|| (i == 3 && m_direction == Direction::Down)) {
-				m_state = State::Colliding;
+				//m_state = State::Colliding;
 			}
 			
 			if( MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])
@@ -95,7 +97,7 @@ void Player::mapCollisions() {
 				if(i < 2 && m_vy == 0)	m_vy = 1;
 				else if(    m_vx == 0)	m_vx = 1;
 				
-				m_state = State::Moving;
+				//setState(new MovingState());
 			}
 			
 			if( MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])
@@ -103,7 +105,7 @@ void Player::mapCollisions() {
 				if(i < 2 && m_vy == 0)	m_vy = -1;
 				else if(    m_vx == 0)	m_vx = -1;
 				
-				m_state = State::Moving;
+				//setState(new MovingState());
 			}
 		}
 	}
@@ -126,81 +128,17 @@ void Player::mapCollisions() {
 	}
 }
 
-void Player::move() {
-	m_state = State::Standing;
-	
-	if(Keyboard::isKeyPressed(Keyboard::Left)) {
-		m_state = State::Moving;
-		m_vx = -1;
-		
-		if(!Keyboard::isKeyPressed(Keyboard::Up)
-		&& !Keyboard::isKeyPressed(Keyboard::Down)) {
-			m_direction = Direction::Left;
-		}
-	}
-	else if(Keyboard::isKeyPressed(Keyboard::Right)) {
-		m_state = State::Moving;
-		m_vx = 1;
-		
-		if(!Keyboard::isKeyPressed(Keyboard::Up)
-		&& !Keyboard::isKeyPressed(Keyboard::Down)) {
-			m_direction = Direction::Right;
-		}
-	}
-	
-	if(Keyboard::isKeyPressed(Keyboard::Up)) {
-		m_state = State::Moving;
-		m_vy = -1;
-		
-		if(!Keyboard::isKeyPressed(Keyboard::Left)
-		&& !Keyboard::isKeyPressed(Keyboard::Right)) {
-			m_direction = Direction::Up;
-		}
-	}
-	else if(Keyboard::isKeyPressed(Keyboard::Down)) {
-		m_state = State::Moving;
-		m_vy = 1;
-		
-		if(!Keyboard::isKeyPressed(Keyboard::Left)
-		&& !Keyboard::isKeyPressed(Keyboard::Right)) {
-			m_direction = Direction::Down;
-		}
-	}
-	
-	if((Keyboard::isKeyPressed(Keyboard::Left)
-	 || Keyboard::isKeyPressed(Keyboard::Right))
-	&& (Keyboard::isKeyPressed(Keyboard::Up)
-	 || Keyboard::isKeyPressed(Keyboard::Down))) {
-		m_vx /= 1.4;
-		m_vy /= 1.4;
-	}
-	
-	mapCollisions();
-	
-	m_x += m_vx * 60 * TimeManager::dt;
-	m_y += m_vy * 60 * TimeManager::dt;
-	
-	m_vx = 0;
-	m_vy = 0;
-}
-
 void Player::update() {
-	move();
+	m_state->update();
 }
 
 void Player::draw() {
-	switch(m_state) {
-		case State::Standing:
-			drawFrame(m_x, m_y, m_direction);
-			break;
-		case State::Moving:
-			playAnimation(m_x, m_y, m_direction);
-			break;
-		case State::Colliding:
-			playAnimation(m_x, m_y, m_direction + 4);
-			break;
-	}
-	
-	EffectManager::drawEffects(this);
+	m_state->draw();
+}
+
+void Player::setState(PlayerState *state) {
+	delete m_state;
+	m_state = state;
+	m_state->update();
 }
 
