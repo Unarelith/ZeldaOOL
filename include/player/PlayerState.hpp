@@ -29,8 +29,13 @@ class PlayerState {
 		
 		virtual void draw() = 0;
 		
+		PlayerState *nextState() const { return m_nextState; };
+		void setNextState(PlayerState *nextState) { m_nextState = nextState; }
+		
 	protected:
 		Player &m_player;
+		
+		PlayerState *m_nextState;
 };
 
 #include "CharacterManager.hpp"

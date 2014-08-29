@@ -18,6 +18,7 @@
 #include "PlayerState.hpp"
 
 PlayerState::PlayerState() : m_player(CharacterManager::player) {
+	m_nextState = this;
 }
 
 PlayerState::~PlayerState() {

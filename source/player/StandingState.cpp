@@ -31,9 +31,7 @@ void StandingState::update() {
 	|| Keyboard::isKeyPressed(Keyboard::Right)
 	|| Keyboard::isKeyPressed(Keyboard::Up)
 	|| Keyboard::isKeyPressed(Keyboard::Down)) {
-		m_player.setState(new MovingState());
-		
-		return;
+		m_nextState = new MovingState();
 	}
 }
 
