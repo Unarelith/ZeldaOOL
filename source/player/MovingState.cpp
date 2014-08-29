@@ -21,6 +21,8 @@
 #include "MovingState.hpp"
 
 MovingState::MovingState() {
+	m_stateType = StateType::TypeMoving;
+	m_nextStateType = StateType::TypeMoving;
 }
 
 MovingState::~MovingState() {
@@ -31,7 +33,7 @@ void MovingState::update() {
 	&& !Keyboard::isKeyPressed(Keyboard::Right)
 	&& !Keyboard::isKeyPressed(Keyboard::Up)
 	&& !Keyboard::isKeyPressed(Keyboard::Down)) {
-		m_nextState = new StandingState();
+		m_nextStateType = StateType::TypeStanding;
 	}
 	
 	if(Keyboard::isKeyPressed(Keyboard::Left)) {

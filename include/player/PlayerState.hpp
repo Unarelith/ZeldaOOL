@@ -29,13 +29,24 @@ class PlayerState {
 		
 		virtual void draw() = 0;
 		
-		PlayerState *nextState() const { return m_nextState; };
-		void setNextState(PlayerState *nextState) { m_nextState = nextState; }
+		enum StateType {
+			TypeStanding,
+			TypeMoving,
+			TypePushing
+		};
+		
+		StateType stateType() const { return m_stateType; };
+		
+		StateType nextStateType() const { return m_nextStateType; };
+		void setNextStateType(StateType nextStateType) { m_nextStateType = nextStateType; }
+		
+		PlayerState *nextState();
 		
 	protected:
 		Player &m_player;
 		
-		PlayerState *m_nextState;
+		StateType m_stateType;
+		StateType m_nextStateType;
 };
 
 #include "CharacterManager.hpp"

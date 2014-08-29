@@ -25,9 +25,9 @@ class MovingState : public PlayerState {
 		MovingState();
 		~MovingState();
 		
-		void update();
+		virtual void update();
 		
-		void draw();
+		virtual void draw();
 };
 
 #endif // MOVINGSTATE_HPP_

@@ -85,24 +85,28 @@ void Player::mapCollisions() {
 		||  !MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3]))) {
 			if(i < 2)	m_vx = 0;
 			else		m_vy = 0;
-					
-			if( MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])
-			&& !MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])) {
-				if(i < 2 && m_vy == 0)	m_vy = 1;
-				else if(    m_vx == 0)	m_vx = 1;
-			}
-			else	
-			if( MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])
-			&& !MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])) {
-				if(i < 2 && m_vy == 0)	m_vy = -1;
-				else if(    m_vx == 0)	m_vx = -1;
-			}
-			else
+			
 			if((i == 0 && m_direction == Direction::Right)
 			|| (i == 1 && m_direction == Direction::Left)
 			|| (i == 2 && m_direction == Direction::Up)
 			|| (i == 3 && m_direction == Direction::Down)) {
-				m_state->setNextState(new PushingState());
+				m_state->setNextStateType(PlayerState::TypePushing);
+			}
+			
+			if( MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])
+			&& !MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])) {
+				if(i < 2 && m_vy == 0)	m_vy = 1;
+				else if(    m_vx == 0)	m_vx = 1;
+				
+				m_state->setNextStateType(PlayerState::TypeMoving);
+			}
+			
+			if( MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])
+			&& !MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])) {
+				if(i < 2 && m_vy == 0)	m_vy = -1;
+				else if(    m_vx == 0)	m_vx = -1;
+				
+				m_state->setNextStateType(PlayerState::TypeMoving);
 			}
 		}
 	}
@@ -126,8 +130,7 @@ void Player::mapCollisions() {
 }
 
 void Player::update() {
-	if(m_state->nextState() != m_state) {
-		delete m_state;
+	if(m_state->stateType() != m_state->nextStateType()) {
 		m_state = m_state->nextState();
 	}
 	

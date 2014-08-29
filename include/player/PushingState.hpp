@@ -18,9 +18,9 @@
 #ifndef PUSHINGSTATE_HPP_
 #define PUSHINGSTATE_HPP_
 
-#include "PlayerState.hpp"
+#include "MovingState.hpp"
 
-class PushingState : public PlayerState {
+class PushingState : public MovingState {
 	public:
 		PushingState();
 		~PushingState();

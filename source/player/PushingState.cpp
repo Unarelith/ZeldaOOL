@@ -19,13 +19,17 @@
 #include "PushingState.hpp"
 
 PushingState::PushingState() {
+	m_stateType = StateType::TypePushing;
+	m_nextStateType = StateType::TypePushing;
 }
 
 PushingState::~PushingState() {
 }
 
 void PushingState::update() {
-	/* ... ???? */
+	m_nextStateType = StateType::TypeMoving;
+	
+	MovingState::update();
 }
 
 void PushingState::draw() {
