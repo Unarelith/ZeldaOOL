@@ -185,8 +185,6 @@ void Player::move() {
 }
 
 void Player::update() {
-	Character::update();
-	
 	move();
 }
 

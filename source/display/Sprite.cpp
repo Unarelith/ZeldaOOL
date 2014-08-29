@@ -47,12 +47,7 @@ void Sprite::addAnimation(std::initializer_list<u16> frames, u16 delay) {
 	
 	for(auto &it : frames) {
 		m_animations.back().frames.push_back(it);
-		m_animations.back().positions.push_back(sf::Vector2i(0, 0));
 	}
-}
-
-void Sprite::setFramePosition(u16 anim, u16 animFrame, s16 x, s16 y) {
-	m_animations[anim].positions[animFrame] = sf::Vector2i(x, y);
 }
 
 void Sprite::drawFrame(s16 x, s16 y, u16 frame) {
@@ -63,12 +58,6 @@ void Sprite::drawFrame(s16 x, s16 y, u16 frame) {
 	
 	setClipRect(frameX * m_frameWidth, frameY * m_frameHeight, m_frameWidth, m_frameHeight);
 	draw(x, y);
-}
-
-void Sprite::drawPositionedFrame(s16 x, s16 y, u16 anim, u16 animFrame) {
-	drawFrame(x + m_animations[anim].positions[animFrame].x,
-			  y + m_animations[anim].positions[animFrame].y,
-			  m_animations[anim].frames[animFrame]);
 }
 
 void Sprite::resetAnimation(u16 anim) {
@@ -111,6 +100,6 @@ void Sprite::playAnimation(s16 x, s16 y, u16 anim) {
 		}
 	}
 	
-	drawPositionedFrame(x, y, anim, animationCurrentFrame(anim));
+	drawFrame(x, y, m_animations[anim].frames[animationCurrentFrame(anim)]);
 }
 

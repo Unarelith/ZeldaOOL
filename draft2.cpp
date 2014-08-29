@@ -15,62 +15,111 @@
  *
  * =====================================================================================
  */
-class Action {
+class Player : public Character {
 	public:
-		Action() {
+		Player() : Character(/*...*/) {
+			// ...
+			
+			m_currentState = nullptr;
+			
+			setState(new StandingState());
 		}
 		
-		virtual ~Action() {
+		~Player() {
+		}
+		
+		void update() {
+			m_currentState->update();
+		}
+		
+		void draw() {
+			m_currentState->draw();
+		}
+		
+		// ...
+		
+		State *setState(State *state) {
+			if(m_currentState) delete m_currentState;
+			m_currentState = state;
+			m_currentState->update();
+		}
+		
+	private:
+		// ...
+		
+		State *m_currentState;
+};
+
+class State {
+	public:
+		State() {
+			m_player = CharacterManager::player;
+		}
+		
+		virtual ~State() {
 		}
 		
 		virtual void update() = 0;
 		
 		virtual void draw() = 0;
+		
+	private:
+		Player &m_player;
 };
 
-class StandingAction : public Action {
-	/* ... */
-}
-
-class MovingAction : public Action {
+class StandingState : public State {
 	public:
-		MovingAction() {
+		StandingState() {
 		}
 		
-		~MovingAction() {
+		~StandingState() {
 		}
 		
 		void update() {
-			// Player is a global object in
-			// CharacterManager namespace
-			using namespace CharacterManager;
+			// Sword key and state changement to sword
 			
+			// Arrow keys and state changement to moving
+		}
+		
+		void draw() {
+			m_player.drawFrame(player.x(), player.y(), player.direction());
+			
+			EffectManager::drawEffects(&player);
+		}
+};
+
+class MovingState : public PlayerState {
+	public:
+		MovingState() {
+		}
+		
+		~MovingState() {
+		}
+		
+		void update() {
 			// Keys...
 			
-			player.setX(player.x() + player.vx());
-			player.setY(player.y() + player.vy());
+			m_player.setX(player.x() + player.vx());
+			m_player.setY(player.y() + player.vy());
 			
-			player.setVX(0);
-			player.setVY(0);
-			
-			// That's ugly code, right?
+			m_player.setVX(0);
+			m_player.setVY(0);
 		}
 		
 		void draw() {
 		}
 };
 
-class SwordSwingingAction : public Action {
+class SwordState: public PlayerState {
 	public:
-		SwordSwingingAction() {
+		SwordState() {
+			m_lastUpdatedAnimFrame = {-1, -1, -1, -1};
 		}
 		
-		~SwordSwingingAction() {
+		~SwordState() {
 		}
 		
 		void update() {
-			using namespace CharacterManager;
-			
 			m_sword.update(Sword::State::Swinging);
 			
 			// /!\ DANGER ZONE /!\ \\
@@ -78,59 +127,22 @@ class SwordSwingingAction : public Action {
 			//		forward, then back to his
 			//		previous position
 			// /!\ END OF DANGER ZONE /!\ \\
+			
+			if(m_lastUpdatedAnimFrame != m_sword.animationCurrentFrame(m_player.direction())) {
+			}
 		}
 		
 		void draw() {
-			// I don't really like these "using
-			// namespace" everywhere
-			using namespace CharacterManager;
+			m_player.playAnimation(m_player.x(), m_player.y(), m_player.direction() + 8);
 			
-			player.playAnimation(player.x(), player.y(), player.direction() + 8);
-			
-			// Useful to draw 'weed' effect ;)
-			EffectManager::drawEffects(&player);
+			EffectManager::drawEffects(&m_player);
 			
 			m_sword.draw();
 		}
 		
 	private:
+		s16 m_lastUpdatedAnimFrame[4];
+		
 		Sword m_sword;
 };
-
-namespace ActionManager {
-	Action *changeAction(Action **currentAction, Action *nextAction) {
-		if(*currentAction) delete *currentAction;
-		*currentAction = nextAction;
-	}
-	
-}
-
-class Player : public Character {
-	public:
-		Player() : Character(/*...*/) {
-			// ...
-			
-			m_currentAction = nullptr;
-			
-			ActionManager::changeAction(m_currentAction, new StandingAction());
-		}
-		
-		~Player() {
-		}
-		
-		void update() {
-			m_currentAction->update();
-		}
-		
-		void draw() {
-			m_currentAction->draw();
-		}
-		
-		// ...
-		
-	private:
-		// ...
-		
-		Action *m_currentAction;
-}
 

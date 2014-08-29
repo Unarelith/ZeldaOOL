@@ -33,8 +33,6 @@ class Sprite : public Image {
 		
 		void addAnimation(std::initializer_list<u16> frames, u16 delay);
 		
-		void setFramePosition(u16 anim, u16 animFrame, s16 x, s16 y);
-		
 		void drawFrame(s16 x, s16 y, u16 frame);
 		void drawPositionedFrame(s16 x, s16 y, u16 anim, u16 animFrame);
 		
