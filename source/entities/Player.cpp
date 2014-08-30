@@ -40,10 +40,10 @@ Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Dir
 	addAnimation({11, 15}, 90);
 	
 	// Using sword
-	addAnimation({16, 20, 20, 0}, 90);
-	addAnimation({17, 21, 21, 1}, 90);
-	addAnimation({18, 22, 22, 2}, 90);
-	addAnimation({19, 23, 23, 3}, 90);
+	addAnimation({16, 20, 20, 20}, 90);
+	addAnimation({17, 21, 21, 21}, 90);
+	addAnimation({18, 22, 22, 22}, 90);
+	addAnimation({19, 23, 23, 23}, 90);
 	
 	m_state = new StandingState();
 	

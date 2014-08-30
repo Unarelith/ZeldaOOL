@@ -18,6 +18,7 @@
 #include "StandingState.hpp"
 #include "MovingState.hpp"
 #include "PushingState.hpp"
+#include "SwordState.hpp"
 
 PlayerState::PlayerState() : m_player(CharacterManager::player) {
 }
@@ -37,6 +38,9 @@ PlayerState *PlayerState::nextState() {
 			break;
 		case StateType::TypePushing:
 			currentState = new PushingState();
+			break;
+		case StateType::TypeSword:
+			currentState = new SwordState();
 			break;
 	}
 	

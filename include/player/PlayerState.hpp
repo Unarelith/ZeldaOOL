@@ -32,7 +32,8 @@ class PlayerState {
 		enum StateType {
 			TypeStanding,
 			TypeMoving,
-			TypePushing
+			TypePushing,
+			TypeSword
 		};
 		
 		StateType stateType() const { return m_stateType; };
