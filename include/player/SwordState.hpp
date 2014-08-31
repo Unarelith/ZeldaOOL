@@ -28,6 +28,11 @@ class SwordState : public PlayerState {
 		void update();
 		
 		void draw();
+		void drawPlayer();
+		void drawSword();
+		
+	private:
+		Sprite m_sword;
 };
 
 #endif // SWORDSTATE_HPP_
