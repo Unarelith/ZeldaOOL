@@ -40,9 +40,11 @@ class Image {
 		
 		sf::Texture getTexture() const { return m_texture; }
 		
+	protected:
+		sf::Sprite m_image;
+		
 	private:
 		sf::Texture m_texture;
-		sf::Sprite m_image;
 };
 
 #endif // IMAGE_HPP_

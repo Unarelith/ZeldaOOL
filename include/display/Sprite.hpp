@@ -44,6 +44,8 @@ class Sprite : public Image {
 		
 		static bool pause;
 		
+		void setColor(sf::Color c) { m_image.setColor(c); }
+		
 	protected:
 		u16 m_frameWidth;
 		u16 m_frameHeight;

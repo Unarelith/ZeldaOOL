@@ -18,6 +18,7 @@
 #ifndef SWORDSTATE_HPP_
 #define SWORDSTATE_HPP_
 
+#include "Keyboard.hpp"
 #include "PlayerState.hpp"
 
 class SwordState : public PlayerState {
@@ -33,6 +34,11 @@ class SwordState : public PlayerState {
 		
 	private:
 		Sprite m_sword;
+		
+		u8 m_tmpDirection;
+		
+		Timer m_timer;
+		bool m_spinAttack;
 };
 
 #endif // SWORDSTATE_HPP_

@@ -20,3 +20,25 @@
 	-> It associates each map and its entities into a 'Scene'
 - Load each tileset tiles infos like in Asylia
 - Create a class 'Transition' and its child classes 'TransitionScrolling', 'TransitionFade', etc...
+
+0 -> 4 -> 8 -> 12
+
+0 -> 2 -> 3 -> 1 -> 0 -> 2 -> 3 -> 1
+
+0000 | 0000
+0001 | 0100
+0010 | 1000
+0011 | 1100
+0100 | 
+0101 | 
+0110 | 
+0111 | 
+1000 | 
+1001 | 
+1010 | 
+1011 | 
+1100 | 
+1101 | 
+1110 | 
+1111 | 
+
