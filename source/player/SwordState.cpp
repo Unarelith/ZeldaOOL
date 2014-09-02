@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "Sound.hpp"
 #include "EffectManager.hpp"
 #include "SwordState.hpp"
 
@@ -39,6 +40,8 @@ SwordState::SwordState() {
 	m_spinAttack = false;
 	
 	m_tmpDirection = 0;
+	
+	Sound::Effect::swordSlash1.play();
 }
 
 SwordState::~SwordState() {
@@ -51,6 +54,8 @@ void SwordState::update() {
 			
 			if(!Keyboard::isKeyPressed(Keyboard::A)) {
 				if(m_timer.time() > 1000) {
+					Sound::Effect::swordSpin.play();
+					
 					m_spinAttack = true;
 					
 					m_tmpDirection = m_player.direction();
@@ -58,12 +63,16 @@ void SwordState::update() {
 					m_nextStateType = StateType::TypeStanding;
 				}
 			}
+			else if(m_timer.time() > 1000) {
+				Sound::Effect::swordCharge.play();
+			}
 		}
 	} else {
-		if(m_timer.time() % 200 > 110) {
+		if(m_sword.animationAtEnd(m_player.direction())) {
 			m_player.setDirection((((m_player.direction() + 1) % 4) * 4) >> 2);
 		}
 		
+		// TmpDirection is the player's direction in the first launch of the loop
 		if(m_player.direction() == m_tmpDirection) {
 			m_nextStateType = StateType::TypeStanding;
 		}

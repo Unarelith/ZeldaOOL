@@ -17,10 +17,14 @@
  */
 #include "Sound.hpp"
 
-sf::Music Sound::Music::plain;
+BackgroundMusic Sound::Music::plain;
 
-sf::SoundBuffer Sound::Effect::chestBuffer;
-sf::Sound Sound::Effect::chest;
+SoundEffect Sound::Effect::chest;
+
+SoundEffect Sound::Effect::swordCharge;
+SoundEffect Sound::Effect::swordSlash1;
+SoundEffect Sound::Effect::swordSpin;
+SoundEffect Sound::Effect::swordTap;
 
 void Sound::init() {
 	Sound::Music::init();
@@ -29,12 +33,15 @@ void Sound::init() {
 }
 
 void Sound::Music::init() {
-	plain.openFromFile("audio/music/plain.ogg");
-	plain.setLoop(true);
+	plain.open("audio/music/plain.ogg");
 }
 
 void Sound::Effect::init() {
-	chestBuffer.loadFromFile("audio/effects/chest.wav");
-	chest.setBuffer(chestBuffer);
+	chest.load("audio/effects/chest.wav");
+	
+	swordCharge.load("audio/effects/swordCharge.wav");
+	swordSlash1.load("audio/effects/swordSlash1.wav");
+	swordSpin.load("audio/effects/swordSpin.wav");
+	swordTap.load("audio/effects/swordTap.wav");
 }
 
