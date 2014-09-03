@@ -34,10 +34,16 @@ class Sword : public Weapon {
 			Loading,
 			Tapping,
 			SpinAttack
-		}
+		};
+		
+		State state() const { return m_state; }
 		
 	private:
 		State m_state;
+		
+		u8 m_tmpDirection;
+		
+		Timer m_loadingTimer;
 };
 
 #endif // SWORD_HPP_

@@ -60,8 +60,9 @@ void Sprite::drawFrame(s16 x, s16 y, u16 frame) {
 	draw(x, y);
 }
 
-void Sprite::resetAnimation(u16 anim) {
+void Sprite::resetAnimation(u16 anim, u16 frame) {
 	m_animations[anim].timer.reset();
+	m_animations[anim].timer.setTime(frame * m_animations[anim].delay);
 	m_animations[anim].isPlaying = false;
 }
 

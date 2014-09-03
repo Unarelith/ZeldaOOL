@@ -28,14 +28,7 @@ MovingState::MovingState() {
 MovingState::~MovingState() {
 }
 
-void MovingState::update() {
-	if(!Keyboard::isKeyPressed(Keyboard::Left)
-	&& !Keyboard::isKeyPressed(Keyboard::Right)
-	&& !Keyboard::isKeyPressed(Keyboard::Up)
-	&& !Keyboard::isKeyPressed(Keyboard::Down)) {
-		m_nextStateType = StateType::TypeStanding;
-	}
-	
+void MovingState::move() {
 	if(Keyboard::isKeyPressed(Keyboard::Left)) {
 		m_player.setVX(-1);
 		
@@ -83,6 +76,21 @@ void MovingState::update() {
 				  m_player.vy() * 60 * TimeManager::dt);
 	
 	m_player.setVelocity(0, 0);
+}
+
+void MovingState::update() {
+	if(Keyboard::isKeyPressed(Keyboard::A)) {
+		m_nextStateType = StateType::TypeSword;
+	}
+	
+	if(!Keyboard::isKeyPressed(Keyboard::Left)
+	&& !Keyboard::isKeyPressed(Keyboard::Right)
+	&& !Keyboard::isKeyPressed(Keyboard::Up)
+	&& !Keyboard::isKeyPressed(Keyboard::Down)) {
+		m_nextStateType = StateType::TypeStanding;
+	}
+	
+	move();
 }
 
 void MovingState::draw() {

@@ -18,10 +18,10 @@
 #ifndef SWORDSTATE_HPP_
 #define SWORDSTATE_HPP_
 
-#include "Keyboard.hpp"
-#include "PlayerState.hpp"
+#include "Sword.hpp"
+#include "MovingState.hpp"
 
-class SwordState : public PlayerState {
+class SwordState : public MovingState {
 	public:
 		SwordState();
 		~SwordState();
@@ -30,16 +30,9 @@ class SwordState : public PlayerState {
 		
 		void draw();
 		void drawPlayer();
-		void drawSword();
 		
 	private:
-		Sprite m_sword;
-		
-		u8 m_tmpDirection;
-		
-		Timer m_timer;
-		bool m_loading;
-		bool m_spinAttack;
+		Sword m_sword;
 };
 
 #endif // SWORDSTATE_HPP_

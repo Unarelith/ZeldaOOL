@@ -40,10 +40,10 @@ Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Dir
 	addAnimation({11, 15}, 90);
 	
 	// Using sword
-	addAnimation({16, 20, 20, 20}, 90);
-	addAnimation({17, 21, 21, 21}, 90);
-	addAnimation({18, 22, 22, 22}, 90);
-	addAnimation({19, 23, 23, 23}, 90);
+	addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, 45);
+	addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, 45);
+	addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 45);
+	addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 45);
 	
 	m_state = new StandingState();
 	
@@ -139,5 +139,9 @@ void Player::update() {
 
 void Player::draw() {
 	m_state->draw();
+}
+
+void Player::setNextStateType(PlayerState::StateType nextType) {
+	m_state->setNextStateType(nextType);
 }
 

@@ -35,7 +35,7 @@ class Sprite : public Image {
 		
 		void drawFrame(s16 x, s16 y, u16 frame);
 		
-		void resetAnimation(u16 anim);
+		void resetAnimation(u16 anim, u16 frame = 0);
 		void startAnimation(u16 anim);
 		void stopAnimation(u16 anim);
 		u16 animationCurrentFrame(u16 anim);

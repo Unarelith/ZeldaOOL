@@ -44,3 +44,11 @@ void Timer::reset() {
 	m_isStarted = false;
 }
 
+void Timer::setTime(u32 time) {
+	if(m_isStarted) {
+		m_t = TimeManager::getTicks() - time;
+	} else {
+		m_tick = time;
+	}
+}
+

@@ -17,8 +17,7 @@
  */
 #include "Weapon.hpp"
 
-Weapon::Weapon() {
-	
+Weapon::Weapon(std::string filename, u16 width, u16 height) : Sprite(filename, width, height), Entity(0, 0, width, height), m_player(CharacterManager::player) {
 }
 
 Weapon::~Weapon() {

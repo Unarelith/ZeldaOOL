@@ -18,10 +18,15 @@
 #ifndef WEAPON_HPP_
 #define WEAPON_HPP_
 
+#include "CharacterManager.hpp"
+
 class Weapon : public Sprite, public Entity {
 	public:
-		Weapon();
+		Weapon(std::string filename, u16 width, u16 height);
 		~Weapon();
+		
+	protected:
+		Player &m_player;
 };
 
 #endif // WEAPON_HPP_
