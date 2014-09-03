@@ -28,3 +28,24 @@ void Character::draw() {
 	playAnimation(m_x, m_y, m_direction);
 }
 
+void Character::turn(bool clockwise) {
+	switch(m_direction) {
+		case Direction::Left:
+			if(clockwise) m_direction = Direction::Up;
+			else m_direction = Direction::Down;
+			break;
+		case Direction::Right:
+			if(clockwise) m_direction = Direction::Down;
+			else m_direction = Direction::Up;
+			break;
+		case Direction::Up:
+			if(clockwise) m_direction = Direction::Right;
+			else m_direction = Direction::Left;
+			break;
+		case Direction::Down:
+			if(clockwise) m_direction = Direction::Left;
+			else m_direction = Direction::Right;
+			break;
+	}
+}
+

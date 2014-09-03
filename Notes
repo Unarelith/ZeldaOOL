@@ -15,6 +15,5 @@
 	-> Draws on-map animations
 - Add 'SceneManager'
 	-> It associates each map and its entities into a 'Scene'
-- Load each tileset tiles infos like in Asylia
-- Create a class 'Transition' and its child classes 'TransitionScrolling', 'TransitionFade', etc...
+Scrolling', 'TransitionFade', etc...
 

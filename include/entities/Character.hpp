@@ -29,6 +29,8 @@ class Character : public Sprite, public Entity {
 		
 		void draw();
 		
+		void turn(bool clockwise = true);
+		
 		enum Direction {
 			Down,
 			Right,

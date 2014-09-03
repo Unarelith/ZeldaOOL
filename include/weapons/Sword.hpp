@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  SwordState.hpp
+ *       Filename:  Sword.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  29/08/2014 16:15:43
+ *        Created:  03/09/2014 19:52:19
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,31 +15,29 @@
  *
  * =====================================================================================
  */
-#ifndef SWORDSTATE_HPP_
-#define SWORDSTATE_HPP_
+#ifndef SWORD_HPP_
+#define SWORD_HPP_
 
-#include "Keyboard.hpp"
-#include "PlayerState.hpp"
+#include "Weapon.hpp"
 
-class SwordState : public PlayerState {
+class Sword : public Weapon {
 	public:
-		SwordState();
-		~SwordState();
+		Sword();
+		~Sword();
 		
 		void update();
 		
 		void draw();
-		void drawPlayer();
-		void drawSword();
+		
+		enum State {
+			Swinging,
+			Loading,
+			Tapping,
+			SpinAttack
+		}
 		
 	private:
-		Sprite m_sword;
-		
-		u8 m_tmpDirection;
-		
-		Timer m_timer;
-		bool m_loading;
-		bool m_spinAttack;
+		State m_state;
 };
 
-#endif // SWORDSTATE_HPP_
+#endif // SWORD_HPP_
