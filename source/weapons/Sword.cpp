@@ -64,6 +64,22 @@ void Sword::update() {
 			}
 			
 			if(keyReleased && Keyboard::isKeyPressed(Keyboard::Key::A) && animationCurrentFrame(m_player.direction()) >= 4) {
+				if(Keyboard::isKeyPressed(Keyboard::Left)) {
+					m_player.setDirection(Character::Direction::Left);
+				}
+				
+				if(Keyboard::isKeyPressed(Keyboard::Right)) {
+					m_player.setDirection(Character::Direction::Right);
+				}
+				
+				if(Keyboard::isKeyPressed(Keyboard::Up)) {
+					m_player.setDirection(Character::Direction::Up);
+				}
+				
+				if(Keyboard::isKeyPressed(Keyboard::Down)) {
+					m_player.setDirection(Character::Direction::Down);
+				}
+				
 				keyReleased = false;
 				
 				Sound::Effect::swordSlash1.play();
