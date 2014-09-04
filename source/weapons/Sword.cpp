@@ -129,41 +129,23 @@ void Sword::update() {
 					m_state = State::SpinAttack;
 					
 					if(m_player.direction() == Character::Direction::Left) {
-						resetAnimation(8, 2);
-						startAnimation(8);
-						
-						m_player.resetAnimation(12, 2);
-						m_player.startAnimation(12);
-						
 						m_spinCurrentFrame = 2;
 					}
 					else if(m_player.direction() == Character::Direction::Right) {
-						resetAnimation(8, 6);
-						startAnimation(8);
-						
-						m_player.resetAnimation(12, 6);
-						m_player.startAnimation(12);
-						
 						m_spinCurrentFrame = 6;
 					}
 					else if(m_player.direction() == Character::Direction::Up) {
-						resetAnimation(8, 4);
-						startAnimation(8);
-						
-						m_player.resetAnimation(12, 4);
-						m_player.startAnimation(12);
-						
 						m_spinCurrentFrame = 4;
 					}
 					else if(m_player.direction() == Character::Direction::Down) {
-						resetAnimation(8, 0);
-						startAnimation(8);
-						
-						m_player.resetAnimation(12);
-						m_player.startAnimation(12);
-						
 						m_spinCurrentFrame = 0;
 					}
+					
+					resetAnimation(8, m_spinCurrentFrame);
+					startAnimation(8);
+					
+					m_player.startAnimation(12);
+					m_player.resetAnimation(12, m_spinCurrentFrame);
 				} else {
 					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
 				}
