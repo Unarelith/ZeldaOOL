@@ -90,14 +90,14 @@ void Sword::update() {
 			
 			break;
 		case State::Loading:
-			if(m_loadingTimer.time() > 1000 && !m_loaded) {
+			if(m_loadingTimer.time() > 650 && !m_loaded) {
 				m_loaded = true;
 				
 				Sound::Effect::swordCharge.play();
 			}
 			
 			if(!Keyboard::isKeyPressed(Keyboard::A)) {
-				//if(m_loadingTimer.time() > 1000) {
+				//if(m_loadingTimer.time() > 650) {
 				//	Sound::Effect::swordSpin.play();
 				//	
 				//	m_loaded = false;
