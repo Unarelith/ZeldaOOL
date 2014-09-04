@@ -98,6 +98,9 @@ void SwordState::drawPlayer() {
 		 || Keyboard::isKeyPressed(Keyboard::Up)
 		 || Keyboard::isKeyPressed(Keyboard::Down))) {
 		m_player.playAnimation(m_player.x(), m_player.y(), m_player.direction());
+	}
+	else if(m_sword.state() == Sword::State::SpinAttack) {
+		m_player.playAnimation(m_player.x(), m_player.y(), 12);
 	} else {
 		m_player.drawFrame(m_player.x(), m_player.y(), m_player.direction());
 	}

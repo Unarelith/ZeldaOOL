@@ -45,6 +45,9 @@ Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Dir
 	addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 40);
 	addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 40);
 	
+	// SpinAttack
+	addAnimation({20, 20, 22, 22, 23, 21, 21, 21}, 40);
+	
 	m_state = new StandingState();
 	
 	m_maxLife = 13 * 4;
