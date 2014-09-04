@@ -24,7 +24,7 @@ s16 swordPosition[4][7][2] = {
 	{{-12,   0}, {-12,  12}, {-12,  12}, { -1,  16}, { -1,  16}, { -1,  16}, { -1,  14}},
 	{{  0, -12}, { 12, -12}, { 12, -12}, { 15,   1}, { 15,   1}, { 15,   1}, { 12,   1}},
 	{{  0, -12}, {-12, -12}, {-12, -12}, {-15,   1}, {-15,   1}, {-15,   1}, {-12,   1}},
-	{{ 12,   0}, { 12, -12}, { 12, -12}, {  0, -15}, {  0, -15}, {  0, -15}, {  0, -11}}
+	{{ 12,   0}, { 12, -12}, { 12, -12}, {  0, -16}, {  0, -15}, {  0, -15}, {  0, -11}}
 };
 
 Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
@@ -35,7 +35,14 @@ Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
 	addAnimation({2, 6, 6, 10, 10, 10}, 40);
 	addAnimation({3, 7, 7, 11, 11, 11}, 40);
 	
+	addAnimation({8, 12}, 80);
+	addAnimation({9, 13}, 80);
+	addAnimation({10, 14}, 80);
+	addAnimation({11, 15}, 80);
+	
 	m_tmpDirection = 0;
+	
+	m_loaded = false;
 }
 
 Sword::~Sword() {
@@ -67,9 +74,17 @@ void Sword::update() {
 			
 			break;
 		case State::Loading:
+			if(m_loadingTimer.time() > 1000 && !m_loaded) {
+				m_loaded = true;
+				
+				Sound::Effect::swordCharge.play();
+			}
+			
 			if(!Keyboard::isKeyPressed(Keyboard::A)) {
 				//if(m_loadingTimer.time() > 1000) {
 				//	Sound::Effect::swordSpin.play();
+				//	
+				//	m_loaded = false;
 				//	
 				//	m_state = State::SpinAttack;
 				//	
@@ -100,16 +115,14 @@ void Sword::draw() {
 			
 			break;
 		case State::Loading:
-			if(m_loadingTimer.time() > 1000 && m_loadingTimer.time() % 200 > 100) {
-				setColor(sf::Color(0, 0, 0));
-			} else {
-				setColor(sf::Color(255, 255, 255));
-			}
-			
 			swordX = m_player.x() + swordPosition[m_player.direction()][6][0];
 			swordY = m_player.y() + swordPosition[m_player.direction()][6][1];
 			
-			drawFrame(swordX, swordY, m_player.direction() + 8);
+			if(!m_loaded) {
+				drawFrame(swordX, swordY, m_player.direction() + 8);
+			} else {
+				playAnimation(swordX, swordY, m_player.direction() + 4);
+			}
 			
 			break;
 		default:

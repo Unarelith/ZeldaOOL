@@ -30,6 +30,9 @@ class MovingState : public PlayerState {
 		virtual void update();
 		
 		virtual void draw();
+		
+	protected:
+		bool m_directionLocked;
 };
 
 #endif // MOVINGSTATE_HPP_

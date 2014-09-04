@@ -40,6 +40,7 @@ class PlayerState {
 		
 		StateType nextStateType() const { return m_nextStateType; };
 		void setNextStateType(StateType nextStateType) { m_nextStateType = nextStateType; }
+		void resetNextStateType() { m_nextStateType = m_stateType; }
 		
 		PlayerState *nextState();
 		

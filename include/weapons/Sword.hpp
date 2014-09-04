@@ -44,6 +44,7 @@ class Sword : public Weapon {
 		u8 m_tmpDirection;
 		
 		Timer m_loadingTimer;
+		bool m_loaded;
 };
 
 #endif // SWORD_HPP_

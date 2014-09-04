@@ -32,6 +32,8 @@ class SwordState : public MovingState {
 		void drawPlayer();
 		
 	private:
+		bool m_playerMoved;
+		
 		Sword m_sword;
 };
 

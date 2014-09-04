@@ -23,6 +23,8 @@
 MovingState::MovingState() {
 	m_stateType = StateType::TypeMoving;
 	m_nextStateType = StateType::TypeMoving;
+	
+	m_directionLocked = false;
 }
 
 MovingState::~MovingState() {
@@ -34,7 +36,7 @@ void MovingState::move() {
 		
 		if(!Keyboard::isKeyPressed(Keyboard::Up)
 		&& !Keyboard::isKeyPressed(Keyboard::Down)) {
-			m_player.setDirection(Player::Direction::Left);
+			if(!m_directionLocked) m_player.setDirection(Player::Direction::Left);
 		}
 	}
 	else if(Keyboard::isKeyPressed(Keyboard::Right)) {
@@ -42,7 +44,7 @@ void MovingState::move() {
 		
 		if(!Keyboard::isKeyPressed(Keyboard::Up)
 		&& !Keyboard::isKeyPressed(Keyboard::Down)) {
-			m_player.setDirection(Player::Direction::Right);
+			if(!m_directionLocked) m_player.setDirection(Player::Direction::Right);
 		}
 	}
 	
@@ -51,7 +53,7 @@ void MovingState::move() {
 		
 		if(!Keyboard::isKeyPressed(Keyboard::Left)
 		&& !Keyboard::isKeyPressed(Keyboard::Right)) {
-			m_player.setDirection(Player::Direction::Up);
+			if(!m_directionLocked) m_player.setDirection(Player::Direction::Up);
 		}
 	}
 	else if(Keyboard::isKeyPressed(Keyboard::Down)) {
@@ -59,7 +61,7 @@ void MovingState::move() {
 		
 		if(!Keyboard::isKeyPressed(Keyboard::Left)
 		&& !Keyboard::isKeyPressed(Keyboard::Right)) {
-			m_player.setDirection(Player::Direction::Down);
+			if(!m_directionLocked) m_player.setDirection(Player::Direction::Down);
 		}
 	}
 	

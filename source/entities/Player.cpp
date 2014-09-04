@@ -40,10 +40,10 @@ Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Dir
 	addAnimation({11, 15}, 90);
 	
 	// Using sword
-	addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, 45);
-	addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, 45);
-	addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 45);
-	addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 45);
+	addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, 40);
+	addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, 40);
+	addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 40);
+	addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 40);
 	
 	m_state = new StandingState();
 	
@@ -98,7 +98,7 @@ void Player::mapCollisions() {
 				if(i < 2 && m_vy == 0)	m_vy = 1;
 				else if(    m_vx == 0)	m_vx = 1;
 				
-				m_state->setNextStateType(PlayerState::TypeMoving);
+				m_state->resetNextStateType();
 			}
 			
 			if( MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])
@@ -106,7 +106,7 @@ void Player::mapCollisions() {
 				if(i < 2 && m_vy == 0)	m_vy = -1;
 				else if(    m_vx == 0)	m_vx = -1;
 				
-				m_state->setNextStateType(PlayerState::TypeMoving);
+				m_state->resetNextStateType();
 			}
 		}
 	}
