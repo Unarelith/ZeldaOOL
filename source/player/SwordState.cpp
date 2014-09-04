@@ -52,7 +52,7 @@ void SwordState::update() {
 			
 			m_playerMoved = true;
 		}
-		else if(m_sword.animationCurrentFrame(m_player.direction()) == 3) {
+		else if(m_sword.animationCurrentFrame(m_player.direction()) == 6) {
 			if(m_player.direction() == Character::Direction::Left) {
 				m_player.move(4, 0);
 			}
@@ -70,7 +70,7 @@ void SwordState::update() {
 		}
 	} else {
 		if((m_sword.animationCurrentFrame(m_player.direction()) != 1)
-		&& (m_sword.animationCurrentFrame(m_player.direction()) != 3)) {
+		&& (m_sword.animationCurrentFrame(m_player.direction()) != 6)) {
 			m_playerMoved = false;
 		}
 	}

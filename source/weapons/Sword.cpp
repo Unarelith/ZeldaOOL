@@ -72,7 +72,21 @@ void Sword::update() {
 				keyReleased = true;
 			}
 			
-			if(keyReleased && Keyboard::isKeyPressed(Keyboard::Key::A) && animationCurrentFrame(m_player.direction()) >= 4) {
+			if(keyReleased && Keyboard::isKeyPressed(Keyboard::Key::A)
+			&& animationCurrentFrame(m_player.direction()) >= 4) {
+				if(m_player.direction() == Character::Direction::Left) {
+					m_player.move(4, 0);
+				}
+				else if(m_player.direction() == Character::Direction::Right) {
+					m_player.move(-4, 0);
+				}
+				else if(m_player.direction() == Character::Direction::Up) {
+					m_player.move(0, 3);
+				}
+				else if(m_player.direction() == Character::Direction::Down) {
+					m_player.move(0, -3);
+				}
+				
 				if(Keyboard::isKeyPressed(Keyboard::Left)) {
 					m_player.setDirection(Character::Direction::Left);
 				}
@@ -163,7 +177,7 @@ void Sword::update() {
 				}
 			}
 			else if(m_player.direction() == Character::Direction::Down) {
-				if(animationCurrentFrame(8) == 7) {
+				if(animationAtEnd(8)) {
 					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
 				}
 			}
