@@ -1,6 +1,5 @@
 - Move 'BackgroundMusic', 'SoundEffect' from 'Sound', and move them three
   to a new folder 'audio'
-- Add 'Sword' class,
 - Add 'Enemy' pure virtual class, child of 'Character'
 - Replace sf::Clock in Application::mainLoop by 'Timer'
 - Fix transitions
@@ -16,6 +15,3 @@
 - Add 'SceneManager'
 	-> It associates each map and its entities into a 'Scene'
 Scrolling', 'TransitionFade', etc...
-
-076, 068 => 075, 082
-=> -1, 14
