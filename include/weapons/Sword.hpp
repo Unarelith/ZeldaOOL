@@ -41,10 +41,10 @@ class Sword : public Weapon {
 	private:
 		State m_state;
 		
-		u8 m_tmpDirection;
-		
 		Timer m_loadingTimer;
 		bool m_loaded;
+		
+		s8 m_spinFirstFrame;
 };
 
 #endif // SWORD_HPP_

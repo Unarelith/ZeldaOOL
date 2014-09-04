@@ -49,9 +49,9 @@ Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
 	// SpinAttack
 	addAnimation({8, 4, 10, 6, 11, 5, 9, 7, 8}, 40);
 	
-	m_tmpDirection = 0;
-	
 	m_loaded = false;
+	
+	m_spinFirstFrame = -1;
 }
 
 Sword::~Sword() {
@@ -133,6 +133,8 @@ void Sword::update() {
 						
 						m_player.resetAnimation(12, 2);
 						m_player.startAnimation(12);
+						
+						m_spinFirstFrame = 2;
 					}
 					else if(m_player.direction() == Character::Direction::Right) {
 						resetAnimation(8, 6);
@@ -140,6 +142,8 @@ void Sword::update() {
 						
 						m_player.resetAnimation(12, 6);
 						m_player.startAnimation(12);
+						
+						m_spinFirstFrame = 6;
 					}
 					else if(m_player.direction() == Character::Direction::Up) {
 						resetAnimation(8, 4);
@@ -147,6 +151,8 @@ void Sword::update() {
 						
 						m_player.resetAnimation(12, 4);
 						m_player.startAnimation(12);
+						
+						m_spinFirstFrame = 4;
 					}
 					else if(m_player.direction() == Character::Direction::Down) {
 						resetAnimation(8, 0);
@@ -154,6 +160,8 @@ void Sword::update() {
 						
 						m_player.resetAnimation(12);
 						m_player.startAnimation(12);
+						
+						m_spinFirstFrame = 0;
 					}
 				} else {
 					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
@@ -161,23 +169,29 @@ void Sword::update() {
 			}
 			break;
 		case State::SpinAttack:
+			if(animationCurrentFrame(8) == m_spinFirstFrame) {
+				break;
+			} else {
+				m_spinFirstFrame = -1;
+			}
+			
 			if(m_player.direction() == Character::Direction::Left) {
-				if(animationCurrentFrame(8) == 1) {
+				if(animationCurrentFrame(8) == 2) {
 					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
 				}
 			}
 			else if(m_player.direction() == Character::Direction::Right) {
-				if(animationCurrentFrame(8) == 5) {
+				if(animationCurrentFrame(8) == 6) {
 					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
 				}
 			}
 			else if(m_player.direction() == Character::Direction::Up) {
-				if(animationCurrentFrame(8) == 3) {
+				if(animationCurrentFrame(8) == 4) {
 					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
 				}
 			}
 			else if(m_player.direction() == Character::Direction::Down) {
-				if(animationAtEnd(8)) {
+				if(animationCurrentFrame(8) == 0) {
 					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
 				}
 			}
