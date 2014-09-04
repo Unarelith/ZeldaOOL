@@ -1,5 +1,6 @@
 - Move 'BackgroundMusic', 'SoundEffect' from 'Sound', and move them three
   to a new folder 'audio'
+- FIXME: In the original Zelda it's possible to change direction while swinging
 - Add 'Enemy' pure virtual class, child of 'Character'
 - Replace sf::Clock in Application::mainLoop by 'Timer'
 - Fix transitions
