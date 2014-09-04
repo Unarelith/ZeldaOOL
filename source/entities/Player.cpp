@@ -46,7 +46,7 @@ Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Dir
 	addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 40);
 	
 	// SpinAttack
-	addAnimation({20, 20, 22, 22, 23, 21, 21, 21}, 40);
+	addAnimation({20, 20, 22, 22, 23, 21, 21, 21}, 50);
 	
 	m_state = new StandingState();
 	

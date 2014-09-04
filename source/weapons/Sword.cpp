@@ -41,17 +41,18 @@ Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
 	addAnimation({3, 5, 5, 11, 11, 11}, 40);
 	
 	// Loading
-	addAnimation({12, 8}, 80);
-	addAnimation({13, 9}, 80);
-	addAnimation({14, 10}, 80);
-	addAnimation({15, 11}, 80);
+	addAnimation({12, 8}, 60);
+	addAnimation({13, 9}, 60);
+	addAnimation({14, 10}, 60);
+	addAnimation({15, 11}, 60);
 	
 	// SpinAttack
-	addAnimation({8, 4, 10, 6, 11, 5, 9, 7, 8}, 40);
+	addAnimation({8, 4, 10, 6, 11, 5, 9, 7}, 50);
 	
 	m_loaded = false;
 	
-	m_spinFirstFrame = -1;
+	m_spinCurrentFrame = 0;
+	m_spinFrameCounter = 0;
 }
 
 Sword::~Sword() {
@@ -134,7 +135,7 @@ void Sword::update() {
 						m_player.resetAnimation(12, 2);
 						m_player.startAnimation(12);
 						
-						m_spinFirstFrame = 2;
+						m_spinCurrentFrame = 2;
 					}
 					else if(m_player.direction() == Character::Direction::Right) {
 						resetAnimation(8, 6);
@@ -143,7 +144,7 @@ void Sword::update() {
 						m_player.resetAnimation(12, 6);
 						m_player.startAnimation(12);
 						
-						m_spinFirstFrame = 6;
+						m_spinCurrentFrame = 6;
 					}
 					else if(m_player.direction() == Character::Direction::Up) {
 						resetAnimation(8, 4);
@@ -152,7 +153,7 @@ void Sword::update() {
 						m_player.resetAnimation(12, 4);
 						m_player.startAnimation(12);
 						
-						m_spinFirstFrame = 4;
+						m_spinCurrentFrame = 4;
 					}
 					else if(m_player.direction() == Character::Direction::Down) {
 						resetAnimation(8, 0);
@@ -161,7 +162,7 @@ void Sword::update() {
 						m_player.resetAnimation(12);
 						m_player.startAnimation(12);
 						
-						m_spinFirstFrame = 0;
+						m_spinCurrentFrame = 0;
 					}
 				} else {
 					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
@@ -169,29 +170,18 @@ void Sword::update() {
 			}
 			break;
 		case State::SpinAttack:
-			if(animationCurrentFrame(8) == m_spinFirstFrame) {
-				break;
+			if(m_spinFrameCounter < 9) {
+				if(m_spinCurrentFrame != animationCurrentFrame(8)) {
+					m_spinCurrentFrame = animationCurrentFrame(8);
+					
+					m_spinFrameCounter++;
+				}
 			} else {
-				m_spinFirstFrame = -1;
-			}
-			
-			if(m_player.direction() == Character::Direction::Left) {
-				if(animationCurrentFrame(8) == 2) {
-					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
-				}
-			}
-			else if(m_player.direction() == Character::Direction::Right) {
-				if(animationCurrentFrame(8) == 6) {
-					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
-				}
-			}
-			else if(m_player.direction() == Character::Direction::Up) {
-				if(animationCurrentFrame(8) == 4) {
-					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
-				}
-			}
-			else if(m_player.direction() == Character::Direction::Down) {
-				if(animationCurrentFrame(8) == 0) {
+				m_animations[8].timer.stop();
+				
+				m_spinTimer.start();
+				
+				if(m_spinTimer.time() >= m_animations[8].delay) {
 					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
 				}
 			}
