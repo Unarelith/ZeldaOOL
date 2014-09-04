@@ -163,7 +163,7 @@ void Sword::update() {
 				}
 			}
 			else if(m_player.direction() == Character::Direction::Down) {
-				if(animationAtEnd(8)) {
+				if(animationCurrentFrame(8) == 7) {
 					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
 				}
 			}
