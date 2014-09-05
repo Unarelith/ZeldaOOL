@@ -45,7 +45,7 @@ class Map : public sf::Drawable, public sf::Transformable {
 			ButtonPressed
 		};
 		
-		void sendEvent(EventType event);
+		void sendEvent(EventType event, Entity *e = nullptr);
 		
 		Tileset tileset() const { return m_tileset; }
 		

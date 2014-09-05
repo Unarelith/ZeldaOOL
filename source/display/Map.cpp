@@ -153,10 +153,12 @@ void Map::setTile(u16 tileX, u16 tileY, u16 tile) {
 	}
 }
 
-void Map::sendEvent(EventType event) {
+void Map::sendEvent(EventType event, Entity *e) {
+	if(!e) e = &CharacterManager::player;
+	
 	for(auto &it : m_objects) {
-		if((floor(it.x() / 16) == floor((CharacterManager::player.x() + 6) / 16))
-		&& (floor(it.y() / 16) == floor((CharacterManager::player.y() + 11) / 16))) {
+		if((floor(it.x() / 16) == floor((e->x() + 6) / 16))
+		&& (floor(it.y() / 16) == floor((e->y() + 11) / 16))) {
 			it.onEvent(event);
 			
 			break;

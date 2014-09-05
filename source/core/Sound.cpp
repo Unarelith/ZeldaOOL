@@ -21,6 +21,8 @@ BackgroundMusic Sound::Music::plain;
 
 SoundEffect Sound::Effect::chest;
 
+SoundEffect Sound::Effect::grassDestroy;
+
 SoundEffect Sound::Effect::swordCharge;
 SoundEffect Sound::Effect::swordSlash1;
 SoundEffect Sound::Effect::swordSpin;
@@ -38,6 +40,8 @@ void Sound::Music::init() {
 
 void Sound::Effect::init() {
 	chest.load("audio/effects/chest.wav");
+	
+	grassDestroy.load("audio/effects/grassDestroy.wav");
 	
 	swordCharge.load("audio/effects/swordCharge.wav");
 	swordSlash1.load("audio/effects/swordSlash1.wav");

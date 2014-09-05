@@ -24,6 +24,18 @@ bool Sprite::pause = false;
 Sprite::Sprite() {
 }
 
+Sprite::Sprite(const Sprite &sprite) : Image(sprite) {
+	load(sprite.m_filename, sprite.m_frameWidth, sprite.m_frameHeight);
+	
+	for(auto &it : sprite.m_animations) {
+		m_animations.push_back(SpriteAnimation(it.delay));
+		
+		for(auto &it2 : it.frames) {
+			m_animations.back().frames.push_back(u16(it2));
+		}
+	}
+}
+
 Sprite::Sprite(std::string filename, u16 frameWidth, u16 frameHeight) {
 	load(filename, frameWidth, frameHeight);
 }

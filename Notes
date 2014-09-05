@@ -1,4 +1,4 @@
-- Link moves during spin attack
+- When 'transitioning' when loading sword, the sword isn't displayed at the right place
 - Move 'BackgroundMusic', 'SoundEffect' from 'Sound', and move them three
   to a new folder 'audio'
 - Add 'Enemy' pure virtual class, child of 'Character'
@@ -15,4 +15,4 @@
 	-> Draws on-map animations
 - Add 'SceneManager'
 	-> It associates each map and its entities into a 'Scene'
-Scrolling', 'TransitionFade', etc...
+- Add 'Transition' pure virtual class, and its children 'TransitionScrolling', 'TransitionFade', etc...

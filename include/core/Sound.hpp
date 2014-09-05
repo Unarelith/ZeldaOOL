@@ -77,6 +77,8 @@ namespace Sound {
 		
 		extern SoundEffect chest;
 		
+		extern SoundEffect grassDestroy;
+		
 		extern SoundEffect swordCharge;
 		extern SoundEffect swordSlash1;
 		extern SoundEffect swordSpin;

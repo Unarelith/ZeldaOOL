@@ -23,6 +23,7 @@
 #include "Application.hpp"
 #include "CharacterManager.hpp"
 #include "EffectManager.hpp"
+#include "AnimationManager.hpp"
 #include "MapEventManager.hpp"
 #include "MapState.hpp"
 
@@ -37,6 +38,8 @@ MapState::MapState(State *parent) : State(parent) {
 	MapManager::init();
 	
 	EffectManager::init();
+	
+	AnimationManager::init();
 	
 	Object button(7, 2);
 	
@@ -134,6 +137,8 @@ void MapState::render() {
 	|| m_mode == Mode::ScrollingDown) {
 		if(m_nextMap) m_nextMap->draw();
 	}
+	
+	AnimationManager::playAnimations();
 	
 	Application::window.setView(Application::window.getDefaultView());
 	

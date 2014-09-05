@@ -26,6 +26,7 @@
 class Sprite : public Image {
 	public:
 		Sprite();
+		Sprite(const Sprite &sprite);
 		Sprite(std::string filename, u16 frameWidth, u16 frameHeight);
 		~Sprite();
 		

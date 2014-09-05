@@ -18,6 +18,7 @@
 #include "Sound.hpp"
 #include "Keyboard.hpp"
 #include "EffectManager.hpp"
+#include "AnimationManager.hpp"
 #include "TilesData.hpp"
 #include "MapHelper.hpp"
 #include "MapManager.hpp"
@@ -110,9 +111,14 @@ void SwordState::update() {
 		move();
 	}
 	
-	if(m_sword.state() == Sword::State::Swinging) {
+	if((m_sword.state() == Sword::State::Swinging && m_sword.animationCurrentFrame(m_player.direction()) > 0)
+	|| (m_sword.state() == Sword::State::SpinAttack && m_sword.animationCurrentFrame(8) & 1)) {
 		if((MapHelper::isTile(m_sword.x() + 8, m_sword.y() + 8, TilesData::TileType::GrassTile))
 		|| (MapHelper::isTile(m_sword.x() + 8, m_sword.y() + 8, TilesData::TileType::LowGrassTile))) {
+			Sound::Effect::grassDestroy.play();
+			
+			AnimationManager::addGrassDestroyAnimation((m_sword.x() + 8) / 16, (m_sword.y() + 8) / 16);
+			
 			MapManager::currentMap->setTile((m_sword.x() + 8) / 16, (m_sword.y() + 8) / 16 - 1, 36);
 		}
 	}

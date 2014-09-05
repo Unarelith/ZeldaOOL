@@ -21,6 +21,10 @@
 Image::Image() {
 }
 
+Image::Image(const Image &image) {
+	load(image.m_filename);
+}
+
 Image::Image(std::string filename) {
 	load(filename);
 }
@@ -29,6 +33,8 @@ Image::~Image() {
 }
 
 void Image::load(std::string filename) {
+	m_filename = filename;
+	
 	m_texture.loadFromFile(filename);
 	
 	m_image.setTexture(m_texture);

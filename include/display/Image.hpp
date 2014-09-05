@@ -27,6 +27,7 @@
 class Image {
 	public:
 		Image();
+		Image(const Image &image);
 		Image(std::string filename);
 		~Image();
 		
@@ -41,6 +42,8 @@ class Image {
 		sf::Texture getTexture() const { return m_texture; }
 		
 	protected:
+		std::string m_filename;
+		
 		sf::Sprite m_image;
 		
 	private:
