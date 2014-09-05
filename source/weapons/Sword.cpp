@@ -185,36 +185,43 @@ void Sword::update() {
 		default:
 			break;
 	}
-}
-
-void Sword::draw() {
-	s16 swordX, swordY;
 	
 	switch(m_state) {
 		case State::Swinging:
-			swordX = m_player.x() + swordPosition[m_player.direction()][animationCurrentFrame(m_player.direction())][0];
-			swordY = m_player.y() + swordPosition[m_player.direction()][animationCurrentFrame(m_player.direction())][1];
-			
-			playAnimation(swordX, swordY, m_player.direction());
+			m_x = m_player.x() + swordPosition[m_player.direction()][animationCurrentFrame(m_player.direction())][0];
+			m_y = m_player.y() + swordPosition[m_player.direction()][animationCurrentFrame(m_player.direction())][1];
 			
 			break;
 		case State::Loading:
-			swordX = m_player.x() + swordPosition[m_player.direction()][6][0];
-			swordY = m_player.y() + swordPosition[m_player.direction()][6][1];
+			m_x = m_player.x() + swordPosition[m_player.direction()][6][0];
+			m_y = m_player.y() + swordPosition[m_player.direction()][6][1];
 			
+			break;
+		case State::SpinAttack:
+			m_x = m_player.x() + spinAttackPosition[animationCurrentFrame(8)][0];
+			m_y = m_player.y() + spinAttackPosition[animationCurrentFrame(8)][1];
+			
+			break;
+		default:
+			break;
+	}
+}
+
+void Sword::draw() {
+	switch(m_state) {
+		case State::Swinging:
+			playAnimation(m_x, m_y, m_player.direction());
+			break;
+		case State::Loading:
 			if(!m_loaded) {
-				drawFrame(swordX, swordY, m_player.direction() + 8);
+				drawFrame(m_x, m_y, m_player.direction() + 8);
 			} else {
-				playAnimation(swordX, swordY, m_player.direction() + 4);
+				playAnimation(m_x, m_y, m_player.direction() + 4);
 			}
 			
 			break;
 		case State::SpinAttack:
-			swordX = m_player.x() + spinAttackPosition[animationCurrentFrame(8)][0];
-			swordY = m_player.y() + spinAttackPosition[animationCurrentFrame(8)][1];
-			
-			playAnimation(swordX, swordY, 8);
-			
+			playAnimation(m_x, m_y, 8);
 			break;
 		default:
 			break;

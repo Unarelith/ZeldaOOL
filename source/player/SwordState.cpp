@@ -18,6 +18,9 @@
 #include "Sound.hpp"
 #include "Keyboard.hpp"
 #include "EffectManager.hpp"
+#include "TilesData.hpp"
+#include "MapHelper.hpp"
+#include "MapManager.hpp"
 #include "SwordState.hpp"
 
 SwordState::SwordState() {
@@ -105,6 +108,13 @@ void SwordState::update() {
 		m_directionLocked = true;
 		
 		move();
+	}
+	
+	if(m_sword.state() == Sword::State::Swinging) {
+		if((MapHelper::isTile(m_sword.x() + 8, m_sword.y() + 8, TilesData::TileType::GrassTile))
+		|| (MapHelper::isTile(m_sword.x() + 8, m_sword.y() + 8, TilesData::TileType::LowGrassTile))) {
+			MapManager::currentMap->setTile((m_sword.x() + 8) / 16, (m_sword.y() + 8) / 16 - 1, 36);
+		}
 	}
 }
 
