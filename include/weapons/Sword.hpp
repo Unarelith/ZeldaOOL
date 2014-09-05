@@ -38,6 +38,8 @@ class Sword : public Weapon {
 		
 		State state() const { return m_state; }
 		
+		s8 spinFrameCounter() const { return m_spinFrameCounter; }
+		
 	private:
 		State m_state;
 		

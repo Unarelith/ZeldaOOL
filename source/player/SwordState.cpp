@@ -32,45 +32,71 @@ SwordState::SwordState() {
 SwordState::~SwordState() {
 }
 
+void SwordState::movePlayer(u8 direction, bool forward) {
+	if(direction == Character::Direction::Left) {
+		if(forward) m_player.move(-4, 0);
+		else		m_player.move(4, 0);
+	}
+	else if(direction == Character::Direction::Right) {
+		if(forward) m_player.move(4, 0);
+		else		m_player.move(-4, 0);
+	}
+	else if(direction == Character::Direction::Up) {
+		if(forward) m_player.move(0, -3);
+		else		m_player.move(0, 3);
+	}
+	else if(direction == Character::Direction::Down) {
+		if(forward) m_player.move(0, 3);
+		else		m_player.move(0, -3);
+	}
+	
+	m_playerMoved = true;
+}
+
 void SwordState::update() {
 	m_sword.update();
-	
-	if(!m_playerMoved) {
-		if(m_sword.animationCurrentFrame(m_player.direction()) == 1) {
-			if(m_player.direction() == Character::Direction::Left) {
-				m_player.move(-4, 0);
+	if(m_sword.state() != Sword::State::SpinAttack) {
+		if(!m_playerMoved) {
+			if(m_sword.animationCurrentFrame(m_player.direction()) == 1) {
+				movePlayer(m_player.direction());
 			}
-			else if(m_player.direction() == Character::Direction::Right) {
-				m_player.move(4, 0);
+			else if(m_sword.animationCurrentFrame(m_player.direction()) == 6) {
+				movePlayer(m_player.direction(), false);
 			}
-			else if(m_player.direction() == Character::Direction::Up) {
-				m_player.move(0, -3);
-			}
-			else if(m_player.direction() == Character::Direction::Down) {
-				m_player.move(0, 3);
-			}
-			
-			m_playerMoved = true;
 		}
-		else if(m_sword.animationCurrentFrame(m_player.direction()) == 6) {
-			if(m_player.direction() == Character::Direction::Left) {
-				m_player.move(4, 0);
-			}
-			else if(m_player.direction() == Character::Direction::Right) {
-				m_player.move(-4, 0);
-			}
-			else if(m_player.direction() == Character::Direction::Up) {
-				m_player.move(0, 3);
-			}
-			else if(m_player.direction() == Character::Direction::Down) {
-				m_player.move(0, -3);
-			}
-			
-			m_playerMoved = true;
+		else if((m_sword.animationCurrentFrame(m_player.direction()) != 1)
+			 && (m_sword.animationCurrentFrame(m_player.direction()) != 6)) {
+			m_playerMoved = false;
 		}
 	} else {
-		if((m_sword.animationCurrentFrame(m_player.direction()) != 1)
-		&& (m_sword.animationCurrentFrame(m_player.direction()) != 6)) {
+		if(!m_playerMoved && !(m_sword.animationCurrentFrame(8) & 1)) {
+			u8 prevMovementDirection = 0;
+			u8 movementDirection = 0;
+			
+			if(m_sword.animationCurrentFrame(8) % 8 == 0) {
+				prevMovementDirection = Player::Direction::Right;
+				movementDirection = Player::Direction::Down;
+			}
+			else if(m_sword.animationCurrentFrame(8) % 8 == 2) {
+				prevMovementDirection = Player::Direction::Down;
+				movementDirection = Player::Direction::Left;
+			}
+			else if(m_sword.animationCurrentFrame(8) % 8 == 4) {
+				prevMovementDirection = Player::Direction::Left;
+				movementDirection = Player::Direction::Up;
+			}
+			else if(m_sword.animationCurrentFrame(8) % 8 == 6) {
+				prevMovementDirection = Player::Direction::Up;
+				movementDirection = Player::Direction::Right;
+			}
+			
+			if(m_sword.spinFrameCounter() != 0) {
+				movePlayer(prevMovementDirection, false);
+			}
+			
+			movePlayer(movementDirection);
+		}
+		else if(m_sword.animationCurrentFrame(8) & 1) {
 			m_playerMoved = false;
 		}
 	}

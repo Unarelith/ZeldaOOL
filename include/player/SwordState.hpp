@@ -26,6 +26,8 @@ class SwordState : public MovingState {
 		SwordState();
 		~SwordState();
 		
+		void movePlayer(u8 direction, bool forward = true);
+		
 		void update();
 		
 		void draw();

@@ -144,8 +144,8 @@ void Sword::update() {
 					resetAnimation(8, m_spinCurrentFrame);
 					startAnimation(8);
 					
-					m_player.startAnimation(12);
 					m_player.resetAnimation(12, m_spinCurrentFrame);
+					m_player.startAnimation(12);
 				} else {
 					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
 				}
@@ -164,6 +164,19 @@ void Sword::update() {
 				m_spinTimer.start();
 				
 				if(m_spinTimer.time() >= m_animations[8].delay) {
+					if(m_player.direction() == Character::Direction::Left) {
+						m_player.move(4, 0);
+					}
+					else if(m_player.direction() == Character::Direction::Right) {
+						m_player.move(-4, 0);
+					}
+					else if(m_player.direction() == Character::Direction::Up) {
+						m_player.move(0, 3);
+					}
+					else if(m_player.direction() == Character::Direction::Down) {
+						m_player.move(0, -3);
+					}
+					
 					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
 				}
 			}
