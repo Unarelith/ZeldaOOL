@@ -59,6 +59,7 @@ void SwordState::movePlayer(u8 direction, bool forward) {
 
 void SwordState::update() {
 	m_sword.update();
+	
 	if(m_sword.state() != Sword::State::SpinAttack) {
 		if(!m_playerMoved) {
 			if(m_sword.animationCurrentFrame(m_player.direction()) == 1) {

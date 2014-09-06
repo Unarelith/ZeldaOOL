@@ -72,9 +72,7 @@ void Sword::update() {
 			if(!Keyboard::isKeyPressed(Keyboard::Key::A)) {
 				keyReleased = true;
 			}
-			
-			if(keyReleased && Keyboard::isKeyPressed(Keyboard::Key::A)
-			&& animationCurrentFrame(m_player.direction()) >= 4) {
+			else if(keyReleased && animationCurrentFrame(m_player.direction()) >= 4) {
 				if(m_player.direction() == Character::Direction::Left) {
 					m_player.move(4, 0);
 				}
