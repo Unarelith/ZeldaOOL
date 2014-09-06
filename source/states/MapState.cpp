@@ -48,8 +48,8 @@ MapState::MapState(State *parent) : State(parent) {
 		
 		MapManager::currentMap->setTile(obj->x() / 16, obj->y() / 16 - 1, 8);
 		
-		MapManager::currentMap->setTile(7, 7, 36);
-		MapManager::currentMap->setTile(8, 7, 36);
+		MapManager::currentMap->setTile(7, 6, 36);
+		MapManager::currentMap->setTile(8, 6, 36);
 	});
 	
 	MapManager::currentMap->addObject(button);
