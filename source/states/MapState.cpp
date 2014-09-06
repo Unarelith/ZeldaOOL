@@ -64,6 +64,7 @@ void MapState::scrollMaps(double vx, double vy) {
 	if(!m_nextMap) {
 		m_nextMap = &MapManager::maps[MapManager::currentMap->area()][MapManager::currentMap->x() + vx + (MapManager::currentMap->y() + vy) * sqrt(MapManager::maps[MapManager::currentMap->area()].size())];
 		
+		m_nextMap->resetTiles();
 		m_nextMap->update();
 		m_nextMap->setPosition(MapManager::currentMap->width() * 16 * vx, MapManager::currentMap->height() * 16 * vy);
 		

@@ -68,6 +68,10 @@ bool Map::load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
 	return true;
 }
 
+void Map::resetTiles() {
+	m_data = m_baseData;
+}
+
 void Map::updateTile(s16 x, s16 y) {
 	s16 tileNb = m_data[x + (y - 1) * m_width];
 	

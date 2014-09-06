@@ -30,6 +30,8 @@ class Map : public sf::Drawable, public sf::Transformable {
 		
 		bool load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y);
 		
+		void resetTiles();
+		
 		void updateTile(s16 x, s16 y);
 		void update(s16 offsetX = 0, s16 offsetY = 0);
 		
