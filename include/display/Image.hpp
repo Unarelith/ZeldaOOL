@@ -27,7 +27,6 @@
 class Image {
 	public:
 		Image();
-		Image(const Image &image);
 		Image(std::string filename);
 		~Image();
 		

@@ -1,3 +1,6 @@
+- Need to fix:
+	-> Double sword attack bug
+	-> Sword/Map collisions
 - When 'transitioning' when loading sword, the sword isn't displayed at the right place
 - Move 'BackgroundMusic', 'SoundEffect' from 'Sound', and move them three
   to a new folder 'audio'
