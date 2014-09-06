@@ -22,7 +22,12 @@ Image::Image() {
 }
 
 Image::Image(const Image &image) {
-	load(image.m_filename);
+	m_filename = image.m_filename;
+	
+	m_texture = sf::Texture(image.m_texture);
+	
+	m_image.setTexture(m_texture);
+	setClipRect(0, 0, width(), height());
 }
 
 Image::Image(std::string filename) {

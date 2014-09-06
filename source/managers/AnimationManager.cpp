@@ -27,16 +27,12 @@ void AnimationManager::init() {
 }
 
 void AnimationManager::playAnimations() {
-	u16 i = 0;
-	
-	for(auto &it : anims) {
-		if(!it.first.animationAtEnd(0)) {
-			it.first.playAnimation(it.second.x, it.second.y, 0);
+	for(s16 i = 0 ; i < (s16)anims.size() ; i++) {
+		if(!anims[i].first.animationAtEnd(0)) {
+			anims[i].first.playAnimation(anims[i].second.x, anims[i].second.y, 0);
 		} else {
-			anims.erase(anims.begin() + i);
+			anims.erase(anims.begin() + i--);
 		}
-		
-		i++;
 	}
 }
 

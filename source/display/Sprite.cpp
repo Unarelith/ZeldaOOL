@@ -25,7 +25,12 @@ Sprite::Sprite() {
 }
 
 Sprite::Sprite(const Sprite &sprite) : Image(sprite) {
-	load(sprite.m_filename, sprite.m_frameWidth, sprite.m_frameHeight);
+	m_frameWidth = sprite.m_frameWidth;
+	m_frameHeight = sprite.m_frameHeight;
+	
+	m_lastFrameDisplayed = sprite.m_lastFrameDisplayed;
+	
+	m_currentAnimation = sprite.m_currentAnimation;
 	
 	for(auto &it : sprite.m_animations) {
 		m_animations.push_back(SpriteAnimation(it.delay));
