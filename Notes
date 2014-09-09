@@ -1,7 +1,6 @@
+- Fix grassDestroy animation
 - Move 'BackgroundMusic', 'SoundEffect' from 'Sound', and move them three to a new folder 'audio'
 - Add 'Enemy' pure virtual class, child of 'Character'
-- Fix transitions
-	-> Smoother transitions (speed >>>> and <<<<<)
 - Fix 'moonwalk' bug
 - Should write a class "Scene":
 	=> Represents the current map
@@ -13,3 +12,4 @@
 - Add 'SceneManager'
 	-> It associates each map and its entities into a 'Scene'
 - Add 'Transition' pure virtual class, and its children 'TransitionScrolling', 'TransitionFade', etc...
+- Improve 'TransitionScrolling' to be closer to the original game
