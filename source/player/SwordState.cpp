@@ -117,7 +117,7 @@ void SwordState::update() {
 		MovingState::move();
 	}
 	
-	if((m_sword.state() == Sword::State::Swinging && m_sword.animationCurrentFrame(m_player.direction()) > 1)
+	if((m_sword.state() == Sword::State::Swinging && m_sword.animationCurrentFrame(m_player.direction()) > 2)
 	||  m_sword.state() == Sword::State::SpinAttack) {
 		if((MapHelper::isTile(m_sword.x() + 8, m_sword.y() + 8, TilesData::TileType::GrassTile))
 		|| (MapHelper::isTile(m_sword.x() + 8, m_sword.y() + 8, TilesData::TileType::LowGrassTile))) {
