@@ -20,6 +20,8 @@
 #include "PlayerState.hpp"
 #include "Sword.hpp"
 
+#include "Debug.hpp"
+
 s16 swordPosition[4][7][2] = {
 	{{-15,   0}, {-13,  15}, {-13,  15}, { -1,  16}, { -1,  16}, { -1,  16}, { -1,  14}},
 	{{ -5, -15}, {  8, -12}, {  8, -12}, { 15,   1}, { 15,   1}, { 15,   1}, { 12,   1}},
@@ -53,6 +55,8 @@ Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
 	
 	m_spinCurrentFrame = 0;
 	m_spinFrameCounter = 0;
+	
+	m_keyReleased = false;
 }
 
 Sword::~Sword() {
@@ -68,11 +72,10 @@ void Sword::update() {
 				m_loadingTimer.start();
 			}
 			
-			static bool keyReleased = false;
 			if(!Keyboard::isKeyPressed(Keyboard::Key::A)) {
-				keyReleased = true;
+				m_keyReleased = true;
 			}
-			else if(keyReleased && animationCurrentFrame(m_player.direction()) >= 4) {
+			else if(m_keyReleased && animationCurrentFrame(m_player.direction()) >= 4) {
 				if(m_player.direction() == Character::Direction::Left) {
 					m_player.move(4, 0);
 				}
@@ -102,7 +105,7 @@ void Sword::update() {
 					m_player.setDirection(Character::Direction::Down);
 				}
 				
-				keyReleased = false;
+				m_keyReleased = false;
 				
 				Sound::Effect::swordSlash1.play();
 				

@@ -49,6 +49,8 @@ class Sword : public Weapon {
 		Timer m_spinTimer;
 		s8 m_spinCurrentFrame;
 		s8 m_spinFrameCounter;
+		
+		bool m_keyReleased;
 };
 
 #endif // SWORD_HPP_

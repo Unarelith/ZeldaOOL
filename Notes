@@ -1,5 +1,6 @@
 - Need to fix:
 	-> Sword/Map collisions
+	-> Pressing 'x' at the beginning of the game makes the animation strange
 - Move 'BackgroundMusic', 'SoundEffect' from 'Sound', and move them three to a new folder 'audio'
 - Add 'Enemy' pure virtual class, child of 'Character'
 - Fix transitions
