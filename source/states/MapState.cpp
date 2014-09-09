@@ -84,17 +84,19 @@ void MapState::update() {
 		
 		MapEventManager::update();
 		
-		if(CharacterManager::player.x() < -3) {
-			m_mode = Mode::ScrollingLeft;
-		}
-		else if(CharacterManager::player.x() + 13 > MapManager::currentMap->width() * 16) {
-			m_mode = Mode::ScrollingRight;
-		}
-		else if(CharacterManager::player.y() < 15) {
-			m_mode = Mode::ScrollingUp;
-		}
-		else if(CharacterManager::player.y() + 15 > MapManager::currentMap->height() * 16 + 16) {
-			m_mode = Mode::ScrollingDown;
+		if(CharacterManager::player.currentState()->stateType() == PlayerState::StateType::TypeMoving) {
+			if(CharacterManager::player.x() < -3) {
+				m_mode = Mode::ScrollingLeft;
+			}
+			else if(CharacterManager::player.x() + 13 > MapManager::currentMap->width() * 16) {
+				m_mode = Mode::ScrollingRight;
+			}
+			else if(CharacterManager::player.y() < 15) {
+				m_mode = Mode::ScrollingUp;
+			}
+			else if(CharacterManager::player.y() + 15 > MapManager::currentMap->height() * 16 + 16) {
+				m_mode = Mode::ScrollingDown;
+			}
 		}
 	}
 	
