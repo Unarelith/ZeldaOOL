@@ -34,6 +34,8 @@ class Player : public Character {
 		
 		void setNextStateType(PlayerState::StateType nextType);
 		
+		PlayerState *currentState() const { return m_state; }
+		
 		u8 maxLife() const { return m_maxLife; }
 		u8 life() const { return m_life; }
 		

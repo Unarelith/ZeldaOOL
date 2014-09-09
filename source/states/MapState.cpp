@@ -71,7 +71,7 @@ void MapState::scrollMaps(double vx, double vy) {
 		Sprite::pause = true;
 	}
 	
-	CharacterManager::player.move(270 * -vx * TimeManager::dt, 235 * -vy * TimeManager::dt);
+	CharacterManager::player.currentState()->move(270 * -vx * TimeManager::dt, 235 * -vy * TimeManager::dt);
 	m_mapView.move(300 * vx * TimeManager::dt, 280 * vy * TimeManager::dt);
 	
 	if(vx != 0) m_scrolled += TimeManager::dt * 300.0f;

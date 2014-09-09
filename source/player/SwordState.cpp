@@ -36,6 +36,11 @@ SwordState::SwordState() {
 SwordState::~SwordState() {
 }
 
+void SwordState::move(double dx, double dy) {
+	m_player.move(dx, dy);
+	m_sword.move(dx, dy);
+}
+
 void SwordState::movePlayer(u8 direction, bool forward) {
 	if(direction == Character::Direction::Left) {
 		if(forward) m_player.move(-4, 0);
@@ -109,7 +114,7 @@ void SwordState::update() {
 	if(m_sword.state() == Sword::State::Loading) {
 		m_directionLocked = true;
 		
-		move();
+		MovingState::move();
 	}
 	
 	if((m_sword.state() == Sword::State::Swinging && m_sword.animationCurrentFrame(m_player.direction()) > 0)

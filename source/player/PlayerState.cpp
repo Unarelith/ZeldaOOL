@@ -26,6 +26,10 @@ PlayerState::PlayerState() : m_player(CharacterManager::player) {
 PlayerState::~PlayerState() {
 }
 
+void PlayerState::move(double dx, double dy) {
+	((Entity*)(&m_player))->move(dx, dy);
+}
+
 PlayerState *PlayerState::nextState() {
 	PlayerState *currentState;
 	

@@ -25,6 +25,8 @@ class PlayerState {
 		PlayerState();
 		virtual ~PlayerState();
 		
+		virtual void move(double dx, double dy);
+		
 		virtual void update() = 0;
 		
 		virtual void draw() = 0;

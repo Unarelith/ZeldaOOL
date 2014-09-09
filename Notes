@@ -1,10 +1,7 @@
 - Need to fix:
 	-> Sword/Map collisions
-	-> When 'transitioning' when loading sword, the sword isn't displayed at the right place
-- Move 'BackgroundMusic', 'SoundEffect' from 'Sound', and move them three
-  to a new folder 'audio'
+- Move 'BackgroundMusic', 'SoundEffect' from 'Sound', and move them three to a new folder 'audio'
 - Add 'Enemy' pure virtual class, child of 'Character'
-- Replace sf::Clock in Application::mainLoop by 'Timer'
 - Fix transitions
 	-> Smoother transitions (speed >>>> and <<<<<)
 - Fix 'moonwalk' bug
