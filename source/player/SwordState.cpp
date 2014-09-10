@@ -63,6 +63,12 @@ void SwordState::movePlayer(u8 direction, bool forward) {
 }
 
 void SwordState::update() {
+	if(m_sword.state() == Sword::State::Loading) {
+		m_directionLocked = true;
+		
+		MovingState::move();
+	}
+	
 	m_sword.update();
 	
 	if(m_sword.state() != Sword::State::SpinAttack) {
@@ -109,12 +115,6 @@ void SwordState::update() {
 		else if(m_sword.animationCurrentFrame(8) & 1) {
 			m_playerMoved = false;
 		}
-	}
-	
-	if(m_sword.state() == Sword::State::Loading) {
-		m_directionLocked = true;
-		
-		MovingState::move();
 	}
 	
 	if((m_sword.state() == Sword::State::Swinging && m_sword.animationCurrentFrame(m_player.direction()) > 2)
