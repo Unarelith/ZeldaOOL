@@ -1,5 +1,4 @@
 - Fix grassDestroy animation
-- Move 'BackgroundMusic', 'SoundEffect' from 'Sound', and move them three to a new folder 'audio'
 - Add 'Enemy' pure virtual class, child of 'Character'
 - Fix 'moonwalk' bug
 - Should write a class "Scene":

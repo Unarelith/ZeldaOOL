@@ -18,50 +18,8 @@
 #ifndef SOUND_HPP_
 #define SOUND_HPP_
 
-#include <SFML/Audio.hpp>
-
-class BackgroundMusic {
-	public:
-		BackgroundMusic() {}
-		BackgroundMusic(std::string filename) {
-			open(filename);
-		}
-		~BackgroundMusic() {}
-		
-		void open(std::string filename) {
-			m_music.openFromFile(filename);
-			m_music.setLoop(true);
-		}
-		
-		void play() {
-			m_music.play();
-		}
-		
-	private:
-		sf::Music m_music;
-};
-
-class SoundEffect {
-	public:
-		SoundEffect() {}
-		SoundEffect(std::string filename) {
-			load(filename);
-		}
-		~SoundEffect() {}
-		
-		void load(std::string filename) {
-			m_buffer.loadFromFile(filename);
-			m_sfx.setBuffer(m_buffer);
-		}
-		
-		void play() {
-			m_sfx.play();
-		}
-		
-	private:
-		sf::SoundBuffer m_buffer;
-		sf::Sound m_sfx;
-};
+#include "BackgroundMusic.hpp"
+#include "SoundEffect.hpp"
 
 namespace Sound {
 	void init();

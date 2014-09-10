@@ -6,7 +6,7 @@ TARGET		:=  $(shell basename $(CURDIR))
 #---------------------------------------------------------------------------------
 # Source sub-folders
 #---------------------------------------------------------------------------------
-SUBFOLDERS	:=	core data display entities helpers interface \
+SUBFOLDERS	:=	audio core data display entities helpers interface \
 				managers objects player states weapons
 
 #---------------------------------------------------------------------------------
