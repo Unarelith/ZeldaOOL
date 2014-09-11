@@ -222,6 +222,7 @@ void Sword::draw() {
 			
 			break;
 		case State::SpinAttack:
+			debug("Frame displayed: %d", animationCurrentFrame(8));
 			playAnimation(m_x, m_y, 8);
 			break;
 		default:
