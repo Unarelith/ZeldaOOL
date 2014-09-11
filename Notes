@@ -1,3 +1,6 @@
+- Player can move out of the maps when sword is loading
+	=> virtual bool PlayerState::canStartMapTransition();
+- It's possible to attack during spin attack
 - Fix grassDestroy animation
 - Add 'Enemy' pure virtual class, child of 'Character'
 - Fix 'moonwalk' bug
