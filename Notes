@@ -1,5 +1,6 @@
 - Player can move out of the maps when sword is loading
 	=> virtual bool PlayerState::canStartMapTransition();
+- Sometimes, when spamming 'X' key at game start, the attack animation plays more than one time
 - It's possible to attack during spin attack
 - Fix grassDestroy animation
 - Add 'Enemy' pure virtual class, child of 'Character'
