@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Application.hpp
+ *       Filename:  GameState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:46:31
+ *        Created:  15/09/2014 00:16:41
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,24 +15,17 @@
  *
  * =====================================================================================
  */
-#ifndef APPLICATION_HPP_
-#define APPLICATION_HPP_
+#ifndef GAMESTATE_HPP_
+#define GAMESTATE_HPP_
 
-#include "GameWindow.hpp"
-
-class Application {
+class GameState {
 	public:
-		Application();
-		~Application();
+		GameState();
+		virtual ~GameState();
 		
-		void handleEvents();
+		virtual void update() = 0;
 		
-		void run();
-		
-		static bool quit;
-		
-	private:
-		GameWindow m_window;
+		virtual void render() = 0;
 };
 
-#endif // APPLICATION_HPP_
+#endif // GAMESTATE_HPP_

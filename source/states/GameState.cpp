@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Application.hpp
+ *       Filename:  GameState.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:46:31
+ *        Created:  15/09/2014 00:17:06
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,24 +15,13 @@
  *
  * =====================================================================================
  */
-#ifndef APPLICATION_HPP_
-#define APPLICATION_HPP_
+#include "Application.hpp"
+#include "GameState.hpp"
+#include "SDLHeaders.hpp"
 
-#include "GameWindow.hpp"
+GameState::GameState() {
+}
 
-class Application {
-	public:
-		Application();
-		~Application();
-		
-		void handleEvents();
-		
-		void run();
-		
-		static bool quit;
-		
-	private:
-		GameWindow m_window;
-};
+GameState::~GameState() {
+}
 
-#endif // APPLICATION_HPP_

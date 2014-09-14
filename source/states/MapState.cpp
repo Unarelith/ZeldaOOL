@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Application.hpp
+ *       Filename:  MapState.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:46:31
+ *        Created:  15/09/2014 00:22:30
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,24 +15,20 @@
  *
  * =====================================================================================
  */
-#ifndef APPLICATION_HPP_
-#define APPLICATION_HPP_
+#include "MapState.hpp"
 
-#include "GameWindow.hpp"
+MapState::MapState() {
+	
+}
 
-class Application {
-	public:
-		Application();
-		~Application();
-		
-		void handleEvents();
-		
-		void run();
-		
-		static bool quit;
-		
-	private:
-		GameWindow m_window;
-};
+MapState::~MapState() {
+}
 
-#endif // APPLICATION_HPP_
+void MapState::update() {
+	
+}
+
+void MapState::render() {
+	
+}
+
