@@ -18,9 +18,8 @@
 #ifndef DEBUG_HPP_
 #define DEBUG_HPP_
 
-#include <SDL2/SDL.h>
-
 #include "Config.hpp"
+#include "SDLHeaders.hpp"
 
 #ifdef __ANDROID__
 	#include <android/log.h>

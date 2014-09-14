@@ -18,12 +18,19 @@
 #ifndef APPLICATION_HPP_
 #define APPLICATION_HPP_
 
+#include "GameWindow.hpp"
+
 class Application {
 	public:
 		Application();
 		~Application();
 		
 		void run();
+		
+		static bool quit;
+		
+	private:
+		GameWindow m_window;
 };
 
 #endif // APPLICATION_HPP_

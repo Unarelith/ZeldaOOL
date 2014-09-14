@@ -17,6 +17,8 @@
  */
 #include "Application.hpp"
 
+bool Application::quit = false;
+
 Application::Application() {
 	
 }
@@ -25,6 +27,10 @@ Application::~Application() {
 }
 
 void Application::run() {
-	
+	while(!quit) {
+		m_window.clear();
+		
+		m_window.update();
+	}
 }
 

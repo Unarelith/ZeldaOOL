@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  main.cpp
+ *       Filename:  SDLHeaders.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:45:15
+ *        Created:  14/09/2014 23:55:31
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,18 +15,19 @@
  *
  * =====================================================================================
  */
-#include "Application.hpp"
-#include "SDLManager.hpp"
+#ifndef SDLHEADERS_HPP_
+#define SDLHEADERS_HPP_
 
-int main(int argc, char *argv[]) {
-	SDLManager::init();
-	
-	Application app;
-	
-	app.run();
-	
-	SDLManager::free();
-	
-	return 0;
-}
+#ifdef __ANDROID__
+	#include "SDL.h"
+	#include "SDL_image.h"
+	#include "SDL_mixer.h"
+	#include "SDL_ttf.h"
+#else
+	#include <SDL2/SDL.h>
+	#include <SDL2/SDL_image.h>
+	#include <SDL2/SDL_mixer.h>
+	#include <SDL2/SDL_ttf.h>
+#endif
 
+#endif // SDLHEADERS_HPP_

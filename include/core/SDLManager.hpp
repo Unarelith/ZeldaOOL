@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  main.cpp
+ *       Filename:  SDLManager.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:45:15
+ *        Created:  15/09/2014 00:06:50
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,18 +15,12 @@
  *
  * =====================================================================================
  */
-#include "Application.hpp"
-#include "SDLManager.hpp"
+#ifndef SDLMANAGER_HPP_
+#define SDLMANAGER_HPP_
 
-int main(int argc, char *argv[]) {
-	SDLManager::init();
-	
-	Application app;
-	
-	app.run();
-	
-	SDLManager::free();
-	
-	return 0;
+namespace SDLManager {
+	void init();
+	void free();
 }
 
+#endif // SDLMANAGER_HPP_
