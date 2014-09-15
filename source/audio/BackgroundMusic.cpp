@@ -37,6 +37,6 @@ void BackgroundMusic::open(std::string filename) {
 }
 
 void BackgroundMusic::play() {
-	Mix_PlayMusic(m_music, 0);
+	Mix_PlayMusic(m_music, -1);
 }
 

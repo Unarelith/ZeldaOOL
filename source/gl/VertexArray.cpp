@@ -15,8 +15,7 @@
  *
  * =====================================================================================
  */
-#include <GL/gl.h>
-
+#include "OpenGL.hpp"
 #include "VertexArray.hpp"
 
 VertexArray::VertexArray() {
