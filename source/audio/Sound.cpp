@@ -35,7 +35,7 @@ void Sound::init() {
 }
 
 void Sound::Music::init() {
-	plain.open("audio/music/plain.ogg");
+	plain.open("audio/music/plain.mp3");
 }
 
 void Sound::Effect::init() {
