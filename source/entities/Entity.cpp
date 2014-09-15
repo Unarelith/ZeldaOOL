@@ -18,7 +18,17 @@
 #include "Entity.hpp"
 #include "MapHelper.hpp"
 
+Entity::Entity() {
+}
+
 Entity::Entity(s16 x, s16 y, u16 width, u16 height) {
+	load(x, y, width, height);
+}
+
+Entity::~Entity() {
+}
+
+void Entity::load(s16 x, s16 y, u16 width, u16 height) {
 	m_x = x;
 	m_y = y;
 	
@@ -29,9 +39,6 @@ Entity::Entity(s16 x, s16 y, u16 width, u16 height) {
 	m_vy = 0;
 	
 	m_hitbox = IntRect(0, 0, m_width, m_height);
-}
-
-Entity::~Entity() {
 }
 
 bool Entity::inCollisionWith(Entity *e) {

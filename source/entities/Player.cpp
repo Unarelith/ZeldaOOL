@@ -26,7 +26,15 @@
 #include "PushingState.hpp"
 #include "Player.hpp"
 
-Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Direction::Down) {
+Player::Player() {
+	
+}
+
+Player::~Player() {
+}
+
+void Player::load() {
+	Character::load("graphics/characters/link.png", 64, 64, 16, 16, Direction::Down);
 	// Movement
 	addAnimation({4, 0}, 110);
 	addAnimation({5, 1}, 110);
@@ -54,9 +62,6 @@ Player::Player() : Character("graphics/characters/link.png", 64, 64, 16, 16, Dir
 	m_life = 11 * 4;
 	
 	m_rupees = 197;
-}
-
-Player::~Player() {
 }
 
 void Player::mapCollisions() {

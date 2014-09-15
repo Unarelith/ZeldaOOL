@@ -17,6 +17,7 @@
  */
 #include "Application.hpp"
 #include "GameStateManager.hpp"
+#include "Sound.hpp"
 #include "Timer.hpp"
 #include "TimeManager.hpp"
 
@@ -26,6 +27,8 @@ bool Application::quit = false;
 
 Application::Application() {
 	window.open();
+	
+	Sound::init();
 	
 	GameStateManager::init();
 }

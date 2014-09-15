@@ -35,6 +35,8 @@ MapState::MapState() {
 	m_nextMap = nullptr;
 	m_scrolled = 0;
 	
+	CharacterManager::player.load();
+	
 	MapManager::init();
 	
 	EffectManager::init();

@@ -24,8 +24,11 @@
 
 class Character : public Sprite, public Entity {
 	public:
+		Character();
 		Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		~Character();
+		
+		void load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
 		void draw();
 		

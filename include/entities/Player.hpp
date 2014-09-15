@@ -26,6 +26,8 @@ class Player : public Character {
 		Player();
 		~Player();
 		
+		void load();
+		
 		void mapCollisions();
 		
 		void update();

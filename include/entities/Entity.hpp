@@ -23,8 +23,11 @@
 
 class Entity {
 	public:
+		Entity();
 		Entity(s16 x, s16 y, u16 width, u16 height);
 		~Entity();
+		
+		void load(s16 x, s16 y, u16 width, u16 height);
 		
 		bool inCollisionWith(Entity *e);
 		

@@ -17,11 +17,21 @@
  */
 #include "Character.hpp"
 
-Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) : Sprite(filename, width, height), Entity(x, y, width, height) {
-	m_direction = direction;
+Character::Character() {
+}
+
+Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
+	load(filename, x, y, width, height, direction);
 }
 
 Character::~Character() {
+}
+
+void Character::load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
+	Sprite::load(filename, width, height);
+	Entity::load(x, y, width, height);
+	
+	m_direction = direction;
 }
 
 void Character::draw() {
