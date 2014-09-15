@@ -51,9 +51,7 @@ void GameWindow::open() {
 		exit(EXIT_FAILURE);
 	}
 	
-#ifdef __ANDROID__
-	SDL_RenderSetLogicalSize(m_renderer, m_width, m_height);
-#endif
+	SDL_RenderSetLogicalSize(m_renderer, DEFAULT_WIN_WIDTH, DEFAULT_WIN_HEIGHT);
 }
 
 void GameWindow::close() {

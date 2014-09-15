@@ -33,11 +33,11 @@ Image::~Image() {
 void Image::load(std::string filename) {
 	m_filename = filename;
 	
-	SDL_RWops *image = SDL_RWFromFile(filename.c_str(), "rb");
+	SDL_RWops *image = SDL_RWFromFile(m_filename.c_str(), "rb");
 	SDL_Surface *surface = IMG_Load_RW(image, 1);
 	
 	if(!surface) {
-		error("Failed to load image \"%s\": %s\n", filename.c_str(), IMG_GetError());
+		error("Failed to load image \"%s\": %s\n", m_filename.c_str(), IMG_GetError());
 		exit(EXIT_FAILURE);
 	}
 	
@@ -66,10 +66,10 @@ void Image::setClipRect(s16 x, s16 y, u16 width, u16 height) {
 }
 
 void Image::setPosRect(s16 x, s16 y, u16 width, u16 height) {
-	m_clipRect.x = x;
-	m_clipRect.y = y;
-	m_clipRect.w = width;
-	m_clipRect.h = height;
+	m_posRect.x = x;
+	m_posRect.y = y;
+	m_posRect.w = width;
+	m_posRect.h = height;
 }
 
 void Image::draw(s16 x, s16 y, s16 width, s16 height) {
