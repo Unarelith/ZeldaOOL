@@ -36,13 +36,16 @@ class Image {
 		
 		void draw(s16 x, s16 y, s16 width = -1, s16 height = -1);
 		
+		u16 width() const { return m_width; }
+		u16 height() const { return m_height; }
+		
 	protected:
 		std::string m_filename;
 		
+	private:
 		u16 m_width;
 		u16 m_height;
 		
-	private:
 		SDL_Texture *m_texture;
 		
 		SDL_Rect m_clipRect;

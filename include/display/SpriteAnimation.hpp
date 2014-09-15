@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  SpriteAnimation.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 00:21:30
+ *        Created:  15/09/2014 20:40:52
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,19 +15,21 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef SPRITEANIMATION_HPP_
+#define SPRITEANIMATION_HPP_
 
-#include "GameState.hpp"
+#include <vector>
 
-class MapState : public GameState {
-	public:
-		MapState();
-		~MapState();
-		
-		void update();
-		
-		void render();
+#include "Timer.hpp"
+
+struct SpriteAnimation {
+	SpriteAnimation(u16 _delay) :
+		delay(_delay), isPlaying(false) {}
+	
+	u16 delay;
+	bool isPlaying;
+	Timer timer;
+	std::vector<u16> frames;
 };
 
-#endif // MAPSTATE_HPP_
+#endif // SPRITEANIMATION_HPP_

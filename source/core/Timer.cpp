@@ -57,3 +57,11 @@ u16 Timer::time() {
 	}
 }
 
+void Timer::setTime(u16 time) {
+	if(m_isStarted) {
+		m_t = TimeManager::getTicks() - time;
+	} else {
+		m_tick = time;
+	}
+}
+

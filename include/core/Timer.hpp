@@ -31,6 +31,8 @@ class Timer {
 		
 		u16 time();
 		
+		void setTime(u16 time);
+		
 		bool isStarted() const { return m_isStarted; }
 		
 	private:
