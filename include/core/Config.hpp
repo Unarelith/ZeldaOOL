@@ -20,7 +20,7 @@
 
 #define APP_NAME "The Legend of Zelda: Oracle of Time"
 
-#define DEFAULT_WIN_WIDTH 640
-#define DEFAULT_WIN_HEIGHT 480
+#define DEFAULT_WIN_WIDTH 160
+#define DEFAULT_WIN_HEIGHT 144
 
 #endif // CONFIG_HPP_

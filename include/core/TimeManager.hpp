@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  TimeManager.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 00:21:30
+ *        Created:  15/09/2014 19:34:38
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,23 +15,15 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef TIMEMANAGER_HPP_
+#define TIMEMANAGER_HPP_
 
-#include "GameState.hpp"
-#include "Image.hpp"
+#include "Types.hpp"
 
-class MapState : public GameState {
-	public:
-		MapState();
-		~MapState();
-		
-		void update();
-		
-		void render();
-		
-	private:
-		Image m_test;
+namespace TimeManager {
+	u32 getTicks();
+	
+	extern double dt;
 };
 
-#endif // MAPSTATE_HPP_
+#endif // TIMEMANAGER_HPP_

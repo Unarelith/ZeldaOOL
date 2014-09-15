@@ -29,10 +29,9 @@ class Application {
 		
 		void run();
 		
-		static bool quit;
+		static GameWindow window;
 		
-	private:
-		GameWindow m_window;
+		static bool quit;
 };
 
 #endif // APPLICATION_HPP_

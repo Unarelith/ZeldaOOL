@@ -17,15 +17,23 @@
  */
 #include "Application.hpp"
 #include "GameStateManager.hpp"
+#include "Timer.hpp"
+#include "TimeManager.hpp"
+
+GameWindow Application::window;
 
 bool Application::quit = false;
 
 Application::Application() {
+	window.open();
+	
 	GameStateManager::init();
 }
 
 Application::~Application() {
 	GameStateManager::free();
+	
+	window.close();
 }
 
 void Application::handleEvents() {
@@ -43,16 +51,23 @@ void Application::handleEvents() {
 }
 
 void Application::run() {
+	Timer deltaTimer;
+	
 	while(!quit) {
+		TimeManager::dt = deltaTimer.time() / 1000.0f;
+		
+		deltaTimer.reset();
+		deltaTimer.start();
+		
 		handleEvents();
 		
 		GameStateManager::top()->update();
 		
-		m_window.clear();
+		window.clear();
 		
 		GameStateManager::top()->render();
 		
-		m_window.update();
+		window.update();
 	}
 }
 

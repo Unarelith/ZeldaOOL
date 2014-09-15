@@ -26,12 +26,17 @@ class GameWindow {
 		GameWindow();
 		~GameWindow();
 		
+		void open();
+		void close();
+		
 		void clear();
 		
 		void update();
 		
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
+		
+		SDL_Renderer *renderer() const { return m_renderer; }
 		
 	private:
 		SDL_Window *m_window;

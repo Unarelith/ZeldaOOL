@@ -27,12 +27,12 @@ namespace GameStateManager {
 	void init();
 	void free();
 	
-	extern std::stack<GameState*> states;
-	
 	GameState *top();
 	void pop();
 	void push(GameState *state);
 	u16 size();
+	
+	extern std::stack<GameState*> states;
 }
 
 #endif // GAMESTATEMANAGER_HPP_

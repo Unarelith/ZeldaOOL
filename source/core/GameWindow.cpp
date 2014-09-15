@@ -19,6 +19,12 @@
 #include "GameWindow.hpp"
 
 GameWindow::GameWindow() {
+}
+
+GameWindow::~GameWindow() {
+}
+
+void GameWindow::open() {
 #ifdef __ANDROID__
 	SDL_DisplayMode current;
 	SDL_GetCurrentDisplayMode(0, &current);
@@ -28,8 +34,8 @@ GameWindow::GameWindow() {
 	m_width = current.w;
 	m_height = current.h;
 #else
-	m_width = DEFAULT_WIN_WIDTH;
-	m_height = DEFAULT_WIN_HEIGHT;
+	m_width = DEFAULT_WIN_WIDTH * 3;
+	m_height = DEFAULT_WIN_HEIGHT * 3;
 #endif
 	
 	m_window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_SHOWN);
@@ -50,7 +56,7 @@ GameWindow::GameWindow() {
 #endif
 }
 
-GameWindow::~GameWindow() {
+void GameWindow::close() {
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
 }

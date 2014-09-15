@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  TimeManager.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 00:21:30
+ *        Created:  15/09/2014 19:34:48
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,23 +15,12 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#include "SDLHeaders.hpp"
+#include "TimeManager.hpp"
 
-#include "GameState.hpp"
-#include "Image.hpp"
+double TimeManager::dt = 0;
 
-class MapState : public GameState {
-	public:
-		MapState();
-		~MapState();
-		
-		void update();
-		
-		void render();
-		
-	private:
-		Image m_test;
-};
+u32 TimeManager::getTicks() {
+	return SDL_GetTicks() + 1000 * dt;
+}
 
-#endif // MAPSTATE_HPP_

@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  Timer.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 00:21:30
+ *        Created:  15/09/2014 19:31:28
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,23 +15,30 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef TIMER_HPP_
+#define TIMER_HPP_
 
-#include "GameState.hpp"
-#include "Image.hpp"
+#include "Types.hpp"
 
-class MapState : public GameState {
+class Timer {
 	public:
-		MapState();
-		~MapState();
+		Timer();
+		~Timer();
 		
-		void update();
+		void stop();
+		void start();
+		void reset();
 		
-		void render();
+		u16 time();
+		
+		bool isStarted() const { return m_isStarted; }
 		
 	private:
-		Image m_test;
+		u16 m_t;
+		
+		bool m_isStarted;
+		
+		u16 m_tick;
 };
 
-#endif // MAPSTATE_HPP_
+#endif // TIMER_HPP_

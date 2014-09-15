@@ -18,7 +18,7 @@
 #include "MapState.hpp"
 
 MapState::MapState() {
-	
+	m_test.load("graphics/interface/stats.png");
 }
 
 MapState::~MapState() {
@@ -29,6 +29,6 @@ void MapState::update() {
 }
 
 void MapState::render() {
-	
+	m_test.draw(0, 0);
 }
 
