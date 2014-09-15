@@ -34,8 +34,8 @@ void GameWindow::open() {
 	m_width = current.w;
 	m_height = current.h;
 #else
-	m_width = DEFAULT_WIN_WIDTH * 3;
-	m_height = DEFAULT_WIN_HEIGHT * 3;
+	m_width = WINDOW_WIDTH * 3;
+	m_height = WINDOW_HEIGHT * 3;
 #endif
 	
 	m_window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_SHOWN);
@@ -51,7 +51,7 @@ void GameWindow::open() {
 		exit(EXIT_FAILURE);
 	}
 	
-	SDL_RenderSetLogicalSize(m_renderer, DEFAULT_WIN_WIDTH, DEFAULT_WIN_HEIGHT);
+	SDL_RenderSetLogicalSize(m_renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
 }
 
 void GameWindow::close() {

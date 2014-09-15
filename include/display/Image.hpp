@@ -36,6 +36,8 @@ class Image {
 		
 		void draw(s16 x, s16 y, s16 width = -1, s16 height = -1);
 		
+		void bind() { SDL_GL_BindTexture(m_texture, nullptr, nullptr); }
+		
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		

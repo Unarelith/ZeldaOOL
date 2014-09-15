@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  Vector2.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:48:22
+ *        Created:  15/09/2014 21:09:01
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,22 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#ifndef VECTOR_HPP_
+#define VECTOR_HPP_
 
-#define APP_NAME "The Legend of Zelda: Oracle of Time"
+template<typename T>
+class Vector2 {
+	public:
+		Vector2() {}
+		Vector2(T _x, T _y) { x = _x; y = _y; }
+		~Vector2() {}
+		
+		T x;
+		T y;
+};
 
-#define WINDOW_WIDTH 160
-#define WINDOW_HEIGHT 144
+typedef Vector2<int> Vector2i;
+typedef Vector2<unsigned int> Vector2u;
+typedef Vector2<float> Vector2f;
 
-#endif // CONFIG_HPP_
+#endif // VECTOR_HPP_

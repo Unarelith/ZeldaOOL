@@ -20,14 +20,35 @@
 
 #include "GameState.hpp"
 
+#include "StatsBar.hpp"
+#include "MapManager.hpp"
+
 class MapState : public GameState {
 	public:
 		MapState();
 		~MapState();
 		
+		void scrollMaps(double vx, double vy);
+		
 		void update();
 		
 		void render();
+		
+		enum Mode {
+			Normal,
+			ScrollingLeft,
+			ScrollingRight,
+			ScrollingUp,
+			ScrollingDown
+		};
+		
+	private:
+		Mode m_mode;
+		
+		Map *m_nextMap;
+		double m_scrolled;
+		
+		StatsBar m_statsBar;
 };
 
 #endif // MAPSTATE_HPP_

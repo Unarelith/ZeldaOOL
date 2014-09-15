@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  TileAnimation.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:48:22
+ *        Created:  15/09/2014 22:37:54
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,19 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#ifndef TILEANIMATION_HPP_
+#define TILEANIMATION_HPP_
 
-#define APP_NAME "The Legend of Zelda: Oracle of Time"
+#include <vector>
 
-#define WINDOW_WIDTH 160
-#define WINDOW_HEIGHT 144
+#include "Types.hpp"
 
-#endif // CONFIG_HPP_
+struct TileAnimation {
+	TileAnimation(u16 _delay) : delay(_delay) {}
+	
+	std::vector<u16> frames;
+	
+	u16 delay;
+};
+
+#endif // TILEANIMATION_HPP_

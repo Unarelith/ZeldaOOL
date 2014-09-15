@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  PushingState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:48:22
+ *        Created:  15/09/2014 22:25:14
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,19 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#ifndef PUSHINGSTATE_HPP_
+#define PUSHINGSTATE_HPP_
 
-#define APP_NAME "The Legend of Zelda: Oracle of Time"
+#include "MovingState.hpp"
 
-#define WINDOW_WIDTH 160
-#define WINDOW_HEIGHT 144
+class PushingState : public MovingState {
+	public:
+		PushingState();
+		~PushingState();
+		
+		void update();
+		
+		void draw();
+};
 
-#endif // CONFIG_HPP_
+#endif // PUSHINGSTATE_HPP_

@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  MapEventManager.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:48:22
+ *        Created:  15/09/2014 23:36:07
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,16 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#ifndef MAPEVENTMANAGER_HPP_
+#define MAPEVENTMANAGER_HPP_
 
-#define APP_NAME "The Legend of Zelda: Oracle of Time"
+#include "Types.hpp"
 
-#define WINDOW_WIDTH 160
-#define WINDOW_HEIGHT 144
+namespace MapEventManager {
+	void update();
+	
+	extern u16 lastPlayerX;
+	extern u16 lastPlayerY;
+}
 
-#endif // CONFIG_HPP_
+#endif // MAPEVENTMANAGER_HPP_

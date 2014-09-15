@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  Weapon.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:48:22
+ *        Created:  15/09/2014 22:26:02
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,11 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#include "Weapon.hpp"
 
-#define APP_NAME "The Legend of Zelda: Oracle of Time"
+Weapon::Weapon(std::string filename, u16 width, u16 height) : Sprite(filename, width, height), Entity(0, 0, width, height), m_player(CharacterManager::player) {
+}
 
-#define WINDOW_WIDTH 160
-#define WINDOW_HEIGHT 144
+Weapon::~Weapon() {
+}
 
-#endif // CONFIG_HPP_

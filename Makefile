@@ -6,7 +6,7 @@ TARGET		:=  $(shell basename $(CURDIR))
 #---------------------------------------------------------------------------------
 # Source sub-folders
 #---------------------------------------------------------------------------------
-SUBFOLDERS	:=	audio core data display entities helpers interface \
+SUBFOLDERS	:=	audio core data display entities gl helpers interface \
 				managers objects player states weapons
 
 #---------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ LDFLAGS	:=	-g
 #---------------------------------------------------------------------------------
 # Any extra libraries you wish to link with your project
 #---------------------------------------------------------------------------------
-LIBS	:=	-lSDL2_ttf -lSDL2_mixer -lSDL2_image -lSDL2
+LIBS	:=	-lSDL2_ttf -lSDL2_mixer -lSDL2_image -lSDL2 -lGL
 
 #---------------------------------------------------------------------------------
 # Source folders

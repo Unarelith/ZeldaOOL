@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  StatsBar.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:48:22
+ *        Created:  15/09/2014 23:34:47
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,23 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#ifndef STATSBAR_HPP_
+#define STATSBAR_HPP_
 
-#define APP_NAME "The Legend of Zelda: Oracle of Time"
+#include "Sprite.hpp"
 
-#define WINDOW_WIDTH 160
-#define WINDOW_HEIGHT 144
+class StatsBar {
+	public:
+		StatsBar();
+		~StatsBar();
+		
+		void draw();
+		
+	private:
+		Image m_background;
+		
+		Sprite m_hearts;
+		Sprite m_numbers;
+};
 
-#endif // CONFIG_HPP_
+#endif // STATSBAR_HPP_

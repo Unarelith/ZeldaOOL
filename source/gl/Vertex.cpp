@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  Vertex.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:48:22
+ *        Created:  15/09/2014 21:12:00
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,21 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#include "Vertex.hpp"
 
-#define APP_NAME "The Legend of Zelda: Oracle of Time"
+Vertex::Vertex() {
+	
+}
 
-#define WINDOW_WIDTH 160
-#define WINDOW_HEIGHT 144
+Vertex::Vertex(const Vector2f &_position) {
+	position = _position;
+}
 
-#endif // CONFIG_HPP_
+Vertex::Vertex(const Vector2f &_position, const Vector2f &_texCoords) {
+	position = _position;
+	texCoords = _texCoords;
+}
+
+Vertex::~Vertex() {
+}
+

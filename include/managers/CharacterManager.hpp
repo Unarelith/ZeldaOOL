@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  CharacterManager.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:48:22
+ *        Created:  15/09/2014 22:09:09
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,13 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#ifndef CHARACTERMANAGER_HPP_
+#define CHARACTERMANAGER_HPP_
 
-#define APP_NAME "The Legend of Zelda: Oracle of Time"
+#include "Player.hpp"
 
-#define WINDOW_WIDTH 160
-#define WINDOW_HEIGHT 144
+namespace CharacterManager {
+	extern Player player;
+}
 
-#endif // CONFIG_HPP_
+#endif // CHARACTERMANAGER_HPP_

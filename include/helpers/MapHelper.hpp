@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  MapHelper.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:48:22
+ *        Created:  15/09/2014 22:18:57
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,16 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#ifndef MAPHELPER_HPP_
+#define MAPHELPER_HPP_
 
-#define APP_NAME "The Legend of Zelda: Oracle of Time"
+#include "Types.hpp"
 
-#define WINDOW_WIDTH 160
-#define WINDOW_HEIGHT 144
+namespace MapHelper {
+	bool passable(s16 x, s16 y);
+	bool onDoor(s16 x, s16 y);
 
-#endif // CONFIG_HPP_
+	bool isTile(s16 x, s16 y, u16 tile);
+}
+
+#endif // MAPHELPER_HPP_

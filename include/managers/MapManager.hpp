@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  MapManager.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:48:22
+ *        Created:  15/09/2014 22:40:37
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,23 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#ifndef MAPMANAGER_HPP_
+#define MAPMANAGER_HPP_
 
-#define APP_NAME "The Legend of Zelda: Oracle of Time"
+#include <vector>
 
-#define WINDOW_WIDTH 160
-#define WINDOW_HEIGHT 144
+#include "Map.hpp"
 
-#endif // CONFIG_HPP_
+namespace MapManager {
+	void init();
+	
+	void initTilesets();
+	void initMaps();
+	
+	extern Map *currentMap;
+	
+	extern std::vector<Tileset> tilesets;
+	extern std::vector<std::vector<Map>> maps;
+}
+
+#endif // MAPMANAGER_HPP_

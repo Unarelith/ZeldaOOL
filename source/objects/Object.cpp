@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  Object.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:48:22
+ *        Created:  15/09/2014 20:59:28
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,19 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#include "Object.hpp"
 
-#define APP_NAME "The Legend of Zelda: Oracle of Time"
+Object::Object(s16 tileX, s16 tileY) : Entity(tileX * 16, (tileY + 1) * 16, 16, 16) {
+}
 
-#define WINDOW_WIDTH 160
-#define WINDOW_HEIGHT 144
+Object::~Object() {
+}
 
-#endif // CONFIG_HPP_
+void Object::setEventAction(u8 event, std::function<void(Object *)> action) {
+	m_actions[event] = action;
+}
+
+void Object::onEvent(u8 event) {
+	m_actions[event](this);
+}
+

@@ -46,7 +46,7 @@ void Image::load(std::string filename) {
 	
 	m_texture = SDL_CreateTextureFromSurface(Application::window.renderer(), surface);
 	if(!m_texture) {
-		error("Failed to create texture from image: %s", SDL_GetError());
+		error("Failed to create texture from image \"%s\": %s", m_filename.c_str(), SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
 	

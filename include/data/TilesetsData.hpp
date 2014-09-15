@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  TilesetsData.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  14/09/2014 23:48:22
+ *        Created:  15/09/2014 22:21:01
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,17 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#ifndef TILESETSDATA_HPP_
+#define TILESETSDATA_HPP_
 
-#define APP_NAME "The Legend of Zelda: Oracle of Time"
+#include "Types.hpp"
 
-#define WINDOW_WIDTH 160
-#define WINDOW_HEIGHT 144
+namespace TilesetsData {
+	extern u16 plainInfo[256];
+	
+	extern u16 indoorInfo[256];
+	
+	extern u16 undergroundInfo[256];
+}
 
-#endif // CONFIG_HPP_
+#endif // TILESETSDATA_HPP_
