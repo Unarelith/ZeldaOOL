@@ -41,6 +41,7 @@ class Image {
 		u16 height() const { return m_height; }
 		
 		SDL_Texture *texture() const { return m_texture; }
+		void setTexture(SDL_Texture *texture) { m_texture = texture; }
 		
 	protected:
 		std::string m_filename;

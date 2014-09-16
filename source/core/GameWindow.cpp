@@ -44,7 +44,7 @@ void GameWindow::open() {
 		exit(EXIT_FAILURE);
 	}
 	
-	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE | SDL_RENDERER_PRESENTVSYNC);
 	if(!m_renderer) {
 		error("Renderer couldn't be created: %s\n", SDL_GetError());
 		SDL_DestroyWindow(m_window);

@@ -26,6 +26,10 @@
 Map::Map() {
 }
 
+Map::Map(const Map &map) {
+	load(map.m_filename, map.m_tileset, map.m_area, map.m_x, map.m_y);
+}
+
 Map::Map(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 	load(filename, tileset, area, x, y);
 }
@@ -35,6 +39,8 @@ Map::~Map() {
 }
 
 bool Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
+	m_filename = filename;
+	
 	m_tileset = tileset;
 	
 	m_area = area;
@@ -61,9 +67,9 @@ bool Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 	
 	m_data = m_baseData;
 	
-	//SDL_QueryTexture(m_tileset->texture.texture(), &m_pixelFormat, nullptr, nullptr, nullptr);
+	SDL_QueryTexture(m_tileset->texture.texture(), &m_pixelFormat, nullptr, nullptr, nullptr);
 	
-	m_texture = SDL_CreateTexture(Application::window.renderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, m_width * m_tileWidth, m_height * m_tileHeight);
+	m_texture = SDL_CreateTexture(Application::window.renderer(), m_pixelFormat, SDL_TEXTUREACCESS_TARGET, m_width * m_tileWidth, m_height * m_tileHeight);
 	
 	updateTexture();
 	
@@ -114,21 +120,15 @@ void Map::draw() {
 	
 	clip.x = 0;
 	clip.y = 0;
-	clip.w = Application::window.width();
-	clip.h = Application::window.height() - 16;
+	clip.w = WINDOW_WIDTH;
+	clip.h = WINDOW_HEIGHT - 16;
 	
 	pos.x = 0;
-	pos.y = 16;
-	pos.w = Application::window.width();
-	pos.h = Application::window.height() - 16;
+	pos.y = 0;
+	pos.w = WINDOW_WIDTH;
+	pos.h = WINDOW_HEIGHT - 16;
 	
 	SDL_RenderCopy(Application::window.renderer(), m_texture, &clip, &pos);
-	
-	/*for(s16 y = 1 ; y < m_height + 1 ; y++) {
-		for(s16 x = 0 ; x < m_width ; x++) {
-			drawTile(x, y);
-		}
-	}*/
 }
 
 void Map::drawTile(u16 tileX, u16 tileY) {

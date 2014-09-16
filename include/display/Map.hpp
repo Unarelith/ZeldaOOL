@@ -25,6 +25,7 @@
 class Map {
 	public:
 		Map();
+		Map(const Map &map);
 		Map(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y);
 		~Map();
 		
@@ -61,6 +62,8 @@ class Map {
 		u16 height() const { return m_height; }
 		
 	private:
+		std::string m_filename;
+		
 		Tileset *m_tileset;
 		
 		u16 m_area;
