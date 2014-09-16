@@ -23,4 +23,6 @@
 #define WINDOW_WIDTH 160
 #define WINDOW_HEIGHT 144
 
+#define COLORED_DEBUG
+
 #endif // CONFIG_HPP_

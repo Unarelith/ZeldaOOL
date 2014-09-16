@@ -83,7 +83,7 @@ void Map::resetTiles() {
 void Map::updateTexture(s16 offsetX, s16 offsetY) {
 	SDL_SetRenderTarget(Application::window.renderer(), m_texture);
 	
-	for(s16 y = 1 ; y < m_height + 1 ; y++) {
+	for(s16 y = 0 ; y < m_height ; y++) {
 		for(s16 x = 0 ; x < m_width ; x++) {
 			drawTile(x + offsetX, y + offsetY);
 			
@@ -124,7 +124,7 @@ void Map::draw() {
 	clip.h = WINDOW_HEIGHT - 16;
 	
 	pos.x = 0;
-	pos.y = 0;
+	pos.y = 16;
 	pos.w = WINDOW_WIDTH;
 	pos.h = WINDOW_HEIGHT - 16;
 	
@@ -132,7 +132,7 @@ void Map::draw() {
 }
 
 void Map::drawTile(u16 tileX, u16 tileY) {
-	s16 tileNb = m_data[tileX + (tileY - 1) * m_width];
+	s16 tileNb = m_data[tileX + tileY * m_width];
 	
 	if(tileNb == -1) return;
 	
@@ -157,7 +157,7 @@ void Map::setTile(u16 tileX, u16 tileY, u16 tile) {
 		
 		SDL_SetRenderTarget(Application::window.renderer(), m_texture);
 		
-		drawTile(tileX, tileY + 1);
+		drawTile(tileX, tileY);
 		
 		SDL_SetRenderTarget(Application::window.renderer(), nullptr);
 	}
