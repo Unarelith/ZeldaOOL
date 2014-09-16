@@ -81,6 +81,8 @@ void MapState::scrollMaps(double vx, double vy) {
 }
 
 void MapState::update() {
+	MapManager::currentMap->update();
+	
 	if(m_mode == Mode::Normal) {
 		CharacterManager::player.update();
 		

@@ -20,20 +20,21 @@
 #include "Application.hpp"
 #include "Config.hpp"
 #include "CharacterManager.hpp"
-#include "Map.hpp"
+#include "MapManager.hpp"
 #include "XMLFile.hpp"
 
 Map::Map() {
 }
 
-Map::Map(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
+Map::Map(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 	load(filename, tileset, area, x, y);
 }
 
 Map::~Map() {
+	SDL_DestroyTexture(m_texture);
 }
 
-bool Map::load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
+bool Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 	m_tileset = tileset;
 	
 	m_area = area;
@@ -60,10 +61,11 @@ bool Map::load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
 	
 	m_data = m_baseData;
 	
-	m_vertices.setPrimitiveType(VertexArray::PrimitiveType::Triangles);
-	m_vertices.resize(m_width * m_height * 6);
+	SDL_QueryTexture(m_tileset->texture.texture(), &m_pixelFormat, nullptr, nullptr, nullptr);
 	
-	update();
+	m_texture = SDL_CreateTexture(Application::window.renderer(), m_pixelFormat, SDL_TEXTUREACCESS_TARGET, m_width * m_tileWidth, m_height * m_tileHeight);
+	
+	updateTexture();
 	
 	return true;
 }
@@ -72,37 +74,14 @@ void Map::resetTiles() {
 	m_data = m_baseData;
 }
 
-void Map::updateTile(s16 x, s16 y) {
-	s16 tileNb = m_data[x + (y - 1) * m_width];
+void Map::updateTexture(s16 offsetX, s16 offsetY) {
+	SDL_SetRenderTarget(Application::window.renderer(), m_texture);
 	
-	if(tileNb == -1) return;
-	
-	u16 tilesetX = tileNb % (m_tileset.texture.width() / m_tileWidth);
-	u16 tilesetY = tileNb / (m_tileset.texture.height() / m_tileWidth);
-	
-	Vertex *triangle = &m_vertices[(x + (y - 1) * m_width) * 6];
-	
-	triangle[0].position = Vector2f(x * m_tileWidth, y * m_tileHeight);
-	triangle[1].position = Vector2f((x + 1) * m_tileWidth, y * m_tileHeight);
-	triangle[2].position = Vector2f(x * m_tileWidth, (y + 1) * m_tileHeight);
-	triangle[3].position = triangle[1].position;
-	triangle[4].position = triangle[2].position;
-	triangle[5].position = Vector2f((x + 1) * m_tileWidth, (y + 1) * m_tileHeight);
-	
-	triangle[0].texCoords = Vector2f(tilesetX * m_tileWidth, tilesetY * m_tileHeight);
-	triangle[1].texCoords = Vector2f((tilesetX + 1) * m_tileWidth, tilesetY * m_tileHeight);
-	triangle[2].texCoords = Vector2f(tilesetX * m_tileWidth, (tilesetY + 1) * m_tileHeight);
-	triangle[3].texCoords = triangle[1].texCoords;
-	triangle[4].texCoords = triangle[2].texCoords;
-	triangle[5].texCoords = Vector2f((tilesetX + 1) * m_tileWidth, (tilesetY + 1) * m_tileHeight);
-}
-
-void Map::update(s16 offsetX, s16 offsetY) {
 	for(s16 y = 1 ; y < m_height + 1 ; y++) {
 		for(s16 x = 0 ; x < m_width ; x++) {
-			updateTile(x + offsetX, y + offsetY);
+			drawTile(x + offsetX, y + offsetY);
 			
-			for(auto &it : m_tileset.anims) {
+			for(auto &it : m_tileset->anims) {
 				for(auto &n : it.frames) {
 					if(getTile(x, y - 1) == n) {
 						m_animatedTiles.push_back(AnimatedTile(x, y - 1, n + 1 % it.frames.size(), it));
@@ -111,9 +90,11 @@ void Map::update(s16 offsetX, s16 offsetY) {
 			}
 		}
 	}
+	
+	SDL_SetRenderTarget(Application::window.renderer(), nullptr);
 }
 
-void Map::drawAnimatedTiles() {
+void Map::update() {
 	for(auto &it : m_animatedTiles) {
 		if(!it.timer.isStarted()) {
 			it.timer.start();
@@ -129,11 +110,33 @@ void Map::drawAnimatedTiles() {
 }
 
 void Map::draw() {
-	drawAnimatedTiles();
+	SDL_Rect clip, pos;
 	
-	m_tileset.texture.bind();
+	clip.x = 0;
+	clip.y = 0;
+	clip.w = Application::window.width();
+	clip.h = Application::window.height();
 	
-	m_vertices.draw();
+	pos.x = 0;
+	pos.y = 16;
+	pos.w = Application::window.width();
+	pos.h = Application::window.height() - 16;
+	
+	SDL_RenderCopy(Application::window.renderer(), m_texture, &clip, &pos);
+	
+	MapManager::tilesets[0]->texture.draw(16, 16);
+}
+
+void Map::drawTile(u16 tileX, u16 tileY) {
+	s16 tileNb = m_data[tileX + (tileY - 1) * m_width];
+	
+	if(tileNb == -1) return;
+	
+	u16 tilesetX = tileNb % (m_tileset->texture.width() / m_tileWidth);
+	u16 tilesetY = tileNb / (m_tileset->texture.height() / m_tileWidth);
+	
+	m_tileset->texture.setClipRect(tilesetX, tilesetY, m_tileWidth, m_tileHeight);
+	m_tileset->texture.draw(tileX * m_tileWidth, tileY * m_tileHeight, m_tileWidth, m_tileHeight);
 }
 
 u16 Map::getTile(u16 tileX, u16 tileY) {
@@ -147,7 +150,12 @@ u16 Map::getTile(u16 tileX, u16 tileY) {
 void Map::setTile(u16 tileX, u16 tileY, u16 tile) {
 	if(tileX + tileY * m_width < (u16)m_data.size()) {
 		m_data[tileX + tileY * m_width] = tile;
-		updateTile(tileX, tileY + 1);
+		
+		SDL_SetRenderTarget(Application::window.renderer(), m_texture);
+		
+		drawTile(tileX, tileY + 1);
+		
+		SDL_SetRenderTarget(Application::window.renderer(), nullptr);
 	}
 }
 

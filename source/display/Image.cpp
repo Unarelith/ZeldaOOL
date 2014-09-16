@@ -22,6 +22,20 @@
 Image::Image() {
 }
 
+Image::Image(const Image &image) {
+	load(image.m_filename);
+	
+	m_clipRect.x = image.m_clipRect.x;
+	m_clipRect.y = image.m_clipRect.y;
+	m_clipRect.w = image.m_clipRect.w;
+	m_clipRect.h = image.m_clipRect.h;
+	
+	m_posRect.x = image.m_posRect.x;
+	m_posRect.y = image.m_posRect.y;
+	m_posRect.w = image.m_posRect.w;
+	m_posRect.h = image.m_posRect.h;
+}
+
 Image::Image(std::string filename) {
 	load(filename);
 }
@@ -33,24 +47,13 @@ Image::~Image() {
 void Image::load(std::string filename) {
 	m_filename = filename;
 	
-	SDL_RWops *image = SDL_RWFromFile(m_filename.c_str(), "rb");
-	SDL_Surface *surface = IMG_Load_RW(image, 1);
-	
-	if(!surface) {
+	m_texture = IMG_LoadTexture(Application::window.renderer(), m_filename.c_str());
+	if(!m_texture) {
 		error("Failed to load image \"%s\": %s\n", m_filename.c_str(), IMG_GetError());
 		exit(EXIT_FAILURE);
 	}
 	
-	m_width = surface->w;
-	m_height = surface->h;
-	
-	m_texture = SDL_CreateTextureFromSurface(Application::window.renderer(), surface);
-	if(!m_texture) {
-		error("Failed to create texture from image \"%s\": %s", m_filename.c_str(), SDL_GetError());
-		exit(EXIT_FAILURE);
-	}
-	
-	SDL_FreeSurface(surface);
+	SDL_QueryTexture(m_texture, nullptr, nullptr, (int*)&m_width, (int*)&m_height);
 	
 	SDL_SetTextureBlendMode(m_texture, SDL_BLENDMODE_BLEND);
 	

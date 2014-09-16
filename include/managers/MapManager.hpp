@@ -24,13 +24,14 @@
 
 namespace MapManager {
 	void init();
+	void free();
 	
 	void initTilesets();
 	void initMaps();
 	
 	extern Map *currentMap;
 	
-	extern std::vector<Tileset> tilesets;
+	extern std::vector<Tileset*> tilesets;
 	extern std::vector<std::vector<Map>> maps;
 }
 

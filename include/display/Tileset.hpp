@@ -20,14 +20,15 @@
 
 #include "Image.hpp"
 #include "TileAnimation.hpp"
+#include "Debug.hpp"
 
 struct Tileset {
 	Tileset() {}
 	
 	Tileset(std::string filename, u16 *_info) {
-		info = _info;
-		
 		texture.load(filename);
+		
+		info = _info;
 	};
 	
 	void addAnimation(std::initializer_list<u16> frames, u16 delay) {

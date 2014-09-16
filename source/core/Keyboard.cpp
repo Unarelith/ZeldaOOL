@@ -46,16 +46,16 @@ std::map<Keyboard::Key, u32> Keyboard::lastTimePressed = {
 };
 
 std::map<Keyboard::Key, u32> Keyboard::keysCode = {
-	{Key::Left,		SDL_SCANCODE_LEFT},
-	{Key::Right,	SDL_SCANCODE_RIGHT},
-	{Key::Up,		SDL_SCANCODE_UP},
-	{Key::Down,		SDL_SCANCODE_DOWN},
+	{Key::Left,		SDLK_LEFT},
+	{Key::Right,	SDLK_RIGHT},
+	{Key::Up,		SDLK_UP},
+	{Key::Down,		SDLK_DOWN},
 	
-	{Key::A,		SDL_SCANCODE_W},
-	{Key::B,		SDL_SCANCODE_X},
+	{Key::A,		SDLK_x},
+	{Key::B,		SDLK_w},
 	
-	{Key::Start,	SDL_SCANCODE_RETURN},
-	{Key::Select,	SDL_SCANCODE_BACKSPACE}
+	{Key::Start,	SDLK_RETURN},
+	{Key::Select,	SDLK_BACKSPACE}
 };
 
 const u8 *Keyboard::getState() {
@@ -63,7 +63,7 @@ const u8 *Keyboard::getState() {
 }
 
 bool Keyboard::isKeyPressed(Key key) {
-	if(getState()[keysCode[key]]) {
+	if(getState()[SDL_GetScancodeFromKey(keysCode[key])]) {
 		return true;
 	} else {
 		return false;
