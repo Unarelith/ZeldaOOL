@@ -61,9 +61,9 @@ bool Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 	
 	m_data = m_baseData;
 	
-	SDL_QueryTexture(m_tileset->texture.texture(), &m_pixelFormat, nullptr, nullptr, nullptr);
+	//SDL_QueryTexture(m_tileset->texture.texture(), &m_pixelFormat, nullptr, nullptr, nullptr);
 	
-	m_texture = SDL_CreateTexture(Application::window.renderer(), m_pixelFormat, SDL_TEXTUREACCESS_TARGET, m_width * m_tileWidth, m_height * m_tileHeight);
+	m_texture = SDL_CreateTexture(Application::window.renderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, m_width * m_tileWidth, m_height * m_tileHeight);
 	
 	updateTexture();
 	
@@ -115,7 +115,7 @@ void Map::draw() {
 	clip.x = 0;
 	clip.y = 0;
 	clip.w = Application::window.width();
-	clip.h = Application::window.height();
+	clip.h = Application::window.height() - 16;
 	
 	pos.x = 0;
 	pos.y = 16;
@@ -124,7 +124,11 @@ void Map::draw() {
 	
 	SDL_RenderCopy(Application::window.renderer(), m_texture, &clip, &pos);
 	
-	MapManager::tilesets[0]->texture.draw(16, 16);
+	/*for(s16 y = 1 ; y < m_height + 1 ; y++) {
+		for(s16 x = 0 ; x < m_width ; x++) {
+			drawTile(x, y);
+		}
+	}*/
 }
 
 void Map::drawTile(u16 tileX, u16 tileY) {
@@ -135,7 +139,7 @@ void Map::drawTile(u16 tileX, u16 tileY) {
 	u16 tilesetX = tileNb % (m_tileset->texture.width() / m_tileWidth);
 	u16 tilesetY = tileNb / (m_tileset->texture.height() / m_tileWidth);
 	
-	m_tileset->texture.setClipRect(tilesetX, tilesetY, m_tileWidth, m_tileHeight);
+	m_tileset->texture.setClipRect(tilesetX * m_tileWidth, tilesetY * m_tileHeight, m_tileWidth, m_tileHeight);
 	m_tileset->texture.draw(tileX * m_tileWidth, tileY * m_tileHeight, m_tileWidth, m_tileHeight);
 }
 
