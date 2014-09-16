@@ -18,8 +18,9 @@
 #include "TimeManager.hpp"
 #include "Timer.hpp"
 
-Timer::Timer() {
-	m_t = TimeManager::getTicks();
+Timer::Timer(bool useDeltaTime) {
+	m_useDeltaTime = useDeltaTime;
+	m_t = TimeManager::getTicks(m_useDeltaTime);
 	m_isStarted = false;
 	m_tick = 0;
 }
@@ -32,26 +33,26 @@ Timer::~Timer() {
 void Timer::stop() {
 	if(m_isStarted) {
 		m_isStarted = false;
-		m_tick = TimeManager::getTicks() - m_t;
+		m_tick = TimeManager::getTicks(m_useDeltaTime) - m_t;
 	}
 }
 
 void Timer::start() {
 	if(!m_isStarted) {
 		m_isStarted = true;
-		m_t = TimeManager::getTicks() - m_tick;
+		m_t = TimeManager::getTicks(m_useDeltaTime) - m_tick;
 	}
 }
 
 void Timer::reset() {
-	m_t = TimeManager::getTicks();
+	m_t = TimeManager::getTicks(m_useDeltaTime);
 	m_isStarted = false;
 	m_tick = 0;
 }
 
 u16 Timer::time() {
 	if(m_isStarted) {
-		return TimeManager::getTicks() - m_t;
+		return TimeManager::getTicks(m_useDeltaTime) - m_t;
 	} else {
 		return m_tick;
 	}
@@ -59,7 +60,7 @@ u16 Timer::time() {
 
 void Timer::setTime(u16 time) {
 	if(m_isStarted) {
-		m_t = TimeManager::getTicks() - time;
+		m_t = TimeManager::getTicks(m_useDeltaTime) - time;
 	} else {
 		m_tick = time;
 	}

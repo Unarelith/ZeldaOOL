@@ -18,8 +18,11 @@
 #ifndef GAMEWINDOW_HPP_
 #define GAMEWINDOW_HPP_
 
+#include <stack>
+
 #include "SDLHeaders.hpp"
 #include "Types.hpp"
+#include "View.hpp"
 
 class GameWindow {
 	public:
@@ -33,10 +36,15 @@ class GameWindow {
 		
 		void update();
 		
+		SDL_Renderer *renderer() const { return m_renderer; }
+		
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
-		SDL_Renderer *renderer() const { return m_renderer; }
+		View currentView() const { return m_currentView; }
+		
+		void setView(const View &view) { m_currentView = view; }
+		void resetView() { m_currentView = m_defaultView; }
 		
 	private:
 		SDL_Window *m_window;
@@ -44,6 +52,9 @@ class GameWindow {
 		
 		u16 m_width;
 		u16 m_height;
+		
+		View m_defaultView;
+		View m_currentView;
 };
 
 #endif // GAMEWINDOW_HPP_

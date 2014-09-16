@@ -20,7 +20,11 @@
 
 double TimeManager::dt = 0;
 
-u32 TimeManager::getTicks() {
-	return SDL_GetTicks() + 1000 * dt;
+u32 TimeManager::getTicks(bool useDeltaTime) {
+	if(useDeltaTime) {
+		return SDL_GetTicks() + 1000 * dt;
+	} else {
+		return SDL_GetTicks();
+	}
 }
 

@@ -1,3 +1,4 @@
+- Edit clipRects to work with view in Image and Map
 - Fix Sword
 - Fix hearts (some are displayed out of the stats bar)
 - Player can move out of the maps when sword is loading

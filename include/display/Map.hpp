@@ -61,6 +61,8 @@ class Map {
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
+		void setPosition(float x, float y) { m_posX = x; m_posY = y; }
+		
 	private:
 		std::string m_filename;
 		
@@ -86,6 +88,9 @@ class Map {
 		std::vector<AnimatedTile> m_animatedTiles;
 		
 		std::vector<Object> m_objects;
+		
+		u16 m_posX;
+		u16 m_posY;
 };
 
 #endif // MAP_HPP_

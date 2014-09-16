@@ -79,7 +79,9 @@ void Image::draw(s16 x, s16 y, s16 width, s16 height) {
 	if(width == -1) width = m_width;
 	if(height == -1) height = m_height;
 	
-	setPosRect(x, y, width, height);
+	setPosRect(x + Application::window.currentView().x(),
+			   y + Application::window.currentView().y(),
+			   width, height);
 	
 	SDL_RenderCopy(Application::window.renderer(), m_texture, &m_clipRect, &m_posRect);
 }

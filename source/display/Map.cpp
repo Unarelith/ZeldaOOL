@@ -73,6 +73,9 @@ bool Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 	
 	updateTexture();
 	
+	m_posX = 0;
+	m_posY = 0;
+	
 	return true;
 }
 
@@ -116,19 +119,19 @@ void Map::update() {
 }
 
 void Map::draw() {
-	SDL_Rect clip, pos;
+	SDL_Rect clipRect, posRect;
 	
-	clip.x = 0;
-	clip.y = 0;
-	clip.w = WINDOW_WIDTH;
-	clip.h = WINDOW_HEIGHT - 16;
+	clipRect.x = 0;
+	clipRect.y = 0;
+	clipRect.w = WINDOW_WIDTH;
+	clipRect.h = WINDOW_HEIGHT - 16;
 	
-	pos.x = 0;
-	pos.y = 16;
-	pos.w = WINDOW_WIDTH;
-	pos.h = WINDOW_HEIGHT - 16;
+	posRect.x = m_posX + Application::window.currentView().x();
+	posRect.y = m_posY + Application::window.currentView().y();
+	posRect.w = WINDOW_WIDTH;
+	posRect.h = WINDOW_HEIGHT - 16;
 	
-	SDL_RenderCopy(Application::window.renderer(), m_texture, &clip, &pos);
+	SDL_RenderCopy(Application::window.renderer(), m_texture, &clipRect, &posRect);
 }
 
 void Map::drawTile(u16 tileX, u16 tileY) {

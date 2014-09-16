@@ -22,7 +22,7 @@
 
 class Timer {
 	public:
-		Timer();
+		Timer(bool useDeltaTime = true);
 		~Timer();
 		
 		void stop();
@@ -36,6 +36,8 @@ class Timer {
 		bool isStarted() const { return m_isStarted; }
 		
 	private:
+		bool m_useDeltaTime;
+		
 		u16 m_t;
 		
 		bool m_isStarted;

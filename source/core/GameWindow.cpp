@@ -51,7 +51,10 @@ void GameWindow::open() {
 		exit(EXIT_FAILURE);
 	}
 	
-	SDL_RenderSetLogicalSize(m_renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
+	SDL_RenderSetScale(m_renderer, 3, 3);
+	
+	m_defaultView.reset(FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+	m_currentView = m_defaultView;
 }
 
 void GameWindow::close() {

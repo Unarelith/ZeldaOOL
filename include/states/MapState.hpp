@@ -19,9 +19,9 @@
 #define MAPSTATE_HPP_
 
 #include "GameState.hpp"
-
-#include "StatsBar.hpp"
 #include "MapManager.hpp"
+#include "StatsBar.hpp"
+#include "View.hpp"
 
 class MapState : public GameState {
 	public:
@@ -44,6 +44,8 @@ class MapState : public GameState {
 		
 	private:
 		Mode m_mode;
+		
+		View m_mapView;
 		
 		Map *m_nextMap;
 		double m_scrolled;

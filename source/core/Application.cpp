@@ -54,7 +54,7 @@ void Application::handleEvents() {
 }
 
 void Application::run() {
-	Timer deltaTimer;
+	Timer deltaTimer(false);
 	
 	while(!quit) {
 		TimeManager::dt = deltaTimer.time() / 1000.0f;

@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  TimeManager.hpp
+ *       Filename:  View.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 19:34:38
+ *        Created:  16/09/2014 21:44:35
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,15 +15,21 @@
  *
  * =====================================================================================
  */
-#ifndef TIMEMANAGER_HPP_
-#define TIMEMANAGER_HPP_
+#include "SDLHeaders.hpp"
+#include "View.hpp"
 
-#include "Types.hpp"
+View::View() {
+}
 
-namespace TimeManager {
-	u32 getTicks(bool useDeltaTime = true);
-	
-	extern double dt;
-};
+View::~View() {
+}
 
-#endif // TIMEMANAGER_HPP_
+void View::reset(const FloatRect &rect) {
+	m_rect = rect;
+}
+
+void View::move(float offsetX, float offsetY) {
+	m_rect.x -= offsetX;
+	m_rect.y -= offsetY;
+}
+
