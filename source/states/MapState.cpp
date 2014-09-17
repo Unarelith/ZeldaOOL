@@ -67,7 +67,7 @@ void MapState::scrollMaps(double vx, double vy) {
 		m_nextMap = &MapManager::maps[MapManager::currentMap->area()][MapManager::currentMap->x() + vx + (MapManager::currentMap->y() + vy) * sqrt(MapManager::maps[MapManager::currentMap->area()].size())];
 		
 		m_nextMap->resetTiles();
-		m_nextMap->update();
+		m_nextMap->updateTexture();
 		m_nextMap->setPosition(MapManager::currentMap->width() * 16 * vx, MapManager::currentMap->height() * 16 * vy);
 		
 		Sprite::pause = true;

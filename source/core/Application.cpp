@@ -57,20 +57,32 @@ void Application::run() {
 	Timer deltaTimer(false);
 	
 	while(!quit) {
-		TimeManager::dt = deltaTimer.time() / 1000.0f;
+		if(TimeManager::isTimeToUpdate()) {
+			TimeManager::dt = deltaTimer.time() / 1000.0f;
+			
+			deltaTimer.reset();
+			deltaTimer.start();
+			
+			handleEvents();
+			
+			GameStateManager::top()->update();
+			
+			if(TimeManager::hasEnoughTimeToDraw()) {
+				TimeManager::beginMeasuringRenderingTime();
+				
+				window.clear();
+				
+				GameStateManager::top()->render();
+				
+				window.update();
+				
+				TimeManager::beginMeasuringRenderingTime();
+			}
+		} else {
+			TimeManager::waitUntilItsTime();
+		}
 		
-		deltaTimer.reset();
-		deltaTimer.start();
-		
-		handleEvents();
-		
-		GameStateManager::top()->update();
-		
-		window.clear();
-		
-		GameStateManager::top()->render();
-		
-		window.update();
+		TimeManager::measureFrameDuration();
 	}
 }
 
