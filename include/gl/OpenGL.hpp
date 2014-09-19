@@ -1,37 +1,27 @@
 /*
  * =====================================================================================
  *
- *       Filename:  StatsBar.hpp
+ *       Filename:  OpenGL.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 23:34:47
+ *        Created:  19/09/2014 18:15:12
  *       Revision:  none
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
-#ifndef STATSBAR_HPP_
-#define STATSBAR_HPP_
+#ifndef OPENGL_HPP_
+#define OPENGL_HPP_
 
-#include "Sprite.hpp"
+#ifdef __APPLE__
+	#include <OpenGL/gl.h>
+#else
+	#include <GL/gl.h>
+#endif
 
-class StatsBar {
-	public:
-		StatsBar();
-		~StatsBar();
-		
-		void draw();
-		
-	private:
-		Image m_background;
-		
-		Sprite m_hearts;
-		Sprite m_numbers;
-};
-
-#endif // STATSBAR_HPP_
+#endif // OPENGL_HPP_

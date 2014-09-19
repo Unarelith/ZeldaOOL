@@ -1,60 +1,46 @@
 /*
  * =====================================================================================
  *
- *       Filename:  GameWindow.hpp
+ *       Filename:  Window.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 00:01:12
+ *        Created:  19/09/2014 19:50:56
  *       Revision:  none
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
-#ifndef GAMEWINDOW_HPP_
-#define GAMEWINDOW_HPP_
-
-#include <stack>
+#ifndef WINDOW_HPP_
+#define WINDOW_HPP_
 
 #include "SDLHeaders.hpp"
 #include "Types.hpp"
-#include "View.hpp"
 
-class GameWindow {
+class Window {
 	public:
-		GameWindow();
-		~GameWindow();
+		Window();
+		~Window();
 		
 		void open();
-		void close();
+		void free();
 		
 		void clear();
-		
 		void update();
-		
-		SDL_Renderer *renderer() const { return m_renderer; }
 		
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
-		View currentView() const { return m_currentView; }
-		
-		void setView(const View &view) { m_currentView = view; }
-		void resetView() { m_currentView = m_defaultView; }
-		
 	private:
 		SDL_Window *m_window;
-		SDL_Renderer *m_renderer;
+		SDL_GLContext m_context;
 		
 		u16 m_width;
 		u16 m_height;
-		
-		View m_defaultView;
-		View m_currentView;
 };
 
-#endif // GAMEWINDOW_HPP_
+#endif // WINDOW_HPP_

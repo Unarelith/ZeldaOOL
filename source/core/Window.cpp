@@ -1,30 +1,32 @@
 /*
  * =====================================================================================
  *
- *       Filename:  GameWindow.cpp
+ *       Filename:  Window.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 00:01:40
+ *        Created:  19/09/2014 19:51:04
  *       Revision:  none
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
 #include "Debug.hpp"
-#include "GameWindow.hpp"
+#include "OpenGL.hpp"
+#include "Window.hpp"
 
-GameWindow::GameWindow() {
+Window::Window() {
+	
 }
 
-GameWindow::~GameWindow() {
+Window::~Window() {
 }
 
-void GameWindow::open() {
+void Window::open() {
 #ifdef __ANDROID__
 	SDL_DisplayMode current;
 	SDL_GetCurrentDisplayMode(0, &current);
@@ -44,29 +46,20 @@ void GameWindow::open() {
 		exit(EXIT_FAILURE);
 	}
 	
-	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
-	if(!m_renderer) {
-		error("Renderer couldn't be created: %s\n", SDL_GetError());
-		SDL_DestroyWindow(m_window);
-		exit(EXIT_FAILURE);
-	}
-	
-	SDL_RenderSetScale(m_renderer, 3, 3);
-	
-	m_defaultView.reset(FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
-	m_currentView = m_defaultView;
+	m_context = SDL_GL_CreateContext(m_window);
 }
 
-void GameWindow::close() {
-	SDL_DestroyRenderer(m_renderer);
+void Window::free() {
+	SDL_GL_DeleteContext(m_context);
 	SDL_DestroyWindow(m_window);
 }
 
-void GameWindow::clear() {
-	SDL_RenderClear(m_renderer);
+void Window::clear() {
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void GameWindow::update() {
-	SDL_RenderPresent(m_renderer);
+void Window::update() {
+	SDL_GL_SwapWindow(m_window);
 }
 
