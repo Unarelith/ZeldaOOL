@@ -54,14 +54,14 @@ void Application::handleEvents() {
 }
 
 void Application::run() {
-	Timer deltaTimer(false);
+	//Timer deltaTimer(false);
 	
 	while(!quit) {
 		if(TimeManager::isTimeToUpdate()) {
-			TimeManager::dt = deltaTimer.time() / 1000.0f;
+			//TimeManager::dt = deltaTimer.time() / 1000.0f;
 			
-			deltaTimer.reset();
-			deltaTimer.start();
+			//deltaTimer.reset();
+			//deltaTimer.start();
 			
 			handleEvents();
 			

@@ -46,9 +46,9 @@ void SDLManager::init() {
 	//	warning("Warning: Linear interpolation not enabled!");
 	//}
 	
-	if(!SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1")) {
-		warning("Warning: VSync not enabled!");
-	}
+	//if(!SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1")) {
+	//	warning("Warning: VSync not enabled!");
+	//}
 }
 
 void SDLManager::free() {

@@ -15,12 +15,10 @@
  *
  * =====================================================================================
  */
-#include <algorithm>
+#include <numeric>
 
 #include "SDLHeaders.hpp"
 #include "TimeManager.hpp"
-
-double TimeManager::dt = 0;
 
 u32 TimeManager::renderingTimeMean = 0;
 u32 TimeManager::tempBeginRendering = 0;
@@ -28,15 +26,11 @@ u32 TimeManager::frameBegin = 0;
 u32 TimeManager::frameEnd = 0;
 u32 TimeManager::timeToWait = 0;
 std::vector<u32> TimeManager::renderingTimeValues;
-u16 TimeManager::maxFrameskip = 5;
+u16 TimeManager::maxFrameskip = 0;
 u16 TimeManager::frameskip = 0;
 
 u32 TimeManager::getTicks(bool useDeltaTime) {
-	if(useDeltaTime) {
-		return SDL_GetTicks() + 1000 * dt;
-	} else {
-		return SDL_GetTicks();
-	}
+	return SDL_GetTicks();
 }
 
 void TimeManager::beginMeasuringRenderingTime() {
@@ -65,7 +59,7 @@ bool TimeManager::isTimeToUpdate() {
 }
 
 bool TimeManager::hasEnoughTimeToDraw() {
-	if(SDL_GetTicks() - frameBegin + renderingTimeMean > 33) {
+	if(SDL_GetTicks() - frameBegin + renderingTimeMean > 17) {
 		frameskip++;
 		if(frameskip > maxFrameskip) {
 			frameskip = 0;
@@ -85,8 +79,8 @@ void TimeManager::waitUntilItsTime() {
 void TimeManager::measureFrameDuration() {
 	if(timeToWait == 0) {
 		frameEnd = SDL_GetTicks();
-		if(frameEnd - frameBegin <= 16) {
-			timeToWait = 16 - (frameEnd - frameBegin);
+		if(frameEnd - frameBegin <= 17) {
+			timeToWait = 17 - (frameEnd - frameBegin);
 		} else {
 			timeToWait = 0;
 		}

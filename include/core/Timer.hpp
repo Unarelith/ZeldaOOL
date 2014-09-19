@@ -29,20 +29,20 @@ class Timer {
 		void start();
 		void reset();
 		
-		u16 time();
+		u32 time();
 		
-		void setTime(u16 time);
+		void setTime(u32 time);
 		
 		bool isStarted() const { return m_isStarted; }
 		
 	private:
 		bool m_useDeltaTime;
 		
-		u16 m_t;
+		u32 m_t;
 		
 		bool m_isStarted;
 		
-		u16 m_tick;
+		u32 m_tick;
 };
 
 #endif // TIMER_HPP_

@@ -50,7 +50,7 @@ void Timer::reset() {
 	m_tick = 0;
 }
 
-u16 Timer::time() {
+u32 Timer::time() {
 	if(m_isStarted) {
 		return TimeManager::getTicks(m_useDeltaTime) - m_t;
 	} else {
@@ -58,7 +58,7 @@ u16 Timer::time() {
 	}
 }
 
-void Timer::setTime(u16 time) {
+void Timer::setTime(u32 time) {
 	if(m_isStarted) {
 		m_t = TimeManager::getTicks(m_useDeltaTime) - time;
 	} else {
