@@ -82,11 +82,11 @@ void Image::draw() {
 	
 	GLubyte indices[] = {
 		0, 1, 3,
-		3, 1, 2,
+		3, 1, 2
 	};
 	
-	glVertexAttribPointer(Application::window.defaultShader().attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glVertexAttribPointer(Application::window.defaultShader().attrib("texcoord"), 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+	glVertexAttribPointer(Application::window.defaultShader()->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glVertexAttribPointer(Application::window.defaultShader()->attrib("texcoord"), 2, GL_FLOAT, GL_FALSE, 0, texCoords);
 	
 	bind();
 	

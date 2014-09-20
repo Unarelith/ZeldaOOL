@@ -70,7 +70,7 @@ void Shader::compile(GLenum type, GLuint &shader, const char *filename) {
 	
 	std::ifstream file(filename);
 	if(!file) {
-		std::cerr << "Failed to open " << filename << std::endl;
+		error("Failed to open %s", filename);
 		glDeleteShader(type);
 		exit(EXIT_FAILURE);
 	}
@@ -110,19 +110,23 @@ void Shader::compile(GLenum type, GLuint &shader, const char *filename) {
 
 GLint Shader::attrib(const char *attribName) {
 	GLint attrib = glGetAttribLocation(m_program, attribName);
+	
 	if(attrib == -1) {
 		error("Could not bind '%s' attribute", attribName);
 		exit(EXIT_FAILURE);
 	}
+	
 	return attrib;
 }
 
 GLint Shader::uniform(const char *uniformName) {
 	GLint uniform = glGetUniformLocation(m_program, uniformName);
+	
 	if(uniform == -1) {
 		error("Could not bind uniform '%s' attribute", uniformName);
 		exit(EXIT_FAILURE);
 	}
+	
 	return uniform;
 }
 

@@ -18,10 +18,11 @@
 #include "MapState.hpp"
 
 MapState::MapState() {
-	m_stats.load("graphics/characters/link.png");
+	m_stats.load("graphics/interface/stats.png");
 	
 	m_tileset.load("graphics/tilesets/plain.png");
-	m_map.load("maps/a1.map", m_tileset, 40, 30);
+	
+	m_map.load("data/maps/a1.tmx", m_tileset);
 }
 
 MapState::~MapState() {
@@ -32,8 +33,8 @@ void MapState::update() {
 }
 
 void MapState::render() {
-	m_map.render();
+	m_map.draw();
 	
-	m_stats.draw(50, 50);
+	m_stats.draw(0, 0);
 }
 

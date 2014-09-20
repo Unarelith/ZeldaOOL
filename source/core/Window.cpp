@@ -53,7 +53,7 @@ void Window::open() {
 	m_context = SDL_GL_CreateContext(m_window);
 	
 	m_defaultShader.load("shaders/default.v.glsl", "shaders/default.f.glsl");
-	m_defaultShader.useProgram();
+	useDefaultShader();
 	
 	glEnableVertexAttribArray(m_defaultShader.attrib("coord2d"));
 	glEnableVertexAttribArray(m_defaultShader.attrib("texcoord"));
@@ -85,5 +85,9 @@ void Window::clear() {
 
 void Window::update() {
 	SDL_GL_SwapWindow(m_window);
+}
+
+void Window::useDefaultShader() {
+	m_defaultShader.useProgram();
 }
 

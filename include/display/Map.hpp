@@ -6,7 +6,7 @@
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  20/09/2014 15:28:20
+ *        Created:  20/09/2014 19:04:19
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -18,29 +18,33 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
-#include "OpenGL.hpp"
-#include "Texture.hpp"
+#include <vector>
 
-class Map {
+#include "TileMap.hpp"
+
+class Map : public TileMap {
 	public:
 		Map();
-		Map(std::string filename, Texture &texture, u16 width, u16 height);
+		Map(std::string filename, Texture &texture);
 		~Map();
 		
-		void load(std::string filename, Texture &texture, u16 width, u16 height);
+		bool load(std::string filename, Texture &texture);
 		
-		void updateTile(u16 id, float x, float y);
-		void render();
+		void resetTiles();
+		
+		void draw();
+		
+		u16 getTile(u16 tileX, u16 tileY);
+		void setTile(u16 tileX, u16 tileY, u16 tile);
 		
 	private:
-		Texture *m_texture;
+		std::string m_filename;
 		
-		GLuint m_vbo;
+		u16 m_tileWidth;
+		u16 m_tileHeight;
 		
-		u16 m_width;
-		u16 m_height;
-		
-		u16 *m_data;
+		std::vector<s16> m_baseData;
+		std::vector<s16> m_data;
 };
 
 #endif // MAP_HPP_

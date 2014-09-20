@@ -58,7 +58,7 @@ void Texture::load(std::string filename) {
 	
 	unbind();
 	
-	m_uniform = Application::window.defaultShader().uniform("tex");
+	m_uniform = Application::window.defaultShader()->uniform("tex");
 }
 
 void Texture::bind() {
