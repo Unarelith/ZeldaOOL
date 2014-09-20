@@ -74,7 +74,7 @@ void Window::initGL() {
 	
 	glEnable(GL_TEXTURE_2D);
 	
-	glm::mat4 projectionMatrix = glm::ortho(0.0f, WINDOW_WIDTH * 1.0f, WINDOW_HEIGHT * 1.0f, 0.0f);
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f);
 	
 	glUniformMatrix4fv(m_defaultShader.uniform("uProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 }

@@ -62,7 +62,7 @@ void TileMap::load(Texture &texture, u16 width, u16 height, s16 *data) {
 	
 	m_shader.useProgram();
 	
-	glm::mat4 projectionMatrix = glm::ortho(0.0f, WINDOW_WIDTH * 1.0f, WINDOW_HEIGHT * 1.0f, 0.0f);
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT - 16.0f, -16.0f);
 	
 	glUniformMatrix4fv(m_shader.uniform("uProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	
