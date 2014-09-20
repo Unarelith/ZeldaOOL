@@ -15,12 +15,16 @@
  *
  * =====================================================================================
  */
+#define GLM_FORCE_RADIANS
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "Debug.hpp"
 #include "OpenGL.hpp"
 #include "Window.hpp"
 
 Window::Window() {
-	
+	m_isOpen = false;
 }
 
 Window::~Window() {
@@ -40,13 +44,23 @@ void Window::open() {
 	m_height = WINDOW_HEIGHT * 3;
 #endif
 	
-	m_window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_SHOWN);
+	m_window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 	if(!m_window) {
 		error("Error while initializing window: %s\n", SDL_GetError());
 		exit(EXIT_FAILURE);
 	}
 	
 	m_context = SDL_GL_CreateContext(m_window);
+	
+	m_defaultShader.load("shaders/default.v.glsl", "shaders/default.f.glsl");
+	m_defaultShader.useProgram();
+	
+	glEnableVertexAttribArray(m_defaultShader.attrib("coord2d"));
+	glEnableVertexAttribArray(m_defaultShader.attrib("texcoord"));
+	
+	initGL();
+	
+	m_isOpen = true;
 }
 
 void Window::free() {
@@ -54,8 +68,18 @@ void Window::free() {
 	SDL_DestroyWindow(m_window);
 }
 
+void Window::initGL() {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
+	glEnable(GL_TEXTURE_2D);
+	
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, WINDOW_WIDTH * 1.0f, WINDOW_HEIGHT * 1.0f, 0.0f);
+	
+	glUniformMatrix4fv(m_defaultShader.uniform("uProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+}
+
 void Window::clear() {
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 

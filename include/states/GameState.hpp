@@ -1,33 +1,33 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Application.hpp
+ *       Filename:  GameState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  19/09/2014 19:37:36
+ *        Created:  15/09/2014 00:16:41
  *       Revision:  none
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *        Company:  Deloptia
  *
  * =====================================================================================
  */
-#ifndef APPLICATION_HPP_
-#define APPLICATION_HPP_
+#ifndef GAMESTATE_HPP_
+#define GAMESTATE_HPP_
 
-#include "Window.hpp"
-
-class Application {
+class GameState {
 	public:
-		Application();
-		~Application();
+		GameState();
+		virtual ~GameState();
 		
-		void run();
+		virtual void handleEvents();
 		
-		static Window window;
+		virtual void update() = 0;
+		
+		virtual void render() = 0;
 };
 
-#endif // APPLICATION_HPP_
+#endif // GAMESTATE_HPP_

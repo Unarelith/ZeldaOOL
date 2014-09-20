@@ -16,15 +16,33 @@
  * =====================================================================================
  */
 #include "Application.hpp"
+#include "GameStateManager.hpp"
+
+Window Application::window;
 
 Application::Application() {
+	window.open();
 	
+	GameStateManager::init();
 }
 
 Application::~Application() {
+	GameStateManager::free();
+	
+	window.free();
 }
 
 void Application::run() {
-	
+	while(window.isOpen()) {
+		GameStateManager::top()->handleEvents();
+		
+		GameStateManager::top()->update();
+		
+		window.clear();
+		
+		GameStateManager::top()->render();
+		
+		window.update();
+	}
 }
 

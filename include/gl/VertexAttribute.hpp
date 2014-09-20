@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Application.hpp
+ *       Filename:  VertexAttribute.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  19/09/2014 19:37:36
+ *        Created:  20/09/2014 15:35:06
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,19 +15,12 @@
  *
  * =====================================================================================
  */
-#ifndef APPLICATION_HPP_
-#define APPLICATION_HPP_
+#ifndef VERTEXATTRIBUTE_HPP_
+#define VERTEXATTRIBUTE_HPP_
 
-#include "Window.hpp"
-
-class Application {
-	public:
-		Application();
-		~Application();
-		
-		void run();
-		
-		static Window window;
+struct VertexAttribute {
+	GLfloat coord2d[2];
+	GLfloat texcoord[2];
 };
 
-#endif // APPLICATION_HPP_
+#endif // VERTEXATTRIBUTE_HPP_
