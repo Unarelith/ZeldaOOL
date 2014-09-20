@@ -30,7 +30,8 @@ class TileMap {
 		
 		void load(Texture &texture, u16 width, u16 height, s16 *data);
 		
-		void updateTile(u16 id, float x, float y);
+		void updateTiles();
+		void updateTile(float x, float y, u16 id);
 		
 		void draw();
 		
@@ -40,12 +41,12 @@ class TileMap {
 		u16 m_width;
 		u16 m_height;
 		
+		Shader m_shader;
+		
 	private:
 		GLuint m_vbo;
 		
 		s16 *m_data;
-		
-		Shader m_shader;
 };
 
 #endif // TILEMAP_HPP_

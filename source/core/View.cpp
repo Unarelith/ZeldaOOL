@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  GameState.cpp
+ *       Filename:  View.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 00:17:06
+ *        Created:  16/09/2014 21:44:35
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,26 +15,21 @@
  *
  * =====================================================================================
  */
-#include "Application.hpp"
-#include "GameState.hpp"
 #include "SDLHeaders.hpp"
+#include "View.hpp"
 
-GameState::GameState() {
+View::View() {
 }
 
-GameState::~GameState() {
+View::~View() {
 }
 
-void GameState::handleEvents() {
-	SDL_Event event;
-	
-	while(SDL_PollEvent(&event) != 0) {
-		switch(event.type) {
-			case SDL_QUIT:
-				Application::window.close();
-				break;
-			default:
-				break;
-		}
-	}
+void View::reset(const FloatRect &rect) {
+	m_rect = rect;
 }
+
+void View::move(float offsetX, float offsetY) {
+	m_rect.x -= offsetX;
+	m_rect.y -= offsetY;
+}
+

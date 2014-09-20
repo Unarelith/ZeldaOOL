@@ -50,11 +50,7 @@ void TileMap::load(Texture &texture, u16 width, u16 height, s16 *data) {
 	
 	glBufferData(GL_ARRAY_BUFFER, sizeof(VertexAttribute) * m_width * m_height * 6, NULL, GL_DYNAMIC_DRAW);
 	
-	for(u16 y = 0 ; y < m_height ; y++) {
-		for(u16 x = 0 ; x < m_width ; x++) {
-			updateTile(m_data[x + y * m_width], x * 16, y * 16);
-		}
-	}
+	updateTiles();
 	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
@@ -69,7 +65,15 @@ void TileMap::load(Texture &texture, u16 width, u16 height, s16 *data) {
 	Application::window.useDefaultShader();
 }
 
-void TileMap::updateTile(u16 id, float x, float y) {
+void TileMap::updateTiles() {
+	for(u16 y = 0 ; y < m_height ; y++) {
+		for(u16 x = 0 ; x < m_width ; x++) {
+			updateTile(x * 16, y * 16, m_data[x + y * m_width]);
+		}
+	}
+}
+
+void TileMap::updateTile(float x, float y, u16 id) {
 	float texTileX = id % (m_texture->width() / 16) * 16.0f / m_texture->width();
 	float texTileY = id / (m_texture->width() / 16) * 16.0f / m_texture->height();
 	
