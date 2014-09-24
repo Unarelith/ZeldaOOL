@@ -89,6 +89,8 @@ void TileMap::updateTile(float x, float y, u16 id) {
 void TileMap::draw() {
 	m_shader.useProgram();
 	
+	glUniform2f(m_shader.uniform("mapPosition"), m_x, m_y);
+	
 	glEnableVertexAttribArray(4);
 	glEnableVertexAttribArray(5);
 	

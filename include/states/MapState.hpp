@@ -21,7 +21,6 @@
 #include "GameState.hpp"
 #include "MapManager.hpp"
 #include "StatsBar.hpp"
-#include "View.hpp"
 
 class MapState : public GameState {
 	public:
@@ -44,8 +43,6 @@ class MapState : public GameState {
 		
 	private:
 		Mode m_mode;
-		
-		View m_mapView;
 		
 		Map *m_nextMap;
 		float m_scrolled;

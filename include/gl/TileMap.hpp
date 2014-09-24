@@ -34,6 +34,9 @@ class TileMap {
 		
 		void draw();
 		
+		void setPosition(float x, float y) { m_x = x; m_y = y; }
+		void move(float dx, float dy) { m_x += dx; m_y += dy; }
+		
 	protected:
 		Texture *m_texture;
 		
@@ -46,6 +49,9 @@ class TileMap {
 		GLuint m_vbo;
 		
 		s16 *m_data;
+		
+		float m_x;
+		float m_y;
 };
 
 #endif // TILEMAP_HPP_

@@ -30,8 +30,6 @@
 MapState::MapState() {
 	m_mode = Mode::Normal;
 	
-	m_mapView.reset(FloatRect(0, 16, WINDOW_WIDTH, WINDOW_HEIGHT - 16));
-	
 	m_nextMap = nullptr;
 	m_scrolled = 0;
 	
@@ -68,13 +66,15 @@ void MapState::scrollMaps(float vx, float vy) {
 		
 		m_nextMap->resetTiles();
 		m_nextMap->updateTiles();
-		//m_nextMap->setPosition(MapManager::currentMap->width() * 16 * vx, MapManager::currentMap->height() * 16 * vy);
+		m_nextMap->setPosition(MapManager::currentMap->width() * 16 * vx, MapManager::currentMap->height() * 16 * vy);
 		
 		Sprite::pause = true;
 	}
 	
 	CharacterManager::player.currentState()->move(-vx * 2.25f, -vy * 1.7f);
-	m_mapView.move(vx * 2.5f, vy * 2);
+	
+	MapManager::currentMap->move(-vx * 2.5f, -vy * 2);
+	m_nextMap->move(-vx * 2.5f, -vy * 2);
 	
 	if(vx != 0) m_scrolled += 2.5f;
 	if(vy != 0) m_scrolled += 2;
@@ -120,22 +120,18 @@ void MapState::update() {
 	if((m_scrolled >= WINDOW_WIDTH && (m_mode == Mode::ScrollingLeft || m_mode == Mode::ScrollingRight))
 	|| (m_scrolled >= WINDOW_HEIGHT - 16 && (m_mode == Mode::ScrollingUp || m_mode == Mode::ScrollingDown))) {
 		MapManager::currentMap = m_nextMap;
-		//MapManager::currentMap->setPosition(0, 0);
+		MapManager::currentMap->setPosition(0, 0);
 		
 		m_nextMap = nullptr;
 		m_scrolled = 0;
 		
 		Sprite::pause = false;
 		
-		m_mapView.reset(FloatRect(0, 16, WINDOW_WIDTH, WINDOW_HEIGHT - 16));
-		
 		m_mode = Mode::Normal;
 	}
 }
 
 void MapState::render() {
-	//Application::window.setView(m_mapView);
-	
 	MapManager::currentMap->draw();
 	
 	if(m_mode == Mode::ScrollingLeft
@@ -146,8 +142,6 @@ void MapState::render() {
 	}
 	
 	AnimationManager::playAnimations();
-	
-	//Application::window.resetView();
 	
 	CharacterManager::player.draw();
 	
