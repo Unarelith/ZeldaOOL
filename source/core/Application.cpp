@@ -17,6 +17,7 @@
  */
 #include "Application.hpp"
 #include "GameStateManager.hpp"
+#include "Sound.hpp"
 #include "TimeManager.hpp"
 #include "Timer.hpp"
 
@@ -24,6 +25,8 @@ Window Application::window;
 
 Application::Application() {
 	window.open();
+	
+	Sound::init();
 	
 	GameStateManager::init();
 }
