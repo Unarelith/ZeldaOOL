@@ -28,7 +28,7 @@ class MapState : public GameState {
 		MapState();
 		~MapState();
 		
-		void scrollMaps(double vx, double vy);
+		void scrollMaps(float vx, float vy);
 		
 		void update();
 		
@@ -48,7 +48,7 @@ class MapState : public GameState {
 		View m_mapView;
 		
 		Map *m_nextMap;
-		double m_scrolled;
+		float m_scrolled;
 		
 		StatsBar m_statsBar;
 };

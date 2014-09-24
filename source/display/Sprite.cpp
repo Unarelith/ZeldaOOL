@@ -67,7 +67,7 @@ void Sprite::addAnimation(std::initializer_list<u16> frames, u16 delay) {
 	}
 }
 
-void Sprite::drawFrame(s16 x, s16 y, u16 frame) {
+void Sprite::drawFrame(float x, float y, u16 frame) {
 	u16 frameX = frame % (width() / m_frameWidth);
 	u16 frameY = frame / (width() / m_frameWidth);
 	
@@ -104,7 +104,7 @@ bool Sprite::animationAtEnd(u16 anim) {
 	return animationCurrentFrame(anim) >= m_animations[anim].frames.size();
 }
 
-void Sprite::playAnimation(s16 x, s16 y, u16 anim) {
+void Sprite::playAnimation(float x, float y, u16 anim) {
 	if(pause) {
 		stopAnimation(anim);
 		

@@ -33,32 +33,32 @@ class Entity {
 		
 		bool onTile(u16 tile);
 		
-		void move(double dx, double dy) { m_x += dx; m_y += dy; }
+		void move(float dx, float dy) { m_x += dx; m_y += dy; }
 		
 		void setHitbox(IntRect hitbox) { m_hitbox = hitbox; }
 		
-		void setPosition(double x, double y) { m_x = x; m_y = y; }
+		void setPosition(float x, float y) { m_x = x; m_y = y; }
 		
-		void setVelocity(double vx, double vy) { m_vx = vx; m_vy = vy; }
+		void setVelocity(float vx, float vy) { m_vx = vx; m_vy = vy; }
 		
-		double x() const { return m_x; }
-		double y() const { return m_y; }
+		float x() const { return m_x; }
+		float y() const { return m_y; }
 		
-		double vx() const { return m_vx; }
-		double vy() const { return m_vy; }
+		float vx() const { return m_vx; }
+		float vy() const { return m_vy; }
 		
-		void setVX(double vx) { m_vx = vx; }
-		void setVY(double vy) { m_vy = vy; }
+		void setVX(float vx) { m_vx = vx; }
+		void setVY(float vy) { m_vy = vy; }
 		
 	protected:
-		double m_x;
-		double m_y;
+		float m_x;
+		float m_y;
 		
 		u16 m_width;
 		u16 m_height;
 		
-		double m_vx;
-		double m_vy;
+		float m_vx;
+		float m_vy;
 		
 		IntRect m_hitbox;
 };

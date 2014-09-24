@@ -30,8 +30,8 @@ class Image : public Texture {
 		
 		void load(std::string filename);
 		
-		void setClipRect(s16 x, s16 y, u16 width, u16 height);
-		void setPosRect(s16 x, s16 y, u16 width, u16 height);
+		void setClipRect(float x, float y, u16 width, u16 height);
+		void setPosRect(float x, float y, u16 width, u16 height);
 		
 		void draw(float x, float y, s16 width = -1, s16 height = -1);
 		void draw();

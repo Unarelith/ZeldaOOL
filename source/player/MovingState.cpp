@@ -75,8 +75,8 @@ void MovingState::move() {
 	
 	m_player.mapCollisions();
 	
-	m_player.move(m_player.vx() * 1.01f,
-				  m_player.vy() * 1.01f);
+	m_player.move(m_player.vx() * 0.6f,
+				  m_player.vy() * 0.6f);
 	
 	m_player.setVelocity(0, 0);
 }

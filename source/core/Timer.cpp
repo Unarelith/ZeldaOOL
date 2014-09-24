@@ -18,9 +18,9 @@
 #include "TimeManager.hpp"
 #include "Timer.hpp"
 
-Timer::Timer(bool useDeltaTime) {
-	m_useDeltaTime = useDeltaTime;
-	m_t = TimeManager::getTicks(m_useDeltaTime);
+Timer::Timer(bool useRealTime) {
+	m_useRealTime = useRealTime;
+	m_t = TimeManager::getTicks(m_useRealTime);
 	m_isStarted = false;
 	m_tick = 0;
 }
@@ -33,26 +33,26 @@ Timer::~Timer() {
 void Timer::stop() {
 	if(m_isStarted) {
 		m_isStarted = false;
-		m_tick = TimeManager::getTicks(m_useDeltaTime) - m_t;
+		m_tick = TimeManager::getTicks(m_useRealTime) - m_t;
 	}
 }
 
 void Timer::start() {
 	if(!m_isStarted) {
 		m_isStarted = true;
-		m_t = TimeManager::getTicks(m_useDeltaTime) - m_tick;
+		m_t = TimeManager::getTicks(m_useRealTime) - m_tick;
 	}
 }
 
 void Timer::reset() {
-	m_t = TimeManager::getTicks(m_useDeltaTime);
+	m_t = TimeManager::getTicks(m_useRealTime);
 	m_isStarted = false;
 	m_tick = 0;
 }
 
 u32 Timer::time() {
 	if(m_isStarted) {
-		return TimeManager::getTicks(m_useDeltaTime) - m_t;
+		return TimeManager::getTicks(m_useRealTime) - m_t;
 	} else {
 		return m_tick;
 	}
@@ -60,7 +60,7 @@ u32 Timer::time() {
 
 void Timer::setTime(u32 time) {
 	if(m_isStarted) {
-		m_t = TimeManager::getTicks(m_useDeltaTime) - time;
+		m_t = TimeManager::getTicks(m_useRealTime) - time;
 	} else {
 		m_tick = time;
 	}

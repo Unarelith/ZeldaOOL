@@ -18,29 +18,28 @@
 #ifndef TIMEMANAGER_HPP_
 #define TIMEMANAGER_HPP_
 
+#include <functional>
 #include <vector>
 
 #include "Types.hpp"
 
 namespace TimeManager {
-	u32 getTicks(bool useDeltaTime = true);
+	u32 getTicks(bool useRealTime = false);
 	
-	void beginMeasuringRenderingTime();
-	void endMeasuringRenderingTime();
+	void measureLastFrameDuration();
 	
-	bool isTimeToUpdate();
-	bool hasEnoughTimeToDraw();
-	void waitUntilItsTime();
-	void measureFrameDuration();
+	void updateGame(std::function<void(void)> updateFunc);
 	
-	extern u32 renderingTimeMean;
-	extern u32 tempBeginRendering;
-	extern u32 frameBegin;
-	extern u32 frameEnd;
-	extern u32 timeToWait;
-	extern std::vector<u32> renderingTimeValues;
-	extern u16 maxFrameskip;
-	extern u16 frameskip;
+	void drawGame(std::function<void(void)> drawFunc);
+	
+	extern u32 lastFrameDate;
+	extern u32 lag;
+	extern u32 timeDropped;
+	extern u32 now;
+	extern u32 lastFrameDuration;
+	extern u32 ticks;
+	extern u32 timestep;
+	extern u8 numUpdates;
 };
 
 #endif // TIMEMANAGER_HPP_

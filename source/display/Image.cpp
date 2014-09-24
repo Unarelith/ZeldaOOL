@@ -35,14 +35,14 @@ void Image::load(std::string filename) {
 	m_clipRect = FloatRect(0, 0, m_width, m_height);
 }
 
-void Image::setClipRect(s16 x, s16 y, u16 width, u16 height) {
+void Image::setClipRect(float x, float y, u16 width, u16 height) {
 	m_clipRect.x = x;
 	m_clipRect.y = y;
 	m_clipRect.width = width;
 	m_clipRect.height = height;
 }
 
-void Image::setPosRect(s16 x, s16 y, u16 width, u16 height) {
+void Image::setPosRect(float x, float y, u16 width, u16 height) {
 	m_posRect.x = x;
 	m_posRect.y = y;
 	m_posRect.width = width;
