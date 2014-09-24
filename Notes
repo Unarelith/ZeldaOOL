@@ -1,7 +1,5 @@
-- Fix Sword spin attack
-- Fix Sound
-	=> Little noise at start
-	=> Delay between music
+- Fix laggy transition
+- Fix SoundEffect
 	=> Only one sound effect plays when there should be many others too
 - Fix hearts (some are displayed out of the stats bar, comment SDL_RenderSetScale(...) line in Window.cpp to see them)
 - Check all display SDL-related files, and refactor them if needed

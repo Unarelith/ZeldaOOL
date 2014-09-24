@@ -153,7 +153,7 @@ void Sword::update() {
 			}
 			break;
 		case State::SpinAttack:
-			if(m_spinFrameCounter < 8) {
+			if(m_spinFrameCounter < 9) {
 				if(m_spinCurrentFrame != animationCurrentFrame(8)) {
 					m_spinCurrentFrame = animationCurrentFrame(8);
 					
