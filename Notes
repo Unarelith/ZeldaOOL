@@ -1,10 +1,16 @@
 - Edit clipRects to work with view in Image and Map
-- Fix Sword
-- Fix hearts (some are displayed out of the stats bar)
+- Fix Sword spin attack
+- Fix Sound
+	=> Little noise at start
+	=> Delay between music
+	=> Only one sound effect plays when there should be many others too
+- Fix hearts (some are displayed out of the stats bar, comment SDL_RenderSetScale(...) line in Window.cpp to see them)
+- Check all display SDL-related files, and refactor them if needed
+	=> Also check 'double', replacing by 'float'
 - Player can move out of the maps when sword is loading
 	=> virtual bool PlayerState::canStartMapTransition();
 - Sometimes, when spamming 'X' key at game start, the attack animation plays more than one time
-- It's possible to attack during spin attack
+- It's possible to re-attack during spin attack
 - Fix grassDestroy animation
 - Add 'Enemy' pure virtual class, child of 'Character'
 - Fix 'moonwalk' bug
