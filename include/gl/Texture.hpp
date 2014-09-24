@@ -26,6 +26,7 @@
 class Texture {
 	public:
 		Texture();
+		Texture(const Texture &texture);
 		Texture(std::string filename);
 		~Texture();
 		
@@ -51,6 +52,8 @@ class Texture {
 		int m_comp;
 		
 		u8 *m_data;
+		
+		bool m_isCopy;
 };
 
 #endif // TEXTURE_HPP_

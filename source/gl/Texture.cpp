@@ -25,12 +25,29 @@
 Texture::Texture() {
 }
 
+Texture::Texture(const Texture &texture) {
+	m_filename = texture.m_filename;
+	
+	m_width = texture.m_width;
+	m_height = texture.m_height;
+	
+	m_texture = texture.m_texture;
+	
+	m_uniform = texture.m_uniform;
+	
+	m_comp = texture.m_comp;
+	
+	m_data = texture.m_data;
+	
+	m_isCopy = true;
+}
+
 Texture::Texture(std::string filename) {
 	load(filename);
 }
 
 Texture::~Texture() {
-	stbi_image_free(m_data);
+	if(!m_isCopy) stbi_image_free(m_data);
 }
 
 void Texture::load(std::string filename) {
@@ -59,6 +76,8 @@ void Texture::load(std::string filename) {
 	unbind();
 	
 	m_uniform = Application::window.defaultShader()->uniform("tex");
+	
+	m_isCopy = false;
 }
 
 void Texture::bind() {

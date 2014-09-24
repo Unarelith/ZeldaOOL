@@ -30,7 +30,6 @@ class TileMap {
 		
 		void load(Texture &texture, u16 width, u16 height, s16 *data);
 		
-		void updateTiles();
 		void updateTile(float x, float y, u16 id);
 		
 		void draw();

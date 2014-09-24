@@ -68,11 +68,29 @@ bool Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 	
 	TileMap::load(m_tileset->texture, m_width, m_height, m_data.data());
 	
+	updateTiles();
+	
 	return true;
 }
 
 void Map::resetTiles() {
 	m_data = m_baseData;
+}
+
+void Map::updateTiles() {
+	for(u16 y = 0 ; y < m_height ; y++) {
+		for(u16 x = 0 ; x < m_width ; x++) {
+			updateTile(x * 16, y * 16, m_data[x + y * m_width]);
+			
+			for(auto &it : m_tileset->anims) {
+				for(auto &n : it.frames) {
+					if(getTile(x, y - 1) == n) {
+						m_animatedTiles.push_back(AnimatedTile(x, y - 1, n + 1 % it.frames.size(), it));
+					}
+				}
+			}
+		}
+	}
 }
 
 void Map::update() {
@@ -102,7 +120,7 @@ void Map::setTile(u16 tileX, u16 tileY, u16 tile) {
 	if(tileX + tileY * m_width < (u16)m_data.size()) {
 		m_data[tileX + tileY * m_width] = tile;
 		
-		updateTile(tileX, tileY, tile);
+		updateTile(tileX * 16, tileY * 16, tile);
 	}
 }
 

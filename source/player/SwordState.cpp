@@ -123,7 +123,7 @@ void SwordState::update() {
 		|| (MapHelper::isTile(m_sword.x() + 8, m_sword.y() + 8, TilesData::TileType::LowGrassTile))) {
 			Sound::Effect::grassDestroy.play();
 			
-			AnimationManager::addGrassDestroyAnimation((m_sword.x() + 8) / 16, (m_sword.y() + 8) / 16 - 1);
+			AnimationManager::addGrassDestroyAnimation((m_sword.x() + 8) / 16, (m_sword.y() + 8) / 16);
 			
 			MapManager::currentMap->setTile((m_sword.x() + 8) / 16, (m_sword.y() + 8) / 16 - 1, 36);
 		}

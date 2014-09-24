@@ -1,4 +1,4 @@
-- Edit clipRects to work with view in Image and Map
+- Fix crash when cutting grass
 - Fix Sword spin attack
 - Fix Sound
 	=> Little noise at start
@@ -25,3 +25,5 @@
 	-> It associates each map and its entities into a 'Scene'
 - Add 'Transition' pure virtual class, and its children 'TransitionScrolling', 'TransitionFade', etc...
 - Improve 'TransitionScrolling' to be closer to the original game
+- Improve game for OpenGL ES and try on Android
+- Implement a game pad, movable and resizable via config files

@@ -34,6 +34,8 @@ class Map : public TileMap {
 		
 		void resetTiles();
 		
+		void updateTiles();
+		
 		void update();
 		
 		u16 getTile(u16 tileX, u16 tileY);
