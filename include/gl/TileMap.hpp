@@ -22,6 +22,8 @@
 #include "Shader.hpp"
 #include "Texture.hpp"
 
+#include "Application.hpp"
+
 class TileMap {
 	public:
 		TileMap();
