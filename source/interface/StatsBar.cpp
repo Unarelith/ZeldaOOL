@@ -35,7 +35,7 @@ void StatsBar::draw() {
 	
 	u8 maxLife = CharacterManager::player.maxLife();
 	for(u8 j = 0 ; j <= maxLife / 28 ; j++) {
-		for(u8 i = 0 ; i < maxLife / 4 - j * 28 / 4 ; i++) {
+		for(u8 i = 0 ; i < maxLife / 4 - j * 7 && i < 7 ; i++) {
 			s16 life = CharacterManager::player.life() - j * 28;
 			
 			if(life > (i + 1) * 4) {

@@ -66,7 +66,7 @@ void MapState::scrollMaps(float vx, float vy) {
 		
 		m_nextMap->resetTiles();
 		m_nextMap->updateTiles();
-		m_nextMap->setPosition(MapManager::currentMap->width() * 16 * vx, MapManager::currentMap->height() * 16 * vy);
+		m_nextMap->setPosition(MapManager::currentMap->width() * 16 * -vx, MapManager::currentMap->height() * 16 * -vy);
 		
 		Sprite::pause = true;
 	}
@@ -89,8 +89,8 @@ void MapState::scrollMaps(float vx, float vy) {
 	
 	CharacterManager::player.currentState()->move(-vx * 2.7f, -vy * 2.2f);
 	
-	MapManager::currentMap->move(-vx * 3, -vy * 2.6f);
-	m_nextMap->move(-vx * 3, -vy * 2.6f);
+	MapManager::currentMap->move(vx * 3, vy * 2.6f);
+	m_nextMap->move(vx * 3, vy * 2.6f);
 	
 	if(vx != 0) m_scrolled += 3;
 	if(vy != 0) m_scrolled += 2.6f;

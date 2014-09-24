@@ -84,7 +84,7 @@ void TileMap::updateTile(float x, float y, u16 id) {
 void TileMap::draw() {
 	m_shader.useProgram();
 	
-	glm::mat4 projectionMatrix = glm::ortho(-m_x, -m_x + (float)WINDOW_WIDTH, -m_y + (float)WINDOW_HEIGHT - 16.0f, -m_y - 16.0f);
+	glm::mat4 projectionMatrix = glm::ortho(m_x, m_x + (float)WINDOW_WIDTH, m_y + (float)WINDOW_HEIGHT - 16.0f, m_y - 16.0f);
 	
 	glUniformMatrix4fv(m_shader.uniform("uProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	
