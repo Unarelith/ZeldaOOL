@@ -79,7 +79,7 @@ void MapState::scrollMaps(float vx, float vy) {
 	//if(vx != 0) m_scrolled += 5.15f;
 	//if(vy != 0) m_scrolled += 4.68f;
 	
-	CharacterManager::player.currentState()->move(-vx * 1.6f, -vy * 1.25f);
+	CharacterManager::player.currentState()->move(-vx * 1.625f, -vy * 1.275f);
 	
 	MapManager::currentMap->move(vx * 1.8f, vy * 1.5f);
 	m_nextMap->move(vx * 1.8f, vy * 1.5f);
