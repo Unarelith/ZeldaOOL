@@ -34,11 +34,9 @@ void SoundEffect::load(std::string filename) {
 		error("Unable to load sound effect: %s (ERROR: %s)", filename.c_str(), Mix_GetError());
 		exit(EXIT_FAILURE);
 	}
-	
-	Mix_VolumeChunk(m_sfx, MIX_MAX_VOLUME);
 }
 
 void SoundEffect::play() {
-	Mix_PlayChannel(1, m_sfx, 0);
+	Mix_PlayChannel(-1, m_sfx, 0);
 }
 

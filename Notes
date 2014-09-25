@@ -1,16 +1,9 @@
 - From b2 to a2, it's possible to see grass effect on link
 - When link is at the top of a map, he looks strange
-- Fix SoundEffect
-	=> Only one sound effect plays when there should be many others too
 - Use exceptions to prevents memory leaks
-- Check all SDL/OpenGL-related files, and refactor them if needed
-	=> Also check 'double', replacing by 'float'
+- Improve OpenGL code, wrapping it in classes
 - Player can move out of the maps when sword is loading
 	=> virtual bool PlayerState::canStartMapTransition();
-- Sometimes, when spamming 'X' key at game start, the attack animation plays more than one time
-	=> Was true with SFML, never seen with SDL + OpenGL
-- It's possible to re-attack during spin attack
-	=> Hai?
 - Fix grassDestroy animation
 	=> Find a way to rip it
 - Add 'Enemy' pure virtual class, child of 'Character'

@@ -71,29 +71,13 @@ void MapState::scrollMaps(float vx, float vy) {
 		Sprite::pause = true;
 	}
 	
-	//CharacterManager::player.currentState()->move(-vx * 4.52f, -vy * 3.93f);
+	CharacterManager::player.currentState()->move(-vx * 1.525f, -vy * 1.275f);
 	
-	//MapManager::currentMap->move(-vx * 5.15f, -vy * 4.68f);
-	//m_nextMap->move(-vx * 5.15f, -vy * 4.68f);
+	MapManager::currentMap->move(vx * 1.7f, vy * 1.5f);
+	m_nextMap->move(vx * 1.7f, vy * 1.5f);
 	
-	//if(vx != 0) m_scrolled += 5.15f;
-	//if(vy != 0) m_scrolled += 4.68f;
-	
-	CharacterManager::player.currentState()->move(-vx * 1.625f, -vy * 1.275f);
-	
-	MapManager::currentMap->move(vx * 1.8f, vy * 1.5f);
-	m_nextMap->move(vx * 1.8f, vy * 1.5f);
-	
-	if(vx != 0) m_scrolled += 1.8f;
+	if(vx != 0) m_scrolled += 1.7f;
 	if(vy != 0) m_scrolled += 1.5f;
-	
-	//CharacterManager::player.currentState()->move(-vx * 2.7f, -vy * 2.2f);
-	
-	//MapManager::currentMap->move(vx * 3, vy * 2.6f);
-	//m_nextMap->move(vx * 3, vy * 2.6f);
-	
-	//if(vx != 0) m_scrolled += 3;
-	//if(vy != 0) m_scrolled += 2.6f;
 }
 
 void MapState::update() {
