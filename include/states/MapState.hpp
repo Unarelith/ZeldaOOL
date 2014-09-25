@@ -21,6 +21,7 @@
 #include "GameState.hpp"
 #include "MapManager.hpp"
 #include "StatsBar.hpp"
+#include "Timer.hpp"
 
 class MapState : public GameState {
 	public:

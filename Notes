@@ -1,7 +1,10 @@
+- From b2 to a2, it's possible to see grass effect on link
+- When link is at the top of a map, he looks strange
 - Fix laggy transition
 - Fix SoundEffect
 	=> Only one sound effect plays when there should be many others too
-- Check all display SDL-related files, and refactor them if needed
+- Use exceptions to prevents memory leaks
+- Check all SDL/OpenGL-related files, and refactor them if needed
 	=> Also check 'double', replacing by 'float'
 - Player can move out of the maps when sword is loading
 	=> virtual bool PlayerState::canStartMapTransition();

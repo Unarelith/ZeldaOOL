@@ -17,10 +17,6 @@
  */
 #include <sys/stat.h>
 
-#define GLM_FORCE_RADIANS
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 #include "Application.hpp"
 #include "Debug.hpp"
 #include "TileMap.hpp"
@@ -56,6 +52,16 @@ void TileMap::load(Texture &texture, u16 width, u16 height, s16 *data) {
 	
 	m_x = 0;
 	m_y = 0;
+	
+	m_shader.useProgram();
+	
+	glm::mat4 projectionMatrix = glm::ortho(m_x, m_x + (float)WINDOW_WIDTH, m_y + (float)WINDOW_HEIGHT - 16.0f, m_y - 16.0f);
+	
+	glUniformMatrix4fv(m_shader.uniform("u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	
+	glUniform2f(m_shader.uniform("u_mapPosition"), m_x, m_y);
+	
+	Application::window.useDefaultShader();
 }
 
 void TileMap::updateTile(float x, float y, u16 id) {
@@ -84,9 +90,7 @@ void TileMap::updateTile(float x, float y, u16 id) {
 void TileMap::draw() {
 	m_shader.useProgram();
 	
-	glm::mat4 projectionMatrix = glm::ortho(m_x, m_x + (float)WINDOW_WIDTH, m_y + (float)WINDOW_HEIGHT - 16.0f, m_y - 16.0f);
-	
-	glUniformMatrix4fv(m_shader.uniform("uProjectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	glUniform2f(m_shader.uniform("u_mapPosition"), m_x, m_y);
 	
 	glEnableVertexAttribArray(4);
 	glEnableVertexAttribArray(5);

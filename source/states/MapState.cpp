@@ -60,6 +60,8 @@ MapState::MapState() {
 MapState::~MapState() {
 }
 
+#include "Debug.hpp"
+
 void MapState::scrollMaps(float vx, float vy) {
 	if(!m_nextMap) {
 		m_nextMap = &MapManager::maps[MapManager::currentMap->area()][MapManager::currentMap->x() + vx + (MapManager::currentMap->y() + vy) * sqrt(MapManager::maps[MapManager::currentMap->area()].size())];
@@ -79,27 +81,27 @@ void MapState::scrollMaps(float vx, float vy) {
 	//if(vx != 0) m_scrolled += 5.15f;
 	//if(vy != 0) m_scrolled += 4.68f;
 	
-	//CharacterManager::player.currentState()->move(-vx * 2.69, -vy * 2.35);
+	CharacterManager::player.currentState()->move(-vx * 2.7f, -vy * 2.4f);
 	
-	//MapManager::currentMap->move(-vx * 3.07f, -vy * 2.79f);
-	//m_nextMap->move(-vx * 3.07f, -vy * 2.79f);
+	MapManager::currentMap->move(vx * 3.1f, vy * 2.8f);
+	m_nextMap->move(vx * 3.1f, vy * 2.8f);
 	
-	//if(vx != 0) m_scrolled += 3.07f;
-	//if(vy != 0) m_scrolled += 2.79f;
+	if(vx != 0) m_scrolled += 3.1f;
+	if(vy != 0) m_scrolled += 2.8f;
 	
-	CharacterManager::player.currentState()->move(-vx * 2.7f, -vy * 2.2f);
+	//CharacterManager::player.currentState()->move(-vx * 2.7f, -vy * 2.2f);
 	
-	MapManager::currentMap->move(vx * 3, vy * 2.6f);
-	m_nextMap->move(vx * 3, vy * 2.6f);
+	//MapManager::currentMap->move(vx * 3, vy * 2.6f);
+	//m_nextMap->move(vx * 3, vy * 2.6f);
 	
-	if(vx != 0) m_scrolled += 3;
-	if(vy != 0) m_scrolled += 2.6f;
+	//if(vx != 0) m_scrolled += 3;
+	//if(vy != 0) m_scrolled += 2.6f;
 }
 
 void MapState::update() {
-	MapManager::currentMap->update();
-	
 	if(m_mode == Mode::Normal) {
+		MapManager::currentMap->update();
+		
 		CharacterManager::player.update();
 		
 		MapEventManager::update();
