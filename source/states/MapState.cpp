@@ -60,8 +60,6 @@ MapState::MapState() {
 MapState::~MapState() {
 }
 
-#include "Debug.hpp"
-
 void MapState::scrollMaps(float vx, float vy) {
 	if(!m_nextMap) {
 		m_nextMap = &MapManager::maps[MapManager::currentMap->area()][MapManager::currentMap->x() + vx + (MapManager::currentMap->y() + vy) * sqrt(MapManager::maps[MapManager::currentMap->area()].size())];
@@ -81,13 +79,13 @@ void MapState::scrollMaps(float vx, float vy) {
 	//if(vx != 0) m_scrolled += 5.15f;
 	//if(vy != 0) m_scrolled += 4.68f;
 	
-	CharacterManager::player.currentState()->move(-vx * 2.7f, -vy * 2.4f);
+	CharacterManager::player.currentState()->move(-vx * 1.6f, -vy * 1.25f);
 	
-	MapManager::currentMap->move(vx * 3.1f, vy * 2.8f);
-	m_nextMap->move(vx * 3.1f, vy * 2.8f);
+	MapManager::currentMap->move(vx * 1.8f, vy * 1.5f);
+	m_nextMap->move(vx * 1.8f, vy * 1.5f);
 	
-	if(vx != 0) m_scrolled += 3.1f;
-	if(vy != 0) m_scrolled += 2.8f;
+	if(vx != 0) m_scrolled += 1.8f;
+	if(vy != 0) m_scrolled += 1.5f;
 	
 	//CharacterManager::player.currentState()->move(-vx * 2.7f, -vy * 2.2f);
 	

@@ -1,6 +1,5 @@
 - From b2 to a2, it's possible to see grass effect on link
 - When link is at the top of a map, he looks strange
-- Fix laggy transition
 - Fix SoundEffect
 	=> Only one sound effect plays when there should be many others too
 - Use exceptions to prevents memory leaks

@@ -18,10 +18,6 @@
 #ifndef TILEMAP_HPP_
 #define TILEMAP_HPP_
 
-#define GLM_FORCE_RADIANS
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 #include "OpenGL.hpp"
 #include "Shader.hpp"
 #include "Texture.hpp"

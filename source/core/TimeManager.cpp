@@ -25,7 +25,7 @@ u32 TimeManager::timeDropped = 0;
 u32 TimeManager::now = 0;
 u32 TimeManager::lastFrameDuration = 0;
 u32 TimeManager::ticks = 0;
-u32 TimeManager::timestep = 10;
+u32 TimeManager::timestep = 6;
 u8 TimeManager::numUpdates = 0;
 
 u32 TimeManager::getTicks(bool useRealTime) {
