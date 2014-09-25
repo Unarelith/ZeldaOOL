@@ -1,5 +1,5 @@
-- From b2 to a2, it's possible to see grass effect on link
 - When link is at the top of a map, he looks strange
+	=> Hai?
 - Use exceptions to prevents memory leaks
 - Improve OpenGL code, wrapping it in classes
 - Player can move out of the maps when sword is loading

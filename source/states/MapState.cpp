@@ -145,6 +145,8 @@ void MapState::render() {
 	
 	CharacterManager::player.draw();
 	
+	if(m_mode == Normal) EffectManager::drawEffects(&CharacterManager::player);
+	
 	m_statsBar.draw();
 }
 

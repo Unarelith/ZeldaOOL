@@ -17,7 +17,6 @@
  */
 #include "Sound.hpp"
 #include "Keyboard.hpp"
-#include "EffectManager.hpp"
 #include "AnimationManager.hpp"
 #include "TilesData.hpp"
 #include "MapHelper.hpp"
@@ -152,7 +151,5 @@ void SwordState::drawPlayer() {
 	} else {
 		m_player.drawFrame(m_player.x(), m_player.y(), m_player.direction());
 	}
-	
-	EffectManager::drawEffects(&m_player);
 }
 

@@ -16,7 +16,6 @@
  * =====================================================================================
  */
 #include "Keyboard.hpp"
-#include "EffectManager.hpp"
 #include "StandingState.hpp"
 #include "MovingState.hpp"
 
@@ -43,7 +42,5 @@ void StandingState::update() {
 
 void StandingState::draw() {
 	m_player.drawFrame(m_player.x(), m_player.y(), m_player.direction());
-	
-	EffectManager::drawEffects(&m_player);
 }
 

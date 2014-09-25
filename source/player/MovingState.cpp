@@ -15,7 +15,6 @@
  *
  * =====================================================================================
  */
-#include "EffectManager.hpp"
 #include "Keyboard.hpp"
 #include "MovingState.hpp"
 #include "StandingState.hpp"
@@ -98,7 +97,5 @@ void MovingState::update() {
 
 void MovingState::draw() {
 	m_player.playAnimation(m_player.x(), m_player.y(), m_player.direction());
-	
-	EffectManager::drawEffects(&m_player);
 }
 

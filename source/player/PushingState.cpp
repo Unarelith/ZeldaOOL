@@ -15,7 +15,6 @@
  *
  * =====================================================================================
  */
-#include "EffectManager.hpp"
 #include "PushingState.hpp"
 
 PushingState::PushingState() {
@@ -34,7 +33,5 @@ void PushingState::update() {
 
 void PushingState::draw() {
 	m_player.playAnimation(m_player.x(), m_player.y(), m_player.direction() + 4);
-	
-	EffectManager::drawEffects(&m_player);
 }
 
