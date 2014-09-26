@@ -1,15 +1,20 @@
+- Improve OpenGL code, wrapping it in classes
+	=> Write a class VertexBufferObject, and use it in 'TileMap'
+	=> Write a class VertexArray, and use it in 'Image'
 - Implement 'Dialog', 'DialogState' and 'DialogManager'
-	=> Find the two positions, the color, and the dimension of the box
-		=> (x: ) | (y: )
-		=> (x: ) | (y: )
-		=> (color: )
-		=> (w: ) | (h: )
+	=> Find the two positions, and the dimension of the box
+		=> (x: 8) | (y: 24)
+		=> (x: 8) | (y: 96)
+		=> (w: 144) | (h: 40)
 	=> Find the coordinates for the first character, relatives to the top-left corner of the box
+		=> (x: 8) | (y: 6)
 	=> Find the padding between each character
+		=> 0 (each character is a tile)
+	=> Create a class 'Color'
+	=> Create a class 'Rectangle' which displays with color like 'Sprites' displays with texture (with new 'VertexArray', so)
 	=> Create a class 'Font' using the white font, child of 'Sprite'
 		=> Function 'void load(std::string filename)'
-		=> Function 'void drawChar(s16 x, s16 y, char c)'
-		=> Function 'void drawString(s16 x, s16 y, std::string text)'
+		=> Function 'void drawChar(s16 x, s16 y, char c, Color color)'
 	=> Create a 'Dialog' class
 		=> Enum 'enum Position { Top, Bottom };'
 		=> Member 'Position m_position'
@@ -33,9 +38,6 @@
 	=> Reimplement it in 'Window'
 - Sometimes link looks strange
 - Use exceptions to prevents memory leaks
-- Improve OpenGL code, wrapping it in classes
-	=> Write a class VertexBufferObject, and use it in 'TileMap'
-	=> Write a class VertexArray, and use it in 'Image'
 - Player can move out of the maps when sword is loading
 	=> virtual bool PlayerState::canStartMapTransition();
 - Fix grassDestroy animation
