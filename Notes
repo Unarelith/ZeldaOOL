@@ -1,13 +1,41 @@
+- Implement 'Dialog', 'DialogState' and 'DialogManager'
+	=> Find the two positions, the color, and the dimension of the box
+		=> (x: ) | (y: )
+		=> (x: ) | (y: )
+		=> (color: )
+		=> (w: ) | (h: )
+	=> Find the coordinates for the first character, relatives to the top-left corner of the box
+	=> Find the padding between each character
+	=> Create a class 'Font' using the white font, child of 'Sprite'
+		=> Function 'void load(std::string filename)'
+		=> Function 'void drawChar(s16 x, s16 y, char c)'
+		=> Function 'void drawString(s16 x, s16 y, std::string text)'
+	=> Create a 'Dialog' class
+		=> Enum 'enum Position { Top, Bottom };'
+		=> Member 'Position m_position'
+		=> Member 'std::string m_text'
+- Implement 'LanguageManager'
+	=> Like Asylia one
 - Check sound effect channels in real game
 	=> For example, is it possible to hear sword loading sound when player release spin attack?
 - Rewrite managers to read xml config files
+	=> Rewrite 'MapManager' and add 'tilesets.xml' and 'maps.xml' config files in 'data/config/' directory
+	=> Rewrite 'Player' and add 'player.xml' config file
+- Write an 'IOManager' namespace
+	=> Read from a given path
 - Add 'Transition' pure virtual class, and its children 'TransitionScrolling', 'TransitionFade', etc...
-	=> Improve 'TransitionScrolling' to be closer to the original game
+	=> Add a little delay before 'TransitionScrolling' to be closer to the original game
 - Implement 'Door' and teleportation ( maybe via MapEvents ? )
-- Reimplement 'View' concept?
+- Reimplement 'View' concept
+	=> Each View have shaders
+		-> Vertex shader: Move the view, rotate (if needed), etc...
+		-> Fragment shader: Cut things out of the view (cut texture)
+	=> Reimplement it in 'Window'
 - Sometimes link looks strange
 - Use exceptions to prevents memory leaks
 - Improve OpenGL code, wrapping it in classes
+	=> Write a class VertexBufferObject, and use it in 'TileMap'
+	=> Write a class VertexArray, and use it in 'Image'
 - Player can move out of the maps when sword is loading
 	=> virtual bool PlayerState::canStartMapTransition();
 - Fix grassDestroy animation
