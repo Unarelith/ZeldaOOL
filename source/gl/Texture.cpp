@@ -15,9 +15,6 @@
  *
  * =====================================================================================
  */
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
 #include "Application.hpp"
 #include "Debug.hpp"
 #include "Texture.hpp"
@@ -34,12 +31,6 @@ Texture::Texture(const Texture &texture) {
 	m_texture = texture.m_texture;
 	
 	m_uniform = texture.m_uniform;
-	
-	m_comp = texture.m_comp;
-	
-	m_data = texture.m_data;
-	
-	m_isCopy = true;
 }
 
 Texture::Texture(std::string filename) {
@@ -47,17 +38,19 @@ Texture::Texture(std::string filename) {
 }
 
 Texture::~Texture() {
-	if(!m_isCopy) stbi_image_free(m_data);
 }
 
 void Texture::load(std::string filename) {
 	m_filename = filename;
 	
-	m_data = stbi_load(filename.c_str(), &m_width, &m_height, &m_comp, 0);
-	if(!m_data) {
+	SDL_Surface *surface = IMG_Load(filename.c_str());
+	if(!surface) {
 		error("Failed to load texture: %s", filename.c_str());
 		exit(EXIT_FAILURE);
 	}
+	
+	m_width = surface->w;
+	m_height = surface->h;
 	
 	glGenTextures(1, &m_texture);
 	
@@ -66,18 +59,13 @@ void Texture::load(std::string filename) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	
-	if(m_comp == 3) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, m_data);
-	}
-	else if(m_comp == 4) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data);
-	}
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
 	
 	unbind();
 	
-	m_uniform = Application::window.defaultShader()->uniform("tex");
+	SDL_FreeSurface(surface);
 	
-	m_isCopy = false;
+	m_uniform = Application::window.defaultShader()->uniform("tex");
 }
 
 void Texture::bind() {

@@ -1,5 +1,11 @@
-- When link is at the top of a map, he looks strange
-	=> Hai?
+- Check sound effect channels in real game
+	=> For example, is it possible to hear sword loading sound when player release spin attack?
+- Rewrite managers to read xml config files
+- Add 'Transition' pure virtual class, and its children 'TransitionScrolling', 'TransitionFade', etc...
+	=> Improve 'TransitionScrolling' to be closer to the original game
+- Implement 'Door' and teleportation ( maybe via MapEvents ? )
+- Reimplement 'View' concept?
+- Sometimes link looks strange
 - Use exceptions to prevents memory leaks
 - Improve OpenGL code, wrapping it in classes
 - Player can move out of the maps when sword is loading
@@ -9,17 +15,5 @@
 - Add 'Enemy' pure virtual class, child of 'Character'
 	=> With at least a monster child class, to test battles
 - Fix 'moonwalk' bug
-- Should write a class "Scene":
-	=> Represents the current map
-	-> Contains a Map
-	-> Contains a std::vector of Entity
-	-> Contains infos for Entity
-	-> Sets the way each Entity interacts with another
-	-> Draws on-map animations
-- Add 'SceneManager'
-	-> It associates each map and its entities into a 'Scene'
-- Add 'Transition' pure virtual class, and its children 'TransitionScrolling', 'TransitionFade', etc...
-	=> Improve 'TransitionScrolling' to be closer to the original game
-- Implement 'Doors' and teleportation
 - Improve game for OpenGL ES and try on Android
 - Implement a game pad, movable and resizable via config files

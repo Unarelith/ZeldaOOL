@@ -69,7 +69,7 @@ void MovingState::move() {
 	 || Keyboard::isKeyPressed(Keyboard::Right))
 	&& (Keyboard::isKeyPressed(Keyboard::Up)
 	 || Keyboard::isKeyPressed(Keyboard::Down))) {
-		m_player.setVelocity(m_player.vx() / 1.4, m_player.vy() / 1.4);
+		m_player.setVelocity(m_player.vx() / 1.4f, m_player.vy() / 1.4f);
 	}
 	
 	m_player.mapCollisions();

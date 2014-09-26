@@ -21,6 +21,7 @@
 #include <string>
 
 #include "OpenGL.hpp"
+#include "SDLHeaders.hpp"
 #include "Types.hpp"
 
 class Texture {
@@ -35,8 +36,8 @@ class Texture {
 		void bind();
 		void unbind() { glBindTexture(GL_TEXTURE_2D, 0); }
 		
-		int width() const { return m_width; }
-		int height() const { return m_height; }
+		u16 width() const { return m_width; }
+		u16 height() const { return m_height; }
 		
 	protected:
 		std::string m_filename;
@@ -47,13 +48,6 @@ class Texture {
 		GLuint m_texture;
 		
 		GLint m_uniform;
-		
-	private:
-		int m_comp;
-		
-		u8 *m_data;
-		
-		bool m_isCopy;
 };
 
 #endif // TEXTURE_HPP_
