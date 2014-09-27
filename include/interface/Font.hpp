@@ -25,8 +25,8 @@ class Font : public Sprite {
 		Font();
 		~Font();
 		
-		void drawChar(s16 x, s16 y, char c);
-		void drawString(s16 x, s16 y, std::string str);
+		void drawChar(float x, float y, char c);
+		void drawString(float x, float y, std::string str);
 };
 
 #endif // FONT_HPP_

@@ -20,8 +20,8 @@
 
 #include "GameState.hpp"
 #include "MapManager.hpp"
-#include "Font.hpp"
 #include "StatsBar.hpp"
+#include "Rectangle.hpp"
 
 class MapState : public GameState {
 	public:
@@ -49,6 +49,8 @@ class MapState : public GameState {
 		float m_scrolled;
 		
 		StatsBar m_statsBar;
+		
+		Rectangle m_testRect;
 };
 
 #endif // MAPSTATE_HPP_

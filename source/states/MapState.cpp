@@ -55,6 +55,9 @@ MapState::MapState() {
 	MapManager::currentMap->addObject(button);
 	
 	Sound::Music::plain.play();
+	
+	m_testRect.move(8, 24);
+	m_testRect.resize(144, 40);
 }
 
 MapState::~MapState() {
@@ -146,6 +149,8 @@ void MapState::render() {
 	CharacterManager::player.draw();
 	
 	if(m_mode == Normal) EffectManager::drawEffects(&CharacterManager::player);
+	
+	m_testRect.draw();
 	
 	m_statsBar.draw();
 }
