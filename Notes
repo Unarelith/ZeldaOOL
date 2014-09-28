@@ -1,3 +1,8 @@
+- Implement 'Dialog', 'DialogState' and 'DialogManager'
+- Create a function in 'Font': 'char convertChar(char c)'
+	=> Write the array of all character in 'FontCharacters.cpp' in 'data' folder
+- Implement 'LanguageManager'
+	=> Like Asylia one
 - Manage shaders in Application
 	=> pushShader
 		=> Add shader to a stack
@@ -10,26 +15,6 @@
 - Improve OpenGL code, wrapping it in classes
 	=> Write a class VertexBufferObject, and use it in 'TileMap'
 	=> Write a class VertexArray, and use it in 'Image'
-- Implement 'Dialog', 'DialogState' and 'DialogManager'
-	=> Find the two positions, and the dimension of the box
-		=> (x: 8) | (y: 24)
-		=> (x: 8) | (y: 96)
-		=> (w: 144) | (h: 40)
-	=> Find the coordinates for the first character, relatives to the top-left corner of the box
-		=> (x: 8) | (y: 6)
-	=> Find the padding between each character
-		=> 0 (each character is a tile)
-	=> Create a class 'Color'
-	=> Create a class 'Rectangle' which displays with color like 'Sprites' displays with texture (with new 'VertexArray', so)
-	=> Create a class 'Font' using the white font, child of 'Sprite'
-		=> Function 'void load(std::string filename)'
-		=> Function 'void drawChar(s16 x, s16 y, char c, Color color)'
-	=> Create a 'Dialog' class
-		=> Enum 'enum Position { Top, Bottom };'
-		=> Member 'Position m_position'
-		=> Member 'std::string m_text'
-- Implement 'LanguageManager'
-	=> Like Asylia one
 - Check sound effect channels in real game
 	=> For example, is it possible to hear sword loading sound when player release spin attack?
 - Rewrite managers to read xml config files

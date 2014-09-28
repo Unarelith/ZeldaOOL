@@ -46,18 +46,38 @@ void Font::drawChar(float x, float y, char c) {
 void Font::drawString(float x, float y, std::string str, Color color) {
 	m_shader.useProgram();
 	
-	GLfloat colors[] = {
-		color.r, color.g, color.b,
-		color.r, color.g, color.b,
-		color.r, color.g, color.b,
-		color.r, color.g, color.b
-	};
-	
-	//glVertexAttribPointer(m_shader.attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
 	glUniform3f(m_shader.uniform("u_color"), color.r, color.g, color.b);
 	
 	for(u16 i = 0 ; i < str.length() ; i++) {
 		drawChar(x + (i * m_frameWidth), y, str[i]);
+	}
+	
+	Application::window.useDefaultShader();
+}
+
+void Font::drawTextBox(float x, float y, u16 width, u16 height, std::string str, Color color) {
+	m_shader.useProgram();
+	
+	glUniform3f(m_shader.uniform("u_color"), color.r, color.g, color.b);
+	
+	u16 i = 0;
+	u16 tmpY = y;
+	std::string line = str;
+	while(i < line.length()) {
+		char c = line[i];
+		
+		if(line[i] == ' ') {
+			if(line.substr(i + 1, line.find_first_of(' ', i + 1) - (i + 1)).length() * charWidth() > width) {
+				line = line.substr(i + 1);
+				i = 0;
+				tmpY += charHeight();
+				
+				continue;
+			}
+		}
+		
+		drawChar(x + i * charWidth(), tmpY, c);
+		i++;
 	}
 	
 	Application::window.useDefaultShader();

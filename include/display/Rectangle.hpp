@@ -40,6 +40,9 @@ class Rectangle {
 		float x() const { return m_x; }
 		float y() const { return m_y; }
 		
+		u16 width() const { return m_width; }
+		u16 height() const { return m_height; }
+		
 	private:
 		float m_x;
 		float m_y;
