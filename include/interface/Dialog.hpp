@@ -18,12 +18,29 @@
 #ifndef DIALOG_HPP_
 #define DIALOG_HPP_
 
+#include "Font.hpp"
+#include "Rectangle.hpp"
+
 class Dialog {
 	public:
 		Dialog();
 		~Dialog();
 		
 		void draw();
+		
+		enum Position {
+			Top,
+			Bottom
+		};
+		
+		void setPosition(Position position) { m_position = position; }
+		
+	private:
+		Position m_position;
+		
+		Rectangle m_rectangle;
+		
+		Font m_font;
 };
 
 #endif // DIALOG_HPP_

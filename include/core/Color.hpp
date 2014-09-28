@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Font.hpp
+ *       Filename:  Color.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  26/09/2014 20:41:39
+ *        Created:  27/09/2014 22:35:38
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,23 +15,25 @@
  *
  * =====================================================================================
  */
-#ifndef FONT_HPP_
-#define FONT_HPP_
+#ifndef COLOR_HPP_
+#define COLOR_HPP_
 
-#include "Color.hpp"
-#include "Shader.hpp"
-#include "Sprite.hpp"
+#include "Types.hpp"
 
-class Font : public Sprite {
+class Color {
 	public:
-		Font();
-		~Font();
+		Color(u8 _r, u8 _g, u8 _b);
+		~Color();
 		
-		void drawChar(float x, float y, char c);
-		void drawString(float x, float y, std::string str, Color color = Color::white);
+		float r;
+		float g;
+		float b;
+		float a;
 		
-	private:
-		Shader m_shader;
+		static Color black;
+		static Color white;
+		static Color text;
+		static Color blue;
 };
 
-#endif // FONT_HPP_
+#endif // COLOR_HPP_

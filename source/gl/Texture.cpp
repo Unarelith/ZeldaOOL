@@ -65,7 +65,7 @@ void Texture::load(std::string filename) {
 	
 	SDL_FreeSurface(surface);
 	
-	m_uniform = Application::window.defaultShader()->uniform("tex");
+	m_uniform = Application::window.defaultShader()->uniform("u_tex");
 }
 
 void Texture::bind() {

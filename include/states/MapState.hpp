@@ -18,10 +18,10 @@
 #ifndef MAPSTATE_HPP_
 #define MAPSTATE_HPP_
 
+#include "Dialog.hpp"
 #include "GameState.hpp"
 #include "MapManager.hpp"
 #include "StatsBar.hpp"
-#include "Rectangle.hpp"
 
 class MapState : public GameState {
 	public:
@@ -50,7 +50,7 @@ class MapState : public GameState {
 		
 		StatsBar m_statsBar;
 		
-		Rectangle m_testRect;
+		Dialog m_dialog;
 };
 
 #endif // MAPSTATE_HPP_

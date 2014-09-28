@@ -18,6 +18,7 @@
 #ifndef RECTANGLE_HPP_
 #define RECTANGLE_HPP_
 
+#include "Color.hpp"
 #include "Shader.hpp"
 #include "Types.hpp"
 
@@ -31,8 +32,13 @@ class Rectangle {
 		
 		void draw();
 		
+		void setPosition(float x, float y) { m_x = x; m_y = y; }
 		void move(float dx, float dy) { m_x += dx; m_y += dy; }
+		
 		void resize(u16 width, u16 height) { m_width = width; m_height = height; }
+		
+		float x() const { return m_x; }
+		float y() const { return m_y; }
 		
 	private:
 		float m_x;
