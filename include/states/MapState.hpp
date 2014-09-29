@@ -42,15 +42,13 @@ class MapState : public GameState {
 			ScrollingDown
 		};
 		
-	private:
+	protected:
 		Mode m_mode;
 		
 		Map *m_nextMap;
 		float m_scrolled;
 		
 		StatsBar m_statsBar;
-		
-		Dialog m_dialog;
 };
 
 #endif // MAPSTATE_HPP_

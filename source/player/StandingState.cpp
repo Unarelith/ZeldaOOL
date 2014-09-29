@@ -28,7 +28,7 @@ StandingState::~StandingState() {
 }
 
 void StandingState::update() {
-	if(Keyboard::isKeyPressed(Keyboard::A)) {
+	if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
 		m_nextStateType = StateType::TypeSword;
 	}
 	

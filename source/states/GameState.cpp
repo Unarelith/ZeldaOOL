@@ -19,7 +19,8 @@
 #include "GameState.hpp"
 #include "SDLHeaders.hpp"
 
-GameState::GameState() {
+GameState::GameState(GameState *parent) {
+	m_parent = parent;
 }
 
 GameState::~GameState() {

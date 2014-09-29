@@ -29,7 +29,7 @@ class Font : public Sprite {
 		
 		void drawChar(float x, float y, char32_t c);
 		void drawString(float x, float y, std::u32string str, Color color = Color::text);
-		void drawTextBox(float x, float y, u16 width, u16 height, std::u32string str, Color color = Color::text);
+		u8 drawTextBox(float x, float y, u16 width, u16 height, std::u32string str, u16 lineOffset, Color color = Color::text);
 		
 		u16 charWidth() const { return m_frameWidth; }
 		u16 charHeight() const { return m_frameHeight; }

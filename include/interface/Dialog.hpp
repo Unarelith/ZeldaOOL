@@ -26,7 +26,7 @@ class Dialog {
 		Dialog();
 		~Dialog();
 		
-		void draw();
+		void draw(u8 lineOffset);
 		
 		enum Position {
 			Top,
@@ -35,12 +35,16 @@ class Dialog {
 		
 		void setPosition(Position position) { m_position = position; }
 		
+		u8 nbLines() const { return m_nbLines; }
+		
 	private:
 		Position m_position;
 		
 		Rectangle m_rectangle;
 		
 		Font m_font;
+		
+		u8 m_nbLines;
 };
 
 #endif // DIALOG_HPP_

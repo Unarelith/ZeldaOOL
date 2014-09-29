@@ -17,15 +17,18 @@
  */
 #include <cmath>
 
-#include "Debug.hpp"
-#include "Sound.hpp"
-#include "TimeManager.hpp"
+#include "AnimationManager.hpp"
 #include "Application.hpp"
 #include "CharacterManager.hpp"
+#include "Debug.hpp"
+#include "DialogState.hpp"
 #include "EffectManager.hpp"
-#include "AnimationManager.hpp"
+#include "Keyboard.hpp"
 #include "MapEventManager.hpp"
 #include "MapState.hpp"
+#include "GameStateManager.hpp"
+#include "Sound.hpp"
+#include "TimeManager.hpp"
 
 MapState::MapState() {
 	m_mode = Mode::Normal;
@@ -129,6 +132,10 @@ void MapState::update() {
 		
 		m_mode = Mode::Normal;
 	}
+	
+	if(Keyboard::isKeyPressedOnce(Keyboard::Start)) {
+		GameStateManager::push(new DialogState(this));
+	}
 }
 
 void MapState::render() {
@@ -146,8 +153,6 @@ void MapState::render() {
 	CharacterManager::player.draw();
 	
 	if(m_mode == Normal) EffectManager::drawEffects(&CharacterManager::player);
-	
-	m_dialog.draw();
 	
 	m_statsBar.draw();
 }

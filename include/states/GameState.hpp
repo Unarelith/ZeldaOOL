@@ -20,7 +20,7 @@
 
 class GameState {
 	public:
-		GameState();
+		GameState(GameState *parent = nullptr);
 		virtual ~GameState();
 		
 		virtual void handleEvents();
@@ -28,6 +28,9 @@ class GameState {
 		virtual void update() = 0;
 		
 		virtual void render() = 0;
+		
+	protected:
+		GameState *m_parent;
 };
 
 #endif // GAMESTATE_HPP_

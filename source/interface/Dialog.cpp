@@ -21,12 +21,14 @@ Dialog::Dialog() {
 	m_position = Position::Top;
 	
 	m_rectangle.resize(144, 40);
+	
+	m_nbLines = 0;
 }
 
 Dialog::~Dialog() {
 }
 
-void Dialog::draw() {
+void Dialog::draw(u8 lineOffset) {
 	if(m_position == Position::Top) {
 		m_rectangle.setPosition(8, 24);
 	} else {
@@ -35,6 +37,6 @@ void Dialog::draw() {
 	
 	m_rectangle.draw();
 	
-	m_font.drawTextBox(m_rectangle.x() + 8, m_rectangle.y() + 0, m_rectangle.width() - 16, m_rectangle.height(), U"L'Arbre Bojo est tout à l'est de cette grotte.");
+	m_nbLines = m_font.drawTextBox(m_rectangle.x() + 8, m_rectangle.y() + 0, m_rectangle.width() - 16, m_rectangle.height(), U"L'[0]Arbre Bojo[/] est tout à l'est de cette grotte.", lineOffset);
 }
 

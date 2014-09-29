@@ -58,25 +58,38 @@ void Font::drawString(float x, float y, std::u32string str, Color color) {
 	Application::window.useDefaultShader();
 }
 
-void Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str, Color color) {
+u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str, u16 lineOffset, Color color) {
 	m_shader.useProgram();
 	
-	glUniform3f(m_shader.uniform("u_color"), color.r, color.g, color.b);
-	
 	u16 i = 0;
-	u16 tmpY = y;
+	float tmpY = y;
 	std::u32string line = str;
-	u32 lineWidth = line.find_first_of(' ') * charWidth();
+	u32 lineWidth = 0;
+	
+	size_t nextSpace = line.find_first_of(' ');
+	size_t nextTag = line.find_first_of('[');
+			
+	lineWidth += line.find_first_of(' ') * charWidth();
+	
+	if(nextTag < nextSpace) {
+		lineWidth -= 3 * charWidth();
+	}
+	
 	while(i < line.length()) {
 		char c = line[i];
 		
 		if(line[i] == ' ') {
-			size_t nextSpace = line.find_first_of(' ', i + 1);
+			nextSpace = line.find_first_of(' ', i + 1);
+			nextTag = line.find_first_of('[', i + 1);
 			
 			if(nextSpace != std::string::npos) {
 				lineWidth += line.substr(i + 1, nextSpace - i).length() * charWidth();
 			} else {
 				lineWidth += line.length() * charWidth();
+			}
+			
+			if(nextTag < nextSpace) {
+				lineWidth -= 3 * charWidth();
 			}
 			
 			if(lineWidth > width) {
@@ -88,11 +101,32 @@ void Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string s
 				continue;
 			}
 		}
+		else if(line[i] == '[' && line[i + 1] >= '0' && line[i + 1] <= '9' && line[i + 2] == ']') {
+			switch(line[i + 1] - '0') {
+				default: color = Color::blue;
+			}
+			
+			line.erase(i, 3);
+			continue;
+		}
+		else if(line[i] == '[' && line[i + 1] == '/' && line[i + 2] == ']') {
+			color = Color::text;
+			
+			line.erase(i, 3);
+			continue;
+		}
 		
-		drawChar(x + i * charWidth(), tmpY, c);
+		if(tmpY - lineOffset * charWidth() * 2 >= y && tmpY - y + charHeight() < height + lineOffset * charWidth() * 2) {
+			glUniform3f(m_shader.uniform("u_color"), color.r, color.g, color.b);
+			
+			drawChar(x + i * charWidth(), tmpY - lineOffset * charWidth() * 2, c);
+		}
+		
 		i++;
 	}
 	
 	Application::window.useDefaultShader();
+	
+	return tmpY / charHeight();
 }
 
