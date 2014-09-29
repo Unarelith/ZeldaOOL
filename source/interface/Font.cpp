@@ -65,14 +65,16 @@ void Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string s
 	
 	u16 i = 0;
 	u16 tmpY = y;
-	u32 lineWidth = 0;
 	std::u32string line = str;
+	u32 lineWidth = line.find_first_of(' ') * charWidth();
 	while(i < line.length()) {
 		char c = line[i];
 		
 		if(line[i] == ' ') {
-			if(line.find_first_of(' ', i + 1) != std::string::npos) {
-				lineWidth += line.substr(i + 1, line.find_first_of(' ', i + 1) - (i + 1)).length() * charWidth();
+			size_t nextSpace = line.find_first_of(' ', i + 1);
+			
+			if(nextSpace != std::string::npos) {
+				lineWidth += line.substr(i + 1, nextSpace - i).length() * charWidth();
 			} else {
 				lineWidth += line.length() * charWidth();
 			}
