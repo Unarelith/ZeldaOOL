@@ -23,9 +23,9 @@ Color Color::text(248, 208, 136);
 Color Color::blue(32, 168, 248);
 
 Color::Color(u8 _r, u8 _g, u8 _b) {
-	r = 255.0f / _r;
-	g = 255.0f / _g;
-	b = 255.0f / _b;
+	r = _r / 255.0f;
+	g = _g / 255.0f;
+	b = _b / 255.0f;
 	a = 1.0f;
 }
 

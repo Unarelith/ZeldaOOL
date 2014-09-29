@@ -37,13 +37,16 @@ Font::Font() : Sprite("graphics/interface/font.png", 8, 16) {
 Font::~Font() {
 }
 
-void Font::drawChar(float x, float y, char c) {
-	if(c >= 32) {
+void Font::drawChar(float x, float y, char32_t c) {
+	if((s16)c >= 32) {
 		drawFrame(x, y, c - 29);
+	}
+	else if((s16)c < 0) {
+		drawFrame(x, y, 227 + c);
 	}
 }
 
-void Font::drawString(float x, float y, std::string str, Color color) {
+void Font::drawString(float x, float y, std::u32string str, Color color) {
 	m_shader.useProgram();
 	
 	glUniform3f(m_shader.uniform("u_color"), color.r, color.g, color.b);
@@ -55,22 +58,30 @@ void Font::drawString(float x, float y, std::string str, Color color) {
 	Application::window.useDefaultShader();
 }
 
-void Font::drawTextBox(float x, float y, u16 width, u16 height, std::string str, Color color) {
+void Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str, Color color) {
 	m_shader.useProgram();
 	
 	glUniform3f(m_shader.uniform("u_color"), color.r, color.g, color.b);
 	
 	u16 i = 0;
 	u16 tmpY = y;
-	std::string line = str;
+	u32 lineWidth = 0;
+	std::u32string line = str;
 	while(i < line.length()) {
 		char c = line[i];
 		
 		if(line[i] == ' ') {
-			if(line.substr(i + 1, line.find_first_of(' ', i + 1) - (i + 1)).length() * charWidth() > width) {
+			if(line.find_first_of(' ', i + 1) != std::string::npos) {
+				lineWidth += line.substr(i + 1, line.find_first_of(' ', i + 1) - (i + 1)).length() * charWidth();
+			} else {
+				lineWidth += line.length() * charWidth();
+			}
+			
+			if(lineWidth > width) {
 				line = line.substr(i + 1);
 				i = 0;
 				tmpY += charHeight();
+				lineWidth = 0;
 				
 				continue;
 			}

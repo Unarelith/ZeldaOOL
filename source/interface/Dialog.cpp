@@ -35,6 +35,6 @@ void Dialog::draw() {
 	
 	m_rectangle.draw();
 	
-	m_font.drawTextBox(m_rectangle.x() + 6, m_rectangle.y() + 0, m_rectangle.width() - 12, m_rectangle.height(), "Voici la Cité Lynna.");
+	m_font.drawTextBox(m_rectangle.x() + 8, m_rectangle.y() + 0, m_rectangle.width() - 16, m_rectangle.height(), U"Voici la Cité Lynna.");
 }
 
