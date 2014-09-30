@@ -20,7 +20,7 @@
 - Rewrite managers to read xml config files
 	=> Rewrite 'MapManager' and add 'tilesets.xml' and 'maps.xml' config files in 'data/config/' directory
 	=> Rewrite 'Player' and add 'player.xml' config file
-- Write an 'IOManager' namespace
+- Write an 'IOManager' (+ 'File' class?) namespace
 	=> Read from a given path
 - Add 'Transition' pure virtual class, and its children 'TransitionScrolling', 'TransitionFade', etc...
 	=> Add a little delay before 'TransitionScrolling' to be closer to the original game

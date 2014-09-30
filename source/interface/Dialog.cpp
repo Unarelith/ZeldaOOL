@@ -23,12 +23,19 @@ Dialog::Dialog() {
 	m_rectangle.resize(144, 40);
 	
 	m_nbLines = 0;
+	
+	m_currentLine = 0;
+	
+	m_dialogArrow.load("graphics/interface/dialogArrow.png", 7, 8);
+	m_dialogArrow.addAnimation({0, 1, 2}, 250);
 }
 
 Dialog::~Dialog() {
 }
 
 void Dialog::draw(u8 lineOffset) {
+	m_currentLine = lineOffset;
+	
 	if(m_position == Position::Top) {
 		m_rectangle.setPosition(8, 24);
 	} else {
@@ -38,5 +45,9 @@ void Dialog::draw(u8 lineOffset) {
 	m_rectangle.draw();
 	
 	m_nbLines = m_font.drawTextBox(m_rectangle.x() + 8, m_rectangle.y() + 0, m_rectangle.width() - 16, m_rectangle.height(), U"L'[0]Arbre Bojo[/] est tout à l'est de cette grotte.", lineOffset);
+	
+	if(m_currentLine + 2 < m_nbLines) {
+		m_dialogArrow.playAnimation(m_rectangle.x() + m_rectangle.width() - 9, m_rectangle.y() + m_rectangle.height() - 10, 0);
+	}
 }
 

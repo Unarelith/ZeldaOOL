@@ -45,6 +45,10 @@ class Dialog {
 		Font m_font;
 		
 		u8 m_nbLines;
+		
+		u8 m_currentLine;
+		
+		Sprite m_dialogArrow;
 };
 
 #endif // DIALOG_HPP_
