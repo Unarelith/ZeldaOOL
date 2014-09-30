@@ -49,17 +49,30 @@ void Font::drawChar(float x, float y, char32_t c) {
 void Font::drawString(float x, float y, std::u32string str, Color color) {
 	m_shader.useProgram();
 	
-	glUniform3f(m_shader.uniform("u_color"), color.r, color.g, color.b);
+	GLfloat colors[] = {
+		color.r, color.g, color.b,
+		color.r, color.g, color.b,
+		color.r, color.g, color.b,
+		color.r, color.g, color.b
+	};
+	
+	glEnableVertexAttribArray(m_shader.attrib("color"));
+	
+	glVertexAttribPointer(m_shader.attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
 	
 	for(u16 i = 0 ; i < str.length() ; i++) {
 		drawChar(x + (i * m_frameWidth), y, str[i]);
 	}
+	
+	glDisableVertexAttribArray(m_shader.attrib("color"));
 	
 	Application::window.useDefaultShader();
 }
 
 u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str, u16 lineOffset, Color color) {
 	m_shader.useProgram();
+	
+	glEnableVertexAttribArray(m_shader.attrib("color"));
 	
 	u16 i = 0;
 	float tmpY = y;
@@ -117,13 +130,22 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 		}
 		
 		if(tmpY - lineOffset * charWidth() * 2 >= y && tmpY - y + charHeight() < height + lineOffset * charWidth() * 2) {
-			glUniform3f(m_shader.uniform("u_color"), color.r, color.g, color.b);
+			GLfloat colors[] = {
+				color.r, color.g, color.b,
+				color.r, color.g, color.b,
+				color.r, color.g, color.b,
+				color.r, color.g, color.b
+			};
+			
+			glVertexAttribPointer(m_shader.attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
 			
 			drawChar(x + i * charWidth(), tmpY - lineOffset * charWidth() * 2, c);
 		}
 		
 		i++;
 	}
+	
+	glDisableVertexAttribArray(m_shader.attrib("color"));
 	
 	Application::window.useDefaultShader();
 	

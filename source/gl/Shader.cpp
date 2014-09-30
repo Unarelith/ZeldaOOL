@@ -112,7 +112,7 @@ GLint Shader::attrib(const char *attribName) {
 	GLint attrib = glGetAttribLocation(m_program, attribName);
 	
 	if(attrib == -1) {
-		error("Could not bind '%s' attribute", attribName);
+		error("Could not bind attribute '%s'", attribName);
 		exit(EXIT_FAILURE);
 	}
 	
@@ -123,7 +123,7 @@ GLint Shader::uniform(const char *uniformName) {
 	GLint uniform = glGetUniformLocation(m_program, uniformName);
 	
 	if(uniform == -1) {
-		error("Could not bind uniform '%s' attribute", uniformName);
+		error("Could not bind uniform '%s'", uniformName);
 		exit(EXIT_FAILURE);
 	}
 	

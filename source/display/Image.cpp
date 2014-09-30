@@ -85,6 +85,9 @@ void Image::draw() {
 		3, 1, 2
 	};
 	
+	glEnableVertexAttribArray(Application::window.defaultShader()->attrib("coord2d"));
+	glEnableVertexAttribArray(Application::window.defaultShader()->attrib("texcoord"));
+	
 	glVertexAttribPointer(Application::window.defaultShader()->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glVertexAttribPointer(Application::window.defaultShader()->attrib("texcoord"), 2, GL_FLOAT, GL_FALSE, 0, texCoords);
 	
@@ -93,5 +96,8 @@ void Image::draw() {
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
 	
 	unbind();
+	
+	glDisableVertexAttribArray(Application::window.defaultShader()->attrib("texcoord"));
+	glDisableVertexAttribArray(Application::window.defaultShader()->attrib("coord2d"));
 }
 

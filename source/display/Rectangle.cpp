@@ -71,10 +71,16 @@ void Rectangle::draw() {
 	
 	m_shader.useProgram();
 	
+	glEnableVertexAttribArray(m_shader.attrib("coord2d"));
+	glEnableVertexAttribArray(m_shader.attrib("color"));
+	
 	glVertexAttribPointer(m_shader.attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glVertexAttribPointer(m_shader.attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
 	
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
+	
+	glDisableVertexAttribArray(m_shader.attrib("color"));
+	glDisableVertexAttribArray(m_shader.attrib("coord2d"));
 	
 	Application::window.useDefaultShader();
 }
