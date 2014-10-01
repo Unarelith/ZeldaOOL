@@ -32,8 +32,6 @@ class DialogState : public GameState {
 		
 	private:
 		Dialog m_dialog;
-		
-		u8 m_currentLine;
 };
 
 #endif // DIALOGSTATE_HPP_

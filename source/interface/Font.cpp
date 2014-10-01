@@ -71,10 +71,6 @@ void Font::drawString(float x, float y, std::u32string str, Color color) {
 }
 
 u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str, u16 lineOffset, Color color) {
-	ShaderManager::push(m_shader);
-	
-	ShaderManager::currentShader().enableVertexAttribArray("color");
-	
 	u16 i = 0;
 	float tmpY = y;
 	std::u32string line = str;
@@ -96,6 +92,10 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 	m_timer.start();
 	
 	m_soundTimer.start();
+	
+	ShaderManager::push(m_shader);
+	
+	ShaderManager::currentShader().enableVertexAttribArray("color");
 	
 	while(i < line.length()) {
 		char c = line[i];

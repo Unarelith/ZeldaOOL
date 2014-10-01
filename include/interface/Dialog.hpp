@@ -26,14 +26,19 @@ class Dialog {
 		Dialog();
 		~Dialog();
 		
-		void draw(u8 lineOffset);
+		void update();
+		void draw();
 		
 		enum Position {
-			Top,
-			Bottom
+			Top		= 24,
+			Bottom	= 96
 		};
 		
-		void setPosition(Position position) { m_position = position; }
+		void setPosition(Position position);
+		
+		void scrollDown();
+		
+		bool lastPage() { return (m_currentLine + 2 >= m_nbLines); }
 		
 		u8 nbLines() const { return m_nbLines; }
 		

@@ -33,8 +33,8 @@ class Shader {
 		GLint attrib(const char *attribName);
 		GLint uniform(const char *uniformName);
 		
-		void enableVertexAttribArray(const char *attribName) { glEnableVertexAttribArray(attrib(attribName)); }
-		void disableVertexAttribArray(const char *attribName) { glDisableVertexAttribArray(attrib(attribName)); }
+		void enableVertexAttribArray(const char *attribName);
+		void disableVertexAttribArray(const char *attribName);
 		
 		void useProgram() { glUseProgram(m_program); }
 		

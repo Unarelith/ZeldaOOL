@@ -130,3 +130,11 @@ GLint Shader::uniform(const char *uniformName) {
 	return uniform;
 }
 
+void Shader::enableVertexAttribArray(const char *attribName) {
+	glEnableVertexAttribArray(attrib(attribName));
+}
+
+void Shader::disableVertexAttribArray(const char *attribName) {
+	glDisableVertexAttribArray(attrib(attribName));
+}
+

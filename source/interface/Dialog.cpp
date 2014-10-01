@@ -20,6 +20,7 @@
 Dialog::Dialog() {
 	m_position = Position::Top;
 	
+	m_rectangle.setPosition(8, m_position);
 	m_rectangle.resize(144, 40);
 	
 	m_nbLines = 0;
@@ -33,25 +34,29 @@ Dialog::Dialog() {
 Dialog::~Dialog() {
 }
 
-void Dialog::draw(u8 lineOffset) {
-	if(m_currentLine != lineOffset) {
-		m_font.resetTimer();
-	}
+void Dialog::update() {
 	
-	m_currentLine = lineOffset;
-	
-	if(m_position == Position::Top) {
-		m_rectangle.setPosition(8, 24);
-	} else {
-		m_rectangle.setPosition(8, 96);
-	}
-	
+}
+
+void Dialog::draw() {
 	m_rectangle.draw();
 	
-	m_nbLines = m_font.drawTextBox(m_rectangle.x() + 8, m_rectangle.y() + 0, m_rectangle.width() - 16, m_rectangle.height(), U"L'[0]Arbre Bojo[/] est tout à l'est de cette grotte.", lineOffset);
+	m_nbLines = m_font.drawTextBox(m_rectangle.x() + 8, m_rectangle.y() + 0, m_rectangle.width() - 16, m_rectangle.height(), U"L'[0]Arbre Bojo[/] est tout à l'est de cette grotte.", m_currentLine);
 	
 	if(m_currentLine + 2 < m_nbLines) {
 		m_dialogArrow.playAnimation(m_rectangle.x() + m_rectangle.width() - 8, m_rectangle.y() + m_rectangle.height() - 7, 0);
 	}
+}
+
+void Dialog::setPosition(Position position) {
+	m_position = position;
+	
+	m_rectangle.setPosition(8, m_position);
+}
+
+void Dialog::scrollDown() {
+	m_font.resetTimer();
+	
+	m_currentLine++;
 }
 

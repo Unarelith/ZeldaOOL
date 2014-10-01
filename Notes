@@ -1,5 +1,4 @@
-- Link plays animation when pressing arrows during DialogActivity
-	-> Hai?
+- Link continues animation during DialogActivity
 - Create a function in 'Font': 'char convertChar(char c)'
 	=> Write the array of all character in 'FontCharacters.cpp' in 'data' folder
 - Rewrite 'Font::drawTextBox'

@@ -55,6 +55,10 @@ void Window::open() {
 	m_defaultShader.load("shaders/default.v.glsl", "shaders/default.f.glsl");
 	ShaderManager::push(m_defaultShader);
 	
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f);
+	
+	glUniformMatrix4fv(ShaderManager::currentShader().uniform("u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	
 	initGL();
 	
 	m_isOpen = true;
@@ -70,10 +74,6 @@ void Window::initGL() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	glEnable(GL_TEXTURE_2D);
-	
-	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f);
-	
-	glUniformMatrix4fv(m_defaultShader.uniform("u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 }
 
 void Window::clear() {
