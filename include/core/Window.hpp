@@ -19,7 +19,7 @@
 #define WINDOW_HPP_
 
 #include "SDLHeaders.hpp"
-#include "Shader.hpp"
+#include "ShaderManager.hpp"
 #include "Types.hpp"
 
 class Window {
@@ -35,15 +35,11 @@ class Window {
 		void clear();
 		void update();
 		
-		void useDefaultShader();
-		
 		bool isOpen() const { return m_isOpen; }
 		void close() { m_isOpen = false; }
 		
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
-		
-		Shader *defaultShader() { return &m_defaultShader; }
 		
 	private:
 		SDL_Window *m_window;

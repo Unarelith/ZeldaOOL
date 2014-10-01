@@ -40,13 +40,13 @@ Rectangle::~Rectangle() {
 
 void Rectangle::loadShader() {
 	m_shader.load("shaders/rectangle.v.glsl", "shaders/rectangle.f.glsl");
-	m_shader.useProgram();
+	ShaderManager::push(m_shader);
 	
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f);
 	
-	glUniformMatrix4fv(m_shader.uniform("u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	glUniformMatrix4fv(ShaderManager::currentShader().uniform("u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	
-	Application::window.useDefaultShader();
+	ShaderManager::pop();
 }
 
 void Rectangle::draw() {
@@ -69,19 +69,19 @@ void Rectangle::draw() {
 		3, 1, 2
 	};
 	
-	m_shader.useProgram();
+	ShaderManager::push(m_shader);
 	
-	glEnableVertexAttribArray(m_shader.attrib("coord2d"));
-	glEnableVertexAttribArray(m_shader.attrib("color"));
+	glEnableVertexAttribArray(ShaderManager::currentShader().attrib("coord2d"));
+	glEnableVertexAttribArray(ShaderManager::currentShader().attrib("color"));
 	
-	glVertexAttribPointer(m_shader.attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glVertexAttribPointer(m_shader.attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
+	glVertexAttribPointer(ShaderManager::currentShader().attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glVertexAttribPointer(ShaderManager::currentShader().attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
 	
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
 	
-	glDisableVertexAttribArray(m_shader.attrib("color"));
-	glDisableVertexAttribArray(m_shader.attrib("coord2d"));
+	glDisableVertexAttribArray(ShaderManager::currentShader().attrib("color"));
+	glDisableVertexAttribArray(ShaderManager::currentShader().attrib("coord2d"));
 	
-	Application::window.useDefaultShader();
+	ShaderManager::pop();
 }
 

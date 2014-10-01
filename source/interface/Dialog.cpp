@@ -53,9 +53,5 @@ void Dialog::draw(u8 lineOffset) {
 	if(m_currentLine + 2 < m_nbLines) {
 		m_dialogArrow.playAnimation(m_rectangle.x() + m_rectangle.width() - 8, m_rectangle.y() + m_rectangle.height() - 7, 0);
 	}
-	
-	m_font.drawString(0, 100, "truc", Color::white);
-	
-	m_font.drawFrame(80, 80, 'A' - 29);
 }
 

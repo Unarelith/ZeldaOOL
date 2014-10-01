@@ -17,6 +17,7 @@
  */
 #include "Application.hpp"
 #include "Debug.hpp"
+#include "ShaderManager.hpp"
 #include "Texture.hpp"
 
 Texture::Texture() {
@@ -65,7 +66,7 @@ void Texture::load(std::string filename) {
 	
 	SDL_FreeSurface(surface);
 	
-	m_uniform = Application::window.defaultShader()->uniform("u_tex");
+	m_uniform = ShaderManager::currentShader().uniform("u_tex");
 }
 
 void Texture::bind() {

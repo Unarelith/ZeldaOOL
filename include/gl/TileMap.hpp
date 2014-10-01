@@ -19,7 +19,7 @@
 #define TILEMAP_HPP_
 
 #include "OpenGL.hpp"
-#include "Shader.hpp"
+#include "ShaderManager.hpp"
 #include "Texture.hpp"
 
 #include "Application.hpp"

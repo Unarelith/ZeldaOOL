@@ -26,27 +26,19 @@
 
 Font::Font() : Sprite("graphics/interface/font.png", 8, 16) {
 	m_shader.load("shaders/font.v.glsl", "shaders/font.f.glsl");
-	m_shader.useProgram();
+	ShaderManager::push(m_shader);
 	
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f);
 	
 	glUniformMatrix4fv(m_shader.uniform("u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	
-	Application::window.useDefaultShader();
+	ShaderManager::pop();
 }
 
 Font::~Font() {
 }
 
-void Font::drawChar(float x, float y, char c) {
-	m_shader.useProgram();
-	
-	drawFrame(x, y, c - 29);
-	
-	Application::window.useDefaultShader();
-}
-
-void Font::drawChar32(float x, float y, char32_t c) {
+void Font::drawChar(float x, float y, char32_t c) {
 	if((s16)c >= 32) {
 		drawFrame(x, y, c - 29);
 	}
@@ -55,8 +47,8 @@ void Font::drawChar32(float x, float y, char32_t c) {
 	}
 }
 
-void Font::drawString(float x, float y, std::string str, Color color) {
-	m_shader.useProgram();
+void Font::drawString(float x, float y, std::u32string str, Color color) {
+	ShaderManager::push(m_shader);
 	
 	GLfloat colors[] = {
 		color.r, color.g, color.b,
@@ -65,23 +57,23 @@ void Font::drawString(float x, float y, std::string str, Color color) {
 		color.r, color.g, color.b
 	};
 	
-	glEnableVertexAttribArray(m_shader.attrib("color"));
+	glEnableVertexAttribArray(ShaderManager::currentShader().attrib("color"));
 	
-	glVertexAttribPointer(m_shader.attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
+	glVertexAttribPointer(ShaderManager::currentShader().attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
 	
 	for(u16 i = 0 ; i < str.length() ; i++) {
 		drawChar(x + (i * charWidth()), y, str[i]);
 	}
 	
-	glDisableVertexAttribArray(m_shader.attrib("color"));
+	glDisableVertexAttribArray(ShaderManager::currentShader().attrib("color"));
 	
-	Application::window.useDefaultShader();
+	ShaderManager::pop();
 }
 
 u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str, u16 lineOffset, Color color) {
-	m_shader.useProgram();
+	ShaderManager::push(m_shader);
 	
-	glEnableVertexAttribArray(m_shader.attrib("color"));
+	glEnableVertexAttribArray(ShaderManager::currentShader().attrib("color"));
 	
 	u16 i = 0;
 	float tmpY = y;
@@ -166,7 +158,7 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 				color.r, color.g, color.b
 			};
 			
-			glVertexAttribPointer(m_shader.attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
+			glVertexAttribPointer(ShaderManager::currentShader().attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
 			
 			if(charsDrawn < m_timer.time() / 48) {
 				if(m_timer.time() / 48 < maxChars) {
@@ -178,7 +170,7 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 					}
 				}
 				
-				drawChar32(x + i * charWidth(), tmpY - lineOffset * charHeight(), c);
+				drawChar(x + i * charWidth(), tmpY - lineOffset * charHeight(), c);
 				
 				charsDrawn++;
 			}
@@ -187,9 +179,9 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 		i++;
 	}
 	
-	glDisableVertexAttribArray(m_shader.attrib("color"));
+	glDisableVertexAttribArray(ShaderManager::currentShader().attrib("color"));
 	
-	Application::window.useDefaultShader();
+	ShaderManager::pop();
 	
 	return tmpY / charHeight();
 }
