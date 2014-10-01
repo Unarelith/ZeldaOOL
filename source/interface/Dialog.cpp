@@ -55,5 +55,7 @@ void Dialog::draw(u8 lineOffset) {
 	}
 	
 	m_font.drawString(0, 100, "truc", Color::white);
+	
+	m_font.drawFrame(80, 80, 'A' - 29);
 }
 
