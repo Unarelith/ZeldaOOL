@@ -29,8 +29,9 @@ class Font : public Sprite {
 		
 		void resetTimer() { m_timer.setTime(16 * 48); }
 		
-		void drawChar(float x, float y, char32_t c);
-		void drawString(float x, float y, std::u32string str, Color color = Color::text);
+		void drawChar(float x, float y, char c);
+		void drawChar32(float x, float y, char32_t c);
+		void drawString(float x, float y, std::string str, Color color = Color::text);
 		u8 drawTextBox(float x, float y, u16 width, u16 height, std::u32string str, u16 lineOffset, Color color = Color::text);
 		
 		u16 charWidth() const { return m_frameWidth; }

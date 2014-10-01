@@ -38,7 +38,11 @@ Font::Font() : Sprite("graphics/interface/font.png", 8, 16) {
 Font::~Font() {
 }
 
-void Font::drawChar(float x, float y, char32_t c) {
+void Font::drawChar(float x, float y, char c) {
+		drawFrame(x, y, c - 29);
+}
+
+void Font::drawChar32(float x, float y, char32_t c) {
 	if((s16)c >= 32) {
 		drawFrame(x, y, c - 29);
 	}
@@ -47,7 +51,7 @@ void Font::drawChar(float x, float y, char32_t c) {
 	}
 }
 
-void Font::drawString(float x, float y, std::u32string str, Color color) {
+void Font::drawString(float x, float y, std::string str, Color color) {
 	m_shader.useProgram();
 	
 	GLfloat colors[] = {
@@ -170,7 +174,7 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 					}
 				}
 				
-				drawChar(x + i * charWidth(), tmpY - lineOffset * charHeight(), c);
+				drawChar32(x + i * charWidth(), tmpY - lineOffset * charHeight(), c);
 				
 				charsDrawn++;
 			}
