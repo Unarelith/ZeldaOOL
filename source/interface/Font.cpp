@@ -39,7 +39,11 @@ Font::~Font() {
 }
 
 void Font::drawChar(float x, float y, char c) {
-		drawFrame(x, y, c - 29);
+	m_shader.useProgram();
+	
+	drawFrame(x, y, c - 29);
+	
+	Application::window.useDefaultShader();
 }
 
 void Font::drawChar32(float x, float y, char32_t c) {
