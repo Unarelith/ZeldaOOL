@@ -79,7 +79,7 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 	float tmpY = y;
 	std::u32string line = str;
 	u32 lineWidth = 0;
-	u32 charDrawn = 0;
+	u32 charsDrawn = 0;
 	u32 maxChars = 0;
 	
 	size_t nextSpace = line.find_first_of(' ');
@@ -160,7 +160,7 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 			
 			glVertexAttribPointer(m_shader.attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
 			
-			if(charDrawn < m_timer.time() / 48) {
+			if(charsDrawn < m_timer.time() / 48) {
 				if(m_timer.time() / 48 < maxChars) {
 					if(m_soundTimer.time() > 48) {
 						Sound::Effect::textLetter.play();
@@ -172,7 +172,7 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 				
 				drawChar(x + i * charWidth(), tmpY - lineOffset * charHeight(), c);
 				
-				charDrawn++;
+				charsDrawn++;
 			}
 		}
 		
