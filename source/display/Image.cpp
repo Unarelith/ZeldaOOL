@@ -86,8 +86,8 @@ void Image::draw() {
 		3, 1, 2
 	};
 	
-	glEnableVertexAttribArray(ShaderManager::currentShader().attrib("coord2d"));
-	glEnableVertexAttribArray(ShaderManager::currentShader().attrib("texCoord"));
+	ShaderManager::currentShader().enableVertexAttribArray("coord2d");
+	ShaderManager::currentShader().enableVertexAttribArray("texCoord");
 	
 	glVertexAttribPointer(ShaderManager::currentShader().attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glVertexAttribPointer(ShaderManager::currentShader().attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, 0, texCoords);
@@ -98,7 +98,7 @@ void Image::draw() {
 	
 	unbind();
 	
-	glDisableVertexAttribArray(ShaderManager::currentShader().attrib("texCoord"));
-	glDisableVertexAttribArray(ShaderManager::currentShader().attrib("coord2d"));
+	ShaderManager::currentShader().disableVertexAttribArray("texCoord");
+	ShaderManager::currentShader().disableVertexAttribArray("coord2d");
 }
 

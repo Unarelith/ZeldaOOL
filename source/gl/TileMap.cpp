@@ -95,8 +95,8 @@ void TileMap::draw() {
 	
 	glUniform2f(ShaderManager::currentShader().uniform("u_mapPosition"), m_x, m_y);
 	
-	glEnableVertexAttribArray(ShaderManager::currentShader().attrib("coord2d"));
-	glEnableVertexAttribArray(ShaderManager::currentShader().attrib("texCoord"));
+	ShaderManager::currentShader().enableVertexAttribArray("coord2d");
+	ShaderManager::currentShader().enableVertexAttribArray("texCoord");
 	
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	
@@ -109,8 +109,8 @@ void TileMap::draw() {
 	
 	m_texture->unbind();
 	
-	glDisableVertexAttribArray(ShaderManager::currentShader().attrib("texCoord"));
-	glDisableVertexAttribArray(ShaderManager::currentShader().attrib("coord2d"));
+	ShaderManager::currentShader().disableVertexAttribArray("texCoord");
+	ShaderManager::currentShader().disableVertexAttribArray("coord2d");
 	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
