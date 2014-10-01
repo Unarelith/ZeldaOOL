@@ -18,6 +18,8 @@
 #ifndef DIALOG_HPP_
 #define DIALOG_HPP_
 
+#include <vector>
+
 #include "Font.hpp"
 #include "Rectangle.hpp"
 
@@ -27,33 +29,34 @@ class Dialog {
 		~Dialog();
 		
 		void update();
+		
 		void draw();
+		void drawText();
 		
 		enum Position {
 			Top		= 24,
 			Bottom	= 96
 		};
 		
-		void setPosition(Position position);
+		void setText(std::string text);
+		void setPosition(Position position) { m_rectangle.setPosition(8, position); }
 		
 		void scrollDown();
 		
-		bool lastPage() { return (m_currentLine + 2 >= m_nbLines); }
-		
-		u8 nbLines() const { return m_nbLines; }
+		bool lastPage() { return (m_currentLine + 2 >= (u8)m_lines.size()); }
 		
 	private:
-		Position m_position;
-		
 		Rectangle m_rectangle;
 		
 		Font m_font;
 		
-		u8 m_nbLines;
+		Sprite m_dialogArrow;
 		
 		u8 m_currentLine;
 		
-		Sprite m_dialogArrow;
+		std::vector<std::pair<u8, std::string>> m_lines;
+		Timer m_charTimer;
+		Timer m_soundTimer;
 };
 
 #endif // DIALOG_HPP_

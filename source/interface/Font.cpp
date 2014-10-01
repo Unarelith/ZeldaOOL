@@ -24,7 +24,19 @@
 #include "Font.hpp"
 #include "Sound.hpp"
 
-Font::Font() : Sprite("graphics/interface/font.png", 8, 16) {
+Font::Font() {
+}
+
+Font::Font(std::string filename, u16 charWidth, u16 charHeight) {
+	load(filename, charWidth, charHeight);
+}
+
+Font::~Font() {
+}
+
+void Font::load(std::string filename, u16 charWidth, u16 charHeight) {
+	Sprite::load(filename, charWidth, charHeight);
+	
 	m_shader.load("shaders/font.v.glsl", "shaders/font.f.glsl");
 	ShaderManager::push(m_shader);
 	
@@ -35,34 +47,44 @@ Font::Font() : Sprite("graphics/interface/font.png", 8, 16) {
 	ShaderManager::pop();
 }
 
-Font::~Font() {
-}
-
-void Font::drawChar(float x, float y, char32_t c) {
-	if((s16)c >= 32) {
+void Font::drawChar(float x, float y, u8 c) {
+	if(c > 128 && c < 195) {
+		drawFrame(x, y, c + 35);
+	}
+	else if(c >= 32) {
 		drawFrame(x, y, c - 29);
 	}
-	else if((s16)c < 0) {
-		drawFrame(x, y, 227 + c);
-	}
 }
 
-void Font::drawString(float x, float y, std::u32string str, Color color) {
+void Font::drawString(float x, float y, std::string str, s16 charsToDraw, Color color) {
 	ShaderManager::push(m_shader);
-	
-	GLfloat colors[] = {
-		color.r, color.g, color.b,
-		color.r, color.g, color.b,
-		color.r, color.g, color.b,
-		color.r, color.g, color.b
-	};
 	
 	ShaderManager::currentShader().enableVertexAttribArray("color");
 	
-	glVertexAttribPointer(ShaderManager::currentShader().attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
+	setColor(color);
 	
+	u16 tmpX = 0;
 	for(u16 i = 0 ; i < str.length() ; i++) {
-		drawChar(x + (i * charWidth()), y, str[i]);
+		if(tmpX > charsToDraw) break;
+		
+		if(str[i] == '[' && str[i + 1] >= '0' && str[i + 1] <= '9' && str[i + 2] == ']') {
+			switch(str[i + 1] - '0') {
+				case 0:		setColor(Color::text);		break;
+				case 1:		setColor(Color::blue);		break;
+				case 2:		setColor(Color::text);		break;
+				case 3:		setColor(Color::text);		break;
+				case 4:		setColor(Color::text);		break;
+				case 5:		setColor(Color::text);		break;
+				case 6:		setColor(Color::text);		break;
+				case 7:		setColor(Color::text);		break;
+				case 8:		setColor(Color::text);		break;
+				case 9:		setColor(Color::text);		break;
+			}
+			
+			i += 3;
+		}
+		
+		drawChar(x + (tmpX++ * charWidth()), y, str[i]);
 	}
 	
 	ShaderManager::currentShader().disableVertexAttribArray("color");
@@ -70,119 +92,11 @@ void Font::drawString(float x, float y, std::u32string str, Color color) {
 	ShaderManager::pop();
 }
 
-u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str, u16 lineOffset, Color color) {
-	u16 i = 0;
-	float tmpY = y;
-	std::u32string line = str;
-	u32 lineWidth = 0;
-	u32 charsDrawn = 0;
-	u32 maxChars = 0;
+void Font::setColor(Color color) {
+	m_colors[0] = m_colors[3] = m_colors[6] = m_colors[9] = color.r;
+	m_colors[1] = m_colors[4] = m_colors[7] = m_colors[10] = color.g;
+	m_colors[2] = m_colors[5] = m_colors[8] = m_colors[11] = color.b;
 	
-	size_t nextSpace = line.find_first_of(' ');
-	size_t nextTag = line.find_first_of('[');
-	
-	lineWidth += line.find_first_of(' ') * charWidth();
-	
-	if(nextTag < nextSpace) {
-		lineWidth -= 3 * charWidth();
-	}
-	
-	maxChars += lineWidth / charWidth();
-	
-	m_timer.start();
-	
-	m_soundTimer.start();
-	
-	ShaderManager::push(m_shader);
-	
-	ShaderManager::currentShader().enableVertexAttribArray("color");
-	
-	while(i < line.length()) {
-		char c = line[i];
-		
-		if(line[i] == ' ') {
-			nextSpace = line.find_first_of(' ', i + 1);
-			nextTag = line.find_first_of('[', i + 1);
-			
-			if(nextSpace != std::string::npos) {
-				lineWidth += line.substr(i + 1, nextSpace - i).length() * charWidth();
-				
-				if((tmpY - y) / charHeight() == 1 || lineOffset == 0) {
-					maxChars += line.substr(i + 1, nextSpace - i).length();
-				}
-			} else {
-				lineWidth += line.length() * charWidth();
-				
-				if(tmpY - y / charHeight() == 1 || lineOffset == 0) {
-					maxChars += line.length();
-				}
-			}
-			
-			if(nextTag < nextSpace) {
-				lineWidth -= 3 * charWidth();
-		
-				if(tmpY - y / charHeight() == 1 || lineOffset == 0) {
-					maxChars -= 3;
-				}
-			}
-			
-			if(lineWidth > width) {
-				line = line.substr(i + 1);
-				i = 0;
-				tmpY += charHeight();
-				lineWidth = 0;
-				
-				continue;
-			}
-		}
-		else if(line[i] == '[' && line[i + 1] >= '0' && line[i + 1] <= '9' && line[i + 2] == ']') {
-			switch(line[i + 1] - '0') {
-				default: color = Color::blue;
-			}
-			
-			line.erase(i, 3);
-			continue;
-		}
-		else if(line[i] == '[' && line[i + 1] == '/' && line[i + 2] == ']') {
-			color = Color::text;
-			
-			line.erase(i, 3);
-			continue;
-		}
-		
-		if(tmpY - lineOffset * charHeight() >= y && tmpY - y + charHeight() < height + lineOffset * charWidth() * 2) {
-			GLfloat colors[] = {
-				color.r, color.g, color.b,
-				color.r, color.g, color.b,
-				color.r, color.g, color.b,
-				color.r, color.g, color.b
-			};
-			
-			glVertexAttribPointer(ShaderManager::currentShader().attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
-			
-			if(charsDrawn < m_timer.time() / 48) {
-				if(m_timer.time() / 48 < maxChars) {
-					if(m_soundTimer.time() > 48) {
-						Sound::Effect::textLetter.play();
-						
-						m_soundTimer.reset();
-						m_soundTimer.start();
-					}
-				}
-				
-				drawChar(x + i * charWidth(), tmpY - lineOffset * charHeight(), c);
-				
-				charsDrawn++;
-			}
-		}
-		
-		i++;
-	}
-	
-	ShaderManager::currentShader().disableVertexAttribArray("color");
-	
-	ShaderManager::pop();
-	
-	return tmpY / charHeight();
+	glVertexAttribPointer(ShaderManager::currentShader().attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, m_colors);
 }
 

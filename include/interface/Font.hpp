@@ -25,22 +25,25 @@
 class Font : public Sprite {
 	public:
 		Font();
+		Font(std::string filename, u16 charWidth, u16 charHeight);
 		~Font();
 		
-		void resetTimer() { m_timer.setTime(16 * 48); }
+		void load(std::string filename, u16 charWidth, u16 charHeight);
 		
-		void drawChar(float x, float y, char32_t c);
-		void drawString(float x, float y, std::u32string str, Color color = Color::text);
-		u8 drawTextBox(float x, float y, u16 width, u16 height, std::u32string str, u16 lineOffset, Color color = Color::text);
+		void drawChar(float x, float y, u8 c);
+		void drawString(float x, float y, std::string str, s16 charsToDraw, Color color = Color::text);
+		
+		void setColor(Color color);
 		
 		u16 charWidth() const { return m_frameWidth; }
 		u16 charHeight() const { return m_frameHeight; }
 		
+		Shader shader() const { return m_shader; }
+		
 	private:
 		Shader m_shader;
 		
-		Timer m_timer;
-		Timer m_soundTimer;
+		GLfloat m_colors[12];
 };
 
 #endif // FONT_HPP_
