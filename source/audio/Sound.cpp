@@ -21,12 +21,16 @@ BackgroundMusic Sound::Music::plain;
 
 SoundEffect Sound::Effect::chest;
 
+SoundEffect Sound::Effect::dialogContinue;
+
 SoundEffect Sound::Effect::grassDestroy;
 
 SoundEffect Sound::Effect::swordCharge;
 SoundEffect Sound::Effect::swordSlash1;
 SoundEffect Sound::Effect::swordSpin;
 SoundEffect Sound::Effect::swordTap;
+
+SoundEffect Sound::Effect::textLetter;
 
 void Sound::init() {
 	Sound::Music::init();
@@ -41,11 +45,15 @@ void Sound::Music::init() {
 void Sound::Effect::init() {
 	chest.load("audio/effects/chest.wav");
 	
+	dialogContinue.load("audio/effects/dialogContinue.wav");
+	
 	grassDestroy.load("audio/effects/grassDestroy.wav");
 	
 	swordCharge.load("audio/effects/swordCharge.wav");
 	swordSlash1.load("audio/effects/swordSlash1.wav");
 	swordSpin.load("audio/effects/swordSpin.wav");
 	swordTap.load("audio/effects/swordTap.wav");
+	
+	textLetter.load("audio/effects/textLetter.wav");
 }
 

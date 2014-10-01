@@ -36,7 +36,7 @@ void SoundEffect::load(std::string filename) {
 	}
 }
 
-void SoundEffect::play() {
-	Mix_PlayChannel(-1, m_sfx, 0);
+void SoundEffect::play(s8 channel) {
+	Mix_PlayChannel(channel, m_sfx, 0);
 }
 

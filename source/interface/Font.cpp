@@ -22,6 +22,7 @@
 #include "Application.hpp"
 #include "Config.hpp"
 #include "Font.hpp"
+#include "Sound.hpp"
 
 Font::Font() : Sprite("graphics/interface/font.png", 8, 16) {
 	m_shader.load("shaders/font.v.glsl", "shaders/font.f.glsl");
@@ -78,15 +79,23 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 	float tmpY = y;
 	std::u32string line = str;
 	u32 lineWidth = 0;
+	u32 charDrawn = 0;
+	u32 maxChars = 0;
 	
 	size_t nextSpace = line.find_first_of(' ');
 	size_t nextTag = line.find_first_of('[');
-			
+	
 	lineWidth += line.find_first_of(' ') * charWidth();
 	
 	if(nextTag < nextSpace) {
 		lineWidth -= 3 * charWidth();
 	}
+	
+	maxChars += lineWidth / charWidth();
+	
+	m_timer.start();
+	
+	m_soundTimer.start();
 	
 	while(i < line.length()) {
 		char c = line[i];
@@ -97,12 +106,24 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 			
 			if(nextSpace != std::string::npos) {
 				lineWidth += line.substr(i + 1, nextSpace - i).length() * charWidth();
+				
+				if((tmpY - y) / charHeight() == 1 || lineOffset == 0) {
+					maxChars += line.substr(i + 1, nextSpace - i).length();
+				}
 			} else {
 				lineWidth += line.length() * charWidth();
+				
+				if(tmpY - y / charHeight() == 1 || lineOffset == 0) {
+					maxChars += line.length();
+				}
 			}
 			
 			if(nextTag < nextSpace) {
 				lineWidth -= 3 * charWidth();
+		
+				if(tmpY - y / charHeight() == 1 || lineOffset == 0) {
+					maxChars -= 3;
+				}
 			}
 			
 			if(lineWidth > width) {
@@ -129,7 +150,7 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 			continue;
 		}
 		
-		if(tmpY - lineOffset * charWidth() * 2 >= y && tmpY - y + charHeight() < height + lineOffset * charWidth() * 2) {
+		if(tmpY - lineOffset * charHeight() >= y && tmpY - y + charHeight() < height + lineOffset * charWidth() * 2) {
 			GLfloat colors[] = {
 				color.r, color.g, color.b,
 				color.r, color.g, color.b,
@@ -139,7 +160,20 @@ u8 Font::drawTextBox(float x, float y, u16 width, u16 height, std::u32string str
 			
 			glVertexAttribPointer(m_shader.attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
 			
-			drawChar(x + i * charWidth(), tmpY - lineOffset * charWidth() * 2, c);
+			if(charDrawn < m_timer.time() / 48) {
+				if(m_timer.time() / 48 < maxChars) {
+					if(m_soundTimer.time() > 48) {
+						Sound::Effect::textLetter.play();
+						
+						m_soundTimer.reset();
+						m_soundTimer.start();
+					}
+				}
+				
+				drawChar(x + i * charWidth(), tmpY - lineOffset * charHeight(), c);
+				
+				charDrawn++;
+			}
 		}
 		
 		i++;

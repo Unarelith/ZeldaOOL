@@ -16,8 +16,9 @@
  * =====================================================================================
  */
 #include "DialogState.hpp"
-#include "Keyboard.hpp"
 #include "GameStateManager.hpp"
+#include "Keyboard.hpp"
+#include "Sound.hpp"
 
 DialogState::DialogState(GameState *parent) : GameState(parent) {
 	m_currentLine = 0;
@@ -33,6 +34,8 @@ void DialogState::update() {
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
 		if(m_currentLine + 2 < m_dialog.nbLines()) {
+			Sound::Effect::dialogContinue.play();
+			
 			m_currentLine++;
 		} else {
 			GameStateManager::pop();

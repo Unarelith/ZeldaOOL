@@ -21,6 +21,7 @@
 #include <string>
 
 #include "SDLHeaders.hpp"
+#include "Types.hpp"
 
 class SoundEffect {
 	public:
@@ -30,7 +31,7 @@ class SoundEffect {
 		
 		void load(std::string filename);
 		
-		void play();
+		void play(s8 channel = -1);
 		
 	private:
 		Mix_Chunk *m_sfx;

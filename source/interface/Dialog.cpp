@@ -34,6 +34,10 @@ Dialog::~Dialog() {
 }
 
 void Dialog::draw(u8 lineOffset) {
+	if(m_currentLine != lineOffset) {
+		m_font.resetTimer();
+	}
+	
 	m_currentLine = lineOffset;
 	
 	if(m_position == Position::Top) {
