@@ -25,6 +25,11 @@ SoundEffect Sound::Effect::dialogContinue;
 
 SoundEffect Sound::Effect::grassDestroy;
 
+SoundEffect Sound::Effect::menuClose;
+SoundEffect Sound::Effect::menuCursor;
+SoundEffect Sound::Effect::menuOpen;
+SoundEffect Sound::Effect::menuSelect;
+
 SoundEffect Sound::Effect::swordCharge;
 SoundEffect Sound::Effect::swordSlash1;
 SoundEffect Sound::Effect::swordSpin;
@@ -48,6 +53,11 @@ void Sound::Effect::init() {
 	dialogContinue.load("audio/effects/dialogContinue.wav");
 	
 	grassDestroy.load("audio/effects/grassDestroy.wav");
+	
+	menuClose.load("audio/effects/menuClose.wav");
+	menuCursor.load("audio/effects/menuCursor.wav");
+	menuOpen.load("audio/effects/menuOpen.wav");
+	menuSelect.load("audio/effects/menuSelect.wav");
 	
 	swordCharge.load("audio/effects/swordCharge.wav");
 	swordSlash1.load("audio/effects/swordSlash1.wav");

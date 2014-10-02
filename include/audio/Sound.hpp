@@ -39,6 +39,11 @@ namespace Sound {
 		
 		extern SoundEffect grassDestroy;
 		
+		extern SoundEffect menuClose;
+		extern SoundEffect menuCursor;
+		extern SoundEffect menuOpen;
+		extern SoundEffect menuSelect;
+		
 		extern SoundEffect swordCharge;
 		extern SoundEffect swordSlash1;
 		extern SoundEffect swordSpin;

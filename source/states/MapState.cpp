@@ -139,6 +139,8 @@ void MapState::update() {
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::Start)) {
+		Sound::Effect::menuOpen.play();
+		
 		GameStateManager::push(new MenuState());
 	}
 }

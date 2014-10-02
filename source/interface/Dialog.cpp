@@ -122,7 +122,7 @@ void Dialog::setText(std::string text) {
 }
 
 void Dialog::scrollDown() {
-	m_charTimer.setTime(48 * 16);
+	m_charTimer.setTime(36 * 16);
 	
 	m_currentLine++;
 }

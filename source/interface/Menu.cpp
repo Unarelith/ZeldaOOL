@@ -17,6 +17,7 @@
  */
 #include "Keyboard.hpp"
 #include "Menu.hpp"
+#include "Sound.hpp"
 
 Menu::Menu() {
 	m_background.load("graphics/interface/menuBackground.png");
@@ -31,18 +32,26 @@ Menu::~Menu() {
 
 void Menu::update() {
 	if(Keyboard::isKeyPressedWithDelay(Keyboard::Left, 250)) {
+		Sound::Effect::menuCursor.play();
+		
 		m_cursorX--;
 	}
 	
 	if(Keyboard::isKeyPressedWithDelay(Keyboard::Right, 250)) {
+		Sound::Effect::menuCursor.play();
+		
 		m_cursorX++;
 	}
 	
 	if(Keyboard::isKeyPressedWithDelay(Keyboard::Up, 250)) {
+		Sound::Effect::menuCursor.play();
+		
 		m_cursorY--;
 	}
 	
 	if(Keyboard::isKeyPressedWithDelay(Keyboard::Down, 250)) {
+		Sound::Effect::menuCursor.play();
+		
 		m_cursorY++;
 	}
 	
