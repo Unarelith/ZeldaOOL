@@ -43,6 +43,8 @@ class Dialog {
 		
 		void scrollDown();
 		
+		bool waitForUser();
+		
 		bool lastPage() { return (m_currentLine + 2 >= (u8)m_lines.size()); }
 		
 	private:

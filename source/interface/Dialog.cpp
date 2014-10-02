@@ -39,8 +39,8 @@ Dialog::~Dialog() {
 }
 
 void Dialog::update() {
-	if(m_soundTimer.time() > 48
-	&& m_charTimer.time() / 48 <= m_lines[m_currentLine].first + m_lines[m_currentLine + 1].first) {
+	if(m_soundTimer.time() > 60
+	&& !waitForUser()) {
 		Sound::Effect::textLetter.play();
 		
 		m_soundTimer.reset();
@@ -53,14 +53,14 @@ void Dialog::draw() {
 	
 	drawText();
 	
-	if(!lastPage()) {
+	if(!lastPage() && waitForUser()) {
 		m_dialogArrow.playAnimation(m_rectangle.x() + m_rectangle.width() - 8, m_rectangle.y() + m_rectangle.height() - 7, 0);
 	}
 }
 
 void Dialog::drawText() {
-	m_font.drawString(m_rectangle.x() + 8, m_rectangle.y(), m_lines[m_currentLine].second, m_charTimer.time() / 54);
-	m_font.drawString(m_rectangle.x() + 8, m_rectangle.y() + m_font.charHeight(), m_lines[m_currentLine + 1].second, m_charTimer.time() / 54 - 16);
+	m_font.drawString(m_rectangle.x() + 8, m_rectangle.y(), m_lines[m_currentLine].second, m_charTimer.time() / 42);
+	m_font.drawString(m_rectangle.x() + 8, m_rectangle.y() + m_font.charHeight(), m_lines[m_currentLine + 1].second, m_charTimer.time() / 42 - 16);
 }
 
 void Dialog::setText(std::string text) {
@@ -125,5 +125,9 @@ void Dialog::scrollDown() {
 	m_charTimer.setTime(48 * 16);
 	
 	m_currentLine++;
+}
+
+bool Dialog::waitForUser() {
+	return (s32)m_charTimer.time() / 36 > m_lines[m_currentLine].first + m_lines[m_currentLine + 1].first + 2;
 }
 

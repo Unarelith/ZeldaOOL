@@ -1,4 +1,6 @@
 - Link continues animation during DialogActivity
+- Lines have not the correct length in 'Dialog'
+	=> Maybe related to the 'à'?
 - Create a function in 'Font': 'char convertChar(char c)'
 	=> Write the array of all character in 'FontCharacters.cpp' in 'data' folder
 - Rewrite 'Font::drawTextBox'
