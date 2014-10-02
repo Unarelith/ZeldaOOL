@@ -18,8 +18,8 @@
 #ifndef SWORDSTATE_HPP_
 #define SWORDSTATE_HPP_
 
-#include "Sword.hpp"
 #include "MovingState.hpp"
+#include "Sword.hpp"
 
 class SwordState : public MovingState {
 	public:
@@ -38,7 +38,7 @@ class SwordState : public MovingState {
 	private:
 		bool m_playerMoved;
 		
-		Sword m_sword;
+		Sword *m_sword;
 };
 
 #endif // SWORDSTATE_HPP_

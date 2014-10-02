@@ -62,6 +62,31 @@ Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
 Sword::~Sword() {
 }
 
+void Sword::reset() {
+	m_state = State::Swinging;
+	
+	m_loadingTimer.reset();
+	m_loaded = false;
+	
+	m_spinTimer.reset();
+	m_spinCurrentFrame = 0;
+	m_spinFrameCounter = 0;
+	
+	m_keyReleased = false;
+	
+	resetAnimation(0);
+	resetAnimation(1);
+	resetAnimation(2);
+	resetAnimation(3);
+	
+	resetAnimation(4);
+	resetAnimation(5);
+	resetAnimation(6);
+	resetAnimation(7);
+	
+	resetAnimation(8);
+}
+
 void Sword::update() {
 	switch(m_state) {
 		case State::Swinging:

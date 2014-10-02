@@ -19,8 +19,8 @@
 
 #include "AnimationManager.hpp"
 #include "Application.hpp"
+#include "Config.hpp"
 #include "CharacterManager.hpp"
-#include "Debug.hpp"
 #include "DialogState.hpp"
 #include "EffectManager.hpp"
 #include "GameStateManager.hpp"
@@ -30,6 +30,7 @@
 #include "MenuState.hpp"
 #include "Sound.hpp"
 #include "TimeManager.hpp"
+#include "WeaponManager.hpp"
 
 MapState::MapState() {
 	m_mode = Mode::Normal;
@@ -58,10 +59,13 @@ MapState::MapState() {
 	
 	MapManager::currentMap->addObject(button);
 	
+	WeaponManager::init();
+	
 	Sound::Music::plain.play();
 }
 
 MapState::~MapState() {
+	WeaponManager::free();
 }
 
 void MapState::scrollMaps(float vx, float vy) {

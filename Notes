@@ -1,20 +1,8 @@
 - Link continues animation during DialogActivity
 - Lines have not the correct length in 'Dialog'
 	=> Maybe related to the 'à'?
-- Create a function in 'Font': 'char convertChar(char c)'
-	=> Write the array of all character in 'FontCharacters.cpp' in 'data' folder
-- Rewrite 'Font::drawTextBox'
 - Implement 'LanguageManager'
 	=> Like Asylia one
-- Manage shaders in Application
-	=> pushShader
-		=> Add shader to a stack
-		=> Use shader
-	=> popShader
-		=> Pop shader from stack
-		=> Use shader
-	=> currentShader
-		=> Returns the top of the stack
 - Improve OpenGL code, wrapping it in classes
 	=> Write a class VertexBufferObject, and use it in 'TileMap'
 	=> Write a class VertexArray, and use it in 'Image'

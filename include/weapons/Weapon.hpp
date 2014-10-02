@@ -23,7 +23,11 @@
 class Weapon : public Sprite, public Entity {
 	public:
 		Weapon(std::string filename, u16 width, u16 height);
-		~Weapon();
+		virtual ~Weapon();
+		
+		virtual void update() = 0;
+		
+		virtual void draw() = 0;
 		
 	protected:
 		Player &m_player;
