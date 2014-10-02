@@ -23,10 +23,11 @@
 #include "Debug.hpp"
 #include "DialogState.hpp"
 #include "EffectManager.hpp"
+#include "GameStateManager.hpp"
 #include "Keyboard.hpp"
 #include "MapEventManager.hpp"
 #include "MapState.hpp"
-#include "GameStateManager.hpp"
+#include "MenuState.hpp"
 #include "Sound.hpp"
 #include "TimeManager.hpp"
 
@@ -133,8 +134,12 @@ void MapState::update() {
 		m_mode = Mode::Normal;
 	}
 	
-	if(Keyboard::isKeyPressedOnce(Keyboard::Start)) {
+	if(Keyboard::isKeyPressedOnce(Keyboard::Select)) {
 		GameStateManager::push(new DialogState(this));
+	}
+	
+	if(Keyboard::isKeyPressedOnce(Keyboard::Start)) {
+		GameStateManager::push(new MenuState());
 	}
 }
 
