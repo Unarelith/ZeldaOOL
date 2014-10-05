@@ -31,6 +31,8 @@ class MovingState : public PlayerState {
 		
 		virtual void draw();
 		
+		virtual bool canStartMapTransition() { return true; }
+		
 	protected:
 		bool m_directionLocked;
 };

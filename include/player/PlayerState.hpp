@@ -31,6 +31,8 @@ class PlayerState {
 		
 		virtual void draw() = 0;
 		
+		virtual bool canStartMapTransition() { return false; }
+		
 		enum StateType {
 			TypeStanding,
 			TypeMoving,

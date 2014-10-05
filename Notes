@@ -1,5 +1,3 @@
-- 'Player' have a member 'Inventory'
-	-> Link 'Menu' and 'Inventory'
 - Link continues animation during DialogActivity
 - Lines have not the correct length in 'Dialog'
 	=> Maybe related to the 'à'?
@@ -7,30 +5,28 @@
 	=> Like Asylia one
 - Improve OpenGL code, wrapping it in classes
 	=> Write a class VertexBufferObject, and use it in 'TileMap'
-	=> Write a class VertexArray, and use it in 'Image'
+	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'
 - Check sound effect channels in real game
-	=> For example, is it possible to hear sword loading sound when player release spin attack?
+	=> For example, is it possible to hear sword loading sound anymore when player release spin attack?
 - Rewrite managers to read xml config files
 	=> Rewrite 'MapManager' and add 'tilesets.xml' and 'maps.xml' config files in 'data/config/' directory
 	=> Rewrite 'Player' and add 'player.xml' config file
 - Write an 'IOManager' (+ 'File' class?) namespace
-	=> Read from a given path
+	=> Read from a given path (to launch the game outside of its folder)
 - Add 'Transition' pure virtual class, and its children 'TransitionScrolling', 'TransitionFade', etc...
 	=> Add a little delay before 'TransitionScrolling' to be closer to the original game
 - Implement 'Door' and teleportation ( maybe via MapEvents ? )
 - Reimplement 'View' concept
 	=> Each View have shaders
 		-> Vertex shader: Move the view, rotate (if needed), etc...
-		-> Fragment shader: Cut things out of the view (cut texture)
+		-> Fragment shader: Cut things out of the view (cut textures)
 	=> Reimplement it in 'Window'
 - Sometimes link looks strange
 - Use exceptions to prevents memory leaks
-- Player can move out of the maps when sword is loading
-	=> virtual bool PlayerState::canStartMapTransition();
 - Fix grassDestroy animation
 	=> Find a way to rip it
 - Add 'Enemy' pure virtual class, child of 'Character'
 	=> With at least a monster child class, to test battles
 - Fix 'moonwalk' bug
-- Improve game for OpenGL ES and try on Android
 - Implement a game pad, movable and resizable via config files
+- Improve game for OpenGL ES and try on Android

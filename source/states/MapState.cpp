@@ -99,7 +99,7 @@ void MapState::update() {
 		
 		MapEventManager::update();
 		
-		if(CharacterManager::player.currentState()->stateType() == PlayerState::StateType::TypeMoving) {
+		if(CharacterManager::player.currentState()->canStartMapTransition()) {
 			if(CharacterManager::player.x() < -3) {
 				m_mode = Mode::ScrollingLeft;
 			}

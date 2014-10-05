@@ -35,6 +35,8 @@ class SwordState : public MovingState {
 		void draw();
 		void drawPlayer();
 		
+		bool canStartMapTransition() { return m_sword->state() == Sword::State::Loading; }
+		
 	private:
 		bool m_playerMoved;
 		
