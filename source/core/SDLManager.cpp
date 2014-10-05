@@ -29,11 +29,6 @@ void SDLManager::init() {
 		exit(EXIT_FAILURE);
 	}
 	
-	if(TTF_Init() < 0) {
-		error("SDL_ttf init error: %s\n", TTF_GetError());
-		exit(EXIT_FAILURE);
-	}
-	
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) {
 		error("SDL_mixer init error: %s\n", Mix_GetError());
 		exit(EXIT_FAILURE);
@@ -45,7 +40,6 @@ void SDLManager::init() {
 
 void SDLManager::free() {
 	Mix_CloseAudio();
-	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }

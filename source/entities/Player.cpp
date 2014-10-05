@@ -65,6 +65,8 @@ void Player::load() {
 	m_rupees = 197;
 	
 	m_inventory.addWeapon(WeaponManager::SwordID);
+	
+	m_inDoor = false;
 }
 
 void Player::mapCollisions() {
@@ -137,6 +139,19 @@ void Player::mapCollisions() {
 	
 	if(onTile(TilesData::TileType::Button)) {
 		MapManager::currentMap->sendEvent(Map::EventType::ButtonPressed);
+	}
+	
+	if(MapHelper::onDoor(m_x + 8, m_y + 8) && !m_inDoor) {
+		m_inDoor = true;
+		
+		MapManager::currentMap->sendEvent(Map::EventType::ChangeMap, this, Vector2i(8, 8));
+	}
+	
+	if(!MapHelper::onDoor(m_x +  2, m_y +  2)
+	&& !MapHelper::onDoor(m_x + 14, m_y +  2)
+	&& !MapHelper::onDoor(m_x +  2, m_y + 14)
+	&& !MapHelper::onDoor(m_x + 14, m_y + 14)) {
+		m_inDoor = false;
 	}
 }
 

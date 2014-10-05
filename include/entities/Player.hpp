@@ -55,6 +55,8 @@ class Player : public Character {
 		u16 m_rupees;
 		
 		Inventory m_inventory;
+		
+		bool m_inDoor;
 };
 
 #endif // PLAYER_HPP_

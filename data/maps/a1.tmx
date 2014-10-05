@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="10" height="8" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="8" tilewidth="16" tileheight="16">
  <tileset firstgid="1" name="Grassland" tilewidth="16" tileheight="16">
   <image source="../../graphics/tilesets/plain.png" width="256" height="256"/>
  </tileset>
@@ -57,7 +57,7 @@
    <tile gid="47"/>
    <tile gid="148"/>
    <tile gid="149"/>
-   <tile gid="149"/>
+   <tile gid="159"/>
    <tile gid="146"/>
    <tile gid="37"/>
    <tile gid="33"/>

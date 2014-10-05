@@ -22,6 +22,7 @@
 #include "Object.hpp"
 #include "TileMap.hpp"
 #include "Tileset.hpp"
+#include "Vector2.hpp"
 
 class Map : public TileMap {
 	public:
@@ -44,10 +45,11 @@ class Map : public TileMap {
 		void addObject(Object &obj) { m_objects.push_back(Object(obj)); }
 		
 		enum EventType {
-			ButtonPressed
+			ButtonPressed,
+			ChangeMap
 		};
 		
-		void sendEvent(EventType event, Entity *e = nullptr);
+		void sendEvent(EventType event, Entity *e = nullptr, Vector2i offsets = Vector2i(6, 11));
 		
 		Tileset &tileset() const { return *m_tileset; }
 		

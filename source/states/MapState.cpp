@@ -22,6 +22,7 @@
 #include "Config.hpp"
 #include "CharacterManager.hpp"
 #include "DialogState.hpp"
+#include "DoorTransition.hpp"
 #include "EffectManager.hpp"
 #include "GameStateManager.hpp"
 #include "IconManager.hpp"
@@ -60,6 +61,17 @@ MapState::MapState() {
 	});
 	
 	MapManager::currentMap->addObject(button);
+	
+	Object testDoor(2, 5);
+	
+	testDoor.setEventAction(Map::EventType::ChangeMap, [&](Object *obj){
+		//Sound::Effect::changeMap.play();
+		debug("Test");
+		
+		GameStateManager::push(new TransitionState(new DoorTransition(1, 0, 0, 4.5 * 16, 7 * 16, Character::Direction::Up)));
+	});
+	
+	MapManager::currentMap->addObject(testDoor);
 	
 	Sound::Music::plain.play();
 }

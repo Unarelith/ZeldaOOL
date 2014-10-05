@@ -1,7 +1,7 @@
 ===== TODO =====
-- Add 'TransitionFade'
-- Add a little delay before 'TransitionScrolling' to be closer to the original game
 - Implement 'Door' and teleportation ( maybe via MapEvents ? )
+- Add a little delay before 'TransitionScrolling' to be closer to the original game
+- Add 'Chest', child of 'Object'
 - Add 'Enemy' pure virtual class, child of 'Character'
 	=> With at least a monster child class, to test battles
 - Rewrite managers to read xml config files

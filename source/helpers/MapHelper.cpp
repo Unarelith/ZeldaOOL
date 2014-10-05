@@ -15,11 +15,11 @@
  *
  * =====================================================================================
  */
-#include "TilesData.hpp"
 #include "Application.hpp"
-#include "MapManager.hpp"
 #include "CharacterManager.hpp"
 #include "MapHelper.hpp"
+#include "MapManager.hpp"
+#include "TilesData.hpp"
 
 bool MapHelper::passable(s16 x, s16 y) {
 	u16 tile = MapManager::currentMap->tileset().info[MapManager::currentMap->getTile(x >> 4, (y >> 4) - 1)];
