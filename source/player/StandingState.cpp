@@ -16,8 +16,9 @@
  * =====================================================================================
  */
 #include "Keyboard.hpp"
-#include "StandingState.hpp"
 #include "MovingState.hpp"
+#include "StandingState.hpp"
+#include "Weapon.hpp"
 
 StandingState::StandingState() {
 	m_stateType = StateType::TypeStanding;
@@ -28,8 +29,14 @@ StandingState::~StandingState() {
 }
 
 void StandingState::update() {
-	if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
-		m_nextStateType = StateType::TypeSword;
+	if(Keyboard::isKeyPressed(Keyboard::A)
+	&& m_player.inventory()->weaponA() != nullptr) {
+		m_nextStateType = m_player.inventory()->weaponA()->playerState();
+	}
+	
+	if(Keyboard::isKeyPressed(Keyboard::B)
+	&& m_player.inventory()->weaponB() != nullptr) {
+		m_nextStateType = m_player.inventory()->weaponB()->playerState();
 	}
 	
 	if(Keyboard::isKeyPressed(Keyboard::Left)

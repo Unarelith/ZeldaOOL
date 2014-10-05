@@ -18,7 +18,9 @@
 #include <cmath>
 
 #include "CharacterManager.hpp"
+#include "IconManager.hpp"
 #include "StatsBar.hpp"
+#include "WeaponManager.hpp"
 
 StatsBar::StatsBar() {
 	m_background.load("graphics/interface/stats.png");
@@ -52,6 +54,17 @@ void StatsBar::draw() {
 	u16 rupees = CharacterManager::player.rupees();
 	for(u8 i = 0 ; i <= log10(rupees) ; i++) {
 		m_numbers.drawFrame(81 + 8 * i, 9, (rupees % (u16)pow(10, floor(log10(rupees) - i + 1))) / pow(10, floor(log10(rupees) - i)));
+	}
+	
+	Weapon *weaponA = CharacterManager::player.inventory()->weaponA();
+	Weapon *weaponB = CharacterManager::player.inventory()->weaponB();
+	
+	if(weaponA != nullptr) {
+		IconManager::getWeaponIconByID(weaponA->id()).draw(46, -1);
+	}
+	
+	if(weaponB != nullptr) {
+		IconManager::getWeaponIconByID(weaponB->id()).draw(6, -1);
 	}
 }
 

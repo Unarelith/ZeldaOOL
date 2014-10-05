@@ -15,16 +15,17 @@
  *
  * =====================================================================================
  */
-#include "Keyboard.hpp"
-#include "TimeManager.hpp"
-#include "TilesData.hpp"
-#include "MapManager.hpp"
-#include "MapHelper.hpp"
 #include "EffectManager.hpp"
-#include "StandingState.hpp"
+#include "Keyboard.hpp"
+#include "MapHelper.hpp"
+#include "MapManager.hpp"
 #include "MovingState.hpp"
-#include "PushingState.hpp"
 #include "Player.hpp"
+#include "PushingState.hpp"
+#include "StandingState.hpp"
+#include "TilesData.hpp"
+#include "TimeManager.hpp"
+#include "WeaponManager.hpp"
 
 Player::Player() {
 	
@@ -62,6 +63,8 @@ void Player::load() {
 	m_life = 11 * 4;
 	
 	m_rupees = 197;
+	
+	m_inventory.addWeapon(WeaponManager::SwordID);
 }
 
 void Player::mapCollisions() {

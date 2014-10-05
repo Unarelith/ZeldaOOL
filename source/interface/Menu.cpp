@@ -15,9 +15,12 @@
  *
  * =====================================================================================
  */
+#include "CharacterManager.hpp"
+#include "IconManager.hpp"
 #include "Keyboard.hpp"
 #include "Menu.hpp"
 #include "Sound.hpp"
+#include "Weapon.hpp"
 
 Menu::Menu() {
 	m_background.load("graphics/interface/menuBackground.png");
@@ -29,6 +32,8 @@ Menu::Menu() {
 
 Menu::~Menu() {
 }
+
+#include "Debug.hpp"
 
 void Menu::update() {
 	if(Keyboard::isKeyPressedWithDelay(Keyboard::Left, 250)) {
@@ -72,11 +77,55 @@ void Menu::update() {
 	if(m_cursorY > 3) {
 		m_cursorY = 0;
 	}
+	
+	if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
+		Sound::Effect::menuSelect.play();
+		
+		Weapon *weaponA = CharacterManager::player.inventory()->weaponA();
+		Weapon *newWeaponA = CharacterManager::player.inventory()->getWeaponByPosition(Vector2i(m_cursorX, m_cursorY));
+		
+		if(weaponA != nullptr) {
+			CharacterManager::player.inventory()->setWeaponA(nullptr);
+			CharacterManager::player.inventory()->addWeapon(weaponA->id(), Vector2i(m_cursorX, m_cursorY));
+		}
+		
+		if(newWeaponA != nullptr) {
+			CharacterManager::player.inventory()->removeWeaponByID(newWeaponA->id());
+			CharacterManager::player.inventory()->setWeaponA(newWeaponA);
+		}
+	}
+	
+	if(Keyboard::isKeyPressedOnce(Keyboard::B)) {
+		Sound::Effect::menuSelect.play();
+		
+		Weapon *weaponB = CharacterManager::player.inventory()->weaponB();
+		Weapon *newWeaponB = CharacterManager::player.inventory()->getWeaponByPosition(Vector2i(m_cursorX, m_cursorY));
+		
+		if(weaponB != nullptr) {
+			CharacterManager::player.inventory()->setWeaponB(nullptr);
+			CharacterManager::player.inventory()->addWeapon(weaponB->id(), Vector2i(m_cursorX, m_cursorY));
+		}
+		
+		if(newWeaponB != nullptr) {
+			CharacterManager::player.inventory()->removeWeaponByID(newWeaponB->id());
+			CharacterManager::player.inventory()->setWeaponB(newWeaponB);
+		}
+	}
 }
 
 void Menu::draw() {
 	m_background.draw(0, 16);
 	
 	m_cursor.draw(22 + m_cursorX * 32, 25 + m_cursorY * 24);
+	
+	for(u8 y = 0 ; y < 4 ; y++) {
+		for(u8 x = 0 ; x < 4 ; x++) {
+			Weapon *currentWeapon = CharacterManager::player.inventory()->getWeaponByPosition(Vector2i(x, y));
+			
+			if(currentWeapon != nullptr) {
+				IconManager::getWeaponIconByID(currentWeapon->id()).draw(22 + x * 32, 23 + y * 24);
+			}
+		}
+	}
 }
 

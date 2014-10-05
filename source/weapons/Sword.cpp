@@ -15,12 +15,11 @@
  *
  * =====================================================================================
  */
-#include "Sound.hpp"
 #include "Keyboard.hpp"
 #include "PlayerState.hpp"
+#include "Sound.hpp"
 #include "Sword.hpp"
-
-#include "Debug.hpp"
+#include "WeaponManager.hpp"
 
 s16 swordPosition[4][7][2] = {
 	{{-15,   0}, {-13,  15}, {-13,  15}, { -1,  16}, { -1,  16}, { -1,  16}, { -1,  14}},
@@ -34,6 +33,10 @@ s16 spinAttackPosition[8][2] = {
 };
 
 Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
+	m_id = WeaponManager::SwordID;
+	
+	m_playerState = PlayerState::StateType::TypeSword;
+	
 	m_state = State::Swinging;
 	
 	// Swinging
@@ -97,7 +100,7 @@ void Sword::update() {
 				m_loadingTimer.start();
 			}
 			
-			if(!Keyboard::isKeyPressed(Keyboard::Key::A)) {
+			if(!keyPressed()) {
 				m_keyReleased = true;
 			}
 			else if(m_keyReleased && animationCurrentFrame(m_player.direction()) >= 4) {
@@ -146,7 +149,7 @@ void Sword::update() {
 				Sound::Effect::swordCharge.play();
 			}
 			
-			if(!Keyboard::isKeyPressed(Keyboard::A)) {
+			if(!keyPressed()) {
 				if(m_loadingTimer.time() > 650) {
 					Sound::Effect::swordSpin.play();
 					

@@ -23,6 +23,13 @@
 #include "Types.hpp"
 #include "Vector2.hpp"
 
+// Player needs Inventory
+// Inventory needs Weapon
+// Weapon needs Player
+class Weapon;
+
+#include "Debug.hpp"
+
 class Inventory {
 	public:
 		Inventory();
@@ -30,8 +37,22 @@ class Inventory {
 		
 		void addWeapon(u8 weaponID, Vector2i position = Vector2i(-1, -1));
 		
+		Weapon *getWeaponByPosition(Vector2i position);
+		
+		void removeWeaponByPosition(Vector2i position);
+		void removeWeaponByID(u8 id);
+		
+		Weapon *weaponA() const { return m_weaponA; }
+		Weapon *weaponB() const { return m_weaponB; }
+		
+		void setWeaponA(Weapon *weapon) { m_weaponA = weapon; }
+		void setWeaponB(Weapon *weapon) { m_weaponB = weapon; }
+		
 	private:
-		std::vector<std::pair<u8, Vector2i>> m_weapons;
+		std::vector<std::pair<Weapon *, Vector2i>> m_weapons;
+		
+		Weapon *m_weaponA;
+		Weapon *m_weaponB;
 };
 
 #endif // INVENTORY_HPP_

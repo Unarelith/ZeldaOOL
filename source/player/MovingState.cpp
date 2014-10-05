@@ -19,6 +19,7 @@
 #include "MovingState.hpp"
 #include "StandingState.hpp"
 #include "TimeManager.hpp"
+#include "Weapon.hpp"
 
 MovingState::MovingState() {
 	m_stateType = StateType::TypeMoving;
@@ -81,8 +82,14 @@ void MovingState::move() {
 }
 
 void MovingState::update() {
-	if(Keyboard::isKeyPressed(Keyboard::A)) {
-		m_nextStateType = StateType::TypeSword;
+	if(Keyboard::isKeyPressed(Keyboard::A)
+	&& m_player.inventory()->weaponA() != nullptr) {
+		m_nextStateType = m_player.inventory()->weaponA()->playerState();
+	}
+	
+	if(Keyboard::isKeyPressed(Keyboard::B)
+	&& m_player.inventory()->weaponB() != nullptr) {
+		m_nextStateType = m_player.inventory()->weaponB()->playerState();
 	}
 	
 	if(!Keyboard::isKeyPressed(Keyboard::Left)

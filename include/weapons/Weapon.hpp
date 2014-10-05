@@ -29,8 +29,18 @@ class Weapon : public Sprite, public Entity {
 		
 		virtual void draw() = 0;
 		
+		bool keyPressed();
+		
+		u8 id() const { return m_id; }
+		
+		PlayerState::StateType playerState() const { return m_playerState; }
+		
 	protected:
+		u8 m_id;
+		
 		Player &m_player;
+		
+		PlayerState::StateType m_playerState;
 };
 
 #endif // WEAPON_HPP_

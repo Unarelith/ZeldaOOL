@@ -24,6 +24,7 @@
 #include "DialogState.hpp"
 #include "EffectManager.hpp"
 #include "GameStateManager.hpp"
+#include "IconManager.hpp"
 #include "Keyboard.hpp"
 #include "MapEventManager.hpp"
 #include "MapState.hpp"
@@ -38,6 +39,8 @@ MapState::MapState() {
 	m_nextMap = nullptr;
 	m_scrolled = 0;
 	
+	WeaponManager::init();
+	
 	CharacterManager::player.load();
 	
 	MapManager::init();
@@ -45,6 +48,8 @@ MapState::MapState() {
 	EffectManager::init();
 	
 	AnimationManager::init();
+	
+	IconManager::init();
 	
 	Object button(7, 2);
 	
@@ -58,8 +63,6 @@ MapState::MapState() {
 	});
 	
 	MapManager::currentMap->addObject(button);
-	
-	WeaponManager::init();
 	
 	Sound::Music::plain.play();
 }

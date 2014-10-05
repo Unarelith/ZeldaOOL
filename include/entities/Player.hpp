@@ -19,6 +19,7 @@
 #define PLAYER_HPP_
 
 #include "Character.hpp"
+#include "Inventory.hpp"
 #include "PlayerState.hpp"
 
 class Player : public Character {
@@ -43,6 +44,8 @@ class Player : public Character {
 		
 		u16 rupees() const { return m_rupees; }
 		
+		Inventory *inventory() { return &m_inventory; }
+		
 	private:
 		PlayerState *m_state;
 		
@@ -50,6 +53,8 @@ class Player : public Character {
 		u8 m_life;
 		
 		u16 m_rupees;
+		
+		Inventory m_inventory;
 };
 
 #endif // PLAYER_HPP_

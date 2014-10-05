@@ -1,3 +1,5 @@
+- 'Player' have a member 'Inventory'
+	-> Link 'Menu' and 'Inventory'
 - Link continues animation during DialogActivity
 - Lines have not the correct length in 'Dialog'
 	=> Maybe related to the 'à'?
