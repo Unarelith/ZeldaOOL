@@ -31,3 +31,10 @@ bool Weapon::keyPressed() {
 		 && m_player.inventory()->weaponB() == this));
 }
 
+bool Weapon::keyPressedOnce() {
+	return((Keyboard::isKeyPressedOnce(Keyboard::A)
+		 && m_player.inventory()->weaponA() == this)
+		|| (Keyboard::isKeyPressedOnce(Keyboard::B)
+		 && m_player.inventory()->weaponB() == this));
+}
+

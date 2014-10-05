@@ -24,8 +24,8 @@ Dialog::Dialog() {
 	
 	m_font.load("graphics/interface/font.png", 8, 16);
 	
-	m_dialogArrow.load("graphics/interface/dialogArrow.png", 7, 6);
-	m_dialogArrow.addAnimation({0, 1}, 250);
+	m_dialogArrow.load("graphics/interface/dialogArrow.png");
+	m_arrowTimer.start();
 	
 	m_currentLine = 0;
 	
@@ -46,6 +46,11 @@ void Dialog::update() {
 		m_soundTimer.reset();
 		m_soundTimer.start();
 	}
+	
+	if(m_arrowTimer.time() > 500) {
+		m_arrowTimer.reset();
+		m_arrowTimer.start();
+	}
 }
 
 void Dialog::draw() {
@@ -53,8 +58,8 @@ void Dialog::draw() {
 	
 	drawText();
 	
-	if(!lastPage() && waitForUser()) {
-		m_dialogArrow.playAnimation(m_rectangle.x() + m_rectangle.width() - 8, m_rectangle.y() + m_rectangle.height() - 7, 0);
+	if(!lastPage() && waitForUser() && m_arrowTimer.time() < 250) {
+		m_dialogArrow.draw(m_rectangle.x() + m_rectangle.width() - 8, m_rectangle.y() + m_rectangle.height() - 7);
 	}
 }
 

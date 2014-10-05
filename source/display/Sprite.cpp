@@ -82,6 +82,7 @@ void Sprite::resetAnimation(u16 anim, u16 frame) {
 	m_animations[anim].timer.reset();
 	m_animations[anim].timer.setTime(frame * m_animations[anim].delay);
 	m_animations[anim].isPlaying = false;
+	m_currentAnimation = -1;
 }
 
 void Sprite::startAnimation(u16 anim) {
@@ -93,7 +94,7 @@ void Sprite::startAnimation(u16 anim) {
 void Sprite::stopAnimation(u16 anim) {
 	m_animations[anim].timer.stop();
 	m_animations[anim].isPlaying = false;
-	m_currentAnimation = -1;
+	m_currentAnimation = anim;
 }
 
 u16 Sprite::animationCurrentFrame(u16 anim) {
@@ -113,7 +114,11 @@ void Sprite::playAnimation(float x, float y, u16 anim) {
 			startAnimation(anim);
 		}
 	} else {
-		if(!m_animations[anim].isPlaying || animationAtEnd(anim)) {
+		if(!m_animations[anim].isPlaying) {
+			startAnimation(anim);
+		}
+		
+		if(animationAtEnd(anim)) {
 			resetAnimation(anim);
 			startAnimation(anim);
 		}

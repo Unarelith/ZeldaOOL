@@ -30,6 +30,7 @@ class Weapon : public Sprite, public Entity {
 		virtual void draw() = 0;
 		
 		bool keyPressed();
+		bool keyPressedOnce();
 		
 		u8 id() const { return m_id; }
 		

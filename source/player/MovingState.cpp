@@ -82,12 +82,12 @@ void MovingState::move() {
 }
 
 void MovingState::update() {
-	if(Keyboard::isKeyPressed(Keyboard::A)
+	if(Keyboard::isKeyPressedOnce(Keyboard::A)
 	&& m_player.inventory()->weaponA() != nullptr) {
 		m_nextStateType = m_player.inventory()->weaponA()->playerState();
 	}
 	
-	if(Keyboard::isKeyPressed(Keyboard::B)
+	if(Keyboard::isKeyPressedOnce(Keyboard::B)
 	&& m_player.inventory()->weaponB() != nullptr) {
 		m_nextStateType = m_player.inventory()->weaponB()->playerState();
 	}

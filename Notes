@@ -1,4 +1,3 @@
-- Link continues animation during DialogActivity
 - Lines have not the correct length in 'Dialog'
 	=> Maybe related to the 'à'?
 - Implement 'LanguageManager'

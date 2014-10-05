@@ -43,6 +43,8 @@ class Sprite : public Image {
 		bool animationAtEnd(u16 anim);
 		void playAnimation(float x, float y, u16 anim);
 		
+		s16 currentAnimation() const { return m_currentAnimation; }
+		
 		static bool pause;
 		
 	protected:

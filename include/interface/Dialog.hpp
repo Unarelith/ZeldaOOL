@@ -52,7 +52,8 @@ class Dialog {
 		
 		Font m_font;
 		
-		Sprite m_dialogArrow;
+		Image m_dialogArrow;
+		Timer m_arrowTimer;
 		
 		u8 m_currentLine;
 		
