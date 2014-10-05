@@ -1,39 +1,37 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  TransitionState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 00:21:30
+ *        Created:  05/10/2014 17:42:50
  *       Revision:  none
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef TRANSITIONSTATE_HPP_
+#define TRANSITIONSTATE_HPP_
 
-#include "Dialog.hpp"
-#include "GameState.hpp"
-#include "MapManager.hpp"
-#include "StatsBar.hpp"
+#include "GameStateManager.hpp"
+#include "Transition.hpp"
 
-class MapState : public GameState {
+class TransitionState : public GameState {
 	public:
-		MapState();
-		~MapState();
+		TransitionState(Transition *transition);
+		~TransitionState();
 		
 		void update();
 		
 		void render();
 		
-	protected:
-		StatsBar m_statsBar;
+	private:
+		Transition *m_transition;
 };
 
-#endif // MAPSTATE_HPP_
+#endif // TRANSITIONSTATE_HPP_
