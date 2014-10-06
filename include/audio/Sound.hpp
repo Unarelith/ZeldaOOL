@@ -39,6 +39,8 @@ namespace Sound {
 		
 		extern SoundEffect grassDestroy;
 		
+		extern SoundEffect mapStairs;
+		
 		extern SoundEffect menuClose;
 		extern SoundEffect menuCursor;
 		extern SoundEffect menuOpen;

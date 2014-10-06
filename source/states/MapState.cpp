@@ -65,7 +65,7 @@ MapState::MapState() {
 	Object testDoor(2 * 16, 5 * 16);
 	
 	testDoor.setEventAction(Map::EventType::ChangeMap, [&](Object *obj) {
-		//Sound::Effect::changeMap.play();
+		Sound::Effect::mapStairs.play();
 		
 		GameStateManager::push(new TransitionState(new DoorTransition(1, 0, 0, 4.5 * 16, 7 * 16, Character::Direction::Up)));
 	});
@@ -75,7 +75,7 @@ MapState::MapState() {
 	Object testDoor2(4 * 16 + 8, 7 * 16);
 	
 	testDoor2.setEventAction(Map::EventType::ChangeMap, [&](Object *obj) {
-		//Sound::Effect::changeMap.play();
+		Sound::Effect::mapStairs.play();
 		
 		GameStateManager::push(new TransitionState(new DoorTransition(0, 0, 0, 2 * 16, 6 * 16, Character::Direction::Down)));
 	});
