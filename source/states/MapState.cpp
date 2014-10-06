@@ -21,6 +21,7 @@
 #include "Application.hpp"
 #include "Config.hpp"
 #include "CharacterManager.hpp"
+#include "Chest.hpp"
 #include "DialogState.hpp"
 #include "Door.hpp"
 #include "DoorTransition.hpp"
@@ -79,6 +80,9 @@ MapState::MapState() {
 	MapManager::getMap(1, 0, 0)->addObject(testDoor2);
 	MapManager::getMap(0, 0, 0)->addObject(testDoor3);
 	MapManager::getMap(2, 0, 0)->addObject(testDoor4);
+	
+	Chest *testChest = new Chest(1 * 16, 5 * 16);
+	MapManager::getMap(0, 0, 1)->addObject(testChest);
 	
 	Sound::Music::plain.play();
 }

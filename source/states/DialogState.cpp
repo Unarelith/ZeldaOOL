@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "CharacterManager.hpp"
 #include "DialogState.hpp"
 #include "GameStateManager.hpp"
 #include "Keyboard.hpp"
@@ -23,6 +24,10 @@
 
 DialogState::DialogState(GameState *parent) : GameState(parent) {
 	Sprite::pause = true;
+	
+	if(CharacterManager::player.y() + 16 < 96) {
+		m_dialog.setPosition(Dialog::Position::Bottom);
+	}
 }
 
 DialogState::~DialogState() {

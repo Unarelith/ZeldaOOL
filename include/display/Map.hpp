@@ -46,7 +46,8 @@ class Map : public TileMap {
 		
 		enum EventType {
 			ButtonPressed,
-			ChangeMap
+			ChangeMap,
+			ChestOpened
 		};
 		
 		void sendEvent(EventType event, Entity *e = nullptr, Vector2i offsets = Vector2i(6, 11));

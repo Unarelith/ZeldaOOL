@@ -159,6 +159,12 @@ void Player::mapCollisions() {
 void Player::update() {
 	updateStates();
 	
+	if(m_direction == Direction::Up && MapHelper::isTile(m_x + 8, m_y - 2, TilesData::TileType::ClosedChest)) {
+		if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
+			MapManager::currentMap->sendEvent(Map::EventType::ChestOpened, this, Vector2i(8, -2));
+		}
+	}
+	
 	m_state->update();
 }
 

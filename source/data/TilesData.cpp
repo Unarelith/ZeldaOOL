@@ -80,6 +80,14 @@ u16 TilesData::infos[TILE_NB][4] = {
 	
 	// Tile 15: Button
 	{0, 0,
-	 0, 0}
+	 0, 0},
+	
+	// Tile 16: Closed chest
+	{1, 1,
+	 1, 1},
+	
+	// Tile 17: Opened chest
+	{1, 1,
+	 1, 1}
 };
 
