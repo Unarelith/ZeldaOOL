@@ -34,6 +34,7 @@ class Color {
 		static Color white;
 		static Color text;
 		static Color blue;
+		static Color red;
 };
 
 #endif // COLOR_HPP_

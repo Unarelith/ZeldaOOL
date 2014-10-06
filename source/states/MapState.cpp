@@ -114,7 +114,7 @@ void MapState::update() {
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::Select)) {
-		GameStateManager::push(new DialogState(this));
+		GameStateManager::push(new DialogState(this, "L'[1]Arbre Bojo[0] est tout à l'est de cette grotte."));
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::Start)) {

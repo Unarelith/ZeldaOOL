@@ -44,6 +44,7 @@ class Player : public Character {
 		u8 life() const { return m_life; }
 		
 		u16 rupees() const { return m_rupees; }
+		void addRupees(u16 rupees) { m_rupees += 30; }
 		
 		Inventory *inventory() { return &m_inventory; }
 		

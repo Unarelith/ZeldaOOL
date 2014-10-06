@@ -29,8 +29,6 @@ Dialog::Dialog() {
 	
 	m_currentLine = 0;
 	
-	setText("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.");
-	
 	m_charTimer.start();
 	m_soundTimer.start();
 }
@@ -87,6 +85,11 @@ void Dialog::setText(std::string text) {
 		if((u8)text[i] == 195) {
 			text.erase(text.begin() + i);
 			lineWidth--;
+		}
+		
+		if(text[i] == '\n') {
+			m_lines.push_back(std::make_pair(lineWidth, text.substr(previousOffset, i - previousOffset)));
+			previousOffset = i + 1;
 		}
 		
 		if(text[i] == ' ') {

@@ -56,12 +56,12 @@ void Font::drawChar(float x, float y, u8 c) {
 	}
 }
 
-void Font::drawString(float x, float y, std::string str, s16 charsToDraw, Color color) {
+void Font::drawString(float x, float y, std::string str, s16 charsToDraw) {
 	ShaderManager::push(m_shader);
 	
 	ShaderManager::currentShader().enableVertexAttribArray("color");
 	
-	setColor(color);
+	setColor(Color::text);
 	
 	u16 tmpX = 0;
 	for(u16 i = 0 ; i < str.length() ; i++) {
@@ -69,16 +69,9 @@ void Font::drawString(float x, float y, std::string str, s16 charsToDraw, Color 
 		
 		if(str[i] == '[' && str[i + 1] >= '0' && str[i + 1] <= '9' && str[i + 2] == ']') {
 			switch(str[i + 1] - '0') {
-				case 0:		setColor(Color::text);		break;
 				case 1:		setColor(Color::blue);		break;
-				case 2:		setColor(Color::text);		break;
-				case 3:		setColor(Color::text);		break;
-				case 4:		setColor(Color::text);		break;
-				case 5:		setColor(Color::text);		break;
-				case 6:		setColor(Color::text);		break;
-				case 7:		setColor(Color::text);		break;
-				case 8:		setColor(Color::text);		break;
-				case 9:		setColor(Color::text);		break;
+				case 2:		setColor(Color::red);		break;
+				default:	setColor(Color::text);		break;
 			}
 			
 			i += 3;

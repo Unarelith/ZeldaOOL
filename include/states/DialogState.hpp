@@ -23,7 +23,7 @@
 
 class DialogState : public GameState {
 	public:
-		DialogState(GameState *parent);
+		DialogState(GameState *parent, std::string text);
 		~DialogState();
 		
 		void update();

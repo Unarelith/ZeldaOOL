@@ -29,6 +29,8 @@
 - In the original game, it's possible to attack during 'PushingState'
 - Check sound effect channels in real game
 	=> For example, is it possible to hear sword loading sound anymore when link releases spin attack?
+	=> It's not possible to hear text 'clicks' during 'tadaaaaaaa' (new item)
+	=> Define channel in constructor (and 'load'), so from Sound.cpp
 - Sometimes link looks strange
 - Use exceptions to prevents memory leaks
 - Fix grassDestroy animation

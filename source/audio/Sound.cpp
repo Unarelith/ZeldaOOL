@@ -25,6 +25,8 @@ SoundEffect Sound::Effect::dialogContinue;
 
 SoundEffect Sound::Effect::grassDestroy;
 
+SoundEffect Sound::Effect::itemNew;
+
 SoundEffect Sound::Effect::mapStairs;
 
 SoundEffect Sound::Effect::menuClose;
@@ -55,6 +57,8 @@ void Sound::Effect::init() {
 	dialogContinue.load("audio/effects/dialogContinue.wav");
 	
 	grassDestroy.load("audio/effects/grassDestroy.wav");
+	
+	itemNew.load("audio/effects/itemNew.wav");
 	
 	mapStairs.load("audio/effects/mapStairs.wav");
 	

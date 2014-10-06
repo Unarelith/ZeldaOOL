@@ -22,12 +22,14 @@
 #include "MapManager.hpp"
 #include "Sound.hpp"
 
-DialogState::DialogState(GameState *parent) : GameState(parent) {
+DialogState::DialogState(GameState *parent, std::string text) : GameState(parent) {
 	Sprite::pause = true;
 	
 	if(CharacterManager::player.y() + 16 < 96) {
 		m_dialog.setPosition(Dialog::Position::Bottom);
 	}
+	
+	m_dialog.setText(text);
 }
 
 DialogState::~DialogState() {

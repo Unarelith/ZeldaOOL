@@ -31,7 +31,7 @@ class Font : public Sprite {
 		void load(std::string filename, u16 charWidth, u16 charHeight);
 		
 		void drawChar(float x, float y, u8 c);
-		void drawString(float x, float y, std::string str, s16 charsToDraw, Color color = Color::text);
+		void drawString(float x, float y, std::string str, s16 charsToDraw);
 		
 		void setColor(Color color);
 		
