@@ -3,9 +3,6 @@
  <tileset firstgid="1" name="underground" tilewidth="16" tileheight="16">
   <image source="../../graphics/tilesets/underground.png" trans="ff00ff" width="256" height="256"/>
  </tileset>
- <tileset firstgid="257" name="underground" tilewidth="16" tileheight="16">
-  <image source="../../../ZeldaOracle/graphics/tilesets/underground.png" trans="ff00ff" width="256" height="256"/>
- </tileset>
  <layer name="Calque de Tile 1" width="10" height="8">
   <data>
    <tile gid="168"/>
@@ -20,17 +17,7 @@
    <tile gid="168"/>
    <tile gid="168"/>
    <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="441"/>
+   <tile gid="185"/>
    <tile gid="177"/>
    <tile gid="177"/>
    <tile gid="177"/>
@@ -39,43 +26,53 @@
    <tile gid="186"/>
    <tile gid="168"/>
    <tile gid="168"/>
-   <tile gid="441"/>
-   <tile gid="440"/>
-   <tile gid="280"/>
-   <tile gid="323"/>
+   <tile gid="185"/>
+   <tile gid="184"/>
+   <tile gid="161"/>
+   <tile gid="163"/>
    <tile gid="242"/>
-   <tile gid="323"/>
-   <tile gid="419"/>
+   <tile gid="163"/>
+   <tile gid="24"/>
    <tile gid="178"/>
    <tile gid="168"/>
    <tile gid="168"/>
-   <tile gid="436"/>
-   <tile gid="323"/>
-   <tile gid="323"/>
-   <tile gid="419"/>
-   <tile gid="417"/>
-   <tile gid="323"/>
-   <tile gid="323"/>
-   <tile gid="178"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="436"/>
-   <tile gid="323"/>
-   <tile gid="417"/>
-   <tile gid="323"/>
-   <tile gid="323"/>
-   <tile gid="280"/>
-   <tile gid="323"/>
+   <tile gid="180"/>
+   <tile gid="24"/>
+   <tile gid="67"/>
+   <tile gid="67"/>
+   <tile gid="162"/>
+   <tile gid="67"/>
+   <tile gid="162"/>
    <tile gid="178"/>
    <tile gid="168"/>
    <tile gid="168"/>
    <tile gid="180"/>
    <tile gid="67"/>
+   <tile gid="24"/>
    <tile gid="67"/>
-   <tile gid="323"/>
-   <tile gid="323"/>
-   <tile gid="323"/>
-   <tile gid="417"/>
+   <tile gid="67"/>
+   <tile gid="163"/>
+   <tile gid="67"/>
+   <tile gid="178"/>
+   <tile gid="168"/>
+   <tile gid="168"/>
+   <tile gid="180"/>
+   <tile gid="161"/>
+   <tile gid="67"/>
+   <tile gid="162"/>
+   <tile gid="67"/>
+   <tile gid="24"/>
+   <tile gid="67"/>
+   <tile gid="178"/>
+   <tile gid="168"/>
+   <tile gid="168"/>
+   <tile gid="180"/>
+   <tile gid="67"/>
+   <tile gid="163"/>
+   <tile gid="67"/>
+   <tile gid="67"/>
+   <tile gid="162"/>
+   <tile gid="67"/>
    <tile gid="178"/>
    <tile gid="168"/>
    <tile gid="168"/>

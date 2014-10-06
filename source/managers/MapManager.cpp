@@ -35,6 +35,7 @@ void MapManager::initTilesets() {
 	tilesets.back().addAnimation({64, 65, 66, 67}, 250);
 	
 	tilesets.push_back(Tileset("graphics/tilesets/indoor.png", TilesetsData::indoorInfo));
+	
 	tilesets.push_back(Tileset("graphics/tilesets/underground.png", TilesetsData::undergroundInfo));
 }
 
@@ -48,8 +49,12 @@ void MapManager::initMaps() {
 	std::vector<Map> indoor;
 	indoor.push_back(Map("data/maps/in1.tmx", &tilesets[1], 1, 0, 0));
 	
+	std::vector<Map> cave1;
+	cave1.push_back(Map("data/maps/ca1a1.tmx", &tilesets[2], 2, 0, 0));
+	
 	maps.push_back(std::vector<Map>(overworld));
 	maps.push_back(std::vector<Map>(indoor));
+	maps.push_back(std::vector<Map>(cave1));
 }
 
 Map *MapManager::getMap(u16 area, u8 mapX, u8 mapY) {
