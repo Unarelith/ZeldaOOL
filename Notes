@@ -1,7 +1,12 @@
 ===== TODO =====
-- Add a little delay before 'TransitionScrolling' to be closer to the original game
+- Find a way for some 'Object' to have an 'update' function	
+	=> Helpful for item drawing in 'Chest'
+- Implement 'LanguageManager'
+	=> Like Asylia one
+- Add collectable items
 - Add 'Enemy' pure virtual class, child of 'Character'
 	=> With at least a monster child class, to test battles
+- Implement 'NPC' class
 - Rewrite managers to read xml config files
 	=> Rewrite 'MapManager' and add 'tilesets.xml' and 'maps.xml' config files in 'data/config/' directory
 	=> Rewrite 'Player' and add 'player.xml' config file
@@ -10,9 +15,6 @@
 		-> Vertex shader: Move the view, rotate (if needed), etc...
 		-> Fragment shader: Cut things out of the view (cut textures)
 	=> Reimplement it in 'Window'
-- Implement 'LanguageManager'
-	=> Like Asylia one
-- Implement 'NPC' class
 - Improve OpenGL code, wrapping it in classes
 	=> Write a class VertexBufferObject, and use it in 'TileMap'
 	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'

@@ -15,15 +15,13 @@
  *
  * =====================================================================================
  */
-#include "CharacterManager.hpp"
 #include "Chest.hpp"
-#include "DialogState.hpp"
+#include "ChestOpenedState.hpp"
 #include "GameStateManager.hpp"
-#include "Map.hpp"
+#include "MapManager.hpp"
 #include "Sound.hpp"
 
 Chest::Chest(float x, float y) : Object(x, y) {
-	m_state = Opening;
 }
 
 Chest::~Chest() {
@@ -35,11 +33,7 @@ void Chest::onEvent(u8 event) {
 		
 		MapManager::currentMap->setTile(m_x / 16, m_y / 16 - 1, 240);
 		
-		Sound::Effect::itemNew.play();
-		
-		CharacterManager::player.addRupees(30);
-		
-		GameStateManager::push(new DialogState(GameStateManager::top(), "Vous obtenez [2]30 [2]Rubis[0]!\nC'est bien."));
+		GameStateManager::push(new ChestOpenedState(GameStateManager::top(), m_x, m_y));
 	}
 }
 

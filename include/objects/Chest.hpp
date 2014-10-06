@@ -26,14 +26,6 @@ class Chest : public Object {
 		~Chest();
 		
 		void onEvent(u8 event);
-		
-		enum State {
-			Opening,
-			Opened
-		};
-		
-	private:
-		State m_state;
 };
 
 #endif // CHEST_HPP_

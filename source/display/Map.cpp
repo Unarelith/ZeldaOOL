@@ -79,6 +79,7 @@ bool Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 
 void Map::resetTiles() {
 	for(u16 i = 0 ; i < m_width * m_height ; i++) {
+		// FIXME: Replace it by objects update
 		if(m_data[i] != 240) {
 			m_data[i] = m_baseData[i];
 		}
@@ -114,6 +115,10 @@ void Map::update() {
 			it.timer.start();
 		}
 	}
+}
+
+void Map::draw() {
+	TileMap::draw();
 }
 
 u16 Map::getTile(u16 tileX, u16 tileY) {
