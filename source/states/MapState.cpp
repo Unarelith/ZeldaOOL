@@ -64,9 +64,8 @@ MapState::MapState() {
 	
 	Object testDoor(2, 5);
 	
-	testDoor.setEventAction(Map::EventType::ChangeMap, [&](Object *obj){
+	testDoor.setEventAction(Map::EventType::ChangeMap, [&](Object *obj) {
 		//Sound::Effect::changeMap.play();
-		debug("Test");
 		
 		GameStateManager::push(new TransitionState(new DoorTransition(1, 0, 0, 4.5 * 16, 7 * 16, Character::Direction::Up)));
 	});

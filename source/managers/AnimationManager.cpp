@@ -19,7 +19,7 @@
 
 Sprite AnimationManager::grassDestroy;
 
-std::vector<std::pair<Sprite, sf::Vector2i>> AnimationManager::anims;
+std::vector<std::pair<Sprite, Vector2i>> AnimationManager::anims;
 
 void AnimationManager::init() {
 	grassDestroy.load("graphics/animations/grassDestroy.png", 32, 32);
@@ -37,6 +37,6 @@ void AnimationManager::playAnimations() {
 }
 
 void AnimationManager::addGrassDestroyAnimation(u16 tileX, u16 tileY) {
-	anims.push_back(std::make_pair(Sprite(grassDestroy), sf::Vector2i(tileX * 16 - 8, tileY * 16 - 8)));
+	anims.push_back(std::make_pair(Sprite(grassDestroy), Vector2i(tileX * 16 - 8, tileY * 16 - 8)));
 }
 

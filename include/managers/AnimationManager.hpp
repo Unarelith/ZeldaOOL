@@ -20,9 +20,8 @@
 
 #include <vector>
 
-#include <SFML/Graphics.hpp>
-
 #include "Sprite.hpp"
+#include "Vector2.hpp"
 
 namespace AnimationManager {
 	void init();
@@ -33,7 +32,7 @@ namespace AnimationManager {
 	
 	extern Sprite grassDestroy;
 	
-	extern std::vector<std::pair<Sprite, sf::Vector2i>> anims;
+	extern std::vector<std::pair<Sprite, Vector2i>> anims;
 }
 
 #endif // ANIMATIONMANAGER_HPP_

@@ -21,7 +21,11 @@
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
 #else
-	#include <GL/gl.h>
+	#ifdef __MINGW32__
+		#include <GL/glew.h>
+	#else
+		#include <GL/gl.h>
+	#endif
 #endif
 
 #endif // OPENGL_HPP_
