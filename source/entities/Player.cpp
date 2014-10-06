@@ -147,10 +147,11 @@ void Player::mapCollisions() {
 		MapManager::currentMap->sendEvent(Map::EventType::ChangeMap, this, Vector2i(8, 8));
 	}
 	
-	if(!MapHelper::onDoor(m_x +  2, m_y +  2)
-	&& !MapHelper::onDoor(m_x + 14, m_y +  2)
-	&& !MapHelper::onDoor(m_x +  2, m_y + 14)
-	&& !MapHelper::onDoor(m_x + 14, m_y + 14)) {
+	//if(!MapHelper::onDoor(m_x +  2, m_y +  2)
+	//&& !MapHelper::onDoor(m_x + 14, m_y +  2)
+	//&& !MapHelper::onDoor(m_x +  2, m_y + 14)
+	//&& !MapHelper::onDoor(m_x + 14, m_y + 14)) {
+	if(!MapHelper::onDoor(m_x + 8, m_y + 8)) {
 		m_inDoor = false;
 	}
 }

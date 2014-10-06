@@ -128,8 +128,10 @@ void Map::sendEvent(EventType event, Entity *e, Vector2i offsets) {
 	if(!e) e = &CharacterManager::player;
 	
 	for(auto &it : m_objects) {
-		if((floor(it.x() / 16) == floor((e->x() + offsets.x) / 16))
-		&& (floor(it.y() / 16) == floor((e->y() + offsets.y) / 16))) {
+		if((floor(it.x() / 8) == floor((e->x() + offsets.x) / 8)
+		 || floor(it.x() / 8) == floor((e->x() + offsets.x) / 8) - 1)
+		&& (floor(it.y() / 8) == floor((e->y() + offsets.y) / 8)
+		 || floor(it.y() / 8) == floor((e->y() + offsets.y) / 8) - 1)) {
 			it.onEvent(event);
 			
 			break;

@@ -25,7 +25,7 @@
 
 class Object : public Entity {
 	public:
-		Object(s16 tileX, s16 tileY);
+		Object(float x, float y);
 		~Object();
 		
 		void setEventAction(u8 event, std::function<void(Object *)> action);

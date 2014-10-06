@@ -49,7 +49,7 @@ MapState::MapState() {
 	
 	IconManager::init();
 	
-	Object button(7, 2);
+	Object button(7 * 16, 2 * 16);
 	
 	button.setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
 		Sound::Effect::chest.play();
@@ -62,7 +62,7 @@ MapState::MapState() {
 	
 	MapManager::currentMap->addObject(button);
 	
-	Object testDoor(2, 5);
+	Object testDoor(2 * 16, 5 * 16);
 	
 	testDoor.setEventAction(Map::EventType::ChangeMap, [&](Object *obj) {
 		//Sound::Effect::changeMap.play();
@@ -71,6 +71,16 @@ MapState::MapState() {
 	});
 	
 	MapManager::currentMap->addObject(testDoor);
+	
+	Object testDoor2(4 * 16 + 8, 7 * 16);
+	
+	testDoor2.setEventAction(Map::EventType::ChangeMap, [&](Object *obj) {
+		//Sound::Effect::changeMap.play();
+		
+		GameStateManager::push(new TransitionState(new DoorTransition(0, 0, 0, 2 * 16, 6 * 16, Character::Direction::Down)));
+	});
+	
+	MapManager::getMap(1, 0, 0)->addObject(testDoor2);
 	
 	Sound::Music::plain.play();
 }
