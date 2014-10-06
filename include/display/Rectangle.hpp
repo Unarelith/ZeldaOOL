@@ -30,7 +30,7 @@ class Rectangle {
 		
 		void loadShader();
 		
-		void draw();
+		void draw(Color color = Color::black);
 		
 		void setPosition(float x, float y) { m_x = x; m_y = y; }
 		void move(float dx, float dy) { m_x += dx; m_y += dy; }

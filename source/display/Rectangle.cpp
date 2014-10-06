@@ -48,7 +48,7 @@ void Rectangle::loadShader() {
 	ShaderManager::pop();
 }
 
-void Rectangle::draw() {
+void Rectangle::draw(Color color) {
 	GLfloat vertices[] = {
 		m_x,			m_y,
 		m_x + m_width,	m_y,
@@ -57,10 +57,10 @@ void Rectangle::draw() {
 	};
 	
 	GLfloat colors[] = {
-		0.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 0.0f
+		color.r, color.g, color.b,
+		color.r, color.g, color.b,
+		color.r, color.g, color.b,
+		color.r, color.g, color.b
 	};
 	
 	GLubyte indices[] = {

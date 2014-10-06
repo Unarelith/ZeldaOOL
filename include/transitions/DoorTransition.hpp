@@ -19,6 +19,8 @@
 #define DOORTRANSITION_HPP_
 
 #include "Map.hpp"
+#include "Rectangle.hpp"
+#include "StatsBar.hpp"
 #include "Transition.hpp"
 
 class DoorTransition : public Transition {
@@ -39,6 +41,13 @@ class DoorTransition : public Transition {
 		u16 m_playerDirection;
 		
 		bool m_movePlayer;
+		
+		Timer m_timer;
+		
+		Rectangle m_rect1;
+		Rectangle m_rect2;
+		
+		StatsBar m_statsBar;
 };
 
 #endif // DOORTRANSITION_HPP_

@@ -32,6 +32,7 @@ class Player : public Character {
 		void mapCollisions();
 		
 		void update();
+		void updateStates();
 		
 		void draw();
 		

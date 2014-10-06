@@ -28,21 +28,52 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	m_playerDirection = playerDirection;
 	
 	m_movePlayer = movePlayer;
+	
+	m_timer.start();
+	
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	
+	m_rect1.resize(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 16);
+	m_rect2.resize(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 16);
+	
+	m_rect1.setPosition(0, 16);
+	m_rect2.setPosition(WINDOW_WIDTH / 2, 16);
+	
+	CharacterManager::player.setNextStateType(PlayerState::TypeStanding);
+	CharacterManager::player.updateStates();
 }
 
 DoorTransition::~DoorTransition() {
 }
 
 void DoorTransition::update() {
-	MapManager::currentMap = m_nextMap;
+	if(m_rect1.x() + m_rect1.width() < 0) {
+		MapManager::currentMap = m_nextMap;
+		
+		m_atEnd = true;
+		
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	}
 	
-	CharacterManager::player.setPosition(m_playerX, m_playerY);
-	CharacterManager::player.setDirection(m_playerDirection);
-	
-	m_atEnd = true;
+	if(m_timer.time() > 250) {
+		CharacterManager::player.setPosition(m_playerX, m_playerY);
+		CharacterManager::player.setDirection(m_playerDirection);
+		
+		m_rect1.move(-1.5, 0);
+		m_rect2.move(1.5, 0);
+	}
 }
 
 void DoorTransition::draw() {
-	
+	if(m_timer.time() > 250) {
+		if(m_nextMap) m_nextMap->draw();
+		
+		CharacterManager::player.draw();
+		
+		m_rect1.draw(Color::text);
+		m_rect2.draw(Color::text);
+		
+		m_statsBar.draw();
+	}
 }
 

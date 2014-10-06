@@ -157,11 +157,15 @@ void Player::mapCollisions() {
 }
 
 void Player::update() {
+	updateStates();
+	
+	m_state->update();
+}
+
+void Player::updateStates() {
 	if(m_state->stateType() != m_state->nextStateType()) {
 		m_state = m_state->nextState();
 	}
-	
-	m_state->update();
 }
 
 void Player::draw() {
