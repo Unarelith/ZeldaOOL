@@ -15,21 +15,17 @@ SUBFOLDERS	:=	audio core data display entities gl helpers interface \
 CC		:=	gcc
 CXX		:=	g++
 
-#CC		:=	i686-w64-mingw32-gcc
-#CXX		:=	i686-w64-mingw32-g++
-
 #---------------------------------------------------------------------------------
 # Options for code generation
 #---------------------------------------------------------------------------------
 CFLAGS	:=	-g -Wall -DGL_GLEXT_PROTOTYPES
 CXXFLAGS:=	$(CFLAGS) -std=c++11 -MD
-LDFLAGS	:=	-g -static-libgcc -static-libstdc++
+LDFLAGS	:=	-g
 
 #---------------------------------------------------------------------------------
 # Any extra libraries you wish to link with your project
 #---------------------------------------------------------------------------------
 LIBS	:=	-lSDL2_mixer -lSDL2_image -lSDL2
-#LIBS	:=	-lmingw32 -lSDL2main -lSDL2_mixer -lSDL2_image -lSDL2 -lglew32 -lopengl32
 
 #---------------------------------------------------------------------------------
 ifeq ($(shell uname), Darwin)
