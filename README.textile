@@ -8,10 +8,10 @@ h3. By Quent42340
 
 h2. Keys
 
-* A: W (or Z on QWERTY keyboards)
-* B: X
-* Start: Enter
-* Select: Backspace
+* A: @W@ (or @Z@ on QWERTY keyboards)
+* B: @X@
+* Start: @Enter@
+* Select: @Backspace@
 * Directional keys: Arrows
 
 h2. How to compile (Linux and Mac OS-X only)
