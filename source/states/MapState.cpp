@@ -23,7 +23,7 @@
 #include "CharacterManager.hpp"
 #include "Chest.hpp"
 #include "DialogState.hpp"
-#include "Door.hpp"
+#include "DoorManager.hpp"
 #include "DoorTransition.hpp"
 #include "EffectManager.hpp"
 #include "GameStateManager.hpp"
@@ -44,6 +44,7 @@ MapState::MapState() {
 	CharacterManager::player.load();
 	
 	MapManager::init();
+	DoorManager::init();
 	
 	EffectManager::init();
 	
@@ -63,23 +64,6 @@ MapState::MapState() {
 	});
 	
 	MapManager::currentMap->addObject(button);
-	
-	Door *testDoor = new Door(3 * 16, 2 * 16);
-	testDoor->setDestination(1, 0, 0, 4 * 16 + 8, 7 * 16, Character::Direction::Up);
-	
-	Door *testDoor2 = new Door(4 * 16 + 8, 7 * 16);
-	testDoor2->setDestination(0, 1, 0, 3 * 16, 3 * 16, Character::Direction::Down);
-	
-	Door *testDoor3 = new Door(2 * 16, 5 * 16);
-	testDoor3->setDestination(2, 0, 0, 4 * 16 + 8, 7 * 16, Character::Direction::Up);
-	
-	Door *testDoor4 = new Door(4 * 16 + 8, 7 * 16);
-	testDoor4->setDestination(0, 0, 0, 2 * 16, 6 * 16, Character::Direction::Down);
-	
-	MapManager::getMap(0, 1, 0)->addObject(testDoor);
-	MapManager::getMap(1, 0, 0)->addObject(testDoor2);
-	MapManager::getMap(0, 0, 0)->addObject(testDoor3);
-	MapManager::getMap(2, 0, 0)->addObject(testDoor4);
 	
 	Chest *testChest = new Chest(1 * 16, 5 * 16);
 	Chest *testChest2 = new Chest(5 * 16, 2 * 16);

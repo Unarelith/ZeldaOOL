@@ -55,12 +55,12 @@ ScrollingTransition::~ScrollingTransition() {
 }
 
 void ScrollingTransition::update() {
-	CharacterManager::player.currentState()->move(-m_vx * 1.525f, -m_vy * 1.275f);
+	CharacterManager::player.currentState()->move(-m_vx * 1.45f, -m_vy * 1.275f);
 	
-	MapManager::currentMap->move(m_vx * 1.7f, m_vy * 1.5f);
-	m_nextMap->move(m_vx * 1.7f, m_vy * 1.5f);
+	MapManager::currentMap->move(m_vx * 1.6f, m_vy * 1.5f);
+	m_nextMap->move(m_vx * 1.6f, m_vy * 1.5f);
 	
-	if(m_vx != 0) m_scrolled += 1.7f;
+	if(m_vx != 0) m_scrolled += 1.6f;
 	if(m_vy != 0) m_scrolled += 1.5f;
 	
 	if((m_scrolled >= WINDOW_WIDTH && (m_mode == Mode::ScrollingLeft || m_mode == Mode::ScrollingRight))
