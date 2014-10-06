@@ -18,6 +18,7 @@
 #include "CharacterManager.hpp"
 #include "DoorTransition.hpp"
 #include "MapManager.hpp"
+#include "Sound.hpp"
 
 DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer) {
 	m_nextMap = &MapManager::maps[area][mapX + mapY * MapManager::maps[area].size()];
@@ -45,6 +46,15 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	
 	CharacterManager::player.setNextStateType(PlayerState::TypeStanding);
 	CharacterManager::player.updateStates();
+	
+	if(m_nextMap->area() == 0) {
+		Sound::Music::plain.play();
+	}
+	else if(m_nextMap->area() == 1) {
+		Sound::Music::indoor.play();
+	} else {
+		Sound::Music::underground.play();
+	}
 }
 
 DoorTransition::~DoorTransition() {

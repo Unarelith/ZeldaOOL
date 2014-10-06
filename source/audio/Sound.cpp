@@ -17,7 +17,9 @@
  */
 #include "Sound.hpp"
 
+BackgroundMusic Sound::Music::indoor;
 BackgroundMusic Sound::Music::plain;
+BackgroundMusic Sound::Music::underground;
 
 SoundEffect Sound::Effect::chest;
 
@@ -48,7 +50,9 @@ void Sound::init() {
 }
 
 void Sound::Music::init() {
+	indoor.open("audio/music/indoor.ogg");
 	plain.open("audio/music/plain.ogg");
+	underground.open("audio/music/underground.ogg");
 }
 
 void Sound::Effect::init() {

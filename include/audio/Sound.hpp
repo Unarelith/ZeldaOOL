@@ -27,7 +27,9 @@ namespace Sound {
 	namespace Music {
 		void init();
 		
+		extern BackgroundMusic indoor;
 		extern BackgroundMusic plain;
+		extern BackgroundMusic underground;
 	}
 	
 	namespace Effect {
