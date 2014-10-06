@@ -4,5 +4,13 @@ h3. By Quent42340
 
 * This game is a TLOZ: OO-like fangame
 
-!http://img4.hostingpics.net/pics/222919ZeldaOOTScreen.png!
+!http://img15.hostingpics.net/pics/255623Capturedcrande20141005181925.png!
+
+h2. Keys
+
+* A: W (or Z on QWERTY keyboards)
+* B: X
+* Start: Enter
+* Select: Backspace
+* Directional keys: Arrows
 

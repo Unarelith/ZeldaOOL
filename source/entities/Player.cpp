@@ -64,7 +64,7 @@ void Player::load() {
 	
 	m_rupees = 197;
 	
-	m_inventory.addWeapon(WeaponManager::SwordID);
+	m_inventory.setWeaponA(WeaponManager::weapons[WeaponManager::SwordID]);
 	
 	m_inDoor = false;
 }

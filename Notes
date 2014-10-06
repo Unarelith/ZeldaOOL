@@ -26,6 +26,7 @@
 ===== ISSUES =====
 - Lines have not the correct length in 'Dialog'
 	=> Maybe related to the 'à'?
+- In the original game, it's possible to attack during 'PushingState'
 - Check sound effect channels in real game
 	=> For example, is it possible to hear sword loading sound anymore when link releases spin attack?
 - Sometimes link looks strange
