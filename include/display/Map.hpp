@@ -42,7 +42,7 @@ class Map : public TileMap {
 		u16 getTile(u16 tileX, u16 tileY);
 		void setTile(u16 tileX, u16 tileY, u16 tile);
 		
-		void addObject(Object &obj) { m_objects.push_back(obj); }
+		void addObject(Object *obj) { m_objects.push_back(obj); }
 		
 		enum EventType {
 			ButtonPressed,
@@ -82,7 +82,7 @@ class Map : public TileMap {
 		
 		std::vector<AnimatedTile> m_animatedTiles;
 		
-		std::vector<Object> m_objects;
+		std::vector<Object*> m_objects;
 };
 
 #endif // MAP_HPP_

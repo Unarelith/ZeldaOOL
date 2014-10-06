@@ -26,11 +26,11 @@
 class Object : public Entity {
 	public:
 		Object(float x, float y);
-		~Object();
+		virtual ~Object();
 		
 		void setEventAction(u8 event, std::function<void(Object *)> action);
 		
-		void onEvent(u8 event);
+		virtual void onEvent(u8 event);
 		
 	private:
 		std::map<u8, std::function<void(Object *)>> m_actions;

@@ -21,6 +21,10 @@
 
 DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer) {
 	m_nextMap = &MapManager::maps[area][mapX + mapY * MapManager::maps[area].size()];
+	if(m_nextMap) {
+		m_nextMap->resetTiles();
+		m_nextMap->updateTiles();
+	}
 	
 	m_playerX = playerX;
 	m_playerY = playerY;

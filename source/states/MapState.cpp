@@ -22,6 +22,7 @@
 #include "Config.hpp"
 #include "CharacterManager.hpp"
 #include "DialogState.hpp"
+#include "Door.hpp"
 #include "DoorTransition.hpp"
 #include "EffectManager.hpp"
 #include "GameStateManager.hpp"
@@ -49,9 +50,9 @@ MapState::MapState() {
 	
 	IconManager::init();
 	
-	Object button(7 * 16, 2 * 16);
+	Object *button = new Object(7 * 16, 2 * 16);
 	
-	button.setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
+	button->setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
 		Sound::Effect::chest.play();
 		
 		MapManager::currentMap->setTile(obj->x() / 16, obj->y() / 16 - 1, 8);
@@ -62,23 +63,13 @@ MapState::MapState() {
 	
 	MapManager::currentMap->addObject(button);
 	
-	Object testDoor(2 * 16, 5 * 16);
+	Door *testDoor = new Door(3 * 16, 2 * 16);
+	testDoor->setDestination(1, 0, 0, 4 * 16 + 8, 7 * 16, Character::Direction::Up);
 	
-	testDoor.setEventAction(Map::EventType::ChangeMap, [&](Object *obj) {
-		Sound::Effect::mapStairs.play();
-		
-		GameStateManager::push(new TransitionState(new DoorTransition(1, 0, 0, 4.5 * 16, 7 * 16, Character::Direction::Up)));
-	});
+	MapManager::getMap(0, 1, 0)->addObject(testDoor);
 	
-	MapManager::currentMap->addObject(testDoor);
-	
-	Object testDoor2(4 * 16 + 8, 7 * 16);
-	
-	testDoor2.setEventAction(Map::EventType::ChangeMap, [&](Object *obj) {
-		Sound::Effect::mapStairs.play();
-		
-		GameStateManager::push(new TransitionState(new DoorTransition(0, 0, 0, 2 * 16, 6 * 16, Character::Direction::Down)));
-	});
+	Door *testDoor2 = new Door(4 * 16 + 8, 7 * 16);
+	testDoor2->setDestination(0, 1, 0, 3 * 16, 3 * 16, Character::Direction::Down);
 	
 	MapManager::getMap(1, 0, 0)->addObject(testDoor2);
 	

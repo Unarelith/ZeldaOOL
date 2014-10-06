@@ -35,6 +35,10 @@ Map::Map(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 }
 
 Map::~Map() {
+	while(m_objects.size() != 0) {
+		delete m_objects.back();
+		m_objects.pop_back();
+	}
 }
 
 bool Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
@@ -128,11 +132,11 @@ void Map::sendEvent(EventType event, Entity *e, Vector2i offsets) {
 	if(!e) e = &CharacterManager::player;
 	
 	for(auto &it : m_objects) {
-		if((floor(it.x() / 8) == floor((e->x() + offsets.x) / 8)
-		 || floor(it.x() / 8) == floor((e->x() + offsets.x) / 8) - 1)
-		&& (floor(it.y() / 8) == floor((e->y() + offsets.y) / 8)
-		 || floor(it.y() / 8) == floor((e->y() + offsets.y) / 8) - 1)) {
-			it.onEvent(event);
+		if((floor(it->x() / 8) == floor((e->x() + offsets.x) / 8)
+		 || floor(it->x() / 8) == floor((e->x() + offsets.x) / 8) - 1)
+		&& (floor(it->y() / 8) == floor((e->y() + offsets.y) / 8)
+		 || floor(it->y() / 8) == floor((e->y() + offsets.y) / 8) - 1)) {
+			it->onEvent(event);
 			
 			break;
 		}
