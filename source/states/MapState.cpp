@@ -82,7 +82,10 @@ MapState::MapState() {
 	MapManager::getMap(2, 0, 0)->addObject(testDoor4);
 	
 	Chest *testChest = new Chest(1 * 16, 5 * 16);
+	Chest *testChest2 = new Chest(5 * 16, 2 * 16);
+	
 	MapManager::getMap(0, 0, 1)->addObject(testChest);
+	MapManager::getMap(2, 0, 0)->addObject(testChest2);
 	
 	Sound::Music::plain.play();
 }
