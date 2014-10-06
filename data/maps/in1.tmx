@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="10" height="8" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="8" tilewidth="16" tileheight="16">
  <tileset firstgid="1" name="indoor" tilewidth="16" tileheight="16">
   <image source="../../graphics/tilesets/indoor.png" trans="ff00ff" width="256" height="256"/>
  </tileset>
@@ -9,9 +9,9 @@
    <tile gid="113"/>
    <tile gid="113"/>
    <tile gid="81"/>
-   <tile gid="157"/>
-   <tile gid="173"/>
-   <tile gid="157"/>
+   <tile gid="132"/>
+   <tile gid="133"/>
+   <tile gid="134"/>
    <tile gid="65"/>
    <tile gid="161"/>
    <tile gid="82"/>
@@ -19,9 +19,9 @@
    <tile gid="113"/>
    <tile gid="113"/>
    <tile gid="66"/>
-   <tile gid="173"/>
-   <tile gid="3"/>
-   <tile gid="173"/>
+   <tile gid="148"/>
+   <tile gid="149"/>
+   <tile gid="150"/>
    <tile gid="7"/>
    <tile gid="137"/>
    <tile gid="49"/>
