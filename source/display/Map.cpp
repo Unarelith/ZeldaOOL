@@ -79,10 +79,11 @@ bool Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 
 void Map::resetTiles() {
 	for(u16 i = 0 ; i < m_width * m_height ; i++) {
-		// FIXME: Replace it by objects update
-		if(m_data[i] != 240) {
-			m_data[i] = m_baseData[i];
-		}
+		m_data[i] = m_baseData[i];
+	}
+	
+	for(auto &it : m_objects) {
+		it->resetTiles(this);
 	}
 }
 
@@ -137,14 +138,18 @@ void Map::setTile(u16 tileX, u16 tileY, u16 tile) {
 	}
 }
 
+bool Map::objectAtPosition(Object *obj, float x, float y) {
+	return((floor(obj->x() / 8) == floor(x / 8)
+		 || floor(obj->x() / 8) == floor(x / 8) - 1)
+		&& (floor(obj->y() / 8) == floor(y / 8)
+		 || floor(obj->y() / 8) == floor(y / 8) - 1));
+}
+
 void Map::sendEvent(EventType event, Entity *e, Vector2i offsets) {
 	if(!e) e = &CharacterManager::player;
 	
 	for(auto &it : m_objects) {
-		if((floor(it->x() / 8) == floor((e->x() + offsets.x) / 8)
-		 || floor(it->x() / 8) == floor((e->x() + offsets.x) / 8) - 1)
-		&& (floor(it->y() / 8) == floor((e->y() + offsets.y) / 8)
-		 || floor(it->y() / 8) == floor((e->y() + offsets.y) / 8) - 1)) {
+		if(objectAtPosition(it, e->x() + offsets.x, e->y() + offsets.y)) {
 			it->onEvent(event);
 			
 			break;

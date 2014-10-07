@@ -52,6 +52,7 @@ class Map : public TileMap {
 			ChestOpened
 		};
 		
+		bool objectAtPosition(Object *obj, float x, float y);
 		void sendEvent(EventType event, Entity *e = nullptr, Vector2i offsets = Vector2i(6, 11));
 		
 		Tileset &tileset() const { return *m_tileset; }

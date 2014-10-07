@@ -23,6 +23,8 @@
 
 #include "Entity.hpp"
 
+class Map;
+
 class Object : public Entity {
 	public:
 		Object(float x, float y);
@@ -31,6 +33,8 @@ class Object : public Entity {
 		void setEventAction(u8 event, std::function<void(Object *)> action);
 		
 		virtual void onEvent(u8 event);
+		
+		virtual void resetTiles(Map *map) {}
 		
 	private:
 		std::map<u8, std::function<void(Object *)>> m_actions;

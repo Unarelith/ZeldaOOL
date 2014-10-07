@@ -26,6 +26,11 @@ class Chest : public Object {
 		~Chest();
 		
 		void onEvent(u8 event);
+		
+		void resetTiles(Map *map);
+		
+	private:
+		bool m_opened;
 };
 
 #endif // CHEST_HPP_
