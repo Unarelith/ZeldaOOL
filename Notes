@@ -28,6 +28,7 @@
 - Improve game for OpenGL ES and try on Android
 
 ===== ISSUES =====
+- Improve collectable objets drop movement
 - Rupees are added one by one to the counter in the original game
 	=> There's also a sound effect
 - Lines have not the correct length in 'Dialog'

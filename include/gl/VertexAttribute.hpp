@@ -20,7 +20,8 @@
 
 struct VertexAttribute {
 	GLfloat coord2d[2];
-	GLfloat texcoord[2];
+	GLfloat texCoord[2];
+	GLfloat colorMod[4];
 };
 
 #endif // VERTEXATTRIBUTE_HPP_

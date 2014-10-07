@@ -44,6 +44,11 @@ Map::~Map() {
 		delete m_collectables.back();
 		m_collectables.pop_back();
 	}
+	
+	while(m_enemies.size() != 0) {
+		delete m_enemies.back();
+		m_enemies.pop_back();
+	}
 }
 
 bool Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
@@ -130,14 +135,26 @@ void Map::update() {
 	for(auto &it : m_collectables) {
 		it->update();
 	}
+	
+	for(auto &it : m_enemies) {
+		it->update();
+	}
 }
 
 void Map::draw() {
 	TileMap::draw();
 	
+	ShaderManager::push(m_shader);
+	
 	for(auto &it : m_collectables) {
 		it->draw();
 	}
+	
+	for(auto &it : m_enemies) {
+		it->draw();
+	}
+	
+	ShaderManager::pop();
 }
 
 u16 Map::getTile(u16 tileX, u16 tileY) {
@@ -171,6 +188,10 @@ void Map::addObject(Object *obj) {
 
 void Map::addCollectable(Collectable *collectable) {
 	m_collectables.push_back(collectable);
+}
+
+void Map::addEnemy(Enemy *enemy) {
+	m_enemies.push_back(enemy);
 }
 
 void Map::removeCollectable(Collectable *collectable) {

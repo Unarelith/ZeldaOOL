@@ -31,6 +31,7 @@
 #include "Keyboard.hpp"
 #include "MapState.hpp"
 #include "MenuState.hpp"
+#include "Octorok.hpp"
 #include "ScrollingTransition.hpp"
 #include "Sound.hpp"
 #include "TimeManager.hpp"
@@ -69,6 +70,8 @@ MapState::MapState() {
 	
 	MapManager::getMap(0, 0, 1)->addObject(testChest);
 	MapManager::getMap(2, 0, 0)->addObject(testChest2);
+	
+	MapManager::getMap(0, 1, 0)->addEnemy(new Octorok(5 * 16, 4 * 16, Character::Direction::Right));
 	
 	Sound::Music::plain.play();
 }

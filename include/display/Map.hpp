@@ -20,6 +20,7 @@
 
 #include "AnimatedTile.hpp"
 #include "Collectable.hpp"
+#include "Enemy.hpp"
 #include "Object.hpp"
 #include "TileMap.hpp"
 #include "Tileset.hpp"
@@ -47,6 +48,8 @@ class Map : public TileMap {
 		
 		void addObject(Object *obj);
 		void addCollectable(Collectable *collectable);
+		void addEnemy(Enemy *enemy);
+		
 		void removeCollectable(Collectable *collectable);
 		
 		enum EventType {
@@ -92,6 +95,7 @@ class Map : public TileMap {
 		
 		std::vector<Object*> m_objects;
 		std::vector<Collectable*> m_collectables;
+		std::vector<Enemy*> m_enemies;
 };
 
 #endif // MAP_HPP_

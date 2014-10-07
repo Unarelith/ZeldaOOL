@@ -77,12 +77,12 @@ void TileMap::updateTile(float x, float y, u16 id) {
 	float tileHeight = 16.0f / m_texture->height();
 	
 	VertexAttribute attributes[] = {	
-		{{x		   , y		  },	{texTileX			 , texTileY}},
-		{{x + 16.0f, y		  },	{texTileX + tileWidth, texTileY}},
-		{{x + 16.0f, y + 16.0f},	{texTileX + tileWidth, texTileY + tileHeight}},
-		{{x		   , y		  },	{texTileX			 , texTileY}},
-		{{x + 16.0f, y + 16.0f},	{texTileX + tileWidth, texTileY + tileHeight}},
-		{{x		   , y + 16.0f},	{texTileX			 , texTileY + tileHeight}}
+		{{x		   , y		  },	{texTileX			 , texTileY},					{1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x + 16.0f, y		  },	{texTileX + tileWidth, texTileY},					{1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x + 16.0f, y + 16.0f},	{texTileX + tileWidth, texTileY + tileHeight},		{1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x		   , y		  },	{texTileX			 , texTileY},					{1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x + 16.0f, y + 16.0f},	{texTileX + tileWidth, texTileY + tileHeight},		{1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x		   , y + 16.0f},	{texTileX			 , texTileY + tileHeight},		{1.0f, 1.0f, 1.0f, 1.0f}}
 	};
 	
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(attributes) * (x / 16 + (y / 16) * m_width), sizeof(attributes), attributes);
@@ -97,11 +97,13 @@ void TileMap::draw() {
 	
 	ShaderManager::currentShader().enableVertexAttribArray("coord2d");
 	ShaderManager::currentShader().enableVertexAttribArray("texCoord");
+	ShaderManager::currentShader().enableVertexAttribArray("colorMod");
 	
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	
 	glVertexAttribPointer(ShaderManager::currentShader().attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), 0);
-	glVertexAttribPointer(ShaderManager::currentShader().attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, texcoord));
+	glVertexAttribPointer(ShaderManager::currentShader().attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, texCoord));
+	glVertexAttribPointer(ShaderManager::currentShader().attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, colorMod));
 	
 	m_texture->bind();
 	
@@ -109,6 +111,7 @@ void TileMap::draw() {
 	
 	m_texture->unbind();
 	
+	ShaderManager::currentShader().disableVertexAttribArray("colorMod");
 	ShaderManager::currentShader().disableVertexAttribArray("texCoord");
 	ShaderManager::currentShader().disableVertexAttribArray("coord2d");
 	
