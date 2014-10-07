@@ -44,10 +44,13 @@ void GrassObject::onEvent(u8 event) {
 		if(rand() % 10 == 0) {
 			MapManager::currentMap->addCollectable(new RupeeCollectable(m_x, m_y, 1));
 		}
-		else if(rand() % 30 == 0) {
+		else if(rand() % 30 == 14) {
 			MapManager::currentMap->addCollectable(new HeartCollectable(m_x, m_y));
 		}
-		else if(rand() % 50 == 0) {
+		else if(rand() % 50 == 22) {
+			MapManager::currentMap->addCollectable(new RupeeCollectable(m_x, m_y, 5));
+		}
+		else if(rand() % 500 == 333) {
 			MapManager::currentMap->addCollectable(new RupeeCollectable(m_x, m_y, 30));
 		}
 		
