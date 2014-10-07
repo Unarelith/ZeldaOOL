@@ -22,7 +22,8 @@
 
 class Color {
 	public:
-		Color(u8 _r, u8 _g, u8 _b);
+		Color() { r = g = b = a = 1.0f; }
+		Color(u8 _r, u8 _g, u8 _b, u8 _a = 255);
 		~Color();
 		
 		float r;

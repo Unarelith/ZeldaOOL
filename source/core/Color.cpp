@@ -23,11 +23,11 @@ Color Color::text(248, 208, 136);
 Color Color::blue(32, 168, 248);
 Color Color::red(232, 8, 24);
 
-Color::Color(u8 _r, u8 _g, u8 _b) {
+Color::Color(u8 _r, u8 _g, u8 _b, u8 _a) {
 	r = _r / 255.0f;
 	g = _g / 255.0f;
 	b = _b / 255.0f;
-	a = 1.0f;
+	a = _a / 255.0f;
 }
 
 Color::~Color() {

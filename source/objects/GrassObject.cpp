@@ -31,6 +31,12 @@ void GrassObject::onEvent(u8 event) {
 	if(event == Map::EventType::GrassCutted) {
 		Sound::Effect::grassDestroy.play();
 		
+		if(m_lowGrass) {
+			AnimationManager::grassDestroy.setColorMod(Color(255, 255, 255, 125));
+		} else {
+			AnimationManager::grassDestroy.setColorMod(Color(255, 255, 255));
+		}
+		
 		AnimationManager::addGrassDestroyAnimation((m_x + 8) / 16, (m_y + 8) / 16);
 		
 		MapManager::currentMap->setTile((m_x + 8) / 16, (m_y + 8) / 16 - 1, 36);

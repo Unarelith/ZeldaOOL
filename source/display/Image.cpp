@@ -34,6 +34,8 @@ void Image::load(std::string filename) {
 	
 	m_posRect = FloatRect(0, 0, m_width, m_height);
 	m_clipRect = FloatRect(0, 0, m_width, m_height);
+	
+	m_colorMod = Color(255, 255, 255);
 }
 
 void Image::setClipRect(float x, float y, u16 width, u16 height) {
@@ -81,6 +83,13 @@ void Image::draw() {
 		texRect.x,					texRect.y + texRect.height
 	};
 	
+	GLfloat colorMod[] = {
+		m_colorMod.r, m_colorMod.g, m_colorMod.b, m_colorMod.a,
+		m_colorMod.r, m_colorMod.g, m_colorMod.b, m_colorMod.a,
+		m_colorMod.r, m_colorMod.g, m_colorMod.b, m_colorMod.a,
+		m_colorMod.r, m_colorMod.g, m_colorMod.b, m_colorMod.a
+	};
+	
 	GLubyte indices[] = {
 		0, 1, 3,
 		3, 1, 2
@@ -88,9 +97,11 @@ void Image::draw() {
 	
 	ShaderManager::currentShader().enableVertexAttribArray("coord2d");
 	ShaderManager::currentShader().enableVertexAttribArray("texCoord");
+	ShaderManager::currentShader().enableVertexAttribArray("colorMod");
 	
 	glVertexAttribPointer(ShaderManager::currentShader().attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glVertexAttribPointer(ShaderManager::currentShader().attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+	glVertexAttribPointer(ShaderManager::currentShader().attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, 0, colorMod);
 	
 	bind();
 	
@@ -98,6 +109,7 @@ void Image::draw() {
 	
 	unbind();
 	
+	ShaderManager::currentShader().disableVertexAttribArray("colorMod");
 	ShaderManager::currentShader().disableVertexAttribArray("texCoord");
 	ShaderManager::currentShader().disableVertexAttribArray("coord2d");
 }

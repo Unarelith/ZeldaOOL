@@ -78,9 +78,7 @@ bool Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 }
 
 void Map::resetTiles() {
-	for(u16 i = 0 ; i < m_width * m_height ; i++) {
-		m_data[i] = m_baseData[i];
-	}
+	m_data = m_baseData;
 	
 	for(auto &it : m_objects) {
 		it->resetTiles(this);
@@ -143,6 +141,19 @@ void Map::setTile(u16 tileX, u16 tileY, u16 tile) {
 		
 		updateTile(tileX * 16, tileY * 16, tile);
 	}
+}
+
+void Map::addObject(Object *obj) {
+	for(u16 i = 0 ; i < m_objects.size() ; i++) {
+		if(m_objects[i]->x() == obj->x() && m_objects[i]->y() == obj->y()) {
+			delete m_objects[i];
+			m_objects.erase(m_objects.begin() + i);
+			
+			break;
+		}
+	}
+	
+	m_objects.push_back(obj);
 }
 
 bool Map::objectAtPosition(Object *obj, float x, float y) {
