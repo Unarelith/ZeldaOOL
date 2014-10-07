@@ -39,6 +39,8 @@ namespace Sound {
 		
 		extern SoundEffect dialogContinue;
 		
+		extern SoundEffect getHeart;
+		
 		extern SoundEffect grassDestroy;
 		
 		extern SoundEffect itemNew;

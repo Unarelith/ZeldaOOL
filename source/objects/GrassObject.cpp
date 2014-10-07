@@ -17,6 +17,7 @@
  */
 #include "AnimationManager.hpp"
 #include "GrassObject.hpp"
+#include "HeartCollectable.hpp"
 #include "MapManager.hpp"
 #include "Sound.hpp"
 
@@ -38,6 +39,8 @@ void GrassObject::onEvent(u8 event) {
 		}
 		
 		AnimationManager::addGrassDestroyAnimation((m_x + 8) / 16, (m_y + 8) / 16);
+		
+		if(rand() % 10 == 0) MapManager::currentMap->addCollectable(new HeartCollectable(m_x, m_y));
 		
 		MapManager::currentMap->setTile((m_x + 8) / 16, (m_y + 8) / 16 - 1, 36);
 	}

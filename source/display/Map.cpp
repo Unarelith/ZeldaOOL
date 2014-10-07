@@ -39,6 +39,11 @@ Map::~Map() {
 		delete m_objects.back();
 		m_objects.pop_back();
 	}
+	
+	while(m_collectables.size() != 0) {
+		delete m_collectables.back();
+		m_collectables.pop_back();
+	}
 }
 
 bool Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
@@ -121,10 +126,18 @@ void Map::update() {
 			it.timer.start();
 		}
 	}
+	
+	for(auto &it : m_collectables) {
+		it->update();
+	}
 }
 
 void Map::draw() {
 	TileMap::draw();
+	
+	for(auto &it : m_collectables) {
+		it->draw();
+	}
 }
 
 u16 Map::getTile(u16 tileX, u16 tileY) {
@@ -154,6 +167,21 @@ void Map::addObject(Object *obj) {
 	}
 	
 	m_objects.push_back(obj);
+}
+
+void Map::addCollectable(Collectable *collectable) {
+	m_collectables.push_back(collectable);
+}
+
+void Map::removeCollectable(Collectable *collectable) {
+	for(u16 i = 0 ; i < m_collectables.size() ; i++) {
+		if(m_collectables[i] == collectable) {
+			delete m_collectables[i];
+			m_collectables.erase(m_collectables.begin() + i);
+			
+			break;
+		}
+	}
 }
 
 bool Map::objectAtPosition(Object *obj, float x, float y) {

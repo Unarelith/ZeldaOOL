@@ -25,7 +25,7 @@
 ChestOpenedState::ChestOpenedState(GameState *parent, float x, float y) : GameState(parent) {
 	m_state = State::Opening;
 	
-	m_item.load("graphics/interface/30rupees.png");
+	m_item.load("graphics/collectables/rupees30.png");
 	
 	m_itemX = x + 7 - m_item.width() / 2;
 	m_itemY = y - 8;

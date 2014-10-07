@@ -42,6 +42,7 @@ class Player : public Character {
 		
 		u8 maxLife() const { return m_maxLife; }
 		u8 life() const { return m_life; }
+		void addHearts(float hearts) { m_life += hearts * 4; if(m_life > m_maxLife) m_life = m_maxLife; }
 		
 		u16 rupees() const { return m_rupees; }
 		void addRupees(u16 rupees) { m_rupees += 30; }

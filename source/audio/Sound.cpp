@@ -25,6 +25,8 @@ SoundEffect Sound::Effect::chest;
 
 SoundEffect Sound::Effect::dialogContinue;
 
+SoundEffect Sound::Effect::getHeart;
+
 SoundEffect Sound::Effect::grassDestroy;
 
 SoundEffect Sound::Effect::itemNew;
@@ -59,6 +61,8 @@ void Sound::Effect::init() {
 	chest.load("audio/effects/chest.wav");
 	
 	dialogContinue.load("audio/effects/dialogContinue.wav");
+	
+	getHeart.load("audio/effects/getHeart.wav");
 	
 	grassDestroy.load("audio/effects/grassDestroy.wav");
 	

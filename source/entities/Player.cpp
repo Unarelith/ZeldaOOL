@@ -36,6 +36,7 @@ Player::~Player() {
 
 void Player::load() {
 	Character::load("graphics/characters/link.png", 64, 64, 16, 16, Direction::Down);
+	
 	// Movement
 	addAnimation({4, 0}, 110);
 	addAnimation({5, 1}, 110);
@@ -56,6 +57,8 @@ void Player::load() {
 	
 	// SpinAttack
 	addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
+	
+	m_hitbox = IntRect(3, 8, 10, 8);
 	
 	m_state = new StandingState();
 	

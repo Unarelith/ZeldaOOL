@@ -15,6 +15,8 @@
  *
  * =====================================================================================
  */
+#include <ctime>
+
 #include "Application.hpp"
 #include "Debug.hpp"
 #include "GameStateManager.hpp"
@@ -25,6 +27,8 @@
 Window Application::window;
 
 Application::Application() {
+	srand(time(nullptr));
+	
 	window.open();
 	
 #ifdef __MINGW32__

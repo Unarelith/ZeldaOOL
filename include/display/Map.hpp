@@ -19,6 +19,7 @@
 #define MAP_HPP_
 
 #include "AnimatedTile.hpp"
+#include "Collectable.hpp"
 #include "Object.hpp"
 #include "TileMap.hpp"
 #include "Tileset.hpp"
@@ -45,6 +46,8 @@ class Map : public TileMap {
 		void setTile(u16 tileX, u16 tileY, u16 tile);
 		
 		void addObject(Object *obj);
+		void addCollectable(Collectable *collectable);
+		void removeCollectable(Collectable *collectable);
 		
 		enum EventType {
 			ButtonPressed,
@@ -88,6 +91,7 @@ class Map : public TileMap {
 		std::vector<AnimatedTile> m_animatedTiles;
 		
 		std::vector<Object*> m_objects;
+		std::vector<Collectable*> m_collectables;
 };
 
 #endif // MAP_HPP_
