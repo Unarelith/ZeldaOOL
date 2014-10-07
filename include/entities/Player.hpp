@@ -45,7 +45,7 @@ class Player : public Character {
 		void addHearts(float hearts) { m_life += hearts * 4; if(m_life > m_maxLife) m_life = m_maxLife; }
 		
 		u16 rupees() const { return m_rupees; }
-		void addRupees(u16 rupees) { m_rupees += 30; }
+		void addRupees(u16 rupees) { m_rupees += rupees; if(m_rupees > 999) m_rupees = 999; }
 		
 		Inventory *inventory() { return &m_inventory; }
 		

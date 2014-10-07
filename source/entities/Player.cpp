@@ -58,7 +58,7 @@ void Player::load() {
 	// SpinAttack
 	addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
 	
-	m_hitbox = IntRect(3, 8, 10, 8);
+	m_hitbox = IntRect(3, 7, 10, 9);
 	
 	m_state = new StandingState();
 	

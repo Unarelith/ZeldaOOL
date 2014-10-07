@@ -23,8 +23,11 @@
 
 class Collectable : public Image, public Entity {
 	public:
+		Collectable();
 		Collectable(float x, float y, std::string iconFilename);
 		virtual ~Collectable();
+		
+		void load(float x, float y, std::string iconFilename);
 		
 		virtual void update();
 		

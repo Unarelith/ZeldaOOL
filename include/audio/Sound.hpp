@@ -40,6 +40,8 @@ namespace Sound {
 		extern SoundEffect dialogContinue;
 		
 		extern SoundEffect getHeart;
+		extern SoundEffect getRupee;
+		extern SoundEffect getRupees5;
 		
 		extern SoundEffect grassDestroy;
 		

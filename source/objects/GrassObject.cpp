@@ -19,6 +19,7 @@
 #include "GrassObject.hpp"
 #include "HeartCollectable.hpp"
 #include "MapManager.hpp"
+#include "RupeeCollectable.hpp"
 #include "Sound.hpp"
 
 GrassObject::GrassObject(float x, float y, bool lowGrass) : Object(x, y) {
@@ -40,7 +41,15 @@ void GrassObject::onEvent(u8 event) {
 		
 		AnimationManager::addGrassDestroyAnimation((m_x + 8) / 16, (m_y + 8) / 16);
 		
-		if(rand() % 10 == 0) MapManager::currentMap->addCollectable(new HeartCollectable(m_x, m_y));
+		if(rand() % 10 == 0) {
+			MapManager::currentMap->addCollectable(new RupeeCollectable(m_x, m_y, 1));
+		}
+		else if(rand() % 30 == 0) {
+			MapManager::currentMap->addCollectable(new HeartCollectable(m_x, m_y));
+		}
+		else if(rand() % 50 == 0) {
+			MapManager::currentMap->addCollectable(new RupeeCollectable(m_x, m_y, 30));
+		}
 		
 		MapManager::currentMap->setTile((m_x + 8) / 16, (m_y + 8) / 16 - 1, 36);
 	}

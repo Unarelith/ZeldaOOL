@@ -26,6 +26,8 @@ SoundEffect Sound::Effect::chest;
 SoundEffect Sound::Effect::dialogContinue;
 
 SoundEffect Sound::Effect::getHeart;
+SoundEffect Sound::Effect::getRupee;
+SoundEffect Sound::Effect::getRupees5;
 
 SoundEffect Sound::Effect::grassDestroy;
 
@@ -63,6 +65,8 @@ void Sound::Effect::init() {
 	dialogContinue.load("audio/effects/dialogContinue.wav");
 	
 	getHeart.load("audio/effects/getHeart.wav");
+	getRupee.load("audio/effects/getRupee.wav");
+	getRupees5.load("audio/effects/getRupees5.wav");
 	
 	grassDestroy.load("audio/effects/grassDestroy.wav");
 	

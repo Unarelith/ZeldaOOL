@@ -19,10 +19,22 @@
 #include "Collectable.hpp"
 #include "MapManager.hpp"
 
-Collectable::Collectable(float x, float y, std::string iconFilename) : Image(iconFilename), Entity(x + 8 - width() / 2, y, width(), height()) {
+Collectable::Collectable() {
+}
+
+Collectable::Collectable(float x, float y, std::string iconFilename) {
+	load(x, y, iconFilename);
 }
 
 Collectable::~Collectable() {
+}
+
+void Collectable::load(float x, float y, std::string iconFilename) {
+	Image::load(iconFilename);
+	
+	Entity::load(x + 7 - width() / 2, y + 8 - height(), width(), height());
+	
+	m_movementCounter = 0;
 }
 
 void Collectable::update() {
