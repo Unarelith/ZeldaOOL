@@ -35,7 +35,7 @@ void SDLManager::init() {
 	}
 	
 	Mix_AllocateChannels(32);
-	Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
+	Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
 	Mix_Volume(-1, MIX_MAX_VOLUME);
 }
 

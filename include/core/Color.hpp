@@ -26,6 +26,8 @@ class Color {
 		Color(u8 _r, u8 _g, u8 _b, u8 _a = 255);
 		~Color();
 		
+		Color operator-(const Color &color);
+		
 		float r;
 		float g;
 		float b;

@@ -33,3 +33,7 @@ Color::Color(u8 _r, u8 _g, u8 _b, u8 _a) {
 Color::~Color() {
 }
 
+Color Color::operator-(const Color &color) {
+	return Color(r - color.r, g - color.g, b - color.b, a - color.a);
+}
+

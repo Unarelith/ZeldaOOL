@@ -18,8 +18,6 @@
 #ifndef FONT_HPP_
 #define FONT_HPP_
 
-#include "Color.hpp"
-#include "ShaderManager.hpp"
 #include "Sprite.hpp"
 
 class Font : public Sprite {
@@ -33,17 +31,8 @@ class Font : public Sprite {
 		void drawChar(float x, float y, u8 c);
 		void drawString(float x, float y, std::string str, s16 charsToDraw);
 		
-		void setColor(Color color);
-		
 		u16 charWidth() const { return m_frameWidth; }
 		u16 charHeight() const { return m_frameHeight; }
-		
-		Shader shader() const { return m_shader; }
-		
-	private:
-		Shader m_shader;
-		
-		GLfloat m_colors[12];
 };
 
 #endif // FONT_HPP_
