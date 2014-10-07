@@ -15,12 +15,12 @@
  *
  * =====================================================================================
  */
-#include <cmath>
-
 #include "Application.hpp"
 #include "Config.hpp"
 #include "CharacterManager.hpp"
+#include "GrassObject.hpp"
 #include "MapManager.hpp"
+#include "TilesData.hpp"
 #include "XMLFile.hpp"
 
 Map::Map() {
@@ -94,10 +94,17 @@ void Map::updateTiles() {
 			
 			for(auto &it : m_tileset->anims) {
 				for(auto &n : it.frames) {
-					if(getTile(x, y - 1) == n) {
-						m_animatedTiles.push_back(AnimatedTile(x, y - 1, n + 1 % it.frames.size(), it));
+					if(getTile(x, y) == n) {
+						m_animatedTiles.push_back(AnimatedTile(x, y, n + 1 % it.frames.size(), it));
 					}
 				}
+			}
+			
+			if(m_tileset->info[getTile(x, y)] == TilesData::TileType::GrassTile) {
+				addObject(new GrassObject(x * 16, y * 16));
+			}
+			else if(m_tileset->info[getTile(x, y)] == TilesData::TileType::LowGrassTile) {
+				addObject(new GrassObject(x * 16, y * 16, true));
 			}
 		}
 	}

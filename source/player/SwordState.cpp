@@ -124,11 +124,7 @@ void SwordState::update() {
 	||  m_sword->state() == Sword::State::SpinAttack) {
 		if((MapHelper::isTile(m_sword->x() + 8, m_sword->y() + 8, TilesData::TileType::GrassTile))
 		|| (MapHelper::isTile(m_sword->x() + 8, m_sword->y() + 8, TilesData::TileType::LowGrassTile))) {
-			Sound::Effect::grassDestroy.play();
-			
-			AnimationManager::addGrassDestroyAnimation((m_sword->x() + 8) / 16, (m_sword->y() + 8) / 16);
-			
-			MapManager::currentMap->setTile((m_sword->x() + 8) / 16, (m_sword->y() + 8) / 16 - 1, 36);
+			MapManager::currentMap->sendEvent(Map::EventType::GrassCutted, m_sword, Vector2i(8, 8));
 		}
 	}
 }

@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 #include "Character.hpp"
-#include "Door.hpp"
+#include "DoorObject.hpp"
 #include "DoorManager.hpp"
 #include "MapManager.hpp"
 #include "XMLFile.hpp"
@@ -26,8 +26,8 @@ void DoorManager::init() {
 	
 	XMLElement *doorElement = doc.FirstChildElement("doors").FirstChildElement("door").ToElement();
 	while(doorElement) {
-		Door *door = new Door(doorElement->FloatAttribute("tileX") * 16,
-							  doorElement->FloatAttribute("tileY") * 16);
+		DoorObject *door = new DoorObject(doorElement->FloatAttribute("tileX") * 16,
+										  doorElement->FloatAttribute("tileY") * 16);
 		
 		u8 direction = 0;
 		if(doorElement->FirstChildElement("player")->Attribute("direction", "up")) {

@@ -49,7 +49,8 @@ class Map : public TileMap {
 		enum EventType {
 			ButtonPressed,
 			ChangeMap,
-			ChestOpened
+			ChestOpened,
+			GrassCutted
 		};
 		
 		bool objectAtPosition(Object *obj, float x, float y);

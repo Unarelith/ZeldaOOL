@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Door.hpp
+ *       Filename:  ChestObject.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  06/10/2014 18:13:35
+ *        Created:  06/10/2014 20:24:41
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,30 +15,22 @@
  *
  * =====================================================================================
  */
-#ifndef DOOR_HPP_
-#define DOOR_HPP_
+#ifndef CHESTOBJECT_HPP_
+#define CHESTOBJECT_HPP_
 
 #include "Object.hpp"
 
-class Door : public Object {
+class ChestObject : public Object {
 	public:
-		Door(float x, float y);
-		~Door();
-		
-		void setDestination(u16 area, u8 mapX, u8 mapY, float playerX, float playerY, u8 playerDirection);
+		ChestObject(float x, float y);
+		~ChestObject();
 		
 		void onEvent(u8 event);
 		
+		void resetTiles(Map *map);
+		
 	private:
-		u16 m_area;
-		
-		u8 m_mapX;
-		u8 m_mapY;
-		
-		u16 m_playerX;
-		u16 m_playerY;
-		
-		u8 m_playerDirection;
+		bool m_opened;
 };
 
-#endif // DOOR_HPP_
+#endif // CHESTOBJECT_HPP_

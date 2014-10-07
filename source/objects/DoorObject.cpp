@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Door.cpp
+ *       Filename:  DoorObject.cpp
  *
  *    Description:  
  *
@@ -15,20 +15,20 @@
  *
  * =====================================================================================
  */
-#include "Door.hpp"
+#include "DoorObject.hpp"
 #include "DoorTransition.hpp"
 #include "GameStateManager.hpp"
 #include "Map.hpp"
 #include "Sound.hpp"
 #include "TransitionState.hpp"
 
-Door::Door(float x, float y) : Object(x, y) {
+DoorObject::DoorObject(float x, float y) : Object(x, y) {
 }
 
-Door::~Door() {
+DoorObject::~DoorObject() {
 }
 
-void Door::setDestination(u16 area, u8 mapX, u8 mapY, float playerX, float playerY, u8 playerDirection) {
+void DoorObject::setDestination(u16 area, u8 mapX, u8 mapY, float playerX, float playerY, u8 playerDirection) {
 	m_area = area;
 	
 	m_mapX = mapX;
@@ -40,7 +40,7 @@ void Door::setDestination(u16 area, u8 mapX, u8 mapY, float playerX, float playe
 	m_playerDirection = playerDirection;
 }
 
-void Door::onEvent(u8 event) {
+void DoorObject::onEvent(u8 event) {
 	if(event == Map::EventType::ChangeMap) {
 		Sound::Effect::mapStairs.play();
 		

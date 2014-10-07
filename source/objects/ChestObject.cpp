@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Chest.cpp
+ *       Filename:  ChestObject.cpp
  *
  *    Description:  
  *
@@ -15,20 +15,20 @@
  *
  * =====================================================================================
  */
-#include "Chest.hpp"
+#include "ChestObject.hpp"
 #include "ChestOpenedState.hpp"
 #include "GameStateManager.hpp"
 #include "MapManager.hpp"
 #include "Sound.hpp"
 
-Chest::Chest(float x, float y) : Object(x, y) {
+ChestObject::ChestObject(float x, float y) : Object(x, y) {
 	m_opened = false;
 }
 
-Chest::~Chest() {
+ChestObject::~ChestObject() {
 }
 
-void Chest::onEvent(u8 event) {
+void ChestObject::onEvent(u8 event) {
 	if(event == Map::EventType::ChestOpened) {
 		Sound::Effect::chest.play();
 		
@@ -40,7 +40,7 @@ void Chest::onEvent(u8 event) {
 	}
 }
 
-void Chest::resetTiles(Map *map) {
+void ChestObject::resetTiles(Map *map) {
 	if(m_opened) {
 		map->setTile(m_x / 16, m_y / 16 - 1, 240);
 	}

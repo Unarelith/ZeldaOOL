@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Chest.hpp
+ *       Filename:  GrassObject.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  06/10/2014 20:24:41
+ *        Created:  07/10/2014 15:33:51
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,22 +15,20 @@
  *
  * =====================================================================================
  */
-#ifndef CHEST_HPP_
-#define CHEST_HPP_
+#ifndef GRASSOBJECT_HPP_
+#define GRASSOBJECT_HPP_
 
 #include "Object.hpp"
 
-class Chest : public Object {
+class GrassObject : public Object {
 	public:
-		Chest(float x, float y);
-		~Chest();
+		GrassObject(float x, float y, bool lowGrass = false);
+		~GrassObject();
 		
 		void onEvent(u8 event);
 		
-		void resetTiles(Map *map);
-		
 	private:
-		bool m_opened;
+		bool m_lowGrass;
 };
 
-#endif // CHEST_HPP_
+#endif // GRASSOBJECT_HPP_

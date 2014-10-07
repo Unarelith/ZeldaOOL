@@ -21,7 +21,7 @@
 #include "Application.hpp"
 #include "Config.hpp"
 #include "CharacterManager.hpp"
-#include "Chest.hpp"
+#include "ChestObject.hpp"
 #include "DialogState.hpp"
 #include "DoorManager.hpp"
 #include "DoorTransition.hpp"
@@ -64,8 +64,8 @@ MapState::MapState() {
 	
 	MapManager::currentMap->addObject(button);
 	
-	Chest *testChest = new Chest(1 * 16, 5 * 16);
-	Chest *testChest2 = new Chest(5 * 16, 2 * 16);
+	ChestObject *testChest = new ChestObject(1 * 16, 5 * 16);
+	ChestObject *testChest2 = new ChestObject(5 * 16, 2 * 16);
 	
 	MapManager::getMap(0, 0, 1)->addObject(testChest);
 	MapManager::getMap(2, 0, 0)->addObject(testChest2);
