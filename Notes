@@ -1,7 +1,4 @@
 ===== TODO =====
-- Find a way for 'Map' to know which tiles don't need to be resetted
-	=> Like static objects, or chests
-		-> Add a bool in 'Object'?
 - Add collectable items
 	=> Add 'Collectable' abstract class, child of 'Sprite' and 'Entity'
 	=> Add 'HeartCollectable' child class

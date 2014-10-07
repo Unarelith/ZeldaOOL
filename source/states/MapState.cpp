@@ -29,7 +29,6 @@
 #include "GameStateManager.hpp"
 #include "IconManager.hpp"
 #include "Keyboard.hpp"
-#include "MapEventManager.hpp"
 #include "MapState.hpp"
 #include "MenuState.hpp"
 #include "ScrollingTransition.hpp"
@@ -82,8 +81,6 @@ void MapState::update() {
 	MapManager::currentMap->update();
 	
 	CharacterManager::player.update();
-	
-	MapEventManager::update();
 	
 	if(CharacterManager::player.currentState()->canStartMapTransition()) {
 		if(CharacterManager::player.x() < -3) {
