@@ -18,6 +18,7 @@
 #ifndef CHESTOBJECT_HPP_
 #define CHESTOBJECT_HPP_
 
+#include "Collectable.hpp"
 #include "Object.hpp"
 
 class ChestObject : public Object {
@@ -31,6 +32,8 @@ class ChestObject : public Object {
 		
 	private:
 		bool m_opened;
+		
+		Collectable *m_collectable;
 };
 
 #endif // CHESTOBJECT_HPP_

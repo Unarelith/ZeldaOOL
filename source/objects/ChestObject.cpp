@@ -19,10 +19,13 @@
 #include "ChestOpenedState.hpp"
 #include "GameStateManager.hpp"
 #include "MapManager.hpp"
+#include "RupeeCollectable.hpp"
 #include "Sound.hpp"
 
 ChestObject::ChestObject(float x, float y) : Object(x, y) {
 	m_opened = false;
+	
+	m_collectable = new RupeeCollectable(x, y, 30);
 }
 
 ChestObject::~ChestObject() {
@@ -36,7 +39,7 @@ void ChestObject::onEvent(u8 event) {
 		
 		resetTiles(MapManager::currentMap);
 		
-		GameStateManager::push(new ChestOpenedState(GameStateManager::top(), m_x, m_y));
+		GameStateManager::push(new ChestOpenedState(GameStateManager::top(), m_x, m_y, m_collectable));
 	}
 }
 

@@ -22,13 +22,11 @@
 #include "Map.hpp"
 #include "Sound.hpp"
 
-ChestOpenedState::ChestOpenedState(GameState *parent, float x, float y) : GameState(parent) {
+ChestOpenedState::ChestOpenedState(GameState *parent, float x, float y, Collectable *collectable) : GameState(parent) {
 	m_state = State::Opening;
 	
-	m_item.load("graphics/collectables/rupees30.png");
-	
-	m_itemX = x + 7 - m_item.width() / 2;
-	m_itemY = y - 8;
+	m_collectable = collectable;
+	m_collectable->setPosition(x + 7 - m_collectable->width() / 2, y - 8);
 	
 	m_movementCounter = 0;
 	
@@ -42,7 +40,7 @@ ChestOpenedState::~ChestOpenedState() {
 
 void ChestOpenedState::update() {
 	if(m_state == State::Opening) {
-		m_itemY -= m_speed;
+		m_collectable->move(0, -m_speed);
 		
 		m_movementCounter += m_speed;
 		
@@ -54,7 +52,7 @@ void ChestOpenedState::update() {
 	if(m_state == State::Opened) {
 		Sound::Effect::itemNew.play();
 		
-		CharacterManager::player.addRupees(30);
+		m_collectable->action();
 		
 		GameStateManager::push(new DialogState(GameStateManager::top(), "Vous obtenez [2]30 [2]Rubis[0]!\nC'est bien."));
 		
@@ -71,7 +69,7 @@ void ChestOpenedState::render() {
 	m_parent->render();
 	
 	if(m_state == State::Opening || (m_state == State::Finished && GameStateManager::size() > 1)) {
-		m_item.draw(m_itemX, m_itemY);
+		m_collectable->draw();
 	}
 }
 

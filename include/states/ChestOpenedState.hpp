@@ -18,12 +18,12 @@
 #ifndef CHESTOPENEDSTATE_HPP_
 #define CHESTOPENEDSTATE_HPP_
 
+#include "Collectable.hpp"
 #include "GameState.hpp"
-#include "Image.hpp"
 
 class ChestOpenedState : public GameState {
 	public:
-		ChestOpenedState(GameState *parent, float x, float y);
+		ChestOpenedState(GameState *parent, float x, float y, Collectable *collectable);
 		~ChestOpenedState();
 		
 		void update();
@@ -39,10 +39,7 @@ class ChestOpenedState : public GameState {
 	private:
 		State m_state;
 		
-		Image m_item;
-		
-		float m_itemX;
-		float m_itemY;
+		Collectable *m_collectable;
 		
 		float m_movementCounter;
 		
