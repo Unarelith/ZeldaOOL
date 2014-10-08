@@ -47,7 +47,7 @@ void Octorok::update() {
 	if(m_state == State::Standing) {
 		m_timer.start();
 		
-		if(m_timer.time() > 2000) {
+		if(m_timer.time() > 1000) {
 			m_vx = rand() % 3 - 1;
 			if(m_vx == 0) m_vy = rand() % 3 - 1;
 			

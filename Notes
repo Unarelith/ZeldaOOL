@@ -1,19 +1,26 @@
 ===== TODO =====
-- Add collectable items
-	=> Add 'Collectable' abstract class, child of 'Sprite' and 'Entity'
-	=> Add 'HeartCollectable' child class
-	=> Add an array of 'Collectable' in Map
-	=> Map updates and draws collectables
+- Finish 'Octorok'
+	=> Fix map collisions
+		-> Undo the move from 'Player::mapCollisions()' to 'Character::mapCollisions()'
+		-> Implement a generic function 'Character::mapCollisions()' that works with hitbox and movement vectors
+		-> Try to understand better 'Player::mapCollisions()' and rewrite it
+	=> Add collisions with 'Player' and 'HurtState' for player
+	=> Add collisions with 'Sword' and 'State::Hurt' for octorok
+	=> Improve IA to be closer to the original one
+	=> Add 'Projectile' class (inherits from 'Image'/'Sprite' and 'Entity')
+	=> Implement projectiles for octorok
 - Implement 'LanguageManager'
 	=> Like Asylia one
-- Rename 'Door' to 'DoorObject' and 'Chest' to 'ChestObject'
-	=> 'DoorManager' is so 'DoorObjectManager'
 - Implement 'NPC' class
-- Add 'Enemy' abstract class, child of 'Character'
-	=> With at least a 'Octorok' child class, to test battles
+	=> Add movement
+		-> Add map collisions
+		-> Find a way to predefine movement
+		-> Implement the realisation of the predefined movemement
+	=> When player press 'A' in front of a NPC, push a 'DialogState' with the NPC's text
 - Rewrite managers to read xml config files
-	=> Rewrite 'MapManager' and add 'tilesets.xml' and 'maps.xml' config files in 'data/config/' directory
-	=> Rewrite 'Player' and add 'player.xml' config file
+	=> Rewrite 'MapManager' and 'Player'
+		-> Add 'tilesets.xml', 'maps.xml' and 'player.xml' config files in 'data/config/' directory
+- Write 'ChestManager'
 - Reimplement 'View' concept
 	=> Each View have shaders
 		-> Vertex shader: Move the view, rotate (if needed), etc...
@@ -26,6 +33,12 @@
 	=> Read from a given path (to launch the game outside of its folder)
 - Implement a game pad, movable and resizable via config files
 - Improve game for OpenGL ES and try on Android
+- Write a little game editor with Qt
+	=> Add maps
+		~> Add objects
+		~> Add collectables
+		~> Add enemies
+		~> Add NPCs
 
 ===== ISSUES =====
 - Improve collectable objets drop movement

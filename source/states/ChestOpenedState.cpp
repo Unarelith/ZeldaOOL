@@ -26,7 +26,7 @@ ChestOpenedState::ChestOpenedState(GameState *parent, float x, float y, Collecta
 	m_state = State::Opening;
 	
 	m_collectable = collectable;
-	m_collectable->setPosition(x + 7 - m_collectable->width() / 2, y - 8);
+	m_collectable->setPosition(x + 7 - m_collectable->width() / 2, y + 8);
 	
 	m_movementCounter = 0;
 	
