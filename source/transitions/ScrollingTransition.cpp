@@ -55,7 +55,7 @@ ScrollingTransition::~ScrollingTransition() {
 }
 
 void ScrollingTransition::update() {
-	CharacterManager::player.currentState()->move(m_vx * 0.15f, m_vy * 0.2f);
+	CharacterManager::player.currentState()->move(m_vx * 0.15f, m_vy * 0.21f);
 	
 	MapManager::currentMap->view()->move(-m_vx * 1.6f, -m_vy * 1.5f);
 	m_nextMap->view()->move(-m_vx * 1.6f, -m_vy * 1.5f);

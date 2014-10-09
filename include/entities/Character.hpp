@@ -26,7 +26,7 @@ class Character : public Sprite, public Entity {
 	public:
 		Character();
 		Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
-		~Character();
+		virtual ~Character();
 		
 		void load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
@@ -35,6 +35,8 @@ class Character : public Sprite, public Entity {
 		void turn(bool clockwise = true);
 		
 		void mapCollisions();
+		
+		virtual void mapCollisionAction(float vx, float vy);
 		
 		enum Direction {
 			Down,
@@ -46,6 +48,8 @@ class Character : public Sprite, public Entity {
 		u8 direction() const { return m_direction; }
 		
 		void setDirection(u8 direction) { m_direction = direction; }
+		
+		void updateDirection();
 		
 	protected:
 		u8 m_direction;

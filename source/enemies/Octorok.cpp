@@ -44,13 +44,9 @@ void Octorok::reset() {
 	
 	m_timer.reset();
 	
-	m_vx = 0;
-	m_vy = 0;
-	
 	m_movementCounter = 0;
 	
-	m_randomTime = (rand() % 4) * 1000;
-	m_randomMaxMovement = (rand() % 4) * 8;
+	m_randomMaxMovement = (rand() % 5) * 8;
 	
 	stopAnimation(m_direction);
 }
@@ -59,7 +55,7 @@ void Octorok::update() {
 	if(m_state == State::Standing) {
 		m_timer.start();
 		
-		if(m_timer.time() > m_randomTime) {
+		if(m_timer.time() > 1000) {
 			m_vx = rand() % 3 - 1;
 			m_vy = rand() % 3 - 1;
 			
@@ -71,29 +67,27 @@ void Octorok::update() {
 				}
 			}
 			
-			if(m_vx < 0) m_direction = Direction::Left;
-			if(m_vx > 0) m_direction = Direction::Right;
-			if(m_vy < 0) m_direction = Direction::Up;
-			if(m_vy > 0) m_direction = Direction::Down;
+			mapCollisions();
+			
+			updateDirection();
 			
 			if(m_vx != 0 || m_vy != 0) m_state = State::Moving;
 		}
 	}
 	else if(m_state == State::Moving) {
-		if(m_movementCounter < 8 + m_randomMaxMovement) {
-			mapCollisions();
-			
+		if(m_movementCounter < 16 + m_randomMaxMovement) {
 			if(m_x + m_hitbox.width + m_vx * 0.2f > MapManager::currentMap->width() * 16
 			|| m_x + m_vx * 0.2f < 0
-			|| m_y + m_hitbox.height * 0.2f > MapManager::currentMap->height() * 16
-			|| m_y + m_vy * 0.2f < 0
-			|| (m_vx == 0 && m_vy == 0)) {
-				reset();
+			|| m_y + m_hitbox.height + m_vy * 0.2f > MapManager::currentMap->height() * 16
+			|| m_y + m_vy * 0.2f < 0) {
+				mapCollisionAction(m_vx, m_vy);
 			}
 			
-			move(m_vx * 0.2f, m_vy * 0.2f);
+			mapCollisions();
 			
-			m_movementCounter += 0.2f;
+			move(m_vx * 0.3f, m_vy * 0.3f);
+			
+			m_movementCounter += 0.3f;
 		} else {
 			reset();
 		}
@@ -102,10 +96,25 @@ void Octorok::update() {
 
 void Octorok::draw() {
 	if(m_state == State::Standing) {
-		drawFrame(m_x, m_y - 16, m_animations[m_direction].frames[animationCurrentFrame(m_direction)]);
+		drawFrame(m_x, m_y, m_lastFrameDisplayed);
 	}
 	else if(m_state == State::Moving) {
-		playAnimation(m_x, m_y - 16, m_direction);
+		playAnimation(m_x, m_y, m_direction);
 	}
+}
+
+void Octorok::mapCollisionAction(float vx, float vy) {
+	if(vx != 0) {
+		m_vy = rand() % 3 - 1;
+		if(m_vy == 0) m_vx = -m_vx;
+		else m_vx = 0;
+	}
+	else if(vy != 0) {
+		m_vx = rand() % 3 - 1;
+		if(m_vx == 0) m_vy = -m_vy;
+		else m_vy = 0;
+	}
+	
+	updateDirection();
 }
 

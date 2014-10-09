@@ -34,6 +34,8 @@ class Octorok : public Enemy {
 		
 		void draw();
 		
+		void mapCollisionAction(float vx, float vy);
+		
 		enum State {
 			Standing,
 			Moving
@@ -44,12 +46,8 @@ class Octorok : public Enemy {
 		
 		Timer m_timer;
 		
-		s8 m_vx;
-		s8 m_vy;
-		
 		float m_movementCounter;
 		
-		u16 m_randomTime;
 		u16 m_randomMaxMovement;
 };
 

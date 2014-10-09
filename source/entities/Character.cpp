@@ -59,6 +59,74 @@ void Character::turn(bool clockwise) {
 }
 
 void Character::mapCollisions() {
+	if(m_vy != 0) {
+		if (!MapHelper::passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_vy)
+		||  !MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_vy)
+		||  !MapHelper::passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_vy + m_hitbox.height)
+		||  !MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_vy + m_hitbox.height)) {
+			if (!MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_vy)
+			&&	 MapHelper::passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_vy)) {
+				m_vx = -1;
+			}
+			
+			if (!MapHelper::passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_vy)
+			&&   MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_vy)) {
+				m_vx = 1;
+			}
+			
+			if (!MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_hitbox.height + m_vy)
+			&&	 MapHelper::passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_hitbox.height + m_vy)) {
+				m_vx = -1;
+			}
+			
+			if (!MapHelper::passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_hitbox.height + m_vy)
+			&&   MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_hitbox.height + m_vy)) {
+				m_vx = 1;
+			}
+			
+			mapCollisionAction(0, m_vy);
+		}
+	}
 	
+	if(m_vx != 0) {
+		if (!MapHelper::passable(m_x + m_hitbox.x + m_vx,				   m_y + m_hitbox.y)
+		||  !MapHelper::passable(m_x + m_hitbox.x + m_vx + m_hitbox.width, m_y + m_hitbox.y)
+		||  !MapHelper::passable(m_x + m_hitbox.x + m_vx,				   m_y + m_hitbox.y + m_hitbox.height)
+		||  !MapHelper::passable(m_x + m_hitbox.x + m_vx + m_hitbox.width, m_y + m_hitbox.y + m_hitbox.height)) {
+			if (!MapHelper::passable(m_x + m_hitbox.x + m_vx, m_y + m_hitbox.y + m_hitbox.height)
+			&&	 MapHelper::passable(m_x + m_hitbox.x + m_vx, m_y + m_hitbox.y)) {
+				m_vy = -1;
+			}
+			
+			if (!MapHelper::passable(m_x + m_hitbox.x + m_vx, m_y + m_hitbox.y)
+			&&   MapHelper::passable(m_x + m_hitbox.x + m_vx, m_y + m_hitbox.y + m_hitbox.height)) {
+				m_vy = 1;
+			}
+			
+			if (!MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width + m_vx, m_y + m_hitbox.y + m_hitbox.height)
+			&&	 MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width + m_vx, m_y + m_hitbox.y)) {
+				m_vy = -1;
+			}
+			
+			if (!MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width + m_vx, m_y + m_hitbox.y)
+			&&   MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width + m_vx, m_y + m_hitbox.y + m_hitbox.height)) {
+				m_vy = 1;
+			}
+			
+			mapCollisionAction(m_vx, 0);
+		}
+	}
+}
+
+void Character::mapCollisionAction(float vx, float vy) {
+	if(m_vx != 0) m_vx = 0;
+	if(m_vy != 0) m_vy = 0;
+}
+
+void Character::updateDirection() {
+	if(m_vx < 0) m_direction = Direction::Left;
+	if(m_vx > 0) m_direction = Direction::Right;
+	if(m_vy < 0) m_direction = Direction::Up;
+	if(m_vy > 0) m_direction = Direction::Down;
 }
 
