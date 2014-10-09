@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "MapManager.hpp"
 #include "Octorok.hpp"
 
 Octorok::Octorok() {
@@ -35,21 +36,40 @@ void Octorok::load(u16 x, u16 y, u8 direction) {
 	addAnimation({6, 2}, 150);
 	addAnimation({7, 3}, 150);
 	
+	reset();
+}
+
+void Octorok::reset() {
 	m_state = State::Standing;
 	
-	m_movementCounter = 0;
+	m_timer.reset();
 	
 	m_vx = 0;
 	m_vy = 0;
+	
+	m_movementCounter = 0;
+	
+	m_randomTime = (rand() % 4) * 1000;
+	m_randomMaxMovement = (rand() % 4) * 8;
+	
+	stopAnimation(m_direction);
 }
 
 void Octorok::update() {
 	if(m_state == State::Standing) {
 		m_timer.start();
 		
-		if(m_timer.time() > 1000) {
+		if(m_timer.time() > m_randomTime) {
 			m_vx = rand() % 3 - 1;
-			if(m_vx == 0) m_vy = rand() % 3 - 1;
+			m_vy = rand() % 3 - 1;
+			
+			if(m_vx != 0 && m_vy != 0) {
+				if(rand() % 2 == 0) {
+					m_vx = 0;
+				} else {
+					m_vy = 0;
+				}
+			}
 			
 			if(m_vx < 0) m_direction = Direction::Left;
 			if(m_vx > 0) m_direction = Direction::Right;
@@ -60,26 +80,29 @@ void Octorok::update() {
 		}
 	}
 	else if(m_state == State::Moving) {
-		if(m_movementCounter < 16) {
+		if(m_movementCounter < 8 + m_randomMaxMovement) {
+			mapCollisions();
+			
+			if(m_x + m_hitbox.width + m_vx * 0.2f > MapManager::currentMap->width() * 16
+			|| m_x + m_vx * 0.2f < 0
+			|| m_y + m_hitbox.height * 0.2f > MapManager::currentMap->height() * 16
+			|| m_y + m_vy * 0.2f < 0
+			|| (m_vx == 0 && m_vy == 0)) {
+				reset();
+			}
+			
 			move(m_vx * 0.2f, m_vy * 0.2f);
 			
 			m_movementCounter += 0.2f;
 		} else {
-			m_timer.reset();
-			
-			m_vx = 0;
-			m_vy = 0;
-			
-			m_movementCounter = 0;
-			
-			m_state = State::Standing;
+			reset();
 		}
 	}
 }
 
 void Octorok::draw() {
 	if(m_state == State::Standing) {
-		drawFrame(m_x, m_y - 16, m_direction);
+		drawFrame(m_x, m_y - 16, m_animations[m_direction].frames[animationCurrentFrame(m_direction)]);
 	}
 	else if(m_state == State::Moving) {
 		playAnimation(m_x, m_y - 16, m_direction);

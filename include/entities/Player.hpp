@@ -38,14 +38,15 @@ class Player : public Character {
 		
 		void setNextStateType(PlayerState::StateType nextType);
 		
+		void addHearts(float hearts);
+		void addRupees(u16 rupees);
+		
 		PlayerState *currentState() const { return m_state; }
 		
 		u8 maxLife() const { return m_maxLife; }
 		u8 life() const { return m_life; }
-		void addHearts(float hearts) { m_life += hearts * 4; if(m_life > m_maxLife) m_life = m_maxLife; }
 		
 		u16 rupees() const { return m_rupees; }
-		void addRupees(u16 rupees) { m_rupees += rupees; if(m_rupees > 999) m_rupees = 999; }
 		
 		Inventory *inventory() { return &m_inventory; }
 		

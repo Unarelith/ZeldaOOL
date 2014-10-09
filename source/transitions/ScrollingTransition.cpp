@@ -44,7 +44,7 @@ ScrollingTransition::ScrollingTransition(u8 mode) {
 	
 	m_nextMap->resetTiles();
 	m_nextMap->updateTiles();
-	m_nextMap->setPosition(MapManager::currentMap->width() * 16 * -m_vx, MapManager::currentMap->height() * 16 * -m_vy);
+	m_nextMap->view()->setPosition(MapManager::currentMap->width() * 16 * m_vx, MapManager::currentMap->height() * 16 * m_vy);
 	
 	m_scrolled = 0;
 	
@@ -57,8 +57,8 @@ ScrollingTransition::~ScrollingTransition() {
 void ScrollingTransition::update() {
 	CharacterManager::player.currentState()->move(-m_vx * 1.45f, -m_vy * 1.275f);
 	
-	MapManager::currentMap->move(m_vx * 1.6f, m_vy * 1.5f);
-	m_nextMap->move(m_vx * 1.6f, m_vy * 1.5f);
+	MapManager::currentMap->view()->move(-m_vx * 1.6f, -m_vy * 1.5f);
+	m_nextMap->view()->move(-m_vx * 1.6f, -m_vy * 1.5f);
 	
 	if(m_vx != 0) m_scrolled += 1.6f;
 	if(m_vy != 0) m_scrolled += 1.5f;
@@ -66,7 +66,7 @@ void ScrollingTransition::update() {
 	if((m_scrolled >= WINDOW_WIDTH && (m_mode == Mode::ScrollingLeft || m_mode == Mode::ScrollingRight))
 	|| (m_scrolled >= WINDOW_HEIGHT - 16 && (m_mode == Mode::ScrollingUp || m_mode == Mode::ScrollingDown))) {
 		MapManager::currentMap = m_nextMap;
-		MapManager::currentMap->setPosition(0, 0);
+		MapManager::currentMap->view()->setPosition(0, 0);
 		
 		m_nextMap = nullptr;
 		m_scrolled = 0;

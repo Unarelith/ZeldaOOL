@@ -34,6 +34,8 @@ class Character : public Sprite, public Entity {
 		
 		void turn(bool clockwise = true);
 		
+		void mapCollisions();
+		
 		enum Direction {
 			Down,
 			Right,

@@ -15,14 +15,8 @@
  *
  * =====================================================================================
  */
-#include <sys/stat.h>
-
-#define GLM_FORCE_RADIANS
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include "Application.hpp"
-#include "Debug.hpp"
+#include "Config.hpp"
+#include "ShaderManager.hpp"
 #include "TileMap.hpp"
 #include "VertexAttribute.hpp"
 
@@ -52,19 +46,7 @@ void TileMap::load(Texture &texture, u16 width, u16 height, s16 *data) {
 	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
-	m_shader.load("shaders/map.v.glsl", "shaders/map.f.glsl");
-	ShaderManager::push(m_shader);
-	
-	m_x = 0;
-	m_y = 0;
-	
-	glm::mat4 projectionMatrix = glm::ortho(m_x, m_x + WINDOW_WIDTH, m_y + WINDOW_HEIGHT - 16.0f, m_y - 16.0f);
-	
-	glUniformMatrix4fv(ShaderManager::currentShader().uniform("u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-	
-	glUniform2f(ShaderManager::currentShader().uniform("u_mapPosition"), m_x, m_y);
-	
-	ShaderManager::pop();
+	m_view.load(0, 16, WINDOW_WIDTH, WINDOW_HEIGHT - 16);
 }
 
 void TileMap::updateTile(float x, float y, u16 id) {
@@ -91,9 +73,7 @@ void TileMap::updateTile(float x, float y, u16 id) {
 }
 
 void TileMap::draw() {
-	ShaderManager::push(m_shader);
-	
-	glUniform2f(ShaderManager::currentShader().uniform("u_mapPosition"), m_x, m_y);
+	m_view.enable();
 	
 	ShaderManager::currentShader().enableVertexAttribArray("coord2d");
 	ShaderManager::currentShader().enableVertexAttribArray("texCoord");
@@ -111,12 +91,12 @@ void TileMap::draw() {
 	
 	m_texture->unbind();
 	
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	
 	ShaderManager::currentShader().disableVertexAttribArray("colorMod");
 	ShaderManager::currentShader().disableVertexAttribArray("texCoord");
 	ShaderManager::currentShader().disableVertexAttribArray("coord2d");
 	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	
-	ShaderManager::pop();
+	m_view.disable();
 }
 

@@ -28,6 +28,8 @@ class Octorok : public Enemy {
 		
 		void load(u16 x, u16 y, u8 direction);
 		
+		void reset();
+		
 		void update();
 		
 		void draw();
@@ -46,6 +48,9 @@ class Octorok : public Enemy {
 		s8 m_vy;
 		
 		float m_movementCounter;
+		
+		u16 m_randomTime;
+		u16 m_randomMaxMovement;
 };
 
 #endif // OCTOROK_HPP_

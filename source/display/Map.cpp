@@ -144,7 +144,7 @@ void Map::update() {
 void Map::draw() {
 	TileMap::draw();
 	
-	ShaderManager::push(m_shader);
+	m_view.enable();
 	
 	for(auto &it : m_collectables) {
 		it->draw();
@@ -154,7 +154,7 @@ void Map::draw() {
 		it->draw();
 	}
 	
-	ShaderManager::pop();
+	m_view.disable();
 }
 
 u16 Map::getTile(u16 tileX, u16 tileY) {

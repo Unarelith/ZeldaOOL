@@ -19,8 +19,8 @@
 #define WINDOW_HPP_
 
 #include "SDLHeaders.hpp"
-#include "ShaderManager.hpp"
 #include "Types.hpp"
+#include "View.hpp"
 
 class Window {
 	public:
@@ -50,7 +50,7 @@ class Window {
 		u16 m_width;
 		u16 m_height;
 		
-		Shader m_defaultShader;
+		View m_defaultView;
 };
 
 #endif // WINDOW_HPP_

@@ -1,12 +1,12 @@
 ===== TODO =====
 - Finish 'Octorok'
 	=> Fix map collisions
-		-> Undo the move from 'Player::mapCollisions()' to 'Character::mapCollisions()'
 		-> Implement a generic function 'Character::mapCollisions()' that works with hitbox and movement vectors
 		-> Try to understand better 'Player::mapCollisions()' and rewrite it
 	=> Add collisions with 'Player' and 'HurtState' for player
 	=> Add collisions with 'Sword' and 'State::Hurt' for octorok
 	=> Improve IA to be closer to the original one
+		-> Random values are recomputed each frame
 	=> Add 'Projectile' class (inherits from 'Image'/'Sprite' and 'Entity')
 	=> Implement projectiles for octorok
 - Implement 'LanguageManager'
@@ -21,11 +21,6 @@
 	=> Rewrite 'MapManager' and 'Player'
 		-> Add 'tilesets.xml', 'maps.xml' and 'player.xml' config files in 'data/config/' directory
 - Write 'ChestManager'
-- Reimplement 'View' concept
-	=> Each View have shaders
-		-> Vertex shader: Move the view, rotate (if needed), etc...
-		-> Fragment shader: Cut things out of the view (cut textures)
-	=> Reimplement it in 'Window'
 - Improve OpenGL code, wrapping it in classes
 	=> Write a class VertexBufferObject, and use it in 'TileMap'
 	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'

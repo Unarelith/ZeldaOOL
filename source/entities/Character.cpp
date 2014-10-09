@@ -16,6 +16,8 @@
  * =====================================================================================
  */
 #include "Character.hpp"
+#include "MapHelper.hpp"
+#include "TilesData.hpp"
 
 Character::Character() {
 }
@@ -41,21 +43,21 @@ void Character::draw() {
 void Character::turn(bool clockwise) {
 	switch(m_direction) {
 		case Direction::Left:
-			if(clockwise) m_direction = Direction::Up;
-			else m_direction = Direction::Down;
+			m_direction = (clockwise) ? Direction::Up	 : Direction::Down;
 			break;
 		case Direction::Right:
-			if(clockwise) m_direction = Direction::Down;
-			else m_direction = Direction::Up;
+			m_direction = (clockwise) ? Direction::Down	 : Direction::Up;
 			break;
 		case Direction::Up:
-			if(clockwise) m_direction = Direction::Right;
-			else m_direction = Direction::Left;
+			m_direction = (clockwise) ? Direction::Right : Direction::Left;
 			break;
 		case Direction::Down:
-			if(clockwise) m_direction = Direction::Left;
-			else m_direction = Direction::Right;
+			m_direction = (clockwise) ? Direction::Left	 : Direction::Right;
 			break;
+			
 	}
 }
 
+void Character::mapCollisions() {
+	
+}

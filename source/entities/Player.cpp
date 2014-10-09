@@ -58,7 +58,8 @@ void Player::load() {
 	// SpinAttack
 	addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
 	
-	m_hitbox = IntRect(3, 7, 10, 9);
+	//m_hitbox = IntRect(3, 7, 10, 9);
+	m_hitbox = IntRect(4, 5, 8, 10);
 	
 	m_state = new StandingState();
 	
@@ -75,7 +76,7 @@ void Player::load() {
 void Player::mapCollisions() {
 	u8 collisionMatrix[4][4] = {
 		{12, 8,12,13},
-		{ 3, 8, 3,13},
+		{ 4, 8, 4,13},
 		{ 5, 5,10, 5},
 		{ 5,15,10,15}
 	};
@@ -183,5 +184,21 @@ void Player::draw() {
 
 void Player::setNextStateType(PlayerState::StateType nextType) {
 	m_state->setNextStateType(nextType);
+}
+
+void Player::addHearts(float hearts) {
+	m_life += hearts * 4;
+	
+	if(m_life > m_maxLife) {
+		m_life = m_maxLife;
+	}
+}
+
+void Player::addRupees(u16 rupees) {
+	m_rupees += rupees;
+	
+	if(m_rupees > 999) {
+		m_rupees = 999;
+	}
 }
 

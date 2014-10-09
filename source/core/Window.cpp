@@ -52,16 +52,12 @@ void Window::open() {
 	
 	m_context = SDL_GL_CreateContext(m_window);
 	
-	m_defaultShader.load("shaders/default.v.glsl", "shaders/default.f.glsl");
-	ShaderManager::push(m_defaultShader);
-	
-	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f);
-	
-	glUniformMatrix4fv(ShaderManager::currentShader().uniform("u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-	
 	initGL();
 	
 	m_isOpen = true;
+	
+	m_defaultView.load(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+	m_defaultView.enable();
 }
 
 void Window::free() {

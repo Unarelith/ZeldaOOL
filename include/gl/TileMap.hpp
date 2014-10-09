@@ -19,10 +19,8 @@
 #define TILEMAP_HPP_
 
 #include "OpenGL.hpp"
-#include "ShaderManager.hpp"
 #include "Texture.hpp"
-
-#include "Application.hpp"
+#include "View.hpp"
 
 class TileMap {
 	public:
@@ -36,8 +34,7 @@ class TileMap {
 		
 		void draw();
 		
-		void setPosition(float x, float y) { m_x = x; m_y = y; }
-		void move(float dx, float dy) { m_x += dx; m_y += dy; }
+		View *view() { return &m_view; }
 		
 	protected:
 		Texture *m_texture;
@@ -45,15 +42,12 @@ class TileMap {
 		u16 m_width;
 		u16 m_height;
 		
-		Shader m_shader;
+		View m_view;
 		
 	private:
 		GLuint m_vbo;
 		
 		s16 *m_data;
-		
-		float m_x;
-		float m_y;
 };
 
 #endif // TILEMAP_HPP_
