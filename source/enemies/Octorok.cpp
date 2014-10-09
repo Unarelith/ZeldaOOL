@@ -76,10 +76,10 @@ void Octorok::update() {
 	}
 	else if(m_state == State::Moving) {
 		if(m_movementCounter < 16 + m_randomMaxMovement) {
-			if(m_x + m_hitbox.width + m_vx * 0.2f > MapManager::currentMap->width() * 16
-			|| m_x + m_vx * 0.2f < 0
-			|| m_y + m_hitbox.height + m_vy * 0.2f > MapManager::currentMap->height() * 16
-			|| m_y + m_vy * 0.2f < 0) {
+			if(m_x + m_hitbox.width + m_vx > MapManager::currentMap->width() * 16
+			|| m_x + m_vx < 0
+			|| m_y + m_hitbox.height + m_vy > MapManager::currentMap->height() * 16
+			|| m_y + m_vy < 0) {
 				mapCollisionAction(m_vx, m_vy);
 			}
 			
