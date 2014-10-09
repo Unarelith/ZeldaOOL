@@ -61,3 +61,4 @@ void Character::turn(bool clockwise) {
 void Character::mapCollisions() {
 	
 }
+

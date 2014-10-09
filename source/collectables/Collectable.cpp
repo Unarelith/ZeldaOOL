@@ -51,6 +51,6 @@ void Collectable::update() {
 }
 
 void Collectable::draw() {
-	Image::draw(m_x, m_y - 16);
+	Image::draw(m_x, m_y);
 }
 

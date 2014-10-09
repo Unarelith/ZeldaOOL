@@ -17,7 +17,7 @@
  */
 #include "Object.hpp"
 
-Object::Object(float x, float y) : Entity(x, y + 16, 16, 16) {
+Object::Object(float x, float y) : Entity(x, y, 16, 16) {
 }
 
 Object::~Object() {

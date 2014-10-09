@@ -54,7 +54,7 @@ void GrassObject::onEvent(u8 event) {
 			MapManager::currentMap->addCollectable(new RupeeCollectable(m_x, m_y, 30));
 		}
 		
-		MapManager::currentMap->setTile((m_x + 8) / 16, (m_y + 8) / 16 - 1, 36);
+		MapManager::currentMap->setTile((m_x + 8) / 16, (m_y + 8) / 16, 36);
 	}
 }
 

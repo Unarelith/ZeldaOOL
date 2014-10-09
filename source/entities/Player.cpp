@@ -35,7 +35,7 @@ Player::~Player() {
 }
 
 void Player::load() {
-	Character::load("graphics/characters/link.png", 64, 64, 16, 16, Direction::Down);
+	Character::load("graphics/characters/link.png", 4 * 16, 3 * 16, 16, 16, Direction::Down);
 	
 	// Movement
 	addAnimation({4, 0}, 110);

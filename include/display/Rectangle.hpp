@@ -43,14 +43,14 @@ class Rectangle {
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
+		static Shader shader;
+		
 	private:
 		float m_x;
 		float m_y;
 		
 		u16 m_width;
 		u16 m_height;
-		
-		Shader m_shader;
 };
 
 #endif // RECTANGLE_HPP_

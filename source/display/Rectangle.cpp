@@ -23,23 +23,26 @@
 #include "Config.hpp"
 #include "Rectangle.hpp"
 
+Shader Rectangle::shader;
+
 Rectangle::Rectangle() {
-	loadShader();
+	if(!shader.isLoaded()) loadShader();
 }
 
 Rectangle::Rectangle(float x, float y, u16 width, u16 height) {
 	move(x, y);
 	resize(width, height);
 	
-	loadShader();
+	if(!shader.isLoaded()) loadShader();
 }
 
 Rectangle::~Rectangle() {
 }
 
 void Rectangle::loadShader() {
-	m_shader.load("shaders/rectangle.v.glsl", "shaders/rectangle.f.glsl");
-	ShaderManager::push(m_shader);
+	shader.load("shaders/rectangle.v.glsl", "shaders/rectangle.f.glsl");
+	
+	ShaderManager::push(shader);
 	
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f);
 	
@@ -68,7 +71,7 @@ void Rectangle::draw(Color color) {
 		3, 1, 2
 	};
 	
-	ShaderManager::push(m_shader);
+	ShaderManager::push(shader);
 	
 	ShaderManager::currentShader().enableVertexAttribArray("coord2d");
 	ShaderManager::currentShader().enableVertexAttribArray("color");

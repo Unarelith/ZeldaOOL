@@ -45,7 +45,7 @@ void ChestObject::onEvent(u8 event) {
 
 void ChestObject::resetTiles(Map *map) {
 	if(m_opened) {
-		map->setTile(m_x / 16, m_y / 16 - 1, 240);
+		map->setTile(m_x / 16, m_y / 16, 240);
 	}
 }
 

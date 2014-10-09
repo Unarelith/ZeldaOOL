@@ -22,6 +22,7 @@
 #include "Shader.hpp"
 
 Shader::Shader() {
+	m_isLoaded = false;
 }
 
 Shader::Shader(const char *vertexFilename, const char *fragmentFilename) {
@@ -63,6 +64,8 @@ void Shader::load(const char *vertexFilename, const char *fragmentFilename) {
 		
 		exit(EXIT_FAILURE);
 	}
+	
+	m_isLoaded = true;
 }
 
 void Shader::compile(GLenum type, GLuint &shader, const char *filename) {

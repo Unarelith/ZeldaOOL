@@ -25,7 +25,7 @@
 DialogState::DialogState(GameState *parent, std::string text) : GameState(parent) {
 	Sprite::pause = true;
 	
-	if(CharacterManager::player.y() + 16 < 96) {
+	if(CharacterManager::player.y() + 32 < 96) {
 		m_dialog.setPosition(Dialog::Position::Bottom);
 	}
 	

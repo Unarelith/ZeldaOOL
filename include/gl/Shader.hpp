@@ -40,10 +40,14 @@ class Shader {
 		
 		GLint program() const { return m_program; }
 		
+		bool isLoaded() const { return m_isLoaded; }
+		
 	private:
 		GLuint m_vertexShader;
 		GLuint m_fragmentShader;
 		GLuint m_program;
+		
+		bool m_isLoaded;
 };
 
 #endif // SHADER_HPP_

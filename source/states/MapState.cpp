@@ -57,7 +57,7 @@ MapState::MapState() {
 	button->setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
 		Sound::Effect::chest.play();
 		
-		MapManager::currentMap->setTile(obj->x() / 16, obj->y() / 16 - 1, 8);
+		MapManager::currentMap->setTile(obj->x() / 16, obj->y() / 16, 8);
 		
 		MapManager::currentMap->setTile(7, 6, 36);
 		MapManager::currentMap->setTile(8, 6, 36);
@@ -92,10 +92,10 @@ void MapState::update() {
 		else if(CharacterManager::player.x() + 13 > MapManager::currentMap->width() * 16) {
 			GameStateManager::push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingRight)));
 		}
-		else if(CharacterManager::player.y() < 15) {
+		else if(CharacterManager::player.y() < -1) {
 			GameStateManager::push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingUp)));
 		}
-		else if(CharacterManager::player.y() + 15 > MapManager::currentMap->height() * 16 + 16) {
+		else if(CharacterManager::player.y() + 15 > MapManager::currentMap->height() * 16) {
 			GameStateManager::push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingDown)));
 		}
 	}
@@ -114,11 +114,15 @@ void MapState::update() {
 void MapState::render() {
 	MapManager::currentMap->draw();
 	
+	MapManager::currentMap->enableView();
+	
 	AnimationManager::playAnimations();
 	
 	CharacterManager::player.draw();
 	
 	EffectManager::drawEffects(&CharacterManager::player);
+	
+	MapManager::currentMap->disableView();
 	
 	m_statsBar.draw();
 }
