@@ -19,11 +19,32 @@
 #include "WeaponManager.hpp"
 
 Inventory::Inventory() {
+	m_maxLife = 13 * 4;
+	m_life = 11 * 4;
+	
+	m_rupees = 197;
+	
 	m_weaponA = nullptr;
 	m_weaponB = nullptr;
 }
 
 Inventory::~Inventory() {
+}
+
+void Inventory::addHearts(float hearts) {
+	m_life += hearts * 4;
+	
+	if(m_life > m_maxLife) {
+		m_life = m_maxLife;
+	}
+}
+
+void Inventory::addRupees(u16 rupees) {
+	m_rupees += rupees;
+	
+	if(m_rupees > 999) {
+		m_rupees = 999;
+	}
 }
 
 void Inventory::addWeapon(u8 weaponID, Vector2i position) {

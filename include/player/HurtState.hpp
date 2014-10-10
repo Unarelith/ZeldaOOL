@@ -29,16 +29,7 @@ class HurtState : public MovingState {
 		
 		void draw();
 		
-		enum State {
-			MoveBack,
-			CanMove
-		};
-		
 	private:
-		State m_state;
-		
-		Timer m_timer;
-		
 		float m_movementCounter;
 };
 

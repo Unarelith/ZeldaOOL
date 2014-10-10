@@ -18,9 +18,9 @@
 #ifndef ENEMY_HPP_
 #define ENEMY_HPP_
 
-#include "Character.hpp"
+#include "Battler.hpp"
 
-class Enemy : public Character {
+class Enemy : public Battler {
 	public:
 		Enemy();
 		Enemy(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);

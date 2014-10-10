@@ -39,6 +39,6 @@ void RupeeCollectable::action() {
 		case 30:	Sound::Effect::getRupees5.play();	break;
 	}
 	
-	CharacterManager::player.addRupees(m_rupees);
+	CharacterManager::player.inventory().addRupees(m_rupees);
 }
 

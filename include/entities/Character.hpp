@@ -30,13 +30,14 @@ class Character : public Sprite, public Entity {
 		
 		void load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
-		void draw();
-		
 		void turn(bool clockwise = true);
 		
 		void mapCollisions();
 		
 		virtual void mapCollisionAction(float vx, float vy);
+		
+		void setPaletteID(u8 id);
+		void resetPalette() { setPaletteID(0); }
 		
 		enum Direction {
 			Down,

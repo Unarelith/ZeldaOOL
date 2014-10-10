@@ -35,7 +35,7 @@ Player::~Player() {
 }
 
 void Player::load() {
-	Character::load("graphics/characters/link.png", 4 * 16, 3 * 16, 16, 16, Direction::Down);
+	Battler::load("graphics/characters/link.png", 4 * 16, 3 * 16, 16, 16, Direction::Down);
 	
 	// Movement
 	addAnimation({4, 0}, 110);
@@ -63,14 +63,33 @@ void Player::load() {
 	
 	m_state = new StandingState();
 	
-	m_maxLife = 13 * 4;
-	m_life = 11 * 4;
-	
-	m_rupees = 197;
-	
 	m_inventory.setWeaponA(WeaponManager::weapons[WeaponManager::SwordID]);
 	
 	m_inDoor = false;
+}
+
+void Player::update() {
+	Battler::update();
+	
+	updateStates();
+	
+	if(m_direction == Direction::Up && MapHelper::isTile(m_x + 8, m_y - 2, TilesData::TileType::ClosedChest)) {
+		if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
+			MapManager::currentMap->sendEvent(Map::EventType::ChestOpened, this, Vector2i(8, -2));
+		}
+	}
+	
+	m_state->update();
+}
+
+void Player::updateStates() {
+	if(m_state->stateType() != m_state->nextStateType()) {
+		m_state = m_state->nextState();
+	}
+}
+
+void Player::draw() {
+	m_state->draw();
 }
 
 void Player::mapCollisions() {
@@ -160,45 +179,7 @@ void Player::mapCollisions() {
 	}
 }
 
-void Player::update() {
-	updateStates();
-	
-	if(m_direction == Direction::Up && MapHelper::isTile(m_x + 8, m_y - 2, TilesData::TileType::ClosedChest)) {
-		if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
-			MapManager::currentMap->sendEvent(Map::EventType::ChestOpened, this, Vector2i(8, -2));
-		}
-	}
-	
-	m_state->update();
-}
-
-void Player::updateStates() {
-	if(m_state->stateType() != m_state->nextStateType()) {
-		m_state = m_state->nextState();
-	}
-}
-
-void Player::draw() {
-	m_state->draw();
-}
-
 void Player::setNextStateType(PlayerState::StateType nextType) {
 	m_state->setNextStateType(nextType);
-}
-
-void Player::addHearts(float hearts) {
-	m_life += hearts * 4;
-	
-	if(m_life > m_maxLife) {
-		m_life = m_maxLife;
-	}
-}
-
-void Player::addRupees(u16 rupees) {
-	m_rupees += rupees;
-	
-	if(m_rupees > 999) {
-		m_rupees = 999;
-	}
 }
 

@@ -29,6 +29,6 @@ Enemy::~Enemy() {
 }
 
 void Enemy::load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
-	Character::load(filename, x, y, width, height, direction);
+	Battler::load(filename, x, y, width, height, direction);
 }
 

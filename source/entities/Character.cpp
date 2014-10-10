@@ -17,6 +17,7 @@
  */
 #include "Character.hpp"
 #include "MapHelper.hpp"
+#include "ShaderManager.hpp"
 #include "TilesData.hpp"
 
 Character::Character() {
@@ -34,10 +35,6 @@ void Character::load(std::string filename, u16 x, u16 y, u16 width, u16 height, 
 	Entity::load(x, y, width, height);
 	
 	m_direction = direction;
-}
-
-void Character::draw() {
-	playAnimation(m_x, m_y, m_direction);
 }
 
 void Character::turn(bool clockwise) {
@@ -121,6 +118,10 @@ void Character::mapCollisions() {
 void Character::mapCollisionAction(float vx, float vy) {
 	if(m_vx != 0) m_vx = 0;
 	if(m_vy != 0) m_vy = 0;
+}
+
+void Character::setPaletteID(u8 id) {
+	glUniform1i(ShaderManager::currentShader().uniform("u_paletteID"), id);
 }
 
 void Character::updateDirection() {

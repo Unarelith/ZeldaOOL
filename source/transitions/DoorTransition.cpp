@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 #include "CharacterManager.hpp"
+#include "Config.hpp"
 #include "DoorTransition.hpp"
 #include "MapManager.hpp"
 #include "Sound.hpp"

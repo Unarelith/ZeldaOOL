@@ -29,6 +29,6 @@ HeartCollectable::~HeartCollectable() {
 void HeartCollectable::action() {
 	Sound::Effect::getHeart.play();
 	
-	CharacterManager::player.addHearts(1);
+	CharacterManager::player.inventory().addHearts(1);
 }
 

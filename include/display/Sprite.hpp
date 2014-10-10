@@ -28,13 +28,13 @@ class Sprite : public Image {
 		Sprite();
 		Sprite(const Sprite &sprite);
 		Sprite(std::string filename, u16 frameWidth, u16 frameHeight);
-		~Sprite();
+		virtual ~Sprite();
 		
 		void load(std::string filename, u16 frameWidth, u16 frameHeight);
 		
 		void addAnimation(std::initializer_list<u16> frames, u16 delay);
 		
-		void drawFrame(float x, float y, u16 frame);
+		virtual void drawFrame(float x, float y, u16 frame);
 		
 		void resetAnimation(u16 anim, u16 frame = 0);
 		void startAnimation(u16 anim);

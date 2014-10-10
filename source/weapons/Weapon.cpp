@@ -26,15 +26,15 @@ Weapon::~Weapon() {
 
 bool Weapon::keyPressed() {
 	return((Keyboard::isKeyPressed(Keyboard::A)
-		 && m_player.inventory()->weaponA() == this)
+		 && m_player.inventory().weaponA() == this)
 		|| (Keyboard::isKeyPressed(Keyboard::B)
-		 && m_player.inventory()->weaponB() == this));
+		 && m_player.inventory().weaponB() == this));
 }
 
 bool Weapon::keyPressedOnce() {
 	return((Keyboard::isKeyPressedOnce(Keyboard::A)
-		 && m_player.inventory()->weaponA() == this)
+		 && m_player.inventory().weaponA() == this)
 		|| (Keyboard::isKeyPressedOnce(Keyboard::B)
-		 && m_player.inventory()->weaponB() == this));
+		 && m_player.inventory().weaponB() == this));
 }
 

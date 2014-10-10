@@ -35,10 +35,10 @@ StatsBar::~StatsBar() {
 void StatsBar::draw() {
 	m_background.draw(0, 0);
 	
-	u8 maxLife = CharacterManager::player.maxLife();
+	u8 maxLife = CharacterManager::player.inventory().maxLife();
 	for(u8 j = 0 ; j <= maxLife / 28 ; j++) {
 		for(u8 i = 0 ; i < maxLife / 4 - j * 7 && i < 7 ; i++) {
-			s16 life = CharacterManager::player.life() - j * 28;
+			s16 life = CharacterManager::player.inventory().life() - j * 28;
 			
 			if(life > (i + 1) * 4) {
 				m_hearts.drawFrame(104 + i * 8, j * 8, 4);
@@ -51,13 +51,13 @@ void StatsBar::draw() {
 		}
 	}
 	
-	u16 rupees = CharacterManager::player.rupees();
+	u16 rupees = CharacterManager::player.inventory().rupees();
 	for(u8 i = 0 ; i <= log10(rupees) ; i++) {
 		m_numbers.drawFrame(81 + 8 * i, 9, (rupees % (u16)pow(10, floor(log10(rupees) - i + 1))) / pow(10, floor(log10(rupees) - i)));
 	}
 	
-	Weapon *weaponA = CharacterManager::player.inventory()->weaponA();
-	Weapon *weaponB = CharacterManager::player.inventory()->weaponB();
+	Weapon *weaponA = CharacterManager::player.inventory().weaponA();
+	Weapon *weaponB = CharacterManager::player.inventory().weaponB();
 	
 	if(weaponA != nullptr) {
 		IconManager::getWeaponIconByID(weaponA->id()).draw(46, -1);

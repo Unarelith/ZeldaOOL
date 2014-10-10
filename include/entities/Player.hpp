@@ -18,45 +18,32 @@
 #ifndef PLAYER_HPP_
 #define PLAYER_HPP_
 
-#include "Character.hpp"
+#include "Battler.hpp"
 #include "Inventory.hpp"
 #include "PlayerState.hpp"
 
-class Player : public Character {
+class Player : public Battler {
 	public:
 		Player();
 		~Player();
 		
 		void load();
 		
-		void mapCollisions();
-		
 		void update();
 		void updateStates();
 		
 		void draw();
 		
-		void setNextStateType(PlayerState::StateType nextType);
+		void mapCollisions();
 		
-		void addHearts(float hearts);
-		void addRupees(u16 rupees);
+		void setNextStateType(PlayerState::StateType nextType);
 		
 		PlayerState *currentState() const { return m_state; }
 		
-		u8 maxLife() const { return m_maxLife; }
-		u8 life() const { return m_life; }
-		
-		u16 rupees() const { return m_rupees; }
-		
-		Inventory *inventory() { return &m_inventory; }
+		Inventory &inventory() { return m_inventory; }
 		
 	private:
 		PlayerState *m_state;
-		
-		u8 m_maxLife;
-		u8 m_life;
-		
-		u16 m_rupees;
 		
 		Inventory m_inventory;
 		

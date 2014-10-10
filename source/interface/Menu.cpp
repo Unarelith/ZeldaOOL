@@ -81,34 +81,34 @@ void Menu::update() {
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
 		Sound::Effect::menuSelect.play();
 		
-		Weapon *weaponA = CharacterManager::player.inventory()->weaponA();
-		Weapon *newWeaponA = CharacterManager::player.inventory()->getWeaponByPosition(Vector2i(m_cursorX, m_cursorY));
+		Weapon *weaponA = CharacterManager::player.inventory().weaponA();
+		Weapon *newWeaponA = CharacterManager::player.inventory().getWeaponByPosition(Vector2i(m_cursorX, m_cursorY));
 		
 		if(weaponA != nullptr) {
-			CharacterManager::player.inventory()->setWeaponA(nullptr);
-			CharacterManager::player.inventory()->addWeapon(weaponA->id(), Vector2i(m_cursorX, m_cursorY));
+			CharacterManager::player.inventory().setWeaponA(nullptr);
+			CharacterManager::player.inventory().addWeapon(weaponA->id(), Vector2i(m_cursorX, m_cursorY));
 		}
 		
 		if(newWeaponA != nullptr) {
-			CharacterManager::player.inventory()->removeWeaponByID(newWeaponA->id());
-			CharacterManager::player.inventory()->setWeaponA(newWeaponA);
+			CharacterManager::player.inventory().removeWeaponByID(newWeaponA->id());
+			CharacterManager::player.inventory().setWeaponA(newWeaponA);
 		}
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::B)) {
 		Sound::Effect::menuSelect.play();
 		
-		Weapon *weaponB = CharacterManager::player.inventory()->weaponB();
-		Weapon *newWeaponB = CharacterManager::player.inventory()->getWeaponByPosition(Vector2i(m_cursorX, m_cursorY));
+		Weapon *weaponB = CharacterManager::player.inventory().weaponB();
+		Weapon *newWeaponB = CharacterManager::player.inventory().getWeaponByPosition(Vector2i(m_cursorX, m_cursorY));
 		
 		if(weaponB != nullptr) {
-			CharacterManager::player.inventory()->setWeaponB(nullptr);
-			CharacterManager::player.inventory()->addWeapon(weaponB->id(), Vector2i(m_cursorX, m_cursorY));
+			CharacterManager::player.inventory().setWeaponB(nullptr);
+			CharacterManager::player.inventory().addWeapon(weaponB->id(), Vector2i(m_cursorX, m_cursorY));
 		}
 		
 		if(newWeaponB != nullptr) {
-			CharacterManager::player.inventory()->removeWeaponByID(newWeaponB->id());
-			CharacterManager::player.inventory()->setWeaponB(newWeaponB);
+			CharacterManager::player.inventory().removeWeaponByID(newWeaponB->id());
+			CharacterManager::player.inventory().setWeaponB(newWeaponB);
 		}
 	}
 }
@@ -120,7 +120,7 @@ void Menu::draw() {
 	
 	for(u8 y = 0 ; y < 4 ; y++) {
 		for(u8 x = 0 ; x < 4 ; x++) {
-			Weapon *currentWeapon = CharacterManager::player.inventory()->getWeaponByPosition(Vector2i(x, y));
+			Weapon *currentWeapon = CharacterManager::player.inventory().getWeaponByPosition(Vector2i(x, y));
 			
 			if(currentWeapon != nullptr) {
 				IconManager::getWeaponIconByID(currentWeapon->id()).draw(22 + x * 32, 23 + y * 24);
