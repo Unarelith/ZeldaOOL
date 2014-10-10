@@ -39,7 +39,7 @@ class Map : public TileMap {
 		
 		void updateTiles();
 		
-		void update();
+		void update(bool onlyTiles = false);
 		
 		void draw();
 		

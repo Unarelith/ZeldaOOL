@@ -34,9 +34,10 @@ class PlayerState {
 		virtual bool canStartMapTransition() { return false; }
 		
 		enum StateType {
-			TypeStanding,
+			TypeHurt,
 			TypeMoving,
 			TypePushing,
+			TypeStanding,
 			TypeSword
 		};
 		

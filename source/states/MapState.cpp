@@ -72,6 +72,7 @@ MapState::MapState() {
 	MapManager::getMap(2, 0, 0)->addObject(testChest2);
 	
 	MapManager::getMap(0, 1, 0)->addEnemy(new Octorok(5 * 16, 4 * 16, Character::Direction::Right));
+	MapManager::getMap(2, 0, 0)->addEnemy(new Octorok(5 * 16, 3 * 16, Character::Direction::Right));
 	
 	Sound::Music::plain.play();
 }

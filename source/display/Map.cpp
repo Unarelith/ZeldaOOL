@@ -118,7 +118,7 @@ void Map::updateTiles() {
 	}
 }
 
-void Map::update() {
+void Map::update(bool onlyTiles) {
 	for(auto &it : m_animatedTiles) {
 		if(!it.timer.isStarted()) {
 			it.timer.start();
@@ -132,12 +132,14 @@ void Map::update() {
 		}
 	}
 	
-	for(auto &it : m_collectables) {
-		it->update();
-	}
-	
-	for(auto &it : m_enemies) {
-		it->update();
+	if(!onlyTiles) {
+		for(auto &it : m_collectables) {
+			it->update();
+		}
+		
+		for(auto &it : m_enemies) {
+			it->update();
+		}
 	}
 }
 

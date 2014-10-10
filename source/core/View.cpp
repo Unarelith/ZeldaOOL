@@ -49,6 +49,8 @@ void View::load(float x, float y, u16 width, u16 height) {
 
 void View::enable() {
 	ShaderManager::push(m_shader);
+	
+	glUniform1i(m_shader.uniform("u_paletteID"), 0);
 }
 
 void View::disable() {

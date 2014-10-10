@@ -1,12 +1,8 @@
 ===== TODO =====
 - Finish 'Octorok'
-	=> Fix map collisions
-		-> Implement a generic function 'Character::mapCollisions()' that works with hitbox and movement vectors
-		-> Try to understand better 'Player::mapCollisions()' and rewrite it
 	=> Add collisions with 'Player' and 'HurtState' for player
 	=> Add collisions with 'Sword' and 'State::Hurt' for octorok
 	=> Improve IA to be closer to the original one
-		-> Random values are recomputed each frame
 	=> Add 'Projectile' class (inherits from 'Image'/'Sprite' and 'Entity')
 	=> Implement projectiles for octorok
 - Implement 'LanguageManager'

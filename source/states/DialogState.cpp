@@ -36,7 +36,7 @@ DialogState::~DialogState() {
 }
 
 void DialogState::update() {
-	MapManager::currentMap->update();
+	MapManager::currentMap->update(true);
 	
 	m_dialog.update();
 	
