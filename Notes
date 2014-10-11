@@ -14,7 +14,6 @@
 	=> Add 'Projectile' class (inherits from 'Image'/'Sprite' and 'Entity')
 	=> Implement projectiles for octorok
 - Remove sword loading animation, and replace it by palette switch
-	=> Move 'setPaletteID' from 'Character' to 'Texture'
 - Implement 'LanguageManager'
 	=> Like Asylia one
 - Implement 'NPC' class

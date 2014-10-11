@@ -27,7 +27,6 @@
 class Texture {
 	public:
 		Texture();
-		Texture(const Texture &texture);
 		Texture(std::string filename);
 		~Texture();
 		
@@ -36,18 +35,21 @@ class Texture {
 		void bind();
 		void unbind() { glBindTexture(GL_TEXTURE_2D, 0); }
 		
+		void setPaletteID(u8 id) { m_paletteID = id; }
+		void resetPalette() { setPaletteID(0); }
+		
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
 	protected:
 		std::string m_filename;
 		
-		int m_width;
-		int m_height;
+		u16 m_width;
+		u16 m_height;
 		
 		GLuint m_texture;
 		
-		GLint m_uniform;
+		u8 m_paletteID;
 };
 
 #endif // TEXTURE_HPP_

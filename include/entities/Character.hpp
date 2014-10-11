@@ -36,9 +36,6 @@ class Character : public Sprite, public Entity {
 		
 		virtual void mapCollisionAction(float vx, float vy);
 		
-		void setPaletteID(u8 id);
-		void resetPalette() { setPaletteID(0); }
-		
 		enum Direction {
 			Down,
 			Right,

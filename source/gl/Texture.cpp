@@ -23,17 +23,6 @@
 Texture::Texture() {
 }
 
-Texture::Texture(const Texture &texture) {
-	m_filename = texture.m_filename;
-	
-	m_width = texture.m_width;
-	m_height = texture.m_height;
-	
-	m_texture = texture.m_texture;
-	
-	m_uniform = texture.m_uniform;
-}
-
 Texture::Texture(std::string filename) {
 	load(filename);
 }
@@ -66,11 +55,12 @@ void Texture::load(std::string filename) {
 	
 	SDL_FreeSurface(surface);
 	
-	m_uniform = ShaderManager::currentShader().uniform("u_tex");
+	m_paletteID = 0;
 }
 
 void Texture::bind() {
 	glBindTexture(GL_TEXTURE_2D, m_texture);
-	glUniform1i(m_uniform, 0);
+	glUniform1i(ShaderManager::currentShader().uniform("u_tex"), 0);
+	glUniform1i(ShaderManager::currentShader().uniform("u_paletteID"), m_paletteID);
 }
 
