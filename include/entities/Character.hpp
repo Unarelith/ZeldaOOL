@@ -32,7 +32,7 @@ class Character : public Sprite, public Entity {
 		
 		void turn(bool clockwise = true);
 		
-		void mapCollisions();
+		virtual void mapCollisions();
 		
 		virtual void mapCollisionAction(float vx, float vy);
 		

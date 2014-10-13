@@ -34,7 +34,7 @@ void Battler::load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8
 }
 
 void Battler::update() {
-	if(m_hurtTimer.time() > 2000) {
+	if(m_hurtTimer.time() > 1500) {
 		m_hurt = false;
 	}
 }
@@ -45,5 +45,12 @@ void Battler::drawFrame(float x, float y, u16 frame) {
 	Sprite::drawFrame(x, y, frame);
 	
 	if(m_hurt) setPaletteID(0);
+}
+
+void Battler::hurt() {
+	m_hurt = true;
+	
+	m_hurtTimer.reset();
+	m_hurtTimer.start();
 }
 

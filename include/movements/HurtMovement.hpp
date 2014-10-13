@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  HurtState.hpp
+ *       Filename:  HurtMovement.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  09/10/2014 22:59:33
+ *        Created:  13/10/2014 00:51:18
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,23 +15,20 @@
  *
  * =====================================================================================
  */
-#ifndef HURTSTATE_HPP_
-#define HURTSTATE_HPP_
+#ifndef HURTMOVEMENT_HPP_
+#define HURTMOVEMENT_HPP_
 
-#include "MovingState.hpp"
-#include "HurtMovement.hpp"
+#include "Movement.hpp"
 
-class HurtState : public MovingState {
+class HurtMovement : public Movement {
 	public:
-		HurtState();
-		~HurtState();
+		HurtMovement(Character *character);
+		~HurtMovement();
 		
 		void update();
 		
-		void draw();
-		
 	private:
-		Movement *m_movement;
+		float m_movementCounter;
 };
 
-#endif // HURTSTATE_HPP_
+#endif // HURTMOVEMENT_HPP_

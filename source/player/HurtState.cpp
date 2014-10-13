@@ -19,22 +19,19 @@
 #include "ShaderManager.hpp"
 
 HurtState::HurtState() {
-	m_movementCounter = 0;
-	
 	m_player.hurt();
+	
+	m_movement = new HurtMovement(&m_player);
 }
 
 HurtState::~HurtState() {
+	delete m_movement;
 }
 
 void HurtState::update() {
-	if(m_movementCounter < 16) {
-		m_player.mapCollisions();
-		
-		m_player.move(m_player.vx() * 0.4, m_player.vy() * 0.4);
-		
-		m_movementCounter += 0.4;
-	} else {
+	m_movement->update();
+	
+	if(m_movement->isFinished()) {
 		m_player.setNextStateType(PlayerState::StateType::TypeStanding);
 	}
 }

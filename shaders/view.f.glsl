@@ -37,7 +37,7 @@ vec4 palettes[2 * 4] = vec4[](
 
 int colorIDinPalette(int paletteID, vec4 color) {
 	for(int i = paletteID * 4 ; i < paletteID * 4 + 4 ; i++) {
-		if(round(palettes[i]) == round(color)) {
+		if(floor(palettes[i] + 0.5) == floor(color + 0.5)) {
 			return i;
 		}
 	}

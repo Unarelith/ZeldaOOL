@@ -32,10 +32,11 @@ class Battler : public Character {
 		
 		void drawFrame(float x, float y, u16 frame);
 		
-		void hurt() { m_hurt = true; m_hurtTimer.reset(); m_hurtTimer.start(); }
+		void hurt();
 		
 	private:
 		bool m_hurt;
+		
 		Timer m_hurtTimer;
 };
 
