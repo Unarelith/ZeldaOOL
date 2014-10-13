@@ -1,15 +1,15 @@
 ===== TODO =====
 - Finish 'Octorok'
 	=> Add collisions with 'Player' and 'HurtState' for player
-		=> Implement 'Movement' class
-			-> Remove 'HurtState' from player, using 'HurtMovement' instead
-			-> Add 'MovementState'
+		=> Implement player and enemy way to be hurt
+			-> Create a 'CharacterStateManager' class, 'PlayerState' is a 'CharacterState'
+			-> Any child of 'Character' can handle a 'CharacterStateManager', or not
+			-> 'HurtState' must be a 'BattlerState' (with hurt support, so)
 		=> Setup collisions between 'Player' and enemies
 		=> Add an attack value in 'Enemy'
 			-> Remove life when Link is hurt
-	=> Add collisions with 'Sword' for octorok
-		=> 'State::Hurt' for Octorok
-		=> Uses 'HurtMovement'
+		=> Add collisions with 'Sword' for octorok
+		=> Remove 'Octorok' life when hurt
 	=> Improve IA to be closer to the original one
 	=> Add another enemy and setup the collision between both
 	=> Add 'Projectile' class (inherits from 'Image'/'Sprite' and 'Entity')

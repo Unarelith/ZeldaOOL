@@ -28,7 +28,6 @@
 #include "WeaponManager.hpp"
 
 Player::Player() {
-	
 }
 
 Player::~Player() {
@@ -57,6 +56,9 @@ void Player::load() {
 	
 	// SpinAttack
 	addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
+	
+	m_maxLife = 13 * 4;
+	m_life = 11 * 4;
 	
 	//m_hitbox = IntRect(3, 7, 10, 9);
 	m_hitbox = IntRect(4, 5, 8, 10);

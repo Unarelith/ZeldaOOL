@@ -33,7 +33,6 @@ class Inventory {
 		Inventory();
 		~Inventory();
 		
-		void addHearts(float hearts);
 		void addRupees(u16 rupees);
 		
 		void addWeapon(u8 weaponID, Vector2i position = Vector2i(-1, -1));
@@ -42,9 +41,6 @@ class Inventory {
 		
 		void removeWeaponByPosition(Vector2i position);
 		void removeWeaponByID(u8 id);
-		
-		u8 maxLife() const { return m_maxLife; }
-		u8 life() const { return m_life; }
 		
 		u16 rupees() const { return m_rupees; }
 		
@@ -55,9 +51,6 @@ class Inventory {
 		void setWeaponB(Weapon *weapon) { m_weaponB = weapon; }
 		
 	private:
-		u8 m_maxLife;
-		u8 m_life;
-		
 		u16 m_rupees;
 		
 		std::vector<std::pair<Weapon *, Vector2i>> m_weapons;
