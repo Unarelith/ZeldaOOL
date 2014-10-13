@@ -28,7 +28,7 @@ class Shader {
 		
 		void load(const char *vertexFilename, const char *fragementFilename);
 		
-		void compile(GLenum type, GLuint &shader, const char *filename);
+		void compileShader(GLenum type, GLuint &shader, const char *filename);
 		
 		GLint attrib(const char *attribName);
 		GLint uniform(const char *uniformName);

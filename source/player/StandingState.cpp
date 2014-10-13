@@ -29,11 +29,11 @@ StandingState::~StandingState() {
 }
 
 void StandingState::update() {
-	if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
+	/*if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
 		m_player.setVelocity(-1, -1);
 		
 		m_nextStateType = StateType::TypeHurt;
-	}
+	}*/
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)
 	&& m_player.inventory().weaponA() != nullptr) {

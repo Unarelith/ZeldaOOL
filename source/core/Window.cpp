@@ -66,6 +66,14 @@ void Window::free() {
 }
 
 void Window::initGL() {
+#ifdef __MINGW32__
+	if(glewInit() != GLEW_OK) {
+		error("glew initialization failed");
+		free();
+		exit(EXIT_FAILURE);
+	}
+#endif
+	
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	

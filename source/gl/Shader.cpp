@@ -36,8 +36,8 @@ Shader::~Shader() {
 }
 
 void Shader::load(const char *vertexFilename, const char *fragmentFilename) {
-	compile(GL_VERTEX_SHADER, m_vertexShader, vertexFilename);
-	compile(GL_FRAGMENT_SHADER, m_fragmentShader, fragmentFilename);
+	compileShader(GL_VERTEX_SHADER, m_vertexShader, vertexFilename);
+	compileShader(GL_FRAGMENT_SHADER, m_fragmentShader, fragmentFilename);
 	
 	m_program = glCreateProgram();
 	
@@ -68,7 +68,7 @@ void Shader::load(const char *vertexFilename, const char *fragmentFilename) {
 	m_isLoaded = true;
 }
 
-void Shader::compile(GLenum type, GLuint &shader, const char *filename) {
+void Shader::compileShader(GLenum type, GLuint &shader, const char *filename) {
 	shader = glCreateShader(type);
 	
 	std::ifstream file(filename);

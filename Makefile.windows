@@ -7,23 +7,25 @@ TARGET		:=  $(shell basename $(CURDIR))
 # Source sub-folders
 #---------------------------------------------------------------------------------
 SUBFOLDERS	:=	audio collectables core data display enemies entities gl helpers \
-				interface managers objects player states transitions weapons
+				interface managers movements objects player states transitions weapons
 
 #---------------------------------------------------------------------------------
 # Compiler executables
 #---------------------------------------------------------------------------------
-CC		:=	i686-w64-mingw32-gcc
-CXX		:=	i686-w64-mingw32-g++
+PREFIX	:=	i686-w64-mingw32
 
-SDL_ROOT_DIR :=	/usr/i686-w64-mingw32
+CC		:=	$(PREFIX)-gcc
+CXX		:=	$(PREFIX)-g++
+
+SDL_ROOT_DIR :=	/usr/$(PREFIX)
 
 #---------------------------------------------------------------------------------
 # Options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS	:=	`$(SDL_ROOT_DIR)/bin/sdl2-config --cflags` \
-			-g -Wall -DGL_GLEXT_PROTOTYPES -mwin32
+CFLAGS	:=	`$(PREFIX)-sdl2-config --cflags` \
+			-g -Wall -DGL_GLEXT_PROTOTYPES
 CXXFLAGS:=	$(CFLAGS) -std=c++11 -MD
-LDFLAGS	:=	`$(SDL_ROOT_DIR)/bin/sdl2-config --libs` \
+LDFLAGS	:=	`$(PREFIX)-sdl2-config --libs` \
 			-g -static-libgcc -static-libstdc++ -static
 
 #---------------------------------------------------------------------------------

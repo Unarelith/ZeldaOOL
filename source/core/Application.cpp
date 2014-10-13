@@ -31,13 +31,6 @@ Application::Application() {
 	
 	window.open();
 	
-#ifdef __MINGW32__
-	if(glewInit() != GLEW_OK) {
-		error("glew initialization failed");
-		exit(EXIT_FAILURE);
-	}
-#endif
-	
 	Sound::init();
 	
 	GameStateManager::init();
