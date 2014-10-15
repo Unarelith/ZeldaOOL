@@ -20,7 +20,6 @@
 
 #include "Battler.hpp"
 #include "Inventory.hpp"
-#include "PlayerState.hpp"
 
 class Player : public Battler {
 	public:
@@ -30,21 +29,14 @@ class Player : public Battler {
 		void load();
 		
 		void update();
-		void updateStates();
 		
 		void draw();
 		
 		void mapCollisions();
 		
-		void setNextStateType(PlayerState::StateType nextType);
-		
-		PlayerState *currentState() const { return m_state; }
-		
 		Inventory &inventory() { return m_inventory; }
 		
 	private:
-		PlayerState *m_state;
-		
 		Inventory m_inventory;
 		
 		bool m_inDoor;

@@ -17,6 +17,7 @@
  */
 #include "HurtState.hpp"
 #include "ShaderManager.hpp"
+#include "StandingState.hpp"
 
 HurtState::HurtState() {
 	m_player.hurt();
@@ -32,7 +33,7 @@ void HurtState::update() {
 	m_movement->update();
 	
 	if(m_movement->isFinished()) {
-		m_player.setNextStateType(PlayerState::StateType::TypeStanding);
+		m_player.stateManager().setNextState(new StandingState);
 	}
 }
 

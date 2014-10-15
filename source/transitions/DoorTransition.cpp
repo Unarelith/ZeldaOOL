@@ -20,6 +20,7 @@
 #include "DoorTransition.hpp"
 #include "MapManager.hpp"
 #include "Sound.hpp"
+#include "StandingState.hpp"
 
 DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer) {
 	m_nextMap = &MapManager::maps[area][mapX + mapY * MapManager::maps[area].size()];
@@ -45,9 +46,6 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	m_rect1.setPosition(0, 16);
 	m_rect2.setPosition(WINDOW_WIDTH / 2, 16);
 	
-	CharacterManager::player.setNextStateType(PlayerState::TypeStanding);
-	CharacterManager::player.updateStates();
-	
 	if(m_nextMap->area() == 0) {
 		Sound::Music::plain.play();
 	}
@@ -56,6 +54,10 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	} else {
 		Sound::Music::underground.play();
 	}
+	
+	CharacterManager::player.stateManager().setNextState(new StandingState);
+	
+	Sprite::pause = true;
 }
 
 DoorTransition::~DoorTransition() {
@@ -66,6 +68,8 @@ void DoorTransition::update() {
 		MapManager::currentMap = m_nextMap;
 		
 		m_atEnd = true;
+		
+		Sprite::pause = false;
 		
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	}

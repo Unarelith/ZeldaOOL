@@ -22,9 +22,6 @@
 #include "Weapon.hpp"
 
 MovingState::MovingState() {
-	m_stateType = StateType::TypeMoving;
-	m_nextStateType = StateType::TypeMoving;
-	
 	m_directionLocked = false;
 }
 
@@ -84,19 +81,19 @@ void MovingState::move() {
 void MovingState::update() {
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)
 	&& m_player.inventory().weaponA() != nullptr) {
-		m_nextStateType = m_player.inventory().weaponA()->playerState();
+		m_player.stateManager().setNextState(m_player.inventory().weaponA()->playerState());
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::B)
 	&& m_player.inventory().weaponB() != nullptr) {
-		m_nextStateType = m_player.inventory().weaponB()->playerState();
+		m_player.stateManager().setNextState(m_player.inventory().weaponB()->playerState());
 	}
 	
 	if(!Keyboard::isKeyPressed(Keyboard::Left)
 	&& !Keyboard::isKeyPressed(Keyboard::Right)
 	&& !Keyboard::isKeyPressed(Keyboard::Up)
 	&& !Keyboard::isKeyPressed(Keyboard::Down)) {
-		m_nextStateType = StateType::TypeStanding;
+		m_player.stateManager().setNextState(new StandingState);
 	}
 	
 	move();

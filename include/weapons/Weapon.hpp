@@ -19,11 +19,14 @@
 #define WEAPON_HPP_
 
 #include "CharacterManager.hpp"
+#include "PlayerState.hpp"
 
 class Weapon : public Sprite, public Entity {
 	public:
 		Weapon(std::string filename, u16 width, u16 height);
 		virtual ~Weapon();
+		
+		virtual void loadState() = 0;
 		
 		virtual void update() = 0;
 		
@@ -34,14 +37,14 @@ class Weapon : public Sprite, public Entity {
 		
 		u8 id() const { return m_id; }
 		
-		PlayerState::StateType playerState() const { return m_playerState; }
+		PlayerState *playerState() const { return m_playerState; }
 		
 	protected:
 		u8 m_id;
 		
 		Player &m_player;
 		
-		PlayerState::StateType m_playerState;
+		PlayerState *m_playerState;
 };
 
 #endif // WEAPON_HPP_

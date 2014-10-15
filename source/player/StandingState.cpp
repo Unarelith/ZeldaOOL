@@ -15,14 +15,13 @@
  *
  * =====================================================================================
  */
+#include "HurtState.hpp"
 #include "Keyboard.hpp"
 #include "MovingState.hpp"
 #include "StandingState.hpp"
 #include "Weapon.hpp"
 
 StandingState::StandingState() {
-	m_stateType = StateType::TypeStanding;
-	m_nextStateType = StateType::TypeStanding;
 }
 
 StandingState::~StandingState() {
@@ -32,24 +31,24 @@ void StandingState::update() {
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
 		m_player.setVelocity(-1, -1);
 		
-		m_nextStateType = StateType::TypeHurt;
+		m_player.stateManager().setNextState(new HurtState);
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)
 	&& m_player.inventory().weaponA() != nullptr) {
-		m_nextStateType = m_player.inventory().weaponA()->playerState();
+		m_player.stateManager().setNextState(m_player.inventory().weaponA()->playerState());
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::B)
 	&& m_player.inventory().weaponB() != nullptr) {
-		m_nextStateType = m_player.inventory().weaponB()->playerState();
+		m_player.stateManager().setNextState(m_player.inventory().weaponB()->playerState());
 	}
 	
 	if(Keyboard::isKeyPressed(Keyboard::Left)
 	|| Keyboard::isKeyPressed(Keyboard::Right)
 	|| Keyboard::isKeyPressed(Keyboard::Up)
 	|| Keyboard::isKeyPressed(Keyboard::Down)) {
-		m_nextStateType = StateType::TypeMoving;
+		m_player.stateManager().setNextState(new MovingState);
 	}
 }
 

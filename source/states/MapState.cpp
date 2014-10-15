@@ -86,7 +86,7 @@ void MapState::update() {
 	
 	CharacterManager::player.update();
 	
-	if(CharacterManager::player.currentState()->canStartMapTransition()) {
+	if(CharacterManager::player.stateManager().currentState()->canStartMapTransition()) {
 		if(CharacterManager::player.x() < -3) {
 			GameStateManager::push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingLeft)));
 		}

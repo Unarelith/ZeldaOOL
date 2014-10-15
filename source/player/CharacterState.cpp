@@ -1,26 +1,25 @@
 /*
  * =====================================================================================
  *
- *       Filename:  PlayerState.cpp
+ *       Filename:  CharacterState.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 22:24:32
+ *        Created:  13/10/2014 16:54:42
  *       Revision:  none
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
-#include "CharacterManager.hpp"
-#include "PlayerState.hpp"
+#include "CharacterState.hpp"
 
-PlayerState::PlayerState() : m_player(CharacterManager::player) {
+CharacterState::CharacterState() {
 }
 
-PlayerState::~PlayerState() {
+CharacterState::~CharacterState() {
 }
 

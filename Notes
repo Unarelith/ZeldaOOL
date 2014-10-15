@@ -1,5 +1,10 @@
 ===== TODO =====
 - Finish 'Octorok'
+	-> Fix bugs
+		=> Sword heard before the launch of the game
+			=> SwordState created in Sword
+		=> Sword sound late
+			=> ?????
 	=> Add collisions with 'Player' and 'HurtState' for player
 		=> Implement player and enemy way to be hurt
 			-> Create a 'CharacterStateManager' class, 'PlayerState' is a 'CharacterState'
@@ -14,6 +19,7 @@
 	=> Add another enemy and setup the collision between both
 	=> Add 'Projectile' class (inherits from 'Image'/'Sprite' and 'Entity')
 	=> Implement projectiles for octorok
+- Implement EnemyManager with 'data/config/enemies.xml'
 - Remove sword loading animation, and replace it by palette switch
 - Implement 'LanguageManager'
 	=> Like Asylia one

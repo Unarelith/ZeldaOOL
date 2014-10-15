@@ -63,9 +63,10 @@ void Player::load() {
 	//m_hitbox = IntRect(3, 7, 10, 9);
 	m_hitbox = IntRect(4, 5, 8, 10);
 	
-	m_state = new StandingState();
+	m_stateManager.setNextState(new StandingState);
 	
 	m_inventory.setWeaponA(WeaponManager::weapons[WeaponManager::SwordID]);
+	WeaponManager::weapons[WeaponManager::SwordID]->loadState();
 	
 	m_inDoor = false;
 }
@@ -73,25 +74,19 @@ void Player::load() {
 void Player::update() {
 	Battler::update();
 	
-	updateStates();
-	
-	if(m_direction == Direction::Up && MapHelper::isTile(m_x + 8, m_y - 2, TilesData::TileType::ClosedChest)) {
+	if(m_direction == Direction::Up && MapHelper::isTile(m_x + 8, m_y + 4, TilesData::TileType::ClosedChest)) {
 		if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
 			MapManager::currentMap->sendEvent(Map::EventType::ChestOpened, this, Vector2i(8, -2));
 		}
 	}
 	
-	m_state->update();
-}
-
-void Player::updateStates() {
-	if(m_state->stateType() != m_state->nextStateType()) {
-		m_state = m_state->nextState();
-	}
+	m_stateManager.update();
+	
+	m_stateManager.updateStates();
 }
 
 void Player::draw() {
-	m_state->draw();
+	m_stateManager.draw();
 }
 
 void Player::mapCollisions() {
@@ -128,7 +123,7 @@ void Player::mapCollisions() {
 			|| (i == 1 && m_direction == Direction::Left)
 			|| (i == 2 && m_direction == Direction::Up)
 			|| (i == 3 && m_direction == Direction::Down)) {
-				m_state->setNextStateType(PlayerState::TypePushing);
+				m_stateManager.setNextState(new PushingState);
 			}
 			
 			if( MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])
@@ -136,7 +131,7 @@ void Player::mapCollisions() {
 				if(i < 2 && m_vy == 0)	m_vy = 1;
 				else if(    m_vx == 0)	m_vx = 1;
 				
-				m_state->resetNextStateType();
+				m_stateManager.resetNextState();
 			}
 			
 			if( MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])
@@ -144,7 +139,7 @@ void Player::mapCollisions() {
 				if(i < 2 && m_vy == 0)	m_vy = -1;
 				else if(    m_vx == 0)	m_vx = -1;
 				
-				m_state->resetNextStateType();
+				m_stateManager.resetNextState();
 			}
 		}
 	}
@@ -179,9 +174,5 @@ void Player::mapCollisions() {
 	if(!MapHelper::onDoor(m_x + 8, m_y + 8)) {
 		m_inDoor = false;
 	}
-}
-
-void Player::setNextStateType(PlayerState::StateType nextType) {
-	m_state->setNextStateType(nextType);
 }
 

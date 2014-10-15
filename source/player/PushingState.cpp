@@ -18,15 +18,13 @@
 #include "PushingState.hpp"
 
 PushingState::PushingState() {
-	m_stateType = StateType::TypePushing;
-	m_nextStateType = StateType::TypePushing;
 }
 
 PushingState::~PushingState() {
 }
 
 void PushingState::update() {
-	m_nextStateType = StateType::TypeMoving;
+	m_player.stateManager().setNextState(new MovingState);
 	
 	MovingState::update();
 }

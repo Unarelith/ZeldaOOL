@@ -18,6 +18,7 @@
 #ifndef CHARACTER_HPP_
 #define CHARACTER_HPP_
 
+#include "CharacterStateManager.hpp"
 #include "Types.hpp"
 #include "Sprite.hpp"
 #include "Entity.hpp"
@@ -36,6 +37,8 @@ class Character : public Sprite, public Entity {
 		
 		virtual void mapCollisionAction(float vx, float vy);
 		
+		CharacterStateManager &stateManager() { return m_stateManager; }
+		
 		enum Direction {
 			Down,
 			Right,
@@ -50,6 +53,8 @@ class Character : public Sprite, public Entity {
 		void updateDirection();
 		
 	protected:
+		CharacterStateManager m_stateManager;
+		
 		u8 m_direction;
 };
 

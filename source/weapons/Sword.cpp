@@ -18,7 +18,9 @@
 #include "Keyboard.hpp"
 #include "PlayerState.hpp"
 #include "Sound.hpp"
+#include "StandingState.hpp"
 #include "Sword.hpp"
+#include "SwordState.hpp"
 #include "WeaponManager.hpp"
 
 s16 swordPosition[4][7][2] = {
@@ -34,8 +36,6 @@ s16 spinAttackPosition[8][2] = {
 
 Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
 	m_id = WeaponManager::SwordID;
-	
-	m_playerState = PlayerState::StateType::TypeSword;
 	
 	m_state = State::Swinging;
 	
@@ -65,6 +65,10 @@ Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
 Sword::~Sword() {
 }
 
+void Sword::loadState() {
+	m_playerState = new SwordState;
+}
+
 void Sword::reset() {
 	m_state = State::Swinging;
 	
@@ -88,6 +92,8 @@ void Sword::reset() {
 	resetAnimation(7);
 	
 	resetAnimation(8);
+	
+	loadState();
 }
 
 void Sword::update() {
@@ -176,7 +182,7 @@ void Sword::update() {
 					m_player.resetAnimation(12, m_spinCurrentFrame);
 					m_player.startAnimation(12);
 				} else {
-					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
+					m_player.stateManager().setNextState(new StandingState);
 				}
 			}
 			break;
@@ -206,7 +212,7 @@ void Sword::update() {
 						m_player.move(0, -3);
 					}
 					
-					m_player.setNextStateType(PlayerState::StateType::TypeStanding);
+					m_player.stateManager().setNextState(new StandingState);
 				}
 			}
 			
