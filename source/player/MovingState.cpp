@@ -17,11 +17,12 @@
  */
 #include "Keyboard.hpp"
 #include "MovingState.hpp"
-#include "StandingState.hpp"
 #include "TimeManager.hpp"
 #include "Weapon.hpp"
 
 MovingState::MovingState() {
+	m_name = "Moving";
+	
 	m_directionLocked = false;
 }
 
@@ -79,6 +80,13 @@ void MovingState::move() {
 }
 
 void MovingState::update() {
+	if(!Keyboard::isKeyPressed(Keyboard::Left)
+	&& !Keyboard::isKeyPressed(Keyboard::Right)
+	&& !Keyboard::isKeyPressed(Keyboard::Up)
+	&& !Keyboard::isKeyPressed(Keyboard::Down)) {
+		m_player.stateManager().setNextState("Standing");
+	}
+	
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)
 	&& m_player.inventory().weaponA() != nullptr) {
 		m_player.stateManager().setNextState(m_player.inventory().weaponA()->playerState());
@@ -87,13 +95,6 @@ void MovingState::update() {
 	if(Keyboard::isKeyPressedOnce(Keyboard::B)
 	&& m_player.inventory().weaponB() != nullptr) {
 		m_player.stateManager().setNextState(m_player.inventory().weaponB()->playerState());
-	}
-	
-	if(!Keyboard::isKeyPressed(Keyboard::Left)
-	&& !Keyboard::isKeyPressed(Keyboard::Right)
-	&& !Keyboard::isKeyPressed(Keyboard::Up)
-	&& !Keyboard::isKeyPressed(Keyboard::Down)) {
-		m_player.stateManager().setNextState(new StandingState);
 	}
 	
 	move();

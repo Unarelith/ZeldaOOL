@@ -55,7 +55,7 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 		Sound::Music::underground.play();
 	}
 	
-	CharacterManager::player.stateManager().setNextState(new StandingState);
+	CharacterManager::player.stateManager().setNextState("Standing");
 	
 	Sprite::pause = true;
 }

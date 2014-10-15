@@ -30,14 +30,15 @@ class CharacterStateManager {
 		
 		void draw();
 		
-		void setNextState(CharacterState *nextState) { m_nextState = nextState; }
-		void resetNextState() { if(m_nextState) delete m_nextState; m_nextState = nullptr; }
+		void setNextState(std::string nextState) { m_nextState = nextState; }
+		void resetNextState() { m_nextState = m_state->name(); }
 		
 		CharacterState *currentState() const { return m_state; }
 		
 	private:
 		CharacterState *m_state;
-		CharacterState *m_nextState;
+		
+		std::string m_nextState;
 };
 
 #endif // CHARACTERSTATEMANAGER_HPP_

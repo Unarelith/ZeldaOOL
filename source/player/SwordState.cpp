@@ -25,6 +25,8 @@
 #include "WeaponManager.hpp"
 
 SwordState::SwordState() {
+	m_name = "Sword";
+	
 	Sound::Effect::swordSlash1.play();
 	
 	m_playerMoved = false;

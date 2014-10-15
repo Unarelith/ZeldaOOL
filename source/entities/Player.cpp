@@ -63,10 +63,7 @@ void Player::load() {
 	//m_hitbox = IntRect(3, 7, 10, 9);
 	m_hitbox = IntRect(4, 5, 8, 10);
 	
-	m_stateManager.setNextState(new StandingState);
-	
 	m_inventory.setWeaponA(WeaponManager::weapons[WeaponManager::SwordID]);
-	WeaponManager::weapons[WeaponManager::SwordID]->loadState();
 	
 	m_inDoor = false;
 }
@@ -123,7 +120,7 @@ void Player::mapCollisions() {
 			|| (i == 1 && m_direction == Direction::Left)
 			|| (i == 2 && m_direction == Direction::Up)
 			|| (i == 3 && m_direction == Direction::Down)) {
-				m_stateManager.setNextState(new PushingState);
+				m_stateManager.setNextState("Pushing");
 			}
 			
 			if( MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])

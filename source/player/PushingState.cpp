@@ -18,13 +18,14 @@
 #include "PushingState.hpp"
 
 PushingState::PushingState() {
+	m_name = "Pushing";
 }
 
 PushingState::~PushingState() {
 }
 
 void PushingState::update() {
-	m_player.stateManager().setNextState(new MovingState);
+	m_player.stateManager().setNextState("Moving");
 	
 	MovingState::update();
 }

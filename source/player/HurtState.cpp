@@ -17,9 +17,10 @@
  */
 #include "HurtState.hpp"
 #include "ShaderManager.hpp"
-#include "StandingState.hpp"
 
 HurtState::HurtState() {
+	m_name = "Hurt";
+	
 	m_player.hurt();
 	
 	m_movement = new HurtMovement(&m_player);
@@ -33,7 +34,7 @@ void HurtState::update() {
 	m_movement->update();
 	
 	if(m_movement->isFinished()) {
-		m_player.stateManager().setNextState(new StandingState);
+		m_player.stateManager().setNextState("Standing");
 	}
 }
 

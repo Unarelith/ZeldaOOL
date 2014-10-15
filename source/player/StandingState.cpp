@@ -15,13 +15,12 @@
  *
  * =====================================================================================
  */
-#include "HurtState.hpp"
 #include "Keyboard.hpp"
-#include "MovingState.hpp"
 #include "StandingState.hpp"
 #include "Weapon.hpp"
 
 StandingState::StandingState() {
+	m_name = "Standing";
 }
 
 StandingState::~StandingState() {
@@ -31,7 +30,7 @@ void StandingState::update() {
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
 		m_player.setVelocity(-1, -1);
 		
-		m_player.stateManager().setNextState(new HurtState);
+		m_player.stateManager().setNextState("Hurt");
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)
@@ -48,7 +47,7 @@ void StandingState::update() {
 	|| Keyboard::isKeyPressed(Keyboard::Right)
 	|| Keyboard::isKeyPressed(Keyboard::Up)
 	|| Keyboard::isKeyPressed(Keyboard::Down)) {
-		m_player.stateManager().setNextState(new MovingState);
+		m_player.stateManager().setNextState("Moving");
 	}
 }
 

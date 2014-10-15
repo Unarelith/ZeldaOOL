@@ -26,8 +26,6 @@ class Weapon : public Sprite, public Entity {
 		Weapon(std::string filename, u16 width, u16 height);
 		virtual ~Weapon();
 		
-		virtual void loadState() = 0;
-		
 		virtual void update() = 0;
 		
 		virtual void draw() = 0;
@@ -37,14 +35,14 @@ class Weapon : public Sprite, public Entity {
 		
 		u8 id() const { return m_id; }
 		
-		PlayerState *playerState() const { return m_playerState; }
+		std::string playerState() const { return m_playerState; }
 		
 	protected:
 		u8 m_id;
 		
 		Player &m_player;
 		
-		PlayerState *m_playerState;
+		std::string m_playerState;
 };
 
 #endif // WEAPON_HPP_
