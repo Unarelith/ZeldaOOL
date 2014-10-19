@@ -1,14 +1,7 @@
 ===== TODO =====
 - Finish 'Octorok'
-	-> Fix bugs
-		=> Sword heard before the launch of the game
-			=> SwordState created in Sword
-		=> Sword sound late
-			=> ?????
 	=> Add collisions with 'Player' and 'HurtState' for player
 		=> Implement player and enemy way to be hurt
-			-> Create a 'CharacterStateManager' class, 'PlayerState' is a 'CharacterState'
-			-> Any child of 'Character' can handle a 'CharacterStateManager', or not
 			-> 'HurtState' must be a 'BattlerState' (with hurt support, so)
 		=> Setup collisions between 'Player' and enemies
 		=> Add an attack value in 'Enemy'

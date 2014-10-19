@@ -20,9 +20,11 @@
 
 #include "CharacterState.hpp"
 
+class Character;
+
 class CharacterStateManager {
 	public:
-		CharacterStateManager();
+		CharacterStateManager(Character *character);
 		~CharacterStateManager();
 		
 		void update();
@@ -36,6 +38,8 @@ class CharacterStateManager {
 		CharacterState *currentState() const { return m_state; }
 		
 	private:
+		Character *m_character;
+		
 		CharacterState *m_state;
 		
 		std::string m_nextState;

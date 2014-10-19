@@ -18,12 +18,12 @@
 #include "HurtState.hpp"
 #include "ShaderManager.hpp"
 
-HurtState::HurtState() {
+HurtState::HurtState(Battler *battler) : BattlerState(battler) {
 	m_name = "Hurt";
 	
-	m_player.hurt();
+	m_battler->hurt();
 	
-	m_movement = new HurtMovement(&m_player);
+	m_movement = new HurtMovement(m_battler);
 }
 
 HurtState::~HurtState() {
@@ -34,11 +34,11 @@ void HurtState::update() {
 	m_movement->update();
 	
 	if(m_movement->isFinished()) {
-		m_player.stateManager().setNextState("Standing");
+		m_battler->stateManager().setNextState(m_battler->defaultState());
 	}
 }
 
 void HurtState::draw() {
-	m_player.drawFrame(m_player.x(), m_player.y(), m_player.direction());
+	m_battler->drawFrame(m_battler->x(), m_battler->y(), m_battler->direction());
 }
 

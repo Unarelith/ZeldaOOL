@@ -18,12 +18,12 @@
 #ifndef HURTSTATE_HPP_
 #define HURTSTATE_HPP_
 
-#include "MovingState.hpp"
+#include "BattlerState.hpp"
 #include "HurtMovement.hpp"
 
-class HurtState : public MovingState {
+class HurtState : public BattlerState {
 	public:
-		HurtState();
+		HurtState(Battler *battler);
 		~HurtState();
 		
 		void update();

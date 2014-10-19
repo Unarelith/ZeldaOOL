@@ -37,6 +37,7 @@ class Character : public Sprite, public Entity {
 		
 		virtual void mapCollisionAction(float vx, float vy);
 		
+		std::string defaultState() const { return m_defaultState; }
 		CharacterStateManager &stateManager() { return m_stateManager; }
 		
 		enum Direction {
@@ -53,6 +54,7 @@ class Character : public Sprite, public Entity {
 		void updateDirection();
 		
 	protected:
+		std::string m_defaultState;
 		CharacterStateManager m_stateManager;
 		
 		u8 m_direction;

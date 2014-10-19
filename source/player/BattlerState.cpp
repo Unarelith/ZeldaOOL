@@ -1,26 +1,26 @@
 /*
  * =====================================================================================
  *
- *       Filename:  PlayerState.cpp
+ *       Filename:  BattlerState.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 22:24:32
+ *        Created:  19/10/2014 21:04:01
  *       Revision:  none
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
-#include "CharacterManager.hpp"
-#include "PlayerState.hpp"
+#include "BattlerState.hpp"
 
-PlayerState::PlayerState() : BattlerState(&CharacterManager::player), m_player(*(Player*)(m_battler)) {
+BattlerState::BattlerState(Battler *battler) {
+	m_battler = battler;
 }
 
-PlayerState::~PlayerState() {
+BattlerState::~BattlerState() {
 }
 

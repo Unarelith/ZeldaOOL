@@ -22,25 +22,33 @@
 #include "StandingState.hpp"
 #include "SwordState.hpp"
 
-CharacterStateManager::CharacterStateManager() {
-	m_state = new StandingState;
+CharacterStateManager::CharacterStateManager(Character *character) {
+	m_character = character;
 	
-	m_nextState = m_state->name();
+	m_state = nullptr;
+	
+	m_nextState = m_character->defaultState();
+	
+	updateStates();
 }
 
 CharacterStateManager::~CharacterStateManager() {
 }
 
 void CharacterStateManager::update() {
-	m_state->update();
+	if(m_state) {
+		m_state->update();
+	}
 }
 
 void CharacterStateManager::updateStates() {
-	if(m_nextState != m_state->name()) {
-		delete m_state;
+	if(!m_state || m_nextState != m_state->name()) {
+		if(m_state) {
+			delete m_state;
+		}
 		
 		if(m_nextState == "Hurt") {
-			m_state = new HurtState;
+			m_state = new HurtState(static_cast<Battler*>(m_character));
 		}
 		else if(m_nextState == "Moving") {
 			m_state = new MovingState;
@@ -53,11 +61,15 @@ void CharacterStateManager::updateStates() {
 		}
 		else if(m_nextState == "Sword") {
 			m_state = new SwordState;
+		} else {
+			m_state = nullptr;
 		}
 	}
 }
 
 void CharacterStateManager::draw() {
-	m_state->draw();
+	if(m_state) {
+		m_state->draw();
+	}
 }
 

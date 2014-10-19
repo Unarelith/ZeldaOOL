@@ -1,37 +1,37 @@
 /*
  * =====================================================================================
  *
- *       Filename:  PlayerState.hpp
+ *       Filename:  BattlerState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 22:24:24
+ *        Created:  19/10/2014 21:03:48
  *       Revision:  none
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
-#ifndef PLAYERSTATE_HPP_
-#define PLAYERSTATE_HPP_
+#ifndef BATTLERSTATE_HPP_
+#define BATTLERSTATE_HPP_
 
-#include "BattlerState.hpp"
-#include "Player.hpp"
+#include "Battler.hpp"
+#include "CharacterState.hpp"
 
-class PlayerState : public BattlerState {
+class BattlerState : public CharacterState {
 	public:
-		PlayerState();
-		virtual ~PlayerState();
+		BattlerState(Battler *battler);
+		virtual ~BattlerState();
 		
 		virtual void update() = 0;
 		
 		virtual void draw() = 0;
 		
 	protected:
-		Player &m_player;
+		Battler *m_battler;
 };
 
-#endif // PLAYERSTATE_HPP_
+#endif // BATTLERSTATE_HPP_

@@ -36,6 +36,10 @@ Player::~Player() {
 void Player::load() {
 	Battler::load("graphics/characters/link.png", 4 * 16, 3 * 16, 16, 16, Direction::Down);
 	
+	m_defaultState = "Standing";
+	m_stateManager.setNextState(m_defaultState);
+	m_stateManager.updateStates();
+	
 	// Movement
 	addAnimation({4, 0}, 110);
 	addAnimation({5, 1}, 110);

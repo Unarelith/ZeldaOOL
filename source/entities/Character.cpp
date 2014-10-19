@@ -19,10 +19,10 @@
 #include "MapHelper.hpp"
 #include "TilesData.hpp"
 
-Character::Character() {
+Character::Character() : m_defaultState("null"), m_stateManager(this) {
 }
 
-Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
+Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) : m_defaultState("null"), m_stateManager(this) {
 	load(filename, x, y, width, height, direction);
 }
 
