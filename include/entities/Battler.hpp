@@ -33,15 +33,20 @@ class Battler : public Character {
 		void drawFrame(float x, float y, u16 frame);
 		
 		void addHearts(float hearts);
+		void removeLife(u16 life);
 		
-		void hurt();
+		void hurt(Battler *battler);
 		
 		u8 maxLife() const { return m_maxLife; }
 		u8 life() const { return m_life; }
 		
+		u8 strength() const { return m_strength; }
+		
 	protected:
 		u8 m_maxLife;
 		u8 m_life;
+		
+		u8 m_strength;
 		
 	private:
 		bool m_hurt;

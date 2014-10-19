@@ -1,9 +1,6 @@
 ===== TODO =====
 - Finish 'Octorok'
 	=> Add collisions with 'Player' and 'HurtState' for player
-		=> Implement player and enemy way to be hurt
-			-> 'HurtState' must be a 'BattlerState' (with hurt support, so)
-		=> Setup collisions between 'Player' and enemies
 		=> Add an attack value in 'Enemy'
 			-> Remove life when Link is hurt
 		=> Add collisions with 'Sword' for octorok

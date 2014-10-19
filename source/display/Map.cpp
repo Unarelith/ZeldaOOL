@@ -138,6 +138,17 @@ void Map::update(bool onlyTiles) {
 		}
 		
 		for(auto &it : m_enemies) {
+			if(CharacterManager::player.inCollisionWith(it)) {
+				s16 vx = CharacterManager::player.x() - it->x();
+				s16 vy = CharacterManager::player.y() - it->y();
+				
+				if(vx != 0) vx /= abs(vx);
+				if(vy != 0) vy /= abs(vy);
+				
+				CharacterManager::player.setVelocity(vx, vy);
+				CharacterManager::player.hurt(it);
+			}
+			
 			it->update();
 		}
 	}

@@ -33,6 +33,8 @@ void Battler::load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8
 	m_maxLife = 1;
 	m_life = 1;
 	
+	m_strength = 1;
+	
 	m_hurt = false;
 }
 
@@ -58,10 +60,24 @@ void Battler::addHearts(float hearts) {
 	}
 }
 
-void Battler::hurt() {
-	m_hurt = true;
+void Battler::removeLife(u16 life) {
+	m_life -= life;
 	
-	m_hurtTimer.reset();
-	m_hurtTimer.start();
+	if(m_life < 0) {
+		m_life = 0;
+	}
+}
+
+void Battler::hurt(Battler *battler) {
+	if(!m_hurt) {
+		removeLife(battler->strength());
+		
+		m_hurt = true;
+		
+		m_hurtTimer.reset();
+		m_hurtTimer.start();
+		
+		m_stateManager.setNextState("Hurt");
+	}
 }
 

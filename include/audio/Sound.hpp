@@ -39,6 +39,11 @@ namespace Sound {
 		
 		extern SoundEffect dialogContinue;
 		
+		extern SoundEffect enemyDie;
+		extern SoundEffect enemyHit;
+		extern SoundEffect enemyJump;
+		extern SoundEffect enemySpit;
+		
 		extern SoundEffect getHeart;
 		extern SoundEffect getRupee;
 		extern SoundEffect getRupees5;
@@ -46,6 +51,8 @@ namespace Sound {
 		extern SoundEffect grassDestroy;
 		
 		extern SoundEffect itemNew;
+		
+		extern SoundEffect linkHurt;
 		
 		extern SoundEffect mapStairs;
 		

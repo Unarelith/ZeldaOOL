@@ -18,7 +18,7 @@
 #include "Enemy.hpp"
 
 Enemy::Enemy() {
-	
+	m_strength = 1;
 }
 
 Enemy::Enemy(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {

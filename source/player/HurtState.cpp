@@ -16,14 +16,14 @@
  * =====================================================================================
  */
 #include "HurtState.hpp"
-#include "ShaderManager.hpp"
+#include "Sound.hpp"
 
 HurtState::HurtState(Battler *battler) : BattlerState(battler) {
 	m_name = "Hurt";
 	
-	m_battler->hurt();
-	
 	m_movement = new HurtMovement(m_battler);
+	
+	Sound::Effect::linkHurt.play();
 }
 
 HurtState::~HurtState() {

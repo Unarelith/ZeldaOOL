@@ -25,6 +25,11 @@ SoundEffect Sound::Effect::chest;
 
 SoundEffect Sound::Effect::dialogContinue;
 
+SoundEffect Sound::Effect::enemyDie;
+SoundEffect Sound::Effect::enemyHit;
+SoundEffect Sound::Effect::enemyJump;
+SoundEffect Sound::Effect::enemySpit;
+
 SoundEffect Sound::Effect::getHeart;
 SoundEffect Sound::Effect::getRupee;
 SoundEffect Sound::Effect::getRupees5;
@@ -32,6 +37,8 @@ SoundEffect Sound::Effect::getRupees5;
 SoundEffect Sound::Effect::grassDestroy;
 
 SoundEffect Sound::Effect::itemNew;
+
+SoundEffect Sound::Effect::linkHurt;
 
 SoundEffect Sound::Effect::mapStairs;
 
@@ -64,6 +71,11 @@ void Sound::Effect::init() {
 	
 	dialogContinue.load("audio/effects/dialogContinue.wav");
 	
+	enemyDie.load("audio/effects/enemyDie.wav");
+	enemyHit.load("audio/effects/enemyHit.wav");
+	enemyJump.load("audio/effects/enemyJump.wav");
+	enemySpit.load("audio/effects/enemySpit.wav");
+	
 	getHeart.load("audio/effects/getHeart.wav");
 	getRupee.load("audio/effects/getRupee.wav");
 	getRupees5.load("audio/effects/getRupees5.wav");
@@ -71,6 +83,8 @@ void Sound::Effect::init() {
 	grassDestroy.load("audio/effects/grassDestroy.wav");
 	
 	itemNew.load("audio/effects/itemNew.wav");
+	
+	linkHurt.load("audio/effects/linkHurt.wav");
 	
 	mapStairs.load("audio/effects/mapStairs.wav");
 	
