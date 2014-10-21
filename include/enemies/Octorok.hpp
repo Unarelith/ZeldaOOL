@@ -19,6 +19,7 @@
 #define OCTOROK_HPP_
 
 #include "Enemy.hpp"
+#include "HurtMovement.hpp"
 
 class Octorok : public Enemy {
 	public:
@@ -38,8 +39,11 @@ class Octorok : public Enemy {
 		
 		enum State {
 			Standing,
-			Moving
+			Moving,
+			Hurt
 		};
+		
+		void hurtAction() { m_state = State::Hurt; }
 		
 	private:
 		State m_state;
@@ -49,6 +53,8 @@ class Octorok : public Enemy {
 		float m_movementCounter;
 		
 		u16 m_randomMaxMovement;
+		
+		HurtMovement *m_hurtMovement;
 };
 
 #endif // OCTOROK_HPP_

@@ -26,6 +26,7 @@ Octorok::Octorok(u16 x, u16 y, u8 direction) {
 }
 
 Octorok::~Octorok() {
+	delete m_hurtMovement;
 }
 
 void Octorok::load(u16 x, u16 y, u8 direction) {
@@ -35,6 +36,8 @@ void Octorok::load(u16 x, u16 y, u8 direction) {
 	addAnimation({5, 1}, 150);
 	addAnimation({6, 2}, 150);
 	addAnimation({7, 3}, 150);
+	
+	m_hurtMovement = new HurtMovement(this);
 	
 	reset();
 }
@@ -52,6 +55,8 @@ void Octorok::reset() {
 }
 
 void Octorok::update() {
+	Battler::update();
+	
 	if(m_state == State::Standing) {
 		m_timer.start();
 		
@@ -92,6 +97,13 @@ void Octorok::update() {
 			reset();
 		}
 	}
+	else if(m_state == State::Hurt) {
+		m_hurtMovement->update();
+		
+		if(m_hurtMovement->isFinished()) {
+			m_state = State::Standing;
+		}
+	}
 }
 
 void Octorok::draw() {
@@ -100,6 +112,9 @@ void Octorok::draw() {
 	}
 	else if(m_state == State::Moving) {
 		playAnimation(m_x, m_y, m_direction);
+	}
+	else if(m_state == State::Hurt) {
+		drawFrame(m_x, m_y, m_direction);
 	}
 }
 

@@ -31,6 +31,11 @@ class Enemy : public Battler {
 		virtual void update() = 0;
 		
 		virtual void draw() = 0;
+		
+		u8 strength() const { return m_strength; }
+		
+	private:
+		u8 m_strength;
 };
 
 #endif // ENEMY_HPP_

@@ -21,6 +21,7 @@
 #include "GrassObject.hpp"
 #include "MapManager.hpp"
 #include "TilesData.hpp"
+#include "Weapon.hpp"
 #include "XMLFile.hpp"
 
 Map::Map() {
@@ -146,7 +147,15 @@ void Map::update(bool onlyTiles) {
 				if(vy != 0) vy /= abs(vy);
 				
 				CharacterManager::player.setVelocity(vx, vy);
-				CharacterManager::player.hurt(it);
+				CharacterManager::player.hurt(it->strength());
+			}
+			
+			if(CharacterManager::player.inventory().weaponA()) {
+				CharacterManager::player.inventory().weaponA()->testCollisionWith(it);
+			}
+			
+			if(CharacterManager::player.inventory().weaponB()) {
+				CharacterManager::player.inventory().weaponB()->testCollisionWith(it);
 			}
 			
 			it->update();

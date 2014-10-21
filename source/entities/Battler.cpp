@@ -34,8 +34,6 @@ void Battler::load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8
 	m_maxLife = 1;
 	m_life = 1;
 	
-	m_strength = 1;
-	
 	m_hurt = false;
 }
 
@@ -69,18 +67,22 @@ void Battler::removeLife(u16 life) {
 	}
 }
 
-void Battler::hurt(Battler *battler) {
+void Battler::hurt(u8 strength) {
 	if(!m_hurt) {
-		removeLife(battler->strength());
+		removeLife(strength);
 		
 		m_hurt = true;
 		
 		m_hurtTimer.reset();
 		m_hurtTimer.start();
 		
-		m_stateManager.setNextState([this](){
-			return new HurtState(*this);
-		});
+		hurtAction();
 	}
+}
+
+void Battler::hurtAction() {
+	m_stateManager.setNextState([this](){
+		return new HurtState;
+	});
 }
 

@@ -35,12 +35,8 @@ class Battler : public Character {
 		void addHearts(float hearts);
 		void removeLife(u16 life);
 		
-		void hurt(Battler *battler);
-		
-		u8 maxLife() const { return m_maxLife; }
-		u8 life() const { return m_life; }
-		
-		u8 strength() const { return m_strength; }
+		void hurt(u8 strength);
+		virtual void hurtAction();
 		
 		enum BattlerType {
 			TypeEnemy,
@@ -49,17 +45,20 @@ class Battler : public Character {
 		
 		BattlerType battlerType() const { return m_battlerType; }
 		
+		u8 maxLife() const { return m_maxLife; }
+		u8 life() const { return m_life; }
+		
+		bool hurt() const { return m_hurt; }
+		
 	protected:
 		BattlerType m_battlerType;
 		
 		u8 m_maxLife;
 		u8 m_life;
 		
-		u8 m_strength;
-		
+	private:
 		bool m_hurt;
 		
-	private:
 		Timer m_hurtTimer;
 };
 

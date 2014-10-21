@@ -18,6 +18,7 @@
 #ifndef WEAPON_HPP_
 #define WEAPON_HPP_
 
+#include "Enemy.hpp"
 #include "ICharacterState.hpp"
 #include "PlayerState.hpp"
 
@@ -30,6 +31,8 @@ class Weapon : public Sprite, public Entity {
 		
 		virtual void draw() = 0;
 		
+		virtual void testCollisionWith(Enemy *enemy) = 0;
+		
 		bool keyPressed();
 		bool keyPressedOnce();
 		
@@ -39,6 +42,8 @@ class Weapon : public Sprite, public Entity {
 		
 	protected:
 		u8 m_id;
+		
+		u8 m_strength;
 		
 		Player &m_player;
 		

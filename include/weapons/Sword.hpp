@@ -31,6 +31,8 @@ class Sword : public Weapon {
 		
 		void draw();
 		
+		void testCollisionWith(Enemy *enemy);
+		
 		enum State {
 			Swinging,
 			Loading,

@@ -18,15 +18,10 @@
 #include "HurtState.hpp"
 #include "Sound.hpp"
 
-HurtState::HurtState(Battler &battler) : CharacterState(battler) {
+HurtState::HurtState() {
 	m_movement = new HurtMovement(&m_character);
 	
-	if(m_character.battlerType() == Battler::TypeEnemy) {
-		Sound::Effect::enemyHit.play();
-	}
-	else if(m_character.battlerType() == Battler::TypePlayer) {
-		Sound::Effect::linkHurt.play();
-	}
+	Sound::Effect::linkHurt.play();
 }
 
 HurtState::~HurtState() {
