@@ -90,6 +90,9 @@ void Sword::reset() {
 	resetAnimation(7);
 	
 	resetAnimation(8);
+	
+	m_x = -100;
+	m_y = -100;
 }
 
 void Sword::update() {
