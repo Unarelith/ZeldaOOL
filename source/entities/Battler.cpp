@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 #include "Battler.hpp"
+#include "HurtState.hpp"
 
 Battler::Battler() {
 }
@@ -77,7 +78,9 @@ void Battler::hurt(Battler *battler) {
 		m_hurtTimer.reset();
 		m_hurtTimer.start();
 		
-		m_stateManager.setNextState("Hurt");
+		m_stateManager.setNextState([this](){
+			return new HurtState(*this);
+		});
 	}
 }
 

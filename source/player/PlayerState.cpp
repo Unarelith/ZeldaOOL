@@ -18,7 +18,7 @@
 #include "CharacterManager.hpp"
 #include "PlayerState.hpp"
 
-PlayerState::PlayerState() : BattlerState(&CharacterManager::player), m_player(*(Player*)(m_battler)) {
+PlayerState::PlayerState() : CharacterState(CharacterManager::player) {
 }
 
 PlayerState::~PlayerState() {

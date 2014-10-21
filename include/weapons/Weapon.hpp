@@ -18,7 +18,7 @@
 #ifndef WEAPON_HPP_
 #define WEAPON_HPP_
 
-#include "CharacterManager.hpp"
+#include "ICharacterState.hpp"
 #include "PlayerState.hpp"
 
 class Weapon : public Sprite, public Entity {
@@ -35,14 +35,14 @@ class Weapon : public Sprite, public Entity {
 		
 		u8 id() const { return m_id; }
 		
-		std::string playerState() const { return m_playerState; }
+		ICharacterState::StateTransition playerStateTransition() const { return m_playerStateTransition; }
 		
 	protected:
 		u8 m_id;
 		
 		Player &m_player;
 		
-		std::string m_playerState;
+		ICharacterState::StateTransition m_playerStateTransition;
 };
 
 #endif // WEAPON_HPP_

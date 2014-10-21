@@ -18,19 +18,18 @@
 #include "PushingState.hpp"
 
 PushingState::PushingState() {
-	m_name = "Pushing";
 }
 
 PushingState::~PushingState() {
 }
 
 void PushingState::update() {
-	m_player.stateManager().setNextState("Moving");
+	setNextState([]{ return new MovingState; });
 	
 	MovingState::update();
 }
 
-void PushingState::draw() {
-	m_player.playAnimation(m_player.x(), m_player.y(), m_player.direction() + 4);
+void PushingState::render() {
+	m_character.playAnimation(m_character.x(), m_character.y(), m_character.direction() + 4);
 }
 

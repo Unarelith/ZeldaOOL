@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  CharacterState.cpp
+ *       Filename:  CharacterState.inl
  *
  *    Description:  
  *
@@ -15,11 +15,18 @@
  *
  * =====================================================================================
  */
-#include "CharacterState.hpp"
+#include "Character.hpp"
 
-CharacterState::CharacterState() {
+template<typename T>
+CharacterState<T>::CharacterState(T &character) : m_character(character) {
 }
 
-CharacterState::~CharacterState() {
+template<typename T>
+CharacterState<T>::~CharacterState() {
+}
+
+template<typename T>
+void CharacterState<T>::setNextState(StateTransition stateTransition) {
+	((Character*)(&m_character))->stateManager().setNextState(stateTransition);
 }
 

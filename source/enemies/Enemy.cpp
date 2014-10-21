@@ -18,6 +18,8 @@
 #include "Enemy.hpp"
 
 Enemy::Enemy() {
+	m_battlerType = BattlerType::TypeEnemy;
+	
 	m_strength = 1;
 }
 

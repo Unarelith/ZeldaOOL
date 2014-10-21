@@ -18,31 +18,38 @@
 #ifndef CHARACTERSTATEMANAGER_HPP_
 #define CHARACTERSTATEMANAGER_HPP_
 
-#include "CharacterState.hpp"
+#include "ICharacterState.hpp"
 
 class Character;
 
 class CharacterStateManager {
 	public:
+		CharacterStateManager();
 		CharacterStateManager(Character *character);
 		~CharacterStateManager();
+		
+		void load(Character *character);
 		
 		void update();
 		void updateStates();
 		
-		void draw();
+		void render();
 		
-		void setNextState(std::string nextState) { m_nextState = nextState; }
-		void resetNextState() { m_nextState = m_state->name(); }
+		void setNextState(ICharacterState::StateTransition stateTransition);
 		
-		CharacterState *currentState() const { return m_state; }
+		void resetNextState();
+		
+		ICharacterState *currentState() const { return m_currentState; }
 		
 	private:
-		Character *m_character;
+	 	ICharacterState *m_currentState;
+	 	ICharacterState *m_nextState;
 		
-		CharacterState *m_state;
+		ICharacterState::StateTransition m_stateTransition;
 		
-		std::string m_nextState;
+		static const ICharacterState::StateTransition nullFunction() {
+			return [](){ return nullptr; };
+		}
 };
 
 #endif // CHARACTERSTATEMANAGER_HPP_

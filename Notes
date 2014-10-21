@@ -1,8 +1,6 @@
 ===== TODO =====
 - Finish 'Octorok'
 	=> Add collisions with 'Player' and 'HurtState' for player
-		=> Add an attack value in 'Enemy'
-			-> Remove life when Link is hurt
 		=> Add collisions with 'Sword' for octorok
 		=> Remove 'Octorok' life when hurt
 	=> Improve IA to be closer to the original one

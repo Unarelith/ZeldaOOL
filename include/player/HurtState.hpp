@@ -18,17 +18,18 @@
 #ifndef HURTSTATE_HPP_
 #define HURTSTATE_HPP_
 
-#include "BattlerState.hpp"
+#include "Battler.hpp"
+#include "CharacterState.hpp"
 #include "HurtMovement.hpp"
 
-class HurtState : public BattlerState {
+class HurtState : public CharacterState<Battler> {
 	public:
-		HurtState(Battler *battler);
+		HurtState(Battler &battler);
 		~HurtState();
 		
 		void update();
 		
-		void draw();
+		void render();
 		
 	private:
 		Movement *m_movement;

@@ -32,7 +32,7 @@ class SwordState : public MovingState {
 		
 		void update();
 		
-		void draw();
+		void render();
 		void drawPlayer();
 		
 		bool canStartMapTransition() { return m_sword->state() == Sword::State::Loading; }

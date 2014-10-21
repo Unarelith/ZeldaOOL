@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "CharacterManager.hpp"
 #include "Keyboard.hpp"
 #include "Weapon.hpp"
 

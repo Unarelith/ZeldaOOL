@@ -22,54 +22,48 @@
 #include "StandingState.hpp"
 #include "SwordState.hpp"
 
+CharacterStateManager::CharacterStateManager() {
+}
+
 CharacterStateManager::CharacterStateManager(Character *character) {
-	m_character = character;
-	
-	m_state = nullptr;
-	
-	m_nextState = m_character->defaultState();
-	
-	updateStates();
+	load(character);
 }
 
 CharacterStateManager::~CharacterStateManager() {
+	if(m_currentState) delete m_currentState;
+}
+
+void CharacterStateManager::load(Character *character) {
+	m_stateTransition = character->defaultState();
+	m_currentState = m_stateTransition();
+	
+	m_stateTransition = nullFunction();
 }
 
 void CharacterStateManager::update() {
-	if(m_state) {
-		m_state->update();
-	}
+	m_currentState->update();
 }
 
 void CharacterStateManager::updateStates() {
-	if(!m_state || m_nextState != m_state->name()) {
-		if(m_state) {
-			delete m_state;
-		}
-		
-		if(m_nextState == "Hurt") {
-			m_state = new HurtState(static_cast<Battler*>(m_character));
-		}
-		else if(m_nextState == "Moving") {
-			m_state = new MovingState;
-		}
-		else if(m_nextState == "Pushing") {
-			m_state = new PushingState;
-		}
-		else if(m_nextState == "Standing") {
-			m_state = new StandingState;
-		}
-		else if(m_nextState == "Sword") {
-			m_state = new SwordState;
-		} else {
-			m_state = nullptr;
-		}
+	m_nextState = m_stateTransition();
+	
+	if(m_nextState) {
+		delete m_currentState;
+		m_currentState = m_nextState;
+		resetNextState();
 	}
 }
 
-void CharacterStateManager::draw() {
-	if(m_state) {
-		m_state->draw();
-	}
+void CharacterStateManager::render() {
+	m_currentState->render();
+}
+
+void CharacterStateManager::setNextState(ICharacterState::StateTransition stateTransition) {
+	m_stateTransition = stateTransition;
+}
+
+void CharacterStateManager::resetNextState() {
+	m_nextState = nullptr;
+	m_stateTransition = nullFunction();
 }
 

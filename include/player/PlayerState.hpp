@@ -18,20 +18,17 @@
 #ifndef PLAYERSTATE_HPP_
 #define PLAYERSTATE_HPP_
 
-#include "BattlerState.hpp"
+#include "CharacterState.hpp"
 #include "Player.hpp"
 
-class PlayerState : public BattlerState {
+class PlayerState : public CharacterState<Player> {
 	public:
 		PlayerState();
 		virtual ~PlayerState();
 		
 		virtual void update() = 0;
 		
-		virtual void draw() = 0;
-		
-	protected:
-		Player &m_player;
+		virtual void render() = 0;
 };
 
 #endif // PLAYERSTATE_HPP_

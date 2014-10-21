@@ -42,15 +42,24 @@ class Battler : public Character {
 		
 		u8 strength() const { return m_strength; }
 		
+		enum BattlerType {
+			TypeEnemy,
+			TypePlayer
+		};
+		
+		BattlerType battlerType() const { return m_battlerType; }
+		
 	protected:
+		BattlerType m_battlerType;
+		
 		u8 m_maxLife;
 		u8 m_life;
 		
 		u8 m_strength;
 		
-	private:
 		bool m_hurt;
 		
+	private:
 		Timer m_hurtTimer;
 };
 

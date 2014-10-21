@@ -25,8 +25,6 @@
 #include "WeaponManager.hpp"
 
 SwordState::SwordState() {
-	m_name = "Sword";
-	
 	Sound::Effect::swordSlash1.play();
 	
 	m_playerMoved = false;
@@ -39,26 +37,26 @@ SwordState::~SwordState() {
 }
 
 void SwordState::move(double dx, double dy) {
-	m_player.move(dx, dy);
+	m_character.move(dx, dy);
 	m_sword->move(dx, dy);
 }
 
 void SwordState::movePlayer(u8 direction, bool forward) {
 	if(direction == Character::Direction::Left) {
-		if(forward) m_player.move(-4, 0);
-		else		m_player.move(4, 0);
+		if(forward) m_character.move(-4, 0);
+		else		m_character.move(4, 0);
 	}
 	else if(direction == Character::Direction::Right) {
-		if(forward) m_player.move(4, 0);
-		else		m_player.move(-4, 0);
+		if(forward) m_character.move(4, 0);
+		else		m_character.move(-4, 0);
 	}
 	else if(direction == Character::Direction::Up) {
-		if(forward) m_player.move(0, -3);
-		else		m_player.move(0, 3);
+		if(forward) m_character.move(0, -3);
+		else		m_character.move(0, 3);
 	}
 	else if(direction == Character::Direction::Down) {
-		if(forward) m_player.move(0, 3);
-		else		m_player.move(0, -3);
+		if(forward) m_character.move(0, 3);
+		else		m_character.move(0, -3);
 	}
 	
 	m_playerMoved = true;
@@ -75,15 +73,15 @@ void SwordState::update() {
 	
 	if(m_sword->state() != Sword::State::SpinAttack) {
 		if(!m_playerMoved) {
-			if(m_sword->animationCurrentFrame(m_player.direction()) == 1) {
-				movePlayer(m_player.direction());
+			if(m_sword->animationCurrentFrame(m_character.direction()) == 1) {
+				movePlayer(m_character.direction());
 			}
-			else if(m_sword->animationCurrentFrame(m_player.direction()) == 6) {
-				movePlayer(m_player.direction(), false);
+			else if(m_sword->animationCurrentFrame(m_character.direction()) == 6) {
+				movePlayer(m_character.direction(), false);
 			}
 		}
-		else if((m_sword->animationCurrentFrame(m_player.direction()) != 1)
-			 && (m_sword->animationCurrentFrame(m_player.direction()) != 6)) {
+		else if((m_sword->animationCurrentFrame(m_character.direction()) != 1)
+			 && (m_sword->animationCurrentFrame(m_character.direction()) != 6)) {
 			m_playerMoved = false;
 		}
 	} else {
@@ -119,7 +117,7 @@ void SwordState::update() {
 		}
 	}
 	
-	if((m_sword->state() == Sword::State::Swinging && m_sword->animationCurrentFrame(m_player.direction()) > 2)
+	if((m_sword->state() == Sword::State::Swinging && m_sword->animationCurrentFrame(m_character.direction()) > 2)
 	||  m_sword->state() == Sword::State::SpinAttack) {
 		if((MapHelper::isTile(m_sword->x() + 8, m_sword->y() + 8, TilesData::TileType::GrassTile))
 		|| (MapHelper::isTile(m_sword->x() + 8, m_sword->y() + 8, TilesData::TileType::LowGrassTile))) {
@@ -128,7 +126,7 @@ void SwordState::update() {
 	}
 }
 
-void SwordState::draw() {
+void SwordState::render() {
 	m_sword->draw();
 	
 	drawPlayer();
@@ -136,19 +134,19 @@ void SwordState::draw() {
 
 void SwordState::drawPlayer() {
 	if(m_sword->state() == Sword::State::Swinging) {
-		m_player.playAnimation(m_player.x(), m_player.y(), m_player.direction() + 8);
+		m_character.playAnimation(m_character.x(), m_character.y(), m_character.direction() + 8);
 	}
 	else if(m_sword->state() == Sword::State::Loading
 		&& (Keyboard::isKeyPressed(Keyboard::Left)
 		 || Keyboard::isKeyPressed(Keyboard::Right)
 		 || Keyboard::isKeyPressed(Keyboard::Up)
 		 || Keyboard::isKeyPressed(Keyboard::Down))) {
-		m_player.playAnimation(m_player.x(), m_player.y(), m_player.direction());
+		m_character.playAnimation(m_character.x(), m_character.y(), m_character.direction());
 	}
 	else if(m_sword->state() == Sword::State::SpinAttack) {
-		m_player.playAnimation(m_player.x(), m_player.y(), 12);
+		m_character.playAnimation(m_character.x(), m_character.y(), 12);
 	} else {
-		m_player.drawFrame(m_player.x(), m_player.y(), m_player.direction());
+		m_character.drawFrame(m_character.x(), m_character.y(), m_character.direction());
 	}
 }
 

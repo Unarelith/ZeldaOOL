@@ -27,7 +27,7 @@ class PushingState : public MovingState {
 		
 		void update();
 		
-		void draw();
+		void render();
 };
 
 #endif // PUSHINGSTATE_HPP_

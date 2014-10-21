@@ -29,7 +29,7 @@ class MovingState : public PlayerState {
 		
 		virtual void update();
 		
-		virtual void draw();
+		virtual void render();
 		
 		virtual bool canStartMapTransition() { return true; }
 		

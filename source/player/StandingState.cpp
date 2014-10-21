@@ -16,11 +16,11 @@
  * =====================================================================================
  */
 #include "Keyboard.hpp"
+#include "MovingState.hpp"
 #include "StandingState.hpp"
 #include "Weapon.hpp"
 
 StandingState::StandingState() {
-	m_name = "Standing";
 }
 
 StandingState::~StandingState() {
@@ -28,24 +28,24 @@ StandingState::~StandingState() {
 
 void StandingState::update() {
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)
-	&& m_player.inventory().weaponA() != nullptr) {
-		m_player.stateManager().setNextState(m_player.inventory().weaponA()->playerState());
+	&& m_character.inventory().weaponA() != nullptr) {
+		setNextState(m_character.inventory().weaponA()->playerStateTransition());
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::B)
-	&& m_player.inventory().weaponB() != nullptr) {
-		m_player.stateManager().setNextState(m_player.inventory().weaponB()->playerState());
+	&& m_character.inventory().weaponB() != nullptr) {
+		setNextState(m_character.inventory().weaponB()->playerStateTransition());
 	}
 	
 	if(Keyboard::isKeyPressed(Keyboard::Left)
 	|| Keyboard::isKeyPressed(Keyboard::Right)
 	|| Keyboard::isKeyPressed(Keyboard::Up)
 	|| Keyboard::isKeyPressed(Keyboard::Down)) {
-		m_player.stateManager().setNextState("Moving");
+		setNextState([]{ return new MovingState; });
 	}
 }
 
-void StandingState::draw() {
-	m_player.drawFrame(m_player.x(), m_player.y(), m_player.direction());
+void StandingState::render() {
+	m_character.drawFrame(m_character.x(), m_character.y(), m_character.direction());
 }
 

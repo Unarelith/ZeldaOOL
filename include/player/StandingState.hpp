@@ -27,7 +27,7 @@ class StandingState : public PlayerState {
 		
 		void update();
 		
-		void draw();
+		void render();
 };
 
 #endif // STANDINGSTATE_HPP_

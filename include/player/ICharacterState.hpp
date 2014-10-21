@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  BattlerState.hpp
+ *       Filename:  ICharacterState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  19/10/2014 21:03:48
+ *        Created:  21/10/2014 18:25:48
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,23 +15,22 @@
  *
  * =====================================================================================
  */
-#ifndef BATTLERSTATE_HPP_
-#define BATTLERSTATE_HPP_
+#ifndef ICHARACTERSTATE_HPP_
+#define ICHARACTERSTATE_HPP_
 
-#include "Battler.hpp"
-#include "CharacterState.hpp"
+#include <functional>
 
-class BattlerState : public CharacterState {
+class ICharacterState {
 	public:
-		BattlerState(Battler *battler);
-		virtual ~BattlerState();
+		virtual ~ICharacterState() {}
 		
 		virtual void update() = 0;
 		
-		virtual void draw() = 0;
+		virtual void render() = 0;
 		
-	protected:
-		Battler *m_battler;
+		virtual bool canStartMapTransition() = 0;
+		
+		typedef std::function<ICharacterState*(void)> StateTransition;
 };
 
-#endif // BATTLERSTATE_HPP_
+#endif // ICHARACTERSTATE_HPP_

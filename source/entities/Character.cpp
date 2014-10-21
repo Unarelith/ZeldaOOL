@@ -19,10 +19,17 @@
 #include "MapHelper.hpp"
 #include "TilesData.hpp"
 
-Character::Character() : m_defaultState("null"), m_stateManager(this) {
+Character::Character() {
+	m_defaultState = [](){
+		return nullptr;
+	};
 }
 
-Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) : m_defaultState("null"), m_stateManager(this) {
+Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
+	m_defaultState = [](){
+		return nullptr;
+	};
+	
 	load(filename, x, y, width, height, direction);
 }
 
@@ -34,6 +41,8 @@ void Character::load(std::string filename, u16 x, u16 y, u16 width, u16 height, 
 	Entity::load(x, y, width, height);
 	
 	m_direction = direction;
+	
+	m_stateManager.load(this);
 }
 
 void Character::turn(bool clockwise) {

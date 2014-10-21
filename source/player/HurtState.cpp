@@ -18,12 +18,15 @@
 #include "HurtState.hpp"
 #include "Sound.hpp"
 
-HurtState::HurtState(Battler *battler) : BattlerState(battler) {
-	m_name = "Hurt";
+HurtState::HurtState(Battler &battler) : CharacterState(battler) {
+	m_movement = new HurtMovement(&m_character);
 	
-	m_movement = new HurtMovement(m_battler);
-	
-	Sound::Effect::linkHurt.play();
+	if(m_character.battlerType() == Battler::TypeEnemy) {
+		Sound::Effect::enemyHit.play();
+	}
+	else if(m_character.battlerType() == Battler::TypePlayer) {
+		Sound::Effect::linkHurt.play();
+	}
 }
 
 HurtState::~HurtState() {
@@ -34,11 +37,11 @@ void HurtState::update() {
 	m_movement->update();
 	
 	if(m_movement->isFinished()) {
-		m_battler->stateManager().setNextState(m_battler->defaultState());
+		setNextState(m_character.defaultState());
 	}
 }
 
-void HurtState::draw() {
-	m_battler->drawFrame(m_battler->x(), m_battler->y(), m_battler->direction());
+void HurtState::render() {
+	m_character.drawFrame(m_character.x(), m_character.y(), m_character.direction());
 }
 

@@ -18,23 +18,26 @@
 #ifndef CHARACTERSTATE_HPP_
 #define CHARACTERSTATE_HPP_
 
-#include <string>
+#include "ICharacterState.hpp"
 
-class CharacterState {
+template<typename T>
+class CharacterState : public ICharacterState {
 	public:
-		CharacterState();
+		CharacterState(T &character);
 		virtual ~CharacterState();
 		
 		virtual void update() = 0;
 		
-		virtual void draw() = 0;
+		virtual void render() = 0;
 		
 		virtual bool canStartMapTransition() { return false; }
 		
-		std::string name() const { return m_name; }
+		void setNextState(StateTransition stateTransition);
 		
 	protected:
-		std::string m_name;
+		T &m_character;
 };
+
+#include "CharacterState.inl"
 
 #endif // CHARACTERSTATE_HPP_

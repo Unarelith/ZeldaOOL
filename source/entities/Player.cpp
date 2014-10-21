@@ -15,11 +15,9 @@
  *
  * =====================================================================================
  */
-#include "EffectManager.hpp"
 #include "Keyboard.hpp"
 #include "MapHelper.hpp"
 #include "MapManager.hpp"
-#include "MovingState.hpp"
 #include "Player.hpp"
 #include "PushingState.hpp"
 #include "StandingState.hpp"
@@ -34,11 +32,13 @@ Player::~Player() {
 }
 
 void Player::load() {
+	m_defaultState = [](){
+		return new StandingState();
+	};
+	
 	Battler::load("graphics/characters/link.png", 4 * 16, 3 * 16, 16, 16, Direction::Down);
 	
-	m_defaultState = "Standing";
-	m_stateManager.setNextState(m_defaultState);
-	m_stateManager.updateStates();
+	m_battlerType = BattlerType::TypePlayer;
 	
 	// Movement
 	addAnimation({4, 0}, 110);
@@ -87,7 +87,7 @@ void Player::update() {
 }
 
 void Player::draw() {
-	m_stateManager.draw();
+	m_stateManager.render();
 }
 
 void Player::mapCollisions() {
@@ -124,7 +124,7 @@ void Player::mapCollisions() {
 			|| (i == 1 && m_direction == Direction::Left)
 			|| (i == 2 && m_direction == Direction::Up)
 			|| (i == 3 && m_direction == Direction::Down)) {
-				m_stateManager.setNextState("Pushing");
+				m_stateManager.setNextState([](){ return new PushingState; });
 			}
 			
 			if( MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])

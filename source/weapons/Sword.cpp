@@ -61,7 +61,7 @@ Sword::Sword() : Weapon("graphics/animations/sword.png", 16, 16) {
 	
 	m_keyReleased = false;
 	
-	m_playerState = "Sword";
+	m_playerStateTransition = []{ return new SwordState; };
 }
 
 Sword::~Sword() {
@@ -178,7 +178,9 @@ void Sword::update() {
 					m_player.resetAnimation(12, m_spinCurrentFrame);
 					m_player.startAnimation(12);
 				} else {
-					m_player.stateManager().setNextState("Standing");
+					m_player.stateManager().setNextState([](){
+						return new StandingState;
+					});
 				}
 			}
 			break;
@@ -208,7 +210,9 @@ void Sword::update() {
 						m_player.move(0, -3);
 					}
 					
-					m_player.stateManager().setNextState("Standing");
+					m_player.stateManager().setNextState([](){
+						return new StandingState;
+					});
 				}
 			}
 			
