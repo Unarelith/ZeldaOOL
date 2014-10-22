@@ -28,6 +28,8 @@ class Enemy : public Battler {
 		
 		void load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
+		virtual void reset() = 0;
+		
 		virtual void update() = 0;
 		
 		virtual void draw() = 0;

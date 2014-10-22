@@ -28,6 +28,8 @@ class Battler : public Character {
 		
 		void load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
+		void reset();
+		
 		void update();
 		
 		void drawFrame(float x, float y, u16 frame);

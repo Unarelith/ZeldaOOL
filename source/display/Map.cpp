@@ -94,6 +94,10 @@ void Map::resetTiles() {
 	for(auto &it : m_objects) {
 		it->resetTiles(this);
 	}
+	
+	for(auto &it : m_enemies) {
+		it->reset();
+	}
 }
 
 void Map::updateTiles() {

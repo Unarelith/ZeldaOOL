@@ -45,7 +45,7 @@ void Octorok::load(u16 x, u16 y, u8 direction) {
 
 void Octorok::reset() {
 	m_maxLife = 4;
-	m_life = 4;
+	Battler::reset();
 	
 	m_dead = false;
 	
@@ -109,6 +109,8 @@ void Octorok::update() {
 		m_hurtMovement->update();
 		
 		if(m_hurtMovement->isFinished()) {
+			checkDeath();
+			
 			m_state = State::Standing;
 		}
 	}
@@ -146,8 +148,6 @@ void Octorok::mapCollisionAction(float vx, float vy) {
 void Octorok::hurtAction() {
 	m_state = State::Hurt;
 	
-	checkDeath();
-	
-	if(!m_dead) Sound::Effect::enemyHit.play();
+	Sound::Effect::enemyHit.play();
 }
 

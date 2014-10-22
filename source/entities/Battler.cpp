@@ -28,6 +28,12 @@ Battler::Battler(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 d
 Battler::~Battler() {
 }
 
+void Battler::reset() {
+	m_life = m_maxLife;
+	
+	m_hurt = false;
+}
+
 void Battler::load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
 	Character::load(filename, x, y, width, height, direction);
 	
