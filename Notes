@@ -1,6 +1,6 @@
 ===== TODO =====
 - Finish 'Octorok'
-	=> Do 'Hurt' movement before checkDeath();
+	=> Fix 'HurtMovement' direction
 	=> Improve IA to be closer to the original one
 	=> Add another enemy and setup the collision between both
 	=> Add 'Projectile' class (inherits from 'Image'/'Sprite' and 'Entity')

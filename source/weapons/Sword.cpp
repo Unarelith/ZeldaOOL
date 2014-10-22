@@ -259,8 +259,8 @@ void Sword::draw() {
 
 void Sword::testCollisionWith(Enemy *enemy) {
 	if(!enemy->hurt() && inCollisionWith(enemy)) {
-		s16 vx = enemy->x() - m_x;
-		s16 vy = enemy->y() - m_y;
+		s16 vx = enemy->x() - m_player.x();
+		s16 vy = enemy->y() - m_player.y();
 		
 		if(vx != 0) vx /= abs(vx);
 		if(vy != 0) vy /= abs(vy);
