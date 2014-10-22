@@ -43,7 +43,7 @@ class Octorok : public Enemy {
 			Hurt
 		};
 		
-		void hurtAction() { m_state = State::Hurt; }
+		void hurtAction();
 		
 	private:
 		State m_state;

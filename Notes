@@ -1,8 +1,6 @@
 ===== TODO =====
 - Finish 'Octorok'
-	=> Add collisions with 'Player' and 'HurtState' for player
-		=> Add collisions with 'Sword' for octorok
-		=> Remove 'Octorok' life when hurt
+	=> Do 'Hurt' movement before checkDeath();
 	=> Improve IA to be closer to the original one
 	=> Add another enemy and setup the collision between both
 	=> Add 'Projectile' class (inherits from 'Image'/'Sprite' and 'Entity')

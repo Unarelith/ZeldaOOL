@@ -29,8 +29,10 @@ namespace AnimationManager {
 	void playAnimations();
 	
 	void addGrassDestroyAnimation(u16 tileX, u16 tileY);
+	void addMonsterDestroyAnimation(s16 x, s16 y);
 	
 	extern Sprite grassDestroy;
+	extern Sprite monsterDestroy;
 	
 	extern std::vector<std::pair<Sprite, Vector2i>> anims;
 }

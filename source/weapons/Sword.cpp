@@ -267,8 +267,6 @@ void Sword::testCollisionWith(Enemy *enemy) {
 		
 		enemy->setVelocity(vx, vy);
 		enemy->hurt(m_strength);
-		
-		Sound::Effect::enemyHit.play();
 	}
 }
 

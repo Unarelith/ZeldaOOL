@@ -139,7 +139,8 @@ void Map::update(bool onlyTiles) {
 		}
 		
 		for(auto &it : m_enemies) {
-			if(CharacterManager::player.inCollisionWith(it)) {
+			if(CharacterManager::player.inCollisionWith(it)
+			&& !it->isDead()) {
 				s16 vx = CharacterManager::player.x() - it->x();
 				s16 vy = CharacterManager::player.y() - it->y();
 				

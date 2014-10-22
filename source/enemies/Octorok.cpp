@@ -17,6 +17,7 @@
  */
 #include "MapManager.hpp"
 #include "Octorok.hpp"
+#include "Sound.hpp"
 
 Octorok::Octorok() {
 }
@@ -43,6 +44,11 @@ void Octorok::load(u16 x, u16 y, u8 direction) {
 }
 
 void Octorok::reset() {
+	m_maxLife = 4;
+	m_life = 4;
+	
+	m_dead = false;
+	
 	m_state = State::Standing;
 	
 	m_timer.reset();
@@ -55,6 +61,8 @@ void Octorok::reset() {
 }
 
 void Octorok::update() {
+	if(m_dead) return;
+	
 	Battler::update();
 	
 	if(m_state == State::Standing) {
@@ -107,6 +115,8 @@ void Octorok::update() {
 }
 
 void Octorok::draw() {
+	if(m_dead) return;
+	
 	if(m_state == State::Standing) {
 		drawFrame(m_x, m_y, m_lastFrameDisplayed);
 	}
@@ -131,5 +141,13 @@ void Octorok::mapCollisionAction(float vx, float vy) {
 	}
 	
 	updateDirection();
+}
+
+void Octorok::hurtAction() {
+	m_state = State::Hurt;
+	
+	checkDeath();
+	
+	if(!m_dead) Sound::Effect::enemyHit.play();
 }
 

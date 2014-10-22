@@ -32,7 +32,14 @@ class Enemy : public Battler {
 		
 		virtual void draw() = 0;
 		
+		void checkDeath();
+		
 		u8 strength() const { return m_strength; }
+		
+		bool isDead() const { return m_dead; }
+		
+	protected:
+		bool m_dead;
 		
 	private:
 		u8 m_strength;
