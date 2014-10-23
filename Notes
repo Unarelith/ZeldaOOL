@@ -1,10 +1,15 @@
 ===== TODO =====
 - Finish 'Octorok'
-	=> Fix 'HurtMovement' direction
+	=> Player can go through enemies sometimes
 	=> Improve IA to be closer to the original one
-	=> Add another enemy and setup the collision between both
 	=> Add 'Projectile' class (inherits from 'Image'/'Sprite' and 'Entity')
 	=> Implement projectiles for octorok
+	=> Clean
+		-> Maybe create 'OctorokMovement'
+			~> An improvement of 'Movement' may be required here
+			~> CharacterState => PlayerState
+			~> CharacterStateManager => PlayerStateManager
+			~> In each CharacterState child, replace 'm_character' by 'm_player'
 - Implement EnemyManager with 'data/config/enemies.xml'
 - Remove sword loading animation, and replace it by palette switch
 - Implement 'LanguageManager'
@@ -12,13 +17,20 @@
 - Implement 'NPC' class
 	=> Add movement
 		-> Add map collisions
-		-> Find a way to predefine movement
-		-> Implement the realisation of the predefined movemement
-	=> When player press 'A' in front of a NPC, push a 'DialogState' with the NPC's text
+		-> Use 'Movement' class
+	=> When player press 'A' in front of a NPC, push a 'DialogState' with the NPC's text (maybe turn the NPC too?)
 - Rewrite managers to read xml config files
 	=> Rewrite 'MapManager' and 'Player'
 		-> Add 'tilesets.xml', 'maps.xml' and 'player.xml' config files in 'data/config/' directory
-- Write 'ChestManager'
+- Write 'ChestManager' and add a way to configure it
+- Add 'MovableObject', then 'PotObject' and 'BlockObject'
+	=> Movable contains the object movement thing
+	=> Pot is a Movable in all ways
+	=> Block can be moved once only, and requires the way it can be move
+- Add 'PowerBracelet', child of 'Weapon'
+	=> Add 'LiftableObject'
+		-> 'PotObject' and 'GrassObject' inherits from it
+	=> Add 'LiftingState' for Player
 - Improve OpenGL code, wrapping it in classes
 	=> Write a class VertexBufferObject, and use it in 'TileMap'
 	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'

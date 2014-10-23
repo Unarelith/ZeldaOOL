@@ -22,12 +22,16 @@
 
 class HurtMovement : public Movement {
 	public:
-		HurtMovement(Character *character);
+		HurtMovement(Character *character, float speed = 0.4f);
 		~HurtMovement();
+		
+		void reset();
 		
 		void update();
 		
 	private:
+		float m_speed;
+		
 		float m_movementCounter;
 };
 

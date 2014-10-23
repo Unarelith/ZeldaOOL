@@ -38,7 +38,7 @@ void Octorok::load(u16 x, u16 y, u8 direction) {
 	addAnimation({6, 2}, 150);
 	addAnimation({7, 3}, 150);
 	
-	m_hurtMovement = new HurtMovement(this);
+	m_hurtMovement = new HurtMovement(this, 0.8);
 	
 	reset();
 }
@@ -56,6 +56,8 @@ void Octorok::reset() {
 	m_movementCounter = 0;
 	
 	m_randomMaxMovement = (rand() % 5) * 8;
+	
+	m_hurtMovement->reset();
 	
 	stopAnimation(m_direction);
 }

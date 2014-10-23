@@ -25,6 +25,8 @@ class Movement {
 		Movement(Character *character);
 		virtual ~Movement();
 		
+		virtual void reset() = 0;
+		
 		virtual void update() = 0;
 		
 		bool isFinished() const { return m_isFinished; }

@@ -20,7 +20,7 @@
 Movement::Movement(Character *character) {
 	m_character = character;
 	
-	m_isFinished = 0;
+	m_isFinished = false;
 }
 
 Movement::~Movement() {
