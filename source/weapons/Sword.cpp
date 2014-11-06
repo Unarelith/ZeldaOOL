@@ -266,7 +266,12 @@ void Sword::testCollisionWith(Enemy *enemy) {
 		if(vy != 0) vy /= abs(vy);
 		
 		enemy->setVelocity(vx, vy);
-		enemy->hurt(m_strength);
+		
+		if(m_state == State::SpinAttack) {
+			enemy->hurt(m_strength * 2);
+		} else {
+			enemy->hurt(m_strength);
+		}
 	}
 }
 

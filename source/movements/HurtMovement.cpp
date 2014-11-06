@@ -33,7 +33,7 @@ void HurtMovement::reset() {
 }
 
 void HurtMovement::update() {
-	if(m_movementCounter < 12) {
+	if(m_movementCounter < 16) {
 		m_character->mapCollisions();
 		
 		m_character->move(m_character->vx() * m_speed, m_character->vy() * m_speed);

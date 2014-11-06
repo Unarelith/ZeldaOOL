@@ -1,11 +1,15 @@
 ===== TODO =====
 - Finish 'Octorok'
+	=> Improve 'HurtMovement' direction
+		-> Maybe improve Sword::collisionAction(Enemy *enemy)
+			~> When swinging, if frame == 1, diagonal, else, straight (if frame == 0, nothing)
+	=> Handle life management correctly (actually, Octoroks have a default life of 4, but a sword slash should remove only one life point)
 	=> Player can go through enemies sometimes
 	=> Improve IA to be closer to the original one
 	=> Add 'Projectile' class (inherits from 'Image'/'Sprite' and 'Entity')
 	=> Implement projectiles for octorok
 	=> Clean
-		-> Maybe create 'OctorokMovement'
+		-> Maybe create 'OctorokMovement' (or 'RandomMovement')
 			~> An improvement of 'Movement' may be required here
 			~> CharacterState => PlayerState
 			~> CharacterStateManager => PlayerStateManager

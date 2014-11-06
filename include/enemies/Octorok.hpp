@@ -29,7 +29,7 @@ class Octorok : public Enemy {
 		
 		void load(u16 x, u16 y, u8 direction);
 		
-		void reset();
+		void reset(bool state = true);
 		
 		void update();
 		

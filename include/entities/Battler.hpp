@@ -47,20 +47,20 @@ class Battler : public Character {
 		
 		BattlerType battlerType() const { return m_battlerType; }
 		
-		u8 maxLife() const { return m_maxLife; }
-		u8 life() const { return m_life; }
+		s8 maxLife() const { return m_maxLife; }
+		s8 life() const { return m_life; }
 		
 		bool hurt() const { return m_hurt; }
 		
 	protected:
 		BattlerType m_battlerType;
 		
-		u8 m_maxLife;
-		u8 m_life;
+		s8 m_maxLife;
+		s8 m_life;
 		
-	private:
 		bool m_hurt;
 		
+	private:
 		Timer m_hurtTimer;
 };
 

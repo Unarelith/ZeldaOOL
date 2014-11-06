@@ -39,11 +39,13 @@ void Enemy::load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 d
 }
 
 void Enemy::checkDeath() {
-	if(m_life != 0) {
+	if(m_life == 0) {
 		m_dead = true;
 		
 		AnimationManager::addMonsterDestroyAnimation(m_x, m_y);
 		Sound::Effect::enemyDie.play();
+		
+		m_life = m_maxLife;
 	}
 }
 

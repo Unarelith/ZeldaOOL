@@ -43,11 +43,13 @@ void Octorok::load(u16 x, u16 y, u8 direction) {
 	reset();
 }
 
-void Octorok::reset() {
-	m_maxLife = 4;
-	Battler::reset();
-	
-	m_dead = false;
+void Octorok::reset(bool state) {
+	if(state) {
+		m_maxLife = 8;
+		Battler::reset();
+		
+		m_dead = false;
+	}
 	
 	m_state = State::Standing;
 	
@@ -90,7 +92,7 @@ void Octorok::update() {
 		}
 	}
 	else if(m_state == State::Moving) {
-		if(m_movementCounter < 16 + m_randomMaxMovement) {
+		if(m_movementCounter < 8 + m_randomMaxMovement) {
 			if(m_x + m_hitbox.width + m_vx > MapManager::currentMap->width() * 16
 			|| m_x + m_vx < 0
 			|| m_y + m_hitbox.height + m_vy > MapManager::currentMap->height() * 16
@@ -100,20 +102,24 @@ void Octorok::update() {
 			
 			mapCollisions();
 			
-			move(m_vx * 0.3f, m_vy * 0.3f);
+			move(m_vx * 0.2f, m_vy * 0.2f);
 			
-			m_movementCounter += 0.3f;
+			m_movementCounter += 0.2f;
 		} else {
-			reset();
+			reset(false);
 		}
 	}
 	else if(m_state == State::Hurt) {
 		m_hurtMovement->update();
 		
 		if(m_hurtMovement->isFinished()) {
+			m_hurt = false;
+			
 			checkDeath();
 			
 			m_state = State::Standing;
+			
+			m_timer.reset();
 		}
 	}
 }
@@ -148,6 +154,8 @@ void Octorok::mapCollisionAction(float vx, float vy) {
 }
 
 void Octorok::hurtAction() {
+	m_hurtMovement->reset();
+	
 	m_state = State::Hurt;
 	
 	Sound::Effect::enemyHit.play();
