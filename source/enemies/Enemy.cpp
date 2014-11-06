@@ -17,6 +17,7 @@
  */
 #include "AnimationManager.hpp"
 #include "Enemy.hpp"
+#include "MapManager.hpp"
 #include "Sound.hpp"
 
 Enemy::Enemy() {
@@ -36,6 +37,15 @@ Enemy::~Enemy() {
 
 void Enemy::load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
 	Battler::load(filename, x, y, width, height, direction);
+}
+
+void Enemy::mapBordersCollisions() {
+	if(m_x + m_hitbox.width + m_vx > MapManager::currentMap->width() * 16
+	|| m_x + m_vx < 0
+	|| m_y + m_hitbox.height + m_vy > MapManager::currentMap->height() * 16
+	|| m_y + m_vy < 0) {
+		mapCollisionAction(m_vx, m_vy);
+	}
 }
 
 void Enemy::checkDeath() {

@@ -52,6 +52,7 @@ class Octorok : public Enemy {
 		
 		float m_movementCounter;
 		
+		u16 m_randomMinTimeToWait;
 		u16 m_randomMaxMovement;
 		
 		HurtMovement *m_hurtMovement;

@@ -34,6 +34,8 @@ class Enemy : public Battler {
 		
 		virtual void draw() = 0;
 		
+		void mapBordersCollisions();
+		
 		void checkDeath();
 		
 		u8 strength() const { return m_strength; }

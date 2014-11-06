@@ -15,7 +15,6 @@
  *
  * =====================================================================================
  */
-#include "MapManager.hpp"
 #include "Octorok.hpp"
 #include "Sound.hpp"
 
@@ -45,7 +44,7 @@ void Octorok::load(u16 x, u16 y, u8 direction) {
 
 void Octorok::reset(bool state) {
 	if(state) {
-		m_maxLife = 8;
+		m_maxLife = 2;
 		Battler::reset();
 		
 		m_dead = false;
@@ -57,7 +56,8 @@ void Octorok::reset(bool state) {
 	
 	m_movementCounter = 0;
 	
-	m_randomMaxMovement = (rand() % 5) * 8;
+	m_randomMinTimeToWait = 1000 + (rand() % 2) * 500;
+	m_randomMaxMovement = 16 + (rand() % 5) * 8;
 	
 	m_hurtMovement->reset();
 	
@@ -72,7 +72,7 @@ void Octorok::update() {
 	if(m_state == State::Standing) {
 		m_timer.start();
 		
-		if(m_timer.time() > 1000) {
+		if(m_timer.time() > m_randomMinTimeToWait) {
 			m_vx = rand() % 3 - 1;
 			m_vy = rand() % 3 - 1;
 			
@@ -92,24 +92,21 @@ void Octorok::update() {
 		}
 	}
 	else if(m_state == State::Moving) {
-		if(m_movementCounter < 8 + m_randomMaxMovement) {
-			if(m_x + m_hitbox.width + m_vx > MapManager::currentMap->width() * 16
-			|| m_x + m_vx < 0
-			|| m_y + m_hitbox.height + m_vy > MapManager::currentMap->height() * 16
-			|| m_y + m_vy < 0) {
-				mapCollisionAction(m_vx, m_vy);
-			}
+		if(m_movementCounter < m_randomMaxMovement) {
+			mapBordersCollisions();
 			
 			mapCollisions();
 			
-			move(m_vx * 0.2f, m_vy * 0.2f);
+			move(m_vx * 0.3f, m_vy * 0.3f);
 			
-			m_movementCounter += 0.2f;
+			m_movementCounter += 0.3f;
 		} else {
 			reset(false);
 		}
 	}
 	else if(m_state == State::Hurt) {
+		mapBordersCollisions();
+		
 		m_hurtMovement->update();
 		
 		if(m_hurtMovement->isFinished()) {
@@ -118,8 +115,6 @@ void Octorok::update() {
 			checkDeath();
 			
 			m_state = State::Standing;
-			
-			m_timer.reset();
 		}
 	}
 }
@@ -139,18 +134,22 @@ void Octorok::draw() {
 }
 
 void Octorok::mapCollisionAction(float vx, float vy) {
-	if(vx != 0) {
-		m_vy = rand() % 3 - 1;
-		if(m_vy == 0) m_vx = -m_vx;
-		else m_vx = 0;
+	if(m_state == State::Moving) {
+		if(vx != 0) {
+			m_vy = rand() % 3 - 1;
+			if(m_vy == 0) m_vx = -m_vx;
+			else m_vx = 0;
+		}
+		else if(vy != 0) {
+			m_vx = rand() % 3 - 1;
+			if(m_vx == 0) m_vy = -m_vy;
+			else m_vy = 0;
+		}
+		
+		updateDirection();
+	} else {
+		Character::mapCollisionAction(vx, vy);
 	}
-	else if(vy != 0) {
-		m_vx = rand() % 3 - 1;
-		if(m_vx == 0) m_vy = -m_vy;
-		else m_vy = 0;
-	}
-	
-	updateDirection();
 }
 
 void Octorok::hurtAction() {
