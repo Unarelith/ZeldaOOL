@@ -4,12 +4,6 @@
 TARGET		:=  $(shell basename $(CURDIR))
 
 #---------------------------------------------------------------------------------
-# Source sub-folders
-#---------------------------------------------------------------------------------
-SUBFOLDERS	:=	audio collectables core data display enemies entities gl helpers \
-				interface managers movements objects player states transitions weapons
-
-#---------------------------------------------------------------------------------
 # Compiler executables
 #---------------------------------------------------------------------------------
 CC		:=	gcc
@@ -51,8 +45,8 @@ endif
 # Source folders
 #---------------------------------------------------------------------------------
 BUILD		:=	build
-SOURCES		:=	source external $(foreach dir,$(SUBFOLDERS),source/$(dir))
-INCLUDES	:=	include external $(foreach dir,$(SUBFOLDERS),include/$(dir))
+SOURCES		:=	source external $(wildcard source/*)
+INCLUDES	:=	include external $(wildcard include/*)
 
 #---------------------------------------------------------------------------------
 # Additional folders for libraries
