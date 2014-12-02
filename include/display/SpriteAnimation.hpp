@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.cpp
+ *       Filename:  SpriteAnimation.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  01/12/2014 21:23:07
+ *        Created:  02/12/2014 17:08:26
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,21 +15,21 @@
  *
  * =====================================================================================
  */
-#include "Application.hpp"
-#include "MapState.hpp"
+#ifndef SPRITEANIMATION_HPP_
+#define SPRITEANIMATION_HPP_
 
-MapState::MapState() {
-	m_link.load("graphics/characters/link.png", 16, 16);
-}
+#include <vector>
 
-MapState::~MapState() {
-}
+#include "Timer.hpp"
 
-void MapState::update() {
+struct SpriteAnimation {
+	SpriteAnimation(u16 _delay) :
+		delay(_delay), isPlaying(false) {}
 	
-}
+	u16 delay;
+	bool isPlaying;
+	Timer timer;
+	std::vector<u16> frames;
+};
 
-void MapState::draw() {
-	m_link.drawFrame(0);
-}
-
+#endif // SPRITEANIMATION_HPP_

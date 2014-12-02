@@ -19,7 +19,7 @@
 #define MAPSTATE_HPP_
 
 #include "GameState.hpp"
-#include "Image.hpp"
+#include "Sprite.hpp"
 
 class MapState : public GameState {
 	public:
@@ -31,7 +31,7 @@ class MapState : public GameState {
 		void draw();
 		
 	private:
-		Image m_image;
+		Sprite m_link;
 };
 
 #endif // MAPSTATE_HPP_
