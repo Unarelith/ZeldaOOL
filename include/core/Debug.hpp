@@ -25,7 +25,6 @@
 
 #define _FILE (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 #define DEBUG(args...) { std::cout << "\33[0;36;01m" << _FILE << ":" << __LINE__ << ": \33[0m"; Debug::print(args); }
-//#define DEBUG(args...) { Debug::print(std::string(_FILE) + ":" + std::to_string(__LINE__) + ":", args); }
 
 namespace Debug {
 	template<typename T>

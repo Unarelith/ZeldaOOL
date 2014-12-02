@@ -31,7 +31,5 @@ void MapState::update() {
 
 void MapState::draw() {
 	m_image.draw(20, 20);
-	
-	Application::getInstance().window().draw(m_image);
 }
 
