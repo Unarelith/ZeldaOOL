@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Shader.hpp
+ *       Filename:  GameState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  22/11/2014 23:01:49
+ *        Created:  01/12/2014 21:21:51
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,13 +15,22 @@
  *
  * =====================================================================================
  */
-#ifndef SHADER_HPP_
-#define SHADER_HPP_
+#ifndef GAMESTATE_HPP_
+#define GAMESTATE_HPP_
 
-class Shader {
+// Avoid cyclic inclusion
+class GameStateStack;
+
+class GameState {
 	public:
-		Shader();
-		~Shader();
+		GameState();
+		virtual ~GameState();
+		
+		virtual void update() = 0;
+		
+		virtual void draw() = 0;
+		
+		GameStateStack &getGameStateStack();
 };
 
-#endif // SHADER_HPP_
+#endif // GAMESTATE_HPP_

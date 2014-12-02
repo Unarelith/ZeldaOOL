@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Drawable.hpp
+ *       Filename:  Types.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  22/11/2014 23:02:44
+ *        Created:  01/12/2014 18:16:02
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,21 +15,14 @@
  *
  * =====================================================================================
  */
-#ifndef DRAWABLE_HPP_
-#define DRAWABLE_HPP_
+#ifndef TYPES_HPP_
+#define TYPES_HPP_
 
-class Drawable {
-	public:
-		Drawable();
-		virtual ~Drawable();
-		
-		virtual void draw() = 0;
-		
-		bool hasView() { return m_view.loaded(); }
-		void useView() { m_view.use(); }
-		
-	private:
-		View m_view;
-};
+typedef unsigned char u8;
+typedef signed char s8;
+typedef unsigned short u16;
+typedef signed short s16;
+typedef unsigned long u32;
+typedef signed long s32;
 
-#endif // DRAWABLE_HPP_
+#endif // TYPES_HPP_

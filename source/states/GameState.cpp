@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Window.hpp
+ *       Filename:  GameState.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  22/11/2014 22:47:27
+ *        Created:  01/12/2014 21:21:58
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,13 +15,17 @@
  *
  * =====================================================================================
  */
-#ifndef WINDOW_HPP_
-#define WINDOW_HPP_
+#include "GameState.hpp"
+#include "GameStateStack.hpp"
 
-class Window {
-	public:
-		Window();
-		~Window();
-};
+GameState::GameState() {
+	
+}
 
-#endif // WINDOW_HPP_
+GameState::~GameState() {
+}
+
+GameStateStack &GameState::getGameStateStack() {
+	return GameStateStack::getInstance();
+}
+

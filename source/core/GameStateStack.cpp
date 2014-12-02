@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  View.hpp
+ *       Filename:  GameStateStack.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  22/11/2014 23:00:56
+ *        Created:  01/12/2014 21:09:01
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,18 +15,18 @@
  *
  * =====================================================================================
  */
-#ifndef VIEW_HPP_
-#define VIEW_HPP_
+#include "GameStateStack.hpp"
+#include "MapState.hpp"
 
-class View {
-	public:
-		View();
-		~View();
-		
-		bool isLoaded() const { return m_isLoaded; }
-		
-	private:
-		bool m_isLoaded;
-};
+GameStateStack::GameStateStack() {
+	push(new MapState);
+}
 
-#endif // VIEW_HPP_
+GameStateStack::~GameStateStack() {
+}
+
+GameStateStack &GameStateStack::getInstance() {
+	static GameStateStack instance;
+	return instance;
+}
+

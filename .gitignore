@@ -2,5 +2,5 @@
 *.swp
 build
 doxygen
-ZeldaOOT
-ZeldaOOT.exe
+ZeldaSFML
+ZeldaSFML.exe

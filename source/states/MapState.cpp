@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  View.cpp
+ *       Filename:  MapState.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  22/11/2014 23:01:14
+ *        Created:  01/12/2014 21:23:07
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,23 @@
  *
  * =====================================================================================
  */
-#include "View.hpp"
+#include "Application.hpp"
+#include "MapState.hpp"
 
-View::View() {
-	m_isLoaded = false;
+MapState::MapState() {
+	m_image.load("graphics/characters/link.png");
 }
 
-View::~View() {
+MapState::~MapState() {
+}
+
+void MapState::update() {
+	
+}
+
+void MapState::draw() {
+	m_image.draw(20, 20);
+	
+	Application::getInstance().window().draw(m_image);
 }
 

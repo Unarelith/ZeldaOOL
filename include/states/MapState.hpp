@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Window.cpp
+ *       Filename:  MapState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  22/11/2014 22:47:33
+ *        Created:  01/12/2014 21:22:48
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,23 @@
  *
  * =====================================================================================
  */
-#include "Window.hpp"
+#ifndef MAPSTATE_HPP_
+#define MAPSTATE_HPP_
 
-Window::Window() {
-	
-}
+#include "GameState.hpp"
+#include "Image.hpp"
 
-Window::~Window() {
-}
+class MapState : public GameState {
+	public:
+		MapState();
+		~MapState();
+		
+		void update();
+		
+		void draw();
+		
+	private:
+		Image m_image;
+};
 
+#endif // MAPSTATE_HPP_
