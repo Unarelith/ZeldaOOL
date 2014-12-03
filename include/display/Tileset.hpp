@@ -35,11 +35,14 @@ class Tileset {
 		
 		sf::Texture &texture() { return m_texture; }
 		std::vector<TileAnimation> &anims() { return m_anims; }
+		std::vector<u16> &info() { return m_info; }
 		
 	private:
 		sf::Texture m_texture;
 		
 		std::vector<TileAnimation> m_anims;
+		
+		std::vector<u16> m_info;
 };
 
 #endif // TILESET_HPP_

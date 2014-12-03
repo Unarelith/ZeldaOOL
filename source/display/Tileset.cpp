@@ -25,6 +25,7 @@ Tileset::Tileset(std::string name) {
 	load(name);
 }
 
+
 void Tileset::load(std::string name) {
 	m_texture.loadFromFile(std::string("graphics/tilesets/") + name + ".png");
 	
@@ -42,6 +43,26 @@ void Tileset::load(std::string name) {
 		}
 		
 		animationElement = animationElement->NextSiblingElement("animation");
+	}
+	
+	std::string info = doc.FirstChildElement(name.c_str()).FirstChildElement("info").ToElement()->GetText();
+	s16 currentPos = 0;
+	while(true) {
+		std::string tile;
+		if(info.find_first_of(',', currentPos) != std::string::npos) {
+			tile = info.substr(currentPos, info.find_first_of(',', currentPos) - currentPos);
+		} else {
+			tile = info.substr(currentPos);
+		}
+		
+		m_info.push_back(std::stoi(tile));
+		currentPos = info.find_first_of(',', currentPos);
+		
+		if(currentPos != (s16)std::string::npos) {
+			currentPos++;
+		} else {
+			break;
+		}
 	}
 }
 
