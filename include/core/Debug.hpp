@@ -31,7 +31,7 @@
 #define _FILE (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 
 #ifdef DEBUG_ENABLED
-	#define DEBUG(args...) { std::cout << BOLD_RED_ESC << _FILE << ":" << __LINE__ << ":" << NORMAL_ESC; Debug::print(args); }
+	#define DEBUG(args...) { std::cout << Debug::textColor(Debug::TextColor::Red, true) << _FILE << ":" << __LINE__ << ":" << Debug::textColor(); Debug::print(args); }
 #else
 	#define DEBUG(args...) {}
 #endif

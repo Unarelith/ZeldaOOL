@@ -15,8 +15,8 @@
  *
  * =====================================================================================
  */
+#include "AnimatedMap.hpp"
 #include "ResourceHandler.hpp"
-#include "TileMap.hpp"
 #include "Tileset.hpp"
 
 // Template specializations for ResourceHandler::add
@@ -36,11 +36,11 @@ void ResourceHandler::loadResources() {
 	add<sf::Texture>("numbers", "graphics/interface/numbers.png");
 	add<sf::Texture>("stats", "graphics/interface/stats.png");
 	
-	add<Tileset>("indoor", "graphics/tilesets/indoor.png");
-	add<Tileset>("plain", "graphics/tilesets/plain.png");
-	add<Tileset>("underground", "graphics/tilesets/underground.png");
+	//add<Tileset>("indoor", "graphics/tilesets/indoor.png");
+	add<Tileset>("plain", "plain");
+	//add<Tileset>("underground", "graphics/tilesets/underground.png");
 	
 	// Always load maps AFTER tilesets
-	add<TileMap>("a1", "data/maps/a1.tmx", "plain");
+	add<AnimatedMap>("a1", "data/maps/a1.tmx", "plain");
 }
 

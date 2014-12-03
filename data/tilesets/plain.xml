@@ -1,0 +1,8 @@
+<plain>
+	<animation delay="250">
+		<frame id="64"/>
+		<frame id="65"/>
+		<frame id="66"/>
+		<frame id="67"/>
+	</animation>
+</plain>

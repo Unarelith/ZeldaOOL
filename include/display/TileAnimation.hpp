@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  TileAnimation.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  01/12/2014 21:22:48
+ *        Created:  03/12/2014 14:34:56
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,25 +15,19 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef TILEANIMATION_HPP_
+#define TILEANIMATION_HPP_
 
-#include "AnimatedMap.hpp"
-#include "GameState.hpp"
-#include "Sprite.hpp"
+#include <vector>
 
-class MapState : public GameState {
-	public:
-		MapState();
-		~MapState();
-		
-		void update();
-		
-		void draw();
-		
-	private:
-		Sprite m_link;
-		AnimatedMap *m_map;
+#include "Types.hpp"
+
+struct TileAnimation {
+	TileAnimation(u16 _delay) : delay(_delay) {}
+	
+	std::vector<u16> frames;
+	
+	u16 delay;
 };
 
-#endif // MAPSTATE_HPP_
+#endif // TILEANIMATION_HPP_

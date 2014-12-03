@@ -21,3 +21,9 @@ void ResourceHandler::add<sf::Texture, const char*>(std::string name, const char
 	get<sf::Texture>(name).loadFromFile(path);
 }
 
+template<>
+void ResourceHandler::add<AnimatedMap, const char*, const char*>(std::string name, const char *path, const char *tileset) {
+	m_resources[name] = std::shared_ptr<void>(new AnimatedMap(path, tileset));
+	get<AnimatedMap>(name).updateTiles();
+}
+

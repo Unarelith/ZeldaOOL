@@ -34,7 +34,7 @@ class TileMap : public sf::Drawable, public sf::Transformable {
 		
 		void load(std::string filename, std::string textureName);
 		
-		void updateTile(u16 tileX, u16 tileY);
+		virtual void updateTile(u16 tileX, u16 tileY);
 		void updateTiles();
 		
 		s16 getTile(s16 tileX, s16 tileY);

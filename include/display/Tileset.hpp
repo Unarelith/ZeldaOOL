@@ -22,20 +22,24 @@
 
 #include <SFML/Graphics/Texture.hpp>
 
-#include "Types.hpp"
+#include "TileAnimation.hpp"
 
-struct Tileset {
-	Tileset() {}
-	
-	Tileset(std::string filename) {
-		load(filename);
-	};
-	
-	void load(std::string filename) {
-		texture.loadFromFile(filename);
-	}
-	
-	sf::Texture texture;
+class Tileset {
+	public:
+		Tileset();
+		Tileset(std::string name);
+		
+		void load(std::string name);
+		
+		void addAnimation(std::initializer_list<u16> frames, u16 delay);
+		
+		sf::Texture &texture() { return m_texture; }
+		std::vector<TileAnimation> &anims() { return m_anims; }
+		
+	private:
+		sf::Texture m_texture;
+		
+		std::vector<TileAnimation> m_anims;
 };
 
 #endif // TILESET_HPP_

@@ -18,10 +18,21 @@
 #ifndef ANIMATEDMAP_HPP_
 #define ANIMATEDMAP_HPP_
 
-class AnimatedMap {
+#include "AnimatedTile.hpp"
+#include "TileMap.hpp"
+
+class AnimatedMap : public TileMap {
 	public:
 		AnimatedMap();
+		AnimatedMap(std::string filename, std::string textureName);
 		~AnimatedMap();
+		
+		virtual void updateTile(u16 tileX, u16 tileY) override;
+		
+		void update();
+		
+	private:
+		std::vector<AnimatedTile> m_animatedTiles;
 };
 
 #endif // ANIMATEDMAP_HPP_

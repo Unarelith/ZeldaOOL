@@ -53,8 +53,6 @@ void TileMap::load(std::string filename, std::string tilesetName) {
 	
 	m_vertices.setPrimitiveType(sf::Triangles);
 	m_vertices.resize(m_width * m_height * 6);
-	
-	updateTiles();
 }
 
 void TileMap::updateTile(u16 tileX, u16 tileY) {
@@ -62,8 +60,8 @@ void TileMap::updateTile(u16 tileX, u16 tileY) {
 	
 	if(tileNb == -1) return;
 	
-	u16 tilesetX = tileNb % (m_tileset->texture.getSize().x / m_tileWidth);
-	u16 tilesetY = tileNb / (m_tileset->texture.getSize().x / m_tileWidth);
+	u16 tilesetX = tileNb % (m_tileset->texture().getSize().x / m_tileWidth);
+	u16 tilesetY = tileNb / (m_tileset->texture().getSize().x / m_tileWidth);
 	
 	sf::Vertex *triangle = &m_vertices[(tileX + tileY * m_width) * 6];
 	
@@ -102,8 +100,10 @@ s16 TileMap::getTile(s16 tileX, s16 tileY) {
 void TileMap::setTile(u16 tileX, u16 tileY, u16 tile) {
 	if(tileX + tileY * m_width >= m_width * m_height) {
 		throw EXCEPTION("Tile coordinates out of map");
-	} else {
+	}
+	else if(tile != m_data[tileX + tileY * m_width]) {
 		m_data[tileX + tileY * m_width] = tile;
+		TileMap::updateTile(tileX, tileY);
 	}
 }
 
@@ -114,7 +114,7 @@ void TileMap::draw() {
 void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 	
-	states.texture = &m_tileset->texture;
+	states.texture = &m_tileset->texture();
 	
 	target.draw(m_vertices, states);
 }
