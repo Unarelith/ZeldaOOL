@@ -22,6 +22,8 @@
 #include <memory>
 #include <string>
 
+#include "Exception.hpp"
+
 class ResourceHandler {
 	public:
 		ResourceHandler();
@@ -37,7 +39,7 @@ class ResourceHandler {
 		template<typename T>
 		T &get(std::string name) {
 			if(m_resources.find(name) == m_resources.end()) {
-				throw std::string("Unable to find resource with name '") + name + "'";
+				throw EXCEPTION("Unable to find resource with name:", name);
 			}
 			
 			return *static_cast<T*>(m_resources[name].get());

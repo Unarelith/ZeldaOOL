@@ -19,6 +19,8 @@
 #include <string>
 
 #include "Application.hpp"
+#include "Debug.hpp"
+#include "Exception.hpp"
 
 int main(int argc, char *argv[]) {
 	try {
@@ -26,12 +28,13 @@ int main(int argc, char *argv[]) {
 		
 		app.run();
 	}
-	catch(const std::string &err) {
-		std::cerr << "Fatal error: " << err << std::endl;
+	catch(const Exception &err) {
+		std::cerr << Debug::textColor(Debug::TextColor::Red, true) << "Fatal error " << Debug::textColor() << err.what() << std::endl;
 		return 1;
 	}
 	catch(const std::exception &e) {
-		std::cerr << "Exception caught: " << e.what() << std::endl;
+		std::cerr << Debug::textColor(Debug::TextColor::Red, true) << "Exception caught: " << Debug::textColor(0, true) << e.what() << Debug::textColor() << std::endl;
+		return 1;
 	}
 	
 	return 0;

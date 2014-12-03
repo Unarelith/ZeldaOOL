@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 #include "Application.hpp"
+#include "Exception.hpp"
 #include "ResourceHandler.hpp"
 #include "TileMap.hpp"
 #include "XMLFile.hpp"
@@ -100,7 +101,7 @@ s16 TileMap::getTile(s16 tileX, s16 tileY) {
 
 void TileMap::setTile(u16 tileX, u16 tileY, u16 tile) {
 	if(tileX + tileY * m_width >= m_width * m_height) {
-		throw std::string("Tile coordinates out of map");
+		throw EXCEPTION("Tile coordinates out of map");
 	} else {
 		m_data[tileX + tileY * m_width] = tile;
 	}

@@ -23,10 +23,34 @@
 #include <sstream>
 #include <string>
 
+#include "Types.hpp"
+
+#define DEBUG_ENABLED
+#define DEBUG_COLOR
+
 #define _FILE (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
-#define DEBUG(args...) { std::cout << "\33[0;36;01m" << _FILE << ":" << __LINE__ << ": \33[0m"; Debug::print(args); }
+
+#ifdef DEBUG_ENABLED
+	#define DEBUG(args...) { std::cout << BOLD_RED_ESC << _FILE << ":" << __LINE__ << ":" << NORMAL_ESC; Debug::print(args); }
+#else
+	#define DEBUG(args...) {}
+#endif
 
 namespace Debug {
+	enum TextColor {
+		White = 0,
+		Red = 31,
+		Blue = 36
+	};
+	
+	inline std::string textColor(u8 color = TextColor::White, bool bold = false) {
+#ifdef DEBUG_COLOR
+		return std::string("\33[0;") + ((color < 10) ? "0" : "") + std::to_string(color) + ";0" + ((bold) ? "1" : "0") + "m";
+#else
+		return std::string("");
+#endif
+	}
+	
 	template<typename T>
 	std::string makeString(std::stringstream &stream, T value) {
 		stream << value;
@@ -43,7 +67,7 @@ namespace Debug {
 	void print(Args... args) {
 		std::stringstream stream;
 		
-		std::cout << "\33[0;00;01m" << makeString(stream, args...) << "\33[0m" << std::endl;
+		std::cout << textColor(0, true) << makeString(stream, args...) << textColor() << std::endl;
 	}
 }
 
