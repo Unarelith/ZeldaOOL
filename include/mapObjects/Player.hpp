@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  GameState.cpp
+ *       Filename:  Player.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  01/12/2014 21:21:58
+ *        Created:  03/12/2014 21:53:01
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,17 +15,17 @@
  *
  * =====================================================================================
  */
-#include "GameState.hpp"
-#include "GameStateStack.hpp"
+#ifndef PLAYER_HPP_
+#define PLAYER_HPP_
 
-GameState::GameState() {
-	
-}
+#include "Movable.hpp"
 
-GameState::~GameState() {
-}
+class Player : public Movable {
+	public:
+		Player();
+		~Player();
+		
+		void mapCollisions();
+};
 
-GameStateStack &GameState::getGameStateStack() {
-	return GameStateStack::getInstance();
-}
-
+#endif // PLAYER_HPP_

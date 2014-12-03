@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  GameStateStack.cpp
+ *       Filename:  ApplicationState.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  01/12/2014 21:09:01
+ *        Created:  01/12/2014 21:21:58
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,18 +15,17 @@
  *
  * =====================================================================================
  */
-#include "GameStateStack.hpp"
-#include "MapState.hpp"
+#include "ApplicationState.hpp"
+#include "ApplicationStateStack.hpp"
 
-GameStateStack::GameStateStack() {
-	push(new MapState);
+ApplicationState::ApplicationState() {
+	
 }
 
-GameStateStack::~GameStateStack() {
+ApplicationState::~ApplicationState() {
 }
 
-GameStateStack &GameStateStack::getInstance() {
-	static GameStateStack instance;
-	return instance;
+ApplicationStateStack &ApplicationState::getApplicationStateStack() {
+	return ApplicationStateStack::getInstance();
 }
 

@@ -20,8 +20,8 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "ApplicationStateStack.hpp"
 #include "GameClock.hpp"
-#include "GameStateStack.hpp"
 #include "ResourceHandler.hpp"
 
 class Application {
@@ -46,7 +46,7 @@ class Application {
 		
 		GameClock m_clock;
 		
-		GameStateStack *m_gameStateStack;
+		ApplicationStateStack *m_applicationStateStack;
 };
 
 #endif // APPLICATION_HPP_

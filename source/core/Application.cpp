@@ -24,7 +24,7 @@ Application::Application() {
 	m_defaultView.reset(sf::FloatRect(0, 0, 160, 144));
 	
 	ResourceHandler::getInstance().loadResources();
-	m_gameStateStack = &GameStateStack::getInstance();
+	m_applicationStateStack = &ApplicationStateStack::getInstance();
 }
 
 Application::~Application() {
@@ -50,14 +50,14 @@ void Application::run() {
 		handleEvents();
 		
 		m_clock.updateGame([&]{
-			m_gameStateStack->top().update();
+			m_applicationStateStack->top().update();
 		});
 		
 		m_clock.drawGame([&]{
 			m_window.setView(m_defaultView);
 			m_window.clear();
 			
-			m_gameStateStack->top().draw();
+			m_applicationStateStack->top().draw();
 			
 			m_window.display();
 		});

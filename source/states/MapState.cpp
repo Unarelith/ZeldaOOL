@@ -16,20 +16,11 @@
  * =====================================================================================
  */
 #include "Application.hpp"
-#include "KeyboardMovement.hpp"
+#include "GameState.hpp"
 #include "MapState.hpp"
-#include "ResourceHandler.hpp"
 
 MapState::MapState() {
-	m_link.load("link", 16, 16, new KeyboardMovement);
-	m_link.addAnimation({4, 0}, 110);
-	m_link.addAnimation({5, 1}, 110);
-	m_link.addAnimation({6, 2}, 110);
-	m_link.addAnimation({7, 3}, 110);
-	m_link.setPosition(96, 64);
-	
-	m_map = &ResourceHandler::getInstance().get<AnimatedMap>("a1");
-	m_map->setPosition(0, 16);
+	m_map = &GameState::getInstance().currentMap();
 }
 
 MapState::~MapState() {
@@ -44,6 +35,10 @@ void MapState::update() {
 void MapState::draw() {
 	m_map->draw();
 	
+	Application::getInstance().window().setView(TileMap::view);
+	
 	m_link.draw();
+	
+	Application::getInstance().window().setView(Application::getInstance().window().getDefaultView());
 }
 

@@ -66,3 +66,7 @@ void Movable::draw() {
 	}
 }
 
+void Movable::addCollisionHandler(std::function<void(void)> collisionHandler) {
+	m_collisionHandlers.push_back(collisionHandler);
+}
+

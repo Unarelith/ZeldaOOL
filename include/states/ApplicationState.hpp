@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  GameState.hpp
+ *       Filename:  ApplicationState.hpp
  *
  *    Description:  
  *
@@ -15,22 +15,22 @@
  *
  * =====================================================================================
  */
-#ifndef GAMESTATE_HPP_
-#define GAMESTATE_HPP_
+#ifndef APPLICATIONSTATE_HPP_
+#define APPLICATIONSTATE_HPP_
 
 // Avoid cyclic inclusion
-class GameStateStack;
+class ApplicationStateStack;
 
-class GameState {
+class ApplicationState {
 	public:
-		GameState();
-		virtual ~GameState();
+		ApplicationState();
+		virtual ~ApplicationState();
 		
 		virtual void update() = 0;
 		
 		virtual void draw() = 0;
 		
-		GameStateStack &getGameStateStack();
+		ApplicationStateStack &getApplicationStateStack();
 };
 
-#endif // GAMESTATE_HPP_
+#endif // APPLICATIONSTATE_HPP_

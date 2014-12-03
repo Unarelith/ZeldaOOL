@@ -22,6 +22,7 @@
 
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
+#include <SFML/Graphics/View.hpp>
 
 #include "Tileset.hpp"
 #include "Types.hpp"
@@ -40,7 +41,11 @@ class TileMap : public sf::Drawable, public sf::Transformable {
 		s16 getTile(s16 tileX, s16 tileY);
 		void setTile(u16 tileX, u16 tileY, u16 tile);
 		
+		bool passable(float x, float y);
+		
 		void draw();
+		
+		static sf::View view;
 		
 	protected:
 		Tileset *m_tileset;

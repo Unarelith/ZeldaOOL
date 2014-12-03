@@ -36,6 +36,8 @@ class Movable : public Sprite {
 		
 		void draw();
 		
+		void addCollisionHandler(std::function<void(void)> collisionHandler);
+		
 		enum Direction {
 			Down,
 			Right,
@@ -53,13 +55,13 @@ class Movable : public Sprite {
 		
 		u8 m_direction;
 		
+		bool m_blocked;
+		
 		std::vector<std::function<void(void)>> m_collisionHandlers;
 		
 	private:
 		float m_speed;
 		bool m_moving;
-		
-		bool m_blocked;
 		
 		std::unique_ptr<Movement> m_movement;
 };

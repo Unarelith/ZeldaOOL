@@ -19,7 +19,10 @@
 #include "Exception.hpp"
 #include "ResourceHandler.hpp"
 #include "TileMap.hpp"
+#include "TilesData.hpp"
 #include "XMLFile.hpp"
+
+sf::View TileMap::view(sf::FloatRect(0, -16, 160, 144));
 
 TileMap::TileMap() {
 }
@@ -107,6 +110,11 @@ void TileMap::setTile(u16 tileX, u16 tileY, u16 tile) {
 	}
 }
 
+bool TileMap::passable(float x, float y) {
+	s16 tile = m_tileset->info()[getTile(x / m_tileWidth, y / m_tileHeight)];
+	return TilesData::infos[tile][((int)x & 0xF) / m_tileWidth + ((int)y & 0xF) / m_tileHeight * 2] != 1;
+}
+
 void TileMap::draw() {
 	Application::getInstance().window().draw(*this);
 }
@@ -116,6 +124,10 @@ void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	
 	states.texture = &m_tileset->texture();
 	
+	target.setView(view);
+	
 	target.draw(m_vertices, states);
+	
+	target.setView(target.getDefaultView());
 }
 

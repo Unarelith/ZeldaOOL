@@ -4,8 +4,11 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
+A	include/input/GamePad.hpp	/^			A,$/;"	e	enum:GamePad::Key
 ANIMATEDMAP_HPP_	include/display/AnimatedMap.hpp	19;"	d
 ANIMATEDTILE_HPP_	include/display/AnimatedTile.hpp	19;"	d
+APPLICATIONSTATESTACK_HPP_	include/core/ApplicationStateStack.hpp	19;"	d
+APPLICATIONSTATE_HPP_	include/states/ApplicationState.hpp	19;"	d
 APPLICATION_HPP_	include/core/Application.hpp	19;"	d
 ATTRIBUTE_NAME	external/tinyxml2.hpp	/^        ATTRIBUTE_NAME		            	= 0,$/;"	e	enum:tinyxml2::StrPair::__anon1
 ATTRIBUTE_VALUE	external/tinyxml2.hpp	/^        ATTRIBUTE_VALUE		            	= NEEDS_ENTITY_PROCESSING | NEEDS_NEWLINE_NORMALIZATION,$/;"	e	enum:tinyxml2::StrPair::__anon1
@@ -57,17 +60,42 @@ Application::Application	source/core/Application.cpp	/^Application::Application(
 Application::getInstance	include/core/Application.hpp	/^		static Application &getInstance() {$/;"	f	class:Application	access:public	signature:()
 Application::handleEvents	include/core/Application.hpp	/^		void handleEvents();$/;"	p	class:Application	access:public	signature:()
 Application::handleEvents	source/core/Application.cpp	/^void Application::handleEvents() {$/;"	f	class:Application	signature:()
+Application::m_applicationStateStack	include/core/Application.hpp	/^		ApplicationStateStack *m_applicationStateStack;$/;"	m	class:Application	access:private
 Application::m_clock	include/core/Application.hpp	/^		GameClock m_clock;$/;"	m	class:Application	access:private
 Application::m_defaultView	include/core/Application.hpp	/^		sf::View m_defaultView;$/;"	m	class:Application	access:private
-Application::m_gameStateStack	include/core/Application.hpp	/^		GameStateStack *m_gameStateStack;$/;"	m	class:Application	access:private
 Application::m_window	include/core/Application.hpp	/^		sf::RenderWindow m_window;$/;"	m	class:Application	access:private
 Application::run	include/core/Application.hpp	/^		void run();$/;"	p	class:Application	access:public	signature:()
 Application::run	source/core/Application.cpp	/^void Application::run() {$/;"	f	class:Application	signature:()
 Application::window	include/core/Application.hpp	/^		sf::RenderWindow &window() { return m_window; }$/;"	f	class:Application	access:public	signature:()
 Application::~Application	include/core/Application.hpp	/^		~Application();$/;"	p	class:Application	access:public	signature:()
 Application::~Application	source/core/Application.cpp	/^Application::~Application() {$/;"	f	class:Application	signature:()
+ApplicationState	include/states/ApplicationState.hpp	/^		ApplicationState();$/;"	p	class:ApplicationState	access:public	signature:()
+ApplicationState	include/states/ApplicationState.hpp	/^class ApplicationState {$/;"	c
+ApplicationState	source/states/ApplicationState.cpp	/^ApplicationState::ApplicationState() {$/;"	f	class:ApplicationState	signature:()
+ApplicationState::ApplicationState	include/states/ApplicationState.hpp	/^		ApplicationState();$/;"	p	class:ApplicationState	access:public	signature:()
+ApplicationState::ApplicationState	source/states/ApplicationState.cpp	/^ApplicationState::ApplicationState() {$/;"	f	class:ApplicationState	signature:()
+ApplicationState::draw	include/states/ApplicationState.hpp	/^		virtual void draw() = 0;$/;"	p	class:ApplicationState	access:public	signature:()
+ApplicationState::getApplicationStateStack	include/states/ApplicationState.hpp	/^		ApplicationStateStack &getApplicationStateStack();$/;"	p	class:ApplicationState	access:public	signature:()
+ApplicationState::getApplicationStateStack	source/states/ApplicationState.cpp	/^ApplicationStateStack &ApplicationState::getApplicationStateStack() {$/;"	f	class:ApplicationState	signature:()
+ApplicationState::update	include/states/ApplicationState.hpp	/^		virtual void update() = 0;$/;"	p	class:ApplicationState	access:public	signature:()
+ApplicationState::~ApplicationState	include/states/ApplicationState.hpp	/^		virtual ~ApplicationState();$/;"	p	class:ApplicationState	access:public	signature:()
+ApplicationState::~ApplicationState	source/states/ApplicationState.cpp	/^ApplicationState::~ApplicationState() {$/;"	f	class:ApplicationState	signature:()
+ApplicationStateStack	include/core/ApplicationStateStack.hpp	/^		ApplicationStateStack();$/;"	p	class:ApplicationStateStack	access:public	signature:()
+ApplicationStateStack	include/core/ApplicationStateStack.hpp	/^class ApplicationStateStack {$/;"	c
+ApplicationStateStack	source/core/ApplicationStateStack.cpp	/^ApplicationStateStack::ApplicationStateStack() {$/;"	f	class:ApplicationStateStack	signature:()
+ApplicationStateStack::ApplicationStateStack	include/core/ApplicationStateStack.hpp	/^		ApplicationStateStack();$/;"	p	class:ApplicationStateStack	access:public	signature:()
+ApplicationStateStack::ApplicationStateStack	source/core/ApplicationStateStack.cpp	/^ApplicationStateStack::ApplicationStateStack() {$/;"	f	class:ApplicationStateStack	signature:()
+ApplicationStateStack::getInstance	include/core/ApplicationStateStack.hpp	/^		static ApplicationStateStack &getInstance();$/;"	p	class:ApplicationStateStack	access:public	signature:()
+ApplicationStateStack::getInstance	source/core/ApplicationStateStack.cpp	/^ApplicationStateStack &ApplicationStateStack::getInstance() {$/;"	f	class:ApplicationStateStack	signature:()
+ApplicationStateStack::m_stack	include/core/ApplicationStateStack.hpp	/^		std::stack<std::unique_ptr<ApplicationState>> m_stack;$/;"	m	class:ApplicationStateStack	access:private
+ApplicationStateStack::pop	include/core/ApplicationStateStack.hpp	/^		void pop() { m_stack.pop(); }$/;"	f	class:ApplicationStateStack	access:public	signature:()
+ApplicationStateStack::push	include/core/ApplicationStateStack.hpp	/^		void push(ApplicationState *state) { m_stack.push(std::unique_ptr<ApplicationState>(state)); }$/;"	f	class:ApplicationStateStack	access:public	signature:(ApplicationState *state)
+ApplicationStateStack::top	include/core/ApplicationStateStack.hpp	/^		ApplicationState &top() { return *m_stack.top().get(); } $/;"	f	class:ApplicationStateStack	access:public	signature:()
+ApplicationStateStack::~ApplicationStateStack	include/core/ApplicationStateStack.hpp	/^		~ApplicationStateStack();$/;"	p	class:ApplicationStateStack	access:public	signature:()
+ApplicationStateStack::~ApplicationStateStack	source/core/ApplicationStateStack.cpp	/^ApplicationStateStack::~ApplicationStateStack() {$/;"	f	class:ApplicationStateStack	signature:()
 Attribute	external/tinyxml2.cpp	/^const char* XMLElement::Attribute( const char* name, const char* value ) const$/;"	f	class:tinyxml2::XMLElement	signature:( const char* name, const char* value ) const
 Attribute	external/tinyxml2.hpp	/^    const char* Attribute( const char* name, const char* value=0 ) const;$/;"	p	class:tinyxml2::XMLElement	access:public	signature:( const char* name, const char* value=0 ) const
+B	include/input/GamePad.hpp	/^			B,$/;"	e	enum:GamePad::Key
 BUF_SIZE	external/tinyxml2.hpp	/^        BUF_SIZE = 200$/;"	e	enum:tinyxml2::XMLPrinter::__anon7
 BUF_SIZE	external/tinyxml2.hpp	/^    enum { BUF_SIZE = 200 };$/;"	e	enum:tinyxml2::XMLAttribute::__anon4
 BUF_SIZE	external/tinyxml2.hpp	/^    enum { BUF_SIZE = 200 };$/;"	e	enum:tinyxml2::XMLElement::__anon6
@@ -76,6 +104,7 @@ Block	external/tinyxml2.hpp	/^    struct Block {$/;"	s	class:tinyxml2::MemPoolT	
 Blue	include/core/Debug.hpp	/^		Blue = 36$/;"	e	enum:Debug::TextColor
 BoolAttribute	external/tinyxml2.hpp	/^    bool	 BoolAttribute( const char* name ) const	{$/;"	f	class:tinyxml2::XMLElement	access:public	signature:( const char* name ) const
 BoolValue	external/tinyxml2.hpp	/^    bool	 BoolValue() const				{$/;"	f	class:tinyxml2::XMLAttribute	access:public	signature:() const
+Button	include/data/TilesData.hpp	/^		Button			= 15,$/;"	e	enum:TilesData::TileType
 CARRIAGE_RETURN	external/tinyxml2.cpp	/^static const char CARRIAGE_RETURN		= (char)0x0d;			\/\/ CR gets filtered out$/;"	v	file:
 CC	Makefile	/^CC		:=	gcc$/;"	m
 CData	external/tinyxml2.hpp	/^    bool CData() const						{$/;"	f	class:tinyxml2::XMLText	access:public	signature:() const
@@ -94,6 +123,7 @@ CStrSize	external/tinyxml2.hpp	/^    int CStrSize() const {$/;"	f	class:tinyxml2
 CXX	Makefile	/^CXX		:=	g++$/;"	m
 CXXFLAGS	Makefile	/^CXXFLAGS:=	$(CFLAGS) -std=c++11 -MD$/;"	m
 Capacity	external/tinyxml2.hpp	/^    int Capacity() const				{$/;"	f	class:tinyxml2::DynArray	access:public	signature:() const
+ChangeMap	include/data/TilesData.hpp	/^		ChangeMap		= 2$/;"	e	enum:TilesData::SubTileType
 Chunk	external/tinyxml2.hpp	/^    union Chunk {$/;"	u	class:tinyxml2::MemPoolT	access:private
 Clear	external/tinyxml2.cpp	/^void XMLDocument::Clear()$/;"	f	class:tinyxml2::XMLDocument	signature:()
 Clear	external/tinyxml2.hpp	/^    void Clear() {$/;"	f	class:tinyxml2::DynArray	access:public	signature:()
@@ -101,6 +131,7 @@ Clear	external/tinyxml2.hpp	/^    void Clear();$/;"	p	class:tinyxml2::XMLDocumen
 ClearBuffer	external/tinyxml2.hpp	/^    void ClearBuffer() {$/;"	f	class:tinyxml2::XMLPrinter	access:public	signature:()
 CloseElement	external/tinyxml2.cpp	/^void XMLPrinter::CloseElement( bool compactMode )$/;"	f	class:tinyxml2::XMLPrinter	signature:( bool compactMode )
 CloseElement	external/tinyxml2.hpp	/^    virtual void CloseElement( bool compactMode );$/;"	p	class:tinyxml2::XMLPrinter	access:public	signature:( bool compactMode )
+ClosedChest	include/data/TilesData.hpp	/^		ClosedChest		= 16,$/;"	e	enum:TilesData::TileType
 ClosingType	external/tinyxml2.hpp	/^    int ClosingType() const {$/;"	f	class:tinyxml2::XMLElement	access:public	signature:() const
 CollapseWhitespace	external/tinyxml2.cpp	/^void StrPair::CollapseWhitespace()$/;"	f	class:tinyxml2::StrPair	signature:()
 CollapseWhitespace	external/tinyxml2.hpp	/^    void CollapseWhitespace();$/;"	p	class:tinyxml2::StrPair	access:private	signature:()
@@ -133,8 +164,11 @@ DeleteChild	external/tinyxml2.hpp	/^    void DeleteChild( XMLNode* node );$/;"	p
 DeleteChildren	external/tinyxml2.cpp	/^void XMLNode::DeleteChildren()$/;"	f	class:tinyxml2::XMLNode	signature:()
 DeleteChildren	external/tinyxml2.hpp	/^    void DeleteChildren();$/;"	p	class:tinyxml2::XMLNode	access:public	signature:()
 DeleteNode	external/tinyxml2.hpp	/^    void DeleteNode( XMLNode* node )	{$/;"	f	class:tinyxml2::XMLDocument	access:public	signature:( XMLNode* node )
+Direction	include/mapObjects/Movable.hpp	/^		enum Direction {$/;"	g	class:Movable	access:public
 DoubleAttribute	external/tinyxml2.hpp	/^    double 	 DoubleAttribute( const char* name ) const	{$/;"	f	class:tinyxml2::XMLElement	access:public	signature:( const char* name ) const
 DoubleValue	external/tinyxml2.hpp	/^    double 	 DoubleValue() const			{$/;"	f	class:tinyxml2::XMLAttribute	access:public	signature:() const
+Down	include/input/GamePad.hpp	/^			Down,$/;"	e	enum:GamePad::Key
+Down	include/mapObjects/Movable.hpp	/^			Down,$/;"	e	enum:Movable::Direction
 DynArray	external/tinyxml2.hpp	/^    DynArray< T, INIT >() {$/;"	f	class:tinyxml2::DynArray	access:public	signature:()
 DynArray	external/tinyxml2.hpp	/^class DynArray$/;"	c	namespace:tinyxml2
 ENTITY_RANGE	external/tinyxml2.hpp	/^        ENTITY_RANGE = 64,$/;"	e	enum:tinyxml2::XMLPrinter::__anon7
@@ -176,8 +210,8 @@ FloatValue	external/tinyxml2.hpp	/^    float	 FloatValue() const				{$/;"	f	clas
 Free	external/tinyxml2.hpp	/^    virtual void Free( void* ) = 0;$/;"	p	class:tinyxml2::MemPool	access:public	signature:( void* )
 Free	external/tinyxml2.hpp	/^    virtual void Free( void* mem ) {$/;"	f	class:tinyxml2::MemPoolT	access:public	signature:( void* mem )
 GAMECLOCK_HPP_	include/system/GameClock.hpp	19;"	d
-GAMESTATESTACK_HPP_	include/core/GameStateStack.hpp	19;"	d
-GAMESTATE_HPP_	include/states/GameState.hpp	19;"	d
+GAMEPAD_HPP_	include/input/GamePad.hpp	19;"	d
+GAMESTATE_HPP_	include/core/GameState.hpp	19;"	d
 GameClock	include/system/GameClock.hpp	/^		GameClock();$/;"	p	class:GameClock	access:public	signature:()
 GameClock	include/system/GameClock.hpp	/^class GameClock {$/;"	c
 GameClock	source/system/GameClock.cpp	/^GameClock::GameClock() {$/;"	f	class:GameClock	signature:()
@@ -204,30 +238,40 @@ GameClock::updateGame	include/system/GameClock.hpp	/^		void updateGame(std::func
 GameClock::updateGame	source/system/GameClock.cpp	/^void GameClock::updateGame(std::function<void(void)> updateFunc) {$/;"	f	class:GameClock	signature:(std::function<void(void)> updateFunc)
 GameClock::~GameClock	include/system/GameClock.hpp	/^		~GameClock();$/;"	p	class:GameClock	access:public	signature:()
 GameClock::~GameClock	source/system/GameClock.cpp	/^GameClock::~GameClock() {$/;"	f	class:GameClock	signature:()
-GameState	include/states/GameState.hpp	/^		GameState();$/;"	p	class:GameState	access:public	signature:()
-GameState	include/states/GameState.hpp	/^class GameState {$/;"	c
-GameState	source/states/GameState.cpp	/^GameState::GameState() {$/;"	f	class:GameState	signature:()
-GameState::GameState	include/states/GameState.hpp	/^		GameState();$/;"	p	class:GameState	access:public	signature:()
-GameState::GameState	source/states/GameState.cpp	/^GameState::GameState() {$/;"	f	class:GameState	signature:()
-GameState::draw	include/states/GameState.hpp	/^		virtual void draw() = 0;$/;"	p	class:GameState	access:public	signature:()
-GameState::getGameStateStack	include/states/GameState.hpp	/^		GameStateStack &getGameStateStack();$/;"	p	class:GameState	access:public	signature:()
-GameState::getGameStateStack	source/states/GameState.cpp	/^GameStateStack &GameState::getGameStateStack() {$/;"	f	class:GameState	signature:()
-GameState::update	include/states/GameState.hpp	/^		virtual void update() = 0;$/;"	p	class:GameState	access:public	signature:()
-GameState::~GameState	include/states/GameState.hpp	/^		virtual ~GameState();$/;"	p	class:GameState	access:public	signature:()
-GameState::~GameState	source/states/GameState.cpp	/^GameState::~GameState() {$/;"	f	class:GameState	signature:()
-GameStateStack	include/core/GameStateStack.hpp	/^		GameStateStack();$/;"	p	class:GameStateStack	access:public	signature:()
-GameStateStack	include/core/GameStateStack.hpp	/^class GameStateStack {$/;"	c
-GameStateStack	source/core/GameStateStack.cpp	/^GameStateStack::GameStateStack() {$/;"	f	class:GameStateStack	signature:()
-GameStateStack::GameStateStack	include/core/GameStateStack.hpp	/^		GameStateStack();$/;"	p	class:GameStateStack	access:public	signature:()
-GameStateStack::GameStateStack	source/core/GameStateStack.cpp	/^GameStateStack::GameStateStack() {$/;"	f	class:GameStateStack	signature:()
-GameStateStack::getInstance	include/core/GameStateStack.hpp	/^		static GameStateStack &getInstance();$/;"	p	class:GameStateStack	access:public	signature:()
-GameStateStack::getInstance	source/core/GameStateStack.cpp	/^GameStateStack &GameStateStack::getInstance() {$/;"	f	class:GameStateStack	signature:()
-GameStateStack::m_stack	include/core/GameStateStack.hpp	/^		std::stack<std::unique_ptr<GameState>> m_stack;$/;"	m	class:GameStateStack	access:private
-GameStateStack::pop	include/core/GameStateStack.hpp	/^		void pop() { m_stack.pop(); }$/;"	f	class:GameStateStack	access:public	signature:()
-GameStateStack::push	include/core/GameStateStack.hpp	/^		void push(GameState *state) { m_stack.push(std::unique_ptr<GameState>(state)); }$/;"	f	class:GameStateStack	access:public	signature:(GameState *state)
-GameStateStack::top	include/core/GameStateStack.hpp	/^		GameState &top() { return *m_stack.top().get(); } $/;"	f	class:GameStateStack	access:public	signature:()
-GameStateStack::~GameStateStack	include/core/GameStateStack.hpp	/^		~GameStateStack();$/;"	p	class:GameStateStack	access:public	signature:()
-GameStateStack::~GameStateStack	source/core/GameStateStack.cpp	/^GameStateStack::~GameStateStack() {$/;"	f	class:GameStateStack	signature:()
+GamePad	include/input/GamePad.hpp	/^		GamePad();$/;"	p	class:GamePad	access:public	signature:()
+GamePad	include/input/GamePad.hpp	/^class GamePad {$/;"	c
+GamePad	source/input/GamePad.cpp	/^GamePad::GamePad() {$/;"	f	class:GamePad	signature:()
+GamePad::A	include/input/GamePad.hpp	/^			A,$/;"	e	enum:GamePad::Key
+GamePad::B	include/input/GamePad.hpp	/^			B,$/;"	e	enum:GamePad::Key
+GamePad::Down	include/input/GamePad.hpp	/^			Down,$/;"	e	enum:GamePad::Key
+GamePad::GamePad	include/input/GamePad.hpp	/^		GamePad();$/;"	p	class:GamePad	access:public	signature:()
+GamePad::GamePad	source/input/GamePad.cpp	/^GamePad::GamePad() {$/;"	f	class:GamePad	signature:()
+GamePad::Key	include/input/GamePad.hpp	/^		enum Key {$/;"	g	class:GamePad	access:public
+GamePad::Left	include/input/GamePad.hpp	/^			Left,$/;"	e	enum:GamePad::Key
+GamePad::Right	include/input/GamePad.hpp	/^			Right,$/;"	e	enum:GamePad::Key
+GamePad::Select	include/input/GamePad.hpp	/^			Select$/;"	e	enum:GamePad::Key
+GamePad::Start	include/input/GamePad.hpp	/^			Start,$/;"	e	enum:GamePad::Key
+GamePad::Up	include/input/GamePad.hpp	/^			Up,$/;"	e	enum:GamePad::Key
+GamePad::getInstance	include/input/GamePad.hpp	/^		static GamePad &getInstance() {$/;"	f	class:GamePad	access:public	signature:()
+GamePad::isKeyPressed	include/input/GamePad.hpp	/^		bool isKeyPressed(Key key);$/;"	p	class:GamePad	access:public	signature:(Key key)
+GamePad::isKeyPressed	source/input/GamePad.cpp	/^bool GamePad::isKeyPressed(Key key) {$/;"	f	class:GamePad	signature:(Key key)
+GamePad::m_inputHandler	include/input/GamePad.hpp	/^		std::unique_ptr<InputHandler> m_inputHandler;$/;"	m	class:GamePad	access:private
+GamePad::update	include/input/GamePad.hpp	/^		void update();$/;"	p	class:GamePad	access:public	signature:()
+GamePad::update	source/input/GamePad.cpp	/^void GamePad::update() {$/;"	f	class:GamePad	signature:()
+GamePad::~GamePad	include/input/GamePad.hpp	/^		~GamePad();$/;"	p	class:GamePad	access:public	signature:()
+GamePad::~GamePad	source/input/GamePad.cpp	/^GamePad::~GamePad() {$/;"	f	class:GamePad	signature:()
+GameState	include/core/GameState.hpp	/^		GameState();$/;"	p	class:GameState	access:public	signature:()
+GameState	include/core/GameState.hpp	/^class GameState {$/;"	c
+GameState	source/core/GameState.cpp	/^GameState::GameState() : m_currentMap(ResourceHandler::getInstance().get<AnimatedMap>("a1")) {$/;"	f	class:GameState	signature:()
+GameState::GameState	include/core/GameState.hpp	/^		GameState();$/;"	p	class:GameState	access:public	signature:()
+GameState::GameState	source/core/GameState.cpp	/^GameState::GameState() : m_currentMap(ResourceHandler::getInstance().get<AnimatedMap>("a1")) {$/;"	f	class:GameState	signature:()
+GameState::currentMap	include/core/GameState.hpp	/^		AnimatedMap &currentMap() { return m_currentMap; }$/;"	f	class:GameState	access:public	signature:()
+GameState::getInstance	include/core/GameState.hpp	/^		static GameState &getInstance() {$/;"	f	class:GameState	access:public	signature:()
+GameState::m_currentMap	include/core/GameState.hpp	/^		AnimatedMap &m_currentMap;$/;"	m	class:GameState	access:private
+GameState::setCurrentMap	include/core/GameState.hpp	/^		void setCurrentMap(u8 mapX, u8 mapY);$/;"	p	class:GameState	access:public	signature:(u8 mapX, u8 mapY)
+GameState::setCurrentMap	source/core/GameState.cpp	/^void GameState::setCurrentMap(u8 mapX, u8 mapY) {$/;"	f	class:GameState	signature:(u8 mapX, u8 mapY)
+GameState::~GameState	include/core/GameState.hpp	/^		~GameState();$/;"	p	class:GameState	access:public	signature:()
+GameState::~GameState	source/core/GameState.cpp	/^GameState::~GameState() {$/;"	f	class:GameState	signature:()
 GetCharacterRef	external/tinyxml2.cpp	/^const char* XMLUtil::GetCharacterRef( const char* p, char* value, int* length )$/;"	f	class:tinyxml2::XMLUtil	signature:( const char* p, char* value, int* length )
 GetCharacterRef	external/tinyxml2.hpp	/^    static const char* GetCharacterRef( const char* p, char* value, int* length );$/;"	p	class:tinyxml2::XMLUtil	access:public	signature:( const char* p, char* value, int* length )
 GetDocument	external/tinyxml2.hpp	/^    XMLDocument* GetDocument()				{$/;"	f	class:tinyxml2::XMLNode	access:public	signature:()
@@ -238,11 +282,13 @@ GetStr	external/tinyxml2.cpp	/^const char* StrPair::GetStr()$/;"	f	class:tinyxml
 GetStr	external/tinyxml2.hpp	/^    const char* GetStr();$/;"	p	class:tinyxml2::StrPair	access:public	signature:()
 GetText	external/tinyxml2.cpp	/^const char* XMLElement::GetText() const$/;"	f	class:tinyxml2::XMLElement	signature:() const
 GetText	external/tinyxml2.hpp	/^    const char* GetText() const;$/;"	p	class:tinyxml2::XMLElement	access:public	signature:() const
+GrassTile	include/data/TilesData.hpp	/^		GrassTile		= 14,$/;"	e	enum:TilesData::TileType
 HEADERFILES	Makefile	/^HEADERFILES	:=	$(foreach dir,$(INCLUDES),$(wildcard $(dir)\/*.h)) \\$/;"	m
 HasBOM	external/tinyxml2.hpp	/^    bool HasBOM() const {$/;"	f	class:tinyxml2::XMLDocument	access:public	signature:() const
 IMAGE_HPP_	include/display/Image.hpp	19;"	d
 INCLUDE	Makefile	/^export INCLUDE	:=	$(foreach dir,$(INCLUDES),-I$(CURDIR)\/$(dir))$/;"	m
 INCLUDES	Makefile	/^INCLUDES	:=	include external $(wildcard include\/*)$/;"	m
+INPUTHANDLER_HPP_	include/input/InputHandler.hpp	19;"	d
 Identify	external/tinyxml2.cpp	/^char* XMLDocument::Identify( char* p, XMLNode** node )$/;"	f	class:tinyxml2::XMLDocument	signature:( char* p, XMLNode** node )
 Identify	external/tinyxml2.hpp	/^    char* Identify( char* p, XMLNode** node );$/;"	p	class:tinyxml2::XMLDocument	access:public	signature:( char* p, XMLNode** node )
 Image	include/display/Image.hpp	/^		Image();$/;"	p	class:Image	access:public	signature:()
@@ -267,6 +313,15 @@ Image::setClipRect	source/display/Image.cpp	/^void Image::setClipRect(s16 x, s16
 Image::width	include/display/Image.hpp	/^		u16 width() const { return m_texture->getSize().x; }$/;"	f	class:Image	access:public	signature:() const
 Image::~Image	include/display/Image.hpp	/^		~Image();$/;"	p	class:Image	access:public	signature:()
 Image::~Image	source/display/Image.cpp	/^Image::~Image() {$/;"	f	class:Image	signature:()
+InputHandler	include/input/InputHandler.hpp	/^		InputHandler();$/;"	p	class:InputHandler	access:public	signature:()
+InputHandler	include/input/InputHandler.hpp	/^class InputHandler {$/;"	c
+InputHandler	source/input/InputHandler.cpp	/^InputHandler::InputHandler() {$/;"	f	class:InputHandler	signature:()
+InputHandler::InputHandler	include/input/InputHandler.hpp	/^		InputHandler();$/;"	p	class:InputHandler	access:public	signature:()
+InputHandler::InputHandler	source/input/InputHandler.cpp	/^InputHandler::InputHandler() {$/;"	f	class:InputHandler	signature:()
+InputHandler::isKeyPressed	include/input/InputHandler.hpp	/^		virtual bool isKeyPressed(GamePad::Key key) = 0;$/;"	p	class:InputHandler	access:public	signature:(GamePad::Key key)
+InputHandler::update	include/input/InputHandler.hpp	/^		virtual void update() = 0;$/;"	p	class:InputHandler	access:public	signature:()
+InputHandler::~InputHandler	include/input/InputHandler.hpp	/^		~InputHandler();$/;"	p	class:InputHandler	access:public	signature:()
+InputHandler::~InputHandler	source/input/InputHandler.cpp	/^InputHandler::~InputHandler() {$/;"	f	class:InputHandler	signature:()
 InsertAfterChild	external/tinyxml2.cpp	/^XMLNode* XMLNode::InsertAfterChild( XMLNode* afterThis, XMLNode* addThis )$/;"	f	class:tinyxml2::XMLNode	signature:( XMLNode* afterThis, XMLNode* addThis )
 InsertAfterChild	external/tinyxml2.hpp	/^    XMLNode* InsertAfterChild( XMLNode* afterThis, XMLNode* addThis );$/;"	p	class:tinyxml2::XMLNode	access:public	signature:( XMLNode* afterThis, XMLNode* addThis )
 InsertEndChild	external/tinyxml2.cpp	/^XMLNode* XMLNode::InsertEndChild( XMLNode* addThis )$/;"	f	class:tinyxml2::XMLNode	signature:( XMLNode* addThis )
@@ -281,6 +336,30 @@ IsUTF8Continuation	external/tinyxml2.hpp	/^    inline static int IsUTF8Continuat
 IsWhiteSpace	external/tinyxml2.hpp	/^    static bool IsWhiteSpace( char p )					{$/;"	f	class:tinyxml2::XMLUtil	access:public	signature:( char p )
 ItemSize	external/tinyxml2.hpp	/^    virtual int ItemSize() const	{$/;"	f	class:tinyxml2::MemPoolT	access:public	signature:() const
 ItemSize	external/tinyxml2.hpp	/^    virtual int ItemSize() const = 0;$/;"	p	class:tinyxml2::MemPool	access:public	signature:() const
+KEYBOARDHANDLER_HPP_	include/input/KeyboardHandler.hpp	19;"	d
+KEYBOARDMOVEMENT_HPP_	include/movements/KeyboardMovement.hpp	19;"	d
+Key	include/input/GamePad.hpp	/^		enum Key {$/;"	g	class:GamePad	access:public
+KeyboardHandler	include/input/KeyboardHandler.hpp	/^		KeyboardHandler();$/;"	p	class:KeyboardHandler	access:public	signature:()
+KeyboardHandler	include/input/KeyboardHandler.hpp	/^class KeyboardHandler : public InputHandler {$/;"	c	inherits:InputHandler
+KeyboardHandler	source/input/KeyboardHandler.cpp	/^KeyboardHandler::KeyboardHandler() {$/;"	f	class:KeyboardHandler	signature:()
+KeyboardHandler::KeyboardHandler	include/input/KeyboardHandler.hpp	/^		KeyboardHandler();$/;"	p	class:KeyboardHandler	access:public	signature:()
+KeyboardHandler::KeyboardHandler	source/input/KeyboardHandler.cpp	/^KeyboardHandler::KeyboardHandler() {$/;"	f	class:KeyboardHandler	signature:()
+KeyboardHandler::isKeyPressed	include/input/KeyboardHandler.hpp	/^		bool isKeyPressed(GamePad::Key key);$/;"	p	class:KeyboardHandler	access:public	signature:(GamePad::Key key)
+KeyboardHandler::isKeyPressed	source/input/KeyboardHandler.cpp	/^bool KeyboardHandler::isKeyPressed(GamePad::Key key) {$/;"	f	class:KeyboardHandler	signature:(GamePad::Key key)
+KeyboardHandler::m_keys	include/input/KeyboardHandler.hpp	/^		std::map<GamePad::Key, sf::Keyboard::Key> m_keys;$/;"	m	class:KeyboardHandler	access:private
+KeyboardHandler::update	include/input/KeyboardHandler.hpp	/^		void update();$/;"	p	class:KeyboardHandler	access:public	signature:()
+KeyboardHandler::update	source/input/KeyboardHandler.cpp	/^void KeyboardHandler::update() {$/;"	f	class:KeyboardHandler	signature:()
+KeyboardHandler::~KeyboardHandler	include/input/KeyboardHandler.hpp	/^		~KeyboardHandler();$/;"	p	class:KeyboardHandler	access:public	signature:()
+KeyboardHandler::~KeyboardHandler	source/input/KeyboardHandler.cpp	/^KeyboardHandler::~KeyboardHandler() {$/;"	f	class:KeyboardHandler	signature:()
+KeyboardMovement	include/movements/KeyboardMovement.hpp	/^		KeyboardMovement();$/;"	p	class:KeyboardMovement	access:public	signature:()
+KeyboardMovement	include/movements/KeyboardMovement.hpp	/^class KeyboardMovement : public Movement {$/;"	c	inherits:Movement
+KeyboardMovement	source/movements/KeyboardMovement.cpp	/^KeyboardMovement::KeyboardMovement() {$/;"	f	class:KeyboardMovement	signature:()
+KeyboardMovement::KeyboardMovement	include/movements/KeyboardMovement.hpp	/^		KeyboardMovement();$/;"	p	class:KeyboardMovement	access:public	signature:()
+KeyboardMovement::KeyboardMovement	source/movements/KeyboardMovement.cpp	/^KeyboardMovement::KeyboardMovement() {$/;"	f	class:KeyboardMovement	signature:()
+KeyboardMovement::doMovement	include/movements/KeyboardMovement.hpp	/^		void doMovement(Movable &movable);$/;"	p	class:KeyboardMovement	access:public	signature:(Movable &movable)
+KeyboardMovement::doMovement	source/movements/KeyboardMovement.cpp	/^void KeyboardMovement::doMovement(Movable &movable) {$/;"	f	class:KeyboardMovement	signature:(Movable &movable)
+KeyboardMovement::~KeyboardMovement	include/movements/KeyboardMovement.hpp	/^		~KeyboardMovement();$/;"	p	class:KeyboardMovement	access:public	signature:()
+KeyboardMovement::~KeyboardMovement	source/movements/KeyboardMovement.cpp	/^KeyboardMovement::~KeyboardMovement() {$/;"	f	class:KeyboardMovement	signature:()
 LD	Makefile	/^	export LD	:=	$(CC)$/;"	m
 LD	Makefile	/^	export LD	:=	$(CXX)$/;"	m
 LDFLAGS	Makefile	/^LDFLAGS	:=	-g$/;"	m
@@ -298,20 +377,26 @@ LastChildElement	external/tinyxml2.hpp	/^    XMLElement* LastChildElement( const
 LastChildElement	external/tinyxml2.hpp	/^    XMLHandle LastChildElement( const char* _value=0 )						{$/;"	f	class:tinyxml2::XMLHandle	access:public	signature:( const char* _value=0 )
 LastChildElement	external/tinyxml2.hpp	/^    const XMLConstHandle LastChildElement( const char* _value=0 ) const				{$/;"	f	class:tinyxml2::XMLConstHandle	access:public	signature:( const char* _value=0 ) const
 LastChildElement	external/tinyxml2.hpp	/^    const XMLElement* LastChildElement( const char* value=0 ) const;$/;"	p	class:tinyxml2::XMLNode	access:public	signature:( const char* value=0 ) const
+Left	include/input/GamePad.hpp	/^			Left,$/;"	e	enum:GamePad::Key
+Left	include/mapObjects/Movable.hpp	/^			Left,$/;"	e	enum:Movable::Direction
 LinkEndChild	external/tinyxml2.hpp	/^    XMLNode* LinkEndChild( XMLNode* addThis )	{$/;"	f	class:tinyxml2::XMLNode	access:public	signature:( XMLNode* addThis )
 LoadFile	external/tinyxml2.cpp	/^XMLError XMLDocument::LoadFile( FILE* fp )$/;"	f	class:tinyxml2::XMLDocument	signature:( FILE* fp )
 LoadFile	external/tinyxml2.cpp	/^XMLError XMLDocument::LoadFile( const char* filename )$/;"	f	class:tinyxml2::XMLDocument	signature:( const char* filename )
 LoadFile	external/tinyxml2.hpp	/^    XMLError LoadFile( FILE* );$/;"	p	class:tinyxml2::XMLDocument	access:public	signature:( FILE* )
 LoadFile	external/tinyxml2.hpp	/^    XMLError LoadFile( const char* filename );$/;"	p	class:tinyxml2::XMLDocument	access:public	signature:( const char* filename )
+LowGrassTile	include/data/TilesData.hpp	/^		LowGrassTile	= 12,$/;"	e	enum:TilesData::TileType
+LowWaterTile	include/data/TilesData.hpp	/^		LowWaterTile	= 13,$/;"	e	enum:TilesData::TileType
 MAPSTATE_HPP_	include/states/MapState.hpp	19;"	d
+MOVABLE_HPP_	include/mapObjects/Movable.hpp	19;"	d
+MOVEMENT_HPP_	include/movements/Movement.hpp	19;"	d
 MapState	include/states/MapState.hpp	/^		MapState();$/;"	p	class:MapState	access:public	signature:()
-MapState	include/states/MapState.hpp	/^class MapState : public GameState {$/;"	c	inherits:GameState
+MapState	include/states/MapState.hpp	/^class MapState : public ApplicationState {$/;"	c	inherits:ApplicationState
 MapState	source/states/MapState.cpp	/^MapState::MapState() {$/;"	f	class:MapState	signature:()
 MapState::MapState	include/states/MapState.hpp	/^		MapState();$/;"	p	class:MapState	access:public	signature:()
 MapState::MapState	source/states/MapState.cpp	/^MapState::MapState() {$/;"	f	class:MapState	signature:()
 MapState::draw	include/states/MapState.hpp	/^		void draw();$/;"	p	class:MapState	access:public	signature:()
 MapState::draw	source/states/MapState.cpp	/^void MapState::draw() {$/;"	f	class:MapState	signature:()
-MapState::m_link	include/states/MapState.hpp	/^		Sprite m_link;$/;"	m	class:MapState	access:private
+MapState::m_link	include/states/MapState.hpp	/^		Player m_link;$/;"	m	class:MapState	access:private
 MapState::m_map	include/states/MapState.hpp	/^		AnimatedMap *m_map;$/;"	m	class:MapState	access:private
 MapState::update	include/states/MapState.hpp	/^		void update();$/;"	p	class:MapState	access:public	signature:()
 MapState::update	source/states/MapState.cpp	/^void MapState::update() {$/;"	f	class:MapState	signature:()
@@ -323,6 +408,45 @@ MemPool	external/tinyxml2.hpp	/^    MemPool() {}$/;"	f	class:tinyxml2::MemPool	a
 MemPool	external/tinyxml2.hpp	/^class MemPool$/;"	c	namespace:tinyxml2
 MemPoolT	external/tinyxml2.hpp	/^    MemPoolT() : _root(0), _currentAllocs(0), _nAllocs(0), _maxAllocs(0), _nUntracked(0)	{}$/;"	f	class:tinyxml2::MemPoolT	access:public	signature:()
 MemPoolT	external/tinyxml2.hpp	/^class MemPoolT : public MemPool$/;"	c	namespace:tinyxml2	inherits:MemPool
+Movable	include/mapObjects/Movable.hpp	/^		Movable();$/;"	p	class:Movable	access:public	signature:()
+Movable	include/mapObjects/Movable.hpp	/^		Movable(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement);$/;"	p	class:Movable	access:public	signature:(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement)
+Movable	include/mapObjects/Movable.hpp	/^class Movable : public Sprite {$/;"	c	inherits:Sprite
+Movable	source/mapObjects/Movable.cpp	/^Movable::Movable() {$/;"	f	class:Movable	signature:()
+Movable	source/mapObjects/Movable.cpp	/^Movable::Movable(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement) {$/;"	f	class:Movable	signature:(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement)
+Movable::Direction	include/mapObjects/Movable.hpp	/^		enum Direction {$/;"	g	class:Movable	access:public
+Movable::Down	include/mapObjects/Movable.hpp	/^			Down,$/;"	e	enum:Movable::Direction
+Movable::Left	include/mapObjects/Movable.hpp	/^			Left,$/;"	e	enum:Movable::Direction
+Movable::Movable	include/mapObjects/Movable.hpp	/^		Movable();$/;"	p	class:Movable	access:public	signature:()
+Movable::Movable	include/mapObjects/Movable.hpp	/^		Movable(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement);$/;"	p	class:Movable	access:public	signature:(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement)
+Movable::Movable	source/mapObjects/Movable.cpp	/^Movable::Movable() {$/;"	f	class:Movable	signature:()
+Movable::Movable	source/mapObjects/Movable.cpp	/^Movable::Movable(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement) {$/;"	f	class:Movable	signature:(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement)
+Movable::Right	include/mapObjects/Movable.hpp	/^			Right,$/;"	e	enum:Movable::Direction
+Movable::Up	include/mapObjects/Movable.hpp	/^			Up$/;"	e	enum:Movable::Direction
+Movable::addCollisionHandler	include/mapObjects/Movable.hpp	/^		void addCollisionHandler(std::function<void(void)> collisionHandler);$/;"	p	class:Movable	access:public	signature:(std::function<void(void)> collisionHandler)
+Movable::addCollisionHandler	source/mapObjects/Movable.cpp	/^void Movable::addCollisionHandler(std::function<void(void)> collisionHandler) {$/;"	f	class:Movable	signature:(std::function<void(void)> collisionHandler)
+Movable::draw	include/mapObjects/Movable.hpp	/^		void draw();$/;"	p	class:Movable	access:public	signature:()
+Movable::draw	source/mapObjects/Movable.cpp	/^void Movable::draw() {$/;"	f	class:Movable	signature:()
+Movable::load	include/mapObjects/Movable.hpp	/^		void load(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement);$/;"	p	class:Movable	access:public	signature:(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement)
+Movable::load	source/mapObjects/Movable.cpp	/^void Movable::load(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement) {$/;"	f	class:Movable	signature:(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement)
+Movable::m_blocked	include/mapObjects/Movable.hpp	/^		bool m_blocked;$/;"	m	class:Movable	access:private
+Movable::m_collisionHandlers	include/mapObjects/Movable.hpp	/^		std::vector<std::function<void(void)>> m_collisionHandlers;$/;"	m	class:Movable	access:protected
+Movable::m_direction	include/mapObjects/Movable.hpp	/^		u8 m_direction;$/;"	m	class:Movable	access:protected
+Movable::m_movement	include/mapObjects/Movable.hpp	/^		std::unique_ptr<Movement> m_movement;$/;"	m	class:Movable	access:private
+Movable::m_moving	include/mapObjects/Movable.hpp	/^		bool m_moving;$/;"	m	class:Movable	access:private
+Movable::m_speed	include/mapObjects/Movable.hpp	/^		float m_speed;$/;"	m	class:Movable	access:private
+Movable::m_vx	include/mapObjects/Movable.hpp	/^		float m_vx;$/;"	m	class:Movable	access:protected
+Movable::m_vy	include/mapObjects/Movable.hpp	/^		float m_vy;$/;"	m	class:Movable	access:protected
+Movable::move	include/mapObjects/Movable.hpp	/^		void move();$/;"	p	class:Movable	access:public	signature:()
+Movable::move	source/mapObjects/Movable.cpp	/^void Movable::move() {$/;"	f	class:Movable	signature:()
+Movable::setDirection	include/mapObjects/Movable.hpp	/^		void setDirection(u8 direction) { m_direction = direction; }$/;"	f	class:Movable	access:public	signature:(u8 direction)
+Movable::setVelocity	include/mapObjects/Movable.hpp	/^		void setVelocity(float vx, float vy) { m_vx = vx; m_vy = vy; }$/;"	f	class:Movable	access:public	signature:(float vx, float vy)
+Movable::~Movable	include/mapObjects/Movable.hpp	/^		~Movable();$/;"	p	class:Movable	access:public	signature:()
+Movable::~Movable	source/mapObjects/Movable.cpp	/^Movable::~Movable() {$/;"	f	class:Movable	signature:()
+Movement	include/movements/Movement.hpp	/^		Movement() {}$/;"	f	class:Movement	access:public	signature:()
+Movement	include/movements/Movement.hpp	/^class Movement {$/;"	c
+Movement::Movement	include/movements/Movement.hpp	/^		Movement() {}$/;"	f	class:Movement	access:public	signature:()
+Movement::doMovement	include/movements/Movement.hpp	/^		virtual void doMovement(Movable &movable) = 0;$/;"	p	class:Movement	access:public	signature:(Movable &movable)
+Movement::~Movement	include/movements/Movement.hpp	/^		virtual ~Movement() {}$/;"	f	class:Movement	access:public	signature:()
 NEEDS_DELETE	external/tinyxml2.hpp	/^        NEEDS_DELETE = 0x200$/;"	e	enum:tinyxml2::StrPair::__anon2
 NEEDS_ENTITY_PROCESSING	external/tinyxml2.hpp	/^        NEEDS_ENTITY_PROCESSING			= 0x01,$/;"	e	enum:tinyxml2::StrPair::__anon1
 NEEDS_FLUSH	external/tinyxml2.hpp	/^        NEEDS_FLUSH = 0x100,$/;"	e	enum:tinyxml2::StrPair::__anon2
@@ -352,11 +476,14 @@ NextSiblingElement	external/tinyxml2.hpp	/^    XMLHandle NextSiblingElement( con
 NextSiblingElement	external/tinyxml2.hpp	/^    const XMLConstHandle NextSiblingElement( const char* _value=0 ) const			{$/;"	f	class:tinyxml2::XMLConstHandle	access:public	signature:( const char* _value=0 ) const
 NextSiblingElement	external/tinyxml2.hpp	/^    const XMLElement*	NextSiblingElement( const char* value=0 ) const;$/;"	p	class:tinyxml2::XMLNode	access:public	signature:( const char* value=0 ) const
 NoChildren	external/tinyxml2.hpp	/^    bool NoChildren() const					{$/;"	f	class:tinyxml2::XMLNode	access:public	signature:() const
+NonPassable	include/data/TilesData.hpp	/^		NonPassable		= 1,$/;"	e	enum:TilesData::SubTileType
 OFILES	Makefile	/^export OFILES	:=	$(CPPFILES:.cpp=.o) $(CFILES:.c=.o)$/;"	m
 OPEN	external/tinyxml2.hpp	/^        OPEN,		\/\/ <foo>$/;"	e	enum:tinyxml2::XMLElement::__anon5
 OUTPUT	Makefile	/^export OUTPUT	:=	$(CURDIR)\/$(TARGET)$/;"	m
 OpenElement	external/tinyxml2.cpp	/^void XMLPrinter::OpenElement( const char* name, bool compactMode )$/;"	f	class:tinyxml2::XMLPrinter	signature:( const char* name, bool compactMode )
 OpenElement	external/tinyxml2.hpp	/^    void OpenElement( const char* name, bool compactMode );$/;"	p	class:tinyxml2::XMLPrinter	access:public	signature:( const char* name, bool compactMode )
+OpenedChest	include/data/TilesData.hpp	/^		OpenedChest		= 17$/;"	e	enum:TilesData::TileType
+PLAYER_HPP_	include/mapObjects/Player.hpp	19;"	d
 PRESERVE_WHITESPACE	external/tinyxml2.hpp	/^    PRESERVE_WHITESPACE,$/;"	e	enum:tinyxml2::Whitespace
 Parent	external/tinyxml2.hpp	/^    XMLNode* Parent()						{$/;"	f	class:tinyxml2::XMLNode	access:public	signature:()
 Parent	external/tinyxml2.hpp	/^    const XMLNode*	Parent() const			{$/;"	f	class:tinyxml2::XMLNode	access:public	signature:() const
@@ -382,7 +509,17 @@ ParseName	external/tinyxml2.cpp	/^char* StrPair::ParseName( char* p )$/;"	f	clas
 ParseName	external/tinyxml2.hpp	/^    char* ParseName( char* in );$/;"	p	class:tinyxml2::StrPair	access:public	signature:( char* in )
 ParseText	external/tinyxml2.cpp	/^char* StrPair::ParseText( char* p, const char* endTag, int strFlags )$/;"	f	class:tinyxml2::StrPair	signature:( char* p, const char* endTag, int strFlags )
 ParseText	external/tinyxml2.hpp	/^    char* ParseText( char* in, const char* endTag, int strFlags );$/;"	p	class:tinyxml2::StrPair	access:public	signature:( char* in, const char* endTag, int strFlags )
+Passable	include/data/TilesData.hpp	/^		Passable		= 0,$/;"	e	enum:TilesData::SubTileType
 PeekTop	external/tinyxml2.hpp	/^    const T& PeekTop() const                            {$/;"	f	class:tinyxml2::DynArray	access:public	signature:() const
+Player	include/mapObjects/Player.hpp	/^		Player();$/;"	p	class:Player	access:public	signature:()
+Player	include/mapObjects/Player.hpp	/^class Player : public Movable {$/;"	c	inherits:Movable
+Player	source/mapObjects/Player.cpp	/^Player::Player() {$/;"	f	class:Player	signature:()
+Player::Player	include/mapObjects/Player.hpp	/^		Player();$/;"	p	class:Player	access:public	signature:()
+Player::Player	source/mapObjects/Player.cpp	/^Player::Player() {$/;"	f	class:Player	signature:()
+Player::mapCollisions	include/mapObjects/Player.hpp	/^		void mapCollisions();$/;"	p	class:Player	access:public	signature:()
+Player::mapCollisions	source/mapObjects/Player.cpp	/^void Player::mapCollisions() {$/;"	f	class:Player	signature:()
+Player::~Player	include/mapObjects/Player.hpp	/^		~Player();$/;"	p	class:Player	access:public	signature:()
+Player::~Player	source/mapObjects/Player.cpp	/^Player::~Player() {$/;"	f	class:Player	signature:()
 Pop	external/tinyxml2.hpp	/^    T Pop() {$/;"	f	class:tinyxml2::DynArray	access:public	signature:()
 PopArr	external/tinyxml2.hpp	/^    void PopArr( int count ) {$/;"	f	class:tinyxml2::DynArray	access:public	signature:( int count )
 PreviousSibling	external/tinyxml2.hpp	/^    XMLHandle PreviousSibling()												{$/;"	f	class:tinyxml2::XMLHandle	access:public	signature:()
@@ -486,6 +623,8 @@ ResourceHandler::loadResources	source/core/ResourceHandler.cpp	/^void ResourceHa
 ResourceHandler::m_resources	include/core/ResourceHandler.hpp	/^		std::map<std::string, std::shared_ptr<void>> m_resources;$/;"	m	class:ResourceHandler	access:private
 ResourceHandler::~ResourceHandler	include/core/ResourceHandler.hpp	/^		~ResourceHandler();$/;"	p	class:ResourceHandler	access:public	signature:()
 ResourceHandler::~ResourceHandler	source/core/ResourceHandler.cpp	/^ResourceHandler::~ResourceHandler() {$/;"	f	class:ResourceHandler	signature:()
+Right	include/input/GamePad.hpp	/^			Right,$/;"	e	enum:GamePad::Key
+Right	include/mapObjects/Movable.hpp	/^			Right,$/;"	e	enum:Movable::Direction
 RootElement	external/tinyxml2.hpp	/^    XMLElement* RootElement()				{$/;"	f	class:tinyxml2::XMLDocument	access:public	signature:()
 RootElement	external/tinyxml2.hpp	/^    const XMLElement* RootElement() const	{$/;"	f	class:tinyxml2::XMLDocument	access:public	signature:() const
 SINGLE_QUOTE	external/tinyxml2.cpp	/^static const char SINGLE_QUOTE			= '\\'';$/;"	v	file:
@@ -499,6 +638,7 @@ SaveFile	external/tinyxml2.hpp	/^    XMLError SaveFile( FILE* fp, bool compact =
 SaveFile	external/tinyxml2.hpp	/^    XMLError SaveFile( const char* filename, bool compact = false );$/;"	p	class:tinyxml2::XMLDocument	access:public	signature:( const char* filename, bool compact = false )
 SealElement	external/tinyxml2.cpp	/^void XMLPrinter::SealElement()$/;"	f	class:tinyxml2::XMLPrinter	signature:()
 SealElement	external/tinyxml2.hpp	/^	void SealElement();$/;"	p	class:tinyxml2::XMLPrinter	access:protected	signature:()
+Select	include/input/GamePad.hpp	/^			Select$/;"	e	enum:GamePad::Key
 Set	external/tinyxml2.hpp	/^    void Set( char* start, char* end, int flags ) {$/;"	f	class:tinyxml2::StrPair	access:public	signature:( char* start, char* end, int flags )
 SetAttribute	external/tinyxml2.cpp	/^void XMLAttribute::SetAttribute( bool v )$/;"	f	class:tinyxml2::XMLAttribute	signature:( bool v )
 SetAttribute	external/tinyxml2.cpp	/^void XMLAttribute::SetAttribute( const char* v )$/;"	f	class:tinyxml2::XMLAttribute	signature:( const char* v )
@@ -571,6 +711,7 @@ ShallowEqual	external/tinyxml2.hpp	/^    virtual bool ShallowEqual( const XMLNod
 Size	external/tinyxml2.hpp	/^    int Size() const					{$/;"	f	class:tinyxml2::DynArray	access:public	signature:() const
 SkipWhiteSpace	external/tinyxml2.hpp	/^    static char* SkipWhiteSpace( char* p )				{$/;"	f	class:tinyxml2::XMLUtil	access:public	signature:( char* p )
 SkipWhiteSpace	external/tinyxml2.hpp	/^    static const char* SkipWhiteSpace( const char* p )	{$/;"	f	class:tinyxml2::XMLUtil	access:public	signature:( const char* p )
+SlowingTile	include/data/TilesData.hpp	/^		SlowingTile		= 11,$/;"	e	enum:TilesData::TileType
 Sprite	include/display/Sprite.hpp	/^		Sprite();$/;"	p	class:Sprite	access:public	signature:()
 Sprite	include/display/Sprite.hpp	/^		Sprite(std::string filename, u16 frameWidth, u16 frameHeight);$/;"	p	class:Sprite	access:public	signature:(std::string filename, u16 frameWidth, u16 frameHeight)
 Sprite	include/display/Sprite.hpp	/^class Sprite : public Image {$/;"	c	inherits:Image
@@ -619,15 +760,19 @@ SpriteAnimation::delay	include/display/SpriteAnimation.hpp	/^	u16 delay;$/;"	m	s
 SpriteAnimation::frames	include/display/SpriteAnimation.hpp	/^	std::vector<u16> frames;$/;"	m	struct:SpriteAnimation	access:public
 SpriteAnimation::isPlaying	include/display/SpriteAnimation.hpp	/^	bool isPlaying;$/;"	m	struct:SpriteAnimation	access:public
 SpriteAnimation::timer	include/display/SpriteAnimation.hpp	/^	Timer timer;$/;"	m	struct:SpriteAnimation	access:public
+Start	include/input/GamePad.hpp	/^			Start,$/;"	e	enum:GamePad::Key
 StrPair	external/tinyxml2.hpp	/^    StrPair() : _flags( 0 ), _start( 0 ), _end( 0 ) {}$/;"	f	class:tinyxml2::StrPair	access:public	signature:()
 StrPair	external/tinyxml2.hpp	/^class StrPair$/;"	c	namespace:tinyxml2
 StringEqual	external/tinyxml2.hpp	/^    inline static bool StringEqual( const char* p, const char* q, int nChar=INT_MAX )  {$/;"	f	class:tinyxml2::XMLUtil	access:public	signature:( const char* p, const char* q, int nChar=INT_MAX )
+SubTileType	include/data/TilesData.hpp	/^	enum SubTileType {$/;"	g	namespace:TilesData
 TARGET	Makefile	/^TARGET		:=  $(shell basename $(CURDIR))$/;"	m
 TEXT_ELEMENT	external/tinyxml2.hpp	/^        TEXT_ELEMENT		            	= NEEDS_ENTITY_PROCESSING | NEEDS_NEWLINE_NORMALIZATION,$/;"	e	enum:tinyxml2::StrPair::__anon1
 TEXT_ELEMENT_LEAVE_ENTITIES	external/tinyxml2.hpp	/^        TEXT_ELEMENT_LEAVE_ENTITIES		= NEEDS_NEWLINE_NORMALIZATION,$/;"	e	enum:tinyxml2::StrPair::__anon1
 TILEANIMATION_HPP_	include/display/TileAnimation.hpp	19;"	d
 TILEMAP_HPP_	include/display/TileMap.hpp	19;"	d
+TILESDATA_HPP_	include/data/TilesData.hpp	19;"	d
 TILESET_HPP_	include/display/Tileset.hpp	19;"	d
+TILE_NB	include/data/TilesData.hpp	23;"	d
 TIMER_HPP_	include/system/Timer.hpp	19;"	d
 TINYXML2_INCLUDED	external/tinyxml2.hpp	26;"	d
 TINYXML2_LIB	external/tinyxml2.hpp	68;"	d
@@ -679,6 +824,8 @@ TileMap::m_tileWidth	include/display/TileMap.hpp	/^		u16 m_tileWidth;$/;"	m	clas
 TileMap::m_tileset	include/display/TileMap.hpp	/^		Tileset *m_tileset;$/;"	m	class:TileMap	access:protected
 TileMap::m_vertices	include/display/TileMap.hpp	/^		sf::VertexArray m_vertices;$/;"	m	class:TileMap	access:private
 TileMap::m_width	include/display/TileMap.hpp	/^		u16 m_width;$/;"	m	class:TileMap	access:protected
+TileMap::passable	include/display/TileMap.hpp	/^		bool passable(float x, float y);$/;"	p	class:TileMap	access:public	signature:(float x, float y)
+TileMap::passable	source/display/TileMap.cpp	/^bool TileMap::passable(float x, float y) {$/;"	f	class:TileMap	signature:(float x, float y)
 TileMap::setTile	include/display/TileMap.hpp	/^		void setTile(u16 tileX, u16 tileY, u16 tile);$/;"	p	class:TileMap	access:public	signature:(u16 tileX, u16 tileY, u16 tile)
 TileMap::setTile	source/display/TileMap.cpp	/^void TileMap::setTile(u16 tileX, u16 tileY, u16 tile) {$/;"	f	class:TileMap	signature:(u16 tileX, u16 tileY, u16 tile)
 TileMap::updateTile	include/display/TileMap.hpp	/^		virtual void updateTile(u16 tileX, u16 tileY);$/;"	p	class:TileMap	access:public	signature:(u16 tileX, u16 tileY)
@@ -687,6 +834,21 @@ TileMap::updateTiles	include/display/TileMap.hpp	/^		void updateTiles();$/;"	p	c
 TileMap::updateTiles	source/display/TileMap.cpp	/^void TileMap::updateTiles() {$/;"	f	class:TileMap	signature:()
 TileMap::~TileMap	include/display/TileMap.hpp	/^		~TileMap();$/;"	p	class:TileMap	access:public	signature:()
 TileMap::~TileMap	source/display/TileMap.cpp	/^TileMap::~TileMap() {$/;"	f	class:TileMap	signature:()
+TileType	include/data/TilesData.hpp	/^	enum TileType {$/;"	g	namespace:TilesData
+TilesData	include/data/TilesData.hpp	/^namespace TilesData {$/;"	n
+TilesData::Button	include/data/TilesData.hpp	/^		Button			= 15,$/;"	e	enum:TilesData::TileType
+TilesData::ChangeMap	include/data/TilesData.hpp	/^		ChangeMap		= 2$/;"	e	enum:TilesData::SubTileType
+TilesData::ClosedChest	include/data/TilesData.hpp	/^		ClosedChest		= 16,$/;"	e	enum:TilesData::TileType
+TilesData::GrassTile	include/data/TilesData.hpp	/^		GrassTile		= 14,$/;"	e	enum:TilesData::TileType
+TilesData::LowGrassTile	include/data/TilesData.hpp	/^		LowGrassTile	= 12,$/;"	e	enum:TilesData::TileType
+TilesData::LowWaterTile	include/data/TilesData.hpp	/^		LowWaterTile	= 13,$/;"	e	enum:TilesData::TileType
+TilesData::NonPassable	include/data/TilesData.hpp	/^		NonPassable		= 1,$/;"	e	enum:TilesData::SubTileType
+TilesData::OpenedChest	include/data/TilesData.hpp	/^		OpenedChest		= 17$/;"	e	enum:TilesData::TileType
+TilesData::Passable	include/data/TilesData.hpp	/^		Passable		= 0,$/;"	e	enum:TilesData::SubTileType
+TilesData::SlowingTile	include/data/TilesData.hpp	/^		SlowingTile		= 11,$/;"	e	enum:TilesData::TileType
+TilesData::SubTileType	include/data/TilesData.hpp	/^	enum SubTileType {$/;"	g	namespace:TilesData
+TilesData::TileType	include/data/TilesData.hpp	/^	enum TileType {$/;"	g	namespace:TilesData
+TilesData::infos	source/data/TilesData.cpp	/^u16 TilesData::infos[TILE_NB][4] = {$/;"	m	class:TilesData	file:
 Tileset	include/display/Tileset.hpp	/^		Tileset();$/;"	p	class:Tileset	access:public	signature:()
 Tileset	include/display/Tileset.hpp	/^		Tileset(std::string name);$/;"	p	class:Tileset	access:public	signature:(std::string name)
 Tileset	include/display/Tileset.hpp	/^class Tileset {$/;"	c
@@ -703,7 +865,7 @@ Tileset::info	include/display/Tileset.hpp	/^		std::vector<u16> &info() { return 
 Tileset::load	include/display/Tileset.hpp	/^		void load(std::string name);$/;"	p	class:Tileset	access:public	signature:(std::string name)
 Tileset::load	source/display/Tileset.cpp	/^void Tileset::load(std::string name) {$/;"	f	class:Tileset	signature:(std::string name)
 Tileset::m_anims	include/display/Tileset.hpp	/^		std::vector<TileAnimation> m_anims;$/;"	m	class:Tileset	access:private
-Tileset::m_info	include/display/Tileset.hpp	/^		std::vector<s16> m_info;$/;"	m	class:Tileset	access:private
+Tileset::m_info	include/display/Tileset.hpp	/^		std::vector<u16> m_info;$/;"	m	class:Tileset	access:private
 Tileset::m_texture	include/display/Tileset.hpp	/^		sf::Texture m_texture;$/;"	m	class:Tileset	access:private
 Tileset::texture	include/display/Tileset.hpp	/^		sf::Texture &texture() { return m_texture; }$/;"	f	class:Tileset	access:public	signature:()
 Timer	include/system/Timer.hpp	/^		Timer(bool useRealTime = false);$/;"	p	class:Timer	access:public	signature:(bool useRealTime = false)
@@ -788,6 +950,8 @@ Unlink	external/tinyxml2.hpp	/^    void Unlink( XMLNode* child );$/;"	p	class:ti
 UnsignedAttribute	external/tinyxml2.hpp	/^    unsigned UnsignedAttribute( const char* name ) const {$/;"	f	class:tinyxml2::XMLElement	access:public	signature:( const char* name ) const
 UnsignedValue	external/tinyxml2.hpp	/^    unsigned UnsignedValue() const			{$/;"	f	class:tinyxml2::XMLAttribute	access:public	signature:() const
 Untracked	external/tinyxml2.hpp	/^    int Untracked() const {$/;"	f	class:tinyxml2::MemPoolT	access:public	signature:() const
+Up	include/input/GamePad.hpp	/^			Up,$/;"	e	enum:GamePad::Key
+Up	include/mapObjects/Movable.hpp	/^			Up$/;"	e	enum:Movable::Direction
 VPATH	Makefile	/^export VPATH	:=	$(foreach dir,$(SOURCES),$(CURDIR)\/$(dir))$/;"	m
 Value	external/tinyxml2.cpp	/^const char* XMLAttribute::Value() const $/;"	f	class:tinyxml2::XMLAttribute	signature:() const
 Value	external/tinyxml2.cpp	/^const char* XMLNode::Value() const $/;"	f	class:tinyxml2::XMLNode	signature:() const
@@ -954,6 +1118,8 @@ addAnimation	include/display/Sprite.hpp	/^		void addAnimation(std::initializer_l
 addAnimation	include/display/Tileset.hpp	/^		void addAnimation(std::initializer_list<u16> frames, u16 delay);$/;"	p	class:Tileset	access:public	signature:(std::initializer_list<u16> frames, u16 delay)
 addAnimation	source/display/Sprite.cpp	/^void Sprite::addAnimation(std::initializer_list<u16> frames, u16 delay) {$/;"	f	class:Sprite	signature:(std::initializer_list<u16> frames, u16 delay)
 addAnimation	source/display/Tileset.cpp	/^void Tileset::addAnimation(std::initializer_list<u16> frames, u16 delay) {$/;"	f	class:Tileset	signature:(std::initializer_list<u16> frames, u16 delay)
+addCollisionHandler	include/mapObjects/Movable.hpp	/^		void addCollisionHandler(std::function<void(void)> collisionHandler);$/;"	p	class:Movable	access:public	signature:(std::function<void(void)> collisionHandler)
+addCollisionHandler	source/mapObjects/Movable.cpp	/^void Movable::addCollisionHandler(std::function<void(void)> collisionHandler) {$/;"	f	class:Movable	signature:(std::function<void(void)> collisionHandler)
 anim	include/display/AnimatedTile.hpp	/^	TileAnimation &anim;$/;"	m	struct:AnimatedTile	access:public
 animationAtEnd	include/display/Sprite.hpp	/^		bool animationAtEnd(u16 anim);$/;"	p	class:Sprite	access:public	signature:(u16 anim)
 animationAtEnd	source/display/Sprite.cpp	/^bool Sprite::animationAtEnd(u16 anim) {$/;"	f	class:Sprite	signature:(u16 anim)
@@ -964,18 +1130,24 @@ chunk	external/tinyxml2.hpp	/^        Chunk chunk[COUNT];$/;"	m	struct:tinyxml2:
 clock	include/system/GameClock.hpp	/^		static sf::Clock clock;$/;"	m	class:GameClock	access:private
 clock	source/system/GameClock.cpp	/^sf::Clock GameClock::clock;$/;"	m	class:GameClock	file:
 currentAnimation	include/display/Sprite.hpp	/^		s16 currentAnimation() const { return m_currentAnimation; }$/;"	f	class:Sprite	access:public	signature:() const
+currentMap	include/core/GameState.hpp	/^		AnimatedMap &currentMap() { return m_currentMap; }$/;"	f	class:GameState	access:public	signature:()
 delay	include/display/SpriteAnimation.hpp	/^	u16 delay;$/;"	m	struct:SpriteAnimation	access:public
 delay	include/display/TileAnimation.hpp	/^	u16 delay;$/;"	m	struct:TileAnimation	access:public
+doMovement	include/movements/KeyboardMovement.hpp	/^		void doMovement(Movable &movable);$/;"	p	class:KeyboardMovement	access:public	signature:(Movable &movable)
+doMovement	include/movements/Movement.hpp	/^		virtual void doMovement(Movable &movable) = 0;$/;"	p	class:Movement	access:public	signature:(Movable &movable)
+doMovement	source/movements/KeyboardMovement.cpp	/^void KeyboardMovement::doMovement(Movable &movable) {$/;"	f	class:KeyboardMovement	signature:(Movable &movable)
 draw	include/display/Image.hpp	/^		void draw();$/;"	p	class:Image	access:public	signature:()
 draw	include/display/Image.hpp	/^		void draw(float x, float y, s16 width = -1, s16 height = -1);$/;"	p	class:Image	access:public	signature:(float x, float y, s16 width = -1, s16 height = -1)
 draw	include/display/TileMap.hpp	/^		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;$/;"	p	class:TileMap	access:private	signature:(sf::RenderTarget &target, sf::RenderStates states) const
 draw	include/display/TileMap.hpp	/^		void draw();$/;"	p	class:TileMap	access:public	signature:()
-draw	include/states/GameState.hpp	/^		virtual void draw() = 0;$/;"	p	class:GameState	access:public	signature:()
+draw	include/mapObjects/Movable.hpp	/^		void draw();$/;"	p	class:Movable	access:public	signature:()
+draw	include/states/ApplicationState.hpp	/^		virtual void draw() = 0;$/;"	p	class:ApplicationState	access:public	signature:()
 draw	include/states/MapState.hpp	/^		void draw();$/;"	p	class:MapState	access:public	signature:()
 draw	source/display/Image.cpp	/^void Image::draw() {$/;"	f	class:Image	signature:()
 draw	source/display/Image.cpp	/^void Image::draw(float x, float y, s16 width, s16 height) {$/;"	f	class:Image	signature:(float x, float y, s16 width, s16 height)
 draw	source/display/TileMap.cpp	/^void TileMap::draw() {$/;"	f	class:TileMap	signature:()
 draw	source/display/TileMap.cpp	/^void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {$/;"	f	class:TileMap	signature:(sf::RenderTarget &target, sf::RenderStates states) const
+draw	source/mapObjects/Movable.cpp	/^void Movable::draw() {$/;"	f	class:Movable	signature:()
 draw	source/states/MapState.cpp	/^void MapState::draw() {$/;"	f	class:MapState	signature:()
 drawFrame	include/display/Sprite.hpp	/^		virtual void drawFrame(u16 frame);$/;"	p	class:Sprite	access:public	signature:(u16 frame)
 drawFrame	include/display/Sprite.hpp	/^		void drawFrame(float x, float y, u16 frame);$/;"	p	class:Sprite	access:public	signature:(float x, float y, u16 frame)
@@ -987,12 +1159,14 @@ entities	external/tinyxml2.cpp	/^static const Entity entities[NUM_ENTITIES] = {$
 frames	include/display/SpriteAnimation.hpp	/^	std::vector<u16> frames;$/;"	m	struct:SpriteAnimation	access:public
 frames	include/display/TileAnimation.hpp	/^	std::vector<u16> frames;$/;"	m	struct:TileAnimation	access:public
 get	include/core/ResourceHandler.hpp	/^		T &get(std::string name) {$/;"	f	class:ResourceHandler	access:public	signature:(std::string name)
-getGameStateStack	include/states/GameState.hpp	/^		GameStateStack &getGameStateStack();$/;"	p	class:GameState	access:public	signature:()
-getGameStateStack	source/states/GameState.cpp	/^GameStateStack &GameState::getGameStateStack() {$/;"	f	class:GameState	signature:()
+getApplicationStateStack	include/states/ApplicationState.hpp	/^		ApplicationStateStack &getApplicationStateStack();$/;"	p	class:ApplicationState	access:public	signature:()
+getApplicationStateStack	source/states/ApplicationState.cpp	/^ApplicationStateStack &ApplicationState::getApplicationStateStack() {$/;"	f	class:ApplicationState	signature:()
 getInstance	include/core/Application.hpp	/^		static Application &getInstance() {$/;"	f	class:Application	access:public	signature:()
-getInstance	include/core/GameStateStack.hpp	/^		static GameStateStack &getInstance();$/;"	p	class:GameStateStack	access:public	signature:()
+getInstance	include/core/ApplicationStateStack.hpp	/^		static ApplicationStateStack &getInstance();$/;"	p	class:ApplicationStateStack	access:public	signature:()
+getInstance	include/core/GameState.hpp	/^		static GameState &getInstance() {$/;"	f	class:GameState	access:public	signature:()
 getInstance	include/core/ResourceHandler.hpp	/^		static ResourceHandler &getInstance() {$/;"	f	class:ResourceHandler	access:public	signature:()
-getInstance	source/core/GameStateStack.cpp	/^GameStateStack &GameStateStack::getInstance() {$/;"	f	class:GameStateStack	signature:()
+getInstance	include/input/GamePad.hpp	/^		static GamePad &getInstance() {$/;"	f	class:GamePad	access:public	signature:()
+getInstance	source/core/ApplicationStateStack.cpp	/^ApplicationStateStack &ApplicationStateStack::getInstance() {$/;"	f	class:ApplicationStateStack	signature:()
 getTicks	include/system/GameClock.hpp	/^		static u32 getTicks(bool realTime = false);$/;"	p	class:GameClock	access:public	signature:(bool realTime = false)
 getTicks	source/system/GameClock.cpp	/^u32 GameClock::getTicks(bool realTime) {$/;"	f	class:GameClock	signature:(bool realTime)
 getTile	include/display/TileMap.hpp	/^		s16 getTile(s16 tileX, s16 tileY);$/;"	p	class:TileMap	access:public	signature:(s16 tileX, s16 tileY)
@@ -1001,6 +1175,12 @@ handleEvents	include/core/Application.hpp	/^		void handleEvents();$/;"	p	class:A
 handleEvents	source/core/Application.cpp	/^void Application::handleEvents() {$/;"	f	class:Application	signature:()
 height	include/display/Image.hpp	/^		u16 height() const { return m_texture->getSize().y; }$/;"	f	class:Image	access:public	signature:() const
 info	include/display/Tileset.hpp	/^		std::vector<u16> &info() { return m_info; }$/;"	f	class:Tileset	access:public	signature:()
+infos	source/data/TilesData.cpp	/^u16 TilesData::infos[TILE_NB][4] = {$/;"	m	class:TilesData	file:
+isKeyPressed	include/input/GamePad.hpp	/^		bool isKeyPressed(Key key);$/;"	p	class:GamePad	access:public	signature:(Key key)
+isKeyPressed	include/input/InputHandler.hpp	/^		virtual bool isKeyPressed(GamePad::Key key) = 0;$/;"	p	class:InputHandler	access:public	signature:(GamePad::Key key)
+isKeyPressed	include/input/KeyboardHandler.hpp	/^		bool isKeyPressed(GamePad::Key key);$/;"	p	class:KeyboardHandler	access:public	signature:(GamePad::Key key)
+isKeyPressed	source/input/GamePad.cpp	/^bool GamePad::isKeyPressed(Key key) {$/;"	f	class:GamePad	signature:(Key key)
+isKeyPressed	source/input/KeyboardHandler.cpp	/^bool KeyboardHandler::isKeyPressed(GamePad::Key key) {$/;"	f	class:KeyboardHandler	signature:(GamePad::Key key)
 isPlaying	include/display/SpriteAnimation.hpp	/^	bool isPlaying;$/;"	m	struct:SpriteAnimation	access:public
 isStarted	include/system/Timer.hpp	/^		bool isStarted() const { return m_isStarted; }$/;"	f	class:Timer	access:public	signature:() const
 length	external/tinyxml2.cpp	/^    int length;$/;"	m	struct:tinyxml2::Entity	file:	access:public
@@ -1008,39 +1188,50 @@ load	include/display/Image.hpp	/^		void load(std::string filename);$/;"	p	class:
 load	include/display/Sprite.hpp	/^		void load(std::string filename, u16 frameWidth, u16 frameHeight);$/;"	p	class:Sprite	access:public	signature:(std::string filename, u16 frameWidth, u16 frameHeight)
 load	include/display/TileMap.hpp	/^		void load(std::string filename, std::string textureName);$/;"	p	class:TileMap	access:public	signature:(std::string filename, std::string textureName)
 load	include/display/Tileset.hpp	/^		void load(std::string name);$/;"	p	class:Tileset	access:public	signature:(std::string name)
+load	include/mapObjects/Movable.hpp	/^		void load(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement);$/;"	p	class:Movable	access:public	signature:(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement)
 load	source/display/Image.cpp	/^void Image::load(std::string filename) {$/;"	f	class:Image	signature:(std::string filename)
 load	source/display/Sprite.cpp	/^void Sprite::load(std::string filename, u16 frameWidth, u16 frameHeight) {$/;"	f	class:Sprite	signature:(std::string filename, u16 frameWidth, u16 frameHeight)
 load	source/display/TileMap.cpp	/^void TileMap::load(std::string filename, std::string tilesetName) {$/;"	f	class:TileMap	signature:(std::string filename, std::string tilesetName)
 load	source/display/Tileset.cpp	/^void Tileset::load(std::string name) {$/;"	f	class:Tileset	signature:(std::string name)
+load	source/mapObjects/Movable.cpp	/^void Movable::load(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement) {$/;"	f	class:Movable	signature:(std::string filename, u16 frameWidth, u16 frameHeight, Movement *movement)
 loadResources	include/core/ResourceHandler.hpp	/^		void loadResources();$/;"	p	class:ResourceHandler	access:public	signature:()
 loadResources	source/core/ResourceHandler.cpp	/^void ResourceHandler::loadResources() {$/;"	f	class:ResourceHandler	signature:()
 m_animatedTiles	include/display/AnimatedMap.hpp	/^		std::vector<AnimatedTile> m_animatedTiles;$/;"	m	class:AnimatedMap	access:private
 m_animations	include/display/Sprite.hpp	/^		std::vector<SpriteAnimation> m_animations;$/;"	m	class:Sprite	access:protected
 m_anims	include/display/Tileset.hpp	/^		std::vector<TileAnimation> m_anims;$/;"	m	class:Tileset	access:private
+m_applicationStateStack	include/core/Application.hpp	/^		ApplicationStateStack *m_applicationStateStack;$/;"	m	class:Application	access:private
+m_blocked	include/mapObjects/Movable.hpp	/^		bool m_blocked;$/;"	m	class:Movable	access:private
 m_clock	include/core/Application.hpp	/^		GameClock m_clock;$/;"	m	class:Application	access:private
+m_collisionHandlers	include/mapObjects/Movable.hpp	/^		std::vector<std::function<void(void)>> m_collisionHandlers;$/;"	m	class:Movable	access:protected
 m_currentAnimation	include/display/Sprite.hpp	/^		s16 m_currentAnimation;$/;"	m	class:Sprite	access:protected
+m_currentMap	include/core/GameState.hpp	/^		AnimatedMap &m_currentMap;$/;"	m	class:GameState	access:private
 m_data	include/display/TileMap.hpp	/^		std::vector<s16> m_data;$/;"	m	class:TileMap	access:protected
 m_defaultView	include/core/Application.hpp	/^		sf::View m_defaultView;$/;"	m	class:Application	access:private
+m_direction	include/mapObjects/Movable.hpp	/^		u8 m_direction;$/;"	m	class:Movable	access:protected
 m_doc	include/core/XMLFile.hpp	/^		XMLHandle *m_doc;$/;"	m	class:XMLFile	access:private
 m_errorMsg	include/system/Exception.hpp	/^		std::string m_errorMsg;$/;"	m	class:Exception	access:private
 m_filename	include/system/Exception.hpp	/^		std::string m_filename;$/;"	m	class:Exception	access:private
 m_frameHeight	include/display/Sprite.hpp	/^		u16 m_frameHeight;$/;"	m	class:Sprite	access:protected
 m_frameWidth	include/display/Sprite.hpp	/^		u16 m_frameWidth;$/;"	m	class:Sprite	access:protected
-m_gameStateStack	include/core/Application.hpp	/^		GameStateStack *m_gameStateStack;$/;"	m	class:Application	access:private
 m_height	include/display/TileMap.hpp	/^		u16 m_height;$/;"	m	class:TileMap	access:protected
-m_info	include/display/Tileset.hpp	/^		std::vector<s16> m_info;$/;"	m	class:Tileset	access:private
+m_info	include/display/Tileset.hpp	/^		std::vector<u16> m_info;$/;"	m	class:Tileset	access:private
+m_inputHandler	include/input/GamePad.hpp	/^		std::unique_ptr<InputHandler> m_inputHandler;$/;"	m	class:GamePad	access:private
 m_isStarted	include/system/Timer.hpp	/^		bool m_isStarted;$/;"	m	class:Timer	access:private
+m_keys	include/input/KeyboardHandler.hpp	/^		std::map<GamePad::Key, sf::Keyboard::Key> m_keys;$/;"	m	class:KeyboardHandler	access:private
 m_lag	include/system/GameClock.hpp	/^		u32 m_lag;$/;"	m	class:GameClock	access:private
 m_lastFrameDate	include/system/GameClock.hpp	/^		u32 m_lastFrameDate;$/;"	m	class:GameClock	access:private
 m_lastFrameDisplayed	include/display/Sprite.hpp	/^		u16 m_lastFrameDisplayed;$/;"	m	class:Sprite	access:protected
 m_lastFrameDuration	include/system/GameClock.hpp	/^		u32 m_lastFrameDuration;$/;"	m	class:GameClock	access:private
 m_line	include/system/Exception.hpp	/^		u16 m_line;$/;"	m	class:Exception	access:private
-m_link	include/states/MapState.hpp	/^		Sprite m_link;$/;"	m	class:MapState	access:private
+m_link	include/states/MapState.hpp	/^		Player m_link;$/;"	m	class:MapState	access:private
 m_map	include/states/MapState.hpp	/^		AnimatedMap *m_map;$/;"	m	class:MapState	access:private
+m_movement	include/mapObjects/Movable.hpp	/^		std::unique_ptr<Movement> m_movement;$/;"	m	class:Movable	access:private
+m_moving	include/mapObjects/Movable.hpp	/^		bool m_moving;$/;"	m	class:Movable	access:private
 m_now	include/system/GameClock.hpp	/^		u32 m_now;$/;"	m	class:GameClock	access:private
 m_numUpdates	include/system/GameClock.hpp	/^		u8 m_numUpdates;$/;"	m	class:GameClock	access:private
 m_resources	include/core/ResourceHandler.hpp	/^		std::map<std::string, std::shared_ptr<void>> m_resources;$/;"	m	class:ResourceHandler	access:private
-m_stack	include/core/GameStateStack.hpp	/^		std::stack<std::unique_ptr<GameState>> m_stack;$/;"	m	class:GameStateStack	access:private
+m_speed	include/mapObjects/Movable.hpp	/^		float m_speed;$/;"	m	class:Movable	access:private
+m_stack	include/core/ApplicationStateStack.hpp	/^		std::stack<std::unique_ptr<ApplicationState>> m_stack;$/;"	m	class:ApplicationStateStack	access:private
 m_t	include/system/Timer.hpp	/^		u32 m_t;$/;"	m	class:Timer	access:private
 m_texture	include/display/Image.hpp	/^		sf::Texture *m_texture;$/;"	m	class:Image	access:private
 m_texture	include/display/Tileset.hpp	/^		sf::Texture m_texture;$/;"	m	class:Tileset	access:private
@@ -1052,15 +1243,21 @@ m_timeDropped	include/system/GameClock.hpp	/^		u32 m_timeDropped;$/;"	m	class:Ga
 m_timestep	include/system/GameClock.hpp	/^		u32 m_timestep;$/;"	m	class:GameClock	access:private
 m_useRealTime	include/system/Timer.hpp	/^		bool m_useRealTime;$/;"	m	class:Timer	access:private
 m_vertices	include/display/TileMap.hpp	/^		sf::VertexArray m_vertices;$/;"	m	class:TileMap	access:private
+m_vx	include/mapObjects/Movable.hpp	/^		float m_vx;$/;"	m	class:Movable	access:protected
+m_vy	include/mapObjects/Movable.hpp	/^		float m_vy;$/;"	m	class:Movable	access:protected
 m_width	include/display/TileMap.hpp	/^		u16 m_width;$/;"	m	class:TileMap	access:protected
 m_window	include/core/Application.hpp	/^		sf::RenderWindow m_window;$/;"	m	class:Application	access:private
 m_xml	include/core/XMLFile.hpp	/^		XMLDocument m_xml;$/;"	m	class:XMLFile	access:private
 main	source/main.cpp	/^int main(int argc, char *argv[]) {$/;"	f	signature:(int argc, char *argv[])
 makeString	include/core/Debug.hpp	/^	std::string makeString(std::stringstream &stream, T value) {$/;"	f	namespace:Debug	signature:(std::stringstream &stream, T value)
 makeString	include/core/Debug.hpp	/^	std::string makeString(std::stringstream &stream, T value, Args... args) {$/;"	f	namespace:Debug	signature:(std::stringstream &stream, T value, Args... args)
+mapCollisions	include/mapObjects/Player.hpp	/^		void mapCollisions();$/;"	p	class:Player	access:public	signature:()
+mapCollisions	source/mapObjects/Player.cpp	/^void Player::mapCollisions() {$/;"	f	class:Player	signature:()
 measureLastFrameDuration	include/system/GameClock.hpp	/^		void measureLastFrameDuration();$/;"	p	class:GameClock	access:public	signature:()
 measureLastFrameDuration	source/system/GameClock.cpp	/^void GameClock::measureLastFrameDuration() {$/;"	f	class:GameClock	signature:()
 mem	external/tinyxml2.hpp	/^        char    mem[SIZE];$/;"	m	union:tinyxml2::MemPoolT::Chunk	access:public
+move	include/mapObjects/Movable.hpp	/^		void move();$/;"	p	class:Movable	access:public	signature:()
+move	source/mapObjects/Movable.cpp	/^void Movable::move() {$/;"	f	class:Movable	signature:()
 next	external/tinyxml2.hpp	/^        Chunk*  next;$/;"	m	union:tinyxml2::MemPoolT::Chunk	access:public
 nextFrame	include/display/AnimatedTile.hpp	/^	u16 nextFrame;$/;"	m	struct:AnimatedTile	access:public
 operator =	external/tinyxml2.hpp	/^    XMLComment& operator=( const XMLComment& );	\/\/ not supported$/;"	p	class:tinyxml2::XMLComment	access:protected	signature:( const XMLComment& )
@@ -1076,6 +1273,8 @@ operator =	external/tinyxml2.hpp	/^    void operator=( const XMLElement& );	\/\/
 operator []	external/tinyxml2.hpp	/^    T& operator[](int i)				{$/;"	f	class:tinyxml2::DynArray	access:public	signature:(int i)
 operator []	external/tinyxml2.hpp	/^    const T& operator[](int i) const	{$/;"	f	class:tinyxml2::DynArray	access:public	signature:(int i) const
 override	include/display/AnimatedMap.hpp	/^		virtual void updateTile(u16 tileX, u16 tileY) override;$/;"	m	class:AnimatedMap	access:public
+passable	include/display/TileMap.hpp	/^		bool passable(float x, float y);$/;"	p	class:TileMap	access:public	signature:(float x, float y)
+passable	source/display/TileMap.cpp	/^bool TileMap::passable(float x, float y) {$/;"	f	class:TileMap	signature:(float x, float y)
 pattern	external/tinyxml2.cpp	/^    const char* pattern;$/;"	m	struct:tinyxml2::Entity	file:	access:public
 pause	include/display/Sprite.hpp	/^		static bool pause;$/;"	m	class:Sprite	access:public
 pause	source/display/Sprite.cpp	/^bool Sprite::pause = false;$/;"	m	class:Sprite	file:
@@ -1083,9 +1282,9 @@ playAnimation	include/display/Sprite.hpp	/^		void playAnimation(float x, float y
 playAnimation	include/display/Sprite.hpp	/^		void playAnimation(u16 anim);$/;"	p	class:Sprite	access:public	signature:(u16 anim)
 playAnimation	source/display/Sprite.cpp	/^void Sprite::playAnimation(float x, float y, u16 anim) {$/;"	f	class:Sprite	signature:(float x, float y, u16 anim)
 playAnimation	source/display/Sprite.cpp	/^void Sprite::playAnimation(u16 anim) {$/;"	f	class:Sprite	signature:(u16 anim)
-pop	include/core/GameStateStack.hpp	/^		void pop() { m_stack.pop(); }$/;"	f	class:GameStateStack	access:public	signature:()
+pop	include/core/ApplicationStateStack.hpp	/^		void pop() { m_stack.pop(); }$/;"	f	class:ApplicationStateStack	access:public	signature:()
 print	include/core/Debug.hpp	/^	void print(Args... args) {$/;"	f	namespace:Debug	signature:(Args.... args)
-push	include/core/GameStateStack.hpp	/^		void push(GameState *state) { m_stack.push(std::unique_ptr<GameState>(state)); }$/;"	f	class:GameStateStack	access:public	signature:(GameState *state)
+push	include/core/ApplicationStateStack.hpp	/^		void push(ApplicationState *state) { m_stack.push(std::unique_ptr<ApplicationState>(state)); }$/;"	f	class:ApplicationStateStack	access:public	signature:(ApplicationState *state)
 reset	include/system/Timer.hpp	/^		void reset();$/;"	p	class:Timer	access:public	signature:()
 reset	source/system/Timer.cpp	/^void Timer::reset() {$/;"	f	class:Timer	signature:()
 resetAnimation	include/display/Sprite.hpp	/^		void resetAnimation(u16 anim, u16 frame = 0);$/;"	p	class:Sprite	access:public	signature:(u16 anim, u16 frame = 0)
@@ -1097,10 +1296,14 @@ s32	include/system/Types.hpp	/^typedef signed long s32;$/;"	t
 s8	include/system/Types.hpp	/^typedef signed char s8;$/;"	t
 setClipRect	include/display/Image.hpp	/^		void setClipRect(s16 x, s16 y, u16 width, u16 height);$/;"	p	class:Image	access:public	signature:(s16 x, s16 y, u16 width, u16 height)
 setClipRect	source/display/Image.cpp	/^void Image::setClipRect(s16 x, s16 y, u16 width, u16 height) {$/;"	f	class:Image	signature:(s16 x, s16 y, u16 width, u16 height)
+setCurrentMap	include/core/GameState.hpp	/^		void setCurrentMap(u8 mapX, u8 mapY);$/;"	p	class:GameState	access:public	signature:(u8 mapX, u8 mapY)
+setCurrentMap	source/core/GameState.cpp	/^void GameState::setCurrentMap(u8 mapX, u8 mapY) {$/;"	f	class:GameState	signature:(u8 mapX, u8 mapY)
+setDirection	include/mapObjects/Movable.hpp	/^		void setDirection(u8 direction) { m_direction = direction; }$/;"	f	class:Movable	access:public	signature:(u8 direction)
 setTile	include/display/TileMap.hpp	/^		void setTile(u16 tileX, u16 tileY, u16 tile);$/;"	p	class:TileMap	access:public	signature:(u16 tileX, u16 tileY, u16 tile)
 setTile	source/display/TileMap.cpp	/^void TileMap::setTile(u16 tileX, u16 tileY, u16 tile) {$/;"	f	class:TileMap	signature:(u16 tileX, u16 tileY, u16 tile)
 setTime	include/system/Timer.hpp	/^		void setTime(u32 time);$/;"	p	class:Timer	access:public	signature:(u32 time)
 setTime	source/system/Timer.cpp	/^void Timer::setTime(u32 time) {$/;"	f	class:Timer	signature:(u32 time)
+setVelocity	include/mapObjects/Movable.hpp	/^		void setVelocity(float vx, float vy) { m_vx = vx; m_vy = vy; }$/;"	f	class:Movable	access:public	signature:(float vx, float vy)
 start	include/system/Timer.hpp	/^		void start();$/;"	p	class:Timer	access:public	signature:()
 start	source/system/Timer.cpp	/^void Timer::start() {$/;"	f	class:Timer	signature:()
 startAnimation	include/display/Sprite.hpp	/^		void startAnimation(u16 anim);$/;"	p	class:Sprite	access:public	signature:(u16 anim)
@@ -1734,14 +1937,19 @@ tinyxml2::XML_NO_TEXT_NODE	external/tinyxml2.hpp	/^    XML_NO_TEXT_NODE$/;"	e	en
 tinyxml2::XML_SUCCESS	external/tinyxml2.hpp	/^    XML_SUCCESS = 0,$/;"	e	enum:tinyxml2::XMLError
 tinyxml2::XML_WRONG_ATTRIBUTE_TYPE	external/tinyxml2.hpp	/^    XML_WRONG_ATTRIBUTE_TYPE,$/;"	e	enum:tinyxml2::XMLError
 tinyxml2::entities	external/tinyxml2.cpp	/^static const Entity entities[NUM_ENTITIES] = {$/;"	m	namespace:tinyxml2	file:
-top	include/core/GameStateStack.hpp	/^		GameState &top() { return *m_stack.top().get(); } $/;"	f	class:GameStateStack	access:public	signature:()
+top	include/core/ApplicationStateStack.hpp	/^		ApplicationState &top() { return *m_stack.top().get(); } $/;"	f	class:ApplicationStateStack	access:public	signature:()
 u16	include/system/Types.hpp	/^typedef unsigned short u16;$/;"	t
 u32	include/system/Types.hpp	/^typedef unsigned long u32;$/;"	t
 u8	include/system/Types.hpp	/^typedef unsigned char u8;$/;"	t
 update	include/display/AnimatedMap.hpp	/^		void update();$/;"	p	class:AnimatedMap	access:public	signature:()
-update	include/states/GameState.hpp	/^		virtual void update() = 0;$/;"	p	class:GameState	access:public	signature:()
+update	include/input/GamePad.hpp	/^		void update();$/;"	p	class:GamePad	access:public	signature:()
+update	include/input/InputHandler.hpp	/^		virtual void update() = 0;$/;"	p	class:InputHandler	access:public	signature:()
+update	include/input/KeyboardHandler.hpp	/^		void update();$/;"	p	class:KeyboardHandler	access:public	signature:()
+update	include/states/ApplicationState.hpp	/^		virtual void update() = 0;$/;"	p	class:ApplicationState	access:public	signature:()
 update	include/states/MapState.hpp	/^		void update();$/;"	p	class:MapState	access:public	signature:()
 update	source/display/AnimatedMap.cpp	/^void AnimatedMap::update() {$/;"	f	class:AnimatedMap	signature:()
+update	source/input/GamePad.cpp	/^void GamePad::update() {$/;"	f	class:GamePad	signature:()
+update	source/input/KeyboardHandler.cpp	/^void KeyboardHandler::update() {$/;"	f	class:KeyboardHandler	signature:()
 update	source/states/MapState.cpp	/^void MapState::update() {$/;"	f	class:MapState	signature:()
 updateGame	include/system/GameClock.hpp	/^		void updateGame(std::function<void(void)> updateFunc);$/;"	p	class:GameClock	access:public	signature:(std::function<void(void)> updateFunc)
 updateGame	source/system/GameClock.cpp	/^void GameClock::updateGame(std::function<void(void)> updateFunc) {$/;"	f	class:GameClock	signature:(std::function<void(void)> updateFunc)
@@ -1758,20 +1966,35 @@ window	include/core/Application.hpp	/^		sf::RenderWindow &window() { return m_wi
 ~AnimatedMap	source/display/AnimatedMap.cpp	/^AnimatedMap::~AnimatedMap() {$/;"	f	class:AnimatedMap	signature:()
 ~Application	include/core/Application.hpp	/^		~Application();$/;"	p	class:Application	access:public	signature:()
 ~Application	source/core/Application.cpp	/^Application::~Application() {$/;"	f	class:Application	signature:()
+~ApplicationState	include/states/ApplicationState.hpp	/^		virtual ~ApplicationState();$/;"	p	class:ApplicationState	access:public	signature:()
+~ApplicationState	source/states/ApplicationState.cpp	/^ApplicationState::~ApplicationState() {$/;"	f	class:ApplicationState	signature:()
+~ApplicationStateStack	include/core/ApplicationStateStack.hpp	/^		~ApplicationStateStack();$/;"	p	class:ApplicationStateStack	access:public	signature:()
+~ApplicationStateStack	source/core/ApplicationStateStack.cpp	/^ApplicationStateStack::~ApplicationStateStack() {$/;"	f	class:ApplicationStateStack	signature:()
 ~DynArray	external/tinyxml2.hpp	/^    ~DynArray() {$/;"	f	class:tinyxml2::DynArray	access:public	signature:()
 ~Exception	include/system/Exception.hpp	/^		~Exception() throw() {$/;"	f	class:Exception	access:public	signature:()
 ~GameClock	include/system/GameClock.hpp	/^		~GameClock();$/;"	p	class:GameClock	access:public	signature:()
 ~GameClock	source/system/GameClock.cpp	/^GameClock::~GameClock() {$/;"	f	class:GameClock	signature:()
-~GameState	include/states/GameState.hpp	/^		virtual ~GameState();$/;"	p	class:GameState	access:public	signature:()
-~GameState	source/states/GameState.cpp	/^GameState::~GameState() {$/;"	f	class:GameState	signature:()
-~GameStateStack	include/core/GameStateStack.hpp	/^		~GameStateStack();$/;"	p	class:GameStateStack	access:public	signature:()
-~GameStateStack	source/core/GameStateStack.cpp	/^GameStateStack::~GameStateStack() {$/;"	f	class:GameStateStack	signature:()
+~GamePad	include/input/GamePad.hpp	/^		~GamePad();$/;"	p	class:GamePad	access:public	signature:()
+~GamePad	source/input/GamePad.cpp	/^GamePad::~GamePad() {$/;"	f	class:GamePad	signature:()
+~GameState	include/core/GameState.hpp	/^		~GameState();$/;"	p	class:GameState	access:public	signature:()
+~GameState	source/core/GameState.cpp	/^GameState::~GameState() {$/;"	f	class:GameState	signature:()
 ~Image	include/display/Image.hpp	/^		~Image();$/;"	p	class:Image	access:public	signature:()
 ~Image	source/display/Image.cpp	/^Image::~Image() {$/;"	f	class:Image	signature:()
+~InputHandler	include/input/InputHandler.hpp	/^		~InputHandler();$/;"	p	class:InputHandler	access:public	signature:()
+~InputHandler	source/input/InputHandler.cpp	/^InputHandler::~InputHandler() {$/;"	f	class:InputHandler	signature:()
+~KeyboardHandler	include/input/KeyboardHandler.hpp	/^		~KeyboardHandler();$/;"	p	class:KeyboardHandler	access:public	signature:()
+~KeyboardHandler	source/input/KeyboardHandler.cpp	/^KeyboardHandler::~KeyboardHandler() {$/;"	f	class:KeyboardHandler	signature:()
+~KeyboardMovement	include/movements/KeyboardMovement.hpp	/^		~KeyboardMovement();$/;"	p	class:KeyboardMovement	access:public	signature:()
+~KeyboardMovement	source/movements/KeyboardMovement.cpp	/^KeyboardMovement::~KeyboardMovement() {$/;"	f	class:KeyboardMovement	signature:()
 ~MapState	include/states/MapState.hpp	/^		~MapState();$/;"	p	class:MapState	access:public	signature:()
 ~MapState	source/states/MapState.cpp	/^MapState::~MapState() {$/;"	f	class:MapState	signature:()
 ~MemPool	external/tinyxml2.hpp	/^    virtual ~MemPool() {}$/;"	f	class:tinyxml2::MemPool	access:public	signature:()
 ~MemPoolT	external/tinyxml2.hpp	/^    ~MemPoolT() {$/;"	f	class:tinyxml2::MemPoolT	access:public	signature:()
+~Movable	include/mapObjects/Movable.hpp	/^		~Movable();$/;"	p	class:Movable	access:public	signature:()
+~Movable	source/mapObjects/Movable.cpp	/^Movable::~Movable() {$/;"	f	class:Movable	signature:()
+~Movement	include/movements/Movement.hpp	/^		virtual ~Movement() {}$/;"	f	class:Movement	access:public	signature:()
+~Player	include/mapObjects/Player.hpp	/^		~Player();$/;"	p	class:Player	access:public	signature:()
+~Player	source/mapObjects/Player.cpp	/^Player::~Player() {$/;"	f	class:Player	signature:()
 ~ResourceHandler	include/core/ResourceHandler.hpp	/^		~ResourceHandler();$/;"	p	class:ResourceHandler	access:public	signature:()
 ~ResourceHandler	source/core/ResourceHandler.cpp	/^ResourceHandler::~ResourceHandler() {$/;"	f	class:ResourceHandler	signature:()
 ~Sprite	include/display/Sprite.hpp	/^		~Sprite();$/;"	p	class:Sprite	access:public	signature:()

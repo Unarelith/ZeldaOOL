@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  GameState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  01/12/2014 21:22:48
+ *        Created:  03/12/2014 22:32:21
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,25 +15,26 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef GAMESTATE_HPP_
+#define GAMESTATE_HPP_
 
 #include "AnimatedMap.hpp"
-#include "ApplicationState.hpp"
-#include "Player.hpp"
 
-class MapState : public ApplicationState {
+class GameState {
 	public:
-		MapState();
-		~MapState();
+		GameState();
+		~GameState();
 		
-		void update();
+		AnimatedMap &currentMap() { return *m_currentMap; }
+		void setCurrentMap(u8 mapX, u8 mapY);
 		
-		void draw();
+		static GameState &getInstance() {
+			static GameState instance;
+			return instance;
+		}
 		
 	private:
-		Player m_link;
-		AnimatedMap *m_map;
+		AnimatedMap *m_currentMap;
 };
 
-#endif // MAPSTATE_HPP_
+#endif // GAMESTATE_HPP_

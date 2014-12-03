@@ -33,18 +33,17 @@ void KeyboardMovement::doMovement(Movable &movable) {
 		vx = -1;
 		
 		if(!GamePad::getInstance().isKeyPressed(GamePad::Right)
-		|| !GamePad::getInstance().isKeyPressed(GamePad::Up)
-		|| !GamePad::getInstance().isKeyPressed(GamePad::Down)) {
+		&& !GamePad::getInstance().isKeyPressed(GamePad::Up)
+		&& !GamePad::getInstance().isKeyPressed(GamePad::Down)) {
 			movable.setDirection(Movable::Direction::Left);
 		}
 	}
-	
-	if(GamePad::getInstance().isKeyPressed(GamePad::Right)) {
+	else if(GamePad::getInstance().isKeyPressed(GamePad::Right)) {
 		vx = 1;
 		
 		if(!GamePad::getInstance().isKeyPressed(GamePad::Left)
-		|| !GamePad::getInstance().isKeyPressed(GamePad::Up)
-		|| !GamePad::getInstance().isKeyPressed(GamePad::Down)) {
+		&& !GamePad::getInstance().isKeyPressed(GamePad::Up)
+		&& !GamePad::getInstance().isKeyPressed(GamePad::Down)) {
 			movable.setDirection(Movable::Direction::Right);
 		}
 	}
@@ -53,18 +52,17 @@ void KeyboardMovement::doMovement(Movable &movable) {
 		vy = -1;
 		
 		if(!GamePad::getInstance().isKeyPressed(GamePad::Left)
-		|| !GamePad::getInstance().isKeyPressed(GamePad::Right)
-		|| !GamePad::getInstance().isKeyPressed(GamePad::Down)) {
+		&& !GamePad::getInstance().isKeyPressed(GamePad::Right)
+		&& !GamePad::getInstance().isKeyPressed(GamePad::Down)) {
 			movable.setDirection(Movable::Direction::Up);
 		}
 	}
-	
-	if(GamePad::getInstance().isKeyPressed(GamePad::Down)) {
+	else if(GamePad::getInstance().isKeyPressed(GamePad::Down)) {
 		vy = 1;
 		
 		if(!GamePad::getInstance().isKeyPressed(GamePad::Left)
-		|| !GamePad::getInstance().isKeyPressed(GamePad::Right)
-		|| !GamePad::getInstance().isKeyPressed(GamePad::Up)) {
+		&& !GamePad::getInstance().isKeyPressed(GamePad::Right)
+		&& !GamePad::getInstance().isKeyPressed(GamePad::Up)) {
 			movable.setDirection(Movable::Direction::Down);
 		}
 	}
