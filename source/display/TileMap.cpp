@@ -57,7 +57,7 @@ void TileMap::load(std::string filename, std::string tilesetName) {
 }
 
 void TileMap::updateTile(u16 tileX, u16 tileY) {
-	s16 tileNb = m_data[tileX + tileY * m_width];
+	s16 tileNb = getTile(tileX, tileY);
 	
 	if(tileNb == -1) return;
 	
@@ -89,7 +89,7 @@ void TileMap::updateTiles() {
 	}
 }
 
-u16 TileMap::getTile(s16 tileX, s16 tileY) {
+s16 TileMap::getTile(s16 tileX, s16 tileY) {
 	if(tileX + tileY * m_width >= m_width * m_height
 	|| tileX + tileY * m_width < 0) {
 		return 1;

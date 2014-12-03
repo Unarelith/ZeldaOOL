@@ -46,9 +46,7 @@ class Application {
 		
 		GameClock m_clock;
 		
-		GameStateStack &m_gameStateStack;
-		
-		ResourceHandler &m_resourceHandler;
+		GameStateStack *m_gameStateStack;
 };
 
 #endif // APPLICATION_HPP_

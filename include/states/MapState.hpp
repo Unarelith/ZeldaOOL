@@ -33,7 +33,7 @@ class MapState : public GameState {
 		
 	private:
 		Sprite m_link;
-		TileMap m_map;
+		TileMap *m_map;
 };
 
 #endif // MAPSTATE_HPP_

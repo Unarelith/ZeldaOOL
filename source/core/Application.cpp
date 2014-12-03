@@ -19,11 +19,12 @@
 
 #include "Application.hpp"
 
-Application::Application() :
-	m_gameStateStack(GameStateStack::getInstance()),
-	m_resourceHandler(ResourceHandler::getInstance()) {
+Application::Application() {
 	m_window.create(sf::VideoMode(160 * 3, 144 * 3), "ZeldaSFML", sf::Style::Close);
 	m_defaultView.reset(sf::FloatRect(0, 0, 160, 144));
+	
+	ResourceHandler::getInstance().loadResources();
+	m_gameStateStack = &GameStateStack::getInstance();
 }
 
 Application::~Application() {
@@ -49,14 +50,14 @@ void Application::run() {
 		handleEvents();
 		
 		m_clock.updateGame([&]{
-			m_gameStateStack.top().update();
+			m_gameStateStack->top().update();
 		});
 		
 		m_clock.drawGame([&]{
 			m_window.setView(m_defaultView);
 			m_window.clear();
 			
-			m_gameStateStack.top().draw();
+			m_gameStateStack->top().draw();
 			
 			m_window.display();
 		});

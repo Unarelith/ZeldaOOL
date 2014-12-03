@@ -37,7 +37,7 @@ class TileMap : public sf::Drawable, public sf::Transformable {
 		void updateTile(u16 tileX, u16 tileY);
 		void updateTiles();
 		
-		u16 getTile(s16 tileX, s16 tileY);
+		s16 getTile(s16 tileX, s16 tileY);
 		void setTile(u16 tileX, u16 tileY, u16 tile);
 		
 		void draw();

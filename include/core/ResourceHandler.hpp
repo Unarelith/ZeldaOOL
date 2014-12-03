@@ -22,12 +22,12 @@
 #include <memory>
 #include <string>
 
-#include "Tileset.hpp"
-
 class ResourceHandler {
 	public:
 		ResourceHandler();
 		~ResourceHandler();
+		
+		void loadResources();
 		
 		template<typename T, typename... Args>
 		void add(std::string name, Args... args) {

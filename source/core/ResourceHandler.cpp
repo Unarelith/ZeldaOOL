@@ -16,11 +16,19 @@
  * =====================================================================================
  */
 #include "ResourceHandler.hpp"
+#include "TileMap.hpp"
+#include "Tileset.hpp"
 
 // Template specializations for ResourceHandler::add
 #include "ResourceHandler.inl"
 
 ResourceHandler::ResourceHandler() {
+}
+
+ResourceHandler::~ResourceHandler() {
+}
+
+void ResourceHandler::loadResources() {
 	add<sf::Texture>("link", "graphics/characters/link.png");
 	
 	add<sf::Texture>("font", "graphics/interface/font.png");
@@ -31,8 +39,8 @@ ResourceHandler::ResourceHandler() {
 	add<Tileset>("indoor", "graphics/tilesets/indoor.png");
 	add<Tileset>("plain", "graphics/tilesets/plain.png");
 	add<Tileset>("underground", "graphics/tilesets/underground.png");
-}
-
-ResourceHandler::~ResourceHandler() {
+	
+	// Always load maps AFTER tilesets
+	add<TileMap>("a1", "data/maps/a1.tmx", "plain");
 }
 
