@@ -48,7 +48,9 @@ void Movable::move() {
 	
 	m_moving = (m_vx || m_vy) ? true : false;
 	
-	// Handle collisions here
+	for(auto &it : m_collisionHandlers) {
+		it();
+	}
 	
 	sf::Transformable::move(m_vx * m_speed, m_vy * m_speed);
 	

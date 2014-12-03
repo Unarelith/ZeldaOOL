@@ -18,6 +18,7 @@
 #ifndef MOVABLE_HPP_
 #define MOVABLE_HPP_
 
+#include <functional>
 #include <memory>
 
 #include "Movement.hpp"
@@ -46,11 +47,15 @@ class Movable : public Sprite {
 		
 		void setDirection(u8 direction) { m_direction = direction; }
 		
-	private:
+	protected:
 		float m_vx;
 		float m_vy;
 		
 		u8 m_direction;
+		
+		std::vector<std::function<void(void)>> m_collisionHandlers;
+		
+	private:
 		float m_speed;
 		bool m_moving;
 		
