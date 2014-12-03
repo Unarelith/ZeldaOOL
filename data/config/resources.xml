@@ -1,0 +1,13 @@
+<resources>
+	<textures>
+		<texture name="link" path="graphics/characters/link.png"/>
+	</textures>
+	
+	<tilesets>
+		<tileset name="plain"/>
+	</tilesets>
+	
+	<maps>
+		<map name="a1" path="data/maps/a1.tmx" tileset="plain"/>
+	</maps>
+</resources>

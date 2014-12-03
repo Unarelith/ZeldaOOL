@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  KeyboardMovement.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  01/12/2014 21:22:48
+ *        Created:  03/12/2014 19:09:04
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,25 +15,17 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef KEYBOARDMOVEMENT_HPP_
+#define KEYBOARDMOVEMENT_HPP_
 
-#include "AnimatedMap.hpp"
-#include "GameState.hpp"
-#include "Movable.hpp"
+#include "Movement.hpp"
 
-class MapState : public GameState {
+class KeyboardMovement : public Movement {
 	public:
-		MapState();
-		~MapState();
+		KeyboardMovement();
+		~KeyboardMovement();
 		
-		void update();
-		
-		void draw();
-		
-	private:
-		Movable m_link;
-		AnimatedMap *m_map;
+		void doMovement(Movable &movable);
 };
 
-#endif // MAPSTATE_HPP_
+#endif // KEYBOARDMOVEMENT_HPP_

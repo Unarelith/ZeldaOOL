@@ -18,6 +18,7 @@
 #include "AnimatedMap.hpp"
 #include "ResourceHandler.hpp"
 #include "Tileset.hpp"
+#include "XMLFile.hpp"
 
 // Template specializations for ResourceHandler::add
 #include "ResourceHandler.inl"
@@ -29,18 +30,37 @@ ResourceHandler::~ResourceHandler() {
 }
 
 void ResourceHandler::loadResources() {
-	add<sf::Texture>("link", "graphics/characters/link.png");
+	XMLFile doc("data/config/resources.xml");
+	XMLElement *resourcesElement = doc.FirstChildElement("resources").ToElement();
 	
-	add<sf::Texture>("font", "graphics/interface/font.png");
-	add<sf::Texture>("hearts", "graphics/interface/hearts.png");
-	add<sf::Texture>("numbers", "graphics/interface/numbers.png");
-	add<sf::Texture>("stats", "graphics/interface/stats.png");
+	XMLElement *textureElement = resourcesElement->FirstChildElement("textures")->FirstChildElement("texture");
+	while(textureElement) {
+		std::string name = textureElement->Attribute("name");
+		std::string path = textureElement->Attribute("path");
+		
+		add<sf::Texture>(name, path);
+		
+		textureElement = textureElement->NextSiblingElement("texture");
+	}
 	
-	//add<Tileset>("indoor", "graphics/tilesets/indoor.png");
-	add<Tileset>("plain", "plain");
-	//add<Tileset>("underground", "graphics/tilesets/underground.png");
+	XMLElement *tilesetElement = resourcesElement->FirstChildElement("tilesets")->FirstChildElement("tileset");
+	while(tilesetElement) {
+		std::string name = tilesetElement->Attribute("name");
+		
+		add<Tileset>(name, name);
+		
+		tilesetElement = tilesetElement->NextSiblingElement("tileset");
+	}
 	
-	// Always load maps AFTER tilesets
-	add<AnimatedMap>("a1", "data/maps/a1.tmx", "plain");
+	XMLElement *mapElement = resourcesElement->FirstChildElement("maps")->FirstChildElement("map");
+	while(mapElement) {
+		std::string name = mapElement->Attribute("name");
+		std::string path = mapElement->Attribute("path");
+		std::string tileset = mapElement->Attribute("tileset");
+		
+		add<AnimatedMap>(name, path, tileset);
+		
+		mapElement = mapElement->NextSiblingElement("map");
+	}
 }
 

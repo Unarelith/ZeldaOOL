@@ -16,13 +16,13 @@
  * =====================================================================================
  */
 template<>
-void ResourceHandler::add<sf::Texture, const char*>(std::string name, const char *path) {
+void ResourceHandler::add<sf::Texture, std::string>(std::string name, std::string path) {
 	m_resources[name] = std::shared_ptr<void>(new sf::Texture);
 	get<sf::Texture>(name).loadFromFile(path);
 }
 
 template<>
-void ResourceHandler::add<AnimatedMap, const char*, const char*>(std::string name, const char *path, const char *tileset) {
+void ResourceHandler::add<AnimatedMap, std::string, std::string>(std::string name, std::string path, std::string tileset) {
 	m_resources[name] = std::shared_ptr<void>(new AnimatedMap(path, tileset));
 	get<AnimatedMap>(name).updateTiles();
 }

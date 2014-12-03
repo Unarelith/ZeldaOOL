@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  InputHandler.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  01/12/2014 21:22:48
+ *        Created:  03/12/2014 19:25:53
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,25 +15,19 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef INPUTHANDLER_HPP_
+#define INPUTHANDLER_HPP_
 
-#include "AnimatedMap.hpp"
-#include "GameState.hpp"
-#include "Movable.hpp"
+#include "GamePad.hpp"
 
-class MapState : public GameState {
+class InputHandler {
 	public:
-		MapState();
-		~MapState();
+		InputHandler();
+		~InputHandler();
 		
-		void update();
+		virtual void update() = 0;
 		
-		void draw();
-		
-	private:
-		Movable m_link;
-		AnimatedMap *m_map;
+		virtual bool isKeyPressed(GamePad::Key key) = 0;
 };
 
-#endif // MAPSTATE_HPP_
+#endif // INPUTHANDLER_HPP_

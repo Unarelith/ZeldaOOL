@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  Movement.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  01/12/2014 21:22:48
+ *        Created:  03/12/2014 19:06:18
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,25 +15,17 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef MOVEMENT_HPP_
+#define MOVEMENT_HPP_
 
-#include "AnimatedMap.hpp"
-#include "GameState.hpp"
-#include "Movable.hpp"
+class Movable;
 
-class MapState : public GameState {
+class Movement {
 	public:
-		MapState();
-		~MapState();
+		Movement() {}
+		virtual ~Movement() {}
 		
-		void update();
-		
-		void draw();
-		
-	private:
-		Movable m_link;
-		AnimatedMap *m_map;
+		virtual void doMovement(Movable &movable) = 0;
 };
 
-#endif // MAPSTATE_HPP_
+#endif // MOVEMENT_HPP_
