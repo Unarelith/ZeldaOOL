@@ -17,6 +17,7 @@
  */
 #include "Application.hpp"
 #include "Image.hpp"
+#include "ResourceHandler.hpp"
 
 Image::Image() {
 }
@@ -29,9 +30,9 @@ Image::~Image() {
 }
 
 void Image::load(std::string filename) {
-	m_texture.loadFromFile(filename);
+	m_texture = &ResourceHandler::getInstance().get<sf::Texture>(filename);
 	
-	setTexture(m_texture);
+	setTexture(*m_texture);
 	setClipRect(0, 0, width(), height());
 }
 

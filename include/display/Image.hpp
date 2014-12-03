@@ -38,11 +38,11 @@ class Image : public sf::Sprite {
 		void draw();
 		void draw(float x, float y, s16 width = -1, s16 height = -1);
 		
-		u16 width() const { return m_texture.getSize().x; }
-		u16 height() const { return m_texture.getSize().y; }
+		u16 width() const { return m_texture->getSize().x; }
+		u16 height() const { return m_texture->getSize().y; }
 		
 	private:
-		sf::Texture m_texture;
+		sf::Texture *m_texture;
 };
 
 #endif // IMAGE_HPP_

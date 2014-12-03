@@ -40,8 +40,11 @@ class Sprite : public Image {
 		void resetAnimation(u16 anim, u16 frame = 0);
 		void startAnimation(u16 anim);
 		void stopAnimation(u16 anim);
+		
 		u16 animationCurrentFrame(u16 anim);
 		bool animationAtEnd(u16 anim);
+		
+		void playAnimation(u16 anim);
 		void playAnimation(float x, float y, u16 anim);
 		
 		s16 currentAnimation() const { return m_currentAnimation; }

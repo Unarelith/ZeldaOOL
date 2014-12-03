@@ -19,7 +19,9 @@
 
 #include "Application.hpp"
 
-Application::Application() : m_gameStateStack(GameStateStack::getInstance()) {
+Application::Application() :
+	m_gameStateStack(GameStateStack::getInstance()),
+	m_resourceHandler(ResourceHandler::getInstance()) {
 	m_window.create(sf::VideoMode(160 * 3, 144 * 3), "ZeldaSFML", sf::Style::Close);
 	m_defaultView.reset(sf::FloatRect(0, 0, 160, 144));
 }

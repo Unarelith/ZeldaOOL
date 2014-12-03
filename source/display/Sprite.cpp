@@ -66,10 +66,6 @@ void Sprite::addAnimation(std::initializer_list<u16> frames, u16 delay) {
 }
 
 void Sprite::drawFrame(u16 frame) {
-	drawFrame(getPosition().x, getPosition().y, frame);
-}
-
-void Sprite::drawFrame(float x, float y, u16 frame) {
 	u16 frameX = frame % (width() / m_frameWidth);
 	u16 frameY = frame / (width() / m_frameWidth);
 	
@@ -77,7 +73,12 @@ void Sprite::drawFrame(float x, float y, u16 frame) {
 	
 	setClipRect(frameX * m_frameWidth, frameY * m_frameHeight, m_frameWidth, m_frameHeight);
 	
-	draw(x, y, m_frameWidth, m_frameHeight);
+	draw();
+}
+
+void Sprite::drawFrame(float x, float y, u16 frame) {
+	setPosition(x, y);
+	drawFrame(frame);
 }
 
 void Sprite::resetAnimation(u16 anim, u16 frame) {
@@ -107,7 +108,7 @@ bool Sprite::animationAtEnd(u16 anim) {
 	return animationCurrentFrame(anim) >= m_animations[anim].frames.size();
 }
 
-void Sprite::playAnimation(float x, float y, u16 anim) {
+void Sprite::playAnimation(u16 anim) {
 	if(pause) {
 		stopAnimation(anim);
 		
@@ -126,6 +127,11 @@ void Sprite::playAnimation(float x, float y, u16 anim) {
 		}
 	}
 	
-	drawFrame(x, y, m_animations[anim].frames[animationCurrentFrame(anim)]);
+	drawFrame(m_animations[anim].frames[animationCurrentFrame(anim)]);
+}
+
+void Sprite::playAnimation(float x, float y, u16 anim) {
+	setPosition(x, y);
+	playAnimation(anim);
 }
 
