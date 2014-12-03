@@ -23,6 +23,7 @@ MapState::MapState() {
 	m_link.load("link", 16, 16);
 	
 	m_map = &ResourceHandler::getInstance().get<TileMap>("a1");
+	m_map->setPosition(0, 16);
 }
 
 MapState::~MapState() {
@@ -34,6 +35,6 @@ void MapState::update() {
 void MapState::draw() {
 	m_map->draw();
 	
-	m_link.drawFrame(5);
+	m_link.drawFrame(80, 64, 0);
 }
 
