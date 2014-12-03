@@ -18,6 +18,8 @@
 #ifndef TILEMAP_HPP_
 #define TILEMAP_HPP_
 
+#include <vector>
+
 #include <SFML/Graphics/Transformable.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 
@@ -27,10 +29,13 @@
 class TileMap : public sf::Drawable, public sf::Transformable {
 	public:
 		TileMap();
-		TileMap(std::string textureName, u16 width, u16 height, s16 *data);
+		TileMap(std::string filename, std::string textureName);
 		~TileMap();
 		
-		void load(std::string textureName, u16 width, u16 height, s16 *data);
+		void load(std::string filename, std::string textureName);
+		
+		void updateTile(u16 tileX, u16 tileY);
+		void updateTiles();
 		
 		u16 getTile(s16 tileX, s16 tileY);
 		void setTile(u16 tileX, u16 tileY, u16 tile);
@@ -38,15 +43,18 @@ class TileMap : public sf::Drawable, public sf::Transformable {
 		void draw();
 		
 	protected:
+		Tileset *m_tileset;
+		
 		u16 m_width;
 		u16 m_height;
 		
+		u16 m_tileWidth;
+		u16 m_tileHeight;
+		
+		std::vector<s16> m_data;
+		
 	private:
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
-		
-		Tileset *m_tileset;
-		
-		s16 *m_data;
 		
 		sf::VertexArray m_vertices;
 };

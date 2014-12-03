@@ -21,6 +21,7 @@
 
 MapState::MapState() {
 	m_link.load("link", 16, 16);
+	m_map.load("data/maps/a1.tmx", "plain");
 }
 
 MapState::~MapState() {
@@ -31,6 +32,8 @@ void MapState::update() {
 }
 
 void MapState::draw() {
+	m_map.draw();
+	
 	m_link.drawFrame(5);
 }
 

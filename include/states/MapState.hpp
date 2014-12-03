@@ -20,6 +20,7 @@
 
 #include "GameState.hpp"
 #include "Sprite.hpp"
+#include "TileMap.hpp"
 
 class MapState : public GameState {
 	public:
@@ -32,6 +33,7 @@ class MapState : public GameState {
 		
 	private:
 		Sprite m_link;
+		TileMap m_map;
 };
 
 #endif // MAPSTATE_HPP_

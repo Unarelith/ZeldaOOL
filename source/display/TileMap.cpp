@@ -18,24 +18,75 @@
 #include "Application.hpp"
 #include "ResourceHandler.hpp"
 #include "TileMap.hpp"
+#include "XMLFile.hpp"
 
 TileMap::TileMap() {
 }
 
-TileMap::TileMap(std::string tilesetName, u16 width, u16 height, s16 *data) {
-	load(tilesetName, width, height, data);
+TileMap::TileMap(std::string filename, std::string tilesetName) {
+	load(filename, tilesetName);
 }
 
 TileMap::~TileMap() {
 }
 
-void TileMap::load(std::string tilesetName, u16 width, u16 height, s16 *data) {
+void TileMap::load(std::string filename, std::string tilesetName) {
 	m_tileset = &ResourceHandler::getInstance().get<Tileset>(tilesetName);
 	
-	m_width = width;
-	m_height = height;
+	XMLFile doc(filename);
 	
-	m_data = data;
+	XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
+	
+	m_width = mapElement->IntAttribute("width");
+	m_height = mapElement->IntAttribute("height");
+	
+	m_tileWidth = mapElement->IntAttribute("tilewidth");
+	m_tileHeight = mapElement->IntAttribute("tileheight");
+	
+	XMLElement *tileElement = mapElement->FirstChildElement("layer")->FirstChildElement("data")->FirstChildElement("tile");
+	while(tileElement) {
+		m_data.push_back(tileElement->IntAttribute("gid") - 1);
+		
+		tileElement = tileElement->NextSiblingElement("tile");
+	}
+	
+	m_vertices.setPrimitiveType(sf::Triangles);
+	m_vertices.resize(m_width * m_height * 6);
+	
+	updateTiles();
+}
+
+void TileMap::updateTile(u16 tileX, u16 tileY) {
+	s16 tileNb = m_data[tileX + tileY * m_width];
+	
+	if(tileNb == -1) return;
+	
+	u16 tilesetX = tileNb % (m_tileset->texture.getSize().x / m_tileWidth);
+	u16 tilesetY = tileNb / (m_tileset->texture.getSize().x / m_tileWidth);
+	
+	sf::Vertex *triangle = &m_vertices[(tileX + tileY * m_width) * 6];
+	
+	triangle[0].position = sf::Vector2f(tileX * m_tileWidth, tileY * m_tileHeight);
+	triangle[1].position = sf::Vector2f((tileX + 1) * m_tileWidth, tileY * m_tileHeight);
+	triangle[2].position = sf::Vector2f(tileX * m_tileWidth, (tileY + 1) * m_tileHeight);
+	triangle[3].position = triangle[1].position;
+	triangle[4].position = triangle[2].position;
+	triangle[5].position = sf::Vector2f((tileX + 1) * m_tileWidth, (tileY + 1) * m_tileHeight);
+	
+	triangle[0].texCoords = sf::Vector2f(tilesetX * m_tileWidth, tilesetY * m_tileHeight);
+	triangle[1].texCoords = sf::Vector2f((tilesetX + 1) * m_tileWidth, tilesetY * m_tileHeight);
+	triangle[2].texCoords = sf::Vector2f(tilesetX * m_tileWidth, (tilesetY + 1) * m_tileHeight);
+	triangle[3].texCoords = triangle[1].texCoords;
+	triangle[4].texCoords = triangle[2].texCoords;
+	triangle[5].texCoords = sf::Vector2f((tilesetX + 1) * m_tileWidth, (tilesetY + 1) * m_tileHeight);
+}
+
+void TileMap::updateTiles() {
+	for(s16 tileY = 0 ; tileY < m_height ; tileY++) {
+		for(s16 tileX = 0 ; tileX < m_width ; tileX++) {
+			updateTile(tileX, tileY);
+		}
+	}
 }
 
 u16 TileMap::getTile(s16 tileX, s16 tileY) {
