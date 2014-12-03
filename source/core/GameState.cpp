@@ -15,6 +15,8 @@
  *
  * =====================================================================================
  */
+#include <cmath>
+
 #include "GameState.hpp"
 #include "ResourceHandler.hpp"
 
