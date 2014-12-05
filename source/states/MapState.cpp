@@ -19,7 +19,9 @@
 #include "GameState.hpp"
 #include "MapState.hpp"
 
-MapState::MapState() {
+MapState::MapState() : m_statsBar(StatsBar::getInstance()) {
+	m_link = &Player::getInstance();
+	
 	m_map = &GameState::getInstance().currentMap();
 }
 
@@ -29,16 +31,18 @@ MapState::~MapState() {
 void MapState::update() {
 	m_map->update();
 	
-	m_link.move();
+	m_link->move();
 }
 
 void MapState::draw() {
 	m_map->draw();
 	
+	m_statsBar.draw();
+	
 	Application::getInstance().window().setView(TileMap::view);
 	
-	m_link.draw();
+	m_link->draw();
 	
-	Application::getInstance().window().setView(Application::getInstance().window().getDefaultView());
+	Application::getInstance().resetView();
 }
 

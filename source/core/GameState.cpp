@@ -20,7 +20,10 @@
 #include "GameState.hpp"
 #include "ResourceHandler.hpp"
 
-GameState::GameState() : m_currentMap(&ResourceHandler::getInstance().get<AnimatedMap>("a1")) {
+GameState::GameState() {
+	m_currentMap = &ResourceHandler::getInstance().get<AnimatedMap>("a1");
+	
+	m_playerRupees = 197;
 }
 
 GameState::~GameState() {

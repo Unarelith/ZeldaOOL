@@ -28,6 +28,8 @@ class GameState {
 		AnimatedMap &currentMap() { return *m_currentMap; }
 		void setCurrentMap(u8 mapX, u8 mapY);
 		
+		u16 playerRupees() const { return m_playerRupees; }
+		
 		static GameState &getInstance() {
 			static GameState instance;
 			return instance;
@@ -35,6 +37,8 @@ class GameState {
 		
 	private:
 		AnimatedMap *m_currentMap;
+		
+		u16 m_playerRupees;
 };
 
 #endif // GAMESTATE_HPP_

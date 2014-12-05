@@ -33,6 +33,8 @@ class Application {
 		
 		void run();
 		
+		void resetView() { m_window.setView(m_defaultView); }
+		
 		sf::RenderWindow &window() { return m_window; }
 		
 		static Application &getInstance() {

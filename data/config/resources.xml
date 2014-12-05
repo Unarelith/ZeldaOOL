@@ -1,6 +1,10 @@
 <resources>
 	<textures>
 		<texture name="link" path="graphics/characters/link.png"/>
+		
+		<texture name="hearts" path="graphics/interface/hearts.png"/>
+		<texture name="numbers" path="graphics/interface/numbers.png"/>
+		<texture name="stats" path="graphics/interface/stats.png"/>
 	</textures>
 	
 	<tilesets>

@@ -31,6 +31,9 @@ Player::Player() {
 	setPosition(96, 64);
 	
 	addCollisionHandler(std::bind(&Player::mapCollisions, this));
+	
+	m_maxLife = 13 * 4;
+	m_life = 11 * 4;
 }
 
 Player::~Player() {

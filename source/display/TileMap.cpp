@@ -128,6 +128,6 @@ void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	
 	target.draw(m_vertices, states);
 	
-	target.setView(target.getDefaultView());
+	Application::getInstance().resetView();
 }
 

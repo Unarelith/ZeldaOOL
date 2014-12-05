@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  StatsBar.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  01/12/2014 21:22:48
+ *        Created:  05/12/2014 00:50:01
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,27 +15,28 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef STATSBAR_HPP_
+#define STATSBAR_HPP_
 
-#include "AnimatedMap.hpp"
-#include "ApplicationState.hpp"
-#include "Player.hpp"
-#include "StatsBar.hpp"
+#include "Sprite.hpp"
 
-class MapState : public ApplicationState {
+class StatsBar {
 	public:
-		MapState();
-		~MapState();
-		
-		void update();
+		StatsBar();
+		~StatsBar();
 		
 		void draw();
 		
+		static StatsBar &getInstance() {
+			static StatsBar instance;
+			return instance;
+		}
+		
 	private:
-		Player *m_link;
-		AnimatedMap *m_map;
-		StatsBar &m_statsBar;
+		Image m_background;
+		
+		Sprite m_hearts;
+		Sprite m_numbers;
 };
 
-#endif // MAPSTATE_HPP_
+#endif // STATSBAR_HPP_

@@ -54,8 +54,8 @@ void Application::run() {
 		});
 		
 		m_clock.drawGame([&]{
-			m_window.setView(m_defaultView);
 			m_window.clear();
+			m_window.setView(m_defaultView);
 			
 			m_applicationStateStack->top().draw();
 			

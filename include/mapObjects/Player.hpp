@@ -26,6 +26,18 @@ class Player : public Movable {
 		~Player();
 		
 		void mapCollisions();
+		
+		u16 maxLife() const { return m_maxLife; }
+		s16 life() const { return m_life; }
+		
+		static Player &getInstance() {
+			static Player instance;
+			return instance;
+		}
+		
+	private:
+		u16 m_maxLife;
+		s16 m_life;
 };
 
 #endif // PLAYER_HPP_
