@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  ApplicationState.hpp
+ *       Filename:  Transition.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  01/12/2014 21:21:51
+ *        Created:  05/12/2014 05:29:14
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,17 +15,12 @@
  *
  * =====================================================================================
  */
-#ifndef APPLICATIONSTATE_HPP_
-#define APPLICATIONSTATE_HPP_
+#include "Transition.hpp"
 
-class ApplicationState {
-	public:
-		ApplicationState();
-		virtual ~ApplicationState();
-		
-		virtual void update() = 0;
-		
-		virtual void draw() = 0;
-};
+Transition::Transition() {
+	m_atEnd = false;
+}
 
-#endif // APPLICATIONSTATE_HPP_
+Transition::~Transition() {
+}
+

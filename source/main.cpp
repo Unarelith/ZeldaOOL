@@ -36,6 +36,10 @@ int main(int argc, char *argv[]) {
 		std::cerr << Debug::textColor(Debug::TextColor::Red, true) << "Exception caught: " << Debug::textColor(0, true) << e.what() << Debug::textColor() << std::endl;
 		return 1;
 	}
+	catch(...) {
+		std::cerr << "Fatal error: Unknown error." << std::endl;
+		return 1;
+	}
 	
 	return 0;
 }

@@ -16,16 +16,11 @@
  * =====================================================================================
  */
 #include "ApplicationState.hpp"
-#include "ApplicationStateStack.hpp"
 
 ApplicationState::ApplicationState() {
 	
 }
 
 ApplicationState::~ApplicationState() {
-}
-
-ApplicationStateStack &ApplicationState::getApplicationStateStack() {
-	return ApplicationStateStack::getInstance();
 }
 

@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  ApplicationState.hpp
+ *       Filename:  Transition.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  01/12/2014 21:21:51
+ *        Created:  05/12/2014 05:29:06
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,17 +15,22 @@
  *
  * =====================================================================================
  */
-#ifndef APPLICATIONSTATE_HPP_
-#define APPLICATIONSTATE_HPP_
+#ifndef TRANSITION_HPP_
+#define TRANSITION_HPP_
 
-class ApplicationState {
+class Transition {
 	public:
-		ApplicationState();
-		virtual ~ApplicationState();
+		Transition();
+		virtual ~Transition();
 		
 		virtual void update() = 0;
 		
 		virtual void draw() = 0;
+		
+		bool atEnd() const { return m_atEnd; }
+		
+	protected:
+		bool m_atEnd;
 };
 
-#endif // APPLICATIONSTATE_HPP_
+#endif // TRANSITION_HPP_
