@@ -29,15 +29,15 @@ GameState::GameState() {
 GameState::~GameState() {
 }
 
-void GameState::setCurrentMap(u8 mapX, u8 mapY) {
+AnimatedMap &GameState::getMap(u8 mapX, u8 mapY) {
 	std::string mapName = std::string(1, 'a' + mapY);
 	
 	if(mapX > 9) {
-		mapName += std::string(1, '0' + log10(mapX) + 1) + std::string(1, '0' + (mapX - 10));
+		mapName += std::string(1, '1' + log10(mapX) + 1) + std::string(1, '1' + (mapX - 10));
 	} else {
-		mapName += std::string(1, '0' + mapX);
+		mapName += std::string(1, '1' + mapX);
 	}
 	
-	m_currentMap = &ResourceHandler::getInstance().get<AnimatedMap>(mapName);
+	return ResourceHandler::getInstance().get<AnimatedMap>(mapName);
 }
 

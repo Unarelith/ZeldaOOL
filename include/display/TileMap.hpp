@@ -45,6 +45,9 @@ class TileMap : public sf::Drawable, public sf::Transformable {
 		
 		void draw();
 		
+		u16 width() const { return m_width; }
+		u16 height() const { return m_height; }
+		
 		static sf::View view;
 		
 	protected:

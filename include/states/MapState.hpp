@@ -34,7 +34,6 @@ class MapState : public ApplicationState {
 		
 	private:
 		Player *m_link;
-		AnimatedMap *m_map;
 		StatsBar &m_statsBar;
 };
 

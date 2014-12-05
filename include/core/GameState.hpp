@@ -25,8 +25,9 @@ class GameState {
 		GameState();
 		~GameState();
 		
+		AnimatedMap &getMap(u8 mapX, u8 mapY);
 		AnimatedMap &currentMap() { return *m_currentMap; }
-		void setCurrentMap(u8 mapX, u8 mapY);
+		void setCurrentMap(AnimatedMap *map) { m_currentMap = map; }
 		
 		u16 playerRupees() const { return m_playerRupees; }
 		

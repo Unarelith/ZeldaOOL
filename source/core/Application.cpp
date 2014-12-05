@@ -18,10 +18,11 @@
 #include <SFML/Window/Event.hpp>
 
 #include "Application.hpp"
+#include "Config.hpp"
 
 Application::Application() {
-	m_window.create(sf::VideoMode(160 * 3, 144 * 3), "ZeldaSFML", sf::Style::Close);
-	m_defaultView.reset(sf::FloatRect(0, 0, 160, 144));
+	m_window.create(sf::VideoMode(SCREEN_WIDTH * 3, SCREEN_HEIGHT * 3), APP_NAME, sf::Style::Close);
+	m_defaultView.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 	
 	ResourceHandler::getInstance().loadResources();
 	m_applicationStateStack = &ApplicationStateStack::getInstance();
