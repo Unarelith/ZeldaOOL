@@ -20,7 +20,7 @@
 #include "Player.hpp"
 
 Player::Player() {
-	Movable::load("link", 16, 16, new KeyboardMovement());
+	MapObject::load("link", MapObject::Player);
 	
 	// Movement
 	addAnimation({4, 0}, 110);
@@ -30,6 +30,8 @@ Player::Player() {
 	
 	setPosition(96, 64);
 	
+	setMovement(new KeyboardMovement);
+	
 	addCollisionHandler(std::bind(&Player::mapCollisions, this));
 	
 	m_maxLife = 13 * 4;
@@ -37,6 +39,11 @@ Player::Player() {
 }
 
 Player::~Player() {
+}
+
+void Player::collisionAction(MapObject &mapObject) {
+	m_vx = 0;
+	m_vy = 0;
 }
 
 void Player::mapCollisions() {

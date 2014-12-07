@@ -42,6 +42,7 @@ class TileMap : public sf::Drawable, public sf::Transformable {
 		void setTile(u16 tileX, u16 tileY, u16 tile);
 		
 		bool passable(float x, float y);
+		bool isTile(float x, float y, u16 tile);
 		
 		void draw();
 		

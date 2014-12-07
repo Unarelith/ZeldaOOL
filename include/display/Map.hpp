@@ -19,6 +19,7 @@
 #define MAP_HPP_
 
 #include "AnimatedMap.hpp"
+#include "MapObject.hpp"
 
 class Map : public AnimatedMap {
 	public:
@@ -36,6 +37,8 @@ class Map : public AnimatedMap {
 		static Map &getMap(u16 area, u16 x, u16 y);
 		Map &getSideMap(s8 dx, s8 dy) { return getMap(m_area, m_x + dx, m_y + dy); }
 		
+		std::vector<std::unique_ptr<MapObject>> &objects() { return m_objects; }
+		
 	private:
 		u16 m_area;
 		
@@ -43,6 +46,8 @@ class Map : public AnimatedMap {
 		u16 m_y;
 		
 		u16 m_zoneID;
+		
+		std::vector<std::unique_ptr<MapObject>> m_objects;
 };
 
 #endif // MAP_HPP_

@@ -38,7 +38,8 @@ void Application::handleEvents() {
 			m_window.close();
 		}
 		
-		if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+		if(event.type == sf::Event::KeyPressed
+		&& event.key.code == sf::Keyboard::Escape) {
 			m_window.close();
 		}
 	}

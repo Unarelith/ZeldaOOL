@@ -80,6 +80,7 @@ void ScrollingTransition::update() {
 		
 		GameState::getInstance().setCurrentMap(m_nextMap);
 		GameState::getInstance().currentMap().setPosition(0, 0);
+		
 		TileMap::view.setCenter(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 16);
 		
 		m_scrolled = 0;

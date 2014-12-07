@@ -1,3 +1,43 @@
 ===== TODO =====
-- Improve ResourceHandler to let adding a new type of resource easily
+- Implement MapObject class (derivate of Movable, base of Player)
+	-> Implement a new collision handler which tests the other MapObjects of the map
+	-> Implement collision callbacks, called in both MapObjects (inCollisionWith(MapObject *))
+- Implement tile detection for Player in TileMap (onTile)
+	-> Implement DoorTransition and DoorObject
+	-> Implement animations in Map
+- Create a class InteractiveMapObject and map events
+	* They have an 'action' function, called in response to a Map::Event
+	-> Implement ButtonObject
+- Implement the Inventory
+	-> Add it in GameState
+- Implement the message system
+	-> Implement ChestObject
+	-> Implement NPCs (a rabbit in the first map, Impa in the house)
+- Create collectables
+	-> Implement Collectable class, child of MapObject
+	-> Implement HeartCollectable and RupeeCollectable
+- Add Weapon, child of MapObject, and Sword
+	-> Implement GrassMapObject does nothing else that sending grass destroy animation
+	-> Implement Sword collision callback, and test with GrassMapObject
+- Implement Enemy
+	-> Implement Octorok
+- Implement Menu, called with Enter
+- Remake all maps, create a bigger world
+	-> Clean and update tilesets
+		=> Add animated tiles
+	-> Create a world of 4x4 + 2 caves (scrollables) + 5 houses
+- Implement scrollable maps
+- Implement Dungeon system
+	-> <dungeon id="1"> in resources instead of area, and add a boolean in Map
+	-> Update Inventory with keys, map, compass
+	-> Update StatsBar to display keys in a dungeon
+	-> Implement DoorObject
+
+- Test on Android
+- Add sound!
+- Test again
+
+===== IMPROVEMENTS =====
+- Let add a new type of resource easily in ResourceManager
+	* Difficult because XML info is runtime and it's impossible to send them to resource constructors
 

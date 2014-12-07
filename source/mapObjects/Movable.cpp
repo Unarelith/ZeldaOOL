@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "Exception.hpp"
 #include "Movable.hpp"
 
 Movable::Movable() {
@@ -43,19 +44,27 @@ void Movable::load(std::string filename, u16 frameWidth, u16 frameHeight, Moveme
 	m_movement = std::unique_ptr<Movement>(movement);
 }
 
+void Movable::testCollisions() {
+	for(auto &it : m_collisionHandlers) {
+		it();
+	}
+}
+
 void Movable::move() {
+	if(!m_movement) throw EXCEPTION("Movement not defined");
+	
 	m_movement->doMovement(*this);
 	
 	m_moving = (m_vx || m_vy) ? true : false;
 	
-	for(auto &it : m_collisionHandlers) {
-		it();
+	if(m_moving) {
+		testCollisions();
+		
+		sf::Transformable::move(m_vx * m_speed, m_vy * m_speed);
+		
+		m_vx = 0;
+		m_vy = 0;
 	}
-	
-	sf::Transformable::move(m_vx * m_speed, m_vy * m_speed);
-	
-	m_vx = 0;
-	m_vy = 0;
 }
 
 void Movable::draw() {

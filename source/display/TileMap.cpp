@@ -115,6 +115,10 @@ bool TileMap::passable(float x, float y) {
 	return TilesData::infos[tile][((int)x & 0xF) / m_tileWidth + ((int)y & 0xF) / m_tileHeight * 2] != 1;
 }
 
+bool TileMap::isTile(float x, float y, u16 tile) {
+	return m_tileset->info()[getTile(x / m_tileWidth, y / m_tileHeight)] == tile;
+}
+
 void TileMap::draw() {
 	Application::getInstance().window().draw(*this);
 }
