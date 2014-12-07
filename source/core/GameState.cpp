@@ -21,23 +21,12 @@
 #include "ResourceHandler.hpp"
 
 GameState::GameState() {
-	m_currentMap = &ResourceHandler::getInstance().get<AnimatedMap>("a1");
+	m_currentMap = &Map::getMap(0, 0, 0);
+	m_currentMap->updateTiles();
 	
 	m_playerRupees = 197;
 }
 
 GameState::~GameState() {
-}
-
-AnimatedMap &GameState::getMap(u8 mapX, u8 mapY) {
-	std::string mapName = std::string(1, 'a' + mapY);
-	
-	if(mapX > 9) {
-		mapName += std::string(1, '1' + log10(mapX) + 1) + std::string(1, '1' + (mapX - 10));
-	} else {
-		mapName += std::string(1, '1' + mapX);
-	}
-	
-	return ResourceHandler::getInstance().get<AnimatedMap>(mapName);
 }
 

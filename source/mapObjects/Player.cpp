@@ -63,7 +63,7 @@ void Player::mapCollisions() {
 			test = (m_vy > 0);
 		}
 		
-		AnimatedMap &currentMap = GameState::getInstance().currentMap();
+		Map &currentMap = GameState::getInstance().currentMap();
 		
 		if(test
 		&& (!currentMap.passable(getPosition().x + collisionMatrix[i][0], getPosition().y + collisionMatrix[i][1])

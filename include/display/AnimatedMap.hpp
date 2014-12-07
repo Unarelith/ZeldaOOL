@@ -24,10 +24,10 @@
 class AnimatedMap : public TileMap {
 	public:
 		AnimatedMap();
-		AnimatedMap(std::string filename, std::string textureName);
+		AnimatedMap(std::string filename, std::string tilesetName);
 		~AnimatedMap();
 		
-		virtual void updateTile(u16 tileX, u16 tileY) override;
+		virtual void updateTile(u16 tileX, u16 tileY);
 		
 		void update();
 		

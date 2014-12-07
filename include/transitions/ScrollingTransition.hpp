@@ -18,7 +18,7 @@
 #ifndef SCROLLINGTRANSITION_HPP_
 #define SCROLLINGTRANSITION_HPP_
 
-#include "AnimatedMap.hpp"
+#include "Map.hpp"
 #include "StatsBar.hpp"
 #include "Transition.hpp"
 
@@ -44,7 +44,7 @@ class ScrollingTransition : public Transition {
 		float m_vx;
 		float m_vy;
 		
-		AnimatedMap *m_nextMap;
+		Map *m_nextMap;
 		
 		float m_scrolled;
 		

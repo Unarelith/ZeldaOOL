@@ -15,7 +15,7 @@
  *
  * =====================================================================================
  */
-#include "AnimatedMap.hpp"
+#include "Map.hpp"
 #include "ResourceHandler.hpp"
 #include "Tileset.hpp"
 #include "XMLFile.hpp"
@@ -52,15 +52,28 @@ void ResourceHandler::loadResources() {
 		tilesetElement = tilesetElement->NextSiblingElement("tileset");
 	}
 	
-	XMLElement *mapElement = resourcesElement->FirstChildElement("maps")->FirstChildElement("map");
-	while(mapElement) {
-		std::string name = mapElement->Attribute("name");
-		std::string path = mapElement->Attribute("path");
-		std::string tileset = mapElement->Attribute("tileset");
+	XMLElement *areaElement = resourcesElement->FirstChildElement("maps")->FirstChildElement("area");
+	while(areaElement) {
+		u16 area = areaElement->IntAttribute("id");
 		
-		add<AnimatedMap>(name, path, tileset);
+		XMLElement *mapElement = areaElement->FirstChildElement("map");
+		while(mapElement) {
+			std::string path = mapElement->Attribute("path");
+			std::string tileset = mapElement->Attribute("tileset");
+			
+			u16 x = mapElement->IntAttribute("x");
+			u16 y = mapElement->IntAttribute("y");
+			
+			u16 zoneID = mapElement->IntAttribute("zoneID");
+			
+			std::string name = std::to_string(area) + "-" + std::to_string(x) + "-" + std::to_string(y);
+			
+			add<Map>(name, path, tileset, area, x, y, zoneID);
+			
+			mapElement = mapElement->NextSiblingElement("map");
+		}
 		
-		mapElement = mapElement->NextSiblingElement("map");
+		areaElement = areaElement->NextSiblingElement("area");
 	}
 }
 

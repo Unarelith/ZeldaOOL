@@ -12,9 +12,11 @@
 	</tilesets>
 	
 	<maps>
-		<map name="a1" path="data/maps/a1.tmx" tileset="plain" mapX="0" mapY="0" zone="0"/>
-		<map name="a2" path="data/maps/a2.tmx" tileset="plain" mapX="1" mapY="0" zone="0"/>
-		<map name="b1" path="data/maps/b1.tmx" tileset="plain" mapX="0" mapY="1" zone="0"/>
-		<map name="b2" path="data/maps/b2.tmx" tileset="plain" mapX="1" mapY="1" zone="0"/>
+		<area id="0">
+			<map path="data/maps/a1.tmx" tileset="plain" x="0" y="0" zoneID="0"/>
+			<map path="data/maps/a2.tmx" tileset="plain" x="1" y="0" zoneID="0"/>
+			<map path="data/maps/b1.tmx" tileset="plain" x="0" y="1" zoneID="0"/>
+			<map path="data/maps/b2.tmx" tileset="plain" x="1" y="1" zoneID="0"/>
+		</area>
 	</maps>
 </resources>

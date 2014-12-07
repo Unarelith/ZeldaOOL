@@ -18,8 +18,8 @@
 #ifndef MAPSTATE_HPP_
 #define MAPSTATE_HPP_
 
-#include "AnimatedMap.hpp"
 #include "ApplicationState.hpp"
+#include "Map.hpp"
 #include "Player.hpp"
 #include "StatsBar.hpp"
 

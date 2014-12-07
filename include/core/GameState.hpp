@@ -18,16 +18,15 @@
 #ifndef GAMESTATE_HPP_
 #define GAMESTATE_HPP_
 
-#include "AnimatedMap.hpp"
+#include "Map.hpp"
 
 class GameState {
 	public:
 		GameState();
 		~GameState();
 		
-		AnimatedMap &getMap(u8 mapX, u8 mapY);
-		AnimatedMap &currentMap() { return *m_currentMap; }
-		void setCurrentMap(AnimatedMap *map) { m_currentMap = map; }
+		Map &currentMap() { return *m_currentMap; }
+		void setCurrentMap(Map *map) { m_currentMap = map; }
 		
 		u16 playerRupees() const { return m_playerRupees; }
 		
@@ -37,7 +36,7 @@ class GameState {
 		}
 		
 	private:
-		AnimatedMap *m_currentMap;
+		Map *m_currentMap;
 		
 		u16 m_playerRupees;
 };

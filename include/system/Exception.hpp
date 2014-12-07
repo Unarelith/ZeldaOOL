@@ -41,7 +41,7 @@ class Exception : public std::exception {
 		}
 		
 		virtual const char *what() const throw() {
-			return (Debug::textColor(Debug::TextColor::Red, true) + "at " + m_filename + ":" + std::to_string(m_line) + ": " + Debug::textColor(0, true) + m_errorMsg + Debug::textColor()).c_str();
+			return (Debug::textColor(Debug::TextColor::Red, true) + "at " + m_filename + ":" + std::to_string(m_line) + ": " + Debug::textColor(0, true) + m_errorMsg.c_str() + Debug::textColor()).c_str();
 		}
 		
 	private:

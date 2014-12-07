@@ -40,11 +40,10 @@ ScrollingTransition::ScrollingTransition(u8 mode) : m_statsBar(StatsBar::getInst
 		m_vy = 1;
 	}
 	
-	m_nextMap = &GameState::getInstance().getMap(0, 1);
-	//m_nextMap = nullptr;
+	m_nextMap = &GameState::getInstance().currentMap().getSideMap(m_vx, m_vy);
 	
 	//m_nextMap->resetTiles();
-	//m_nextMap->updateTiles();
+	m_nextMap->updateTiles();
 	m_nextMap->setPosition(GameState::getInstance().currentMap().width() * 16 * m_vx,
 						   GameState::getInstance().currentMap().height() * 16 * m_vy);
 	

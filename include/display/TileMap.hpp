@@ -30,10 +30,10 @@
 class TileMap : public sf::Drawable, public sf::Transformable {
 	public:
 		TileMap();
-		TileMap(std::string filename, std::string textureName);
+		TileMap(std::string filename, std::string tilesetName);
 		~TileMap();
 		
-		void load(std::string filename, std::string textureName);
+		void load(std::string filename, std::string tilesetName);
 		
 		virtual void updateTile(u16 tileX, u16 tileY);
 		void updateTiles();

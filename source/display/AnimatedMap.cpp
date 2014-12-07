@@ -20,7 +20,7 @@
 AnimatedMap::AnimatedMap() {
 }
 
-AnimatedMap::AnimatedMap(std::string filename, std::string textureName) : TileMap(filename, textureName) {
+AnimatedMap::AnimatedMap(std::string filename, std::string tilesetName) : TileMap(filename, tilesetName) {
 }
 
 AnimatedMap::~AnimatedMap() {
