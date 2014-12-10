@@ -1,8 +1,5 @@
 ===== TODO =====
-- Implement MapObject class (derivate of Movable, base of Player)
-	-> Implement a new collision handler which tests the other MapObjects of the map
-	-> Implement collision callbacks, called in both MapObjects (inCollisionWith(MapObject *))
-- Implement tile detection for Player in TileMap (onTile)
+- Implement tile detection in TileMap (isTile)
 	-> Implement DoorTransition and DoorObject
 	-> Implement animations in Map
 - Create a class InteractiveMapObject and map events

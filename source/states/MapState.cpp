@@ -22,6 +22,9 @@
 #include "ScrollingTransition.hpp"
 #include "TransitionState.hpp"
 
+#include "GamePad.hpp"
+#include "TestState.hpp"
+
 MapState::MapState() : m_statsBar(StatsBar::getInstance()) {
 	m_link = &Player::getInstance();
 }
@@ -45,6 +48,11 @@ void MapState::update() {
 	}
 	else if(m_link->y() + 15 > GameState::getInstance().currentMap().height() * 16) {
 		ApplicationStateStack::getInstance().push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingDown)));
+	}
+	
+	if(GamePad::getInstance().isKeyPressedOnce(GamePad::Select)) {
+		Application::getInstance().window().pushGLStates();
+		ApplicationStateStack::getInstance().push(new TestState());
 	}
 }
 

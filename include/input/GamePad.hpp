@@ -18,6 +18,7 @@
 #ifndef GAMEPAD_HPP_
 #define GAMEPAD_HPP_
 
+#include <map>
 #include <memory>
 
 class InputHandler;
@@ -43,6 +44,7 @@ class GamePad {
 		};
 		
 		bool isKeyPressed(Key key);
+		bool isKeyPressedOnce(Key key);
 		
 		static GamePad &getInstance() {
 			static GamePad instance;
@@ -51,6 +53,8 @@ class GamePad {
 		
 	private:
 		std::unique_ptr<InputHandler> m_inputHandler;
+		
+		std::map<Key, bool> m_keysPressed;
 };
 
 #endif // GAMEPAD_HPP_

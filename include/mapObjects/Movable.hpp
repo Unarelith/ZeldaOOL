@@ -53,6 +53,7 @@ class Movable : public Sprite {
 		
 		void setVelocity(float vx, float vy) { m_vx = vx; m_vy = vy; }
 		
+		u8 direction() const { return m_direction; }
 		void setDirection(u8 direction) { m_direction = direction; }
 		
 		void setMovement(Movement *movement) { m_movement = std::unique_ptr<Movement>(movement); }

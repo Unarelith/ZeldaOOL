@@ -18,14 +18,14 @@
 #ifndef PLAYER_HPP_
 #define PLAYER_HPP_
 
-#include "MapObject.hpp"
+#include "Character.hpp"
 
-class Player : public MapObject {
+class Player : public Character {
 	public:
 		Player();
 		~Player();
 		
-		void collisionAction(MapObject &mapObject);
+		void collisionAction(Character &character);
 		
 		void mapCollisions();
 		

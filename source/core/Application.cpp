@@ -20,8 +20,10 @@
 #include "Application.hpp"
 #include "Config.hpp"
 
+#include "Debug.hpp"
+
 Application::Application() {
-	m_window.create(sf::VideoMode(SCREEN_WIDTH * 3, SCREEN_HEIGHT * 3), APP_NAME, sf::Style::Close);
+	m_window.create(sf::VideoMode(SCREEN_WIDTH * 3, SCREEN_HEIGHT * 3), APP_NAME, sf::Style::Close, sf::ContextSettings(24, 8, 2));
 	m_defaultView.reset(sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT));
 	
 	ResourceHandler::getInstance().loadResources();

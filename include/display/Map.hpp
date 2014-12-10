@@ -18,6 +18,8 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
+#include <memory>
+
 #include "AnimatedMap.hpp"
 #include "MapObject.hpp"
 

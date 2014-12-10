@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapObject.hpp
+ *       Filename:  TestState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  07/12/2014 19:46:13
+ *        Created:  09/12/2014 21:36:48
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,13 +15,25 @@
  *
  * =====================================================================================
  */
-#ifndef MAPOBJECT_HPP_
-#define MAPOBJECT_HPP_
+#ifndef TESTSTATE_HPP_
+#define TESTSTATE_HPP_
 
-class MapObject {
+#include "ApplicationState.hpp"
+#include "Camera.hpp"
+#include "Chunk.hpp"
+
+class TestState : public ApplicationState {
 	public:
-		MapObject();
-		~MapObject();
+		TestState();
+		~TestState();
+		
+		void update();
+		
+		void draw();
+		
+	private:
+		Camera m_camera;
+		Chunk m_chunk;
 };
 
-#endif // MAPOBJECT_HPP_
+#endif // TESTSTATE_HPP_

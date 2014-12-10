@@ -20,7 +20,7 @@
 #include "Player.hpp"
 
 Player::Player() {
-	MapObject::load("link", MapObject::Player);
+	Character::load("link");
 	
 	// Movement
 	addAnimation({4, 0}, 110);
@@ -41,7 +41,7 @@ Player::Player() {
 Player::~Player() {
 }
 
-void Player::collisionAction(MapObject &mapObject) {
+void Player::collisionAction(Character &character) {
 	m_vx = 0;
 	m_vy = 0;
 }
