@@ -19,12 +19,6 @@
 #include "KeyboardMovement.hpp"
 #include "Movable.hpp"
 
-KeyboardMovement::KeyboardMovement() {
-}
-
-KeyboardMovement::~KeyboardMovement() {
-}
-
 void KeyboardMovement::doMovement(Movable &movable) {
 	float vx = 0;
 	float vy = 0;

@@ -21,6 +21,7 @@
 #include <cmath>
 
 #define RADIANS_PER_DEGREES 0.0174532925199
+#define M_PI 3.14159265358979323846
 
 class Camera {
 	public:

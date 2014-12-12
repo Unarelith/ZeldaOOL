@@ -21,9 +21,9 @@
 #include "Player.hpp"
 
 Camera::Camera() {
-	m_x = Player::getInstance().getPosition().x / 16;
+	m_x = Player::getInstance().getPosition().x / 16 + 0.5;
 	m_y = 2;
-	m_z = Player::getInstance().getPosition().y / 16;
+	m_z = Player::getInstance().getPosition().y / 16 + 0.5;
 	
 	//m_angleH = 0.0;
 	if(Player::getInstance().direction() == Movable::Direction::Left) {
@@ -46,7 +46,7 @@ Camera::Camera() {
 }
 
 Camera::~Camera() {
-	Player::getInstance().setPosition(m_x * 16, m_z * 16);
+	Player::getInstance().setPosition(m_x * 16 - 8, m_z * 16 - 8);
 	
 	if(m_angleH >= -45 && m_angleH < 45) {
 		Player::getInstance().setDirection(Movable::Direction::Right);
@@ -87,8 +87,8 @@ void Camera::turnV(float angle) {
 void Camera::move(float direction) {
 	direction += m_angleH;
 	
-	m_vx = 0.07f * cos(direction * M_PI / 180.0);
-	m_vz = 0.07f * sin(direction * M_PI / 180.0);
+	m_vx = 0.04f * cos(direction * M_PI / 180.0);
+	m_vz = 0.04f * sin(direction * M_PI / 180.0);
 	
 	m_x += m_vx;
 	m_z += m_vz;
@@ -117,6 +117,11 @@ void Camera::processInputs() {
 		update();
 	}
 	
+	if(GamePad::getInstance().isKeyPressed(GamePad::Start)) {
+		m_y += 0.01;
+		update();
+	}
+	
 	if(GamePad::getInstance().isKeyPressed(GamePad::Up)) {
 		move(0.0f);
 		update();
@@ -133,7 +138,6 @@ void Camera::update() {
 	
 	GLUtilities::lookAt(m_x, m_y, m_z,
 						pointTargetedX(), pointTargetedY(), pointTargetedZ(),
-						//5, 0, 3,
 						0, 1, 0);
 }
 

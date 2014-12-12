@@ -24,7 +24,7 @@
 
 class Chunk {
 	public:
-		Chunk();
+		Chunk(u16 area, u16 x, u16 y);
 		~Chunk();
 		
 		void update();
@@ -33,6 +33,8 @@ class Chunk {
 		
 		void draw();
 		void drawCube(float x, float y, float z, short tile);
+		
+		sf::Texture &texture() { return m_texture; }
 		
 	private:
 		sf::Texture &m_texture;

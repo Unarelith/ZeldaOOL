@@ -24,7 +24,7 @@
 #include "Debug.hpp"
 #include "Types.hpp"
 
-#define EXCEPTION(args...) (Exception(__LINE__, _FILE, args))
+#define EXCEPTION(args...) (Exception(__LINE__, _FILE_, args))
 
 class Exception : public std::exception {
 	public:

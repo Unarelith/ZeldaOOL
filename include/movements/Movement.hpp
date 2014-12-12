@@ -22,8 +22,7 @@ class Movable;
 
 class Movement {
 	public:
-		Movement() {}
-		virtual ~Movement() {}
+		virtual ~Movement() = default;
 		
 		virtual void doMovement(Movable &movable) = 0;
 };

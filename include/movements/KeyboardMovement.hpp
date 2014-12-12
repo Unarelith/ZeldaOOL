@@ -22,9 +22,6 @@
 
 class KeyboardMovement : public Movement {
 	public:
-		KeyboardMovement();
-		~KeyboardMovement();
-		
 		void doMovement(Movable &movable);
 };
 

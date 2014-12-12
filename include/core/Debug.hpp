@@ -28,10 +28,10 @@
 #define DEBUG_ENABLED
 #define DEBUG_COLOR
 
-#define _FILE (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
+#define _FILE_ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 
 #ifdef DEBUG_ENABLED
-	#define DEBUG(args...) { std::cout << Debug::textColor(Debug::TextColor::Red, true) << _FILE << ":" << __LINE__ << ":" << Debug::textColor(); Debug::print(args); }
+	#define DEBUG(args...) { std::cout << Debug::textColor(Debug::TextColor::Red, true) << _FILE_ << ":" << __LINE__ << ":" << Debug::textColor(); Debug::print(args); }
 #else
 	#define DEBUG(args...) {}
 #endif

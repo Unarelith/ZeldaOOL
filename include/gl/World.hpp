@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  World.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  05/12/2014 21:54:56
+ *        Created:  12/12/2014 22:37:36
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,10 +15,22 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#ifndef WORLD_HPP_
+#define WORLD_HPP_
 
-static const int SCREEN_WIDTH = 160;
-static const int SCREEN_HEIGHT = 144;
+#include <memory>
 
-#endif // CONFIG_HPP_
+#include "Chunk.hpp"
+
+class World {
+	public:
+		World();
+		~World();
+		
+		void draw();
+		
+	private:
+		std::vector<std::unique_ptr<Chunk>> m_chunks;
+};
+
+#endif // WORLD_HPP_

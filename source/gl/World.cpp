@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Config.hpp
+ *       Filename:  World.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  05/12/2014 21:54:56
+ *        Created:  12/12/2014 22:37:51
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,10 +15,23 @@
  *
  * =====================================================================================
  */
-#ifndef CONFIG_HPP_
-#define CONFIG_HPP_
+#include "World.hpp"
 
-static const int SCREEN_WIDTH = 160;
-static const int SCREEN_HEIGHT = 144;
+World::World() {
+	for(u8 y = 0 ; y < 2 ; y++) {
+		for(u8 x = 0 ; x < 2 ; x++) {
+			m_chunks.push_back(std::unique_ptr<Chunk>(new Chunk(0, x, y)));
+			m_chunks.back()->update();
+		}
+	}
+}
 
-#endif // CONFIG_HPP_
+World::~World() {
+}
+
+void World::draw() {
+	for(auto &it : m_chunks) {
+		it->draw();
+	}
+}
+

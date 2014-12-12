@@ -35,40 +35,48 @@ TestState::TestState() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	
-	GLUtilities::setupPerspective(80, 160 / 144, 0.1, 1000);
+	GLUtilities::setupPerspective(80, 1, 0.1, 1000);
+	
+	// Required on OS X!
+	glMatrixMode(GL_TEXTURE);
+	glLoadIdentity();
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
 	m_camera.update();
 	
-	m_chunk.update();
+	m_texture.loadFromFile("graphics/tilesets/plain.png");
 }
 
 TestState::~TestState() {
 }
 
 void TestState::update() {
+	printOpenGLErrors();
+	
 	if(GamePad::getInstance().isKeyPressedOnce(GamePad::Select)) {
 		ApplicationStateStack::getInstance().pop();
-		Application::getInstance().window().resetGLStates();
+		Application::getInstance().window().popGLStates();
 	}
 	
 	m_camera.processInputs();
 }
 
 void TestState::draw() {
-	glClearColor(0.196078, 0.6, 0.8, 1.0);
+	glClearColor(0.196078, 0.6, 0.8, 1.0); // Skyblue
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	/*glBegin(GL_QUADS);
-		glColor3f(1, 0, 0); glVertex3f(-10, 0, 10);
-		glColor3f(1, 1, 0); glVertex3f(10, 0, 10);
-		glColor3f(0, 1, 1); glVertex3f(10, 0, -10);
-		glColor3f(1, 0, 1); glVertex3f(-10, 0, -10);
+	/*sf::Texture::bind(&m_texture);
+	glBegin(GL_QUADS);
+		glTexCoord2f(0, 1); glVertex3f(-100, 0, 100);
+		glTexCoord2f(1, 1); glVertex3f(100, 0, 100);
+		glTexCoord2f(1, 0); glVertex3f(100, 0, -100);
+		glTexCoord2f(0, 0); glVertex3f(-100, 0, -100);
 	glEnd();
+	sf::Texture::bind(nullptr);*/
 	
-	glBegin(GL_LINES);
+	/*glBegin(GL_LINES);
 		glColor3f(1, 1, 1); glVertex3f(0, 0, 0);
 		glColor3f(1, 1, 1); glVertex3f(0, 5, 0);
 		
@@ -79,6 +87,6 @@ void TestState::draw() {
 		glColor3f(1, 1, 0); glVertex3f(0, 0, 5);
 	glEnd();*/
 	
-	m_chunk.draw();
+	m_world.draw();
 }
 

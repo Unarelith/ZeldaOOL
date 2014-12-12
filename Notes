@@ -37,4 +37,5 @@
 ===== IMPROVEMENTS =====
 - Let add a new type of resource easily in ResourceManager
 	* Difficult because XML info is runtime and it's impossible to send them to resource constructors
+		-> Madafaka I killed that prob'
 

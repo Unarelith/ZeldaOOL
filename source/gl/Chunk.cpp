@@ -21,7 +21,7 @@
 #include "GameState.hpp"
 #include "ResourceHandler.hpp"
 
-Chunk::Chunk() : m_texture(ResourceHandler::getInstance().get<Tileset>("plain").texture()), m_map(GameState::getInstance().currentMap()) {
+Chunk::Chunk(u16 area, u16 x, u16 y) : m_texture(ResourceHandler::getInstance().get<Tileset>("plain").texture()), m_map(Map::getMap(area, x, y)) {
 }
 
 Chunk::~Chunk() {
@@ -41,11 +41,16 @@ void Chunk::draw() {
 					break;
 				// Top tree
 				case 30:
-				case 31:
 					drawCube(x, 2, z, tile);
 					drawCube(x, 1, z, tile + 16);
 					drawCube(x, 2, z + 1, tile + 1);
 					drawCube(x, 1, z + 1, tile + 16 + 1);
+					break;
+				case 31:
+					drawCube(x, 2, z, tile);
+					drawCube(x, 1, z, tile + 16);
+					drawCube(x, 2, z + 1, tile - 1);
+					drawCube(x, 1, z + 1, tile + 16 - 1);
 					break;
 				case 62:
 				case 63:
@@ -68,7 +73,9 @@ void Chunk::draw() {
 					drawCube(x, 2, z, 134);
 				case 168:
 					drawCube(x, 2, z, 133);
+				case 241:
 				case 247:
+				case 253:
 					drawCube(x, 1, z, tile);
 					break;
 				default:
@@ -135,7 +142,10 @@ short Chunk::getTileFace(int i, short tile) {
 }
 
 void Chunk::drawCube(float x, float y, float z, short tile) {
-	GLfloat coords[] = {
+	x += m_map.x() * m_map.width();
+	z += m_map.y() * m_map.height();
+	
+	GLfloat coords[3 * 4 * 6] = {
 		// Front
 		x, y, z + 1,
 		x + 1, y, z + 1,
@@ -175,6 +185,10 @@ void Chunk::drawCube(float x, float y, float z, short tile) {
 		1.0f, 1.0f, 1.0f
 	};
 	
+	for(int i = 1 ; i < 6 ; i++) {
+		memcpy(&colors[i * 4 * 3], &colors[0], 3 * 4 * sizeof(GLfloat));	
+	}
+	
 	GLfloat texCoords[2 * 4 * 6];
 	for(int i = 0 ; i < 6 ; i++) {
 		float textureX1 = (getTileFace(i, tile) % (m_texture.getSize().x / 16)) * 16 / (float)m_texture.getSize().x;
@@ -196,11 +210,7 @@ void Chunk::drawCube(float x, float y, float z, short tile) {
 		texCoords[i * 8 + 7] = textureY1;
 	}
 	
-	for(int i = 1 ; i < 6 ; i++) {
-		memcpy(&colors[i * 4 * 3], &colors[0], 3 * 4 * sizeof(GLfloat));	
-	}
-	
-	GLubyte indices[] = {
+	GLubyte indices[6 * 6] = {
 		// Front
 		0, 1, 2,
 		2, 3, 0,
@@ -221,13 +231,13 @@ void Chunk::drawCube(float x, float y, float z, short tile) {
 		22, 23, 20
 	};
 	
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
 	glVertexPointer(3, GL_FLOAT, 0, coords);
 	glColorPointer(3, GL_FLOAT, 0, colors);
 	glTexCoordPointer(2, GL_FLOAT, 0, texCoords);
+	
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	
 	sf::Texture::bind(&m_texture);
 	
@@ -239,3 +249,4 @@ void Chunk::drawCube(float x, float y, float z, short tile) {
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
+

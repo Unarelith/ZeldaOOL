@@ -18,9 +18,11 @@
 #ifndef TESTSTATE_HPP_
 #define TESTSTATE_HPP_
 
+#include <SFML/Graphics/Texture.hpp>
+
 #include "ApplicationState.hpp"
 #include "Camera.hpp"
-#include "Chunk.hpp"
+#include "World.hpp"
 
 class TestState : public ApplicationState {
 	public:
@@ -33,7 +35,8 @@ class TestState : public ApplicationState {
 		
 	private:
 		Camera m_camera;
-		Chunk m_chunk;
+		World m_world;
+		sf::Texture m_texture;
 };
 
 #endif // TESTSTATE_HPP_
