@@ -18,6 +18,10 @@
 #ifndef SHADER_HPP_
 #define SHADER_HPP_
 
+#include <string>
+
+#include <glm/glm.hpp>
+
 #include "OpenGL.hpp"
 
 class Shader {
@@ -26,28 +30,28 @@ class Shader {
 		Shader(const char *vertexFilename, const char *fragementFilename);
 		~Shader();
 		
-		void load(const char *vertexFilename, const char *fragementFilename);
+		void loadFromFile(const char *vertexFilename, const char *fragementFilename);
 		
 		void compileShader(GLenum type, GLuint &shader, const char *filename);
 		
-		GLint attrib(const char *attribName);
-		GLint uniform(const char *uniformName);
+		GLint attrib(std::string name);
+		GLint uniform(std::string name);
 		
-		void enableVertexAttribArray(const char *attribName);
-		void disableVertexAttribArray(const char *attribName);
+		void enableVertexAttribArray(std::string name);
+		void disableVertexAttribArray(std::string name);
 		
-		void useProgram() { glUseProgram(m_program); }
+		void setUniform(std::string name, int n);
+		void setUniform(std::string name, float d, float e);
+		void setUniform(std::string name, const glm::mat4 &matrix);
+		
+		static void bind(const Shader *shader);
 		
 		GLint program() const { return m_program; }
-		
-		bool isLoaded() const { return m_isLoaded; }
 		
 	private:
 		GLuint m_vertexShader;
 		GLuint m_fragmentShader;
 		GLuint m_program;
-		
-		bool m_isLoaded;
 };
 
 #endif // SHADER_HPP_

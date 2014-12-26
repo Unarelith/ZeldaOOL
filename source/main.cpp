@@ -15,15 +15,33 @@
  *
  * =====================================================================================
  */
+#include <iostream>
+
 #include "Application.hpp"
+#include "Debug.hpp"
+#include "Exception.hpp"
 #include "SDLManager.hpp"
 
 int main(int argc, char *argv[]) {
-	SDLManager::init();
-	
-	Application app;
-	
-	app.run();
+	try {
+		SDLManager::init();
+		
+		Application &app = Application::getInstance();
+		
+		app.run();
+	}
+	catch(const Exception &err) {
+		std::cerr << Debug::textColor(Debug::TextColor::Red, true) << "Fatal error " << Debug::textColor() << err.what() << std::endl;
+		return 1;
+	}
+	catch(const std::exception &e) {
+		std::cerr << Debug::textColor(Debug::TextColor::Red, true) << "Exception caught: " << Debug::textColor(0, true) << e.what() << Debug::textColor() << std::endl;
+		return 1;
+	}
+	catch(...) {
+		std::cerr << "Fatal error: Unknown error." << std::endl;
+		return 1;
+	}
 	
 	SDLManager::free();
 	

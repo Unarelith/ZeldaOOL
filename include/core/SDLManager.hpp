@@ -18,9 +18,15 @@
 #ifndef SDLMANAGER_HPP_
 #define SDLMANAGER_HPP_
 
-namespace SDLManager {
-	void init();
-	void free();
-}
+class SDLManager {
+	public:
+		static void init();
+		static void free();
+		
+	private:
+		static bool sdlInitialized;
+		static bool imgInitialized;
+		static bool mixInitialized;
+};
 
 #endif // SDLMANAGER_HPP_

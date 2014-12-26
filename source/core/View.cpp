@@ -40,9 +40,8 @@ void View::load(float x, float y, u16 width, u16 height) {
 	
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)m_width + m_x, (float)m_height + m_y, 0.0f);
 	
-	glUniformMatrix4fv(m_shader.uniform("u_projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-	
-	glUniform2f(m_shader.uniform("u_viewPosition"), m_x + m_posX, m_y + m_posY);
+	m_shader.setUniform("u_projectionMatrix", projectionMatrix);
+	m_shader.setUniform("u_viewPosition", m_x + m_posX, m_y + m_posY);
 	
 	ShaderManager::pop();
 }
@@ -50,7 +49,7 @@ void View::load(float x, float y, u16 width, u16 height) {
 void View::enable() {
 	ShaderManager::push(m_shader);
 	
-	glUniform1i(m_shader.uniform("u_paletteID"), 0);
+	m_shader.setUniform("u_paletteID", 0);
 }
 
 void View::disable() {
@@ -71,7 +70,7 @@ void View::reset(float x, float y, u16 width, u16 height) {
 void View::updateUniform() {
 	ShaderManager::push(m_shader);
 	
-	glUniform2f(m_shader.uniform("u_viewPosition"), m_x + m_posX, m_y + m_posY);
+	m_shader.setUniform("u_viewPosition", m_x + m_posX, m_y + m_posY);
 	
 	ShaderManager::pop();
 }

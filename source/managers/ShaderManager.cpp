@@ -25,14 +25,15 @@ Shader &ShaderManager::currentShader() {
 
 void ShaderManager::push(Shader &shader) {
 	shaders.push(&shader);
-	currentShader().useProgram();
+	
+	Shader::bind(&currentShader());
 }
 
 void ShaderManager::pop() {
 	shaders.pop();
 	
 	if(shaders.size() > 0) {
-		currentShader().useProgram();
+		Shader::bind(&currentShader());
 	}
 }
 

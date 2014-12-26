@@ -15,23 +15,32 @@
  *
  * =====================================================================================
  */
-#include "Debug.hpp"
+#include "Exception.hpp"
+#include "SDLHeaders.hpp"
 #include "SDLManager.hpp"
+
+bool SDLManager::sdlInitialized = false;
+bool SDLManager::imgInitialized = false;
+bool SDLManager::mixInitialized = false;
 
 void SDLManager::init() {
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
-		error("SDL init error: %s\n", SDL_GetError());
-		exit(EXIT_FAILURE);
+		EXCEPTION("SDL init error:", SDL_GetError());
+	} else {
+		sdlInitialized = true;
 	}
 	
-	if(!IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) {
-		error("SDL_image init error: %s\n", IMG_GetError());
-		exit(EXIT_FAILURE);
+	int imgFlags = IMG_INIT_PNG;
+	if(!IMG_Init(imgFlags) & imgFlags) {
+		EXCEPTION("SDL image init error:", SDL_GetError());
+	} else {
+		imgInitialized = true;
 	}
 	
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) {
-		error("SDL_mixer init error: %s\n", Mix_GetError());
-		exit(EXIT_FAILURE);
+		EXCEPTION("SDL image init error:", SDL_GetError());
+	} else {
+		mixInitialized = true;
 	}
 	
 	Mix_AllocateChannels(32);
@@ -40,8 +49,8 @@ void SDLManager::init() {
 }
 
 void SDLManager::free() {
-	Mix_CloseAudio();
-	IMG_Quit();
-	SDL_Quit();
+	if(mixInitialized) Mix_CloseAudio();
+	if(imgInitialized) IMG_Quit();
+	if(sdlInitialized) SDL_Quit();
 }
 

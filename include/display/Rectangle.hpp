@@ -44,6 +44,7 @@ class Rectangle {
 		u16 height() const { return m_height; }
 		
 		static Shader shader;
+		static bool shaderLoaded;
 		
 	private:
 		float m_x;

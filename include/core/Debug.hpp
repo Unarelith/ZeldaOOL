@@ -18,32 +18,57 @@
 #ifndef DEBUG_HPP_
 #define DEBUG_HPP_
 
-#include "Config.hpp"
-#include "SDLHeaders.hpp"
+#include <cstring>
+#include <iostream>
+#include <sstream>
+#include <string>
 
-#ifdef __ANDROID__
-	#include <android/log.h>
-#endif
+#include "Types.hpp"
 
-#ifdef __ANDROID__
-	#define info(txt...) __android_log_print(ANDROID_LOG_INFO, APP_NAME, txt)
-	#define debug(txt...) __android_log_print(ANDROID_LOG_DEBUG, APP_NAME, txt)
-	#define warning(txt...) __android_log_print(ANDROID_LOG_WARN, APP_NAME, txt)
-	#define error(txt...) __android_log_print(ANDROID_LOG_ERROR, APP_NAME, txt)
+#define DEBUG_ENABLED
+#define DEBUG_COLOR
+
+#define _FILE_ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
+
+#ifdef DEBUG_ENABLED
+	#define DEBUG(args...) { std::cout << Debug::textColor(Debug::TextColor::Red, true) << _FILE_ << ":" << __LINE__ << ":" << Debug::textColor(); Debug::print(args); }
 #else
-	#ifdef COLORED_DEBUG
-		#define info(txt...) { printf("\33[0;36;01m[%s: %d]\t\t| INFO:\t", APP_NAME, SDL_GetTicks()); printf(txt); printf("\33[0m\n"); }
-		#define debug(txt...) { printf("\33[0;36;01m[%s: %d]\t\t| DEBUG:\t", APP_NAME, SDL_GetTicks()); printf(txt); printf("\33[0m\n"); }
-		#define warning(txt...) { printf("\33[0;35;01m[%s: %d]\t\t| WARN:\t", APP_NAME, SDL_GetTicks()); printf(txt); printf("\33[0m\n"); }
-		#define error(txt...) { fprintf(stderr, "\33[0;35;01m[%s: %d]\t\t| ERROR:\t", APP_NAME, SDL_GetTicks()); fprintf(stderr, txt); printf("\33[0m\n"); }
-	#else
-		#define info(txt...) { printf("[%s: %d]\t\t| INFO:\t", APP_NAME, SDL_GetTicks()); printf(txt); printf("\n"); }
-		#define debug(txt...) { printf("[%s: %d]\t\t| DEBUG:\t", APP_NAME, SDL_GetTicks()); printf(txt); printf("\n"); }
-		#define warning(txt...) { printf("[%s: %d]\t\t| WARN:\t", APP_NAME, SDL_GetTicks()); printf(txt); printf("\n"); }
-		#define error(txt...) { fprintf(stderr, "[%s: %d]\t\t| ERROR:\t", APP_NAME, SDL_GetTicks()); fprintf(stderr, txt); printf("\n"); }
-	#endif
+	#define DEBUG(args...) {}
 #endif
 
-#define TRACE(s) { info("Function called: " #s); s }
+namespace Debug {
+	enum TextColor {
+		White = 0,
+		Red = 31,
+		Blue = 36
+	};
+	
+	inline std::string textColor(u8 color = TextColor::White, bool bold = false) {
+#ifdef DEBUG_COLOR
+		return std::string("\33[0;") + ((color < 10) ? "0" : "") + std::to_string(color) + ";0" + ((bold) ? "1" : "0") + "m";
+#else
+		return std::string("");
+#endif
+	}
+	
+	template<typename T>
+	std::string makeString(std::stringstream &stream, T value) {
+		stream << value;
+		return stream.str();
+	}
+	
+	template<typename T, typename... Args>
+	std::string makeString(std::stringstream &stream, T value, Args... args) {
+		stream << value << " ";
+		return makeString(stream, args...);
+	}
+	
+	template<typename... Args>
+	void print(Args... args) {
+		std::stringstream stream;
+		
+		std::cout << textColor(0, true) << makeString(stream, args...) << textColor() << std::endl;
+	}
+}
 
 #endif // DEBUG_HPP_

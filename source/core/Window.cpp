@@ -19,7 +19,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Debug.hpp"
+#include "Exception.hpp"
 #include "OpenGL.hpp"
 #include "Window.hpp"
 
@@ -46,8 +46,7 @@ void Window::open() {
 	
 	m_window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 	if(!m_window) {
-		error("Error while initializing window: %s\n", SDL_GetError());
-		exit(EXIT_FAILURE);
+		throw EXCEPTION("Error while initializing window:", SDL_GetError());
 	}
 	
 	m_context = SDL_GL_CreateContext(m_window);
@@ -68,9 +67,8 @@ void Window::free() {
 void Window::initGL() {
 #ifdef __MINGW32__
 	if(glewInit() != GLEW_OK) {
-		error("glew initialization failed");
 		free();
-		exit(EXIT_FAILURE);
+		throw EXCEPTION("glew init failed");
 	}
 #endif
 	

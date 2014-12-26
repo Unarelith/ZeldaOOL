@@ -18,15 +18,17 @@
 #include <iostream>
 #include <fstream>
 
-#include "Debug.hpp"
+#define GLM_FORCE_RADIANS
+#include <glm/gtc/type_ptr.hpp>
+
+#include "Exception.hpp"
 #include "Shader.hpp"
 
 Shader::Shader() {
-	m_isLoaded = false;
 }
 
 Shader::Shader(const char *vertexFilename, const char *fragmentFilename) {
-	load(vertexFilename, fragmentFilename);
+	loadFromFile(vertexFilename, fragmentFilename);
 }
 
 Shader::~Shader() {
@@ -35,7 +37,7 @@ Shader::~Shader() {
 	glDeleteProgram(m_program);
 }
 
-void Shader::load(const char *vertexFilename, const char *fragmentFilename) {
+void Shader::loadFromFile(const char *vertexFilename, const char *fragmentFilename) {
 	compileShader(GL_VERTEX_SHADER, m_vertexShader, vertexFilename);
 	compileShader(GL_FRAGMENT_SHADER, m_fragmentShader, fragmentFilename);
 	
@@ -57,15 +59,13 @@ void Shader::load(const char *vertexFilename, const char *fragmentFilename) {
 		glGetProgramInfoLog(m_program, errorSize, &errorSize, errorMsg);
 		errorMsg[errorSize] = '\0';
 		
-		error("Program %u link %s", m_program, errorMsg);
+		std::string error = std::string(errorMsg);
 		
 		delete[] errorMsg;
 		glDeleteProgram(m_program);
 		
-		exit(EXIT_FAILURE);
+		throw EXCEPTION("Program", m_program, "link failed:", error);
 	}
-	
-	m_isLoaded = true;
 }
 
 void Shader::compileShader(GLenum type, GLuint &shader, const char *filename) {
@@ -73,9 +73,9 @@ void Shader::compileShader(GLenum type, GLuint &shader, const char *filename) {
 	
 	std::ifstream file(filename);
 	if(!file) {
-		error("Failed to open %s", filename);
 		glDeleteShader(type);
-		exit(EXIT_FAILURE);
+		
+		throw EXCEPTION("Failed to open", filename);
 	}
 	
 	std::string line;
@@ -101,42 +101,60 @@ void Shader::compileShader(GLenum type, GLuint &shader, const char *filename) {
 		glGetShaderInfoLog(shader, errorSize, &errorSize, errorMsg);
 		errorMsg[errorSize] = '\0';
 		
-		error("Shader \"%s\" %s", filename, errorMsg);
+		std::string error = std::string(errorMsg);
 		
 		delete[] errorMsg;
 		glDeleteShader(shader);
 		
-		exit(EXIT_FAILURE);
+		throw EXCEPTION("Shader", filename, "compilation failed:", error);
 	}
 }
 
-GLint Shader::attrib(const char *attribName) {
-	GLint attrib = glGetAttribLocation(m_program, attribName);
+GLint Shader::attrib(std::string name) {
+	GLint attrib = glGetAttribLocation(m_program, name.c_str());
 	
 	if(attrib == -1) {
-		error("Could not bind attribute '%s'", attribName);
-		exit(EXIT_FAILURE);
+		DEBUG("Could not bind attribute:", name);
 	}
 	
 	return attrib;
 }
 
-GLint Shader::uniform(const char *uniformName) {
-	GLint uniform = glGetUniformLocation(m_program, uniformName);
+GLint Shader::uniform(std::string name) {
+	GLint uniform = glGetUniformLocation(m_program, name.c_str());
 	
 	if(uniform == -1) {
-		error("Could not bind uniform '%s'", uniformName);
-		exit(EXIT_FAILURE);
+		DEBUG("Could not bind uniform:", name);
 	}
 	
 	return uniform;
 }
 
-void Shader::enableVertexAttribArray(const char *attribName) {
-	glEnableVertexAttribArray(attrib(attribName));
+void Shader::enableVertexAttribArray(std::string name) {
+	glEnableVertexAttribArray(attrib(name));
 }
 
-void Shader::disableVertexAttribArray(const char *attribName) {
-	glDisableVertexAttribArray(attrib(attribName));
+void Shader::disableVertexAttribArray(std::string name) {
+	glDisableVertexAttribArray(attrib(name));
+}
+
+void Shader::setUniform(std::string name, int n) {
+	glUniform1i(uniform(name), n);
+}
+
+void Shader::setUniform(std::string name, float d, float e) {
+	glUniform2f(uniform(name), d, e);
+}
+
+void Shader::setUniform(std::string name, const glm::mat4 &matrix) {
+	glUniformMatrix4fv(uniform(name), 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
+void Shader::bind(const Shader *shader) {
+	if(shader) {
+		glUseProgram(shader->m_program);
+	} else {
+		glUseProgram(0);
+	}
 }
 
