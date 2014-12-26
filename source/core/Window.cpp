@@ -19,6 +19,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Config.hpp"
 #include "Exception.hpp"
 #include "OpenGL.hpp"
 #include "Window.hpp"
@@ -35,7 +36,7 @@ void Window::open() {
 	SDL_DisplayMode current;
 	SDL_GetCurrentDisplayMode(0, &current);
 	
-	info("Current display: %dx%d", current.w, current.h);
+	DEBUG("Current display: %dx%d", current.w, current.h);
 	
 	m_width = current.w;
 	m_height = current.h;

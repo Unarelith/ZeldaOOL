@@ -15,7 +15,7 @@
  *
  * =====================================================================================
  */
-#include "Debug.hpp"
+#include "Exception.hpp"
 #include "XMLFile.hpp"
 
 XMLFile::XMLFile(std::string filename) {
@@ -23,56 +23,56 @@ XMLFile::XMLFile(std::string filename) {
 	
 	code = m_xml.LoadFile(filename.c_str());
 	if(code != 0) {
-		error("Failed to load %s.", filename.c_str());
+		throw EXCEPTION("Failed to load %s.", filename.c_str());
 		
 		switch(code) {
 			case XML_ERROR_FILE_NOT_FOUND:
-				error("File not found.");
+				throw EXCEPTION("File not found.");
 				break;
 			case XML_ERROR_FILE_COULD_NOT_BE_OPENED:
-				error("File couldn't be opened.");
+				throw EXCEPTION("File couldn't be opened.");
 				break;
 			case XML_ERROR_FILE_READ_ERROR:
-				error("File read error.");
+				throw EXCEPTION("File read throw EXCEPTION.");
 				break;
 			case XML_ERROR_ELEMENT_MISMATCH:
-				error("Element mismatch.");
+				throw EXCEPTION("Element mismatch.");
 				break;
 			case XML_ERROR_PARSING_ELEMENT:
-				error("Error while parsing element.");
+				throw EXCEPTION("Error while parsing element.");
 				break;
 			case XML_ERROR_PARSING_ATTRIBUTE:
-				error("Error while parsing attribute.");
+				throw EXCEPTION("Error while parsing attribute.");
 				break;
 			case XML_ERROR_IDENTIFYING_TAG:
-				error("Error while identifying tag.");
+				throw EXCEPTION("Error while identifying tag.");
 				break;
 			case XML_ERROR_PARSING_TEXT:
-				error("Error while parsing text.");
+				throw EXCEPTION("Error while parsing text.");
 				break;
 			case XML_ERROR_PARSING_CDATA:
-				error("Error while parsing cdata.");
+				throw EXCEPTION("Error while parsing cdata.");
 				break;
 			case XML_ERROR_PARSING_COMMENT:
-				error("Error while parsing comment.");
+				throw EXCEPTION("Error while parsing comment.");
 				break;
 			case XML_ERROR_PARSING_DECLARATION:
-				error("Error while parsing declaration.");
+				throw EXCEPTION("Error while parsing declaration.");
 				break;
 			case XML_ERROR_PARSING_UNKNOWN:
-				error("Parsing error: Unknown object.");
+				throw EXCEPTION("Parsing throw EXCEPTION: Unknown object.");
 				break;
 			case XML_ERROR_EMPTY_DOCUMENT:
-				error("Empty document.");
+				throw EXCEPTION("Empty document.");
 				break;
 			case XML_ERROR_MISMATCHED_ELEMENT:
-				error("Element mismatched.");
+				throw EXCEPTION("Element mismatched.");
 				break;
 			case XML_ERROR_PARSING:
-				error("Parsing error.");
+				throw EXCEPTION("Parsing throw EXCEPTION.");
 				break;
 			default:
-				error("Unknown error. (CODE: %d)", code);
+				throw EXCEPTION("Unknown throw EXCEPTION. CODE:", code);
 				break;
 		}
 		

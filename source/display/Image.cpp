@@ -103,11 +103,11 @@ void Image::draw() {
 	glVertexAttribPointer(ShaderManager::currentShader().attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, 0, texCoords);
 	glVertexAttribPointer(ShaderManager::currentShader().attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, 0, colorMod);
 	
-	bind();
+	bind(this);
 	
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
 	
-	unbind();
+	bind(nullptr);
 	
 	ShaderManager::currentShader().disableVertexAttribArray("colorMod");
 	ShaderManager::currentShader().disableVertexAttribArray("texCoord");

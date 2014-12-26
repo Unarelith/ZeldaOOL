@@ -28,6 +28,11 @@ class Application {
 		void run();
 		
 		static Window window;
+		
+		static Application &getInstance() {
+			static Application instance;
+			return instance;
+		}
 };
 
 #endif // APPLICATION_HPP_

@@ -1,5 +1,4 @@
 ===== CLEANING =====
-- Implement a better SDLManager
 - Implement ResourceManager
 	=> Make AudioPlayer static class
 	=> No more MapManager, etc...

@@ -85,11 +85,11 @@ void TileMap::draw() {
 	glVertexAttribPointer(ShaderManager::currentShader().attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, texCoord));
 	glVertexAttribPointer(ShaderManager::currentShader().attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, colorMod));
 	
-	m_texture->bind();
+	Texture::bind(m_texture);
 	
 	glDrawArrays(GL_TRIANGLES, 0, 6 * m_width * m_height);
 	
-	m_texture->unbind();
+	Texture::bind(nullptr);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	

@@ -32,11 +32,9 @@ class Texture {
 		
 		void load(std::string filename);
 		
-		void bind();
-		void unbind() { glBindTexture(GL_TEXTURE_2D, 0); }
+		static void bind(const Texture *texture);
 		
 		void setPaletteID(u8 id) { m_paletteID = id; }
-		void resetPalette() { setPaletteID(0); }
 		
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }

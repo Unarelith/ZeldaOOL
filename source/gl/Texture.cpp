@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 #include "Application.hpp"
-#include "Debug.hpp"
+#include "Exception.hpp"
 #include "ShaderManager.hpp"
 #include "Texture.hpp"
 
@@ -35,8 +35,7 @@ void Texture::load(std::string filename) {
 	
 	SDL_Surface *surface = IMG_Load(filename.c_str());
 	if(!surface) {
-		error("Failed to load texture: %s", filename.c_str());
-		exit(EXIT_FAILURE);
+		throw EXCEPTION("Failed to load texture:", filename);
 	}
 	
 	m_width = surface->w;
@@ -44,23 +43,27 @@ void Texture::load(std::string filename) {
 	
 	glGenTextures(1, &m_texture);
 	
-	bind();
+	bind(this);
 	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
 	
-	unbind();
+	bind(nullptr);
 	
 	SDL_FreeSurface(surface);
 	
 	m_paletteID = 0;
 }
 
-void Texture::bind() {
-	glBindTexture(GL_TEXTURE_2D, m_texture);
-	glUniform1i(ShaderManager::currentShader().uniform("u_tex"), 0);
-	glUniform1i(ShaderManager::currentShader().uniform("u_paletteID"), m_paletteID);
+void Texture::bind(const Texture *texture) {
+	if(texture) {
+		glBindTexture(GL_TEXTURE_2D, texture->m_texture);
+		glUniform1i(ShaderManager::currentShader().uniform("u_tex"), 0);
+		glUniform1i(ShaderManager::currentShader().uniform("u_paletteID"), texture->m_paletteID);
+	} else {
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 }
 

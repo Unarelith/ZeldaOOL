@@ -35,7 +35,7 @@ View::~View() {
 void View::load(float x, float y, u16 width, u16 height) {
 	reset(x, y, width, height);
 	
-	m_shader.load("shaders/view.v.glsl", "shaders/view.f.glsl");
+	m_shader.loadFromFile("shaders/view.v.glsl", "shaders/view.f.glsl");
 	ShaderManager::push(m_shader);
 	
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)m_width + m_x, (float)m_height + m_y, 0.0f);

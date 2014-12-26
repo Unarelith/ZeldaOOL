@@ -23,7 +23,7 @@ distribution.
 */
 
 #include "tinyxml2.hpp"
-#include "Debug.hpp"
+#include "Exception.hpp"
 
 #include <new>		// yes, this one new style header, is in the Android SDK.
 #   ifdef ANDROID_NDK
@@ -1816,7 +1816,7 @@ void XMLDocument::PrintError() const
             TIXML_SNPRINTF( buf2, LEN, "%s", _errorStr2 );
         }
 
-        error( "XMLDocument error id=%d str1=%s str2=%s\n",
+        throw EXCEPTION( "XMLDocument error id=%d str1=%s str2=%s\n",
                _errorID, buf1, buf2 );
     }
 }
