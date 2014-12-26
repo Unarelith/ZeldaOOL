@@ -28,7 +28,6 @@ TileMap::TileMap(Texture &texture, u16 width, u16 height, s16 *data) {
 }
 
 TileMap::~TileMap() {
-	glDeleteBuffers(1, &m_vbo);
 }
 
 void TileMap::load(Texture &texture, u16 width, u16 height, s16 *data) {
@@ -37,20 +36,19 @@ void TileMap::load(Texture &texture, u16 width, u16 height, s16 *data) {
 	m_width = width;
 	m_height = height;
 	
-	glGenBuffers(1, &m_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-	
 	m_data = data;
 	
-	glBufferData(GL_ARRAY_BUFFER, sizeof(VertexAttribute) * m_width * m_height * 6, NULL, GL_DYNAMIC_DRAW);
+	VertexBuffer::bind(&m_vbo);
 	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	m_vbo.setData(sizeof(VertexAttribute) * m_width * m_height * 6, NULL, GL_DYNAMIC_DRAW);
+	
+	VertexBuffer::bind(nullptr);
 	
 	m_view.load(0, 16, WINDOW_WIDTH, WINDOW_HEIGHT - 16);
 }
 
 void TileMap::updateTile(float x, float y, u16 id) {
-	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	VertexBuffer::bind(&m_vbo);
 	
 	float texTileX = id % (m_texture->width() / 16) * 16.0f / m_texture->width();
 	float texTileY = id / (m_texture->width() / 16) * 16.0f / m_texture->height();
@@ -67,9 +65,9 @@ void TileMap::updateTile(float x, float y, u16 id) {
 		{{x		   , y + 16.0f},	{texTileX			 , texTileY + tileHeight},		{1.0f, 1.0f, 1.0f, 1.0f}}
 	};
 	
-	glBufferSubData(GL_ARRAY_BUFFER, sizeof(attributes) * (x / 16 + (y / 16) * m_width), sizeof(attributes), attributes);
+	m_vbo.updateData(sizeof(attributes) * (x / 16 + (y / 16) * m_width), sizeof(attributes), attributes);
 	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	VertexBuffer::bind(nullptr);
 }
 
 void TileMap::draw() {
@@ -79,7 +77,7 @@ void TileMap::draw() {
 	ShaderManager::currentShader().enableVertexAttribArray("texCoord");
 	ShaderManager::currentShader().enableVertexAttribArray("colorMod");
 	
-	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	VertexBuffer::bind(&m_vbo);
 	
 	glVertexAttribPointer(ShaderManager::currentShader().attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), 0);
 	glVertexAttribPointer(ShaderManager::currentShader().attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, texCoord));
@@ -91,7 +89,7 @@ void TileMap::draw() {
 	
 	Texture::bind(nullptr);
 	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	VertexBuffer::bind(nullptr);
 	
 	ShaderManager::currentShader().disableVertexAttribArray("colorMod");
 	ShaderManager::currentShader().disableVertexAttribArray("texCoord");

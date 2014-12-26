@@ -28,8 +28,6 @@ class Rectangle {
 		Rectangle(float x, float y, u16 width, u16 height);
 		~Rectangle();
 		
-		void loadShader();
-		
 		void draw(Color color = Color::black);
 		
 		void setPosition(float x, float y) { m_x = x; m_y = y; }
@@ -42,9 +40,6 @@ class Rectangle {
 		
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
-		
-		static Shader shader;
-		static bool shaderLoaded;
 		
 	private:
 		float m_x;

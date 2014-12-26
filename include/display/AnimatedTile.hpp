@@ -22,7 +22,7 @@
 #include "TileAnimation.hpp"
 
 struct AnimatedTile {
-	AnimatedTile(u16 _tileX, u16 _tileY, u16 _nextFrame, TileAnimation _anim) :
+	AnimatedTile(u16 _tileX, u16 _tileY, u16 _nextFrame, TileAnimation &_anim) :
 		tileX(_tileX), tileY(_tileY), nextFrame(_nextFrame), anim(_anim) {}
 	
 	u16 tileX;
@@ -30,7 +30,7 @@ struct AnimatedTile {
 	
 	u16 nextFrame;
 	
-	TileAnimation anim;
+	TileAnimation &anim;
 	
 	Timer timer;
 };

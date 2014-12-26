@@ -20,6 +20,7 @@
 
 #include "OpenGL.hpp"
 #include "Texture.hpp"
+#include "VertexBuffer.hpp"
 #include "View.hpp"
 
 class TileMap {
@@ -45,7 +46,7 @@ class TileMap {
 		View m_view;
 		
 	private:
-		GLuint m_vbo;
+		VertexBuffer m_vbo;
 		
 		s16 *m_data;
 };

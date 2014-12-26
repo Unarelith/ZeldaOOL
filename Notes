@@ -2,6 +2,7 @@
 - Implement ResourceManager
 	=> Make AudioPlayer static class
 	=> No more MapManager, etc...
+- Implement VertexBuffer and use it instead of VertexArray
 - Use smart pointers instead of raw ones
 - Implement a better shader management system (remove ShaderManager)
 - Add Movable class and Movement system
