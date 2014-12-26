@@ -54,15 +54,15 @@ void Rectangle::draw(Color color) {
 		3, 1, 2
 	};
 	
-	ShaderManager::currentShader().enableVertexAttribArray("coord2d");
-	ShaderManager::currentShader().enableVertexAttribArray("color");
+	Shader::currentShader->enableVertexAttribArray("coord2d");
+	Shader::currentShader->enableVertexAttribArray("color");
 	
-	glVertexAttribPointer(ShaderManager::currentShader().attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glVertexAttribPointer(ShaderManager::currentShader().attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
+	glVertexAttribPointer(Shader::currentShader->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glVertexAttribPointer(Shader::currentShader->attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
 	
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
 	
-	ShaderManager::currentShader().disableVertexAttribArray("color");
-	ShaderManager::currentShader().disableVertexAttribArray("coord2d");
+	Shader::currentShader->disableVertexAttribArray("color");
+	Shader::currentShader->disableVertexAttribArray("coord2d");
 }
 

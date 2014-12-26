@@ -36,7 +36,7 @@ void Window::open() {
 	SDL_DisplayMode current;
 	SDL_GetCurrentDisplayMode(0, &current);
 	
-	DEBUG("Current display: %dx%d", current.w, current.h);
+	DEBUG("Current display:", current.w, "x", current.h);
 	
 	m_width = current.w;
 	m_height = current.h;

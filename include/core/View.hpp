@@ -39,6 +39,8 @@ class View {
 		void move(float offsetX, float offsetY);
 		void setPosition(float x, float y);
 		
+		Shader &shader() { return m_shader; }
+		
 	private:
 		float m_x;
 		float m_y;

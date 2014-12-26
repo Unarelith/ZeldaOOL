@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "Application.hpp"
 #include "CharacterManager.hpp"
 #include "Config.hpp"
 #include "DoorTransition.hpp"
@@ -93,7 +94,9 @@ void DoorTransition::draw() {
 		
 		CharacterManager::player.draw();
 		
-		MapManager::currentMap->disableView();
+		//MapManager::currentMap->disableView();
+		
+		Application::window.resetView();
 		
 		m_rect1.draw(Color::text);
 		m_rect2.draw(Color::text);

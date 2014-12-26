@@ -19,7 +19,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "ShaderManager.hpp"
 #include "View.hpp"
 
 View::View() {
@@ -36,24 +35,23 @@ void View::load(float x, float y, u16 width, u16 height) {
 	reset(x, y, width, height);
 	
 	m_shader.loadFromFile("shaders/view.v.glsl", "shaders/view.f.glsl");
-	ShaderManager::push(m_shader);
+	
+	Shader::bind(&m_shader);
 	
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)m_width + m_x, (float)m_height + m_y, 0.0f);
 	
 	m_shader.setUniform("u_projectionMatrix", projectionMatrix);
 	m_shader.setUniform("u_viewPosition", m_x + m_posX, m_y + m_posY);
 	
-	ShaderManager::pop();
+	Shader::bind(nullptr);
 }
 
 void View::enable() {
-	ShaderManager::push(m_shader);
-	
-	m_shader.setUniform("u_paletteID", 0);
+	Shader::bind(&m_shader);
 }
 
 void View::disable() {
-	ShaderManager::pop();
+	Shader::bind(nullptr);
 }
 
 void View::reset(float x, float y, u16 width, u16 height) {
@@ -68,11 +66,11 @@ void View::reset(float x, float y, u16 width, u16 height) {
 }
 
 void View::updateUniform() {
-	ShaderManager::push(m_shader);
+	Shader::bind(&m_shader);
 	
 	m_shader.setUniform("u_viewPosition", m_x + m_posX, m_y + m_posY);
 	
-	ShaderManager::pop();
+	Shader::bind(nullptr);
 }
 
 void View::move(float offsetX, float offsetY) {

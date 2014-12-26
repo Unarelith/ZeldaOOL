@@ -17,7 +17,7 @@
  */
 #include "Application.hpp"
 #include "Image.hpp"
-#include "ShaderManager.hpp"
+#include "Shader.hpp"
 
 Image::Image() {
 }
@@ -95,13 +95,15 @@ void Image::draw() {
 		3, 1, 2
 	};
 	
-	ShaderManager::currentShader().enableVertexAttribArray("coord2d");
-	ShaderManager::currentShader().enableVertexAttribArray("texCoord");
-	ShaderManager::currentShader().enableVertexAttribArray("colorMod");
+	Shader::currentShader->setUniform("u_paletteID", m_paletteID);
 	
-	glVertexAttribPointer(ShaderManager::currentShader().attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glVertexAttribPointer(ShaderManager::currentShader().attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, 0, texCoords);
-	glVertexAttribPointer(ShaderManager::currentShader().attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, 0, colorMod);
+	Shader::currentShader->enableVertexAttribArray("coord2d");
+	Shader::currentShader->enableVertexAttribArray("texCoord");
+	Shader::currentShader->enableVertexAttribArray("colorMod");
+	
+	glVertexAttribPointer(Shader::currentShader->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
+	glVertexAttribPointer(Shader::currentShader->attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+	glVertexAttribPointer(Shader::currentShader->attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, 0, colorMod);
 	
 	bind(this);
 	
@@ -109,8 +111,10 @@ void Image::draw() {
 	
 	bind(nullptr);
 	
-	ShaderManager::currentShader().disableVertexAttribArray("colorMod");
-	ShaderManager::currentShader().disableVertexAttribArray("texCoord");
-	ShaderManager::currentShader().disableVertexAttribArray("coord2d");
+	Shader::currentShader->disableVertexAttribArray("colorMod");
+	Shader::currentShader->disableVertexAttribArray("texCoord");
+	Shader::currentShader->disableVertexAttribArray("coord2d");
+	
+	Shader::currentShader->setUniform("u_paletteID", 0);
 }
 

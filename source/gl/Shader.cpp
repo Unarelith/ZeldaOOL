@@ -24,6 +24,8 @@
 #include "Exception.hpp"
 #include "Shader.hpp"
 
+Shader *Shader::currentShader = nullptr;
+
 Shader::Shader() {
 }
 
@@ -151,10 +153,7 @@ void Shader::setUniform(std::string name, const glm::mat4 &matrix) {
 }
 
 void Shader::bind(const Shader *shader) {
-	if(shader) {
-		glUseProgram(shader->m_program);
-	} else {
-		glUseProgram(0);
-	}
+	currentShader = (Shader*)shader;
+	glUseProgram((shader) ? shader->m_program : 0);
 }
 

@@ -17,7 +17,6 @@
  */
 #include "Application.hpp"
 #include "Exception.hpp"
-#include "ShaderManager.hpp"
 #include "Texture.hpp"
 
 Texture::Texture() {
@@ -60,8 +59,7 @@ void Texture::load(std::string filename) {
 void Texture::bind(const Texture *texture) {
 	if(texture) {
 		glBindTexture(GL_TEXTURE_2D, texture->m_texture);
-		glUniform1i(ShaderManager::currentShader().uniform("u_tex"), 0);
-		glUniform1i(ShaderManager::currentShader().uniform("u_paletteID"), texture->m_paletteID);
+		//Shader::currentShader->setUniform("u_tex", 0);
 	} else {
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}

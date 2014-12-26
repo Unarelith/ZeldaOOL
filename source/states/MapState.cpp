@@ -123,7 +123,9 @@ void MapState::render() {
 	
 	EffectManager::drawEffects(&CharacterManager::player);
 	
-	MapManager::currentMap->disableView();
+	//MapManager::currentMap->disableView();
+	
+	Application::window.resetView();
 	
 	m_statsBar.draw();
 }

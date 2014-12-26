@@ -16,7 +16,6 @@
  * =====================================================================================
  */
 #include "Config.hpp"
-#include "ShaderManager.hpp"
 #include "TileMap.hpp"
 #include "VertexAttribute.hpp"
 
@@ -73,15 +72,15 @@ void TileMap::updateTile(float x, float y, u16 id) {
 void TileMap::draw() {
 	m_view.enable();
 	
-	ShaderManager::currentShader().enableVertexAttribArray("coord2d");
-	ShaderManager::currentShader().enableVertexAttribArray("texCoord");
-	ShaderManager::currentShader().enableVertexAttribArray("colorMod");
+	Shader::currentShader->enableVertexAttribArray("coord2d");
+	Shader::currentShader->enableVertexAttribArray("texCoord");
+	Shader::currentShader->enableVertexAttribArray("colorMod");
 	
 	VertexBuffer::bind(&m_vbo);
 	
-	glVertexAttribPointer(ShaderManager::currentShader().attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), 0);
-	glVertexAttribPointer(ShaderManager::currentShader().attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, texCoord));
-	glVertexAttribPointer(ShaderManager::currentShader().attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, colorMod));
+	glVertexAttribPointer(Shader::currentShader->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), 0);
+	glVertexAttribPointer(Shader::currentShader->attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, texCoord));
+	glVertexAttribPointer(Shader::currentShader->attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, colorMod));
 	
 	Texture::bind(m_texture);
 	
@@ -91,9 +90,9 @@ void TileMap::draw() {
 	
 	VertexBuffer::bind(nullptr);
 	
-	ShaderManager::currentShader().disableVertexAttribArray("colorMod");
-	ShaderManager::currentShader().disableVertexAttribArray("texCoord");
-	ShaderManager::currentShader().disableVertexAttribArray("coord2d");
+	Shader::currentShader->disableVertexAttribArray("colorMod");
+	Shader::currentShader->disableVertexAttribArray("texCoord");
+	Shader::currentShader->disableVertexAttribArray("coord2d");
 	
 	m_view.disable();
 }

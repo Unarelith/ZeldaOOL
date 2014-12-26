@@ -19,7 +19,6 @@
 #define RECTANGLE_HPP_
 
 #include "Color.hpp"
-#include "ShaderManager.hpp"
 #include "Types.hpp"
 
 class Rectangle {

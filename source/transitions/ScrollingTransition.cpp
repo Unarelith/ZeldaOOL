@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 #include "AnimationManager.hpp"
+#include "Application.hpp"
 #include "CharacterManager.hpp"
 #include "Config.hpp"
 #include "MapManager.hpp"
@@ -92,7 +93,9 @@ void ScrollingTransition::draw() {
 	
 	CharacterManager::player.draw();
 	
-	MapManager::currentMap->disableView();
+	//MapManager::currentMap->disableView();
+	
+	Application::window.resetView();
 	
 	m_statsBar.draw();
 }

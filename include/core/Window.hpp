@@ -41,6 +41,8 @@ class Window {
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
+		void resetView() { m_defaultView.enable(); }
+		
 	private:
 		SDL_Window *m_window;
 		SDL_GLContext m_context;
