@@ -10,7 +10,7 @@ varying vec4 f_colorMod;
 uniform mat4 u_projectionMatrix;
 uniform vec2 u_viewPosition;
 
-void main(void) {
+void main() {
 	gl_Position = u_projectionMatrix * vec4(coord2d + u_viewPosition, 0.0, 1.0);
 	
 	f_texCoord = texCoord;

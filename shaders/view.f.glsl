@@ -8,7 +8,7 @@ uniform int u_paletteID;
 
 vec4 colorInPalette(int paletteID, vec4 color);
 
-void main(void) {
+void main() {
 	vec4 finalColor;
 	
 	finalColor = texture2D(u_tex, f_texCoord) - (vec4(1.0, 1.0, 1.0, 1.0) - f_colorMod);

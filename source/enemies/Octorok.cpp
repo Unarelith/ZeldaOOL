@@ -42,14 +42,16 @@ void Octorok::load(u16 x, u16 y, u8 direction) {
 	reset();
 }
 
-void Octorok::reset(bool state) {
-	if(state) {
-		m_maxLife = 2;
-		Battler::reset();
-		
-		m_dead = false;
-	}
+void Octorok::reset() {
+	m_maxLife = 2;
+	Battler::reset();
 	
+	m_dead = false;
+	
+	resetMovement();
+}
+
+void Octorok::resetMovement() {
 	m_state = State::Standing;
 	
 	m_timer.reset();
@@ -101,7 +103,7 @@ void Octorok::update() {
 			
 			m_movementCounter += 0.3f;
 		} else {
-			reset(false);
+			resetMovement();
 		}
 	}
 	else if(m_state == State::Hurt) {

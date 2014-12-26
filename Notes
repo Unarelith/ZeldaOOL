@@ -1,6 +1,21 @@
+===== CLEANING =====
+- Implement Exception class, with new Debug template-based class
+- Implement a better SDLManager
+- Implement ResourceManager
+	=> Make AudioPlayer static class
+	=> No more MapManager, etc...
+- Use smart pointers instead of raw ones
+- Implement a better shader management system (remove ShaderManager)
+- Add Movable class and Movement system
+- Add collision handlers
+- Add MapObject class (pure virtual class), then InteractiveMapObject (current Object class, handle Events), MapEntity (current Entity class, handles collisions)
+	=> Write a better event system (between MapEntity and InteractiveMapObject)
+	=> Update Character, Player, Sword, Collectable (inherits of MapEntity class)
+- Add a better state management for Characters
+
 ===== TODO =====
 - Finish 'Octorok'
-	=> Player can go through enemies sometimes (to confirm)
+	=> Player can go through enemies sometimes (Enemies don't test collisions with Player)
 	=> Add 'Projectile' class (inherits from 'Image'/'Sprite' and 'Entity')
 	=> Implement projectiles for octorok
 	=> Clean

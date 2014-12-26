@@ -73,7 +73,7 @@ void MovingState::move() {
 	m_character.mapCollisions();
 	
 	m_character.move(m_character.vx() * 0.4f,
-				  m_character.vy() * 0.4f);
+					 m_character.vy() * 0.4f);
 	
 	m_character.setVelocity(0, 0);
 }

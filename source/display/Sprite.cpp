@@ -15,8 +15,6 @@
  *
  * =====================================================================================
  */
-#include <cmath>
-
 #include "Sprite.hpp"
 
 bool Sprite::pause = false;
@@ -98,7 +96,7 @@ void Sprite::stopAnimation(u16 anim) {
 }
 
 u16 Sprite::animationCurrentFrame(u16 anim) {
-	return floor(m_animations[anim].timer.time() / m_animations[anim].delay);
+	return u16(m_animations[anim].timer.time() / m_animations[anim].delay);
 }
 
 bool Sprite::animationAtEnd(u16 anim) {

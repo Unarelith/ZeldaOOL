@@ -82,7 +82,6 @@ void Shader::compileShader(GLenum type, GLuint &shader, const char *filename) {
 	std::string sourceCode;
 	
 	while(getline(file, line)) sourceCode += line + '\n';
-	
 	file.close();
 	
 	const GLchar *sourceCodeString = sourceCode.c_str();
