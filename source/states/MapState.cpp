@@ -115,7 +115,7 @@ void MapState::update() {
 void MapState::render() {
 	MapManager::currentMap->draw();
 	
-	MapManager::currentMap->enableView();
+	View::bind(&MapManager::currentMap->view());
 	
 	AnimationManager::playAnimations();
 	
@@ -123,9 +123,7 @@ void MapState::render() {
 	
 	EffectManager::drawEffects(&CharacterManager::player);
 	
-	//MapManager::currentMap->disableView();
-	
-	Application::window.resetView();
+	View::bind(nullptr);
 	
 	m_statsBar.draw();
 }

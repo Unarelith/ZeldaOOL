@@ -72,9 +72,6 @@ class Map : public TileMap {
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
-		void enableView() { m_view.enable(); }
-		void disableView() { m_view.disable(); }
-		
 	private:
 		std::string m_filename;
 		

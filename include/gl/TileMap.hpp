@@ -35,7 +35,7 @@ class TileMap {
 		
 		void draw();
 		
-		View *view() { return &m_view; }
+		View &view() { return m_view; }
 		
 	protected:
 		Texture *m_texture;

@@ -90,13 +90,11 @@ void DoorTransition::draw() {
 	if(m_timer.time() > 250) {
 		if(m_nextMap) m_nextMap->draw();
 		
-		MapManager::currentMap->enableView();
+		View::bind(&MapManager::currentMap->view());
 		
 		CharacterManager::player.draw();
 		
-		//MapManager::currentMap->disableView();
-		
-		Application::window.resetView();
+		View::bind(nullptr);
 		
 		m_rect1.draw(Color::text);
 		m_rect2.draw(Color::text);

@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 #include "Config.hpp"
+#include "Shader.hpp"
 #include "TileMap.hpp"
 #include "VertexAttribute.hpp"
 
@@ -70,7 +71,7 @@ void TileMap::updateTile(float x, float y, u16 id) {
 }
 
 void TileMap::draw() {
-	m_view.enable();
+	View::bind(&m_view);
 	
 	Shader::currentShader->enableVertexAttribArray("coord2d");
 	Shader::currentShader->enableVertexAttribArray("texCoord");
@@ -94,6 +95,6 @@ void TileMap::draw() {
 	Shader::currentShader->disableVertexAttribArray("texCoord");
 	Shader::currentShader->disableVertexAttribArray("coord2d");
 	
-	m_view.disable();
+	View::bind(nullptr);
 }
 

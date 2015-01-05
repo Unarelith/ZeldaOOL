@@ -171,7 +171,7 @@ void Map::update(bool onlyTiles) {
 void Map::draw() {
 	TileMap::draw();
 	
-	m_view.enable();
+	View::bind(&m_view);
 	
 	for(auto &it : m_collectables) {
 		it->draw();
@@ -181,7 +181,7 @@ void Map::draw() {
 		it->draw();
 	}
 	
-	m_view.disable();
+	View::bind(nullptr);
 }
 
 u16 Map::getTile(u16 tileX, u16 tileY) {

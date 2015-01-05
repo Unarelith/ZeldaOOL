@@ -18,7 +18,6 @@
 #ifndef VIEW_HPP_
 #define VIEW_HPP_
 
-#include "Shader.hpp"
 #include "Types.hpp"
 
 class View {
@@ -29,29 +28,19 @@ class View {
 		
 		void load(float x, float y, u16 width, u16 height);
 		
-		void enable();
-		void disable();
-		
 		void reset(float x, float y, u16 width, u16 height);
-		
-		void updateUniform();
 		
 		void move(float offsetX, float offsetY);
 		void setPosition(float x, float y);
 		
-		Shader &shader() { return m_shader; }
+		static void bind(const View *view);
 		
 	private:
 		float m_x;
 		float m_y;
 		
-		float m_posX;
-		float m_posY;
-		
 		u16 m_width;
 		u16 m_height;
-		
-		Shader m_shader;
 };
 
 #endif // VIEW_HPP_

@@ -51,13 +51,13 @@ void Window::open() {
 	}
 	
 	m_context = SDL_GL_CreateContext(m_window);
+	if(!m_context) {
+		throw EXCEPTION("Error while initializing OpenGL context:", SDL_GetError());
+	}
 	
 	initGL();
 	
 	m_isOpen = true;
-	
-	m_defaultView.load(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-	m_defaultView.enable();
 }
 
 void Window::free() {
@@ -77,6 +77,14 @@ void Window::initGL() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	glEnable(GL_TEXTURE_2D);
+	
+	m_shader.loadFromFile("shaders/game.v.glsl", "shaders/game.f.glsl");
+	
+	Shader::bind(&m_shader);
+	
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f);
+	
+	m_shader.setUniform("u_projectionMatrix", projectionMatrix);
 }
 
 void Window::clear() {

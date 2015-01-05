@@ -17,8 +17,11 @@
  */
 #include <ctime>
 
+#define GLM_FORCE_RADIANS
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "Application.hpp"
-#include "Debug.hpp"
+#include "Config.hpp"
 #include "GameStateManager.hpp"
 #include "Sound.hpp"
 #include "TimeManager.hpp"
