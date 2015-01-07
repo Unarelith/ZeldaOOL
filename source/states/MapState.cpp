@@ -113,9 +113,9 @@ void MapState::update() {
 }
 
 void MapState::render() {
-	MapManager::currentMap->draw();
-	
 	View::bind(&MapManager::currentMap->view());
+	
+	MapManager::currentMap->draw();
 	
 	AnimationManager::playAnimations();
 	

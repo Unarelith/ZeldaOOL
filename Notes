@@ -4,13 +4,14 @@
 	=> No more MapManager, etc...
 - Implement VertexBuffer and use it instead of VertexArray
 - Use smart pointers instead of raw ones
-- Implement a better shader management system (remove ShaderManager)
+- Use spaces for alignment instead of tabs
 - Add Movable class and Movement system
 - Add collision handlers
 - Add MapObject class (pure virtual class), then InteractiveMapObject (current Object class, handle Events), MapEntity (current Entity class, handles collisions)
 	=> Write a better event system (between MapEntity and InteractiveMapObject)
 	=> Update Character, Player, Sword, Collectable (inherits of MapEntity class)
 - Add a better state management for Characters
+- Edit the TODO part
 
 ===== TODO =====
 - Finish 'Octorok'

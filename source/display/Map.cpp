@@ -171,8 +171,6 @@ void Map::update(bool onlyTiles) {
 void Map::draw() {
 	TileMap::draw();
 	
-	View::bind(&m_view);
-	
 	for(auto &it : m_collectables) {
 		it->draw();
 	}
@@ -180,8 +178,6 @@ void Map::draw() {
 	for(auto &it : m_enemies) {
 		it->draw();
 	}
-	
-	View::bind(nullptr);
 }
 
 u16 Map::getTile(u16 tileX, u16 tileY) {

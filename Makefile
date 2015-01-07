@@ -12,9 +12,12 @@ CXX		:=	g++
 #---------------------------------------------------------------------------------
 # Options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS	:=	-g -Wall -DGL_GLEXT_PROTOTYPES
-CXXFLAGS:=	$(CFLAGS) -std=c++11 -MD
-LDFLAGS	:=	-g
+SDL_CFLAGS	:= `sdl2-config --cflags`
+SDL_LDFLAGS	:= `sdl2-config --libs`
+
+CFLAGS		:=	-g -Wall $(SDL_CFLAGS)
+CXXFLAGS	:=	$(CFLAGS) -std=c++11 -MD
+LDFLAGS		:=	-g $(SDL_LDFLAGS)
 
 #---------------------------------------------------------------------------------
 # Any extra libraries you wish to link with your project

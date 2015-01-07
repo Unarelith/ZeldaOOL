@@ -51,11 +51,11 @@ void Application::run() {
 		
 		GameStateManager::top()->handleEvents();
 		
-		TimeManager::updateGame([](){
+		TimeManager::updateGame([] {
 			GameStateManager::top()->update();
 		});
 		
-		TimeManager::drawGame([](){
+		TimeManager::drawGame([] {
 			window.clear();
 			
 			GameStateManager::top()->render();

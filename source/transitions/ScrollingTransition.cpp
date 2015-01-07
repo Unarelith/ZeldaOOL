@@ -83,11 +83,13 @@ void ScrollingTransition::update() {
 }
 
 void ScrollingTransition::draw() {
-	MapManager::currentMap->draw();
+	View::bind(&m_nextMap->view());
 	
 	m_nextMap->draw();
 	
 	View::bind(&MapManager::currentMap->view());
+	
+	MapManager::currentMap->draw();
 	
 	AnimationManager::playAnimations();
 	

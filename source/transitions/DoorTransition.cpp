@@ -19,16 +19,19 @@
 #include "CharacterManager.hpp"
 #include "Config.hpp"
 #include "DoorTransition.hpp"
+#include "Exception.hpp"
 #include "MapManager.hpp"
 #include "Sound.hpp"
 #include "StandingState.hpp"
 
 DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer) {
 	m_nextMap = &MapManager::maps[area][mapX + mapY * MapManager::maps[area].size()];
-	if(m_nextMap) {
-		m_nextMap->resetTiles();
-		m_nextMap->updateTiles();
+	if(!m_nextMap) {
+		EXCEPTION("Unable to load destination map at", mapX, ";", mapY, ": with area =", area);
 	}
+	
+	m_nextMap->resetTiles();
+	m_nextMap->updateTiles();
 	
 	m_playerX = playerX;
 	m_playerY = playerY;
@@ -88,7 +91,9 @@ void DoorTransition::update() {
 
 void DoorTransition::draw() {
 	if(m_timer.time() > 250) {
-		if(m_nextMap) m_nextMap->draw();
+		View::bind(&m_nextMap->view());
+		
+		m_nextMap->draw();
 		
 		View::bind(&MapManager::currentMap->view());
 		

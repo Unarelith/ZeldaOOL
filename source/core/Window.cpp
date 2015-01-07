@@ -32,6 +32,9 @@ Window::~Window() {
 }
 
 void Window::open() {
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+	
 #ifdef __ANDROID__
 	SDL_DisplayMode current;
 	SDL_GetCurrentDisplayMode(0, &current);
@@ -52,6 +55,7 @@ void Window::open() {
 	
 	m_context = SDL_GL_CreateContext(m_window);
 	if(!m_context) {
+		SDL_DestroyWindow(m_window);
 		throw EXCEPTION("Error while initializing OpenGL context:", SDL_GetError());
 	}
 	

@@ -18,6 +18,8 @@
 #ifndef OPENGL_HPP_
 #define OPENGL_HPP_
 
+#define GL_GLEXT_PROTOTYPES
+
 #ifdef __APPLE__
 	#include <OpenGL/gl.h>
 #else
