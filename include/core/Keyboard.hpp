@@ -45,6 +45,6 @@ namespace Keyboard {
 	extern std::map<Key, bool> pressed;
 	extern std::map<Key, u32> lastTimePressed;
 	extern std::map<Key, u32> keysCode;
-};
+}
 
 #endif // KEYBOARD_HPP_

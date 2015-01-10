@@ -24,10 +24,13 @@
 struct Tileset {
 	Tileset() {}
 	
-	Tileset(std::string filename, u16 *_info) {
+	Tileset(std::string filename, u16 *_info, u16 _tileWidth = 16, u16 _tileHeight = 16) {
 		texture.load(filename);
 		
 		info = _info;
+		
+		tileWidth  = _tileWidth;
+		tileHeight = _tileHeight;
 	};
 	
 	void addAnimation(std::initializer_list<u16> frames, u16 delay) {
@@ -41,6 +44,9 @@ struct Tileset {
 	Texture texture;
 	
 	u16 *info;
+	
+	u16 tileWidth;
+	u16 tileHeight;
 	
 	std::vector<TileAnimation> anims;
 };

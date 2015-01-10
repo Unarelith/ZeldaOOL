@@ -17,28 +17,33 @@
  */
 #include "AnimatedMap.hpp"
 
-/*AnimatedMap::AnimatedMap() {
+AnimatedMap::AnimatedMap() {
 }
 
-AnimatedMap::AnimatedMap(std::string filename, Tileset &tileset) : TileMap(tileset) {
+AnimatedMap::AnimatedMap(Tileset &tileset, u16 width, u16 height, s16 *data) {
+	load(tileset, width, height, data);
 }
 
 AnimatedMap::~AnimatedMap() {
 }
 
-void AnimatedMap::updateTile(u16 tileX, u16 tileY) {
-	TileMap::updateTile(tileX, tileY);
+void AnimatedMap::load(Tileset &tileset, u16 width, u16 height, s16 *data) {
+	TileMap::load(tileset, width, height, data);
+}
+
+void AnimatedMap::updateTile(u16 tileX, u16 tileY, u16 id) {
+	TileMap::updateTile(tileX, tileY, id);
 	
-	for(auto &it : m_tileset->anims()) {
+	for(auto &it : m_tileset->anims) {
 		for(auto &n : it.frames) {
-			if(getTile(tileX, tileY) == n) {
+			if(id == n) {
 				m_animatedTiles.push_back(AnimatedTile(tileX, tileY, n + 1 % it.frames.size(), it));
 			}
 		}
 	}
 }
 
-void AnimatedMap::update() {
+void AnimatedMap::animateTiles() {
 	for(auto &it : m_animatedTiles) {
 		if(!it.timer.isStarted()) {
 			it.timer.start();
@@ -46,10 +51,12 @@ void AnimatedMap::update() {
 		
 		if(it.timer.time() >= it.anim.delay) {
 			setTile(it.tileX, it.tileY, it.anim.frames[it.nextFrame % it.anim.frames.size()]);
+			
 			it.nextFrame++;
+			
 			it.timer.reset();
 			it.timer.start();
 		}
 	}
-}*/
+}
 

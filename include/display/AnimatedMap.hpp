@@ -24,12 +24,14 @@
 class AnimatedMap : public TileMap {
 	public:
 		AnimatedMap();
-		//AnimatedMap(std::string filename, Tileset &tileset);
-		~AnimatedMap();
+		AnimatedMap(Tileset &tileset, u16 width, u16 height, s16 *data);
+		virtual ~AnimatedMap();
 		
-		virtual void updateTile(u16 tileX, u16 tileY);
+		void load(Tileset &tileset, u16 width, u16 height, s16 *data);
 		
-		void update();
+		virtual void updateTile(u16 tileX, u16 tileY, u16 id);
+		
+		void animateTiles();
 		
 	private:
 		std::vector<AnimatedTile> m_animatedTiles;

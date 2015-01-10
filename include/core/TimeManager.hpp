@@ -40,6 +40,6 @@ namespace TimeManager {
 	extern u32 ticks;
 	extern u32 timestep;
 	extern u8 numUpdates;
-};
+}
 
 #endif // TIMEMANAGER_HPP_

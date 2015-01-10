@@ -34,7 +34,7 @@ class Object : public Entity {
 		
 		virtual void onEvent(u8 event);
 		
-		virtual void resetTiles(Map *map) {}
+		virtual void resetTiles(Map *) {}
 		
 	private:
 		std::map<u8, std::function<void(Object *)>> m_actions;

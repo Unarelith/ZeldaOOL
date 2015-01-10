@@ -18,22 +18,21 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
-#include "AnimatedTile.hpp"
+#include "AnimatedMap.hpp"
 #include "Collectable.hpp"
 #include "Enemy.hpp"
 #include "Object.hpp"
-#include "TileMap.hpp"
 #include "Tileset.hpp"
 #include "Vector2.hpp"
 
-class Map : public TileMap {
+class Map : public AnimatedMap {
 	public:
 		Map();
 		Map(const Map &map);
 		Map(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y);
 		~Map();
 		
-		bool load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y);
+		void load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y);
 		
 		void resetTiles();
 		
@@ -42,9 +41,6 @@ class Map : public TileMap {
 		void update(bool onlyTiles = false);
 		
 		void draw();
-		
-		u16 getTile(u16 tileX, u16 tileY);
-		void setTile(u16 tileX, u16 tileY, u16 tile);
 		
 		void addObject(Object *obj);
 		void addCollectable(Collectable *collectable);
@@ -62,8 +58,6 @@ class Map : public TileMap {
 		bool objectAtPosition(Object *obj, float x, float y);
 		void sendEvent(EventType event, Entity *e = nullptr, Vector2i offsets = Vector2i(6, 11));
 		
-		Tileset &tileset() const { return *m_tileset; }
-		
 		u16 area() const { return m_area; }
 		
 		u16 x() const { return m_x; }
@@ -74,8 +68,6 @@ class Map : public TileMap {
 		
 	private:
 		std::string m_filename;
-		
-		Tileset *m_tileset;
 		
 		u16 m_area;
 		
@@ -90,8 +82,6 @@ class Map : public TileMap {
 		
 		std::vector<s16> m_baseData;
 		std::vector<s16> m_data;
-		
-		std::vector<AnimatedTile> m_animatedTiles;
 		
 		std::vector<Object*> m_objects;
 		std::vector<Collectable*> m_collectables;

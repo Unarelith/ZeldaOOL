@@ -15,7 +15,7 @@ CXX		:=	g++
 SDL_CFLAGS	:= `sdl2-config --cflags`
 SDL_LDFLAGS	:= `sdl2-config --libs`
 
-CFLAGS		:=	-g -Wall $(SDL_CFLAGS)
+CFLAGS		:=	-g -Wall -Werror -Wfatal-errors -Wextra -pedantic -Wno-variadic-macros $(SDL_CFLAGS)
 CXXFLAGS	:=	$(CFLAGS) -std=c++11 -MD
 LDFLAGS		:=	-g $(SDL_LDFLAGS)
 

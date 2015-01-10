@@ -23,15 +23,15 @@
 TileMap::TileMap() {
 }
 
-TileMap::TileMap(Texture &texture, u16 width, u16 height, s16 *data) {
-	load(texture, width, height, data);
+TileMap::TileMap(Tileset &tileset, u16 width, u16 height, s16 *data) {
+	load(tileset, width, height, data);
 }
 
 TileMap::~TileMap() {
 }
 
-void TileMap::load(Texture &texture, u16 width, u16 height, s16 *data) {
-	m_texture = &texture;
+void TileMap::load(Tileset &tileset, u16 width, u16 height, s16 *data) {
+	m_tileset = &tileset;
 	
 	m_width = width;
 	m_height = height;
@@ -47,25 +47,31 @@ void TileMap::load(Texture &texture, u16 width, u16 height, s16 *data) {
 	m_view.load(0, 16, WINDOW_WIDTH, WINDOW_HEIGHT - 16);
 }
 
-void TileMap::updateTile(float x, float y, u16 id) {
+void TileMap::updateTile(u16 tileX, u16 tileY, u16 id) {
 	VertexBuffer::bind(&m_vbo);
 	
-	float texTileX = id % (m_texture->width() / 16) * 16.0f / m_texture->width();
-	float texTileY = id / (m_texture->width() / 16) * 16.0f / m_texture->height();
+	float tileWidth  = m_tileset->tileWidth;
+	float tileHeight = m_tileset->tileHeight;
 	
-	float tileWidth = 16.0f / m_texture->width();
-	float tileHeight = 16.0f / m_texture->height();
+	float x = tileX * tileWidth;
+	float y = tileY * tileHeight;
+	
+	float texTileX = id % u16(m_tileset->texture.width() / tileWidth) * tileWidth  / m_tileset->texture.width();
+	float texTileY = id / u16(m_tileset->texture.width() / tileWidth) * tileHeight / m_tileset->texture.height();
+	
+	float texTileWidth  = tileWidth  / m_tileset->texture.width();
+	float texTileHeight = tileHeight / m_tileset->texture.height();
 	
 	VertexAttribute attributes[] = {	
-		{{x        , y        },    {texTileX            , texTileY},                 {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x + 16.0f, y        },    {texTileX + tileWidth, texTileY},                 {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x + 16.0f, y + 16.0f},    {texTileX + tileWidth, texTileY + tileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x        , y        },    {texTileX            , texTileY},                 {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x + 16.0f, y + 16.0f},    {texTileX + tileWidth, texTileY + tileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x        , y + 16.0f},    {texTileX            , texTileY + tileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}}
+		{{x            , y             },    {texTileX               , texTileY},                    {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x + tileWidth, y             },    {texTileX + texTileWidth, texTileY},                    {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x + tileWidth, y + tileHeight},    {texTileX + texTileWidth, texTileY + texTileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x            , y             },    {texTileX               , texTileY},                    {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x + tileWidth, y + tileHeight},    {texTileX + texTileWidth, texTileY + texTileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x            , y + tileHeight},    {texTileX               , texTileY + texTileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}}
 	};
 	
-	m_vbo.updateData(sizeof(attributes) * (x / 16 + (y / 16) * m_width), sizeof(attributes), attributes);
+	m_vbo.updateData(sizeof(attributes) * (tileX + tileY * m_width), sizeof(attributes), attributes);
 	
 	VertexBuffer::bind(nullptr);
 }
@@ -81,7 +87,7 @@ void TileMap::draw() {
 	glVertexAttribPointer(Shader::currentShader->attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, texCoord));
 	glVertexAttribPointer(Shader::currentShader->attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, colorMod));
 	
-	Texture::bind(m_texture);
+	Texture::bind(&m_tileset->texture);
 	
 	glDrawArrays(GL_TRIANGLES, 0, 6 * m_width * m_height);
 	
@@ -92,5 +98,21 @@ void TileMap::draw() {
 	Shader::currentShader->disableVertexAttribArray("colorMod");
 	Shader::currentShader->disableVertexAttribArray("texCoord");
 	Shader::currentShader->disableVertexAttribArray("coord2d");
+}
+
+u16 TileMap::getTile(u16 tileX, u16 tileY) {
+	if(tileX + tileY * m_width < m_width * m_height) {
+		return m_data[tileX + tileY * m_width];
+	} else {
+		return 0;
+	}
+}
+
+void TileMap::setTile(u16 tileX, u16 tileY, u16 tile) {
+	if(tileX + tileY * m_width < m_width * m_height) {
+		m_data[tileX + tileY * m_width] = tile;
+		
+		TileMap::updateTile(tileX, tileY, tile);
+	}
 }
 
