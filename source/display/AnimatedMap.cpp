@@ -35,7 +35,7 @@ void AnimatedMap::load(Tileset &tileset, u16 width, u16 height) {
 void AnimatedMap::updateTile(u16 tileX, u16 tileY, u16 id) {
 	TileMap::updateTile(tileX, tileY, id);
 	
-	for(auto &it : m_tileset->anims) {
+	for(auto &it : m_tileset->anims()) {
 		for(auto &n : it.frames) {
 			if(id == n) {
 				m_animatedTiles.push_back(AnimatedTile(tileX, tileY, n + 1 % it.frames.size(), it));

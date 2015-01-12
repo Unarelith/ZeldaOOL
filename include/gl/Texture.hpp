@@ -27,9 +27,9 @@
 class Texture {
 	public:
 		Texture();
-		Texture(std::string filename);
+		Texture(const std::string &filename);
 		
-		void load(std::string filename);
+		void load(const std::string &filename);
 		
 		static void bind(const Texture *texture);
 		

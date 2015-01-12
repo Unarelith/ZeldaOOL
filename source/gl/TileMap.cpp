@@ -54,17 +54,17 @@ void TileMap::load(Tileset &tileset, u16 width, u16 height) {
 void TileMap::updateTile(u16 tileX, u16 tileY, u16 id) {
 	VertexBuffer::bind(&m_vbo);
 	
-	float tileWidth  = m_tileset->tileWidth;
-	float tileHeight = m_tileset->tileHeight;
+	float tileWidth  = m_tileset->tileWidth();
+	float tileHeight = m_tileset->tileHeight();
 	
 	float x = tileX * tileWidth;
 	float y = tileY * tileHeight;
 	
-	float texTileX = id % u16(m_tileset->texture.width() / tileWidth) * tileWidth  / m_tileset->texture.width();
-	float texTileY = id / u16(m_tileset->texture.width() / tileWidth) * tileHeight / m_tileset->texture.height();
+	float texTileX = id % u16(m_tileset->width() / tileWidth) * tileWidth  / m_tileset->width();
+	float texTileY = id / u16(m_tileset->width() / tileWidth) * tileHeight / m_tileset->height();
 	
-	float texTileWidth  = tileWidth  / m_tileset->texture.width();
-	float texTileHeight = tileHeight / m_tileset->texture.height();
+	float texTileWidth  = tileWidth  / m_tileset->width();
+	float texTileHeight = tileHeight / m_tileset->height();
 	
 	VertexAttribute attributes[] = {	
 		{{x            , y             },    {texTileX               , texTileY},                    {1.0f, 1.0f, 1.0f, 1.0f}},
@@ -91,7 +91,7 @@ void TileMap::draw() {
 	glVertexAttribPointer(Shader::currentShader->attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, texCoord));
 	glVertexAttribPointer(Shader::currentShader->attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*) offsetof(VertexAttribute, colorMod));
 	
-	Texture::bind(&m_tileset->texture);
+	Texture::bind(m_tileset);
 	
 	glDrawArrays(GL_TRIANGLES, 0, 6 * m_width * m_height);
 	

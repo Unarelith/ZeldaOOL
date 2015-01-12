@@ -6,7 +6,6 @@
 	=> Model matrix
 	=> Class "Drawable"? Ok, but it's drawn by what?
 - Remove unnecessary dtors
-- Tileset should be a class
 - Remove TilesData, etc...
 	=> Loaded in xml file by Tileset
 - Use smart pointers instead of raw ones

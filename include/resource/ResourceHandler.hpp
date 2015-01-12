@@ -59,4 +59,4 @@ class ResourceHandler {
 		std::map<std::string, std::shared_ptr<void>> m_resources;
 };
 
-#endif
+#endif // RESOURCEHANDLER_HPP_

@@ -1,0 +1,43 @@
+/*
+ * =====================================================================================
+ *
+ *       Filename:  Tileset.cpp
+ *
+ *    Description:  
+ *
+ *        Version:  1.0
+ *        Created:  12/01/2015 16:03:22
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  Quentin BAZIN, <quent42340@gmail.com>
+ *        Company:  
+ *
+ * =====================================================================================
+ */
+#include "Tileset.hpp"
+
+Tileset::Tileset() {
+}
+
+Tileset::Tileset(const std::string &filename, u16 *info, u16 tileWidth, u16 tileHeight) {
+	load(filename, info, tileWidth, tileHeight);
+}
+
+void Tileset::load(const std::string &filename, u16 *info, u16 tileWidth, u16 tileHeight) {
+	Texture::load(filename);
+	
+	m_info = info;
+	
+	m_tileWidth  = tileWidth;
+	m_tileHeight = tileHeight;
+}
+
+void Tileset::addAnimation(std::initializer_list<u16> frames, u16 delay) {
+	m_anims.emplace_back(delay);
+	
+	for(auto &it : frames) {
+		m_anims.back().frames.push_back(it);
+	}
+}
+

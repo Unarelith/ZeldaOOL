@@ -27,7 +27,7 @@ void DoorManager::init() {
 	XMLElement *doorElement = doc.FirstChildElement("doors").FirstChildElement("door").ToElement();
 	while(doorElement) {
 		DoorObject *door = new DoorObject(doorElement->FloatAttribute("tileX") * 16,
-										  doorElement->FloatAttribute("tileY") * 16);
+		                                  doorElement->FloatAttribute("tileY") * 16);
 		
 		u8 direction = 0;
 		if(doorElement->FirstChildElement("player")->Attribute("direction", "up")) {
@@ -43,18 +43,17 @@ void DoorManager::init() {
 			direction = Character::Direction::Right;
 		}
 		
-		door->setDestination(
-			doorElement->FirstChildElement("destination")->IntAttribute("area"),
-			doorElement->FirstChildElement("destination")->IntAttribute("mapX"),
-			doorElement->FirstChildElement("destination")->IntAttribute("mapY"),
-			doorElement->FirstChildElement("player")->FloatAttribute("tileX") * 16,
-			doorElement->FirstChildElement("player")->FloatAttribute("tileY") * 16,
-			direction
+		door->setDestination(doorElement->FirstChildElement("destination")->IntAttribute("area"),
+		                     doorElement->FirstChildElement("destination")->IntAttribute("mapX"),
+		                     doorElement->FirstChildElement("destination")->IntAttribute("mapY"),
+		                     doorElement->FirstChildElement("player")->FloatAttribute("tileX") * 16,
+		                     doorElement->FirstChildElement("player")->FloatAttribute("tileY") * 16,
+		                     direction
 		);
 		
 		MapManager::getMap(doorElement->IntAttribute("area"),
-						   doorElement->IntAttribute("mapX"),
-						   doorElement->IntAttribute("mapY"))->addObject(door);
+		                   doorElement->IntAttribute("mapX"),
+		                   doorElement->IntAttribute("mapY")).addObject(door);
 		
 		doorElement = doorElement->NextSiblingElement();
 	}

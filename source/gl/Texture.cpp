@@ -22,11 +22,11 @@
 Texture::Texture() {
 }
 
-Texture::Texture(std::string filename) {
+Texture::Texture(const std::string &filename) {
 	load(filename);
 }
 
-void Texture::load(std::string filename) {
+void Texture::load(const std::string &filename) {
 	m_filename = filename;
 	
 	SDL_Surface *surface = IMG_Load(filename.c_str());

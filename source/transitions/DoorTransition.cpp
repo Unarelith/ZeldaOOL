@@ -25,7 +25,7 @@
 #include "StandingState.hpp"
 
 DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer) {
-	m_nextMap = &MapManager::maps[area][mapX + mapY * MapManager::maps[area].size()];
+	m_nextMap = &MapManager::getMap(area, mapX, mapY);
 	if(!m_nextMap) {
 		EXCEPTION("Unable to load destination map at", mapX, ";", mapY, ": with area =", area);
 	}

@@ -91,8 +91,8 @@ void Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 	
 	AnimatedMap::load(*tileset, m_width, m_height);
 	
-	m_tileset->tileWidth = mapElement->IntAttribute("tilewidth");
-	m_tileset->tileHeight = mapElement->IntAttribute("tileheight");
+	m_tileset->setTileWidth(mapElement->IntAttribute("tilewidth"));
+	m_tileset->setTileHeight(mapElement->IntAttribute("tileheight"));
 	
 	updateTiles();
 }
@@ -114,13 +114,13 @@ void Map::updateTiles() {
 		for(u16 tileX = 0 ; tileX < m_width ; tileX++) {
 			updateTile(tileX, tileY, getTile(tileX, tileY));
 			
-			u16 x = tileX * m_tileset->tileWidth;
-			u16 y = tileY * m_tileset->tileHeight;
+			u16 x = tileX * m_tileset->tileWidth();
+			u16 y = tileY * m_tileset->tileHeight();
 			
-			if(m_tileset->info[getTile(tileX, tileY)] == TilesData::TileType::GrassTile) {
+			if(m_tileset->info()[getTile(tileX, tileY)] == TilesData::TileType::GrassTile) {
 				addObject(new GrassObject(x, y));
 			}
-			else if(m_tileset->info[getTile(tileX, tileY)] == TilesData::TileType::LowGrassTile) {
+			else if(m_tileset->info()[getTile(tileX, tileY)] == TilesData::TileType::LowGrassTile) {
 				addObject(new GrassObject(x, y, true));
 			}
 		}

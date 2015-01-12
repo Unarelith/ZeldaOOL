@@ -41,11 +41,15 @@ ScrollingTransition::ScrollingTransition(u8 mode) {
 		m_vy = 1;
 	}
 	
-	m_nextMap = &MapManager::maps[MapManager::currentMap->area()][MapManager::currentMap->x() + m_vx + (MapManager::currentMap->y() + m_vy) * sqrt(MapManager::maps[MapManager::currentMap->area()].size())];
+	m_nextMap = &MapManager::getMap(MapManager::currentMap->area(),
+	                                MapManager::currentMap->x() + m_vx,
+	                                MapManager::currentMap->y() + m_vy);
 	
 	m_nextMap->resetTiles();
 	m_nextMap->updateTiles();
-	m_nextMap->view().setPosition(MapManager::currentMap->width() * 16 * m_vx, MapManager::currentMap->height() * 16 * m_vy + 16);
+	
+	m_nextMap->view().setPosition(MapManager::currentMap->width() * 16 * m_vx,
+	                              MapManager::currentMap->height() * 16 * m_vy + 16);
 	
 	m_scrolled = 0;
 	
@@ -66,10 +70,10 @@ void ScrollingTransition::update() {
 	
 	if((m_scrolled >= WINDOW_WIDTH		 && m_vx != 0)
 	|| (m_scrolled >= WINDOW_HEIGHT - 16 && m_vy != 0)) {
-		if(m_vx < 0)		CharacterManager::player.move(m_nextMap->width() * 16, 0);
-		else if(m_vx > 0)	CharacterManager::player.move(-MapManager::currentMap->width() * 16, 0);
-		else if(m_vy < 0)	CharacterManager::player.move(0, m_nextMap->height() * 16);
-		else if(m_vy > 0)	CharacterManager::player.move(0, -MapManager::currentMap->height() * 16);
+		if(m_vx < 0)      CharacterManager::player.move(m_nextMap->width() * 16, 0);
+		else if(m_vx > 0) CharacterManager::player.move(-MapManager::currentMap->width() * 16, 0);
+		else if(m_vy < 0) CharacterManager::player.move(0, m_nextMap->height() * 16);
+		else if(m_vy > 0) CharacterManager::player.move(0, -MapManager::currentMap->height() * 16);
 		
 		MapManager::currentMap = m_nextMap;
 		MapManager::currentMap->view().setPosition(0, 16);

@@ -28,12 +28,11 @@ namespace MapManager {
 	void initTilesets();
 	void initMaps();
 	
-	Map *getMap(u16 area, u8 mapX, u8 mapY);
+	Map &getMap(u16 area, u16 mapX, u16 mapY);
 	
 	extern Map *currentMap;
 	
 	extern std::vector<Tileset> tilesets;
-	extern std::vector<std::vector<Map>> maps;
 }
 
 #endif // MAPMANAGER_HPP_

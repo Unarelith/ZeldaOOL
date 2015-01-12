@@ -21,34 +21,32 @@
 #include "Texture.hpp"
 #include "TileAnimation.hpp"
 
-struct Tileset {
-	Tileset() {}
-	
-	Tileset(std::string filename, u16 *_info, u16 _tileWidth = 16, u16 _tileHeight = 16) {
-		texture.load(filename);
+class Tileset : public Texture {
+	public:
+		Tileset();
+		Tileset(const std::string &filename, u16 *info, u16 tileWidth = 16, u16 tileHeight = 16);
 		
-		info = _info;
+		void load(const std::string &filename, u16 *info, u16 tileWidth = 16, u16 tileHeight = 16);
 		
-		tileWidth  = _tileWidth;
-		tileHeight = _tileHeight;
-	};
-	
-	void addAnimation(std::initializer_list<u16> frames, u16 delay) {
-		anims.push_back(TileAnimation(delay));
+		void addAnimation(std::initializer_list<u16> frames, u16 delay);
 		
-		for(auto &it : frames) {
-			anims.back().frames.push_back(it);
-		}
-	}
-	
-	Texture texture;
-	
-	u16 *info;
-	
-	u16 tileWidth;
-	u16 tileHeight;
-	
-	std::vector<TileAnimation> anims;
+		u16 *info() const { return m_info; }
+		
+		u16 tileWidth() const { return m_tileWidth; }
+		u16 tileHeight() const { return m_tileHeight; }
+		
+		void setTileWidth(u16 tileWidth) { m_tileWidth = tileWidth; }
+		void setTileHeight(u16 tileHeight) { m_tileHeight = tileHeight; }
+		
+		const std::vector<TileAnimation> &anims() const { return m_anims; }
+		
+	private:
+		u16 *m_info;
+		
+		u16 m_tileWidth;
+		u16 m_tileHeight;
+		
+		std::vector<TileAnimation> m_anims;
 };
 
 #endif // TILESET_HPP_
