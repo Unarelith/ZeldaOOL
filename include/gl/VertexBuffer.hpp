@@ -23,12 +23,16 @@
 class VertexBuffer {
 	public:
 		VertexBuffer();
+		VertexBuffer(const VertexBuffer &) = delete;
+		VertexBuffer(VertexBuffer &&vertexBuffer);
 		~VertexBuffer();
 		
 		void setData(GLsizeiptr size, const GLvoid *data, GLenum usage);
 		void updateData(GLintptr offset, GLsizeiptr size, const GLvoid *data);
 		
 		static void bind(const VertexBuffer *vertexBuffer);
+		
+		GLuint id() const { return m_id; }
 		
 	private:
 		GLuint m_id;

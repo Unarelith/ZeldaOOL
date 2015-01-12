@@ -23,20 +23,24 @@
 TileMap::TileMap() {
 }
 
-TileMap::TileMap(Tileset &tileset, u16 width, u16 height, s16 *data) {
-	load(tileset, width, height, data);
+TileMap::TileMap(TileMap &&tilemap) : m_vbo(std::move(tilemap.m_vbo)) {
+	m_tileset = tilemap.m_tileset;
+	
+	m_width = tilemap.m_width;
+	m_height = tilemap.m_height;
+	
+	m_view = tilemap.m_view;
 }
 
-TileMap::~TileMap() {
+TileMap::TileMap(Tileset &tileset, u16 width, u16 height) {
+	load(tileset, width, height);
 }
 
-void TileMap::load(Tileset &tileset, u16 width, u16 height, s16 *data) {
+void TileMap::load(Tileset &tileset, u16 width, u16 height) {
 	m_tileset = &tileset;
 	
 	m_width = width;
 	m_height = height;
-	
-	m_data = data;
 	
 	VertexBuffer::bind(&m_vbo);
 	
@@ -102,7 +106,7 @@ void TileMap::draw() {
 
 u16 TileMap::getTile(u16 tileX, u16 tileY) {
 	if(tileX + tileY * m_width < m_width * m_height) {
-		return m_data[tileX + tileY * m_width];
+		return data()[tileX + tileY * m_width];
 	} else {
 		return 0;
 	}
@@ -110,7 +114,7 @@ u16 TileMap::getTile(u16 tileX, u16 tileY) {
 
 void TileMap::setTile(u16 tileX, u16 tileY, u16 tile) {
 	if(tileX + tileY * m_width < m_width * m_height) {
-		m_data[tileX + tileY * m_width] = tile;
+		data()[tileX + tileY * m_width] = tile;
 		
 		TileMap::updateTile(tileX, tileY, tile);
 	}

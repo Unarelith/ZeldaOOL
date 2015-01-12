@@ -21,6 +21,11 @@ VertexBuffer::VertexBuffer() {
 	glGenBuffers(1, &m_id);
 }
 
+VertexBuffer::VertexBuffer(VertexBuffer &&vertexBuffer) {
+	m_id = vertexBuffer.m_id;
+	vertexBuffer.m_id = 0;
+}
+
 VertexBuffer::~VertexBuffer() {
 	glDeleteBuffers(1, &m_id);
 }

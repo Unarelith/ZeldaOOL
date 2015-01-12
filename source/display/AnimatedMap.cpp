@@ -20,15 +20,16 @@
 AnimatedMap::AnimatedMap() {
 }
 
-AnimatedMap::AnimatedMap(Tileset &tileset, u16 width, u16 height, s16 *data) {
-	load(tileset, width, height, data);
+AnimatedMap::AnimatedMap(AnimatedMap &&animatedMap) : TileMap(std::move(animatedMap)) {
+	std::swap(m_animatedTiles, animatedMap.m_animatedTiles);
 }
 
-AnimatedMap::~AnimatedMap() {
+AnimatedMap::AnimatedMap(Tileset &tileset, u16 width, u16 height) {
+	load(tileset, width, height);
 }
 
-void AnimatedMap::load(Tileset &tileset, u16 width, u16 height, s16 *data) {
-	TileMap::load(tileset, width, height, data);
+void AnimatedMap::load(Tileset &tileset, u16 width, u16 height) {
+	TileMap::load(tileset, width, height);
 }
 
 void AnimatedMap::updateTile(u16 tileX, u16 tileY, u16 id) {

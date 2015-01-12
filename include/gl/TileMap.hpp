@@ -26,10 +26,11 @@
 class TileMap {
 	public:
 		TileMap();
-		TileMap(Tileset &tileset, u16 width, u16 height, s16 *data);
-		virtual ~TileMap();
+		TileMap(const TileMap &) = delete;
+		TileMap(TileMap &&tilemap);
+		TileMap(Tileset &tileset, u16 width, u16 height);
 		
-		void load(Tileset &tileset, u16 width, u16 height, s16 *data);
+		void load(Tileset &tileset, u16 width, u16 height);
 		
 		virtual void updateTile(u16 tileX, u16 tileY, u16 id);
 		
@@ -42,6 +43,9 @@ class TileMap {
 		
 		View &view() { return m_view; }
 		
+		// TO REMOVE LATER
+		virtual s16 *data() = 0;
+		
 	protected:
 		Tileset *m_tileset;
 		
@@ -52,8 +56,6 @@ class TileMap {
 		
 	private:
 		VertexBuffer m_vbo;
-		
-		s16 *m_data;
 };
 
 #endif // TILEMAP_HPP_

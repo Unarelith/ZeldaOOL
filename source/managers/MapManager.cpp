@@ -41,20 +41,25 @@ void MapManager::initTilesets() {
 
 void MapManager::initMaps() {
 	std::vector<Map> overworld;
-	overworld.push_back(Map("data/maps/a1.tmx", &tilesets[0], 0, 0, 0));
-	overworld.push_back(Map("data/maps/a2.tmx", &tilesets[0], 0, 1, 0));
-	overworld.push_back(Map("data/maps/b1.tmx", &tilesets[0], 0, 0, 1));
-	overworld.push_back(Map("data/maps/b2.tmx", &tilesets[0], 0, 1, 1));
+	//overworld.push_back(std::move(Map("data/maps/a1.tmx", &tilesets[0], 0, 0, 0)));
+	overworld.emplace_back("data/maps/a1.tmx", &tilesets[0], 0, 0, 0);
+	overworld.push_back(std::move(Map("data/maps/a2.tmx", &tilesets[0], 0, 1, 0)));
+	overworld.push_back(std::move(Map("data/maps/b1.tmx", &tilesets[0], 0, 0, 1)));
+	overworld.push_back(std::move(Map("data/maps/b2.tmx", &tilesets[0], 0, 1, 1)));
 	
 	std::vector<Map> indoor;
-	indoor.push_back(Map("data/maps/in1.tmx", &tilesets[1], 1, 0, 0));
+	indoor.push_back(std::move(Map("data/maps/in1.tmx", &tilesets[1], 1, 0, 0)));
 	
 	std::vector<Map> cave1;
-	cave1.push_back(Map("data/maps/ca1a1.tmx", &tilesets[2], 2, 0, 0));
+	cave1.push_back(std::move(Map("data/maps/ca1a1.tmx", &tilesets[2], 2, 0, 0)));
 	
-	maps.push_back(std::vector<Map>(overworld));
-	maps.push_back(std::vector<Map>(indoor));
-	maps.push_back(std::vector<Map>(cave1));
+	//maps.push_back(std::move(std::vector<Map>(overworld)));
+	maps.resize(3);
+	maps[0].swap(overworld);
+	maps[1].swap(indoor);
+	maps[2].swap(cave1);
+	//maps.push_back(std::move(std::vector<Map>(indoor)));
+	//maps.push_back(std::move(std::vector<Map>(cave1)));
 }
 
 Map *MapManager::getMap(u16 area, u8 mapX, u8 mapY) {

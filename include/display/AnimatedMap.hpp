@@ -24,10 +24,11 @@
 class AnimatedMap : public TileMap {
 	public:
 		AnimatedMap();
-		AnimatedMap(Tileset &tileset, u16 width, u16 height, s16 *data);
-		virtual ~AnimatedMap();
+		AnimatedMap(const AnimatedMap &) = delete;
+		AnimatedMap(AnimatedMap &&animatedMap);
+		AnimatedMap(Tileset &tileset, u16 width, u16 height);
 		
-		void load(Tileset &tileset, u16 width, u16 height, s16 *data);
+		void load(Tileset &tileset, u16 width, u16 height);
 		
 		virtual void updateTile(u16 tileX, u16 tileY, u16 id);
 		

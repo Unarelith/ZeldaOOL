@@ -27,8 +27,24 @@
 Map::Map() {
 }
 
-Map::Map(const Map &map) : AnimatedMap() {
-	load(map.m_filename, map.m_tileset, map.m_area, map.m_x, map.m_y);
+//Map::Map(const Map &map) : AnimatedMap() {
+//	load(map.m_filename, map.m_tileset, map.m_area, map.m_x, map.m_y);
+//}
+
+Map::Map(Map &&map) : AnimatedMap(std::move(map)) {
+	m_filename = map.m_filename;
+	
+	m_area = map.m_area;
+	
+	m_x = map.m_x;
+	m_y = map.m_y;
+	
+	std::swap(m_baseData, map.m_baseData);
+	std::swap(m_data, map.m_data);
+	
+	std::swap(m_objects, map.m_objects);
+	std::swap(m_collectables, map.m_collectables);
+	std::swap(m_enemies, map.m_enemies);
 }
 
 Map::Map(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
@@ -78,7 +94,7 @@ void Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 	
 	m_data = m_baseData;
 	
-	AnimatedMap::load(*tileset, m_width, m_height, m_data.data());
+	AnimatedMap::load(*tileset, m_width, m_height);
 	
 	m_tileset->tileWidth = mapElement->IntAttribute("tilewidth");
 	m_tileset->tileHeight = mapElement->IntAttribute("tileheight");
@@ -101,7 +117,7 @@ void Map::resetTiles() {
 void Map::updateTiles() {
 	for(u16 tileY = 0 ; tileY < m_height ; tileY++) {
 		for(u16 tileX = 0 ; tileX < m_width ; tileX++) {
-			updateTile(tileX, tileY, m_data[tileX + tileY * m_width]);
+			updateTile(tileX, tileY, getTile(tileX, tileY));
 			
 			u16 x = tileX * m_tileset->tileWidth;
 			u16 y = tileY * m_tileset->tileHeight;
