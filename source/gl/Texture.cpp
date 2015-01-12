@@ -26,9 +26,6 @@ Texture::Texture(std::string filename) {
 	load(filename);
 }
 
-Texture::~Texture() {
-}
-
 void Texture::load(std::string filename) {
 	m_filename = filename;
 	

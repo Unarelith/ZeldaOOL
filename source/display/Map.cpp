@@ -27,24 +27,19 @@
 Map::Map() {
 }
 
-//Map::Map(const Map &map) : AnimatedMap() {
-//	load(map.m_filename, map.m_tileset, map.m_area, map.m_x, map.m_y);
-//}
-
-Map::Map(Map &&map) : AnimatedMap(std::move(map)) {
+Map::Map(Map &&map) : AnimatedMap(std::move(map)),
+	m_baseData(std::move(map.m_baseData)),
+	m_data(std::move(map.m_data)),
+	m_objects(std::move(map.m_objects)),
+	m_collectables(std::move(map.m_collectables)),
+	m_enemies(std::move(map.m_enemies)) {
+	
 	m_filename = map.m_filename;
 	
 	m_area = map.m_area;
 	
 	m_x = map.m_x;
 	m_y = map.m_y;
-	
-	std::swap(m_baseData, map.m_baseData);
-	std::swap(m_data, map.m_data);
-	
-	std::swap(m_objects, map.m_objects);
-	std::swap(m_collectables, map.m_collectables);
-	std::swap(m_enemies, map.m_enemies);
 }
 
 Map::Map(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {

@@ -18,32 +18,45 @@
 #ifndef RESOURCEHANDLER_HPP_
 #define RESOURCEHANDLER_HPP_
 
-#include <vector>
+#include <map>
+#include <memory>
 
+#include "Exception.hpp"
 #include "XMLFile.hpp"
 
-class ResourceInfo;
-
-class ResourceLoader {
-	public:
-		ResourceLoader() {}
-		virtual ~ResourceLoader() {}
-		
-		virtual ResourceInfo &load(XMLElement *element);
-		
-	private:
-		std::vector<ResourceInfo*> m_infos;
-};
+class ResourceLoader;
 
 class ResourceHandler {
 	public:
-		ResourceHandler();
-		~ResourceHandler();
+		void addType(const std::string &xmlFilename, ResourceLoader &&loader);
 		
-		void add(ResourceLoader &loader) { m_loaders.push_back(loader); }
+		template<typename T, typename... Args>
+		void add(std::string name, Args... args) {
+			if(m_resources.find(name) != m_resources.end()) {
+				throw EXCEPTION("A resource already exists with name:", name);
+			}
+			
+			m_resources.emplace(name, std::make_shared<T>(args...));
+		}
+		
+		template<typename ResourceType>
+		ResourceType &get(const std::string &name) {
+			if(m_resources.find(name) == m_resources.end()) {
+				throw EXCEPTION("Unable to find resource with name:", name);
+			}
+			
+			return *static_cast<ResourceType*>(m_resources[name].get());
+		}
+		
+		static ResourceHandler &getInstance() {
+			static ResourceHandler instance;
+			return instance;
+		}
 		
 	private:
-		std::vector<ResourceLoader> m_loaders;
+		ResourceHandler() {}
+		
+		std::map<std::string, std::shared_ptr<void>> m_resources;
 };
 
-#endif // RESOURCEHANDLER_HPP_
+#endif

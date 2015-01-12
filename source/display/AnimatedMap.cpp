@@ -20,8 +20,8 @@
 AnimatedMap::AnimatedMap() {
 }
 
-AnimatedMap::AnimatedMap(AnimatedMap &&animatedMap) : TileMap(std::move(animatedMap)) {
-	std::swap(m_animatedTiles, animatedMap.m_animatedTiles);
+AnimatedMap::AnimatedMap(AnimatedMap &&animatedMap) : TileMap(std::move(animatedMap)),
+	m_animatedTiles(std::move(animatedMap.m_animatedTiles)){
 }
 
 AnimatedMap::AnimatedMap(Tileset &tileset, u16 width, u16 height) {

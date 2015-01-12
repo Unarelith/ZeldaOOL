@@ -29,7 +29,6 @@ class Map : public AnimatedMap {
 	public:
 		Map();
 		Map(const Map &map) = delete;
-		//Map(const Map &map);
 		Map(Map &&map);
 		Map(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y);
 		~Map();

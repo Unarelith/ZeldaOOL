@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  ResourceHandler.cpp
+ *       Filename:  ResourceLoader.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  10/01/2015 23:07:12
+ *        Created:  12/01/2015 15:04:23
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,9 +15,16 @@
  *
  * =====================================================================================
  */
-#include "ResourceHandler.hpp"
-#include "ResourceLoader.hpp"
+#ifndef RESOURCELOADER_HPP_
+#define RESOURCELOADER_HPP_
 
-void ResourceHandler::addType(const std::string &xmlFilename, ResourceLoader &&loader) {
-	loader.load(xmlFilename, *this);
-}
+#include <string>
+
+#include "ResourceHandler.hpp"
+
+class ResourceLoader {
+	public:
+		virtual void load(const std::string &xmlFilename, ResourceHandler &handler) = 0;
+};
+
+#endif // RESOURCELOADER_HPP_

@@ -28,7 +28,6 @@ class Texture {
 	public:
 		Texture();
 		Texture(std::string filename);
-		~Texture();
 		
 		void load(std::string filename);
 		

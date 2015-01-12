@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  ResourceHandler.cpp
+ *       Filename:  MapLoader.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  10/01/2015 23:07:12
+ *        Created:  12/01/2015 15:04:54
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,9 +15,14 @@
  *
  * =====================================================================================
  */
-#include "ResourceHandler.hpp"
+#ifndef MAPLOADER_HPP_
+#define MAPLOADER_HPP_
+
 #include "ResourceLoader.hpp"
 
-void ResourceHandler::addType(const std::string &xmlFilename, ResourceLoader &&loader) {
-	loader.load(xmlFilename, *this);
-}
+class MapLoader : public ResourceLoader {
+	public:
+		void load(const std::string &xmlFilename, ResourceHandler &handler);
+};
+
+#endif // MAPLOADER_HPP_

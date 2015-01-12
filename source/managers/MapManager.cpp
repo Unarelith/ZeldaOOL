@@ -39,27 +39,29 @@ void MapManager::initTilesets() {
 	tilesets.push_back(Tileset("graphics/tilesets/underground.png", TilesetsData::undergroundInfo));
 }
 
+#include "ResourceHandler.hpp"
+#include "MapLoader.hpp"
+
 void MapManager::initMaps() {
+	ResourceHandler &handler = ResourceHandler::getInstance();
+	handler.addType("data/config/maps.xml", MapLoader());
+	
 	std::vector<Map> overworld;
-	//overworld.push_back(std::move(Map("data/maps/a1.tmx", &tilesets[0], 0, 0, 0)));
-	overworld.emplace_back("data/maps/a1.tmx", &tilesets[0], 0, 0, 0);
-	overworld.push_back(std::move(Map("data/maps/a2.tmx", &tilesets[0], 0, 1, 0)));
-	overworld.push_back(std::move(Map("data/maps/b1.tmx", &tilesets[0], 0, 0, 1)));
-	overworld.push_back(std::move(Map("data/maps/b2.tmx", &tilesets[0], 0, 1, 1)));
+	//overworld.emplace_back("data/maps/a1.tmx", &tilesets[0], 0, 0, 0);
+	overworld.push_back(std::move(handler.get<Map>("0-0-0")));
+	overworld.emplace_back("data/maps/a2.tmx", &tilesets[0], 0, 1, 0);
+	overworld.emplace_back("data/maps/b1.tmx", &tilesets[0], 0, 0, 1);
+	overworld.emplace_back("data/maps/b2.tmx", &tilesets[0], 0, 1, 1);
 	
 	std::vector<Map> indoor;
-	indoor.push_back(std::move(Map("data/maps/in1.tmx", &tilesets[1], 1, 0, 0)));
+	indoor.emplace_back("data/maps/in1.tmx", &tilesets[1], 1, 0, 0);
 	
 	std::vector<Map> cave1;
-	cave1.push_back(std::move(Map("data/maps/ca1a1.tmx", &tilesets[2], 2, 0, 0)));
+	cave1.emplace_back("data/maps/ca1a1.tmx", &tilesets[2], 2, 0, 0);
 	
-	//maps.push_back(std::move(std::vector<Map>(overworld)));
-	maps.resize(3);
-	maps[0].swap(overworld);
-	maps[1].swap(indoor);
-	maps[2].swap(cave1);
-	//maps.push_back(std::move(std::vector<Map>(indoor)));
-	//maps.push_back(std::move(std::vector<Map>(cave1)));
+	maps.push_back(std::move(overworld));
+	maps.push_back(std::move(indoor));
+	maps.push_back(std::move(cave1));
 }
 
 Map *MapManager::getMap(u16 area, u8 mapX, u8 mapY) {
