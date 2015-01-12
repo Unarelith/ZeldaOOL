@@ -31,7 +31,7 @@ class ResourceHandler {
 		void addType(const std::string &xmlFilename, ResourceLoader &&loader);
 		
 		template<typename T, typename... Args>
-		void add(std::string name, Args... args) {
+		void add(std::string name, Args &...args) {
 			if(m_resources.find(name) != m_resources.end()) {
 				throw EXCEPTION("A resource already exists with name:", name);
 			}

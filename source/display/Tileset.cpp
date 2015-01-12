@@ -20,6 +20,13 @@
 Tileset::Tileset() {
 }
 
+Tileset::Tileset(Tileset &&tileset) : m_anims(std::move(tileset.m_anims)) {
+	m_info = tileset.m_info;
+	
+	m_tileWidth = tileset.m_tileWidth;
+	m_tileHeight = tileset.m_tileHeight;
+}
+
 Tileset::Tileset(const std::string &filename, u16 *info, u16 tileWidth, u16 tileHeight) {
 	load(filename, info, tileWidth, tileHeight);
 }
@@ -33,10 +40,10 @@ void Tileset::load(const std::string &filename, u16 *info, u16 tileWidth, u16 ti
 	m_tileHeight = tileHeight;
 }
 
-void Tileset::addAnimation(std::initializer_list<u16> frames, u16 delay) {
+void Tileset::addAnimation(std::vector<u16> &frames, u16 delay) {
 	m_anims.emplace_back(delay);
 	
-	for(auto &it : frames) {
+	for(u16 it : frames) {
 		m_anims.back().frames.push_back(it);
 	}
 }

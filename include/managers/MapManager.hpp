@@ -31,8 +31,6 @@ namespace MapManager {
 	Map &getMap(u16 area, u16 mapX, u16 mapY);
 	
 	extern Map *currentMap;
-	
-	extern std::vector<Tileset> tilesets;
 }
 
 #endif // MAPMANAGER_HPP_

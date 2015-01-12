@@ -29,17 +29,15 @@ void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 		XMLElement *mapElement = areaElement->FirstChildElement("map");
 		while(mapElement) {
 			std::string path = mapElement->Attribute("path");
-			std::string tilesetName = mapElement->Attribute("tileset");
+			std::string tileset = mapElement->Attribute("tileset");
 			
 			u16 x = mapElement->IntAttribute("x");
 			u16 y = mapElement->IntAttribute("y");
 			
-			u16 zoneID = mapElement->IntAttribute("zoneID");
+			//u16 zoneID = mapElement->IntAttribute("zoneID");
 			
-			u16 tilesetID = (tilesetName == "plain") ? 0 : (tilesetName == "indoor") ? 1 : 2;
-			Tileset *tileset = &MapManager::tilesets[tilesetID];
-			
-			handler.add<Map>(makeName(area, x, y), path, tileset, area, x, y);
+			Tileset &tilesetRef = handler.get<Tileset>(tileset);
+			handler.add<Map>(makeName(area, x, y), path, tilesetRef, area, x, y);
 			
 			mapElement = mapElement->NextSiblingElement("map");
 		}

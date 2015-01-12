@@ -42,7 +42,7 @@ Map::Map(Map &&map) : AnimatedMap(std::move(map)),
 	m_y = map.m_y;
 }
 
-Map::Map(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
+Map::Map(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
 	load(filename, tileset, area, x, y);
 }
 
@@ -65,7 +65,7 @@ Map::~Map() {
 
 #include "Debug.hpp"
 
-void Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
+void Map::load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
 	m_filename = filename;
 	
 	m_area = area;
@@ -89,10 +89,7 @@ void Map::load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y) {
 	
 	m_data = m_baseData;
 	
-	AnimatedMap::load(*tileset, m_width, m_height);
-	
-	m_tileset->setTileWidth(mapElement->IntAttribute("tilewidth"));
-	m_tileset->setTileHeight(mapElement->IntAttribute("tileheight"));
+	AnimatedMap::load(tileset, m_width, m_height);
 	
 	updateTiles();
 }

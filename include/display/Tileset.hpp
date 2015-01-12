@@ -24,11 +24,13 @@
 class Tileset : public Texture {
 	public:
 		Tileset();
+		Tileset(const Tileset &) = delete;
+		Tileset(Tileset &&tileset);
 		Tileset(const std::string &filename, u16 *info, u16 tileWidth = 16, u16 tileHeight = 16);
 		
 		void load(const std::string &filename, u16 *info, u16 tileWidth = 16, u16 tileHeight = 16);
 		
-		void addAnimation(std::initializer_list<u16> frames, u16 delay);
+		void addAnimation(std::vector<u16> &frames, u16 delay);
 		
 		u16 *info() const { return m_info; }
 		

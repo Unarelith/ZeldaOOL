@@ -30,10 +30,10 @@ class Map : public AnimatedMap {
 		Map();
 		Map(const Map &map) = delete;
 		Map(Map &&map);
-		Map(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y);
+		Map(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y);
 		~Map();
 		
-		void load(std::string filename, Tileset *tileset, u16 area, u16 x, u16 y);
+		void load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y);
 		
 		void resetTiles();
 		
