@@ -34,7 +34,11 @@ class XMLTileMap {
 		
 		void resetTiles();
 		
+		void updateTiles();
+		virtual void updateTile(u16 tileX, u16 tileY, u16 id) = 0;
+		
 		u16 getTile(u16 tileX, u16 tileY);
+		void setTile(u16 tileX, u16 tileY, u16 id);
 		
 	protected:
 		u16 m_width = 0;

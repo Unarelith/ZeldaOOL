@@ -25,12 +25,12 @@ class AnimatedMap : public TileMap {
 	public:
 		AnimatedMap() = default;
 		AnimatedMap(const AnimatedMap &) = delete;
-		AnimatedMap(AnimatedMap &&animatedMap);
+		AnimatedMap(AnimatedMap &&animatedMap) = default;
 		AnimatedMap(const std::string &filename, Tileset &tileset);
 		
 		void load(const std::string &filename, Tileset &tileset);
 		
-		virtual void updateTile(u16 tileX, u16 tileY, u16 id);
+		virtual void updateTile(u16 tileX, u16 tileY, u16 id) override;
 		
 		void animateTiles();
 		

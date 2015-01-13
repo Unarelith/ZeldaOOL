@@ -17,10 +17,6 @@
  */
 #include "AnimatedMap.hpp"
 
-AnimatedMap::AnimatedMap(AnimatedMap &&animatedMap) : TileMap(std::move(animatedMap)),
-	m_animatedTiles(std::move(animatedMap.m_animatedTiles)){
-}
-
 AnimatedMap::AnimatedMap(const std::string &filename, Tileset &tileset) {
 	load(filename, tileset);
 }

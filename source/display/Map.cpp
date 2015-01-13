@@ -28,19 +28,6 @@
 
 Map *Map::currentMap = nullptr;
 
-Map::Map(Map &&map) : AnimatedMap(std::move(map)),
-	m_baseData(std::move(map.m_baseData)),
-	m_data(std::move(map.m_data)),
-	m_objects(std::move(map.m_objects)),
-	m_collectables(std::move(map.m_collectables)),
-	m_enemies(std::move(map.m_enemies)) {
-	
-	m_area = map.m_area;
-	
-	m_x = map.m_x;
-	m_y = map.m_y;
-}
-
 Map::Map(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
 	load(filename, tileset, area, x, y);
 }
@@ -74,6 +61,8 @@ void Map::load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
 }
 
 void Map::resetTiles() {
+	XMLTileMap::resetTiles();
+	
 	for(auto &it : m_objects) {
 		it->resetTiles(this);
 	}
@@ -83,21 +72,17 @@ void Map::resetTiles() {
 	}
 }
 
-void Map::updateTiles() {
-	for(u16 tileY = 0 ; tileY < m_height ; tileY++) {
-		for(u16 tileX = 0 ; tileX < m_width ; tileX++) {
-			updateTile(tileX, tileY, getTile(tileX, tileY));
-			
-			u16 x = tileX * m_tileset->tileWidth();
-			u16 y = tileY * m_tileset->tileHeight();
-			
-			if(m_tileset->info()[getTile(tileX, tileY)] == TilesData::TileType::GrassTile) {
-				addObject(new GrassObject(x, y));
-			}
-			else if(m_tileset->info()[getTile(tileX, tileY)] == TilesData::TileType::LowGrassTile) {
-				addObject(new GrassObject(x, y, true));
-			}
-		}
+void Map::updateTile(u16 tileX, u16 tileY, u16 id) {
+	AnimatedMap::updateTile(tileX, tileY, id);
+	
+	u16 x = tileX * m_tileset->tileWidth();
+	u16 y = tileY * m_tileset->tileHeight();
+	
+	if(m_tileset->info()[id] == TilesData::TileType::GrassTile) {
+		addObject(new GrassObject(x, y));
+	}
+	else if(m_tileset->info()[id] == TilesData::TileType::LowGrassTile) {
+		addObject(new GrassObject(x, y, true));
 	}
 }
 

@@ -29,7 +29,7 @@ class Map : public AnimatedMap {
 	public:
 		Map() = default;
 		Map(const Map &map) = delete;
-		Map(Map &&map);
+		Map(Map &&map) = default;
 		Map(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y);
 		~Map();
 		
@@ -37,7 +37,7 @@ class Map : public AnimatedMap {
 		
 		void resetTiles();
 		
-		void updateTiles();
+		void updateTile(u16 tileX, u16 tileY, u16 id) override; 
 		
 		void update(bool onlyTiles = false);
 		
@@ -67,9 +67,6 @@ class Map : public AnimatedMap {
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
-		// TODO: TO REMOVE LATER
-		s16 *data() { return m_data.data(); }
-		
 		static Map &getMap(u16 area, u16 mapX, u16 mapY);
 		
 		static Map *currentMap;
@@ -79,9 +76,6 @@ class Map : public AnimatedMap {
 		
 		u16 m_x;
 		u16 m_y;
-		
-		std::vector<s16> m_baseData;
-		std::vector<s16> m_data;
 		
 		std::vector<Object*> m_objects;
 		std::vector<Collectable*> m_collectables;

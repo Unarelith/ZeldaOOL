@@ -45,11 +45,25 @@ void XMLTileMap::resetTiles() {
 	m_data = m_baseData;
 }
 
+void XMLTileMap::updateTiles() {
+	for(u16 tileY = 0 ; tileY < m_height ; tileY++) {
+		for(u16 tileX = 0 ; tileX < m_width ; tileX++) {
+			updateTile(tileX, tileY, getTile(tileX, tileY));
+		}
+	}
+}
+
 u16 XMLTileMap::getTile(u16 tileX, u16 tileY) {
 	if(tileX + tileY * m_width < m_width * m_height) {
 		return m_data[tileX + tileY * m_width];
 	} else {
 		return 0;
+	}
+}
+
+void XMLTileMap::setTile(u16 tileX, u16 tileY, u16 id) {
+	if(tileX + tileY * m_width < m_width * m_height) {
+		m_data[tileX + tileY * m_width] = id;
 	}
 }
 

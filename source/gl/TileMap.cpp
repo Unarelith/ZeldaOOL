@@ -20,15 +20,6 @@
 #include "TileMap.hpp"
 #include "VertexAttribute.hpp"
 
-TileMap::TileMap(TileMap &&tilemap) :
-	XMLTileMap(std::move(tilemap)),
-    m_vbo(std::move(tilemap.m_vbo)) {
-	
-	m_tileset = tilemap.m_tileset;
-	
-	m_view = tilemap.m_view;
-}
-
 TileMap::TileMap(const std::string &filename, Tileset &tileset) {
 	load(filename, tileset);
 }
@@ -100,11 +91,9 @@ void TileMap::draw() {
 	Shader::currentShader->disableVertexAttribArray("coord2d");
 }
 
-void TileMap::setTile(u16 tileX, u16 tileY, u16 tile) {
-	if(tileX + tileY * m_width < m_width * m_height) {
-		m_data[tileX + tileY * m_width] = tile;
-		
-		TileMap::updateTile(tileX, tileY, tile);
-	}
+void TileMap::setTile(u16 tileX, u16 tileY, u16 id) {
+	XMLTileMap::setTile(tileX, tileY, id);
+	
+	TileMap::updateTile(tileX, tileY, id);
 }
 

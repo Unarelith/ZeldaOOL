@@ -28,16 +28,16 @@ class TileMap : public XMLTileMap {
 	public:
 		TileMap() = default;
 		TileMap(const TileMap &) = delete;
-		TileMap(TileMap &&tilemap);
+		TileMap(TileMap &&tilemap) = default;
 		TileMap(const std::string &filename, Tileset &tileset);
 		
 		void load(const std::string &filename, Tileset &tileset);
 		
-		virtual void updateTile(u16 tileX, u16 tileY, u16 id);
+		virtual void updateTile(u16 tileX, u16 tileY, u16 id) override;
 		
 		void draw();
 		
-		void setTile(u16 tileX, u16 tileY, u16 tile);
+		void setTile(u16 tileX, u16 tileY, u16 id);
 		
 		Tileset &tileset() { return *m_tileset; }
 		
