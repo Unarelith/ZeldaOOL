@@ -75,8 +75,6 @@ class Map : public AnimatedMap {
 		static Map *currentMap;
 		
 	private:
-		std::string m_filename;
-		
 		u16 m_area;
 		
 		u16 m_x;

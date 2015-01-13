@@ -35,8 +35,6 @@ Map::Map(Map &&map) : AnimatedMap(std::move(map)),
 	m_collectables(std::move(map.m_collectables)),
 	m_enemies(std::move(map.m_enemies)) {
 	
-	m_filename = map.m_filename;
-	
 	m_area = map.m_area;
 	
 	m_x = map.m_x;
@@ -64,40 +62,18 @@ Map::~Map() {
 	}
 }
 
-#include "Debug.hpp"
-
 void Map::load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
-	m_filename = filename;
+	AnimatedMap::load(filename, tileset);
 	
 	m_area = area;
 	
 	m_x = x;
 	m_y = y;
 	
-	XMLFile doc(filename);
-	
-	XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
-	
-	m_width = mapElement->IntAttribute("width");
-	m_height = mapElement->IntAttribute("height");
-	
-	XMLElement *tileElement = mapElement->FirstChildElement("layer")->FirstChildElement("data")->FirstChildElement("tile");
-	while(tileElement) {
-		m_baseData.push_back(tileElement->IntAttribute("gid") - 1);
-		
-		tileElement = tileElement->NextSiblingElement("tile");
-	}
-	
-	m_data = m_baseData;
-	
-	AnimatedMap::load(tileset, m_width, m_height);
-	
 	updateTiles();
 }
 
 void Map::resetTiles() {
-	m_data = m_baseData;
-	
 	for(auto &it : m_objects) {
 		it->resetTiles(this);
 	}

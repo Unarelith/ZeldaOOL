@@ -21,12 +21,12 @@ AnimatedMap::AnimatedMap(AnimatedMap &&animatedMap) : TileMap(std::move(animated
 	m_animatedTiles(std::move(animatedMap.m_animatedTiles)){
 }
 
-AnimatedMap::AnimatedMap(Tileset &tileset, u16 width, u16 height) {
-	load(tileset, width, height);
+AnimatedMap::AnimatedMap(const std::string &filename, Tileset &tileset) {
+	load(filename, tileset);
 }
 
-void AnimatedMap::load(Tileset &tileset, u16 width, u16 height) {
-	TileMap::load(tileset, width, height);
+void AnimatedMap::load(const std::string &filename, Tileset &tileset) {
+	TileMap::load(filename, tileset);
 }
 
 void AnimatedMap::updateTile(u16 tileX, u16 tileY, u16 id) {

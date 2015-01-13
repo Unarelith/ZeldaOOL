@@ -22,35 +22,29 @@
 #include "Tileset.hpp"
 #include "VertexBuffer.hpp"
 #include "View.hpp"
+#include "XMLTileMap.hpp"
 
-class TileMap {
+class TileMap : public XMLTileMap {
 	public:
 		TileMap() = default;
 		TileMap(const TileMap &) = delete;
 		TileMap(TileMap &&tilemap);
-		TileMap(Tileset &tileset, u16 width, u16 height);
+		TileMap(const std::string &filename, Tileset &tileset);
 		
-		void load(Tileset &tileset, u16 width, u16 height);
+		void load(const std::string &filename, Tileset &tileset);
 		
 		virtual void updateTile(u16 tileX, u16 tileY, u16 id);
 		
 		void draw();
 		
-		u16 getTile(u16 tileX, u16 tileY);
 		void setTile(u16 tileX, u16 tileY, u16 tile);
 		
 		Tileset &tileset() { return *m_tileset; }
 		
 		View &view() { return m_view; }
 		
-		// TODO: TO REMOVE LATER
-		virtual s16 *data() = 0;
-		
 	protected:
 		Tileset *m_tileset;
-		
-		u16 m_width  = 0;
-		u16 m_height = 0;
 		
 		View m_view;
 		

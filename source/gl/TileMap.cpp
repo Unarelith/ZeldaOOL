@@ -20,32 +20,31 @@
 #include "TileMap.hpp"
 #include "VertexAttribute.hpp"
 
-TileMap::TileMap(TileMap &&tilemap) : m_vbo(std::move(tilemap.m_vbo)) {
-	m_tileset = tilemap.m_tileset;
+TileMap::TileMap(TileMap &&tilemap) :
+	XMLTileMap(std::move(tilemap)),
+    m_vbo(std::move(tilemap.m_vbo)) {
 	
-	m_width = tilemap.m_width;
-	m_height = tilemap.m_height;
+	m_tileset = tilemap.m_tileset;
 	
 	m_view = tilemap.m_view;
 }
 
-TileMap::TileMap(Tileset &tileset, u16 width, u16 height) {
-	load(tileset, width, height);
+TileMap::TileMap(const std::string &filename, Tileset &tileset) {
+	load(filename, tileset);
 }
 
-void TileMap::load(Tileset &tileset, u16 width, u16 height) {
+void TileMap::load(const std::string &filename, Tileset &tileset) {
+	XMLTileMap::load(filename);
+	
 	m_tileset = &tileset;
 	
-	m_width = width;
-	m_height = height;
+	m_view.load(0, 16, WINDOW_WIDTH, WINDOW_HEIGHT - 16);
 	
 	VertexBuffer::bind(&m_vbo);
 	
 	m_vbo.setData(sizeof(VertexAttribute) * m_width * m_height * 6, nullptr, GL_DYNAMIC_DRAW);
 	
 	VertexBuffer::bind(nullptr);
-	
-	m_view.load(0, 16, WINDOW_WIDTH, WINDOW_HEIGHT - 16);
 }
 
 void TileMap::updateTile(u16 tileX, u16 tileY, u16 id) {
@@ -101,17 +100,9 @@ void TileMap::draw() {
 	Shader::currentShader->disableVertexAttribArray("coord2d");
 }
 
-u16 TileMap::getTile(u16 tileX, u16 tileY) {
-	if(tileX + tileY * m_width < m_width * m_height) {
-		return data()[tileX + tileY * m_width];
-	} else {
-		return 0;
-	}
-}
-
 void TileMap::setTile(u16 tileX, u16 tileY, u16 tile) {
 	if(tileX + tileY * m_width < m_width * m_height) {
-		data()[tileX + tileY * m_width] = tile;
+		m_data[tileX + tileY * m_width] = tile;
 		
 		TileMap::updateTile(tileX, tileY, tile);
 	}

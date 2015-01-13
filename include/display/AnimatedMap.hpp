@@ -26,9 +26,9 @@ class AnimatedMap : public TileMap {
 		AnimatedMap() = default;
 		AnimatedMap(const AnimatedMap &) = delete;
 		AnimatedMap(AnimatedMap &&animatedMap);
-		AnimatedMap(Tileset &tileset, u16 width, u16 height);
+		AnimatedMap(const std::string &filename, Tileset &tileset);
 		
-		void load(Tileset &tileset, u16 width, u16 height);
+		void load(const std::string &filename, Tileset &tileset);
 		
 		virtual void updateTile(u16 tileX, u16 tileY, u16 id);
 		

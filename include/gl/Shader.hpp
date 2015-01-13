@@ -51,9 +51,9 @@ class Shader {
 		GLint program() const { return m_program; }
 		
 	private:
-		GLuint m_vertexShader   = 0;
+		GLuint m_vertexShader = 0;
 		GLuint m_fragmentShader = 0;
-		GLuint m_program        = 0;
+		GLuint m_program = 0;
 };
 
 #endif // SHADER_HPP_
