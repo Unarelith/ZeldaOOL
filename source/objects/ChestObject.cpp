@@ -18,7 +18,7 @@
 #include "ChestObject.hpp"
 #include "ChestOpenedState.hpp"
 #include "GameStateManager.hpp"
-#include "MapManager.hpp"
+#include "Map.hpp"
 #include "RupeeCollectable.hpp"
 #include "Sound.hpp"
 
@@ -37,7 +37,7 @@ void ChestObject::onEvent(u8 event) {
 		
 		m_opened = true;
 		
-		resetTiles(MapManager::currentMap);
+		resetTiles(Map::currentMap);
 		
 		GameStateManager::push(new ChestOpenedState(GameStateManager::top(), m_x, m_y, m_collectable));
 	}

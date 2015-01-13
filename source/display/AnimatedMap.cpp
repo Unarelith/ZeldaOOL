@@ -17,9 +17,6 @@
  */
 #include "AnimatedMap.hpp"
 
-AnimatedMap::AnimatedMap() {
-}
-
 AnimatedMap::AnimatedMap(AnimatedMap &&animatedMap) : TileMap(std::move(animatedMap)),
 	m_animatedTiles(std::move(animatedMap.m_animatedTiles)){
 }

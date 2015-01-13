@@ -26,9 +26,6 @@
 
 Shader *Shader::currentShader = nullptr;
 
-Shader::Shader() {
-}
-
 Shader::Shader(const char *vertexFilename, const char *fragmentFilename) {
 	loadFromFile(vertexFilename, fragmentFilename);
 }
@@ -114,20 +111,14 @@ void Shader::compileShader(GLenum type, GLuint &shader, const char *filename) {
 
 GLint Shader::attrib(std::string name) {
 	GLint attrib = glGetAttribLocation(m_program, name.c_str());
-	
-	if(attrib == -1) {
-		DEBUG("Could not bind attribute:", name);
-	}
+	if(attrib == -1) DEBUG("Could not bind attribute:", name);
 	
 	return attrib;
 }
 
 GLint Shader::uniform(std::string name) {
 	GLint uniform = glGetUniformLocation(m_program, name.c_str());
-	
-	if(uniform == -1) {
-		DEBUG("Could not bind uniform:", name);
-	}
+	if(uniform == -1) DEBUG("Could not bind uniform:", name);
 	
 	return uniform;
 }

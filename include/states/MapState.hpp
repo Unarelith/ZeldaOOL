@@ -18,9 +18,7 @@
 #ifndef MAPSTATE_HPP_
 #define MAPSTATE_HPP_
 
-#include "Dialog.hpp"
 #include "GameState.hpp"
-#include "MapManager.hpp"
 #include "StatsBar.hpp"
 
 class MapState : public GameState {

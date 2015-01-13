@@ -17,7 +17,7 @@
  */
 #include "Keyboard.hpp"
 #include "MapHelper.hpp"
-#include "MapManager.hpp"
+#include "Map.hpp"
 #include "Player.hpp"
 #include "PushingState.hpp"
 #include "StandingState.hpp"
@@ -77,7 +77,7 @@ void Player::update() {
 	
 	if(m_direction == Direction::Up && MapHelper::isTile(m_x + 8, m_y + 4, TilesData::TileType::ClosedChest)) {
 		if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
-			MapManager::currentMap->sendEvent(Map::EventType::ChestOpened, this, Vector2i(8, -2));
+			Map::currentMap->sendEvent(Map::EventType::ChestOpened, this, Vector2i(8, -2));
 		}
 	}
 	
@@ -159,13 +159,13 @@ void Player::mapCollisions() {
 	}
 	
 	if(onTile(TilesData::TileType::Button)) {
-		MapManager::currentMap->sendEvent(Map::EventType::ButtonPressed);
+		Map::currentMap->sendEvent(Map::EventType::ButtonPressed);
 	}
 	
 	if(MapHelper::onDoor(m_x + 8, m_y + 8) && !m_inDoor) {
 		m_inDoor = true;
 		
-		MapManager::currentMap->sendEvent(Map::EventType::ChangeMap, this, Vector2i(8, 8));
+		Map::currentMap->sendEvent(Map::EventType::ChangeMap, this, Vector2i(8, 8));
 	}
 	
 	//if(!MapHelper::onDoor(m_x +  2, m_y +  2)

@@ -26,7 +26,8 @@
 
 class Shader {
 	public:
-		Shader();
+		Shader() = default;
+		Shader(const Shader &shader) = default;
 		Shader(const char *vertexFilename, const char *fragementFilename);
 		~Shader();
 		
@@ -50,9 +51,9 @@ class Shader {
 		GLint program() const { return m_program; }
 		
 	private:
-		GLuint m_vertexShader;
-		GLuint m_fragmentShader;
-		GLuint m_program;
+		GLuint m_vertexShader   = 0;
+		GLuint m_fragmentShader = 0;
+		GLuint m_program        = 0;
 };
 
 #endif // SHADER_HPP_

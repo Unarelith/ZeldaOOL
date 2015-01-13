@@ -17,7 +17,6 @@
  */
 #include "Map.hpp"
 #include "MapLoader.hpp"
-#include "MapManager.hpp"
 
 void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 	XMLFile doc(xmlFilename);

@@ -17,7 +17,7 @@
  */
 #include "CharacterManager.hpp"
 #include "Collectable.hpp"
-#include "MapManager.hpp"
+#include "Map.hpp"
 
 Collectable::Collectable() {
 }
@@ -46,7 +46,7 @@ void Collectable::update() {
 	else if(CharacterManager::player.inCollisionWith(this)) {
 		action();
 		
-		MapManager::currentMap->removeCollectable(this);
+		Map::currentMap->removeCollectable(this);
 	}
 }
 

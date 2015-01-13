@@ -21,3 +21,4 @@
 void ResourceHandler::addType(const std::string &xmlFilename, ResourceLoader &&loader) {
 	loader.load(xmlFilename, *this);
 }
+

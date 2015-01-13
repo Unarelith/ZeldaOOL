@@ -19,7 +19,7 @@
 #include "DialogState.hpp"
 #include "GameStateManager.hpp"
 #include "Keyboard.hpp"
-#include "MapManager.hpp"
+#include "Map.hpp"
 #include "Sound.hpp"
 
 DialogState::DialogState(GameState *parent, std::string text) : GameState(parent) {
@@ -36,7 +36,7 @@ DialogState::~DialogState() {
 }
 
 void DialogState::update() {
-	MapManager::currentMap->update(true);
+	Map::currentMap->update(true);
 	
 	m_dialog.update();
 	

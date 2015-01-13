@@ -29,11 +29,14 @@
 #include "GameStateManager.hpp"
 #include "IconManager.hpp"
 #include "Keyboard.hpp"
+#include "MapLoader.hpp"
 #include "MapState.hpp"
 #include "MenuState.hpp"
 #include "Octorok.hpp"
+#include "ResourceHandler.hpp"
 #include "ScrollingTransition.hpp"
 #include "Sound.hpp"
+#include "TilesetLoader.hpp"
 #include "TimeManager.hpp"
 #include "TransitionState.hpp"
 #include "WeaponManager.hpp"
@@ -43,7 +46,11 @@ MapState::MapState() {
 	
 	CharacterManager::player.load();
 	
-	MapManager::init();
+	ResourceHandler::getInstance().addType("data/config/tilesets.xml", TilesetLoader());
+	ResourceHandler::getInstance().addType("data/config/maps.xml", MapLoader());
+	
+	Map::currentMap = &Map::getMap(0, 0, 0);
+	
 	DoorManager::init();
 	
 	EffectManager::init();
@@ -57,22 +64,22 @@ MapState::MapState() {
 	button->setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
 		Sound::Effect::chest.play();
 		
-		MapManager::currentMap->setTile(obj->x() / 16, obj->y() / 16, 8);
+		Map::currentMap->setTile(obj->x() / 16, obj->y() / 16, 8);
 		
-		MapManager::currentMap->setTile(7, 6, 36);
-		MapManager::currentMap->setTile(8, 6, 36);
+		Map::currentMap->setTile(7, 6, 36);
+		Map::currentMap->setTile(8, 6, 36);
 	});
 	
-	MapManager::currentMap->addObject(button);
+	Map::currentMap->addObject(button);
 	
 	ChestObject *testChest = new ChestObject(1 * 16, 5 * 16);
 	ChestObject *testChest2 = new ChestObject(5 * 16, 2 * 16);
 	
-	MapManager::getMap(0, 0, 1).addObject(testChest);
-	MapManager::getMap(2, 0, 0).addObject(testChest2);
+	Map::getMap(0, 0, 1).addObject(testChest);
+	Map::getMap(2, 0, 0).addObject(testChest2);
 	
-	MapManager::getMap(0, 1, 0).addEnemy(new Octorok(5 * 16, 4 * 16, Character::Direction::Right));
-	MapManager::getMap(2, 0, 0).addEnemy(new Octorok(5 * 16, 3 * 16, Character::Direction::Right));
+	Map::getMap(0, 1, 0).addEnemy(new Octorok(5 * 16, 4 * 16, Character::Direction::Right));
+	Map::getMap(2, 0, 0).addEnemy(new Octorok(5 * 16, 3 * 16, Character::Direction::Right));
 	
 	Sound::Music::plain.play();
 }
@@ -82,7 +89,7 @@ MapState::~MapState() {
 }
 
 void MapState::update() {
-	MapManager::currentMap->update();
+	Map::currentMap->update();
 	
 	CharacterManager::player.update();
 	
@@ -90,13 +97,13 @@ void MapState::update() {
 		if(CharacterManager::player.x() < -3) {
 			GameStateManager::push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingLeft)));
 		}
-		else if(CharacterManager::player.x() + 13 > MapManager::currentMap->width() * 16) {
+		else if(CharacterManager::player.x() + 13 > Map::currentMap->width() * 16) {
 			GameStateManager::push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingRight)));
 		}
 		else if(CharacterManager::player.y() < -1) {
 			GameStateManager::push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingUp)));
 		}
-		else if(CharacterManager::player.y() + 15 > MapManager::currentMap->height() * 16) {
+		else if(CharacterManager::player.y() + 15 > Map::currentMap->height() * 16) {
 			GameStateManager::push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingDown)));
 		}
 	}
@@ -113,9 +120,9 @@ void MapState::update() {
 }
 
 void MapState::render() {
-	View::bind(&MapManager::currentMap->view());
+	View::bind(&Map::currentMap->view());
 	
-	MapManager::currentMap->draw();
+	Map::currentMap->draw();
 	
 	AnimationManager::playAnimations();
 	

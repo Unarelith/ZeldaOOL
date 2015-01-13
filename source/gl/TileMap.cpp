@@ -20,9 +20,6 @@
 #include "TileMap.hpp"
 #include "VertexAttribute.hpp"
 
-TileMap::TileMap() {
-}
-
 TileMap::TileMap(TileMap &&tilemap) : m_vbo(std::move(tilemap.m_vbo)) {
 	m_tileset = tilemap.m_tileset;
 	

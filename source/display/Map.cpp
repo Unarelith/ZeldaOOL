@@ -19,13 +19,14 @@
 #include "Config.hpp"
 #include "CharacterManager.hpp"
 #include "GrassObject.hpp"
-#include "MapManager.hpp"
+#include "Map.hpp"
+#include "MapLoader.hpp"
+#include "ResourceHandler.hpp"
 #include "TilesData.hpp"
 #include "Weapon.hpp"
 #include "XMLFile.hpp"
 
-Map::Map() {
-}
+Map *Map::currentMap = nullptr;
 
 Map::Map(Map &&map) : AnimatedMap(std::move(map)),
 	m_baseData(std::move(map.m_baseData)),
@@ -171,15 +172,6 @@ void Map::draw() {
 }
 
 void Map::addObject(Object *obj) {
-	for(u16 i = 0 ; i < m_objects.size() ; i++) {
-		if(m_objects[i]->x() == obj->x() && m_objects[i]->y() == obj->y()) {
-			delete m_objects[i];
-			m_objects.erase(m_objects.begin() + i);
-			
-			break;
-		}
-	}
-	
 	m_objects.push_back(obj);
 }
 
@@ -219,5 +211,9 @@ void Map::sendEvent(EventType event, Entity *e, Vector2i offsets) {
 			break;
 		}
 	}
+}
+
+Map &Map::getMap(u16 area, u16 mapX, u16 mapY) {
+	return ResourceHandler::getInstance().get<Map>(MapLoader::makeName(area, mapX, mapY));
 }
 

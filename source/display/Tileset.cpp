@@ -17,9 +17,6 @@
  */
 #include "Tileset.hpp"
 
-Tileset::Tileset() {
-}
-
 Tileset::Tileset(Tileset &&tileset) : m_anims(std::move(tileset.m_anims)) {
 	m_info = tileset.m_info;
 	

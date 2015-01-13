@@ -23,7 +23,7 @@
 
 class AnimatedMap : public TileMap {
 	public:
-		AnimatedMap();
+		AnimatedMap() = default;
 		AnimatedMap(const AnimatedMap &) = delete;
 		AnimatedMap(AnimatedMap &&animatedMap);
 		AnimatedMap(Tileset &tileset, u16 width, u16 height);

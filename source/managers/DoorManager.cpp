@@ -18,7 +18,7 @@
 #include "Character.hpp"
 #include "DoorObject.hpp"
 #include "DoorManager.hpp"
-#include "MapManager.hpp"
+#include "Map.hpp"
 #include "XMLFile.hpp"
 
 void DoorManager::init() {
@@ -51,9 +51,9 @@ void DoorManager::init() {
 		                     direction
 		);
 		
-		MapManager::getMap(doorElement->IntAttribute("area"),
-		                   doorElement->IntAttribute("mapX"),
-		                   doorElement->IntAttribute("mapY")).addObject(door);
+		Map::getMap(doorElement->IntAttribute("area"),
+		            doorElement->IntAttribute("mapX"),
+		            doorElement->IntAttribute("mapY")).addObject(door);
 		
 		doorElement = doorElement->NextSiblingElement();
 	}

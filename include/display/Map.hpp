@@ -27,7 +27,7 @@
 
 class Map : public AnimatedMap {
 	public:
-		Map();
+		Map() = default;
 		Map(const Map &map) = delete;
 		Map(Map &&map);
 		Map(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y);
@@ -67,8 +67,12 @@ class Map : public AnimatedMap {
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
-		// TO REMOVE LATER
+		// TODO: TO REMOVE LATER
 		s16 *data() { return m_data.data(); }
+		
+		static Map &getMap(u16 area, u16 mapX, u16 mapY);
+		
+		static Map *currentMap;
 		
 	private:
 		std::string m_filename;

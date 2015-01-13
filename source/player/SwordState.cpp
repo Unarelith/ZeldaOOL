@@ -18,7 +18,7 @@
 #include "AnimationManager.hpp"
 #include "Keyboard.hpp"
 #include "MapHelper.hpp"
-#include "MapManager.hpp"
+#include "Map.hpp"
 #include "Sound.hpp"
 #include "SwordState.hpp"
 #include "TilesData.hpp"
@@ -121,7 +121,7 @@ void SwordState::update() {
 	||  m_sword->state() == Sword::State::SpinAttack) {
 		if((MapHelper::isTile(m_sword->x() + 8, m_sword->y() + 8, TilesData::TileType::GrassTile))
 		|| (MapHelper::isTile(m_sword->x() + 8, m_sword->y() + 8, TilesData::TileType::LowGrassTile))) {
-			MapManager::currentMap->sendEvent(Map::EventType::GrassCutted, m_sword, Vector2i(8, 8));
+			Map::currentMap->sendEvent(Map::EventType::GrassCutted, m_sword, Vector2i(8, 8));
 		}
 	}
 }

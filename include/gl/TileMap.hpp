@@ -25,7 +25,7 @@
 
 class TileMap {
 	public:
-		TileMap();
+		TileMap() = default;
 		TileMap(const TileMap &) = delete;
 		TileMap(TileMap &&tilemap);
 		TileMap(Tileset &tileset, u16 width, u16 height);
@@ -43,14 +43,14 @@ class TileMap {
 		
 		View &view() { return m_view; }
 		
-		// TO REMOVE LATER
+		// TODO: TO REMOVE LATER
 		virtual s16 *data() = 0;
 		
 	protected:
 		Tileset *m_tileset;
 		
-		u16 m_width;
-		u16 m_height;
+		u16 m_width  = 0;
+		u16 m_height = 0;
 		
 		View m_view;
 		

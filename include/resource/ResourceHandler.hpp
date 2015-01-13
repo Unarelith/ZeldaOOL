@@ -54,7 +54,7 @@ class ResourceHandler {
 		}
 		
 	private:
-		ResourceHandler() {}
+		ResourceHandler() = default;
 		
 		std::map<std::string, std::shared_ptr<void>> m_resources;
 };
