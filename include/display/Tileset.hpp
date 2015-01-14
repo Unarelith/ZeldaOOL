@@ -37,9 +37,6 @@ class Tileset : public Texture {
 		u16 tileWidth() const { return m_tileWidth; }
 		u16 tileHeight() const { return m_tileHeight; }
 		
-		void setTileWidth(u16 tileWidth) { m_tileWidth = tileWidth; }
-		void setTileHeight(u16 tileHeight) { m_tileHeight = tileHeight; }
-		
 		const std::vector<TileAnimation> &anims() const { return m_anims; }
 		
 	private:

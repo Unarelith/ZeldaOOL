@@ -18,7 +18,6 @@
 #ifndef TILEMAP_HPP_
 #define TILEMAP_HPP_
 
-#include "OpenGL.hpp"
 #include "Tileset.hpp"
 #include "VertexBuffer.hpp"
 #include "View.hpp"

@@ -18,17 +18,20 @@
 #include "Exception.hpp"
 #include "SoundEffect.hpp"
 
-SoundEffect::SoundEffect() {
+SoundEffect::SoundEffect(SoundEffect &soundEffect) {
+	m_sfx = soundEffect.m_sfx;
+	soundEffect.m_sfx = nullptr;
 }
 
-SoundEffect::SoundEffect(std::string filename) {
+SoundEffect::SoundEffect(const std::string &filename) {
 	load(filename);
 }
 
 SoundEffect::~SoundEffect() {
+	if(m_sfx) Mix_FreeChunk(m_sfx);
 }
 
-void SoundEffect::load(std::string filename) {
+void SoundEffect::load(const std::string &filename) {
 	m_sfx = Mix_LoadWAV(filename.c_str());
 	if(!m_sfx) {
 		throw EXCEPTION("Unable to load sound effect:", filename, ":", Mix_GetError());

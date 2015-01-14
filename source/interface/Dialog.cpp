@@ -15,8 +15,8 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "Dialog.hpp"
-#include "Sound.hpp"
 
 Dialog::Dialog() {
 	m_rectangle.setPosition(8, Position::Top);
@@ -39,7 +39,7 @@ Dialog::~Dialog() {
 void Dialog::update() {
 	if(m_soundTimer.time() > 60
 	&& !waitForUser()) {
-		Sound::Effect::textLetter.play();
+		AudioPlayer::playEffect("textLetter");
 		
 		m_soundTimer.reset();
 		m_soundTimer.start();

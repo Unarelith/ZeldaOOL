@@ -15,11 +15,11 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "CharacterManager.hpp"
 #include "IconManager.hpp"
 #include "Keyboard.hpp"
 #include "Menu.hpp"
-#include "Sound.hpp"
 #include "Weapon.hpp"
 
 Menu::Menu() {
@@ -33,29 +33,27 @@ Menu::Menu() {
 Menu::~Menu() {
 }
 
-#include "Debug.hpp"
-
 void Menu::update() {
 	if(Keyboard::isKeyPressedWithDelay(Keyboard::Left, 250)) {
-		Sound::Effect::menuCursor.play();
+		AudioPlayer::playEffect("menuCursor");
 		
 		m_cursorX--;
 	}
 	
 	if(Keyboard::isKeyPressedWithDelay(Keyboard::Right, 250)) {
-		Sound::Effect::menuCursor.play();
+		AudioPlayer::playEffect("menuCursor");
 		
 		m_cursorX++;
 	}
 	
 	if(Keyboard::isKeyPressedWithDelay(Keyboard::Up, 250)) {
-		Sound::Effect::menuCursor.play();
+		AudioPlayer::playEffect("menuCursor");
 		
 		m_cursorY--;
 	}
 	
 	if(Keyboard::isKeyPressedWithDelay(Keyboard::Down, 250)) {
-		Sound::Effect::menuCursor.play();
+		AudioPlayer::playEffect("menuCursor");
 		
 		m_cursorY++;
 	}
@@ -79,7 +77,7 @@ void Menu::update() {
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
-		Sound::Effect::menuSelect.play();
+		AudioPlayer::playEffect("menuSelect");
 		
 		Weapon *weaponA = CharacterManager::player.inventory().weaponA();
 		Weapon *newWeaponA = CharacterManager::player.inventory().getWeaponByPosition(Vector2i(m_cursorX, m_cursorY));
@@ -96,7 +94,7 @@ void Menu::update() {
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::B)) {
-		Sound::Effect::menuSelect.play();
+		AudioPlayer::playEffect("menuSelect");
 		
 		Weapon *weaponB = CharacterManager::player.inventory().weaponB();
 		Weapon *newWeaponB = CharacterManager::player.inventory().getWeaponByPosition(Vector2i(m_cursorX, m_cursorY));

@@ -1,0 +1,28 @@
+<audio>
+	<music name="indoor"/>
+	<music name="plain"/>
+	<music name="underground"/>
+
+	<soundeffect name="chest"/>
+	<soundeffect name="dialogContinue"/>
+	<soundeffect name="enemyDie"/>
+	<soundeffect name="enemyHit"/>
+	<soundeffect name="enemyJump"/>
+	<soundeffect name="enemySpit"/>
+	<soundeffect name="getHeart"/>
+	<soundeffect name="getRupee"/>
+	<soundeffect name="getRupees5"/>
+	<soundeffect name="grassDestroy"/>
+	<soundeffect name="itemNew"/>
+	<soundeffect name="linkHurt"/>
+	<soundeffect name="mapStairs"/>
+	<soundeffect name="menuClose"/>
+	<soundeffect name="menuCursor"/>
+	<soundeffect name="menuOpen"/>
+	<soundeffect name="menuSelect"/>
+	<soundeffect name="swordCharge"/>
+	<soundeffect name="swordSlash1"/>
+	<soundeffect name="swordSpin"/>
+	<soundeffect name="swordTap"/>
+	<soundeffect name="textLetter"/>
+</audio>

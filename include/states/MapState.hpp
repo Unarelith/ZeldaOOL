@@ -24,6 +24,7 @@
 class MapState : public GameState {
 	public:
 		MapState();
+		MapState(const MapState &) = delete;
 		~MapState();
 		
 		void update();

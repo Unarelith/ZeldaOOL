@@ -16,11 +16,11 @@
  * =====================================================================================
  */
 #include "AnimationManager.hpp"
+#include "AudioPlayer.hpp"
 #include "GrassObject.hpp"
 #include "HeartCollectable.hpp"
 #include "Map.hpp"
 #include "RupeeCollectable.hpp"
-#include "Sound.hpp"
 
 GrassObject::GrassObject(float x, float y, bool lowGrass) : Object(x, y) {
 	m_lowGrass = lowGrass;
@@ -31,7 +31,7 @@ GrassObject::~GrassObject() {
 
 void GrassObject::onEvent(u8 event) {
 	if(event == Map::EventType::GrassCutted) {
-		Sound::Effect::grassDestroy.play();
+		AudioPlayer::playEffect("grassDestroy");
 		
 		if(m_lowGrass) {
 			AnimationManager::grassDestroy.setColorMod(Color(255, 255, 255, 125));

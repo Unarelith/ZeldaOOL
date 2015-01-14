@@ -18,8 +18,7 @@
 #include <cmath>
 
 #include "AnimationManager.hpp"
-#include "Application.hpp"
-#include "Config.hpp"
+#include "AudioPlayer.hpp"
 #include "CharacterManager.hpp"
 #include "ChestObject.hpp"
 #include "DialogState.hpp"
@@ -35,7 +34,6 @@
 #include "Octorok.hpp"
 #include "ResourceHandler.hpp"
 #include "ScrollingTransition.hpp"
-#include "Sound.hpp"
 #include "TilesetLoader.hpp"
 #include "TimeManager.hpp"
 #include "TransitionState.hpp"
@@ -62,7 +60,7 @@ MapState::MapState() {
 	Object *button = new Object(7 * 16, 2 * 16);
 	
 	button->setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
-		Sound::Effect::chest.play();
+		AudioPlayer::playEffect("chest");
 		
 		Map::currentMap->setTile(obj->x() / 16, obj->y() / 16, 8);
 		
@@ -81,7 +79,7 @@ MapState::MapState() {
 	Map::getMap(0, 1, 0).addEnemy(new Octorok(5 * 16, 4 * 16, Character::Direction::Right));
 	Map::getMap(2, 0, 0).addEnemy(new Octorok(5 * 16, 3 * 16, Character::Direction::Right));
 	
-	Sound::Music::plain.play();
+	AudioPlayer::playMusic("plain");
 }
 
 MapState::~MapState() {
@@ -113,7 +111,7 @@ void MapState::update() {
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::Start)) {
-		Sound::Effect::menuOpen.play();
+		AudioPlayer::playEffect("menuOpen");
 		
 		GameStateManager::push(new MenuState());
 	}

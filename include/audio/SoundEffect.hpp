@@ -25,16 +25,18 @@
 
 class SoundEffect {
 	public:
-		SoundEffect();
-		SoundEffect(std::string filename);
+		SoundEffect() = default;
+		SoundEffect(const SoundEffect &) = delete;
+		SoundEffect(SoundEffect &soundEffect);
+		SoundEffect(const std::string &filename);
 		~SoundEffect();
 		
-		void load(std::string filename);
+		void load(const std::string &filename);
 		
 		void play(s8 channel = -1);
 		
 	private:
-		Mix_Chunk *m_sfx;
+		Mix_Chunk *m_sfx = nullptr;
 };
 
 #endif // SOUNDEFFECT_HPP_

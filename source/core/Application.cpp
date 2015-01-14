@@ -21,9 +21,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Application.hpp"
+#include "AudioPlayer.hpp"
 #include "Config.hpp"
 #include "GameStateManager.hpp"
-#include "Sound.hpp"
 #include "TimeManager.hpp"
 #include "Timer.hpp"
 
@@ -34,7 +34,7 @@ Application::Application() {
 	
 	window.open();
 	
-	Sound::init();
+	AudioPlayer::init();
 	
 	GameStateManager::init();
 }

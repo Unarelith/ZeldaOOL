@@ -15,12 +15,12 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "ChestObject.hpp"
 #include "ChestOpenedState.hpp"
 #include "GameStateManager.hpp"
 #include "Map.hpp"
 #include "RupeeCollectable.hpp"
-#include "Sound.hpp"
 
 ChestObject::ChestObject(float x, float y) : Object(x, y) {
 	m_opened = false;
@@ -33,7 +33,7 @@ ChestObject::~ChestObject() {
 
 void ChestObject::onEvent(u8 event) {
 	if(event == Map::EventType::ChestOpened) {
-		Sound::Effect::chest.play();
+		AudioPlayer::playEffect("chest");
 		
 		m_opened = true;
 		

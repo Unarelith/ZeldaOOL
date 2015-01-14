@@ -15,17 +15,17 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "CharacterManager.hpp"
 #include "RupeeCollectable.hpp"
-#include "Sound.hpp"
 
 RupeeCollectable::RupeeCollectable(float x, float y, u16 rupees) {
 	m_rupees = rupees;
 	
 	switch(m_rupees) {
-		case 1:		load(x, y, "graphics/collectables/rupees1.png");	break;
-		case 5:		load(x, y, "graphics/collectables/rupees5.png");	break;
-		case 30:	load(x, y, "graphics/collectables/rupees30.png");	break;
+		case 1:  load(x, y, "graphics/collectables/rupees1.png");  break;
+		case 5:  load(x, y, "graphics/collectables/rupees5.png");  break;
+		case 30: load(x, y, "graphics/collectables/rupees30.png"); break;
 	}
 }
 
@@ -34,9 +34,9 @@ RupeeCollectable::~RupeeCollectable() {
 
 void RupeeCollectable::action() {
 	switch(m_rupees) {
-		case 1:		Sound::Effect::getRupee.play();		break;
-		case 5:		Sound::Effect::getRupees5.play();	break;
-		case 30:	Sound::Effect::getRupees5.play();	break;
+		case 1:  AudioPlayer::playEffect("getRupee");   break;
+		case 5:  AudioPlayer::playEffect("getRupees5"); break;
+		case 30: AudioPlayer::playEffect("getRupees5"); break;
 	}
 	
 	CharacterManager::player.inventory().addRupees(m_rupees);

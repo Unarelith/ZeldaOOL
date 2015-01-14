@@ -24,16 +24,18 @@
 
 class BackgroundMusic {
 	public:
-		BackgroundMusic();
-		BackgroundMusic(std::string filename);
+		BackgroundMusic() = default;
+		BackgroundMusic(const BackgroundMusic &) = delete;
+		BackgroundMusic(BackgroundMusic &&music);
+		BackgroundMusic(const std::string &filename);
 		~BackgroundMusic();
 		
-		void open(std::string filename);
+		void load(const std::string &filename);
 		
 		void play();
 		
 	private:
-		Mix_Music *m_music;
+		Mix_Music *m_music = nullptr;
 };
 
 #endif // BACKGROUNDMUSIC_HPP_

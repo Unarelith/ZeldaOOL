@@ -18,17 +18,20 @@
 #include "Exception.hpp"
 #include "BackgroundMusic.hpp"
 
-BackgroundMusic::BackgroundMusic() {
+BackgroundMusic::BackgroundMusic(BackgroundMusic &&music) {
+	m_music = music.m_music;
+	music.m_music = nullptr;
 }
 
-BackgroundMusic::BackgroundMusic(std::string filename) {
-	open(filename);
+BackgroundMusic::BackgroundMusic(const std::string &filename) {
+	load(filename);
 }
 
 BackgroundMusic::~BackgroundMusic() {
+	if(m_music) Mix_FreeMusic(m_music);
 }
 
-void BackgroundMusic::open(std::string filename) {
+void BackgroundMusic::load(const std::string &filename) {
 	m_music = Mix_LoadMUS(filename.c_str());
 	if(!m_music) {
 		throw EXCEPTION("Unable to load music:", filename, ":", Mix_GetError());

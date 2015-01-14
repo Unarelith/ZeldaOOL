@@ -28,8 +28,11 @@ class Shader {
 	public:
 		Shader() = default;
 		Shader(const Shader &shader) = default;
+		Shader(Shader &&shader) = default;
 		Shader(const char *vertexFilename, const char *fragementFilename);
 		~Shader();
+		
+		Shader &operator=(const Shader &shader) = default;
 		
 		void loadFromFile(const char *vertexFilename, const char *fragementFilename);
 		

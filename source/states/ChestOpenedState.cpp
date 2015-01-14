@@ -15,12 +15,12 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "CharacterManager.hpp"
 #include "ChestOpenedState.hpp"
 #include "DialogState.hpp"
 #include "GameStateManager.hpp"
 #include "Map.hpp"
-#include "Sound.hpp"
 
 ChestOpenedState::ChestOpenedState(GameState *parent, float x, float y, Collectable *collectable) : GameState(parent) {
 	m_state = State::Opening;
@@ -50,7 +50,7 @@ void ChestOpenedState::update() {
 	}
 	
 	if(m_state == State::Opened) {
-		Sound::Effect::itemNew.play();
+		AudioPlayer::playEffect("itemNew");
 		
 		m_collectable->action();
 		

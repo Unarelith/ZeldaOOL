@@ -15,8 +15,8 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "Octorok.hpp"
-#include "Sound.hpp"
 
 Octorok::Octorok() {
 }
@@ -159,6 +159,6 @@ void Octorok::hurtAction() {
 	
 	m_state = State::Hurt;
 	
-	Sound::Effect::enemyHit.play();
+	AudioPlayer::playEffect("enemyHit");
 }
 
