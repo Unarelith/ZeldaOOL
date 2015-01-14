@@ -18,7 +18,6 @@
 #include "Keyboard.hpp"
 #include "MovingState.hpp"
 #include "StandingState.hpp"
-#include "TimeManager.hpp"
 #include "Weapon.hpp"
 
 MovingState::MovingState() {

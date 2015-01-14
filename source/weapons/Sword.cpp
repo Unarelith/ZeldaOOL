@@ -64,9 +64,6 @@ Sword::Sword() : Weapon("animations-sword", 1, 16, 16) {
 	m_playerStateTransition = []{ return new SwordState; };
 }
 
-Sword::~Sword() {
-}
-
 void Sword::reset() {
 	m_state = State::Swinging;
 	

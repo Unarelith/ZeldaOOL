@@ -15,9 +15,9 @@
  *
  * =====================================================================================
  */
+#include "GameClock.hpp"
 #include "Keyboard.hpp"
 #include "SDLHeaders.hpp"
-#include "TimeManager.hpp"
 
 std::map<Keyboard::Key, bool> Keyboard::pressed = {
 	{Key::Left,		false},
@@ -85,8 +85,8 @@ bool Keyboard::isKeyPressedOnce(Key key) {
 }
 
 bool Keyboard::isKeyPressedWithDelay(Key key, u16 delay) {
-	if(Keyboard::isKeyPressed(key) && TimeManager::getTicks() - lastTimePressed[key] > delay) {
-		lastTimePressed[key] = TimeManager::getTicks();
+	if(Keyboard::isKeyPressed(key) && GameClock::getTicks() - lastTimePressed[key] > delay) {
+		lastTimePressed[key] = GameClock::getTicks();
 		return true;
 	} else {
 		if(!Keyboard::isKeyPressed(key)) {

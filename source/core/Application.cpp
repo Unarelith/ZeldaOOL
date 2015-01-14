@@ -17,17 +17,11 @@
  */
 #include <ctime>
 
-#define GLM_FORCE_RADIANS
-#include <glm/gtc/matrix_transform.hpp>
-
 #include "Application.hpp"
 #include "AudioPlayer.hpp"
-#include "Config.hpp"
 #include "GameStateManager.hpp"
 #include "ResourceHandler.hpp"
 #include "TextureLoader.hpp"
-#include "TimeManager.hpp"
-#include "Timer.hpp"
 
 Application::Application() {
 	srand(time(nullptr));
@@ -64,15 +58,15 @@ void Application::handleEvents() {
 
 void Application::run() {
 	while(m_window.isOpen()) {
-		TimeManager::measureLastFrameDuration();
+		m_clock.measureLastFrameDuration();
 		
 		handleEvents();
 		
-		TimeManager::updateGame([&] {
+		m_clock.updateGame([&] {
 			GameStateManager::top()->update();
 		});
 		
-		TimeManager::drawGame([&] {
+		m_clock.drawGame([&] {
 			m_window.clear();
 			
 			GameStateManager::top()->render();

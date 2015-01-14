@@ -34,7 +34,6 @@
 #include "ResourceHandler.hpp"
 #include "ScrollingTransition.hpp"
 #include "TilesetLoader.hpp"
-#include "TimeManager.hpp"
 #include "TransitionState.hpp"
 #include "WeaponManager.hpp"
 

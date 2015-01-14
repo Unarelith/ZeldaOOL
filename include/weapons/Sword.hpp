@@ -23,7 +23,8 @@
 class Sword : public Weapon {
 	public:
 		Sword();
-		~Sword();
+		Sword(const Sword &) = delete;
+		Sword(Sword &&) = default;
 		
 		void reset();
 		

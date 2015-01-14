@@ -18,6 +18,7 @@
 #ifndef APPLICATION_HPP_
 #define APPLICATION_HPP_
 
+#include "GameClock.hpp"
 #include "Window.hpp"
 
 class Application {
@@ -30,6 +31,8 @@ class Application {
 		void run();
 		
 	private:
+		GameClock m_clock;
+		
 		Window m_window;
 };
 

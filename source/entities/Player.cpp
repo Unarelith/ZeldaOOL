@@ -22,7 +22,6 @@
 #include "PushingState.hpp"
 #include "StandingState.hpp"
 #include "TilesData.hpp"
-#include "TimeManager.hpp"
 #include "WeaponManager.hpp"
 
 Player::Player() {

@@ -23,7 +23,8 @@
 class Timer {
 	public:
 		Timer(bool useRealTime = false);
-		~Timer();
+		Timer(const Timer &) = default;
+		Timer(Timer &&) = default;
 		
 		void stop();
 		void start();
@@ -36,13 +37,12 @@ class Timer {
 		bool isStarted() const { return m_isStarted; }
 		
 	private:
-		bool m_useRealTime;
+		bool m_useRealTime = false;
 		
-		u32 m_t;
+		bool m_isStarted = false;
 		
-		bool m_isStarted;
-		
-		u32 m_tick;
+		u32 m_t = 0;
+		u32 m_tick = 0;
 };
 
 #endif // TIMER_HPP_
