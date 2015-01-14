@@ -22,8 +22,8 @@
 #include "Weapon.hpp"
 
 Menu::Menu() {
-	m_background.load("menuBackground");
-	m_cursor.load("menuCursor");
+	m_background.load("interface-menuBackground");
+	m_cursor.load("interface-menuCursor");
 	
 	m_cursorX = 0;
 	m_cursorY = 0;

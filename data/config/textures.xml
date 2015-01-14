@@ -6,16 +6,16 @@
 	<texture folder="animations" name="sword"/>
 	
 	<texture folder="characters" name="link"/>
-
+	
 	<texture folder="collectables" name="heart"/>
 	<texture folder="collectables" name="rupees1"/>
 	<texture folder="collectables" name="rupees5"/>
 	<texture folder="collectables" name="rupees30"/>
-
+	
 	<texture folder="enemies" name="octorok"/>
-
+	
 	<texture folder="icons" name="swordL1"/>
-
+	
 	<texture folder="interface" name="30rupees"/>
 	<texture folder="interface" name="dialogArrow"/>
 	<texture folder="interface" name="font"/>

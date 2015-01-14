@@ -19,7 +19,7 @@
 #include "CharacterManager.hpp"
 #include "HeartCollectable.hpp"
 
-HeartCollectable::HeartCollectable(float x, float y) : Collectable(x, y, "heart") {
+HeartCollectable::HeartCollectable(float x, float y) : Collectable(x, y, "collectables-heart") {
 	
 }
 

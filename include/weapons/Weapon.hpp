@@ -24,8 +24,10 @@
 
 class Weapon : public Sprite, public Entity {
 	public:
-		Weapon(std::string name, u16 width, u16 height);
-		virtual ~Weapon();
+		Weapon(const std::string &name, u8 level, u16 width, u16 height);
+		Weapon(const Weapon &) = delete;
+		Weapon(Weapon &&) = default;
+		virtual ~Weapon() = default;
 		
 		virtual void update() = 0;
 		
@@ -43,11 +45,12 @@ class Weapon : public Sprite, public Entity {
 		ICharacterState::StateTransition playerStateTransition() const { return m_playerStateTransition; }
 		
 	protected:
-		Image m_icon;
-		
 		u8 m_id;
 		
-		u8 m_strength;
+		u8 m_level = 0;
+		u8 m_strength = 0;
+		
+		Image m_icon;
 		
 		Player &m_player;
 		

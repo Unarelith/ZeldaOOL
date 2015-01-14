@@ -36,7 +36,7 @@ void Player::load() {
 		return new StandingState();
 	};
 	
-	Battler::load("link", 4 * 16, 3 * 16, 16, 16, Direction::Down);
+	Battler::load("characters-link", 4 * 16, 3 * 16, 16, 16, Direction::Down);
 	
 	m_battlerType = BattlerType::TypePlayer;
 	

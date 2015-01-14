@@ -34,7 +34,7 @@ s16 spinAttackPosition[8][2] = {
 	{-1, 16}, {-12, 12}, {-15, 1}, {-12, -12}, {0, -15}, {11, -12}, {15, 2}, {13, 13}
 };
 
-Sword::Sword() : Weapon("sword", 16, 16) {
+Sword::Sword() : Weapon("animations-sword", 1, 16, 16) {
 	m_id = WeaponManager::SwordID;
 	
 	m_state = State::Swinging;

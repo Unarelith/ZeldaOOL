@@ -22,10 +22,10 @@
 #include "WeaponManager.hpp"
 
 StatsBar::StatsBar() {
-	m_background.load("stats");
+	m_background.load("interface-stats");
 	
-	m_hearts.load("hearts", 7, 7);
-	m_numbers.load("numbers", 7, 6);
+	m_hearts.load("interface-hearts", 7, 7);
+	m_numbers.load("interface-numbers", 7, 6);
 }
 
 StatsBar::~StatsBar() {
