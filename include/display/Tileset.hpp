@@ -25,7 +25,7 @@ class Tileset : public Texture {
 	public:
 		Tileset() = default;
 		Tileset(const Tileset &) = delete;
-		Tileset(Tileset &&tileset);
+		Tileset(Tileset &&tileset) = default;
 		Tileset(const std::string &filename, u16 *info, u16 tileWidth = 16, u16 tileHeight = 16);
 		
 		void load(const std::string &filename, u16 *info, u16 tileWidth = 16, u16 tileHeight = 16);

@@ -19,34 +19,11 @@
 
 bool Sprite::pause = false;
 
-Sprite::Sprite() {
-}
-
-Sprite::Sprite(const Sprite &sprite) : Image(sprite) {
-	m_frameWidth = sprite.m_frameWidth;
-	m_frameHeight = sprite.m_frameHeight;
-	
-	m_lastFrameDisplayed = sprite.m_lastFrameDisplayed;
-	
-	m_currentAnimation = sprite.m_currentAnimation;
-	
-	for(auto &it : sprite.m_animations) {
-		m_animations.push_back(SpriteAnimation(it.delay));
-		
-		for(auto &it2 : it.frames) {
-			m_animations.back().frames.push_back(u16(it2));
-		}
-	}
-}
-
-Sprite::Sprite(std::string filename, u16 frameWidth, u16 frameHeight) {
+Sprite::Sprite(const std::string &filename, u16 frameWidth, u16 frameHeight) {
 	load(filename, frameWidth, frameHeight);
 }
 
-Sprite::~Sprite() {
-}
-
-void Sprite::load(std::string filename, u16 frameWidth, u16 frameHeight) {
+void Sprite::load(const std::string &filename, u16 frameWidth, u16 frameHeight) {
 	Image::load(filename);
 	
 	m_frameWidth = frameWidth;
@@ -58,11 +35,9 @@ void Sprite::load(std::string filename, u16 frameWidth, u16 frameHeight) {
 }
 
 void Sprite::addAnimation(std::initializer_list<u16> frames, u16 delay) {
-	m_animations.push_back(SpriteAnimation(delay));
+	m_animations.emplace_back(delay);
 	
-	for(auto &it : frames) {
-		m_animations.back().frames.push_back(it);
-	}
+	m_animations.back().frames = frames;
 }
 
 void Sprite::drawFrame(float x, float y, u16 frame) {
@@ -96,7 +71,7 @@ void Sprite::stopAnimation(u16 anim) {
 }
 
 u16 Sprite::animationCurrentFrame(u16 anim) {
-	return u16(m_animations[anim].timer.time() / m_animations[anim].delay);
+	return m_animations[anim].timer.time() / m_animations[anim].delay;
 }
 
 bool Sprite::animationAtEnd(u16 anim) {

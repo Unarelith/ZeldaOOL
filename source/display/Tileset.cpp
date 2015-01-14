@@ -17,13 +17,6 @@
  */
 #include "Tileset.hpp"
 
-Tileset::Tileset(Tileset &&tileset) : m_anims(std::move(tileset.m_anims)) {
-	m_info = tileset.m_info;
-	
-	m_tileWidth = tileset.m_tileWidth;
-	m_tileHeight = tileset.m_tileHeight;
-}
-
 Tileset::Tileset(const std::string &filename, u16 *info, u16 tileWidth, u16 tileHeight) {
 	load(filename, info, tileWidth, tileHeight);
 }

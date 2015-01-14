@@ -15,7 +15,6 @@
  *
  * =====================================================================================
  */
-#include "Application.hpp"
 #include "SDLHeaders.hpp"
 #include "TimeManager.hpp"
 
@@ -52,7 +51,7 @@ void TimeManager::measureLastFrameDuration() {
 void TimeManager::updateGame(std::function<void(void)> updateFunc) {
 	numUpdates = 0;
 	
-	while(lag >= timestep && numUpdates < 10 && Application::window.isOpen()) {
+	while(lag >= timestep && numUpdates < 10) {
 		ticks += timestep;
 		
 		updateFunc();

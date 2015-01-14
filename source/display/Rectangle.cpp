@@ -15,23 +15,13 @@
  *
  * =====================================================================================
  */
-#define GLM_FORCE_RADIANS
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include "Application.hpp"
-#include "Config.hpp"
+#include "OpenGL.hpp"
 #include "Rectangle.hpp"
-
-Rectangle::Rectangle() {
-}
+#include "Shader.hpp"
 
 Rectangle::Rectangle(float x, float y, u16 width, u16 height) {
 	move(x, y);
 	resize(width, height);
-}
-
-Rectangle::~Rectangle() {
 }
 
 void Rectangle::draw(Color color) {

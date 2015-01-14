@@ -18,23 +18,26 @@
 #ifndef ANIMATIONMANAGER_HPP_
 #define ANIMATIONMANAGER_HPP_
 
-#include <vector>
+#include <map>
 
 #include "Sprite.hpp"
 #include "Vector2.hpp"
 
-namespace AnimationManager {
-	void init();
-	
-	void playAnimations();
-	
-	void addGrassDestroyAnimation(u16 tileX, u16 tileY);
-	void addMonsterDestroyAnimation(s16 x, s16 y);
-	
-	extern Sprite grassDestroy;
-	extern Sprite monsterDestroy;
-	
-	extern std::vector<std::pair<Sprite, Vector2i>> anims;
-}
+class AnimationManager {
+	public:
+		static void init();
+		
+		static void playAnimations();
+		
+		static void addGrassDestroyAnimation(u16 tileX, u16 tileY);
+		static void addMonsterDestroyAnimation(s16 x, s16 y);
+		
+		static Sprite &getSprite(const std::string &name) { return sprites[name]; }
+		
+	private:
+		static std::vector<std::pair<Sprite, Vector2i>> animations;
+		
+		static std::map<std::string, Sprite> sprites;
+};
 
 #endif // ANIMATIONMANAGER_HPP_

@@ -23,10 +23,10 @@
 #include "WeaponManager.hpp"
 
 StatsBar::StatsBar() {
-	m_background.load("graphics/interface/stats.png");
+	m_background.load("stats");
 	
-	m_hearts.load("graphics/interface/hearts.png", 7, 7);
-	m_numbers.load("graphics/interface/numbers.png", 7, 6);
+	m_hearts.load("hearts", 7, 7);
+	m_numbers.load("numbers", 7, 6);
 }
 
 StatsBar::~StatsBar() {

@@ -22,9 +22,9 @@ Sprite EffectManager::grassEffect;
 Sprite EffectManager::lowWaterEffect;
 
 void EffectManager::init() {
-	grassEffect.load("graphics/animations/grassEffect.png", 16, 16);
+	grassEffect.load("grassEffect", 16, 16);
 	
-	lowWaterEffect.load("graphics/animations/lowWaterEffect.png", 16, 16);
+	lowWaterEffect.load("lowWaterEffect", 16, 16);
 	lowWaterEffect.addAnimation({0, 1, 2}, 100);
 }
 

@@ -19,16 +19,23 @@
 #include "Exception.hpp"
 #include "Texture.hpp"
 
-Texture::Texture() {
+Texture::Texture(Texture &&texture) {
+	m_texture = texture.m_texture;
+	texture.m_texture = 0;
+	
+	m_width = texture.m_width;
+	m_height = texture.m_height;
 }
 
 Texture::Texture(const std::string &filename) {
 	load(filename);
 }
 
+Texture::~Texture() {
+	if(m_texture) glDeleteTextures(1, &m_texture);
+}
+
 void Texture::load(const std::string &filename) {
-	m_filename = filename;
-	
 	SDL_Surface *surface = IMG_Load(filename.c_str());
 	if(!surface) {
 		throw EXCEPTION("Failed to load texture:", filename);
@@ -49,8 +56,6 @@ void Texture::load(const std::string &filename) {
 	bind(nullptr);
 	
 	SDL_FreeSurface(surface);
-	
-	m_paletteID = 0;
 }
 
 void Texture::bind(const Texture *texture) {

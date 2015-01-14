@@ -30,7 +30,7 @@ Octorok::~Octorok() {
 }
 
 void Octorok::load(u16 x, u16 y, u8 direction) {
-	Enemy::load("graphics/enemies/octorok.png", x, y, 16, 16, direction);
+	Enemy::load("octorok", x, y, 16, 16, direction);
 	
 	addAnimation({4, 0}, 150);
 	addAnimation({5, 1}, 150);

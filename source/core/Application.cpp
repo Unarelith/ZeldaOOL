@@ -24,43 +24,60 @@
 #include "AudioPlayer.hpp"
 #include "Config.hpp"
 #include "GameStateManager.hpp"
+#include "ResourceHandler.hpp"
+#include "TextureLoader.hpp"
 #include "TimeManager.hpp"
 #include "Timer.hpp"
-
-Window Application::window;
 
 Application::Application() {
 	srand(time(nullptr));
 	
-	window.open();
-	
 	AudioPlayer::init();
+	
+	ResourceHandler::getInstance().addType("data/config/textures.xml", TextureLoader());
 	
 	GameStateManager::init();
 }
 
 Application::~Application() {
 	GameStateManager::free();
+}
+
+void Application::handleEvents() {
+	SDL_Event event;
 	
-	window.free();
+	while(SDL_PollEvent(&event) != 0) {
+		switch(event.type) {
+			case SDL_QUIT:
+				m_window.close();
+				break;
+			case SDL_KEYDOWN:
+				if(event.key.keysym.sym == SDLK_ESCAPE) {
+					m_window.close();
+				}
+				break;
+			default:
+				break;
+		}
+	}
 }
 
 void Application::run() {
-	while(window.isOpen()) {
+	while(m_window.isOpen()) {
 		TimeManager::measureLastFrameDuration();
 		
-		GameStateManager::top()->handleEvents();
+		handleEvents();
 		
-		TimeManager::updateGame([] {
+		TimeManager::updateGame([&] {
 			GameStateManager::top()->update();
 		});
 		
-		TimeManager::drawGame([] {
-			window.clear();
+		TimeManager::drawGame([&] {
+			m_window.clear();
 			
 			GameStateManager::top()->render();
 			
-			window.update();
+			m_window.update();
 		});
 	}
 }

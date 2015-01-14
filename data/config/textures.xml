@@ -1,0 +1,27 @@
+<textures>
+	<texture folder="animations" name="grassDestroy"/>
+	<texture folder="animations" name="grassEffect"/>
+	<texture folder="animations" name="lowWaterEffect"/>
+	<texture folder="animations" name="monsterDestroy"/>
+	<texture folder="animations" name="sword"/>
+	
+	<texture folder="characters" name="link"/>
+
+	<texture folder="collectables" name="heart"/>
+	<texture folder="collectables" name="rupees1"/>
+	<texture folder="collectables" name="rupees5"/>
+	<texture folder="collectables" name="rupees30"/>
+
+	<texture folder="enemies" name="octorok"/>
+
+	<texture folder="icons" name="swordL1"/>
+
+	<texture folder="interface" name="30rupees"/>
+	<texture folder="interface" name="dialogArrow"/>
+	<texture folder="interface" name="font"/>
+	<texture folder="interface" name="hearts"/>
+	<texture folder="interface" name="menuBackground"/>
+	<texture folder="interface" name="menuCursor"/>
+	<texture folder="interface" name="numbers"/>
+	<texture folder="interface" name="stats"/>
+</textures>

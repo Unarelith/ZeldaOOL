@@ -25,6 +25,8 @@ class Rect {
 		Rect(T _x, T _y, T _width, T _height);
 		~Rect();
 		
+		void reset(T _x, T _y, T _width, T _height);
+		
 		bool intersects(const Rect<T> &rect) const;
 		
 		T x;

@@ -34,9 +34,9 @@ void GrassObject::onEvent(u8 event) {
 		AudioPlayer::playEffect("grassDestroy");
 		
 		if(m_lowGrass) {
-			AnimationManager::grassDestroy.setColorMod(Color(255, 255, 255, 125));
+			AnimationManager::getSprite("grassDestroy").setColorMod(Color(255, 255, 255, 125));
 		} else {
-			AnimationManager::grassDestroy.setColorMod(Color(255, 255, 255));
+			AnimationManager::getSprite("grassDestroy").setColorMod(Color(255, 255, 255));
 		}
 		
 		AnimationManager::addGrassDestroyAnimation((m_x + 8) / 16, (m_y + 8) / 16);

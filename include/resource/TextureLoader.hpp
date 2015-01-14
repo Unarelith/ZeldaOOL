@@ -1,32 +1,28 @@
 /*
  * =====================================================================================
  *
- *       Filename:  SDLManager.hpp
+ *       Filename:  TextureLoader.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 00:06:50
+ *        Created:  14/01/2015 20:27:14
  *       Revision:  none
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
-#ifndef SDLMANAGER_HPP_
-#define SDLMANAGER_HPP_
+#ifndef TEXTURELOADER_HPP_
+#define TEXTURELOADER_HPP_
 
-class SDLManager {
+#include "ResourceLoader.hpp"
+
+class TextureLoader : public ResourceLoader {
 	public:
-		static void init();
-		static void free();
-		
-	private:
-		static bool sdlInitialized;
-		static bool imgInitialized;
-		static bool mixInitialized;
+		void load(const std::string &xmlFilename, ResourceHandler &handler);
 };
 
-#endif // SDLMANAGER_HPP_
+#endif // TEXTURELOADER_HPP_

@@ -28,9 +28,6 @@ class Window {
 		Window();
 		~Window();
 		
-		void open();
-		void free();
-		
 		void initGL();
 		
 		void clear();
@@ -39,19 +36,16 @@ class Window {
 		bool isOpen() const { return m_isOpen; }
 		void close() { m_isOpen = false; }
 		
-		u16 width() const { return m_width; }
-		u16 height() const { return m_height; }
-		
 	private:
-		SDL_Window *m_window;
+		SDL_Window *m_window = nullptr;
 		SDL_GLContext m_context;
 		
 		Shader m_shader;
 		
-		bool m_isOpen;
+		bool m_isOpen = false;
 		
-		u16 m_width;
-		u16 m_height;
+		u16 m_width = 0;
+		u16 m_height = 0;
 };
 
 #endif // WINDOW_HPP_

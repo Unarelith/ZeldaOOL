@@ -26,21 +26,3 @@ GameState::GameState(GameState *parent) {
 GameState::~GameState() {
 }
 
-void GameState::handleEvents() {
-	SDL_Event event;
-	
-	while(SDL_PollEvent(&event) != 0) {
-		switch(event.type) {
-			case SDL_QUIT:
-				Application::window.close();
-				break;
-			case SDL_KEYDOWN:
-				if(event.key.keysym.sym == SDLK_ESCAPE) {
-					Application::window.close();
-				}
-				break;
-			default:
-				break;
-		}
-	}
-}

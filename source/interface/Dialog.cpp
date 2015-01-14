@@ -22,9 +22,9 @@ Dialog::Dialog() {
 	m_rectangle.setPosition(8, Position::Top);
 	m_rectangle.resize(144, 40);
 	
-	m_font.load("graphics/interface/font.png", 8, 16);
+	m_font.load("font", 8, 16);
 	
-	m_dialogArrow.load("graphics/interface/dialogArrow.png");
+	m_dialogArrow.load("dialogArrow");
 	m_arrowTimer.start();
 	
 	m_currentLine = 0;

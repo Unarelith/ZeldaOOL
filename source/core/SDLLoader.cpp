@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  SDLManager.cpp
+ *       Filename:  SDLLoader.cpp
  *
  *    Description:  
  *
@@ -17,40 +17,36 @@
  */
 #include "Exception.hpp"
 #include "SDLHeaders.hpp"
-#include "SDLManager.hpp"
+#include "SDLLoader.hpp"
 
-bool SDLManager::sdlInitialized = false;
-bool SDLManager::imgInitialized = false;
-bool SDLManager::mixInitialized = false;
+SDLLoader::~SDLLoader() {
+	if(m_mixInitialized) Mix_CloseAudio();
+	if(m_imgInitialized) IMG_Quit();
+	if(m_sdlInitialized) SDL_Quit();
+}
 
-void SDLManager::init() {
+void SDLLoader::load() {
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
 		EXCEPTION("SDL init error:", SDL_GetError());
 	} else {
-		sdlInitialized = true;
+		m_sdlInitialized = true;
 	}
 	
 	int imgFlags = IMG_INIT_PNG;
 	if(!IMG_Init(imgFlags) & imgFlags) {
 		EXCEPTION("SDL image init error:", SDL_GetError());
 	} else {
-		imgInitialized = true;
+		m_imgInitialized = true;
 	}
 	
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) {
 		EXCEPTION("SDL image init error:", SDL_GetError());
 	} else {
-		mixInitialized = true;
+		m_mixInitialized = true;
 	}
 	
 	Mix_AllocateChannels(32);
 	Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
 	Mix_Volume(-1, MIX_MAX_VOLUME);
-}
-
-void SDLManager::free() {
-	if(mixInitialized) Mix_CloseAudio();
-	if(imgInitialized) IMG_Quit();
-	if(sdlInitialized) SDL_Quit();
 }
 

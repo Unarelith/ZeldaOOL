@@ -25,14 +25,12 @@ class Application {
 		Application();
 		~Application();
 		
+		void handleEvents();
+		
 		void run();
 		
-		static Window window;
-		
-		static Application &getInstance() {
-			static Application instance;
-			return instance;
-		}
+	private:
+		Window m_window;
 };
 
 #endif // APPLICATION_HPP_

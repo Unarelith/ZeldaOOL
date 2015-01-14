@@ -23,6 +23,11 @@ Rect<T>::Rect() {
 
 template<typename T>
 Rect<T>::Rect(T _x, T _y, T _width, T _height) {
+	reset(_x, _y, _width, _height);
+}
+
+template<typename T>
+void Rect<T>::reset(T _x, T _y, T _width, T _height) {
 	x = _x;
 	y = _y;
 	width = _width;
@@ -50,7 +55,7 @@ bool Rect<T>::intersects(const Rect<T> &rectangle) const {
 	T interRight  = std::min(r1MaxX, r2MaxX);
 	T interBottom = std::min(r1MaxY, r2MaxY);
 	
-	if ((interLeft < interRight) && (interTop < interBottom)) {
+	if((interLeft < interRight) && (interTop < interBottom)) {
 		return true;
 	} else {
 		return false;

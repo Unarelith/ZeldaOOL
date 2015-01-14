@@ -61,13 +61,13 @@ namespace Debug {
 	}
 	
 	template<typename T, typename... Args>
-	std::string makeString(std::stringstream &sstream, T value, Args &...args) {
+	std::string makeString(std::stringstream &sstream, T value, Args &&...args) {
 		sstream << value << " ";
 		return makeString(sstream, args...);
 	}
 	
 	template<typename... Args>
-	void print(Args &...args) {
+	void print(Args &&...args) {
 		std::stringstream sstream;
 		
 		std::cout << textColor(0, true) << makeString(sstream, args...) << textColor() << std::endl;

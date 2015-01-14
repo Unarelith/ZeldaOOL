@@ -17,20 +17,18 @@
  */
 #include "Application.hpp"
 #include "Image.hpp"
+#include "ResourceHandler.hpp"
 #include "Shader.hpp"
 
-Image::Image() {
-}
-
-Image::Image(std::string filename) {
+Image::Image(const std::string &filename) {
 	load(filename);
 }
 
-Image::~Image() {
-}
-
-void Image::load(std::string filename) {
-	Texture::load(filename);
+void Image::load(const std::string &filename) {
+	m_texture = &ResourceHandler::getInstance().get<Texture>(filename);
+	
+	m_width = m_texture->width();
+	m_height = m_texture->height();
 	
 	m_posRect = FloatRect(0, 0, m_width, m_height);
 	m_clipRect = FloatRect(0, 0, m_width, m_height);
@@ -39,17 +37,11 @@ void Image::load(std::string filename) {
 }
 
 void Image::setClipRect(float x, float y, u16 width, u16 height) {
-	m_clipRect.x = x;
-	m_clipRect.y = y;
-	m_clipRect.width = width;
-	m_clipRect.height = height;
+	m_clipRect.reset(x, y, width, height);
 }
 
 void Image::setPosRect(float x, float y, u16 width, u16 height) {
-	m_posRect.x = x;
-	m_posRect.y = y;
-	m_posRect.width = width;
-	m_posRect.height = height;
+	m_posRect.reset(x, y, width, height);
 }
 
 void Image::draw(float x, float y, s16 width, s16 height) {
@@ -105,11 +97,11 @@ void Image::draw() {
 	glVertexAttribPointer(Shader::currentShader->attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, 0, texCoords);
 	glVertexAttribPointer(Shader::currentShader->attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, 0, colorMod);
 	
-	bind(this);
+	Texture::bind(m_texture);
 	
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
 	
-	bind(nullptr);
+	Texture::bind(nullptr);
 	
 	Shader::currentShader->disableVertexAttribArray("colorMod");
 	Shader::currentShader->disableVertexAttribArray("texCoord");

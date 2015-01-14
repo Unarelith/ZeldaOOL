@@ -26,17 +26,27 @@
 
 Shader *Shader::currentShader = nullptr;
 
-Shader::Shader(const char *vertexFilename, const char *fragmentFilename) {
+Shader::Shader(Shader &&shader) {
+	m_vertexShader = shader.m_vertexShader;
+	m_fragmentShader = shader.m_fragmentShader;
+	m_program = shader.m_program;
+	
+	shader.m_vertexShader = 0;
+	shader.m_fragmentShader = 0;
+	shader.m_program = 0;
+}
+
+Shader::Shader(const std::string &vertexFilename, const std::string &fragmentFilename) {
 	loadFromFile(vertexFilename, fragmentFilename);
 }
 
 Shader::~Shader() {
-	glDeleteShader(m_vertexShader);
-	glDeleteShader(m_fragmentShader);
-	glDeleteProgram(m_program);
+	if(m_vertexShader) glDeleteShader(m_vertexShader);
+	if(m_fragmentShader) glDeleteShader(m_fragmentShader);
+	if(m_program) glDeleteProgram(m_program);
 }
 
-void Shader::loadFromFile(const char *vertexFilename, const char *fragmentFilename) {
+void Shader::loadFromFile(const std::string &vertexFilename, const std::string &fragmentFilename) {
 	compileShader(GL_VERTEX_SHADER, m_vertexShader, vertexFilename);
 	compileShader(GL_FRAGMENT_SHADER, m_fragmentShader, fragmentFilename);
 	
@@ -67,7 +77,7 @@ void Shader::loadFromFile(const char *vertexFilename, const char *fragmentFilena
 	}
 }
 
-void Shader::compileShader(GLenum type, GLuint &shader, const char *filename) {
+void Shader::compileShader(GLenum type, GLuint &shader, const std::string &filename) {
 	shader = glCreateShader(type);
 	
 	std::ifstream file(filename);
@@ -109,37 +119,37 @@ void Shader::compileShader(GLenum type, GLuint &shader, const char *filename) {
 	}
 }
 
-GLint Shader::attrib(std::string name) {
+GLint Shader::attrib(const std::string &name) {
 	GLint attrib = glGetAttribLocation(m_program, name.c_str());
 	if(attrib == -1) DEBUG("Could not bind attribute:", name);
 	
 	return attrib;
 }
 
-GLint Shader::uniform(std::string name) {
+GLint Shader::uniform(const std::string &name) {
 	GLint uniform = glGetUniformLocation(m_program, name.c_str());
 	if(uniform == -1) DEBUG("Could not bind uniform:", name);
 	
 	return uniform;
 }
 
-void Shader::enableVertexAttribArray(std::string name) {
+void Shader::enableVertexAttribArray(const std::string &name) {
 	glEnableVertexAttribArray(attrib(name));
 }
 
-void Shader::disableVertexAttribArray(std::string name) {
+void Shader::disableVertexAttribArray(const std::string &name) {
 	glDisableVertexAttribArray(attrib(name));
 }
 
-void Shader::setUniform(std::string name, int n) {
+void Shader::setUniform(const std::string &name, int n) {
 	glUniform1i(uniform(name), n);
 }
 
-void Shader::setUniform(std::string name, float d, float e) {
+void Shader::setUniform(const std::string &name, float d, float e) {
 	glUniform2f(uniform(name), d, e);
 }
 
-void Shader::setUniform(std::string name, const glm::mat4 &matrix) {
+void Shader::setUniform(const std::string &name, const glm::mat4 &matrix) {
 	glUniformMatrix4fv(uniform(name), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 

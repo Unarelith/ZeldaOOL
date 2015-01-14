@@ -20,7 +20,7 @@
 std::vector<Image> IconManager::weapons;
 
 void IconManager::init() {
-	weapons.push_back(Image("graphics/icons/swordL1.png"));
+	weapons.emplace_back("swordL1");
 }
 
 Image &IconManager::getWeaponIconByID(u8 id) {

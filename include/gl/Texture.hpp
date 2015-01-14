@@ -26,27 +26,27 @@
 
 class Texture {
 	public:
-		Texture();
+		Texture() = default;
+		Texture(const Texture &texture) = default;
+		Texture(Texture &&texture);
 		Texture(const std::string &filename);
+		~Texture();
+		
+		Texture &operator=(const Texture &) = default;
+		Texture &operator=(Texture &&) = default;
 		
 		void load(const std::string &filename);
 		
 		static void bind(const Texture *texture);
 		
-		void setPaletteID(u8 id) { m_paletteID = id; }
-		
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
 	protected:
-		std::string m_filename;
+		GLuint m_texture = 0;
 		
-		u16 m_width;
-		u16 m_height;
-		
-		GLuint m_texture;
-		
-		u8 m_paletteID;
+		u16 m_width = 0;
+		u16 m_height = 0;
 };
 
 #endif // TEXTURE_HPP_

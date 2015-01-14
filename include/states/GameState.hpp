@@ -23,8 +23,6 @@ class GameState {
 		GameState(GameState *parent = nullptr);
 		virtual ~GameState();
 		
-		virtual void handleEvents();
-		
 		virtual void update() = 0;
 		
 		virtual void render() = 0;
