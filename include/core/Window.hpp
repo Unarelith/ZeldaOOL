@@ -26,6 +26,8 @@
 class Window {
 	public:
 		Window();
+		Window(const Window &) = delete;
+		Window(Window &&) = delete;
 		~Window();
 		
 		void initGL();

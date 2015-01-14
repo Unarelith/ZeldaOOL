@@ -1,6 +1,4 @@
 ===== CLEANING =====
-- Remove TilesData, etc...
-	=> Loaded in xml file by Tileset
 - Remove managers
 - A unique view for maps (Map::view)
 	=> Model matrix

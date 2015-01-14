@@ -26,13 +26,11 @@ class Tileset : public Texture {
 		Tileset() = default;
 		Tileset(const Tileset &) = delete;
 		Tileset(Tileset &&tileset) = default;
-		Tileset(const std::string &filename, u16 *info, u16 tileWidth = 16, u16 tileHeight = 16);
+		Tileset(const std::string &filename, const std::string &configFile, u16 tileWidth = 16, u16 tileHeight = 16);
 		
-		void load(const std::string &filename, u16 *info, u16 tileWidth = 16, u16 tileHeight = 16);
+		void load(const std::string &filename, const std::string &configFile, u16 tileWidth = 16, u16 tileHeight = 16);
 		
-		void addAnimation(std::vector<u16> &frames, u16 delay);
-		
-		u16 *info() const { return m_info; }
+		const std::vector<u16> &info() const { return m_info; }
 		
 		u16 tileWidth() const { return m_tileWidth; }
 		u16 tileHeight() const { return m_tileHeight; }
@@ -40,7 +38,7 @@ class Tileset : public Texture {
 		const std::vector<TileAnimation> &anims() const { return m_anims; }
 		
 	private:
-		u16 *m_info;
+		std::vector<u16> m_info;
 		
 		u16 m_tileWidth;
 		u16 m_tileHeight;

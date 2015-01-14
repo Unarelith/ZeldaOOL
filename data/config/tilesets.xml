@@ -1,14 +1,5 @@
 <tilesets>
-	<tileset name="plain">
-		<animation delay="250">
-			<frame id="64"/>
-			<frame id="65"/>
-			<frame id="66"/>
-			<frame id="67"/>
-		</animation>
-	</tileset>
-	
+	<tileset name="plain"/>
 	<tileset name="indoor"/>
-	
 	<tileset name="underground"/>
 </tilesets>
