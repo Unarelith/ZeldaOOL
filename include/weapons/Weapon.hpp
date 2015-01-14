@@ -24,7 +24,7 @@
 
 class Weapon : public Sprite, public Entity {
 	public:
-		Weapon(std::string filename, u16 width, u16 height);
+		Weapon(std::string name, u16 width, u16 height);
 		virtual ~Weapon();
 		
 		virtual void update() = 0;
@@ -36,11 +36,15 @@ class Weapon : public Sprite, public Entity {
 		bool keyPressed();
 		bool keyPressedOnce();
 		
+		Image &icon() { return m_icon; }
+		
 		u8 id() const { return m_id; }
 		
 		ICharacterState::StateTransition playerStateTransition() const { return m_playerStateTransition; }
 		
 	protected:
+		Image m_icon;
+		
 		u8 m_id;
 		
 		u8 m_strength;

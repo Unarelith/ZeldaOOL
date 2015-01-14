@@ -31,8 +31,8 @@ class Menu {
 		
 	private:
 		Image m_background;
-		
 		Image m_cursor;
+		
 		s8 m_cursorX;
 		s8 m_cursorY;
 };

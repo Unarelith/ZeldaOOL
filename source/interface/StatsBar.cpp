@@ -18,7 +18,6 @@
 #include <cmath>
 
 #include "CharacterManager.hpp"
-#include "IconManager.hpp"
 #include "StatsBar.hpp"
 #include "WeaponManager.hpp"
 
@@ -60,11 +59,11 @@ void StatsBar::draw() {
 	Weapon *weaponB = CharacterManager::player.inventory().weaponB();
 	
 	if(weaponA != nullptr) {
-		IconManager::getWeaponIconByID(weaponA->id()).draw(46, -1);
+		weaponA->icon().draw(46, -1);
 	}
 	
 	if(weaponB != nullptr) {
-		IconManager::getWeaponIconByID(weaponB->id()).draw(6, -1);
+		weaponB->icon().draw(6, -1);
 	}
 }
 

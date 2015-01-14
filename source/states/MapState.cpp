@@ -26,7 +26,6 @@
 #include "DoorTransition.hpp"
 #include "EffectManager.hpp"
 #include "GameStateManager.hpp"
-#include "IconManager.hpp"
 #include "Keyboard.hpp"
 #include "MapLoader.hpp"
 #include "MapState.hpp"
@@ -54,8 +53,6 @@ MapState::MapState() {
 	EffectManager::init();
 	
 	AnimationManager::init();
-	
-	IconManager::init();
 	
 	Object *button = new Object(7 * 16, 2 * 16);
 	

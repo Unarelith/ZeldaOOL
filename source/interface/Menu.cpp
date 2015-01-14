@@ -17,15 +17,14 @@
  */
 #include "AudioPlayer.hpp"
 #include "CharacterManager.hpp"
-#include "IconManager.hpp"
 #include "Keyboard.hpp"
 #include "Menu.hpp"
 #include "Weapon.hpp"
 
 Menu::Menu() {
 	m_background.load("menuBackground");
-	
 	m_cursor.load("menuCursor");
+	
 	m_cursorX = 0;
 	m_cursorY = 0;
 }
@@ -121,7 +120,7 @@ void Menu::draw() {
 			Weapon *currentWeapon = CharacterManager::player.inventory().getWeaponByPosition(Vector2i(x, y));
 			
 			if(currentWeapon != nullptr) {
-				IconManager::getWeaponIconByID(currentWeapon->id()).draw(22 + x * 32, 23 + y * 24);
+				currentWeapon->icon().draw(22 + x * 32, 23 + y * 24);
 			}
 		}
 	}

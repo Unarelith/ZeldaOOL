@@ -19,7 +19,10 @@
 #include "Keyboard.hpp"
 #include "Weapon.hpp"
 
-Weapon::Weapon(std::string filename, u16 width, u16 height) : Sprite(filename, width, height), Entity(0, 0, width, height), m_player(CharacterManager::player) {
+Weapon::Weapon(std::string name, u16 width, u16 height) : Sprite(name, width, height), Entity(0, 0, width, height), m_player(CharacterManager::player) {
+	// TODO: TO CHANGE LATER, WORKS ONLY FOR SWORD
+	m_icon.load(name + "L1");
+	
 	m_strength = 1;
 }
 
