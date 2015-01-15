@@ -22,6 +22,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <vector>
 
 #include "Types.hpp"
 
@@ -46,31 +47,25 @@ namespace Debug {
 		Blue = 36
 	};
 	
+	template<typename... Args>
+	std::string makeString(Args &&...args) {
+		std::ostringstream stream;
+		std::vector<int> tmp{0, ((void)(stream << args << " "), 0)...};
+		
+		return stream.str();
+	}
+	
 	inline std::string textColor(u8 color = TextColor::White, bool bold = false) {
 #ifdef DEBUG_COLOR
 		return std::string("\33[0;") + ((color < 10) ? "0" : "") + std::to_string(color) + ";0" + ((bold) ? "1" : "0") + "m";
 #else
-		return std::string("");
+		return "";
 #endif
-	}
-	
-	template<typename T>
-	std::string makeString(std::stringstream &sstream, T value) {
-		sstream << value;
-		return sstream.str();
-	}
-	
-	template<typename T, typename... Args>
-	std::string makeString(std::stringstream &sstream, T value, Args &&...args) {
-		sstream << value << " ";
-		return makeString(sstream, args...);
 	}
 	
 	template<typename... Args>
 	void print(Args &&...args) {
-		std::stringstream sstream;
-		
-		std::cout << textColor(0, true) << makeString(sstream, args...) << textColor() << std::endl;
+		std::cout << textColor(0, true) << makeString(std::forward<Args>(args)...) << textColor() << std::endl;
 	}
 }
 

@@ -31,14 +31,13 @@ Window::Window() {
 	m_width = WINDOW_WIDTH * 3;
 	m_height = WINDOW_HEIGHT * 3;
 	
-	m_window = SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+	m_window.reset(SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN));
 	if(!m_window) {
 		throw EXCEPTION("Error while initializing window:", SDL_GetError());
 	}
 	
-	m_context = SDL_GL_CreateContext(m_window);
+	m_context.reset(SDL_GL_CreateContext(m_window.get()));
 	if(!m_context) {
-		SDL_DestroyWindow(m_window);
 		throw EXCEPTION("Error while initializing OpenGL context:", SDL_GetError());
 	}
 	
@@ -47,17 +46,9 @@ Window::Window() {
 	m_isOpen = true;
 }
 
-Window::~Window() {
-	SDL_GL_DeleteContext(m_context);
-	SDL_DestroyWindow(m_window);
-}
-
 void Window::initGL() {
 #ifdef __MINGW32__
 	if(glewInit() != GLEW_OK) {
-		SDL_DestroyWindow(m_window);
-		SDL_GL_DeleteContext(m_context);
-		
 		throw EXCEPTION("glew init failed");
 	}
 #endif
@@ -81,6 +72,6 @@ void Window::clear() {
 }
 
 void Window::update() {
-	SDL_GL_SwapWindow(m_window);
+	SDL_GL_SwapWindow(m_window.get());
 }
 

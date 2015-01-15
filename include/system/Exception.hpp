@@ -29,12 +29,11 @@
 class Exception : public std::exception {
 	public:
 		template<typename... Args>
-		Exception(u16 line, std::string filename, Args... args) throw() {
+		Exception(u16 line, std::string filename, Args &&...args) throw() {
 			m_line = line;
 			m_filename = filename;
 			
-			std::stringstream stream;
-			m_errorMsg = Debug::makeString(stream, args...);
+			m_errorMsg = Debug::makeString(std::forward<Args>(args)...);
 		}
 		
 		~Exception() throw() {

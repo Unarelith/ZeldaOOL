@@ -18,6 +18,9 @@
 #ifndef WINDOW_HPP_
 #define WINDOW_HPP_
 
+#include <functional>
+#include <memory>
+
 #include "SDLHeaders.hpp"
 #include "Shader.hpp"
 #include "Types.hpp"
@@ -28,7 +31,6 @@ class Window {
 		Window();
 		Window(const Window &) = delete;
 		Window(Window &&) = delete;
-		~Window();
 		
 		void initGL();
 		
@@ -39,8 +41,11 @@ class Window {
 		void close() { m_isOpen = false; }
 		
 	private:
-		SDL_Window *m_window = nullptr;
-		SDL_GLContext m_context;
+		using SDL_WindowPtr = std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)>;
+		using SDL_GLContextPtr = std::unique_ptr<void, decltype(&SDL_GL_DeleteContext)>;
+		
+		SDL_WindowPtr m_window{nullptr, SDL_DestroyWindow};
+		SDL_GLContextPtr m_context{nullptr, SDL_GL_DeleteContext};
 		
 		Shader m_shader;
 		

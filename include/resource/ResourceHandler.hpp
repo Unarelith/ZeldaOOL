@@ -36,7 +36,7 @@ class ResourceHandler {
 				throw EXCEPTION("A resource already exists with name:", name);
 			}
 			
-			m_resources.emplace(name, std::make_shared<T>(args...));
+			m_resources.emplace(name, std::make_shared<T>(std::forward<Args>(args)...));
 		}
 		
 		template<typename ResourceType>
