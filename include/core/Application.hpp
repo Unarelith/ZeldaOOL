@@ -18,19 +18,21 @@
 #ifndef APPLICATION_HPP_
 #define APPLICATION_HPP_
 
+#include "ApplicationStateStack.hpp"
 #include "GameClock.hpp"
 #include "Window.hpp"
 
 class Application {
 	public:
 		Application();
-		~Application();
 		
 		void handleEvents();
 		
 		void run();
 		
 	private:
+		ApplicationStateStack &m_stateStack;
+		
 		GameClock m_clock;
 		
 		Window m_window;

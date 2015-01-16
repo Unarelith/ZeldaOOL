@@ -17,19 +17,14 @@
  */
 #include "TransitionState.hpp"
 
-TransitionState::TransitionState(Transition *transition) {
-	m_transition = transition;
-}
-
-TransitionState::~TransitionState() {
-	delete m_transition;
+TransitionState::TransitionState(Transition *transition) : m_transition(transition) {
 }
 
 void TransitionState::update() {
 	m_transition->update();
 	
 	if(m_transition->atEnd()) {
-		GameStateManager::pop();
+		m_stateStack->pop();
 	}
 }
 

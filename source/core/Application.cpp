@@ -15,26 +15,17 @@
  *
  * =====================================================================================
  */
-#include <ctime>
-
 #include "Application.hpp"
-#include "AudioPlayer.hpp"
-#include "GameStateManager.hpp"
+#include "AudioLoader.hpp"
+#include "MapState.hpp"
 #include "ResourceHandler.hpp"
 #include "TextureLoader.hpp"
 
-Application::Application() {
-	srand(time(nullptr));
-	
-	AudioPlayer::init();
-	
+Application::Application() : m_stateStack(ApplicationStateStack::getInstance()) {
+	ResourceHandler::getInstance().addType("data/config/audio.xml", AudioLoader());
 	ResourceHandler::getInstance().addType("data/config/textures.xml", TextureLoader());
 	
-	GameStateManager::init();
-}
-
-Application::~Application() {
-	GameStateManager::free();
+	m_stateStack.push<MapState>();
 }
 
 void Application::handleEvents() {
@@ -63,13 +54,13 @@ void Application::run() {
 		handleEvents();
 		
 		m_clock.updateGame([&] {
-			GameStateManager::top()->update();
+			m_stateStack.top()->update();
 		});
 		
 		m_clock.drawGame([&] {
 			m_window.clear();
 			
-			GameStateManager::top()->render();
+			m_stateStack.top()->render();
 			
 			m_window.update();
 		});

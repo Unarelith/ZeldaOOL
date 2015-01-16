@@ -21,14 +21,8 @@
 #include "Shader.hpp"
 #include "View.hpp"
 
-View::View() {
-}
-
 View::View(float x, float y, u16 width, u16 height) {
 	load(x, y, width, height);
-}
-
-View::~View() {
 }
 
 void View::load(float x, float y, u16 width, u16 height) {

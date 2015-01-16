@@ -14,9 +14,9 @@ h2. Keys
 * Select: @Backspace@
 * Directional keys: Arrows
 
-h2. How to compile (Linux and Mac OS-X only)
+h2. How to compile
 
-* Install @SDL2@, @SDL2_image@, @SDL2_mixer@, @glm@, @OpenGL@ (=> 2.x) and @glew@ (only required for Windows)
-* Run @make@ at the root of the game folder
-* Run @make run@, and enjoy!
+* Install @CMake@, @SDL2@, @SDL2_image@, @SDL2_mixer@, @glm@, @OpenGL@ (=> 2.1) and @glew@ (only required for Windows)
+* Run @cmake .@ at the root of the game folder
+* Run @make@, and enjoy!
 

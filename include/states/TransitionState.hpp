@@ -18,20 +18,21 @@
 #ifndef TRANSITIONSTATE_HPP_
 #define TRANSITIONSTATE_HPP_
 
-#include "GameStateManager.hpp"
+#include <memory>
+
+#include "ApplicationState.hpp"
 #include "Transition.hpp"
 
-class TransitionState : public GameState {
+class TransitionState : public ApplicationState {
 	public:
 		TransitionState(Transition *transition);
-		~TransitionState();
 		
 		void update();
 		
 		void render();
 		
 	private:
-		Transition *m_transition;
+		std::shared_ptr<Transition> m_transition;
 };
 
 #endif // TRANSITIONSTATE_HPP_

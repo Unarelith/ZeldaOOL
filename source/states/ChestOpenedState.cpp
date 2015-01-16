@@ -15,14 +15,13 @@
  *
  * =====================================================================================
  */
-#include "AudioPlayer.hpp"
 #include "CharacterManager.hpp"
 #include "ChestOpenedState.hpp"
 #include "DialogState.hpp"
-#include "GameStateManager.hpp"
 #include "Map.hpp"
+#include "SoundEffect.hpp"
 
-ChestOpenedState::ChestOpenedState(GameState *parent, float x, float y, Collectable *collectable) : GameState(parent) {
+ChestOpenedState::ChestOpenedState(ApplicationState *parent, float x, float y, Collectable *collectable) : ApplicationState(parent) {
 	m_state = State::Opening;
 	
 	m_collectable = collectable;
@@ -33,9 +32,6 @@ ChestOpenedState::ChestOpenedState(GameState *parent, float x, float y, Collecta
 	m_speed = 0.125f;
 	
 	Sprite::pause = true;
-}
-
-ChestOpenedState::~ChestOpenedState() {
 }
 
 void ChestOpenedState::update() {
@@ -50,25 +46,25 @@ void ChestOpenedState::update() {
 	}
 	
 	if(m_state == State::Opened) {
-		AudioPlayer::playEffect("itemNew");
+		SoundEffect::play("itemNew");
 		
 		m_collectable->action();
 		
-		GameStateManager::push(new DialogState(GameStateManager::top(), "Vous obtenez [2]30 [2]Rubis[0]!\nC'est bien."));
+		m_stateStack->push<DialogState>(this, "Vous obtenez [2]30 [2]Rubis[0]!\nC'est bien.");
 		
 		m_state = State::Finished;
 	}
 	else if(m_state == State::Finished) {
 		Sprite::pause = false;
 		
-		GameStateManager::pop();
+		m_stateStack->pop();
 	}
 }
 
 void ChestOpenedState::render() {
 	m_parent->render();
 	
-	if(m_state == State::Opening || (m_state == State::Finished && GameStateManager::size() > 1)) {
+	if(m_state == State::Opening || (m_state == State::Finished && m_stateStack->size() > 1)) {
 		m_collectable->draw();
 	}
 }

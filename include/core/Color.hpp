@@ -22,16 +22,15 @@
 
 class Color {
 	public:
-		Color() { r = g = b = a = 1.0f; }
+		Color() = default;
 		Color(u8 _r, u8 _g, u8 _b, u8 _a = 255);
-		~Color();
 		
 		Color operator-(const Color &color);
 		
-		float r;
-		float g;
-		float b;
-		float a;
+		float r = 1.0f;
+		float g = 1.0f;
+		float b = 1.0f;
+		float a = 1.0f;
 		
 		static Color black;
 		static Color white;

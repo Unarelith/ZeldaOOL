@@ -18,15 +18,12 @@
 #ifndef MENUSTATE_HPP_
 #define MENUSTATE_HPP_
 
-#include "GameState.hpp"
+#include "ApplicationState.hpp"
 #include "Menu.hpp"
 #include "StatsBar.hpp"
 
-class MenuState : public GameState {
+class MenuState : public ApplicationState {
 	public:
-		MenuState();
-		~MenuState();
-		
 		void update();
 		
 		void render();

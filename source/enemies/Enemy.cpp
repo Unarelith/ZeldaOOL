@@ -16,9 +16,9 @@
  * =====================================================================================
  */
 #include "AnimationManager.hpp"
-#include "AudioPlayer.hpp"
 #include "Enemy.hpp"
 #include "Map.hpp"
+#include "SoundEffect.hpp"
 
 Enemy::Enemy() {
 	m_battlerType = BattlerType::TypeEnemy;
@@ -53,7 +53,7 @@ void Enemy::checkDeath() {
 		m_dead = true;
 		
 		AnimationManager::addMonsterDestroyAnimation(m_x, m_y);
-		AudioPlayer::playEffect("enemyDie");
+		SoundEffect::play("enemyDie");
 		
 		m_life = m_maxLife;
 	}

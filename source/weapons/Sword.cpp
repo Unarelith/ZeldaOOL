@@ -15,9 +15,9 @@
  *
  * =====================================================================================
  */
-#include "AudioPlayer.hpp"
 #include "Keyboard.hpp"
 #include "PlayerState.hpp"
+#include "SoundEffect.hpp"
 #include "StandingState.hpp"
 #include "Sword.hpp"
 #include "SwordState.hpp"
@@ -137,7 +137,7 @@ void Sword::update() {
 				
 				m_keyReleased = false;
 				
-				AudioPlayer::playEffect("swordSlash1");
+				SoundEffect::play("swordSlash1");
 				
 				m_player.resetAnimation(m_player.direction() + 8);
 				resetAnimation(m_player.direction());
@@ -148,12 +148,12 @@ void Sword::update() {
 			if(m_loadingTimer.time() > 650 && !m_loaded) {
 				m_loaded = true;
 				
-				AudioPlayer::playEffect("swordCharge");
+				SoundEffect::play("swordCharge");
 			}
 			
 			if(!keyPressed()) {
 				if(m_loadingTimer.time() > 650) {
-					AudioPlayer::playEffect("swordSpin");
+					SoundEffect::play("swordSpin");
 					
 					m_loaded = false;
 					

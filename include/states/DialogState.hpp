@@ -21,10 +21,9 @@
 #include "Dialog.hpp"
 #include "MapState.hpp"
 
-class DialogState : public GameState {
+class DialogState : public ApplicationState {
 	public:
-		DialogState(GameState *parent, std::string text);
-		~DialogState();
+		DialogState(ApplicationState *parent, const std::string &text);
 		
 		void update();
 		

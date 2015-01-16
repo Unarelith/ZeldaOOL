@@ -18,6 +18,7 @@
 #ifndef BACKGROUNDMUSIC_HPP_
 #define BACKGROUNDMUSIC_HPP_
 
+#include <memory>
 #include <string>
 
 #include "SDLHeaders.hpp"
@@ -26,16 +27,19 @@ class BackgroundMusic {
 	public:
 		BackgroundMusic() = default;
 		BackgroundMusic(const BackgroundMusic &) = delete;
-		BackgroundMusic(BackgroundMusic &&music);
+		BackgroundMusic(BackgroundMusic &&music) = default;
 		BackgroundMusic(const std::string &filename);
-		~BackgroundMusic();
 		
 		void load(const std::string &filename);
 		
 		void play();
 		
+		static void play(const std::string &resourceName);
+		
 	private:
-		Mix_Music *m_music = nullptr;
+		using Mix_MusicPtr = std::unique_ptr<Mix_Music, decltype(&Mix_FreeMusic)>;
+		
+		Mix_MusicPtr m_music{nullptr, Mix_FreeMusic};
 };
 
 #endif // BACKGROUNDMUSIC_HPP_

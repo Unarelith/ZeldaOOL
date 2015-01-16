@@ -15,20 +15,15 @@
  *
  * =====================================================================================
  */
-#include "AudioPlayer.hpp"
+#include "BackgroundMusic.hpp"
 #include "CharacterManager.hpp"
 #include "Config.hpp"
 #include "DoorTransition.hpp"
-#include "Exception.hpp"
 #include "Map.hpp"
 #include "StandingState.hpp"
 
 DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer) {
 	m_nextMap = &Map::getMap(area, mapX, mapY);
-	if(!m_nextMap) {
-		EXCEPTION("Unable to load destination map at", mapX, ";", mapY, ": with area =", area);
-	}
-	
 	m_nextMap->resetTiles();
 	m_nextMap->updateTiles();
 	
@@ -51,12 +46,12 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	
 	// FIXME: TEMPORARY
 	if(m_nextMap->area() == 0) {
-		AudioPlayer::playMusic("plain");
+		BackgroundMusic::play("plain");
 	}
 	else if(m_nextMap->area() == 1) {
-		AudioPlayer::playMusic("indoor");
+		BackgroundMusic::play("indoor");
 	} else {
-		AudioPlayer::playMusic("underground");
+		BackgroundMusic::play("underground");
 	}
 	
 	CharacterManager::player.stateManager().setNextState([](){

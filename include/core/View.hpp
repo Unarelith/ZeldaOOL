@@ -22,9 +22,8 @@
 
 class View {
 	public:
-		View();
+		View() = default;
 		View(float x, float y, u16 width, u16 height);
-		~View();
 		
 		void load(float x, float y, u16 width, u16 height);
 		
@@ -36,11 +35,11 @@ class View {
 		static void bind(const View *view);
 		
 	private:
-		float m_x;
-		float m_y;
+		float m_x = 0;
+		float m_y = 0;
 		
-		u16 m_width;
-		u16 m_height;
+		u16 m_width = 0;
+		u16 m_height = 0;
 };
 
 #endif // VIEW_HPP_

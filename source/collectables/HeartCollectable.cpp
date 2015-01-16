@@ -15,9 +15,9 @@
  *
  * =====================================================================================
  */
-#include "AudioPlayer.hpp"
 #include "CharacterManager.hpp"
 #include "HeartCollectable.hpp"
+#include "SoundEffect.hpp"
 
 HeartCollectable::HeartCollectable(float x, float y) : Collectable(x, y, "collectables-heart") {
 	
@@ -27,7 +27,7 @@ HeartCollectable::~HeartCollectable() {
 }
 
 void HeartCollectable::action() {
-	AudioPlayer::playEffect("getHeart");
+	SoundEffect::play("getHeart");
 	
 	CharacterManager::player.addHearts(1);
 }

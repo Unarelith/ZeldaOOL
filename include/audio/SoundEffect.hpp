@@ -18,6 +18,7 @@
 #ifndef SOUNDEFFECT_HPP_
 #define SOUNDEFFECT_HPP_
 
+#include <memory>
 #include <string>
 
 #include "SDLHeaders.hpp"
@@ -27,16 +28,19 @@ class SoundEffect {
 	public:
 		SoundEffect() = default;
 		SoundEffect(const SoundEffect &) = delete;
-		SoundEffect(SoundEffect &soundEffect);
+		SoundEffect(SoundEffect &&soundEffect) = default;
 		SoundEffect(const std::string &filename);
-		~SoundEffect();
 		
 		void load(const std::string &filename);
 		
 		void play(s8 channel = -1);
 		
+		static void play(const std::string &resourceName);
+		
 	private:
-		Mix_Chunk *m_sfx = nullptr;
+		using Mix_ChunkPtr = std::unique_ptr<Mix_Chunk, decltype(&Mix_FreeChunk)>;
+		
+		Mix_ChunkPtr m_sfx{nullptr, Mix_FreeChunk};
 };
 
 #endif // SOUNDEFFECT_HPP_

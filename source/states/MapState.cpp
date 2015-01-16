@@ -18,14 +18,13 @@
 #include <cmath>
 
 #include "AnimationManager.hpp"
-#include "AudioPlayer.hpp"
+#include "BackgroundMusic.hpp"
 #include "CharacterManager.hpp"
 #include "ChestObject.hpp"
 #include "DialogState.hpp"
 #include "DoorManager.hpp"
 #include "DoorTransition.hpp"
 #include "EffectManager.hpp"
-#include "GameStateManager.hpp"
 #include "Keyboard.hpp"
 #include "MapLoader.hpp"
 #include "MapState.hpp"
@@ -33,6 +32,7 @@
 #include "Octorok.hpp"
 #include "ResourceHandler.hpp"
 #include "ScrollingTransition.hpp"
+#include "SoundEffect.hpp"
 #include "TilesetLoader.hpp"
 #include "TransitionState.hpp"
 #include "WeaponManager.hpp"
@@ -56,7 +56,7 @@ MapState::MapState() {
 	Object *button = new Object(7 * 16, 2 * 16);
 	
 	button->setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
-		AudioPlayer::playEffect("chest");
+		SoundEffect::play("chest");
 		
 		Map::currentMap->setTile(obj->x() / 16, obj->y() / 16, 8);
 		
@@ -75,7 +75,7 @@ MapState::MapState() {
 	Map::getMap(0, 1, 0).addEnemy(new Octorok(5 * 16, 4 * 16, Character::Direction::Right));
 	Map::getMap(2, 0, 0).addEnemy(new Octorok(5 * 16, 3 * 16, Character::Direction::Right));
 	
-	AudioPlayer::playMusic("plain");
+	BackgroundMusic::play("plain");
 }
 
 MapState::~MapState() {
@@ -89,27 +89,27 @@ void MapState::update() {
 	
 	if(CharacterManager::player.stateManager().currentState()->canStartMapTransition()) {
 		if(CharacterManager::player.x() < -3) {
-			GameStateManager::push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingLeft)));
+			m_stateStack->push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingLeft));
 		}
 		else if(CharacterManager::player.x() + 13 > Map::currentMap->width() * 16) {
-			GameStateManager::push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingRight)));
+			m_stateStack->push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingRight));
 		}
 		else if(CharacterManager::player.y() < -1) {
-			GameStateManager::push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingUp)));
+			m_stateStack->push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingUp));
 		}
 		else if(CharacterManager::player.y() + 15 > Map::currentMap->height() * 16) {
-			GameStateManager::push(new TransitionState(new ScrollingTransition(ScrollingTransition::Mode::ScrollingDown)));
+			m_stateStack->push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingDown));
 		}
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::Select)) {
-		GameStateManager::push(new DialogState(this, "L'[1]Arbre Bojo[0] est tout à l'est de cette grotte."));
+		m_stateStack->push<DialogState>(this, "L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.");
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::Start)) {
-		AudioPlayer::playEffect("menuOpen");
+		SoundEffect::play("menuOpen");
 		
-		GameStateManager::push(new MenuState());
+		m_stateStack->push<MenuState>();
 	}
 }
 

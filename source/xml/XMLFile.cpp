@@ -18,71 +18,68 @@
 #include "Exception.hpp"
 #include "XMLFile.hpp"
 
-XMLFile::XMLFile(std::string filename) {
-	int code;
+XMLFile::XMLFile(const std::string &filename) {
+	load(filename);
+}
+
+void XMLFile::load(const std::string &filename) {
+	int code = m_xml.LoadFile(filename.c_str());
 	
-	code = m_xml.LoadFile(filename.c_str());
 	if(code != 0) {
-		throw EXCEPTION("Failed to load %s.", filename.c_str());
+		std::string errorString;
 		
 		switch(code) {
 			case XML_ERROR_FILE_NOT_FOUND:
-				throw EXCEPTION("File not found.");
+				errorString = "File not found.";
 				break;
 			case XML_ERROR_FILE_COULD_NOT_BE_OPENED:
-				throw EXCEPTION("File couldn't be opened.");
+				errorString = "File couldn't be opened.";
 				break;
 			case XML_ERROR_FILE_READ_ERROR:
-				throw EXCEPTION("File read throw EXCEPTION.");
+				errorString = "File read error.";
 				break;
 			case XML_ERROR_ELEMENT_MISMATCH:
-				throw EXCEPTION("Element mismatch.");
+				errorString = "Element mismatch.";
 				break;
 			case XML_ERROR_PARSING_ELEMENT:
-				throw EXCEPTION("Error while parsing element.");
+				errorString = "Error while parsing element.";
 				break;
 			case XML_ERROR_PARSING_ATTRIBUTE:
-				throw EXCEPTION("Error while parsing attribute.");
+				errorString = "Error while parsing attribute.";
 				break;
 			case XML_ERROR_IDENTIFYING_TAG:
-				throw EXCEPTION("Error while identifying tag.");
+				errorString = "Error while identifying tag.";
 				break;
 			case XML_ERROR_PARSING_TEXT:
-				throw EXCEPTION("Error while parsing text.");
+				errorString = "Error while parsing text.";
 				break;
 			case XML_ERROR_PARSING_CDATA:
-				throw EXCEPTION("Error while parsing cdata.");
+				errorString = "Error while parsing cdata.";
 				break;
 			case XML_ERROR_PARSING_COMMENT:
-				throw EXCEPTION("Error while parsing comment.");
+				errorString = "Error while parsing comment.";
 				break;
 			case XML_ERROR_PARSING_DECLARATION:
-				throw EXCEPTION("Error while parsing declaration.");
+				errorString = "Error while parsing declaration.";
 				break;
 			case XML_ERROR_PARSING_UNKNOWN:
-				throw EXCEPTION("Parsing throw EXCEPTION: Unknown object.");
+				errorString = "Parsing error: Unknown object.";
 				break;
 			case XML_ERROR_EMPTY_DOCUMENT:
-				throw EXCEPTION("Empty document.");
+				errorString = "Empty document.";
 				break;
 			case XML_ERROR_MISMATCHED_ELEMENT:
-				throw EXCEPTION("Element mismatched.");
+				errorString = "Element mismatched.";
 				break;
 			case XML_ERROR_PARSING:
-				throw EXCEPTION("Parsing throw EXCEPTION.");
+				errorString = "Parsing error.";
 				break;
 			default:
-				throw EXCEPTION("Unknown throw EXCEPTION. CODE:", code);
+				errorString = "Unknown error.";
 				break;
 		}
 		
-		exit(EXIT_FAILURE);
+		throw EXCEPTION("Failed to load", filename, "\nError", code, ":", errorString);
 	}
-	
-	m_doc = new XMLHandle(&m_xml);
-}
-
-XMLFile::~XMLFile() {
-	delete m_doc;
 }
 

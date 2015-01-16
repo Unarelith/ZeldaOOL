@@ -16,16 +16,16 @@
  * =====================================================================================
  */
 #include "AnimationManager.hpp"
-#include "AudioPlayer.hpp"
 #include "Keyboard.hpp"
 #include "MapHelper.hpp"
 #include "Map.hpp"
+#include "SoundEffect.hpp"
 #include "SwordState.hpp"
 #include "TilesData.hpp"
 #include "WeaponManager.hpp"
 
 SwordState::SwordState() {
-	AudioPlayer::playEffect("swordSlash1");
+	SoundEffect::play("swordSlash1");
 	
 	m_playerMoved = false;
 	

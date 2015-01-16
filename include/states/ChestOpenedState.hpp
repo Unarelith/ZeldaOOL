@@ -19,12 +19,11 @@
 #define CHESTOPENEDSTATE_HPP_
 
 #include "Collectable.hpp"
-#include "GameState.hpp"
+#include "ApplicationState.hpp"
 
-class ChestOpenedState : public GameState {
+class ChestOpenedState : public ApplicationState {
 	public:
-		ChestOpenedState(GameState *parent, float x, float y, Collectable *collectable);
-		~ChestOpenedState();
+		ChestOpenedState(ApplicationState *parent, float x, float y, Collectable *collectable);
 		
 		void update();
 		

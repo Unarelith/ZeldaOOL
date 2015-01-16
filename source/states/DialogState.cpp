@@ -15,14 +15,13 @@
  *
  * =====================================================================================
  */
-#include "AudioPlayer.hpp"
 #include "CharacterManager.hpp"
 #include "DialogState.hpp"
-#include "GameStateManager.hpp"
 #include "Keyboard.hpp"
 #include "Map.hpp"
+#include "SoundEffect.hpp"
 
-DialogState::DialogState(GameState *parent, std::string text) : GameState(parent) {
+DialogState::DialogState(ApplicationState *parent, const std::string &text) : ApplicationState(parent) {
 	Sprite::pause = true;
 	
 	if(CharacterManager::player.y() + 32 < 96) {
@@ -30,9 +29,6 @@ DialogState::DialogState(GameState *parent, std::string text) : GameState(parent
 	}
 	
 	m_dialog.setText(text);
-}
-
-DialogState::~DialogState() {
 }
 
 void DialogState::update() {
@@ -43,13 +39,13 @@ void DialogState::update() {
 	if(Keyboard::isKeyPressedOnce(Keyboard::B)
 	|| Keyboard::isKeyPressedOnce(Keyboard::A)) {
 		if(!m_dialog.lastPage()) {
-			AudioPlayer::playEffect("dialogContinue");
+			SoundEffect::play("dialogContinue");
 			
 			m_dialog.scrollDown();
 		} else {
 			Sprite::pause = false;
 			
-			GameStateManager::pop();
+			m_stateStack->pop();
 		}
 	}
 }

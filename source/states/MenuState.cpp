@@ -15,25 +15,17 @@
  *
  * =====================================================================================
  */
-#include "AudioPlayer.hpp"
-#include "GameStateManager.hpp"
 #include "Keyboard.hpp"
 #include "MenuState.hpp"
-
-MenuState::MenuState() {
-	
-}
-
-MenuState::~MenuState() {
-}
+#include "SoundEffect.hpp"
 
 void MenuState::update() {
 	m_menu.update();
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::Start)) {
-		AudioPlayer::playEffect("menuClose");
+		SoundEffect::play("menuClose");
 		
-		GameStateManager::pop();
+		m_stateStack->pop();
 	}
 }
 

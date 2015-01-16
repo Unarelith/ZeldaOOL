@@ -18,13 +18,12 @@
 #ifndef MAPSTATE_HPP_
 #define MAPSTATE_HPP_
 
-#include "GameState.hpp"
+#include "ApplicationState.hpp"
 #include "StatsBar.hpp"
 
-class MapState : public GameState {
+class MapState : public ApplicationState {
 	public:
 		MapState();
-		MapState(const MapState &) = delete;
 		~MapState();
 		
 		void update();

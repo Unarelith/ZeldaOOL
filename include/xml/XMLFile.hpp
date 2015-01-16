@@ -26,14 +26,18 @@ using namespace tinyxml2;
 
 class XMLFile {
 	public:
-		XMLFile(std::string filename);
-		~XMLFile();
+		XMLFile() = default;
+		XMLFile(const std::string &filename);
+		XMLFile(const XMLFile &) = default;
+		XMLFile(XMLFile &&) = default;
 		
-		XMLHandle FirstChildElement(const char *element) { return m_doc->FirstChildElement(element); }
+		void load(const std::string &filename);
+		
+		XMLHandle FirstChildElement(const char *element) { return m_doc.FirstChildElement(element); }
 		
 	private:
 		XMLDocument m_xml;
-		XMLHandle *m_doc;
+		XMLHandle m_doc{m_xml};
 };
 
 #endif // XMLFILE_HPP_
