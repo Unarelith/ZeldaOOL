@@ -17,13 +17,10 @@
  */
 #include "HurtMovement.hpp"
 
-HurtMovement::HurtMovement(Character *character, float speed) : Movement(character) {
-	m_speed = speed;
+HurtMovement::HurtMovement(Character *character, float speed) {
+	m_character = character;
 	
-	m_movementCounter = 0;
-}
-
-HurtMovement::~HurtMovement() {
+	m_speed = speed;
 }
 
 void HurtMovement::reset() {

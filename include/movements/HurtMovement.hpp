@@ -18,21 +18,26 @@
 #ifndef HURTMOVEMENT_HPP_
 #define HURTMOVEMENT_HPP_
 
-#include "Movement.hpp"
+#include "Character.hpp"
 
-class HurtMovement : public Movement {
+class HurtMovement {
 	public:
 		HurtMovement(Character *character, float speed = 0.4f);
-		~HurtMovement();
 		
 		void reset();
 		
 		void update();
 		
-	private:
-		float m_speed;
+		bool isFinished() const { return m_isFinished; }
 		
-		float m_movementCounter;
+	protected:
+		Character *m_character = nullptr;
+		
+		bool m_isFinished = false;
+		
+		float m_speed = 0;
+		
+		float m_movementCounter = 0;
 };
 
 #endif // HURTMOVEMENT_HPP_

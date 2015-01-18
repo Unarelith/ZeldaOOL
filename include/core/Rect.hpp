@@ -21,18 +21,17 @@
 template<typename T>
 class Rect {
 	public:
-		Rect();
+		Rect() = default;
 		Rect(T _x, T _y, T _width, T _height);
-		~Rect();
 		
 		void reset(T _x, T _y, T _width, T _height);
 		
 		bool intersects(const Rect<T> &rect) const;
 		
-		T x;
-		T y;
-		T width;
-		T height;
+		T x = 0;
+		T y = 0;
+		T width = 0;
+		T height = 0;
 };
 
 #include "Rect.inl"

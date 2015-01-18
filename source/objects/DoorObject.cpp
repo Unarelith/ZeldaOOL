@@ -44,6 +44,7 @@ void DoorObject::onEvent(u8 event) {
 	if(event == Map::EventType::ChangeMap) {
 		SoundEffect::play("mapStairs");
 		
+		// FIXME: TO REMOVE LATER
 		ApplicationStateStack::getInstance().push<TransitionState>(new DoorTransition(m_area, m_mapX, m_mapY, m_playerX, m_playerY, m_playerDirection));
 	}
 }

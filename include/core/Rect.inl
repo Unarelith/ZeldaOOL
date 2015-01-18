@@ -18,10 +18,6 @@
 #include <algorithm>
 
 template<typename T>
-Rect<T>::Rect() {
-}
-
-template<typename T>
 Rect<T>::Rect(T _x, T _y, T _width, T _height) {
 	reset(_x, _y, _width, _height);
 }
@@ -32,10 +28,6 @@ void Rect<T>::reset(T _x, T _y, T _width, T _height) {
 	y = _y;
 	width = _width;
 	height = _height;
-}
-
-template<typename T>
-Rect<T>::~Rect() {
 }
 
 template<typename T>

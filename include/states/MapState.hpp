@@ -21,6 +21,8 @@
 #include "ApplicationState.hpp"
 #include "StatsBar.hpp"
 
+#include "Movable.hpp"
+
 class MapState : public ApplicationState {
 	public:
 		MapState();
@@ -32,6 +34,8 @@ class MapState : public ApplicationState {
 		
 	protected:
 		StatsBar m_statsBar;
+		
+		Movable m_testMovable{"characters-link", 16, 16};
 };
 
 #endif // MAPSTATE_HPP_

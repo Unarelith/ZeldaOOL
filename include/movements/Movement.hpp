@@ -18,23 +18,11 @@
 #ifndef MOVEMENT_HPP_
 #define MOVEMENT_HPP_
 
-#include "Character.hpp"
+class Movable;
 
 class Movement {
 	public:
-		Movement(Character *character);
-		virtual ~Movement();
-		
-		virtual void reset() = 0;
-		
-		virtual void update() = 0;
-		
-		bool isFinished() const { return m_isFinished; }
-		
-	protected:
-		Character *m_character;
-		
-		bool m_isFinished;
+		virtual void doMovement(Movable &movable) = 0;
 };
 
 #endif // MOVEMENT_HPP_

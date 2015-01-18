@@ -50,6 +50,7 @@ void ChestOpenedState::update() {
 		
 		m_collectable->action();
 		
+		// FIXME: TO IMPROVE
 		m_stateStack->push<DialogState>(this, "Vous obtenez [2]30 [2]Rubis[0]!\nC'est bien.");
 		
 		m_state = State::Finished;

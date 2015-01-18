@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "Exception.hpp"
 #include "Sprite.hpp"
 
 bool Sprite::pause = false;
@@ -79,6 +80,10 @@ bool Sprite::animationAtEnd(u16 anim) {
 }
 
 void Sprite::playAnimation(float x, float y, u16 anim) {
+	if(m_animations.size() < anim) {
+		throw EXCEPTION("Trying to play inexistant animation:", anim, "| Animations:", m_animations.size());
+	}
+	
 	if(pause) {
 		stopAnimation(anim);
 		

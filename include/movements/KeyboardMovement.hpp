@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Movement.cpp
+ *       Filename:  KeyboardMovement.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  13/10/2014 00:48:33
+ *        Created:  18/01/2015 02:00:33
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,14 +15,14 @@
  *
  * =====================================================================================
  */
+#ifndef KEYBOARDMOVEMENT_HPP_
+#define KEYBOARDMOVEMENT_HPP_
+
 #include "Movement.hpp"
 
-Movement::Movement(Character *character) {
-	m_character = character;
-	
-	m_isFinished = false;
-}
+class KeyboardMovement : public Movement {
+	public:
+		void doMovement(Movable &movable) override;
+};
 
-Movement::~Movement() {
-}
-
+#endif // KEYBOARDMOVEMENT_HPP_
