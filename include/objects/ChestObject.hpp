@@ -28,7 +28,7 @@ class ChestObject : public Object {
 		
 		void onEvent(u8 event);
 		
-		void resetTiles(Map *map);
+		void reset(Map &map) override;
 		
 	private:
 		bool m_opened;

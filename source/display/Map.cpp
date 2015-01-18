@@ -28,11 +28,11 @@
 
 Map *Map::currentMap = nullptr;
 
-Map::Map(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
+Map::Map(const std::string &filename, Tileset &tileset, u16 area, u16 x, u16 y) {
 	load(filename, tileset, area, x, y);
 }
 
-void Map::load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
+void Map::load(const std::string &filename, Tileset &tileset, u16 area, u16 x, u16 y) {
 	AnimatedMap::load(filename, tileset);
 	
 	m_area = area;
@@ -46,15 +46,15 @@ void Map::load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
 void Map::resetTiles() {
 	XMLTileMap::resetTiles();
 	
-	for(auto &it : m_objects) {
-		it->resetTiles(this);
-	}
+	//for(auto &it : m_objects) {
+	//	it->resetTiles(this);
+	//}
 	
-	for(auto &it : m_enemies) {
-		it->reset();
-	}
+	//for(auto &it : m_enemies) {
+	//	it->reset();
+	//}
 	
-	m_collectables.clear();
+	//m_collectables.clear();
 }
 
 void Map::updateTile(u16 tileX, u16 tileY, u16 id) {
@@ -64,10 +64,10 @@ void Map::updateTile(u16 tileX, u16 tileY, u16 id) {
 	u16 y = tileY * m_tileset->tileHeight();
 	
 	if(m_tileset->info()[id] == TilesData::TileType::GrassTile) {
-		addObject(new GrassObject(x, y));
+		addObject<GrassObject>(x, y);
 	}
 	else if(m_tileset->info()[id] == TilesData::TileType::LowGrassTile) {
-		addObject(new GrassObject(x, y, true));
+		addObject<GrassObject>(x, y, true);
 	}
 }
 
@@ -75,11 +75,15 @@ void Map::update(bool onlyTiles) {
 	animateTiles();
 	
 	if(!onlyTiles) {
-		for(auto &it : m_collectables) {
-			// FIXME: I actually remove the collectables from here
-			if(it) it->update();
+		for(auto &it : m_objects) {
+			it->update();
 		}
+		//for(auto &it : m_collectables) {
+			// FIXME: I actually remove the collectables from here
+			//if(it) it->update();
+		//}
 		
+		/*
 		for(auto &it : m_enemies) {
 			if(CharacterManager::player.inCollisionWith(*it)
 			&& !it->isDead()) {
@@ -102,21 +106,33 @@ void Map::update(bool onlyTiles) {
 			}
 			
 			it->update();
-		}
+		}*/
 	}
 }
 
 void Map::draw() {
 	TileMap::draw();
 	
-	for(auto &it : m_collectables) {
+	for(auto &it : m_objects) {
 		it->draw();
 	}
+	//for(auto &it : m_collectables) {
+	//	it->draw();
+	//}
 	
-	for(auto &it : m_enemies) {
-		it->draw();
-	}
+	//for(auto &it : m_enemies) {
+	//	it->draw();
+	//}
 }
+
+void Map::removeObject(MapObject *object) {
+	m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(),
+		            [&](std::unique_ptr<MapObject> &it) {
+		                return it.get() == object;
+		            }), m_objects.end());
+}
+
+/*
 
 void Map::addObject(Object *obj) {
 	m_objects.emplace_back(obj);
@@ -150,7 +166,7 @@ void Map::sendEvent(EventType event, MapObject *object, Vector2i offsets) {
 			break;
 		}
 	}
-}
+}*/
 
 Map &Map::getMap(u16 area, u16 mapX, u16 mapY) {
 	return ResourceHandler::getInstance().get<Map>(MapLoader::makeName(area, mapX, mapY));

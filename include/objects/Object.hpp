@@ -23,21 +23,14 @@
 
 #include "MapObject.hpp"
 
-class Map;
-
 class Object : public MapObject {
 	public:
 		Object(float x, float y);
 		virtual ~Object() = default;
 		
-		void update() {};
-		void draw() {};
-		
 		void setEventAction(u8 event, std::function<void(Object *)> action);
 		
 		virtual void onEvent(u8 event);
-		
-		virtual void resetTiles(Map *) {}
 		
 	private:
 		std::map<u8, std::function<void(Object *)>> m_actions;

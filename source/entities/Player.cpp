@@ -76,7 +76,7 @@ void Player::update() {
 	
 	if(m_direction == Direction::Up && MapHelper::isTile(m_x + 8, m_y + 4, TilesData::TileType::ClosedChest)) {
 		if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
-			Map::currentMap->sendEvent(Map::EventType::ChestOpened, this, Vector2i(8, -2));
+			//Map::currentMap->sendEvent(Map::EventType::ChestOpened, this, Vector2i(8, -2));
 		}
 	}
 	
@@ -158,13 +158,13 @@ void Player::mapCollisions() {
 	}
 	
 	if(onTile(TilesData::TileType::Button)) {
-		Map::currentMap->sendEvent(Map::EventType::ButtonPressed);
+		//Map::currentMap->sendEvent(Map::EventType::ButtonPressed);
 	}
 	
 	if(MapHelper::onDoor(m_x + 8, m_y + 8) && !m_inDoor) {
 		m_inDoor = true;
 		
-		Map::currentMap->sendEvent(Map::EventType::ChangeMap, this, Vector2i(8, 8));
+		//Map::currentMap->sendEvent(Map::EventType::ChangeMap, this, Vector2i(8, 8));
 	}
 	
 	//if(!MapHelper::onDoor(m_x +  2, m_y +  2)

@@ -22,6 +22,8 @@
 
 #include "Sprite.hpp"
 
+class Map;
+
 class MapObject : public Sprite {
 	public:
 		MapObject() = default;
@@ -37,9 +39,9 @@ class MapObject : public Sprite {
 		
 		bool onTile(u16 tile) const;
 		
-		virtual void update() = 0;
-		
-		virtual void draw() = 0;
+		virtual void reset(Map &) {};
+		virtual void update() {};
+		virtual void draw() {};
 		
 		float x() const { return m_x; }
 		float y() const { return m_y; }

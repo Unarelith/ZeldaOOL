@@ -39,7 +39,7 @@ void Collectable::update() {
 	else if(CharacterManager::player.inCollisionWith(*this)) {
 		action();
 		
-		Map::currentMap->removeCollectable(this);
+		Map::currentMap->removeObject(this);
 	}
 }
 

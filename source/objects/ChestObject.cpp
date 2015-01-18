@@ -37,16 +37,16 @@ void ChestObject::onEvent(u8 event) {
 		
 		m_opened = true;
 		
-		resetTiles(Map::currentMap);
+		reset(*Map::currentMap);
 		
 		// FIXME: TO REMOVE LATER
 		ApplicationStateStack::getInstance().push<ChestOpenedState>(ApplicationStateStack::getInstance().top(), m_x, m_y, m_collectable);
 	}
 }
 
-void ChestObject::resetTiles(Map *map) {
+void ChestObject::reset(Map &map) {
 	if(m_opened) {
-		map->setTile(m_x / 16, m_y / 16, 240);
+		map.setTile(m_x / 16, m_y / 16, 240);
 	}
 }
 
