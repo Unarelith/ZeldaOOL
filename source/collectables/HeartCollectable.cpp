@@ -19,11 +19,8 @@
 #include "HeartCollectable.hpp"
 #include "SoundEffect.hpp"
 
-HeartCollectable::HeartCollectable(float x, float y) : Collectable(x, y, "collectables-heart") {
-	
-}
-
-HeartCollectable::~HeartCollectable() {
+HeartCollectable::HeartCollectable(float x, float y) {
+	Collectable::load("collectables-heart", x, y);
 }
 
 void HeartCollectable::action() {

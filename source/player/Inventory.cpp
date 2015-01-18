@@ -47,7 +47,7 @@ void Inventory::addWeapon(u8 weaponID, Vector2i position) {
 		}
 	}
 	
-	m_weapons.push_back(std::make_pair(WeaponManager::weapons[weaponID], position));
+	m_weapons.push_back(std::make_pair(WeaponManager::getWeaponByID(weaponID), position));
 }
 
 Weapon *Inventory::getWeaponByPosition(Vector2i position) {

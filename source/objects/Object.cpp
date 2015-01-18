@@ -17,10 +17,8 @@
  */
 #include "Object.hpp"
 
-Object::Object(float x, float y) : Entity(x, y, 16, 16) {
-}
-
-Object::~Object() {
+// FIXME: THE TILESET MAY CHANGE
+Object::Object(float x, float y) : MapObject("plain", x, y, 16, 16) {
 }
 
 void Object::setEventAction(u8 event, std::function<void(Object *)> action) {

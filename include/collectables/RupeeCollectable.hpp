@@ -23,9 +23,8 @@
 class RupeeCollectable : public Collectable {
 	public:
 		RupeeCollectable(float x, float y, u16 rupees);
-		~RupeeCollectable();
 		
-		void action();
+		void action() override;
 		
 	private:
 		u16 m_rupees;

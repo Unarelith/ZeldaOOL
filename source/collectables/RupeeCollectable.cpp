@@ -23,13 +23,10 @@ RupeeCollectable::RupeeCollectable(float x, float y, u16 rupees) {
 	m_rupees = rupees;
 	
 	switch(m_rupees) {
-		case 1:  load(x, y, "collectables-rupees1");  break;
-		case 5:  load(x, y, "collectables-rupees5");  break;
-		case 30: load(x, y, "collectables-rupees30"); break;
+		case 1:  load("collectables-rupees1",  x, y); break;
+		case 5:  load("collectables-rupees5",  x, y); break;
+		case 30: load("collectables-rupees30", x, y); break;
 	}
-}
-
-RupeeCollectable::~RupeeCollectable() {
 }
 
 void RupeeCollectable::action() {

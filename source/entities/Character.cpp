@@ -17,28 +17,13 @@
  */
 #include "Character.hpp"
 #include "MapHelper.hpp"
-#include "TilesData.hpp"
 
-Character::Character() {
-	m_defaultState = [](){
-		return nullptr;
-	};
-}
-
-Character::Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
-	m_defaultState = [](){
-		return nullptr;
-	};
-	
+Character::Character(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
 	load(filename, x, y, width, height, direction);
 }
 
-Character::~Character() {
-}
-
-void Character::load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
-	Sprite::load(filename, width, height);
-	Entity::load(x, y, width, height);
+void Character::load(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
+	Movable::load(filename, x, y, width, height);
 	
 	m_direction = direction;
 	

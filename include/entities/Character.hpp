@@ -19,17 +19,14 @@
 #define CHARACTER_HPP_
 
 #include "CharacterStateManager.hpp"
-#include "Types.hpp"
-#include "Sprite.hpp"
-#include "Entity.hpp"
+#include "Movable.hpp"
 
-class Character : public Sprite, public Entity {
+class Character : public Movable {
 	public:
-		Character();
-		Character(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
-		virtual ~Character();
+		Character() = default;
+		Character(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
-		void load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
+		void load(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
 		void turn(bool clockwise = true);
 		
@@ -40,24 +37,11 @@ class Character : public Sprite, public Entity {
 		ICharacterState::StateTransition defaultState() const { return m_defaultState; }
 		CharacterStateManager &stateManager() { return m_stateManager; }
 		
-		enum Direction {
-			Down,
-			Right,
-			Left,
-			Up
-		};
-		
-		u8 direction() const { return m_direction; }
-		
-		void setDirection(u8 direction) { m_direction = direction; }
-		
 		void updateDirection();
 		
 	protected:
-		ICharacterState::StateTransition m_defaultState;
+		ICharacterState::StateTransition m_defaultState{[]{return nullptr;}};
 		CharacterStateManager m_stateManager;
-		
-		u8 m_direction;
 };
 
 #endif // CHARACTER_HPP_

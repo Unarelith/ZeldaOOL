@@ -18,21 +18,20 @@
 #ifndef WEAPONMANAGER_HPP_
 #define WEAPONMANAGER_HPP_
 
-#include <vector>
-
 #include "Weapon.hpp"
 
-namespace WeaponManager {
-	void init();
-	void free();
-	
-	Weapon *getWeaponByID(u8 id);
-	
-	enum WeaponID {
-		SwordID
-	};
-	
-	extern std::vector<Weapon*> weapons;
-}
+class WeaponManager {
+	public:
+		static void init();
+		
+		static Weapon *getWeaponByID(u8 id);
+		
+		enum WeaponID {
+			SwordID
+		};
+		
+	private:
+		static std::vector<std::unique_ptr<Weapon>> weapons;
+};
 
 #endif // WEAPONMANAGER_HPP_

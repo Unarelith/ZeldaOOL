@@ -23,8 +23,6 @@
 class Sword : public Weapon {
 	public:
 		Sword();
-		Sword(const Sword &) = delete;
-		Sword(Sword &&) = default;
 		
 		void reset();
 		
@@ -32,7 +30,7 @@ class Sword : public Weapon {
 		
 		void draw();
 		
-		void testCollisionWith(Enemy *enemy);
+		void testCollisionWith(Enemy &enemy);
 		
 		enum State {
 			Swinging,

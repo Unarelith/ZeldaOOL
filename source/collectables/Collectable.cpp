@@ -18,23 +18,16 @@
 #include "CharacterManager.hpp"
 #include "Collectable.hpp"
 #include "Map.hpp"
+#include "ResourceHandler.hpp"
 
-Collectable::Collectable() {
+Collectable::Collectable(const std::string &textureName, float x, float y) {
+	load(textureName, x, y);
 }
 
-Collectable::Collectable(float x, float y, std::string iconFilename) {
-	load(x, y, iconFilename);
-}
-
-Collectable::~Collectable() {
-}
-
-void Collectable::load(float x, float y, std::string iconFilename) {
-	Image::load(iconFilename);
+void Collectable::load(const std::string &textureName, float x, float y) {
+	Texture &texture = ResourceHandler::getInstance().get<Texture>(textureName);
 	
-	Entity::load(x + 7 - width() / 2, y + 8 - height(), width(), height());
-	
-	m_movementCounter = 0;
+	MapObject::load(textureName, x + 7 - texture.width() / 2, y + 8 - texture.height(), texture.width(), texture.height());
 }
 
 void Collectable::update() {
@@ -43,7 +36,7 @@ void Collectable::update() {
 		
 		m_y += 0.25f;
 	}
-	else if(CharacterManager::player.inCollisionWith(this)) {
+	else if(CharacterManager::player.inCollisionWith(*this)) {
 		action();
 		
 		Map::currentMap->removeCollectable(this);

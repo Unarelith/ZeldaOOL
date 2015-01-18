@@ -18,7 +18,12 @@
 #include "Exception.hpp"
 #include "Movable.hpp"
 
-Movable::Movable(const std::string &filename, u16 frameWidth, u16 frameHeight) : MapObject(filename, frameWidth, frameHeight) {
+Movable::Movable(const std::string &textureName, float x, float y, u16 frameWidth, u16 frameHeight) {
+	MapObject::load(textureName, x, y, frameWidth, frameHeight);
+}
+
+void Movable::load(const std::string &textureName, float x, float y, u16 frameWidth, u16 frameHeight) {
+	MapObject::load(textureName, x, y, frameWidth, frameHeight);
 }
 
 void Movable::update() {

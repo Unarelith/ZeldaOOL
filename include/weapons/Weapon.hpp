@@ -22,18 +22,11 @@
 #include "ICharacterState.hpp"
 #include "PlayerState.hpp"
 
-class Weapon : public Sprite, public Entity {
+class Weapon : public Movable {
 	public:
 		Weapon(const std::string &name, u8 level, u16 width, u16 height);
-		Weapon(const Weapon &) = delete;
-		Weapon(Weapon &&) = default;
-		virtual ~Weapon() = default;
 		
-		virtual void update() = 0;
-		
-		virtual void draw() = 0;
-		
-		virtual void testCollisionWith(Enemy *enemy) = 0;
+		virtual void testCollisionWith(Enemy &enemy) = 0;
 		
 		bool keyPressed();
 		bool keyPressedOnce();
