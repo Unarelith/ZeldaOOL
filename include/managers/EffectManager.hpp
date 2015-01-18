@@ -19,12 +19,12 @@
 #define EFFECTMANAGER_HPP_
 
 #include "Sprite.hpp"
-#include "Entity.hpp"
+#include "MapObject.hpp"
 
 namespace EffectManager {
 	void init();
 	
-	void drawEffects(Entity *e);
+	void drawEffects(const MapObject &object);
 	
 	extern Sprite grassEffect;
 	extern Sprite lowWaterEffect;

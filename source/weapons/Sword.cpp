@@ -254,20 +254,20 @@ void Sword::draw() {
 	}
 }
 
-void Sword::testCollisionWith(Enemy *enemy) {
-	if(!enemy->hurt() && inCollisionWith(enemy)) {
-		s16 vx = enemy->x() - m_player.x();
-		s16 vy = enemy->y() - m_player.y();
+void Sword::testCollisionWith(Enemy &enemy) {
+	if(!enemy.hurt() && inCollisionWith(enemy)) {
+		s16 vx = enemy.x() - m_player.x();
+		s16 vy = enemy.y() - m_player.y();
 		
 		if(vx != 0) vx /= abs(vx);
 		if(vy != 0) vy /= abs(vy);
 		
-		enemy->setVelocity(vx, vy);
+		enemy.setVelocity(vx, vy);
 		
 		if(m_state == State::SpinAttack) {
-			enemy->hurt(m_strength * 2);
+			enemy.hurt(m_strength * 2);
 		} else {
-			enemy->hurt(m_strength);
+			enemy.hurt(m_strength);
 		}
 	}
 }

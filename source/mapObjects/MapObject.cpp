@@ -15,9 +15,19 @@
  *
  * =====================================================================================
  */
+#include "MapHelper.hpp"
 #include "MapObject.hpp"
 
-MapObject::MapObject(const std::string &textureName, u16 width, u16 height) : Sprite(textureName, width, height) {
+MapObject::MapObject(const std::string &textureName, float x, float y, u16 width, u16 height) : Sprite(textureName, width, height) {
+	load(textureName, x, y, width, height);
+}
+
+void MapObject::load(const std::string &textureName, float x, float y, u16 width, u16 height) {
+	Sprite::load(textureName, width, height);
+	
+	m_x = x;
+	m_y = y;
+	
 	m_width = width;
 	m_height = height;
 	
@@ -38,5 +48,12 @@ void MapObject::testCollisions() {
 	for(auto &it : m_collisionHandlers) {
 		it();
 	}
+}
+
+bool MapObject::onTile(u16 tile) const {
+	return (MapHelper::isTile(m_x + 6, m_y + 11, tile) 
+		&&  MapHelper::isTile(m_x + 7, m_y + 11, tile) 
+		&&  MapHelper::isTile(m_x + 6, m_y + 12, tile) 
+		&&  MapHelper::isTile(m_x + 7, m_y + 12, tile));
 }
 

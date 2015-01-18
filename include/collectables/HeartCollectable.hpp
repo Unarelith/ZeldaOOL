@@ -23,7 +23,6 @@
 class HeartCollectable : public Collectable {
 	public:
 		HeartCollectable(float x, float y);
-		~HeartCollectable();
 		
 		void action();
 };

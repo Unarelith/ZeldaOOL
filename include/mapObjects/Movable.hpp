@@ -25,9 +25,10 @@
 
 class Movable : public MapObject {
 	public:
-		Movable(const std::string &filename, u16 frameWidth, u16 frameHeight);
+		Movable() = default;
+		Movable(const std::string &textureName, float x, float y, u16 frameWidth, u16 frameHeight);
 		
-		void move(float dx, float dy) { m_x += dx; m_y += dy; }
+		void load(const std::string &textureName, float x, float y, u16 frameWidth, u16 frameHeight);
 		
 		virtual void update();
 		virtual void draw();
@@ -39,9 +40,11 @@ class Movable : public MapObject {
 			Up
 		};
 		
-		float x() const { return m_x; }
-		float y() const { return m_y; }
+		float vx() const { return m_vx; }
+		float vy() const { return m_vy; }
 		
+		void setVX(float vx) { m_vx = vx; }
+		void setVY(float vy) { m_vy = vy; }
 		void setVelocity(float vx, float vy) { m_vx = vx; m_vy = vy; }
 		
 		u8 direction() const { return m_direction; }
@@ -49,7 +52,7 @@ class Movable : public MapObject {
 		
 		template<typename T, typename... Args>
 		void setMovement(Args &&...args) {
-			m_movement = std::unique_ptr<T>(new T(std::forward<Args>(args)...));
+			m_movement.reset(new T(std::forward<Args>(args)...));
 		}
 		
 	protected:

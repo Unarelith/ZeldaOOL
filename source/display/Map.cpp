@@ -32,23 +32,6 @@ Map::Map(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
 	load(filename, tileset, area, x, y);
 }
 
-Map::~Map() {
-	while(m_objects.size() != 0) {
-		delete m_objects.back();
-		m_objects.pop_back();
-	}
-	
-	while(m_collectables.size() != 0) {
-		delete m_collectables.back();
-		m_collectables.pop_back();
-	}
-	
-	while(m_enemies.size() != 0) {
-		delete m_enemies.back();
-		m_enemies.pop_back();
-	}
-}
-
 void Map::load(std::string filename, Tileset &tileset, u16 area, u16 x, u16 y) {
 	AnimatedMap::load(filename, tileset);
 	
@@ -70,6 +53,8 @@ void Map::resetTiles() {
 	for(auto &it : m_enemies) {
 		it->reset();
 	}
+	
+	m_collectables.clear();
 }
 
 void Map::updateTile(u16 tileX, u16 tileY, u16 id) {
@@ -91,11 +76,12 @@ void Map::update(bool onlyTiles) {
 	
 	if(!onlyTiles) {
 		for(auto &it : m_collectables) {
-			it->update();
+			// FIXME: I actually remove the collectables from here
+			if(it) it->update();
 		}
 		
 		for(auto &it : m_enemies) {
-			if(CharacterManager::player.inCollisionWith(it)
+			if(CharacterManager::player.inCollisionWith(*it)
 			&& !it->isDead()) {
 				s16 vx = CharacterManager::player.x() - it->x();
 				s16 vy = CharacterManager::player.y() - it->y();
@@ -108,11 +94,11 @@ void Map::update(bool onlyTiles) {
 			}
 			
 			if(CharacterManager::player.inventory().weaponA()) {
-				CharacterManager::player.inventory().weaponA()->testCollisionWith(it);
+				CharacterManager::player.inventory().weaponA()->testCollisionWith(*it);
 			}
 			
 			if(CharacterManager::player.inventory().weaponB()) {
-				CharacterManager::player.inventory().weaponB()->testCollisionWith(it);
+				CharacterManager::player.inventory().weaponB()->testCollisionWith(*it);
 			}
 			
 			it->update();
@@ -133,26 +119,18 @@ void Map::draw() {
 }
 
 void Map::addObject(Object *obj) {
-	m_objects.push_back(obj);
-}
-
-void Map::addCollectable(Collectable *collectable) {
-	m_collectables.push_back(collectable);
+	m_objects.emplace_back(obj);
 }
 
 void Map::addEnemy(Enemy *enemy) {
-	m_enemies.push_back(enemy);
+	m_enemies.emplace_back(enemy);
 }
 
 void Map::removeCollectable(Collectable *collectable) {
-	for(u16 i = 0 ; i < m_collectables.size() ; i++) {
-		if(m_collectables[i] == collectable) {
-			delete m_collectables[i];
-			m_collectables.erase(m_collectables.begin() + i);
-			
-			break;
-		}
-	}
+	m_collectables.erase(std::remove_if(m_collectables.begin(), m_collectables.end(),
+		                 [&](std::unique_ptr<Collectable> &it) {
+		                     return it.get() == collectable;
+		                 }), m_collectables.end());
 }
 
 bool Map::objectAtPosition(Object *obj, float x, float y) {
@@ -162,11 +140,11 @@ bool Map::objectAtPosition(Object *obj, float x, float y) {
 		 || floor(obj->y() / 8) == floor(y / 8) - 1));
 }
 
-void Map::sendEvent(EventType event, Entity *e, Vector2i offsets) {
-	if(!e) e = &CharacterManager::player;
+void Map::sendEvent(EventType event, MapObject *object, Vector2i offsets) {
+	if(!object) object = &CharacterManager::player;
 	
 	for(auto &it : m_objects) {
-		if(objectAtPosition(it, e->x() + offsets.x, e->y() + offsets.y)) {
+		if(objectAtPosition(it.get(), object->x() + offsets.x, object->y() + offsets.y)) {
 			it->onEvent(event);
 			
 			break;

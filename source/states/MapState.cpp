@@ -78,16 +78,6 @@ MapState::MapState() {
 	Map::getMap(2, 0, 0).addEnemy(new Octorok(5 * 16, 3 * 16, Character::Direction::Right));
 	
 	BackgroundMusic::play("plain");
-	
-	m_testMovable.addAnimation({4, 0}, 110);
-	m_testMovable.addAnimation({5, 1}, 110);
-	m_testMovable.addAnimation({6, 2}, 110);
-	m_testMovable.addAnimation({7, 3}, 110);
-	m_testMovable.setMovement<KeyboardMovement>();
-}
-
-MapState::~MapState() {
-	WeaponManager::free();
 }
 
 void MapState::update() {
@@ -119,8 +109,6 @@ void MapState::update() {
 		
 		m_stateStack->push<MenuState>();
 	}
-	
-	m_testMovable.update();
 }
 
 void MapState::render() {
@@ -132,12 +120,10 @@ void MapState::render() {
 	
 	CharacterManager::player.draw();
 	
-	EffectManager::drawEffects(&CharacterManager::player);
+	EffectManager::drawEffects(CharacterManager::player);
 	
 	View::bind(nullptr);
 	
 	m_statsBar.draw();
-	
-	m_testMovable.draw();
 }
 

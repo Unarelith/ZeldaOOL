@@ -66,7 +66,7 @@ void Player::load() {
 	//m_hitbox = IntRect(3, 7, 10, 9);
 	m_hitbox = IntRect(4, 5, 8, 10);
 	
-	m_inventory.setWeaponA(WeaponManager::weapons[WeaponManager::SwordID]);
+	m_inventory.setWeaponA(WeaponManager::getWeaponByID(WeaponManager::SwordID));
 	
 	m_inDoor = false;
 }

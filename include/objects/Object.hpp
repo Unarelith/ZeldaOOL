@@ -21,14 +21,17 @@
 #include <map>
 #include <functional>
 
-#include "Entity.hpp"
+#include "MapObject.hpp"
 
 class Map;
 
-class Object : public Entity {
+class Object : public MapObject {
 	public:
 		Object(float x, float y);
-		virtual ~Object();
+		virtual ~Object() = default;
+		
+		void update() {};
+		void draw() {};
 		
 		void setEventAction(u8 event, std::function<void(Object *)> action);
 		

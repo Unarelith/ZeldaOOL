@@ -28,13 +28,13 @@ void EffectManager::init() {
 	lowWaterEffect.addAnimation({0, 1, 2}, 100);
 }
 
-void EffectManager::drawEffects(Entity *e) {
-	if(e->onTile(TilesData::TileType::LowGrassTile)) {
-		EffectManager::grassEffect.drawFrame(e->x(), e->y(), 0);
+void EffectManager::drawEffects(const MapObject &object) {
+	if(object.onTile(TilesData::TileType::LowGrassTile)) {
+		EffectManager::grassEffect.drawFrame(object.x(), object.y(), 0);
 	}
 	
-	if(e->onTile(TilesData::TileType::LowWaterTile)) {
-		EffectManager::lowWaterEffect.playAnimation(e->x(), e->y() + 8, 0);
+	if(object.onTile(TilesData::TileType::LowWaterTile)) {
+		EffectManager::lowWaterEffect.playAnimation(object.x(), object.y() + 8, 0);
 	}
 }
 

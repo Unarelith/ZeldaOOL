@@ -18,16 +18,15 @@
 #ifndef COLLECTABLE_HPP_
 #define COLLECTABLE_HPP_
 
-#include "Entity.hpp"
-#include "Image.hpp"
+#include "MapObject.hpp"
 
-class Collectable : public Image, public Entity {
+class Collectable : public MapObject {
 	public:
-		Collectable();
-		Collectable(float x, float y, std::string iconFilename);
-		virtual ~Collectable();
+		Collectable() = default;
+		Collectable(const std::string &textureName, float x, float y);
+		virtual ~Collectable() = default;
 		
-		void load(float x, float y, std::string iconFilename);
+		void load(const std::string &textureName, float x, float y);
 		
 		virtual void update();
 		
@@ -36,7 +35,7 @@ class Collectable : public Image, public Entity {
 		void draw();
 		
 	private:
-		float m_movementCounter;
+		float m_movementCounter = 0;
 };
 
 #endif // COLLECTABLE_HPP_
