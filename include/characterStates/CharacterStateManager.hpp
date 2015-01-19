@@ -18,38 +18,33 @@
 #ifndef CHARACTERSTATEMANAGER_HPP_
 #define CHARACTERSTATEMANAGER_HPP_
 
-#include "ICharacterState.hpp"
+#include <functional>
+#include <memory>
+
+#include "AbstractCharacterState.hpp"
 
 class Character;
 
 class CharacterStateManager {
 	public:
-		CharacterStateManager();
-		CharacterStateManager(Character *character);
-		~CharacterStateManager();
-		
-		void load(Character *character);
-		
 		void update();
 		void updateStates();
 		
 		void render();
 		
-		void setNextState(ICharacterState::StateTransition stateTransition);
+		template<typename StateType, typename... Args>
+		void setNextState(Args &&...args) {
+			if(!m_currentState || typeid(*m_currentState) != typeid(StateType)) {
+				m_stateTransition = [=]{ return new StateType(args...); };
+			}
+		}
 		
-		void resetNextState();
-		
-		ICharacterState *currentState() const { return m_currentState; }
+		const AbstractCharacterState &currentState() const { return *m_currentState; }
 		
 	private:
-	 	ICharacterState *m_currentState;
-	 	ICharacterState *m_nextState;
+		std::unique_ptr<AbstractCharacterState> m_currentState{nullptr};
 		
-		ICharacterState::StateTransition m_stateTransition;
-		
-		static const ICharacterState::StateTransition nullFunction() {
-			return [](){ return nullptr; };
-		}
+		std::function<AbstractCharacterState*(void)> m_stateTransition;
 };
 
 #endif // CHARACTERSTATEMANAGER_HPP_

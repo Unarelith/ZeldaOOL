@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
@@ -35,7 +35,9 @@ class SwordState : public MovingState {
 		void render();
 		void drawPlayer();
 		
-		bool canStartMapTransition() { return m_sword->state() == Sword::State::Loading; }
+		bool canStartMapTransition() const override {
+			return m_sword->state() == Sword::State::Loading;
+		}
 		
 	private:
 		bool m_playerMoved;

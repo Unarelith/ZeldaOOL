@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
@@ -57,8 +57,6 @@ Sword::Sword() : Weapon("animations-sword", 1, 16, 16) {
 	addAnimation({8, 4, 10, 6, 11, 5, 9, 7}, 50);
 	
 	addCollisionHandler([this]{ Map::currentMap->checkCollisionsFor(this); });
-	
-	m_playerStateTransition = []{ return new SwordState; };
 }
 
 void Sword::reset() {
@@ -97,6 +95,8 @@ void Sword::update() {
 				
 				m_loadingTimer.reset();
 				m_loadingTimer.start();
+				
+				m_player.lockDirection();
 			}
 			
 			if(!keyPressed()) {
@@ -175,9 +175,7 @@ void Sword::update() {
 					m_player.resetAnimation(12, m_spinCurrentFrame);
 					m_player.startAnimation(12);
 				} else {
-					m_player.stateManager().setNextState([](){
-						return new StandingState;
-					});
+					m_player.setNextState<StandingState>();
 				}
 			}
 			break;
@@ -207,9 +205,7 @@ void Sword::update() {
 						m_player.move(0, -3);
 					}
 					
-					m_player.stateManager().setNextState([](){
-						return new StandingState;
-					});
+					m_player.setNextState<StandingState>();
 				}
 			}
 			
@@ -295,5 +291,9 @@ void Sword::collisionAction(MapObject &object) {
 			}
 		}
 	}
+}
+
+void Sword::updateOwnerNextState() {
+	m_player.setNextState<SwordState>();
 }
 

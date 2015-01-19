@@ -1,6 +1,5 @@
 ===== CLEANING =====
 - Remove managers
-- Add a better state management for Characters
 - A unique view for maps (Map::view)
 	=> Model matrix
 	=> Class "Drawable"? Ok, but it's drawn by what?

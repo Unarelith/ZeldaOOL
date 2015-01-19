@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
@@ -31,6 +31,8 @@ class Sword : public Weapon {
 		void draw();
 		
 		void collisionAction(MapObject &object);
+		
+		void updateOwnerNextState() override;
 		
 		enum State {
 			Swinging,

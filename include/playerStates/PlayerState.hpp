@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  ICharacterState.hpp
+ *       Filename:  PlayerState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  21/10/2014 18:25:48
+ *        Created:  15/09/2014 22:24:24
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,22 +15,20 @@
  *
  * =====================================================================================
  */
-#ifndef ICHARACTERSTATE_HPP_
-#define ICHARACTERSTATE_HPP_
+#ifndef PLAYERSTATE_HPP_
+#define PLAYERSTATE_HPP_
 
-#include <functional>
+#include "CharacterState.hpp"
+#include "Player.hpp"
 
-class ICharacterState {
+class PlayerState : public CharacterState<Player> {
 	public:
-		virtual ~ICharacterState() {}
+		PlayerState();
+		virtual ~PlayerState();
 		
 		virtual void update() = 0;
 		
 		virtual void render() = 0;
-		
-		virtual bool canStartMapTransition() = 0;
-		
-		typedef std::function<ICharacterState*(void)> StateTransition;
 };
 
-#endif // ICHARACTERSTATE_HPP_
+#endif // PLAYERSTATE_HPP_

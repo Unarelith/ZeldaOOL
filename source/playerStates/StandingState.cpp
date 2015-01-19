@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
@@ -23,19 +23,19 @@
 void StandingState::update() {
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)
 	&& m_character.inventory().weaponA() != nullptr) {
-		setNextState(m_character.inventory().weaponA()->playerStateTransition());
+		m_character.inventory().weaponA()->updateOwnerNextState();
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::B)
 	&& m_character.inventory().weaponB() != nullptr) {
-		setNextState(m_character.inventory().weaponB()->playerStateTransition());
+		m_character.inventory().weaponB()->updateOwnerNextState();
 	}
 	
 	if(Keyboard::isKeyPressed(Keyboard::Left)
 	|| Keyboard::isKeyPressed(Keyboard::Right)
 	|| Keyboard::isKeyPressed(Keyboard::Up)
 	|| Keyboard::isKeyPressed(Keyboard::Down)) {
-		setNextState([]{ return new MovingState; });
+		setNextState<MovingState>();
 	}
 }
 

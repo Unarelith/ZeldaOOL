@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
@@ -34,13 +34,16 @@ class Character : public Movable {
 		
 		virtual void mapCollisionAction(float vx, float vy);
 		
-		ICharacterState::StateTransition defaultState() const { return m_defaultState; }
-		CharacterStateManager &stateManager() { return m_stateManager; }
-		
 		void updateDirection();
 		
+		template<typename StateType, typename... Args>
+		void setNextState(Args &&...args) {
+			m_stateManager.setNextState<StateType>(std::forward<Args>(args)...);
+		}
+		
+		CharacterStateManager &stateManager() { return m_stateManager; }
+		
 	protected:
-		ICharacterState::StateTransition m_defaultState{[]{return nullptr;}};
 		CharacterStateManager m_stateManager;
 };
 

@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
@@ -19,7 +19,6 @@
 #define WEAPON_HPP_
 
 #include "Enemy.hpp"
-#include "ICharacterState.hpp"
 #include "PlayerState.hpp"
 
 class Weapon : public Movable {
@@ -33,7 +32,7 @@ class Weapon : public Movable {
 		
 		u8 id() const { return m_id; }
 		
-		ICharacterState::StateTransition playerStateTransition() const { return m_playerStateTransition; }
+		virtual void updateOwnerNextState() = 0;
 		
 	protected:
 		u8 m_id;
@@ -44,8 +43,6 @@ class Weapon : public Movable {
 		Image m_icon;
 		
 		Player &m_player;
-		
-		ICharacterState::StateTransition m_playerStateTransition;
 };
 
 #endif // WEAPON_HPP_

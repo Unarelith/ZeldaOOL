@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
@@ -30,8 +30,6 @@ SwordState::SwordState() {
 	m_playerMoved = false;
 	
 	m_sword = (Sword*)WeaponManager::getWeaponByID(WeaponManager::SwordID);
-	
-	m_character.lockDirection();
 }
 
 SwordState::~SwordState() {

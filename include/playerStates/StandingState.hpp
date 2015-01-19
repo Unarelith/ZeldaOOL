@@ -1,35 +1,30 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MovingState.hpp
+ *       Filename:  StandingState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 22:25:00
+ *        Created:  15/09/2014 22:24:47
  *       Revision:  none
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
-#ifndef MOVINGSTATE_HPP_
-#define MOVINGSTATE_HPP_
+#ifndef STANDINGSTATE_HPP_
+#define STANDINGSTATE_HPP_
 
 #include "PlayerState.hpp"
 
-class MovingState : public PlayerState {
+class StandingState : public PlayerState {
 	public:
-		virtual void update();
+		void update();
 		
-		virtual void render();
-		
-		virtual bool canStartMapTransition() { return true; }
-		
-	protected:
-		bool m_directionLocked = false;
+		void render();
 };
 
-#endif // MOVINGSTATE_HPP_
+#endif // STANDINGSTATE_HPP_

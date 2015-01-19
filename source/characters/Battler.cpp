@@ -76,8 +76,6 @@ void Battler::hurt(u8 strength, s16 vx, s16 vy) {
 }
 
 void Battler::hurtAction(s16 vx, s16 vy) {
-	m_stateManager.setNextState([this, vx, vy] {
-		return new HurtState(vx, vy, m_speed);
-	});
+	setNextState<HurtState>(vx, vy, m_speed);
 }
 

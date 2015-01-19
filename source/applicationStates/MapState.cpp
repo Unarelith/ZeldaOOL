@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
@@ -81,7 +81,7 @@ void MapState::update() {
 	
 	CharacterManager::player.update();
 	
-	if(CharacterManager::player.stateManager().currentState()->canStartMapTransition()) {
+	if(CharacterManager::player.stateManager().currentState().canStartMapTransition()) {
 		if(CharacterManager::player.x() < -3) {
 			m_stateStack->push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingLeft));
 		}

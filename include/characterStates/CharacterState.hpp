@@ -18,26 +18,20 @@
 #ifndef CHARACTERSTATE_HPP_
 #define CHARACTERSTATE_HPP_
 
-#include "ICharacterState.hpp"
+#include "Character.hpp"
 
-template<typename T>
-class CharacterState : public ICharacterState {
+template<typename T = Character>
+class CharacterState : public AbstractCharacterState {
 	public:
-		CharacterState(T &character);
-		virtual ~CharacterState();
+		CharacterState(T &character) : m_character(character) {}
 		
-		virtual void update() = 0;
-		
-		virtual void render() = 0;
-		
-		virtual bool canStartMapTransition() { return false; }
-		
-		void setNextState(StateTransition stateTransition);
+		template<typename StateType, typename... Args>
+		void setNextState(Args &&...args) {
+			m_character.stateManager().setNextState<StateType>(std::forward<Args>(args)...);
+		}
 		
 	protected:
 		T &m_character;
 };
-
-#include "CharacterState.inl"
 
 #endif // CHARACTERSTATE_HPP_

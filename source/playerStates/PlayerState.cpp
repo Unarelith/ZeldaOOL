@@ -1,33 +1,26 @@
 /*
  * =====================================================================================
  *
- *       Filename:  PushingState.hpp
+ *       Filename:  PlayerState.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 22:25:14
+ *        Created:  15/09/2014 22:24:32
  *       Revision:  none
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
-#ifndef PUSHINGSTATE_HPP_
-#define PUSHINGSTATE_HPP_
+#include "CharacterManager.hpp"
+#include "PlayerState.hpp"
 
-#include "MovingState.hpp"
+PlayerState::PlayerState() : CharacterState(CharacterManager::player) {
+}
 
-class PushingState : public MovingState {
-	public:
-		PushingState();
-		~PushingState();
-		
-		void update();
-		
-		void render();
-};
+PlayerState::~PlayerState() {
+}
 
-#endif // PUSHINGSTATE_HPP_

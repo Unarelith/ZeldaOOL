@@ -1,34 +1,32 @@
 /*
  * =====================================================================================
  *
- *       Filename:  PlayerState.hpp
+ *       Filename:  AbstractCharacterState.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 22:24:24
+ *        Created:  19/01/2015 18:26:39
  *       Revision:  none
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
-#ifndef PLAYERSTATE_HPP_
-#define PLAYERSTATE_HPP_
+#ifndef ABSTRACTCHARACTERSTATE_HPP_
+#define ABSTRACTCHARACTERSTATE_HPP_
 
-#include "CharacterState.hpp"
-#include "Player.hpp"
-
-class PlayerState : public CharacterState<Player> {
+class AbstractCharacterState {
 	public:
-		PlayerState();
-		virtual ~PlayerState();
+		virtual ~AbstractCharacterState() = default;
 		
 		virtual void update() = 0;
 		
 		virtual void render() = 0;
+		
+		virtual bool canStartMapTransition() const { return false; }
 };
 
-#endif // PLAYERSTATE_HPP_
+#endif // ABSTRACTCHARACTERSTATE_HPP_

@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
@@ -28,11 +28,7 @@
 #include "WeaponManager.hpp"
 
 void Player::load() {
-	m_defaultState = []{ return new StandingState(); };
-	
 	Battler::load("characters-link", 4 * 16, 3 * 16, 16, 16, Direction::Down);
-	
-	m_battlerType = BattlerType::TypePlayer;
 	
 	// Movement
 	addAnimation({4, 0}, 110);
@@ -57,6 +53,11 @@ void Player::load() {
 	
 	setMovement<KeyboardMovement>();
 	addCollisionHandler(std::bind(&Player::mapCollisions, this));
+	
+	setNextState<StandingState>();
+	m_stateManager.updateStates();
+	
+	m_battlerType = BattlerType::TypePlayer;
 	
 	m_maxLife = 13 * 4;
 	m_life = 11 * 4;
@@ -177,7 +178,7 @@ void Player::mapCollisions() {
 	Map::currentMap->checkCollisionsFor(this);
 	
 	if(m_blocked) {
-		m_stateManager.setNextState([]{ return new PushingState(); });
+		setNextState<PushingState>();
 	}
 	
 	if(onTile(TilesData::TileType::SlowingTile)) {

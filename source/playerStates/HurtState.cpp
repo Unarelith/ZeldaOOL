@@ -17,7 +17,10 @@
  */
 #include "HurtMovement.hpp"
 #include "HurtState.hpp"
+#include "StandingState.hpp"
 #include "SoundEffect.hpp"
+
+#include "Debug.hpp"
 
 HurtState::HurtState(s16 vx, s16 vy, float speed) {
 	SoundEffect::play("linkHurt");
@@ -30,7 +33,7 @@ void HurtState::update() {
 	m_character.update(false);
 	
 	if(!m_character.hurt()) {
-		setNextState(m_character.defaultState());
+		setNextState<StandingState>();
 	}
 }
 

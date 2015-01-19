@@ -11,20 +11,16 @@
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
 #include "PushingState.hpp"
 
-PushingState::PushingState() {
-}
-
-PushingState::~PushingState() {
-}
-
 void PushingState::update() {
-	setNextState([]{ return new MovingState; });
+	if(!m_character.blocked()) {
+		setNextState<MovingState>();
+	}
 	
 	MovingState::update();
 }

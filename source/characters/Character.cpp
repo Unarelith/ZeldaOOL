@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  Deloptia
+ *        Company:  
  *
  * =====================================================================================
  */
@@ -26,8 +26,6 @@ void Character::load(const std::string &filename, u16 x, u16 y, u16 width, u16 h
 	Movable::load(filename, x, y, width, height);
 	
 	m_direction = direction;
-	
-	m_stateManager.load(this);
 }
 
 void Character::turn(bool clockwise) {
