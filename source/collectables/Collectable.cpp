@@ -15,7 +15,7 @@
  *
  * =====================================================================================
  */
-#include "CharacterManager.hpp"
+#include "Player.hpp"
 #include "Collectable.hpp"
 #include "Map.hpp"
 #include "ResourceHandler.hpp"
@@ -36,7 +36,7 @@ void Collectable::update() {
 		
 		m_y += 0.25f;
 	}
-	else if(CharacterManager::player.inCollisionWith(*this)) {
+	else if(Player::player.inCollisionWith(*this)) {
 		action();
 		
 		Map::currentMap->removeObject(*this);

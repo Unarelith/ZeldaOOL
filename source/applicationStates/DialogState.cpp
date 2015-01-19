@@ -15,7 +15,7 @@
  *
  * =====================================================================================
  */
-#include "CharacterManager.hpp"
+#include "Player.hpp"
 #include "DialogState.hpp"
 #include "Keyboard.hpp"
 #include "Map.hpp"
@@ -24,7 +24,7 @@
 DialogState::DialogState(ApplicationState *parent, const std::string &text) : ApplicationState(parent) {
 	Sprite::pause = true;
 	
-	if(CharacterManager::player.y() + 32 < 96) {
+	if(Player::player.y() + 32 < 96) {
 		m_dialog.setPosition(Dialog::Position::Bottom);
 	}
 	

@@ -38,8 +38,7 @@ void Octorok::load(u16 x, u16 y, u8 direction) {
 	addCollisionHandler(std::bind(&Enemy::mapBordersCollisions, this));
 	
 	m_maxLife = 2;
-	
-	Battler::reset();
+	m_life = m_maxLife;
 }
 
 void Octorok::update() {
@@ -50,6 +49,8 @@ void Octorok::update() {
 }
 
 void Octorok::draw() {
+	Enemy::draw();
+	
 	if(m_dead) return;
 	
 	if(m_hurt) {

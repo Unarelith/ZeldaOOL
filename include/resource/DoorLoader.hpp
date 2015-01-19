@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  WeaponManager.hpp
+ *       Filename:  DoorLoader.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  02/10/2014 18:45:14
+ *        Created:  19/01/2015 21:40:36
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,23 +15,14 @@
  *
  * =====================================================================================
  */
-#ifndef WEAPONMANAGER_HPP_
-#define WEAPONMANAGER_HPP_
+#ifndef DOORLOADER_HPP_
+#define DOORLOADER_HPP_
 
-#include "Weapon.hpp"
+#include "ResourceLoader.hpp"
 
-class WeaponManager {
+class DoorLoader : public ResourceLoader {
 	public:
-		static void init();
-		
-		static Weapon *getWeaponByID(u8 id);
-		
-		enum WeaponID {
-			SwordID
-		};
-		
-	private:
-		static std::vector<std::unique_ptr<Weapon>> weapons;
+		void load(const std::string &xmlFilename, ResourceHandler &handler);
 };
 
-#endif // WEAPONMANAGER_HPP_
+#endif // DOORLOADER_HPP_

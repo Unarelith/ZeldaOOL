@@ -1,5 +1,6 @@
 ===== CLEANING =====
-- Remove managers
+- Implement GamePad
+- Improve Object system (remove Object and improve its childs)
 - A unique view for maps (Map::view)
 	=> Model matrix
 	=> Class "Drawable"? Ok, but it's drawn by what?

@@ -25,7 +25,6 @@
 #include "Sword.hpp"
 #include "SwordState.hpp"
 #include "TilesData.hpp"
-#include "WeaponManager.hpp"
 
 s16 swordPosition[4][7][2] = {
 	{{-15,   0}, {-13,  15}, {-13,  15}, { -1,  16}, { -1,  16}, { -1,  16}, { -1,  14}},
@@ -39,8 +38,6 @@ s16 spinAttackPosition[8][2] = {
 };
 
 Sword::Sword() : Weapon("animations-sword", 1, 16, 16) {
-	m_id = WeaponManager::SwordID;
-	
 	// Swinging
 	addAnimation({0, 4, 4, 8, 8, 8}, 40);
 	addAnimation({1, 5, 5, 9, 9, 9}, 40);
@@ -294,6 +291,6 @@ void Sword::collisionAction(MapObject &object) {
 }
 
 void Sword::updateOwnerNextState() {
-	m_player.setNextState<SwordState>();
+	m_player.setNextState<SwordState>(this);
 }
 

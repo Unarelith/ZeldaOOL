@@ -20,8 +20,6 @@
 #include "StandingState.hpp"
 #include "SoundEffect.hpp"
 
-#include "Debug.hpp"
-
 HurtState::HurtState(s16 vx, s16 vy, float speed) {
 	SoundEffect::play("linkHurt");
 	

@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  DoorManager.cpp
+ *       Filename:  DoorLoader.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  06/10/2014 23:51:37
+ *        Created:  19/01/2015 21:40:42
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,14 +15,13 @@
  *
  * =====================================================================================
  */
-#include "Character.hpp"
+#include "DoorLoader.hpp"
 #include "DoorObject.hpp"
-#include "DoorManager.hpp"
 #include "Map.hpp"
 #include "XMLFile.hpp"
 
-void DoorManager::init() {
-	XMLFile doc("data/config/doors.xml");
+void DoorLoader::load(const std::string &xmlFilename, ResourceHandler &) {
+	XMLFile doc(xmlFilename);
 	
 	XMLElement *doorElement = doc.FirstChildElement("doors").FirstChildElement("door").ToElement();
 	while(doorElement) {

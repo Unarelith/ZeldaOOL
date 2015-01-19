@@ -15,10 +15,10 @@
  *
  * =====================================================================================
  */
-#include "CharacterManager.hpp"
+#include "Player.hpp"
 #include "PlayerState.hpp"
 
-PlayerState::PlayerState() : CharacterState(CharacterManager::player) {
+PlayerState::PlayerState() : CharacterState(Player::player) {
 }
 
 PlayerState::~PlayerState() {

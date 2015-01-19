@@ -15,9 +15,8 @@
  *
  * =====================================================================================
  */
-#include "AnimationManager.hpp"
 #include "Application.hpp"
-#include "CharacterManager.hpp"
+#include "Player.hpp"
 #include "Config.hpp"
 #include "Map.hpp"
 #include "ScrollingTransition.hpp"
@@ -60,7 +59,7 @@ ScrollingTransition::~ScrollingTransition() {
 }
 
 void ScrollingTransition::update() {
-	CharacterManager::player.move(m_vx * 0.15f, m_vy * 0.21f);
+	Player::player.move(m_vx * 0.15f, m_vy * 0.21f);
 	
 	Map::currentMap->view().move(-m_vx * 1.6f, -m_vy * 1.5f);
 	m_nextMap->view().move(-m_vx * 1.6f, -m_vy * 1.5f);
@@ -70,10 +69,10 @@ void ScrollingTransition::update() {
 	
 	if((m_scrolled >= WINDOW_WIDTH		 && m_vx != 0)
 	|| (m_scrolled >= WINDOW_HEIGHT - 16 && m_vy != 0)) {
-		if(m_vx < 0)      CharacterManager::player.move(m_nextMap->width() * 16, 0);
-		else if(m_vx > 0) CharacterManager::player.move(-Map::currentMap->width() * 16, 0);
-		else if(m_vy < 0) CharacterManager::player.move(0, m_nextMap->height() * 16);
-		else if(m_vy > 0) CharacterManager::player.move(0, -Map::currentMap->height() * 16);
+		if(m_vx < 0)      Player::player.move(m_nextMap->width() * 16, 0);
+		else if(m_vx > 0) Player::player.move(-Map::currentMap->width() * 16, 0);
+		else if(m_vy < 0) Player::player.move(0, m_nextMap->height() * 16);
+		else if(m_vy > 0) Player::player.move(0, -Map::currentMap->height() * 16);
 		
 		Map::currentMap = m_nextMap;
 		Map::currentMap->view().setPosition(0, 16);
@@ -95,9 +94,7 @@ void ScrollingTransition::draw() {
 	
 	Map::currentMap->draw();
 	
-	AnimationManager::playAnimations();
-	
-	CharacterManager::player.draw();
+	Player::player.draw();
 	
 	View::bind(nullptr);
 	

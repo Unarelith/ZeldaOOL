@@ -15,7 +15,7 @@
  *
  * =====================================================================================
  */
-#include "CharacterManager.hpp"
+#include "Player.hpp"
 #include "HeartCollectable.hpp"
 #include "SoundEffect.hpp"
 
@@ -26,6 +26,6 @@ HeartCollectable::HeartCollectable(float x, float y) {
 void HeartCollectable::action() {
 	SoundEffect::play("getHeart");
 	
-	CharacterManager::player.addHearts(1);
+	Player::player.addHearts(1);
 }
 

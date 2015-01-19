@@ -24,10 +24,18 @@ class GrassObject : public Object {
 	public:
 		GrassObject(float x, float y, bool lowGrass = false);
 		
+		void reset(Map &map);
+		
+		void draw();
+		
 		void onEvent(u8 event);
 		
 	private:
-		bool m_lowGrass;
+		Sprite m_grassDestroy{"animations-grassDestroy", 32, 32};
+		
+		bool m_cutted = false;
+		
+		bool m_lowGrass = false;
 };
 
 #endif // GRASSOBJECT_HPP_

@@ -15,46 +15,34 @@
  *
  * =====================================================================================
  */
-#include <cmath>
-
-#include "AnimationManager.hpp"
 #include "BackgroundMusic.hpp"
-#include "CharacterManager.hpp"
 #include "ChestObject.hpp"
 #include "DialogState.hpp"
-#include "DoorManager.hpp"
+#include "DoorLoader.hpp"
 #include "DoorTransition.hpp"
-#include "EffectManager.hpp"
 #include "Keyboard.hpp"
 #include "MapLoader.hpp"
 #include "MapState.hpp"
 #include "MenuState.hpp"
 #include "Octorok.hpp"
+#include "Player.hpp"
 #include "ResourceHandler.hpp"
 #include "ScrollingTransition.hpp"
 #include "SoundEffect.hpp"
 #include "TilesetLoader.hpp"
 #include "TransitionState.hpp"
-#include "WeaponManager.hpp"
 
 #include "HeartCollectable.hpp"
 #include "KeyboardMovement.hpp"
 
 MapState::MapState() {
-	WeaponManager::init();
-	
-	CharacterManager::player.load();
-	
 	ResourceHandler::getInstance().addType("data/config/tilesets.xml", TilesetLoader());
 	ResourceHandler::getInstance().addType("data/config/maps.xml", MapLoader());
+	ResourceHandler::getInstance().addType("data/config/doors.xml", DoorLoader());
 	
 	Map::currentMap = &Map::getMap(0, 0, 0);
 	
-	DoorManager::init();
-	
-	EffectManager::init();
-	
-	AnimationManager::init();
+	Player::player.load();
 	
 	Object &button = Map::currentMap->addObject<Object>(7 * 16, 2 * 16);
 	
@@ -79,19 +67,19 @@ MapState::MapState() {
 void MapState::update() {
 	Map::currentMap->update();
 	
-	CharacterManager::player.update();
+	Player::player.update();
 	
-	if(CharacterManager::player.stateManager().currentState().canStartMapTransition()) {
-		if(CharacterManager::player.x() < -3) {
+	if(Player::player.stateManager().currentState().canStartMapTransition()) {
+		if(Player::player.x() < -3) {
 			m_stateStack->push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingLeft));
 		}
-		else if(CharacterManager::player.x() + 13 > Map::currentMap->width() * 16) {
+		else if(Player::player.x() + 13 > Map::currentMap->width() * 16) {
 			m_stateStack->push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingRight));
 		}
-		else if(CharacterManager::player.y() < -1) {
+		else if(Player::player.y() < -1) {
 			m_stateStack->push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingUp));
 		}
-		else if(CharacterManager::player.y() + 15 > Map::currentMap->height() * 16) {
+		else if(Player::player.y() + 15 > Map::currentMap->height() * 16) {
 			m_stateStack->push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingDown));
 		}
 	}
@@ -112,11 +100,7 @@ void MapState::render() {
 	
 	Map::currentMap->draw();
 	
-	AnimationManager::playAnimations();
-	
-	CharacterManager::player.draw();
-	
-	EffectManager::drawEffects(CharacterManager::player);
+	Player::player.draw();
 	
 	View::bind(nullptr);
 	

@@ -24,8 +24,10 @@
 #include "Player.hpp"
 #include "PushingState.hpp"
 #include "StandingState.hpp"
+#include "Sword.hpp"
 #include "TilesData.hpp"
-#include "WeaponManager.hpp"
+
+Player Player::player;
 
 void Player::load() {
 	Battler::load("characters-link", 4 * 16, 3 * 16, 16, 16, Direction::Down);
@@ -57,15 +59,13 @@ void Player::load() {
 	setNextState<StandingState>();
 	m_stateManager.updateStates();
 	
-	m_battlerType = BattlerType::TypePlayer;
-	
 	m_maxLife = 13 * 4;
 	m_life = 11 * 4;
 	
-	//m_hitbox = IntRect(3, 7, 10, 9);
 	m_hitbox = IntRect(4, 5, 8, 10);
 	
-	m_inventory.setWeaponA(WeaponManager::getWeaponByID(WeaponManager::SwordID));
+	Vector2i swordPos = m_inventory.addWeapon<Sword>();
+	m_inventory.setWeaponA(swordPos);
 	
 	m_inDoor = false;
 }
@@ -91,6 +91,8 @@ void Player::update(bool states) {
 
 void Player::draw() {
 	m_stateManager.render();
+	
+	MapObject::draw();
 }
 
 void Player::collisionAction(MapObject &object) {
@@ -193,16 +195,6 @@ void Player::mapCollisions() {
 		m_vy /= 4;
 		m_vy *= 3;
 	}
-	
-	if(onTile(TilesData::TileType::Button)) {
-		//Map::currentMap->sendEvent(Map::EventType::ButtonPressed);
-	}
-	
-	//if(MapHelper::onDoor(m_x + 8, m_y + 8) && !m_inDoor) {
-		//m_inDoor = true;
-		
-		//Map::currentMap->sendEvent(Map::EventType::ChangeMap, this, Vector2i(8, 8));
-	//}
 	
 	//if(!MapHelper::onDoor(m_x +  2, m_y +  2)
 	//&& !MapHelper::onDoor(m_x + 14, m_y +  2)

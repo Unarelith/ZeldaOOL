@@ -22,12 +22,14 @@
 
 class Enemy : public Battler {
 	public:
-		Enemy();
-		Enemy(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
+		Enemy() = default;
+		Enemy(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
-		void load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
+		void load(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
 		virtual void reset(Map &) override;
+		
+		virtual void draw();
 		
 		void mapBordersCollisions();
 		
@@ -41,6 +43,8 @@ class Enemy : public Battler {
 		bool m_dead = false;
 		
 	private:
+		Sprite m_destroyAnimation{"animations-monsterDestroy", 32, 32};
+		
 		u8 m_strength = 1;
 };
 

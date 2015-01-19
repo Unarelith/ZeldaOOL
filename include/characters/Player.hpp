@@ -35,6 +35,8 @@ class Player : public Battler {
 		
 		Inventory &inventory() { return m_inventory; }
 		
+		static Player player;
+		
 	private:
 		Inventory m_inventory;
 		

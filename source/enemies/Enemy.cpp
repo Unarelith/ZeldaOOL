@@ -15,27 +15,32 @@
  *
  * =====================================================================================
  */
-#include "AnimationManager.hpp"
 #include "Enemy.hpp"
 #include "Map.hpp"
 #include "SoundEffect.hpp"
 
-Enemy::Enemy() {
-	m_battlerType = BattlerType::TypeEnemy;
-}
-
-Enemy::Enemy(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
+Enemy::Enemy(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction) : Enemy() {
 	load(filename, x, y, width, height, direction);
 }
 
-void Enemy::load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
+void Enemy::load(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
 	Battler::load(filename, x, y, width, height, direction);
+	
+	m_destroyAnimation.addAnimation({0, 1, 0, 1, 0, 2, 3, 3, 2, 2, 3, 3, 2, 4, 4, 5, 5, 4, 6, 7}, 10);
 }
 
-void Enemy::reset(Map &) {
-	Battler::reset();
+void Enemy::reset(Map &map) {
+	Battler::reset(map);
+	
+	m_destroyAnimation.resetAnimation(0);
 	
 	m_dead = false;
+}
+
+void Enemy::draw() {
+	if(m_dead && !m_destroyAnimation.animationAtEnd(0)) {
+		m_destroyAnimation.playAnimation(m_x - 8, m_y - 8, 0);
+	}
 }
 
 void Enemy::mapBordersCollisions() {
@@ -50,8 +55,6 @@ void Enemy::mapBordersCollisions() {
 void Enemy::checkDeath() {
 	if(m_life == 0) {
 		m_dead = true;
-		
-		AnimationManager::addMonsterDestroyAnimation(m_x, m_y);
 		
 		SoundEffect::play("enemyDie");
 		

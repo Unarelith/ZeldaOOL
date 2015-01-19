@@ -27,11 +27,11 @@ class Battler : public Character {
 		
 		void load(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
-		void reset();
+		virtual void reset(Map &) override;
 		
-		virtual void update();
+		virtual void update() override;
 		
-		void drawFrame(float x, float y, u16 frame);
+		void drawFrame(float x, float y, u16 frame) override;
 		
 		void addHearts(float hearts);
 		void removeLife(u16 life);
@@ -39,21 +39,12 @@ class Battler : public Character {
 		void hurt(u8 strength, s16 vx, s16 vy);
 		virtual void hurtAction(s16 vx, s16 vy);
 		
-		enum BattlerType {
-			TypeEnemy,
-			TypePlayer
-		};
-		
-		BattlerType battlerType() const { return m_battlerType; }
-		
 		s8 maxLife() const { return m_maxLife; }
 		s8 life() const { return m_life; }
 		
 		bool hurt() const { return m_hurt; }
 		
 	protected:
-		BattlerType m_battlerType;
-		
 		s8 m_maxLife = 1;
 		s8 m_life = 1;
 		

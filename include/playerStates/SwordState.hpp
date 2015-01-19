@@ -23,7 +23,7 @@
 
 class SwordState : public MovingState {
 	public:
-		SwordState();
+		SwordState(Sword *sword);
 		~SwordState();
 		
 		void move(double dx, double dy);

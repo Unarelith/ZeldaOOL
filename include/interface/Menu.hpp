@@ -22,19 +22,16 @@
 
 class Menu {
 	public:
-		Menu();
-		~Menu();
-		
 		void update();
 		
 		void draw();
 		
 	private:
-		Image m_background;
-		Image m_cursor;
+		Image m_background{"interface-menuBackground"};
+		Image m_cursor{"interface-menuCursor"};
 		
-		s8 m_cursorX;
-		s8 m_cursorY;
+		s8 m_cursorX = 0;
+		s8 m_cursorY = 0;
 };
 
 #endif // MENU_HPP_

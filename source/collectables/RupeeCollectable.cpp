@@ -15,7 +15,7 @@
  *
  * =====================================================================================
  */
-#include "CharacterManager.hpp"
+#include "Player.hpp"
 #include "RupeeCollectable.hpp"
 #include "SoundEffect.hpp"
 
@@ -36,6 +36,6 @@ void RupeeCollectable::action() {
 		case 30: SoundEffect::play("getRupees5"); break;
 	}
 	
-	CharacterManager::player.inventory().addRupees(m_rupees);
+	Player::player.inventory().addRupees(m_rupees);
 }
 

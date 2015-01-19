@@ -29,7 +29,11 @@ class Map;
 class MapObject : public Sprite {
 	public:
 		MapObject() = default;
+		MapObject(const MapObject &) = delete;
 		MapObject(const std::string &textureName, float x, float y, u16 width, u16 height);
+		virtual ~MapObject() = default;
+		
+		MapObject &operator=(const MapObject &) = delete;
 		
 		void load(const std::string &textureName, float x, float y, u16 width, u16 height);
 		
@@ -43,12 +47,12 @@ class MapObject : public Sprite {
 		
 		virtual void reset(Map &) {}
 		virtual void update() {}
-		virtual void draw() {}
+		virtual void draw();
 		
 		virtual void collisionAction(MapObject &) {}
 		
 		template<typename T>
-		bool checkType() { return dynamic_cast<T*>(this) != nullptr; }
+		bool checkType() { return typeid(*this) == typeid(T) || dynamic_cast<T*>(this) != nullptr; }
 		
 		float x() const { return m_x; }
 		float y() const { return m_y; }
@@ -68,22 +72,8 @@ class MapObject : public Sprite {
 	private:
 		std::vector<std::function<void(void)>> m_collisionHandlers;
 		
-		// Optimization purpose
-		// std::map<std::pair<std::type_index, std::type_index>, bool> m_typeCasts;
+		Image m_grassEffect;
+		Sprite m_lowWaterEffect;
 };
-
-/*
-template<typename T>
-bool MapObject::checkType() {
-	std::pair<std::type_index, std::type_index> types{typeid(T), typeid(*this)};
-	
-	if(m_typeCasts.find(types) == m_typeCasts.end()) {
-		m_typeCasts[types] = types.first == types.second
-						  || dynamic_cast<T*>(this) != nullptr;
-	}
-	
-	return m_typeCasts[types];
-}
-*/
 
 #endif // MAPOBJECT_HPP_

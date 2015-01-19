@@ -16,7 +16,7 @@
  * =====================================================================================
  */
 #include "Application.hpp"
-#include "CharacterManager.hpp"
+#include "Player.hpp"
 #include "MapHelper.hpp"
 #include "Map.hpp"
 #include "TilesData.hpp"

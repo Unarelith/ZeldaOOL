@@ -48,5 +48,7 @@ void Movable::draw() {
 	} else {
 		drawFrame(m_x, m_y, m_direction);
 	}
+	
+	MapObject::draw();
 }
 

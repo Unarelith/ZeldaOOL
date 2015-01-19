@@ -16,10 +16,10 @@
  * =====================================================================================
  */
 #include "BackgroundMusic.hpp"
-#include "CharacterManager.hpp"
 #include "Config.hpp"
 #include "DoorTransition.hpp"
 #include "Map.hpp"
+#include "Player.hpp"
 #include "StandingState.hpp"
 
 DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer) {
@@ -54,7 +54,7 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 		BackgroundMusic::play("underground");
 	}
 	
-	CharacterManager::player.setNextState<StandingState>();
+	Player::player.setNextState<StandingState>();
 	
 	Sprite::pause = true;
 }
@@ -74,8 +74,8 @@ void DoorTransition::update() {
 	}
 	
 	if(m_timer.time() > 250) {
-		CharacterManager::player.setPosition(m_playerX, m_playerY);
-		CharacterManager::player.setDirection(m_playerDirection);
+		Player::player.setPosition(m_playerX, m_playerY);
+		Player::player.setDirection(m_playerDirection);
 		
 		m_rect1.move(-1.5, 0);
 		m_rect2.move(1.5, 0);
@@ -90,7 +90,7 @@ void DoorTransition::draw() {
 		
 		View::bind(&Map::currentMap->view());
 		
-		CharacterManager::player.draw();
+		Player::player.draw();
 		
 		View::bind(nullptr);
 		

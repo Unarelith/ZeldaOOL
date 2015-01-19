@@ -30,15 +30,11 @@ class Weapon : public Movable {
 		
 		Image &icon() { return m_icon; }
 		
-		u8 id() const { return m_id; }
-		
 		virtual void updateOwnerNextState() = 0;
 		
 	protected:
-		u8 m_id;
-		
 		u8 m_level = 0;
-		u8 m_strength = 0;
+		u8 m_strength = 1;
 		
 		Image m_icon;
 		

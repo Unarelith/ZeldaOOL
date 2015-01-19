@@ -18,45 +18,42 @@
 #ifndef INVENTORY_HPP_
 #define INVENTORY_HPP_
 
-#include <vector>
+#include <memory>
+#include <map>
 
 #include "Types.hpp"
 #include "Vector2.hpp"
 
-// Player needs Inventory
-// Inventory needs Weapon
-// Weapon needs Player
 class Weapon;
 
 class Inventory {
 	public:
-		Inventory();
-		~Inventory();
+		template<typename WeaponType, typename... Args>
+		Vector2i addWeapon(Args &&...args) {
+			Vector2i position = findEmptyPosition();
+			m_weapons.emplace(position, std::make_shared<WeaponType>(std::forward<Args>(args)...));
+			return position;
+		}
+		
+		Vector2i findEmptyPosition();
+		
+		void swapWeapons(Vector2i pos1, Vector2i pos2);
+		
+		Weapon *getWeaponByPosition(Vector2i position) { return m_weapons[position].get(); }
+		
+		Weapon *weaponA() { return getWeaponByPosition(Vector2i('A', 'A')); }
+		Weapon *weaponB() { return getWeaponByPosition(Vector2i('B', 'B')); }
+		
+		void setWeaponA(Vector2i position) { swapWeapons(position, Vector2i('A', 'A')); }
+		void setWeaponB(Vector2i position) { swapWeapons(position, Vector2i('B', 'B')); }
 		
 		void addRupees(u16 rupees);
-		
-		void addWeapon(u8 weaponID, Vector2i position = Vector2i(-1, -1));
-		
-		Weapon *getWeaponByPosition(Vector2i position);
-		
-		void removeWeaponByPosition(Vector2i position);
-		void removeWeaponByID(u8 id);
-		
 		u16 rupees() const { return m_rupees; }
 		
-		Weapon *weaponA() const { return m_weaponA; }
-		Weapon *weaponB() const { return m_weaponB; }
-		
-		void setWeaponA(Weapon *weapon) { m_weaponA = weapon; }
-		void setWeaponB(Weapon *weapon) { m_weaponB = weapon; }
-		
 	private:
-		u16 m_rupees;
+		std::map<Vector2i, std::shared_ptr<Weapon>> m_weapons;
 		
-		std::vector<std::pair<Weapon *, Vector2i>> m_weapons;
-		
-		Weapon *m_weaponA;
-		Weapon *m_weaponB;
+		u16 m_rupees = 197;
 };
 
 #endif // INVENTORY_HPP_

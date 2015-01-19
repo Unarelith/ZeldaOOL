@@ -26,7 +26,7 @@ void Battler::load(const std::string &filename, u16 x, u16 y, u16 width, u16 hei
 	Character::load(filename, x, y, width, height, direction);
 }
 
-void Battler::reset() {
+void Battler::reset(Map &) {
 	m_life = m_maxLife;
 	
 	m_hurt = false;

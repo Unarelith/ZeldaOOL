@@ -22,16 +22,13 @@
 
 class StatsBar {
 	public:
-		StatsBar();
-		~StatsBar();
-		
 		void draw();
 		
 	private:
-		Image m_background;
+		Image m_background{"interface-stats"};
 		
-		Sprite m_hearts;
-		Sprite m_numbers;
+		Sprite m_hearts{"interface-hearts", 7, 7};
+		Sprite m_numbers{"interface-numbers", 7, 6};
 };
 
 #endif // STATSBAR_HPP_

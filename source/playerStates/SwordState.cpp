@@ -15,21 +15,19 @@
  *
  * =====================================================================================
  */
-#include "AnimationManager.hpp"
 #include "Keyboard.hpp"
 #include "MapHelper.hpp"
 #include "Map.hpp"
 #include "SoundEffect.hpp"
 #include "SwordState.hpp"
 #include "TilesData.hpp"
-#include "WeaponManager.hpp"
 
-SwordState::SwordState() {
+SwordState::SwordState(Sword *sword) {
 	SoundEffect::play("swordSlash1");
 	
 	m_playerMoved = false;
 	
-	m_sword = (Sword*)WeaponManager::getWeaponByID(WeaponManager::SwordID);
+	m_sword = sword;
 }
 
 SwordState::~SwordState() {

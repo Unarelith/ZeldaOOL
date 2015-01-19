@@ -17,6 +17,7 @@
  */
 #include "MapHelper.hpp"
 #include "MapObject.hpp"
+#include "TilesData.hpp"
 
 MapObject::MapObject(const std::string &textureName, float x, float y, u16 width, u16 height) : Sprite(textureName, width, height) {
 	load(textureName, x, y, width, height);
@@ -32,6 +33,11 @@ void MapObject::load(const std::string &textureName, float x, float y, u16 width
 	m_height = height;
 	
 	m_hitbox.reset(0, 0, m_width, m_height);
+	
+	m_grassEffect.load("animations-grassEffect");
+	
+	m_lowWaterEffect.load("animations-lowWaterEffect", 16, 16);
+	m_lowWaterEffect.addAnimation({0, 1, 2}, 100);
 }
 
 bool MapObject::inCollisionWith(const MapObject &object) const {
@@ -55,5 +61,15 @@ bool MapObject::onTile(u16 tile) const {
 		&&  MapHelper::isTile(m_x + 7, m_y + 11, tile) 
 		&&  MapHelper::isTile(m_x + 6, m_y + 12, tile) 
 		&&  MapHelper::isTile(m_x + 7, m_y + 12, tile));
+}
+
+void MapObject::draw() {
+	if(onTile(TilesData::TileType::LowGrassTile)) {
+		m_grassEffect.draw(m_x, m_y);
+	}
+	
+	if(onTile(TilesData::TileType::LowWaterTile)) {
+		m_lowWaterEffect.playAnimation(m_x, m_y + 8, 0);
+	}
 }
 

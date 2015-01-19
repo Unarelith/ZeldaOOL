@@ -17,7 +17,7 @@
  */
 #include "Application.hpp"
 #include "Config.hpp"
-#include "CharacterManager.hpp"
+#include "Player.hpp"
 #include "GrassObject.hpp"
 #include "Map.hpp"
 #include "MapLoader.hpp"
@@ -116,7 +116,7 @@ MapObject *Map::getObject(float x, float y) {
 
 void Map::checkCollisionsFor(MapObject *object) {
 	for(auto &it : m_objects) {
-		MapObject *object2 = (it && it.get() != object) ? it.get() : &CharacterManager::player;
+		MapObject *object2 = (it && it.get() != object) ? it.get() : &Player::player;
 		
 		if(object->inCollisionWith(*object2)) {
 			object->collisionAction(*object2);

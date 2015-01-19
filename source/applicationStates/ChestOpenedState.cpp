@@ -15,7 +15,7 @@
  *
  * =====================================================================================
  */
-#include "CharacterManager.hpp"
+#include "Player.hpp"
 #include "ChestOpenedState.hpp"
 #include "DialogState.hpp"
 #include "Map.hpp"

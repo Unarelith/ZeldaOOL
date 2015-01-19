@@ -21,12 +21,12 @@
 template<typename T>
 class Vector2 {
 	public:
-		Vector2() {}
 		Vector2(T _x, T _y) { x = _x; y = _y; }
-		~Vector2() {}
 		
 		bool operator==(const Vector2 &vector2) const { return x == vector2.x && y == vector2.y; }
 		bool operator!=(const Vector2 &vector2) const { return !operator==(vector2); }
+		bool operator<(const Vector2 &vector2) const { return x < vector2.x && y < vector2.y; }
+		bool operator>(const Vector2 &vector2) const { return x > vector2.x && y > vector2.y; }
 		
 		T x;
 		T y;
