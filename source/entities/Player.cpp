@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "DoorObject.hpp"
 #include "Keyboard.hpp"
 #include "KeyboardMovement.hpp"
 #include "MapHelper.hpp"
@@ -100,6 +101,15 @@ void Player::collisionAction(MapObject &object) {
 		
 		hurt(enemy.strength(), vx, vy);
 	}
+	else if(object.checkType<DoorObject>() && !m_inDoor) {
+		DoorObject &doorObject = static_cast<DoorObject&>(object);
+		
+		if(MapHelper::onDoor(m_x + 8, m_y + 8)) {
+			m_inDoor = true;
+			
+			doorObject.onEvent(Map::EventType::ChangeMap);
+		}
+	}
 }
 
 void Player::mapCollisions() {
@@ -180,11 +190,11 @@ void Player::mapCollisions() {
 		//Map::currentMap->sendEvent(Map::EventType::ButtonPressed);
 	}
 	
-	if(MapHelper::onDoor(m_x + 8, m_y + 8) && !m_inDoor) {
-		m_inDoor = true;
+	//if(MapHelper::onDoor(m_x + 8, m_y + 8) && !m_inDoor) {
+		//m_inDoor = true;
 		
 		//Map::currentMap->sendEvent(Map::EventType::ChangeMap, this, Vector2i(8, 8));
-	}
+	//}
 	
 	//if(!MapHelper::onDoor(m_x +  2, m_y +  2)
 	//&& !MapHelper::onDoor(m_x + 14, m_y +  2)
