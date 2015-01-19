@@ -22,21 +22,20 @@
 
 Enemy::Enemy() {
 	m_battlerType = BattlerType::TypeEnemy;
-	
-	m_strength = 1;
-	
-	m_dead = false;
 }
 
 Enemy::Enemy(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
 	load(filename, x, y, width, height, direction);
 }
 
-Enemy::~Enemy() {
-}
-
 void Enemy::load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
 	Battler::load(filename, x, y, width, height, direction);
+}
+
+void Enemy::reset(Map &) {
+	Battler::reset();
+	
+	m_dead = false;
 }
 
 void Enemy::mapBordersCollisions() {
@@ -53,6 +52,7 @@ void Enemy::checkDeath() {
 		m_dead = true;
 		
 		AnimationManager::addMonsterDestroyAnimation(m_x, m_y);
+		
 		SoundEffect::play("enemyDie");
 		
 		m_life = m_maxLife;

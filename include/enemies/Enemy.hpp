@@ -24,15 +24,10 @@ class Enemy : public Battler {
 	public:
 		Enemy();
 		Enemy(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
-		virtual ~Enemy();
 		
 		void load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
-		virtual void reset() = 0;
-		
-		virtual void update() = 0;
-		
-		virtual void draw() = 0;
+		virtual void reset(Map &) override;
 		
 		void mapBordersCollisions();
 		
@@ -43,10 +38,10 @@ class Enemy : public Battler {
 		bool isDead() const { return m_dead; }
 		
 	protected:
-		bool m_dead;
+		bool m_dead = false;
 		
 	private:
-		u8 m_strength;
+		u8 m_strength = 1;
 };
 
 #endif // ENEMY_HPP_

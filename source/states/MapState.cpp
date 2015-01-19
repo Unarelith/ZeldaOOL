@@ -58,21 +58,18 @@ MapState::MapState() {
 	
 	Object &button = Map::currentMap->addObject<Object>(7 * 16, 2 * 16);
 	
-	//button->setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
-	//	SoundEffect::play("chest");
-	//	
-	//	Map::currentMap->setTile(obj->x() / 16, obj->y() / 16, 8);
-	//	
-	//	Map::currentMap->setTile(7, 6, 36);
-	//	Map::currentMap->setTile(8, 6, 36);
-	//});
-	
-	Map::getMap(0, 0, 0).addObject<HeartCollectable>(8 * 16, 2 * 16);
+	button.setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
+		SoundEffect::play("chest");
+		
+		Map::currentMap->setTile(obj->x() / 16, obj->y() / 16, 8);
+		
+		Map::currentMap->setTile(7, 6, 36);
+		Map::currentMap->setTile(8, 6, 36);
+	});
 	
 	Map::getMap(0, 0, 1).addObject<ChestObject>(1 * 16, 5 * 16);
 	Map::getMap(2, 0, 0).addObject<ChestObject>(5 * 16, 2 * 16);
 	
-	Map::getMap(0, 0, 0).addObject<Octorok>(8 * 16, 5 * 16, Character::Direction::Right);
 	Map::getMap(0, 1, 0).addObject<Octorok>(5 * 16, 4 * 16, Character::Direction::Right);
 	Map::getMap(2, 0, 0).addObject<Octorok>(5 * 16, 3 * 16, Character::Direction::Right);
 	

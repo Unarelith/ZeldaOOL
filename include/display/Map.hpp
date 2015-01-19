@@ -50,6 +50,7 @@ class Map : public AnimatedMap {
 		void removeObject(MapObject &object);
 		
 		bool objectAtPosition(const MapObject &obj, float x, float y) const;
+		MapObject *getObject(float x, float y);
 		
 		void checkCollisionsFor(MapObject *object);
 		

@@ -49,7 +49,11 @@ class Movable : public MapObject {
 		void setVelocity(float vx, float vy) { m_vx = vx; m_vy = vy; }
 		
 		u8 direction() const { return m_direction; }
-		void setDirection(u8 direction) { m_direction = direction; }
+		void setDirection(u8 direction) { if(!m_directionLocked) m_direction = direction; }
+		
+		bool directionLocked() const { return m_directionLocked; }
+		void lockDirection() { m_directionLocked = true; }
+		void unlockDirection() { m_directionLocked = false; }
 		
 		bool blocked() const { return m_blocked; }
 		
@@ -71,6 +75,7 @@ class Movable : public MapObject {
 		float m_vy = 0;
 		
 		u8 m_direction = Direction::Down;
+		bool m_directionLocked = false;
 		
 		bool m_blocked = false;
 		

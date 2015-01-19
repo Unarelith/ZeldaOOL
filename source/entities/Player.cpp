@@ -15,6 +15,7 @@
  *
  * =====================================================================================
  */
+#include "ChestObject.hpp"
 #include "DoorObject.hpp"
 #include "Keyboard.hpp"
 #include "KeyboardMovement.hpp"
@@ -73,7 +74,10 @@ void Player::update(bool states) {
 	
 	if(m_direction == Direction::Up && MapHelper::isTile(m_x + 8, m_y + 4, TilesData::TileType::ClosedChest)) {
 		if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
-			//Map::currentMap->sendEvent(Map::EventType::ChestOpened, this, Vector2i(8, -2));
+			ChestObject *chestObject = static_cast<ChestObject*>(Map::currentMap->getObject(m_x + 8, m_y - 2));
+			if(chestObject) {
+				chestObject->onEvent(Map::EventType::ChestOpened);
+			}
 		}
 	}
 	
@@ -101,13 +105,16 @@ void Player::collisionAction(MapObject &object) {
 		
 		hurt(enemy.strength(), vx, vy);
 	}
-	else if(object.checkType<DoorObject>() && !m_inDoor) {
-		DoorObject &doorObject = static_cast<DoorObject&>(object);
+	else if(object.checkType<Object>()) {
+		Object &obj = static_cast<Object&>(object);
 		
-		if(MapHelper::onDoor(m_x + 8, m_y + 8)) {
+		if(onTile(TilesData::TileType::Button)) {
+			obj.onEvent(Map::EventType::ButtonPressed);
+		}
+		else if(MapHelper::onDoor(m_x + 8, m_y + 8) && !m_inDoor) {
 			m_inDoor = true;
 			
-			doorObject.onEvent(Map::EventType::ChangeMap);
+			obj.onEvent(Map::EventType::ChangeMap);
 		}
 	}
 }

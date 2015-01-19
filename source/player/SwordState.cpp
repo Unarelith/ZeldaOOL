@@ -31,11 +31,11 @@ SwordState::SwordState() {
 	
 	m_sword = (Sword*)WeaponManager::getWeaponByID(WeaponManager::SwordID);
 	
-	//Map::currentMap->addObject(*m_sword);
+	m_character.lockDirection();
 }
 
 SwordState::~SwordState() {
-	//Map::currentMap->removeObject(*m_sword);
+	m_character.unlockDirection();
 	
 	m_sword->reset();
 }
@@ -118,14 +118,6 @@ void SwordState::update() {
 		}
 		else if(m_sword->animationCurrentFrame(8) & 1) {
 			m_playerMoved = false;
-		}
-	}
-	
-	if((m_sword->state() == Sword::State::Swinging && m_sword->animationCurrentFrame(m_character.direction()) > 2)
-	||  m_sword->state() == Sword::State::SpinAttack) {
-		if((MapHelper::isTile(m_sword->x() + 8, m_sword->y() + 8, TilesData::TileType::GrassTile))
-		|| (MapHelper::isTile(m_sword->x() + 8, m_sword->y() + 8, TilesData::TileType::LowGrassTile))) {
-			//Map::currentMap->sendEvent(Map::EventType::GrassCutted, m_sword, Vector2i(8, 8));
 		}
 	}
 }

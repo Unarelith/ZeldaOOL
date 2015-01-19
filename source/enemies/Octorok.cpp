@@ -33,25 +33,20 @@ void Octorok::load(u16 x, u16 y, u8 direction) {
 	addAnimation({7, 3}, 150);
 	
 	setMovement<OctorokMovement>();
+	
 	addCollisionHandler(std::bind(&Character::mapCollisions, this));
 	addCollisionHandler(std::bind(&Enemy::mapBordersCollisions, this));
 	
 	m_maxLife = 2;
 	
-	reset();
-}
-
-void Octorok::reset() {
 	Battler::reset();
-	
-	m_dead = false;
 }
 
 void Octorok::update() {
-	if(m_dead) return;
-	
-	Battler::update();
-	Movable::update();
+	if(!m_dead) {
+		Battler::update();
+		Movable::update();
+	}
 }
 
 void Octorok::draw() {
@@ -69,8 +64,8 @@ void Octorok::draw() {
 }
 
 void Octorok::hurtAction(s16 vx, s16 vy) {
-	setMovement<HurtMovement>(vx, vy, 0.8);
-	
 	SoundEffect::play("enemyHit");
+	
+	setMovement<HurtMovement>(vx, vy, 0.8);
 }
 

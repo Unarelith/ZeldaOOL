@@ -287,12 +287,11 @@ void Sword::collisionAction(MapObject &object) {
 		GrassObject &grass = static_cast<GrassObject&>(object);
 		
 		if(Map::currentMap->objectAtPosition(grass, m_x + 8, m_y + 8)) {
-			if((m_state == Sword::State::Swinging && animationCurrentFrame(m_player.direction()) > 2)
-			||  m_state == Sword::State::SpinAttack) {
-				if((MapHelper::isTile(m_x + 8, m_y + 8, TilesData::TileType::GrassTile))
-				|| (MapHelper::isTile(m_x + 8, m_y + 8, TilesData::TileType::LowGrassTile))) {
-					grass.onEvent(Map::EventType::GrassCutted);
-				}
+			if(((m_state == Sword::State::Swinging && animationCurrentFrame(m_player.direction()) > 2)
+			  || m_state == Sword::State::SpinAttack)
+			 && (MapHelper::isTile(m_x + 8, m_y + 8, TilesData::TileType::GrassTile)
+			  || MapHelper::isTile(m_x + 8, m_y + 8, TilesData::TileType::LowGrassTile))) {
+				grass.onEvent(Map::EventType::GrassCutted);
 			}
 		}
 	}

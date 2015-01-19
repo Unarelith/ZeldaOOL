@@ -27,8 +27,7 @@ void Movable::load(const std::string &textureName, float x, float y, u16 frameWi
 }
 
 void Movable::updateMovement() {
-	//if(!m_movement) throw EXCEPTION("Trying to update undefined movement");
-	if(!m_movement) return;
+	if(!m_movement) throw EXCEPTION("Trying to update undefined movement");
 	
 	m_movement->doMovement(*this);
 	

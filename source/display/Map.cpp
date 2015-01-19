@@ -103,6 +103,17 @@ bool Map::objectAtPosition(const MapObject &obj, float x, float y) const {
 	     || floor(obj.y() / 8) == floor(y / 8) - 1));
 }
 
+// FIXME: TO REMOVE, USED IN PLAYER TO GET CHESTOBJECT
+MapObject *Map::getObject(float x, float y) {
+	for(auto &it : m_objects) {
+		if(objectAtPosition(*it, x, y)) {
+			return it.get();
+		}
+	}
+	
+	return nullptr;
+}
+
 void Map::checkCollisionsFor(MapObject *object) {
 	for(auto &it : m_objects) {
 		MapObject *object2 = (it && it.get() != object) ? it.get() : &CharacterManager::player;
