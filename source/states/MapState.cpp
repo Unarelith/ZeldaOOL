@@ -37,6 +37,7 @@
 #include "TransitionState.hpp"
 #include "WeaponManager.hpp"
 
+#include "HeartCollectable.hpp"
 #include "KeyboardMovement.hpp"
 
 MapState::MapState() {
@@ -66,9 +67,12 @@ MapState::MapState() {
 	//	Map::currentMap->setTile(8, 6, 36);
 	//});
 	
+	Map::getMap(0, 0, 0).addObject<HeartCollectable>(8 * 16, 2 * 16);
+	
 	Map::getMap(0, 0, 1).addObject<ChestObject>(1 * 16, 5 * 16);
 	Map::getMap(2, 0, 0).addObject<ChestObject>(5 * 16, 2 * 16);
 	
+	Map::getMap(0, 0, 0).addObject<Octorok>(8 * 16, 5 * 16, Character::Direction::Right);
 	Map::getMap(0, 1, 0).addObject<Octorok>(5 * 16, 4 * 16, Character::Direction::Right);
 	Map::getMap(2, 0, 0).addObject<Octorok>(5 * 16, 3 * 16, Character::Direction::Right);
 	

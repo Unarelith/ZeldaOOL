@@ -18,27 +18,16 @@
 #include "Battler.hpp"
 #include "HurtState.hpp"
 
-Battler::Battler() {
-}
-
-Battler::Battler(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
+Battler::Battler(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
 	load(filename, x, y, width, height, direction);
 }
 
-Battler::~Battler() {
+void Battler::load(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
+	Character::load(filename, x, y, width, height, direction);
 }
 
 void Battler::reset() {
 	m_life = m_maxLife;
-	
-	m_hurt = false;
-}
-
-void Battler::load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
-	Character::load(filename, x, y, width, height, direction);
-	
-	m_maxLife = 1;
-	m_life = 1;
 	
 	m_hurt = false;
 }
@@ -73,7 +62,7 @@ void Battler::removeLife(u16 life) {
 	}
 }
 
-void Battler::hurt(u8 strength) {
+void Battler::hurt(u8 strength, s16 vx, s16 vy) {
 	if(!m_hurt) {
 		removeLife(strength);
 		
@@ -82,13 +71,13 @@ void Battler::hurt(u8 strength) {
 		m_hurtTimer.reset();
 		m_hurtTimer.start();
 		
-		hurtAction();
+		hurtAction(vx, vy);
 	}
 }
 
-void Battler::hurtAction() {
-	m_stateManager.setNextState([this](){
-		return new HurtState;
+void Battler::hurtAction(s16 vx, s16 vy) {
+	m_stateManager.setNextState([this, vx, vy] {
+		return new HurtState(vx, vy, m_speed);
 	});
 }
 

@@ -15,12 +15,16 @@
  *
  * =====================================================================================
  */
+#include "GrassObject.hpp"
 #include "Keyboard.hpp"
+#include "Map.hpp"
+#include "MapHelper.hpp"
 #include "PlayerState.hpp"
 #include "SoundEffect.hpp"
 #include "StandingState.hpp"
 #include "Sword.hpp"
 #include "SwordState.hpp"
+#include "TilesData.hpp"
 #include "WeaponManager.hpp"
 
 s16 swordPosition[4][7][2] = {
@@ -37,8 +41,6 @@ s16 spinAttackPosition[8][2] = {
 Sword::Sword() : Weapon("animations-sword", 1, 16, 16) {
 	m_id = WeaponManager::SwordID;
 	
-	m_state = State::Swinging;
-	
 	// Swinging
 	addAnimation({0, 4, 4, 8, 8, 8}, 40);
 	addAnimation({1, 5, 5, 9, 9, 9}, 40);
@@ -54,12 +56,7 @@ Sword::Sword() : Weapon("animations-sword", 1, 16, 16) {
 	// SpinAttack
 	addAnimation({8, 4, 10, 6, 11, 5, 9, 7}, 50);
 	
-	m_loaded = false;
-	
-	m_spinCurrentFrame = 0;
-	m_spinFrameCounter = 0;
-	
-	m_keyReleased = false;
+	addCollisionHandler([this]{ Map::currentMap->checkCollisionsFor(this); });
 	
 	m_playerStateTransition = []{ return new SwordState; };
 }
@@ -220,21 +217,37 @@ void Sword::update() {
 		default:
 			break;
 	}
-}
-
-void Sword::draw() {
+	
 	switch(m_state) {
 		case State::Swinging:
 			m_x = m_player.x() + swordPosition[m_player.direction()][animationCurrentFrame(m_player.direction())][0];
 			m_y = m_player.y() + swordPosition[m_player.direction()][animationCurrentFrame(m_player.direction())][1];
-			
-			playAnimation(m_x, m_y, m_player.direction());
 			
 			break;
 		case State::Loading:
 			m_x = m_player.x() + swordPosition[m_player.direction()][6][0];
 			m_y = m_player.y() + swordPosition[m_player.direction()][6][1];
 			
+			break;
+		case State::SpinAttack:
+			m_x = m_player.x() + spinAttackPosition[animationCurrentFrame(8)][0];
+			m_y = m_player.y() + spinAttackPosition[animationCurrentFrame(8)][1];
+			
+			break;
+		default:
+			break;
+	}
+	
+	Movable::testCollisions();
+}
+
+void Sword::draw() {
+	switch(m_state) {
+		case State::Swinging:
+			playAnimation(m_x, m_y, m_player.direction());
+			
+			break;
+		case State::Loading:
 			if(!m_loaded) {
 				drawFrame(m_x, m_y, m_player.direction() + 8);
 			} else {
@@ -243,9 +256,6 @@ void Sword::draw() {
 			
 			break;
 		case State::SpinAttack:
-			m_x = m_player.x() + spinAttackPosition[animationCurrentFrame(8)][0];
-			m_y = m_player.y() + spinAttackPosition[animationCurrentFrame(8)][1];
-			
 			playAnimation(m_x, m_y, 8);
 			
 			break;
@@ -254,20 +264,36 @@ void Sword::draw() {
 	}
 }
 
-void Sword::testCollisionWith(Enemy &enemy) {
-	if(!enemy.hurt() && inCollisionWith(enemy)) {
-		s16 vx = enemy.x() - m_player.x();
-		s16 vy = enemy.y() - m_player.y();
+void Sword::collisionAction(MapObject &object) {
+	if(object.checkType<Enemy>()) {
+		Enemy &enemy = static_cast<Enemy&>(object);
+		if(enemy.isDead()) return;
 		
-		if(vx != 0) vx /= abs(vx);
-		if(vy != 0) vy /= abs(vy);
+		if(!enemy.hurt()) {
+			s16 vx = enemy.x() - m_player.x();
+			s16 vy = enemy.y() - m_player.y();
+			
+			if(vx != 0) vx /= abs(vx);
+			if(vy != 0) vy /= abs(vy);
+			
+			if(m_state == State::SpinAttack) {
+				enemy.hurt(m_strength * 2, vx, vy);
+			} else {
+				enemy.hurt(m_strength, vx, vy);
+			}
+		}
+	}
+	else if(object.checkType<GrassObject>()) {
+		GrassObject &grass = static_cast<GrassObject&>(object);
 		
-		enemy.setVelocity(vx, vy);
-		
-		if(m_state == State::SpinAttack) {
-			enemy.hurt(m_strength * 2);
-		} else {
-			enemy.hurt(m_strength);
+		if(Map::currentMap->objectAtPosition(grass, m_x + 8, m_y + 8)) {
+			if((m_state == Sword::State::Swinging && animationCurrentFrame(m_player.direction()) > 2)
+			||  m_state == Sword::State::SpinAttack) {
+				if((MapHelper::isTile(m_x + 8, m_y + 8, TilesData::TileType::GrassTile))
+				|| (MapHelper::isTile(m_x + 8, m_y + 8, TilesData::TileType::LowGrassTile))) {
+					grass.onEvent(Map::EventType::GrassCutted);
+				}
+			}
 		}
 	}
 }

@@ -20,12 +20,6 @@
 #include "StandingState.hpp"
 #include "Weapon.hpp"
 
-StandingState::StandingState() {
-}
-
-StandingState::~StandingState() {
-}
-
 void StandingState::update() {
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)
 	&& m_character.inventory().weaponA() != nullptr) {

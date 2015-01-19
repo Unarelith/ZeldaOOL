@@ -18,20 +18,15 @@
 #ifndef HURTSTATE_HPP_
 #define HURTSTATE_HPP_
 
-#include "HurtMovement.hpp"
 #include "PlayerState.hpp"
 
 class HurtState : public PlayerState {
 	public:
-		HurtState();
-		~HurtState();
+		HurtState(s16 vx, s16 vy, float speed);
 		
 		void update();
 		
 		void render();
-		
-	private:
-		HurtMovement *m_movement;
 };
 
 #endif // HURTSTATE_HPP_

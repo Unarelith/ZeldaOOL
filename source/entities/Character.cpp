@@ -109,8 +109,8 @@ void Character::mapCollisions() {
 }
 
 void Character::mapCollisionAction(float vx, float vy) {
-	if(vx != 0) m_vx = 0;
-	if(vy != 0) m_vy = 0;
+	if(vx != 0) { m_vx = 0; m_blocked = true; }
+	if(vy != 0) { m_vy = 0; m_blocked = true; }
 }
 
 void Character::updateDirection() {

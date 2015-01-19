@@ -30,7 +30,7 @@ class Sword : public Weapon {
 		
 		void draw();
 		
-		void testCollisionWith(Enemy &enemy);
+		void collisionAction(MapObject &object);
 		
 		enum State {
 			Swinging,
@@ -44,16 +44,16 @@ class Sword : public Weapon {
 		s8 spinFrameCounter() const { return m_spinFrameCounter; }
 		
 	private:
-		State m_state;
+		State m_state = State::Swinging;
 		
 		Timer m_loadingTimer;
-		bool m_loaded;
+		bool m_loaded = false;
 		
 		Timer m_spinTimer;
-		s8 m_spinCurrentFrame;
-		s8 m_spinFrameCounter;
+		s8 m_spinCurrentFrame = 0;
+		s8 m_spinFrameCounter = 0;
 		
-		bool m_keyReleased;
+		bool m_keyReleased = false;
 };
 
 #endif // SWORD_HPP_

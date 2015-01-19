@@ -22,6 +22,8 @@ class Movable;
 
 class Movement {
 	public:
+		virtual void reset(Movable &) {}
+		
 		virtual void doMovement(Movable &movable) = 0;
 };
 

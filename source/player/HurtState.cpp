@@ -15,23 +15,21 @@
  *
  * =====================================================================================
  */
+#include "HurtMovement.hpp"
 #include "HurtState.hpp"
 #include "SoundEffect.hpp"
 
-HurtState::HurtState() {
-	m_movement = new HurtMovement(&m_character);
-	
+HurtState::HurtState(s16 vx, s16 vy, float speed) {
 	SoundEffect::play("linkHurt");
-}
-
-HurtState::~HurtState() {
-	delete m_movement;
+	
+	m_character.setMovement<HurtMovement>(vx, vy, speed);
 }
 
 void HurtState::update() {
-	m_movement->update();
+	m_character.updateMovement();
+	m_character.update(false);
 	
-	if(m_movement->isFinished()) {
+	if(!m_character.hurt()) {
 		setNextState(m_character.defaultState());
 	}
 }

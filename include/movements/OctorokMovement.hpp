@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  HurtMovement.hpp
+ *       Filename:  OctorokMovement.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  18/01/2015 18:55:11
+ *        Created:  18/01/2015 20:12:01
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,25 +15,35 @@
  *
  * =====================================================================================
  */
-#ifndef HURTMOVEMENT_HPP_
-#define HURTMOVEMENT_HPP_
+#ifndef OCTOROKMOVEMENT_HPP_
+#define OCTOROKMOVEMENT_HPP_
 
 #include "Movement.hpp"
-#include "Types.hpp"
+#include "Timer.hpp"
 
-class HurtMovement : public Movement {
+class OctorokMovement : public Movement {
 	public:
-		HurtMovement(s16 vx, s16 vy, float speed);
+		enum class State {
+			Standing,
+			Moving
+		};
+		
+		void reset(Movable &movable) override;
 		
 		void doMovement(Movable &movable) override;
 		
 	private:
-		s16 m_vx = 0;
-		s16 m_vy = 0;
+		State m_state = State::Standing;
 		
-		float m_speed;
+		Timer m_timer;
+		
+		s8 m_vx = 0;
+		s8 m_vy = 0;
 		
 		float m_movementCounter = 0;
+		
+		u16 m_randomMinTimeToWait = 1000;
+		u16 m_randomMaxMovement = 48;
 };
 
-#endif // HURTMOVEMENT_HPP_
+#endif // OCTOROKMOVEMENT_HPP_

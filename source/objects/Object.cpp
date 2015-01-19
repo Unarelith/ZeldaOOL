@@ -17,7 +17,7 @@
  */
 #include "Object.hpp"
 
-// FIXME: THE TILESET MAY CHANGE
+// FIXME: REMOVE OBJECT
 Object::Object(float x, float y) : MapObject("plain", x, y, 16, 16) {
 }
 

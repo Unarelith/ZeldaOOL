@@ -26,9 +26,6 @@ GrassObject::GrassObject(float x, float y, bool lowGrass) : Object(x, y) {
 	m_lowGrass = lowGrass;
 }
 
-GrassObject::~GrassObject() {
-}
-
 void GrassObject::onEvent(u8 event) {
 	if(event == Map::EventType::GrassCutted) {
 		SoundEffect::play("grassDestroy");

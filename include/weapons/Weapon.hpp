@@ -26,8 +26,6 @@ class Weapon : public Movable {
 	public:
 		Weapon(const std::string &name, u8 level, u16 width, u16 height);
 		
-		virtual void testCollisionWith(Enemy &enemy) = 0;
-		
 		bool keyPressed();
 		bool keyPressedOnce();
 		

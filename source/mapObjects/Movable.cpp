@@ -26,21 +26,21 @@ void Movable::load(const std::string &textureName, float x, float y, u16 frameWi
 	MapObject::load(textureName, x, y, frameWidth, frameHeight);
 }
 
-void Movable::update() {
-	if(!m_movement) throw EXCEPTION("Trying to use undefined movement");
+void Movable::updateMovement() {
+	//if(!m_movement) throw EXCEPTION("Trying to update undefined movement");
+	if(!m_movement) return;
 	
 	m_movement->doMovement(*this);
 	
+	m_blocked = false;
+	
+	testCollisions();
+	
 	m_moving = (m_vx || m_vy) ? true : false;
 	
-	if(m_moving) {
-		testCollisions();
-		
-		move(m_vx * m_speed, m_vy * m_speed);
-		
-		m_vx = 0;
-		m_vy = 0;
-	}
+	move(m_vx * m_speed, m_vy * m_speed);
+	
+	setVelocity(0, 0);
 }
 
 void Movable::draw() {

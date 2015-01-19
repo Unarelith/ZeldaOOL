@@ -43,20 +43,15 @@ class Map : public AnimatedMap {
 		template<typename T, typename... Args>
 		T &addObject(Args &&...args) {
 			m_objects.emplace_back(new T(std::forward<Args>(args)...));
-			return *static_cast<T*>(m_objects.back().get());
+			m_objects.back()->addCollisionHandler(std::bind(&Map::checkCollisionsFor, this, m_objects.back().get()));
+			return static_cast<T&>(*m_objects.back());
 		}
 		
-		void removeObject(MapObject *object);
+		void removeObject(MapObject &object);
 		
-		//void addObject(Object *obj);
-		//void addEnemy(Enemy *enemy);
+		bool objectAtPosition(const MapObject &obj, float x, float y) const;
 		
-		//template<typename T, typename... Args>
-		//void addCollectable(Args &&...args) {
-		//	m_collectables.emplace_back(new T(std::forward<Args>(args)...));
-		//}
-		
-		//void removeCollectable(Collectable *collectable);
+		void checkCollisionsFor(MapObject *object);
 		
 		enum EventType {
 			ButtonPressed,
@@ -64,9 +59,6 @@ class Map : public AnimatedMap {
 			ChestOpened,
 			GrassCutted
 		};
-		
-		//bool objectAtPosition(Object *obj, float x, float y);
-		//void sendEvent(EventType event, MapObject *object = nullptr, Vector2i offsets = Vector2i(6, 11));
 		
 		u16 area() const { return m_area; }
 		
@@ -86,9 +78,6 @@ class Map : public AnimatedMap {
 		u16 m_x;
 		u16 m_y;
 		
-		//std::vector<std::unique_ptr<Object>> m_objects;
-		//std::vector<std::unique_ptr<Collectable>> m_collectables;
-		//std::vector<std::unique_ptr<Enemy>> m_enemies;
 		std::vector<std::unique_ptr<MapObject>> m_objects;
 };
 

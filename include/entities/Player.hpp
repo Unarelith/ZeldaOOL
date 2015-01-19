@@ -23,14 +23,13 @@
 
 class Player : public Battler {
 	public:
-		Player();
-		~Player();
-		
 		void load();
 		
-		void update();
+		void update(bool states = true);
 		
 		void draw();
+		
+		void collisionAction(MapObject &object) override;
 		
 		void mapCollisions();
 		

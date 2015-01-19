@@ -22,9 +22,6 @@
 
 class StandingState : public PlayerState {
 	public:
-		StandingState();
-		~StandingState();
-		
 		void update();
 		
 		void render();

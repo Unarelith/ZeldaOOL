@@ -22,11 +22,6 @@
 
 class MovingState : public PlayerState {
 	public:
-		MovingState();
-		~MovingState();
-		
-		void move();
-		
 		virtual void update();
 		
 		virtual void render();
@@ -34,7 +29,7 @@ class MovingState : public PlayerState {
 		virtual bool canStartMapTransition() { return true; }
 		
 	protected:
-		bool m_directionLocked;
+		bool m_directionLocked = false;
 };
 
 #endif // MOVINGSTATE_HPP_

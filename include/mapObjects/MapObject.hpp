@@ -19,6 +19,8 @@
 #define MAPOBJECT_HPP_
 
 #include <functional>
+#include <map>
+#include <typeindex>
 
 #include "Sprite.hpp"
 
@@ -39,9 +41,14 @@ class MapObject : public Sprite {
 		
 		bool onTile(u16 tile) const;
 		
-		virtual void reset(Map &) {};
-		virtual void update() {};
-		virtual void draw() {};
+		virtual void reset(Map &) {}
+		virtual void update() {}
+		virtual void draw() {}
+		
+		virtual void collisionAction(MapObject &) {}
+		
+		template<typename T>
+		bool checkType() { return dynamic_cast<T*>(this) != nullptr; }
 		
 		float x() const { return m_x; }
 		float y() const { return m_y; }
@@ -60,6 +67,23 @@ class MapObject : public Sprite {
 		
 	private:
 		std::vector<std::function<void(void)>> m_collisionHandlers;
+		
+		// Optimization purpose
+		// std::map<std::pair<std::type_index, std::type_index>, bool> m_typeCasts;
 };
+
+/*
+template<typename T>
+bool MapObject::checkType() {
+	std::pair<std::type_index, std::type_index> types{typeid(T), typeid(*this)};
+	
+	if(m_typeCasts.find(types) == m_typeCasts.end()) {
+		m_typeCasts[types] = types.first == types.second
+						  || dynamic_cast<T*>(this) != nullptr;
+	}
+	
+	return m_typeCasts[types];
+}
+*/
 
 #endif // MAPOBJECT_HPP_

@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 #include "Keyboard.hpp"
+#include "KeyboardMovement.hpp"
 #include "MapHelper.hpp"
 #include "Map.hpp"
 #include "Player.hpp"
@@ -24,16 +25,8 @@
 #include "TilesData.hpp"
 #include "WeaponManager.hpp"
 
-Player::Player() {
-}
-
-Player::~Player() {
-}
-
 void Player::load() {
-	m_defaultState = [](){
-		return new StandingState();
-	};
+	m_defaultState = []{ return new StandingState(); };
 	
 	Battler::load("characters-link", 4 * 16, 3 * 16, 16, 16, Direction::Down);
 	
@@ -60,6 +53,9 @@ void Player::load() {
 	// SpinAttack
 	addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
 	
+	setMovement<KeyboardMovement>();
+	addCollisionHandler(std::bind(&Player::mapCollisions, this));
+	
 	m_maxLife = 13 * 4;
 	m_life = 11 * 4;
 	
@@ -71,7 +67,7 @@ void Player::load() {
 	m_inDoor = false;
 }
 
-void Player::update() {
+void Player::update(bool states) {
 	Battler::update();
 	
 	if(m_direction == Direction::Up && MapHelper::isTile(m_x + 8, m_y + 4, TilesData::TileType::ClosedChest)) {
@@ -80,13 +76,30 @@ void Player::update() {
 		}
 	}
 	
-	m_stateManager.update();
-	
-	m_stateManager.updateStates();
+	if(states) {
+		m_stateManager.update();
+		
+		m_stateManager.updateStates();
+	}
 }
 
 void Player::draw() {
 	m_stateManager.render();
+}
+
+void Player::collisionAction(MapObject &object) {
+	if(object.checkType<Enemy>()) {
+		Enemy &enemy = static_cast<Enemy&>(object);
+		if(enemy.isDead()) return;
+		
+		s16 vx = m_x - enemy.x();
+		s16 vy = m_y - enemy.y();
+		
+		if(vx != 0) vx /= abs(vx);
+		if(vy != 0) vy /= abs(vy);
+		
+		hurt(enemy.strength(), vx, vy);
+	}
 }
 
 void Player::mapCollisions() {
@@ -123,7 +136,7 @@ void Player::mapCollisions() {
 			|| (i == 1 && m_direction == Direction::Left)
 			|| (i == 2 && m_direction == Direction::Up)
 			|| (i == 3 && m_direction == Direction::Down)) {
-				m_stateManager.setNextState([](){ return new PushingState; });
+				m_blocked = true;
 			}
 			
 			if( MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])
@@ -131,7 +144,7 @@ void Player::mapCollisions() {
 				if(i < 2 && m_vy == 0)	m_vy = 1;
 				else if(    m_vx == 0)	m_vx = 1;
 				
-				m_stateManager.resetNextState();
+				m_blocked = false;
 			}
 			
 			if( MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])
@@ -139,9 +152,15 @@ void Player::mapCollisions() {
 				if(i < 2 && m_vy == 0)	m_vy = -1;
 				else if(    m_vx == 0)	m_vx = -1;
 				
-				m_stateManager.resetNextState();
+				m_blocked = false;
 			}
 		}
+	}
+	
+	Map::currentMap->checkCollisionsFor(this);
+	
+	if(m_blocked) {
+		m_stateManager.setNextState([]{ return new PushingState(); });
 	}
 	
 	if(onTile(TilesData::TileType::SlowingTile)) {

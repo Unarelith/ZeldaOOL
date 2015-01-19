@@ -46,15 +46,14 @@ void Map::load(const std::string &filename, Tileset &tileset, u16 area, u16 x, u
 void Map::resetTiles() {
 	XMLTileMap::resetTiles();
 	
-	//for(auto &it : m_objects) {
-	//	it->resetTiles(this);
-	//}
+	m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(),
+		            [&](std::unique_ptr<MapObject> &it) {
+		                return it->checkType<Collectable>();
+		            }), m_objects.end());
 	
-	//for(auto &it : m_enemies) {
-	//	it->reset();
-	//}
-	
-	//m_collectables.clear();
+	for(auto &it : m_objects) {
+		it->reset(*this);
+	}
 }
 
 void Map::updateTile(u16 tileX, u16 tileY, u16 id) {
@@ -76,37 +75,9 @@ void Map::update(bool onlyTiles) {
 	
 	if(!onlyTiles) {
 		for(auto &it : m_objects) {
-			it->update();
-		}
-		//for(auto &it : m_collectables) {
 			// FIXME: I actually remove the collectables from here
-			//if(it) it->update();
-		//}
-		
-		/*
-		for(auto &it : m_enemies) {
-			if(CharacterManager::player.inCollisionWith(*it)
-			&& !it->isDead()) {
-				s16 vx = CharacterManager::player.x() - it->x();
-				s16 vy = CharacterManager::player.y() - it->y();
-				
-				if(vx != 0) vx /= abs(vx);
-				if(vy != 0) vy /= abs(vy);
-				
-				CharacterManager::player.setVelocity(vx, vy);
-				CharacterManager::player.hurt(it->strength());
-			}
-			
-			if(CharacterManager::player.inventory().weaponA()) {
-				CharacterManager::player.inventory().weaponA()->testCollisionWith(*it);
-			}
-			
-			if(CharacterManager::player.inventory().weaponB()) {
-				CharacterManager::player.inventory().weaponB()->testCollisionWith(*it);
-			}
-			
-			it->update();
-		}*/
+			if(it) it->update();
+		}
 	}
 }
 
@@ -116,57 +87,32 @@ void Map::draw() {
 	for(auto &it : m_objects) {
 		it->draw();
 	}
-	//for(auto &it : m_collectables) {
-	//	it->draw();
-	//}
-	
-	//for(auto &it : m_enemies) {
-	//	it->draw();
-	//}
 }
 
-void Map::removeObject(MapObject *object) {
+void Map::removeObject(MapObject &object) {
 	m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(),
 		            [&](std::unique_ptr<MapObject> &it) {
-		                return it.get() == object;
+		                return it.get() == &object;
 		            }), m_objects.end());
 }
 
-/*
-
-void Map::addObject(Object *obj) {
-	m_objects.emplace_back(obj);
+bool Map::objectAtPosition(const MapObject &obj, float x, float y) const {
+	return((floor(obj.x() / 8) == floor(x / 8)
+	     || floor(obj.x() / 8) == floor(x / 8) - 1)
+	    && (floor(obj.y() / 8) == floor(y / 8)
+	     || floor(obj.y() / 8) == floor(y / 8) - 1));
 }
 
-void Map::addEnemy(Enemy *enemy) {
-	m_enemies.emplace_back(enemy);
-}
-
-void Map::removeCollectable(Collectable *collectable) {
-	m_collectables.erase(std::remove_if(m_collectables.begin(), m_collectables.end(),
-		                 [&](std::unique_ptr<Collectable> &it) {
-		                     return it.get() == collectable;
-		                 }), m_collectables.end());
-}
-
-bool Map::objectAtPosition(Object *obj, float x, float y) {
-	return((floor(obj->x() / 8) == floor(x / 8)
-		 || floor(obj->x() / 8) == floor(x / 8) - 1)
-		&& (floor(obj->y() / 8) == floor(y / 8)
-		 || floor(obj->y() / 8) == floor(y / 8) - 1));
-}
-
-void Map::sendEvent(EventType event, MapObject *object, Vector2i offsets) {
-	if(!object) object = &CharacterManager::player;
-	
+void Map::checkCollisionsFor(MapObject *object) {
 	for(auto &it : m_objects) {
-		if(objectAtPosition(it.get(), object->x() + offsets.x, object->y() + offsets.y)) {
-			it->onEvent(event);
-			
-			break;
+		MapObject *object2 = (it && it.get() != object) ? it.get() : &CharacterManager::player;
+		
+		if(object->inCollisionWith(*object2)) {
+			object->collisionAction(*object2);
+			object2->collisionAction(*object);
 		}
 	}
-}*/
+}
 
 Map &Map::getMap(u16 area, u16 mapX, u16 mapY) {
 	return ResourceHandler::getInstance().get<Map>(MapLoader::makeName(area, mapX, mapY));

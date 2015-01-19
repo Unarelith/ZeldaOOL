@@ -22,23 +22,22 @@
 
 class Battler : public Character {
 	public:
-		Battler();
-		Battler(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
-		~Battler();
+		Battler() = default;
+		Battler(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
-		void load(std::string filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
+		void load(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
 		void reset();
 		
-		void update();
+		virtual void update();
 		
 		void drawFrame(float x, float y, u16 frame);
 		
 		void addHearts(float hearts);
 		void removeLife(u16 life);
 		
-		void hurt(u8 strength);
-		virtual void hurtAction();
+		void hurt(u8 strength, s16 vx, s16 vy);
+		virtual void hurtAction(s16 vx, s16 vy);
 		
 		enum BattlerType {
 			TypeEnemy,
@@ -55,10 +54,10 @@ class Battler : public Character {
 	protected:
 		BattlerType m_battlerType;
 		
-		s8 m_maxLife;
-		s8 m_life;
+		s8 m_maxLife = 1;
+		s8 m_life = 1;
 		
-		bool m_hurt;
+		bool m_hurt = false;
 		
 	private:
 		Timer m_hurtTimer;

@@ -30,9 +30,13 @@ SwordState::SwordState() {
 	m_playerMoved = false;
 	
 	m_sword = (Sword*)WeaponManager::getWeaponByID(WeaponManager::SwordID);
+	
+	//Map::currentMap->addObject(*m_sword);
 }
 
 SwordState::~SwordState() {
+	//Map::currentMap->removeObject(*m_sword);
+	
 	m_sword->reset();
 }
 
@@ -66,7 +70,7 @@ void SwordState::update() {
 	if(m_sword->state() == Sword::State::Loading) {
 		m_directionLocked = true;
 		
-		MovingState::move();
+		m_character.updateMovement();
 	}
 	
 	m_sword->update();
@@ -117,13 +121,13 @@ void SwordState::update() {
 		}
 	}
 	
-	//if((m_sword->state() == Sword::State::Swinging && m_sword->animationCurrentFrame(m_character.direction()) > 2)
-	//||  m_sword->state() == Sword::State::SpinAttack) {
-	//	if((MapHelper::isTile(m_sword->x() + 8, m_sword->y() + 8, TilesData::TileType::GrassTile))
-	//	|| (MapHelper::isTile(m_sword->x() + 8, m_sword->y() + 8, TilesData::TileType::LowGrassTile))) {
-	//		Map::currentMap->sendEvent(Map::EventType::GrassCutted, m_sword, Vector2i(8, 8));
-	//	}
-	//}
+	if((m_sword->state() == Sword::State::Swinging && m_sword->animationCurrentFrame(m_character.direction()) > 2)
+	||  m_sword->state() == Sword::State::SpinAttack) {
+		if((MapHelper::isTile(m_sword->x() + 8, m_sword->y() + 8, TilesData::TileType::GrassTile))
+		|| (MapHelper::isTile(m_sword->x() + 8, m_sword->y() + 8, TilesData::TileType::LowGrassTile))) {
+			//Map::currentMap->sendEvent(Map::EventType::GrassCutted, m_sword, Vector2i(8, 8));
+		}
+	}
 }
 
 void SwordState::render() {

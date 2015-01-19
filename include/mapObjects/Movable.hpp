@@ -30,7 +30,8 @@ class Movable : public MapObject {
 		
 		void load(const std::string &textureName, float x, float y, u16 frameWidth, u16 frameHeight);
 		
-		virtual void update();
+		void updateMovement();
+		virtual void update() { updateMovement(); }
 		virtual void draw();
 		
 		enum Direction {
@@ -50,10 +51,20 @@ class Movable : public MapObject {
 		u8 direction() const { return m_direction; }
 		void setDirection(u8 direction) { m_direction = direction; }
 		
+		bool blocked() const { return m_blocked; }
+		
+		float speed() const { return m_speed; }
+		void setSpeed(float speed) { m_speed = speed; }
+		
+		Movement &getMovement() { return *m_movement; }
+		
 		template<typename T, typename... Args>
 		void setMovement(Args &&...args) {
-			m_movement.reset(new T(std::forward<Args>(args)...));
+			m_movement = std::make_shared<T>(std::forward<Args>(args)...);
+			if(!m_defaultMovement) m_defaultMovement = m_movement;
 		}
+		
+		void resetMovement() { m_movement = m_defaultMovement; }
 		
 	protected:
 		float m_vx = 0;
@@ -63,12 +74,13 @@ class Movable : public MapObject {
 		
 		bool m_blocked = false;
 		
-	private:
-		float m_speed = 0.4f;
-		
 		bool m_moving = false;
 		
-		std::unique_ptr<Movement> m_movement;
+		float m_speed = 0.4f;
+		
+	private:
+		std::shared_ptr<Movement> m_defaultMovement{nullptr};
+		std::shared_ptr<Movement> m_movement{nullptr};
 };
 
 #endif // MOVABLE_HPP_

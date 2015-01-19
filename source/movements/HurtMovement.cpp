@@ -6,7 +6,7 @@
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  13/10/2014 00:52:13
+ *        Created:  18/01/2015 18:56:01
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,29 +15,32 @@
  *
  * =====================================================================================
  */
+#include "Enemy.hpp"
 #include "HurtMovement.hpp"
+#include "Movable.hpp"
 
-HurtMovement::HurtMovement(Character *character, float speed) {
-	m_character = character;
+HurtMovement::HurtMovement(s16 vx, s16 vy, float speed) {
+	m_vx = vx;
+	m_vy = vy;
 	
 	m_speed = speed;
 }
 
-void HurtMovement::reset() {
-	m_isFinished = false;
+void HurtMovement::doMovement(Movable &movable) {
+	movable.setSpeed(m_speed);
 	
-	m_movementCounter = 0;
-}
-
-void HurtMovement::update() {
 	if(m_movementCounter < 16) {
-		m_character->mapCollisions();
-		
-		m_character->move(m_character->vx() * m_speed, m_character->vy() * m_speed);
+		movable.setVelocity(m_vx, m_vy);
 		
 		m_movementCounter += m_speed;
 	} else {
-		m_isFinished = true;
+		// FIXME: TO REMOVE LATER
+		if(movable.checkType<Enemy>()) {
+			Enemy &enemy = static_cast<Enemy&>(movable);
+			enemy.checkDeath();
+		}
+		
+		movable.resetMovement();
 	}
 }
 

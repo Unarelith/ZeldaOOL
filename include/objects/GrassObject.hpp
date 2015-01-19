@@ -23,7 +23,6 @@
 class GrassObject : public Object {
 	public:
 		GrassObject(float x, float y, bool lowGrass = false);
-		~GrassObject();
 		
 		void onEvent(u8 event);
 		

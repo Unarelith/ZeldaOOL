@@ -20,63 +20,6 @@
 #include "StandingState.hpp"
 #include "Weapon.hpp"
 
-MovingState::MovingState() {
-	m_directionLocked = false;
-}
-
-MovingState::~MovingState() {
-}
-
-void MovingState::move() {
-	if(Keyboard::isKeyPressed(Keyboard::Left)) {
-		m_character.setVX(-1);
-		
-		if(!Keyboard::isKeyPressed(Keyboard::Up)
-		&& !Keyboard::isKeyPressed(Keyboard::Down)) {
-			if(!m_directionLocked) m_character.setDirection(Player::Direction::Left);
-		}
-	}
-	else if(Keyboard::isKeyPressed(Keyboard::Right)) {
-		m_character.setVX(1);
-		
-		if(!Keyboard::isKeyPressed(Keyboard::Up)
-		&& !Keyboard::isKeyPressed(Keyboard::Down)) {
-			if(!m_directionLocked) m_character.setDirection(Player::Direction::Right);
-		}
-	}
-	
-	if(Keyboard::isKeyPressed(Keyboard::Up)) {
-		m_character.setVY(-1);
-		
-		if(!Keyboard::isKeyPressed(Keyboard::Left)
-		&& !Keyboard::isKeyPressed(Keyboard::Right)) {
-			if(!m_directionLocked) m_character.setDirection(Player::Direction::Up);
-		}
-	}
-	else if(Keyboard::isKeyPressed(Keyboard::Down)) {
-		m_character.setVY(1);
-		
-		if(!Keyboard::isKeyPressed(Keyboard::Left)
-		&& !Keyboard::isKeyPressed(Keyboard::Right)) {
-			if(!m_directionLocked) m_character.setDirection(Player::Direction::Down);
-		}
-	}
-	
-	if((Keyboard::isKeyPressed(Keyboard::Left)
-	 || Keyboard::isKeyPressed(Keyboard::Right))
-	&& (Keyboard::isKeyPressed(Keyboard::Up)
-	 || Keyboard::isKeyPressed(Keyboard::Down))) {
-		m_character.setVelocity(m_character.vx() / 1.4f, m_character.vy() / 1.4f);
-	}
-	
-	m_character.mapCollisions();
-	
-	m_character.move(m_character.vx() * 0.4f,
-					 m_character.vy() * 0.4f);
-	
-	m_character.setVelocity(0, 0);
-}
-
 void MovingState::update() {
 	if(!Keyboard::isKeyPressed(Keyboard::Left)
 	&& !Keyboard::isKeyPressed(Keyboard::Right)
@@ -95,7 +38,7 @@ void MovingState::update() {
 		setNextState(m_character.inventory().weaponB()->playerStateTransition());
 	}
 	
-	move();
+	m_character.updateMovement();
 }
 
 void MovingState::render() {
