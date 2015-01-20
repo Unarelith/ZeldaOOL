@@ -16,6 +16,7 @@
  * =====================================================================================
  */
 #include "BackgroundMusic.hpp"
+#include "ButtonObject.hpp"
 #include "ChestObject.hpp"
 #include "DialogState.hpp"
 #include "DoorLoader.hpp"
@@ -32,9 +33,6 @@
 #include "TilesetLoader.hpp"
 #include "TransitionState.hpp"
 
-#include "HeartCollectable.hpp"
-#include "KeyboardMovement.hpp"
-
 MapState::MapState() {
 	ResourceHandler::getInstance().addType("data/config/tilesets.xml", TilesetLoader());
 	ResourceHandler::getInstance().addType("data/config/maps.xml", MapLoader());
@@ -44,16 +42,9 @@ MapState::MapState() {
 	
 	Player::player.load();
 	
-	Object &button = Map::currentMap->addObject<Object>(7 * 16, 2 * 16);
-	
-	button.setEventAction(Map::EventType::ButtonPressed, [&](Object *obj) {
-		SoundEffect::play("chest");
-		
-		Map::currentMap->setTile(obj->x() / 16, obj->y() / 16, 8);
-		
-		Map::currentMap->setTile(7, 6, 36);
-		Map::currentMap->setTile(8, 6, 36);
-	});
+	ButtonObject &button = Map::currentMap->addObject<ButtonObject>(7 * 16, 2 * 16);
+	button.addTileChange(7, 6, 36);
+	button.addTileChange(8, 6, 36);
 	
 	Map::getMap(0, 0, 1).addObject<ChestObject>(1 * 16, 5 * 16);
 	Map::getMap(2, 0, 0).addObject<ChestObject>(5 * 16, 2 * 16);

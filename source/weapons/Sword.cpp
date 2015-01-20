@@ -240,6 +240,8 @@ void Sword::updatePosition() {
 
 void Sword::draw() {
 	// FIXME: This is here to update sword position during ScrollingTransition
+	// Find another way to update it, and remove that line
+	// Position updates must be done in 'update()'
 	updatePosition();
 	
 	switch(m_state) {

@@ -25,14 +25,14 @@
 
 class TransitionState : public ApplicationState {
 	public:
-		TransitionState(Transition *transition);
+		TransitionState(Transition *transition) : m_transition(transition) {}
 		
 		void update();
 		
 		void render();
 		
 	private:
-		std::shared_ptr<Transition> m_transition;
+		std::unique_ptr<Transition> m_transition;
 };
 
 #endif // TRANSITIONSTATE_HPP_

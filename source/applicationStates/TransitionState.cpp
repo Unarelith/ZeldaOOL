@@ -17,9 +17,6 @@
  */
 #include "TransitionState.hpp"
 
-TransitionState::TransitionState(Transition *transition) : m_transition(transition) {
-}
-
 void TransitionState::update() {
 	m_transition->update();
 	

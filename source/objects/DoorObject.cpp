@@ -22,12 +22,6 @@
 #include "SoundEffect.hpp"
 #include "TransitionState.hpp"
 
-DoorObject::DoorObject(float x, float y) : Object(x, y) {
-}
-
-DoorObject::~DoorObject() {
-}
-
 void DoorObject::setDestination(u16 area, u8 mapX, u8 mapY, float playerX, float playerY, u8 playerDirection) {
 	m_area = area;
 	
