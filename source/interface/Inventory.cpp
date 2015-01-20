@@ -17,16 +17,16 @@
  */
 #include "Inventory.hpp"
 
-Vector2i Inventory::findEmptyPosition() {
+std::pair<int, int> Inventory::findEmptyPosition() {
 	for(u8 i = 0 ; i < 16 ; i++) {
-		Vector2i position(i % 4, i / 4);
+		auto position = std::make_pair(i % 4, i / 4);
 		
-		if(m_weapons[position.x][position.y]) {
+		if(m_weapons[position.first][position.second]) {
 			return position;
 		}
 	}
 	
-	return Vector2i(-1, -1);
+	return std::make_pair(-1, -1);
 }
 
 void Inventory::addRupees(u16 rupees) {

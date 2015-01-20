@@ -22,21 +22,11 @@
 #include <memory>
 
 #include "Types.hpp"
-#include "Vector2.hpp"
 
 class Weapon;
 
 class Inventory {
 	public:
-		template<typename WeaponType, typename... Args>
-		std::unique_ptr<Weapon> &addWeapon(Args &&...args) {
-			Vector2i pos = findEmptyPosition();
-			m_weapons[pos.x][pos.y].reset(new WeaponType(std::forward<Args>(args)...));
-			return m_weapons[pos.x][pos.y];
-		}
-		
-		Vector2i findEmptyPosition();
-		
 		std::unique_ptr<Weapon> &getWeapon(u8 x, u8 y) { return m_weapons[x][y]; }
 		
 		Weapon *weaponA() { return m_weaponA.get(); }
@@ -44,6 +34,15 @@ class Inventory {
 		
 		void setWeaponA(std::unique_ptr<Weapon> &weapon) { m_weaponA.swap(weapon); }
 		void setWeaponB(std::unique_ptr<Weapon> &weapon) { m_weaponB.swap(weapon); }
+		
+		std::pair<int, int> findEmptyPosition();
+		
+		template<typename WeaponType, typename... Args>
+		std::unique_ptr<Weapon> &addWeapon(Args &&...args) {
+			auto pos = findEmptyPosition();
+			m_weapons[pos.first][pos.second].reset(new WeaponType(std::forward<Args>(args)...));
+			return m_weapons[pos.first][pos.second];
+		}
 		
 		void addRupees(u16 rupees);
 		u16 rupees() const { return m_rupees; }

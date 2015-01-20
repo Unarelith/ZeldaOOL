@@ -15,16 +15,13 @@
  *
  * =====================================================================================
  */
-#include "Application.hpp"
-#include "Config.hpp"
+#include "Collectable.hpp"
 #include "Player.hpp"
 #include "GrassObject.hpp"
 #include "Map.hpp"
 #include "MapLoader.hpp"
 #include "ResourceHandler.hpp"
 #include "TilesData.hpp"
-#include "Weapon.hpp"
-#include "XMLFile.hpp"
 
 Map *Map::currentMap = nullptr;
 

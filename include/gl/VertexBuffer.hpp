@@ -35,7 +35,7 @@ class VertexBuffer {
 		GLuint id() const { return m_id; }
 		
 	private:
-		GLuint m_id;
+		GLuint m_id = 0;
 };
 
 #endif // VERTEXBUFFER_HPP_

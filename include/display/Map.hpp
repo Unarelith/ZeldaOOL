@@ -18,12 +18,10 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
+#include <memory>
+
 #include "AnimatedMap.hpp"
-#include "Collectable.hpp"
-#include "Enemy.hpp"
-#include "Object.hpp"
-#include "Tileset.hpp"
-#include "Vector2.hpp"
+#include "MapObject.hpp"
 
 class Map : public AnimatedMap {
 	public:

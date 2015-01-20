@@ -17,17 +17,11 @@
  */
 #include "Font.hpp"
 
-Font::Font() {
-}
-
-Font::Font(std::string filename, u16 charWidth, u16 charHeight) {
+Font::Font(const std::string &filename, u16 charWidth, u16 charHeight) {
 	load(filename, charWidth, charHeight);
 }
 
-Font::~Font() {
-}
-
-void Font::load(std::string filename, u16 charWidth, u16 charHeight) {
+void Font::load(const std::string &filename, u16 charWidth, u16 charHeight) {
 	Sprite::load(filename, charWidth, charHeight);
 }
 
@@ -40,7 +34,7 @@ void Font::drawChar(float x, float y, u8 c) {
 	}
 }
 
-void Font::drawString(float x, float y, std::string str, s16 charsToDraw) {
+void Font::drawString(float x, float y, const std::string &str, s16 charsToDraw) {
 	setColorMod(Color::text);
 	
 	u16 tmpX = 0;

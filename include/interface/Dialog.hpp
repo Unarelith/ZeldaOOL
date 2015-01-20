@@ -26,7 +26,6 @@
 class Dialog {
 	public:
 		Dialog();
-		~Dialog();
 		
 		void update();
 		
@@ -48,18 +47,19 @@ class Dialog {
 		bool lastPage() { return (m_currentLine + 2 >= (u8)m_lines.size()); }
 		
 	private:
-		Rectangle m_rectangle;
+		Rectangle m_rectangle{8, Position::Top, 144, 40};
 		
-		Font m_font;
+		Font m_font{"interface-font", 8, 16};
 		
-		Image m_dialogArrow;
+		Image m_dialogArrow{"interface-dialogArrow"};
 		Timer m_arrowTimer;
 		
-		u8 m_currentLine;
+		u8 m_currentLine = 0;
 		
-		std::vector<std::pair<u8, std::string>> m_lines;
 		Timer m_charTimer;
 		Timer m_soundTimer;
+		
+		std::vector<std::pair<u8, std::string>> m_lines;
 };
 
 #endif // DIALOG_HPP_

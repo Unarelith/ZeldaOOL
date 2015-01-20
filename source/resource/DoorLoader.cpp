@@ -18,6 +18,7 @@
 #include "DoorLoader.hpp"
 #include "DoorObject.hpp"
 #include "Map.hpp"
+#include "Movable.hpp"
 #include "XMLFile.hpp"
 
 void DoorLoader::load(const std::string &xmlFilename, ResourceHandler &) {
@@ -30,16 +31,16 @@ void DoorLoader::load(const std::string &xmlFilename, ResourceHandler &) {
 		
 		u8 direction = 0;
 		if(doorElement->FirstChildElement("player")->Attribute("direction", "up")) {
-			direction = Character::Direction::Up;
+			direction = Movable::Direction::Up;
 		}
 		else if(doorElement->FirstChildElement("player")->Attribute("direction", "down")) {
-			direction = Character::Direction::Down;
+			direction = Movable::Direction::Down;
 		}
 		else if(doorElement->FirstChildElement("player")->Attribute("direction", "left")) {
-			direction = Character::Direction::Left;
+			direction = Movable::Direction::Left;
 		}
 		else if(doorElement->FirstChildElement("player")->Attribute("direction", "right")) {
-			direction = Character::Direction::Right;
+			direction = Movable::Direction::Right;
 		}
 		
 		Map &map = Map::getMap(doorElement->IntAttribute("area"),

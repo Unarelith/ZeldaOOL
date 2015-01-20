@@ -23,8 +23,7 @@
 
 class PlayerState : public CharacterState<Player> {
 	public:
-		PlayerState();
-		virtual ~PlayerState();
+		PlayerState() : CharacterState(Player::player) {}
 		
 		virtual void update() = 0;
 		
