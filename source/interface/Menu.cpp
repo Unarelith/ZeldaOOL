@@ -62,13 +62,15 @@ void Menu::update() {
 	if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
 		SoundEffect::play("menuSelect");
 		
-		Player::player.inventory().setWeaponA(Vector2i(m_cursorX, m_cursorY));
+		auto &newWeaponA = Player::player.inventory().getWeapon(m_cursorX, m_cursorY);
+		Player::player.inventory().setWeaponA(newWeaponA);
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::B)) {
 		SoundEffect::play("menuSelect");
 		
-		Player::player.inventory().setWeaponB(Vector2i(m_cursorX, m_cursorY));
+		auto &newWeaponB = Player::player.inventory().getWeapon(m_cursorX, m_cursorY);
+		Player::player.inventory().setWeaponB(newWeaponB);
 	}
 }
 
@@ -79,9 +81,9 @@ void Menu::draw() {
 	
 	for(u8 y = 0 ; y < 4 ; y++) {
 		for(u8 x = 0 ; x < 4 ; x++) {
-			Weapon *currentWeapon = Player::player.inventory().getWeaponByPosition(Vector2i(x, y));
+			auto &currentWeapon = Player::player.inventory().getWeapon(x, y);
 			
-			if(currentWeapon != nullptr) {
+			if(currentWeapon) {
 				currentWeapon->icon().draw(22 + x * 32, 23 + y * 24);
 			}
 		}

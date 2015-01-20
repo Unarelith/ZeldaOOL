@@ -211,6 +211,12 @@ void Sword::update() {
 			break;
 	}
 	
+	updatePosition();
+	
+	Movable::testCollisions();
+}
+
+void Sword::updatePosition() {
 	switch(m_state) {
 		case State::Swinging:
 			m_x = m_player.x() + swordPosition[m_player.direction()][animationCurrentFrame(m_player.direction())][0];
@@ -230,11 +236,12 @@ void Sword::update() {
 		default:
 			break;
 	}
-	
-	Movable::testCollisions();
 }
 
 void Sword::draw() {
+	// FIXME: This is here to update sword position during ScrollingTransition
+	updatePosition();
+	
 	switch(m_state) {
 		case State::Swinging:
 			playAnimation(m_x, m_y, m_player.direction());

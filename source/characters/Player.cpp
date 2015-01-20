@@ -64,8 +64,8 @@ void Player::load() {
 	
 	m_hitbox = IntRect(4, 5, 8, 10);
 	
-	Vector2i swordPos = m_inventory.addWeapon<Sword>();
-	m_inventory.setWeaponA(swordPos);
+	auto &sword = m_inventory.addWeapon<Sword>();
+	m_inventory.setWeaponA(sword);
 	
 	m_inDoor = false;
 }
