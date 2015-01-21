@@ -17,6 +17,7 @@ h2. Keys
 h2. How to compile
 
 * Install @CMake@, @SDL2@, @SDL2_image@, @SDL2_mixer@, @glm@, @OpenGL@ (=> 2.1) and @glew@ (only required for Windows)
-* Run @cmake .@ at the root of the game folder
-* Run @make@, and enjoy!
+* There's a bug in @GCC@ < 4.9, so the code won't compile. Please install @GCC 4.9@.
+* Run @mkdir build && cd build && cmake ..@ at the root of the game folder
+* Run @make@, wait, and enjoy!
 

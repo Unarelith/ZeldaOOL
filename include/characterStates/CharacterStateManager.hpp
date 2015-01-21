@@ -35,7 +35,7 @@ class CharacterStateManager {
 		template<typename StateType, typename... Args>
 		void setNextState(Args &&...args) {
 			if(!m_currentState || typeid(*m_currentState) != typeid(StateType)) {
-				m_stateTransition = [=]{ return new StateType(args...); };
+				m_stateTransition = [args...]{ return new StateType(args...); };
 			}
 		}
 		
