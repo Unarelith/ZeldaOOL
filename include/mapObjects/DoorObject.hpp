@@ -18,11 +18,11 @@
 #ifndef DOOROBJECT_HPP_
 #define DOOROBJECT_HPP_
 
-#include "Object.hpp"
+#include "MapObject.hpp"
 
-class DoorObject : public Object {
+class DoorObject : public MapObject {
 	public:
-		DoorObject(float x, float y) : Object(x, y) {}
+		DoorObject(float x, float y) : MapObject(x, y, 16, 16) {}
 		
 		void setDestination(u16 area, u8 mapX, u8 mapY, float playerX, float playerY, u8 playerDirection);
 		

@@ -72,6 +72,8 @@ void Battler::hurt(u8 strength, s16 vx, s16 vy) {
 		m_hurtTimer.start();
 		
 		hurtAction(vx, vy);
+	} else {
+		Character::mapCollisionAction(vx, vy);
 	}
 }
 

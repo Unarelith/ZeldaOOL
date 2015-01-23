@@ -6,6 +6,7 @@
 	<texture folder="animations" name="sword"/>
 	
 	<texture folder="characters" name="link"/>
+	<texture folder="characters" name="blueboy"/>
 	
 	<texture folder="collectables" name="heart"/>
 	<texture folder="collectables" name="rupees1"/>

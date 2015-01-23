@@ -24,6 +24,8 @@
 #include "OpenGL.hpp"
 #include "Window.hpp"
 
+static const char *APP_NAME = "The Legend of Zelda: Oracle of Time";
+
 Window::Window() {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);

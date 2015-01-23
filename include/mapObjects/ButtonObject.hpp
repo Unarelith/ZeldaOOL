@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Object.hpp
+ *       Filename:  ButtonObject.hpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  15/09/2014 20:59:08
+ *        Created:  20/01/2015 02:00:25
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,25 +15,21 @@
  *
  * =====================================================================================
  */
-#ifndef OBJECT_HPP_
-#define OBJECT_HPP_
-
-#include <map>
-#include <functional>
+#ifndef BUTTONOBJECT_HPP_
+#define BUTTONOBJECT_HPP_
 
 #include "MapObject.hpp"
 
-class Object : public MapObject {
+class ButtonObject : public MapObject {
 	public:
-		Object(float x, float y);
-		virtual ~Object() = default;
+		ButtonObject(float x, float y) : MapObject(x, y, 16, 16) {}
 		
-		void setEventAction(u8 event, std::function<void(Object *)> action);
+		void addTileChange(u16 tileX, u16 tileY, u16 newTileID);
 		
-		virtual void onEvent(u8 event);
+		void onEvent(u8 event);
 		
 	private:
-		std::map<u8, std::function<void(Object *)>> m_actions;
+		std::vector<std::tuple<u16, u16, u16>> m_mapChanges;
 };
 
-#endif // OBJECT_HPP_
+#endif // BUTTONOBJECT_HPP_

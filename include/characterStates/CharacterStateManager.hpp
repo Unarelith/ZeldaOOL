@@ -35,14 +35,14 @@ class CharacterStateManager {
 		template<typename StateType, typename... Args>
 		void setNextState(Args &&...args) {
 			if(!m_currentState || typeid(*m_currentState) != typeid(StateType)) {
-				m_stateTransition = [args...]{ return new StateType(args...); };
+				m_stateTransition = [args...] { return new StateType(args...); };
 			}
 		}
 		
 		const AbstractCharacterState &currentState() const { return *m_currentState; }
 		
 	private:
-		std::unique_ptr<AbstractCharacterState> m_currentState{nullptr};
+		std::unique_ptr<AbstractCharacterState> m_currentState;
 		
 		std::function<AbstractCharacterState*(void)> m_stateTransition;
 };

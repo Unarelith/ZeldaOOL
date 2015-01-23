@@ -54,6 +54,8 @@ Sword::Sword() : Weapon("animations-sword", 1, 16, 16) {
 	addAnimation({8, 4, 10, 6, 11, 5, 9, 7}, 50);
 	
 	addCollisionHandler([this]{ Map::currentMap->checkCollisionsFor(this); });
+	//addCollisionHandler(std::bind(&Map::checkCollisionsFor, Map::currentMap, this));
+	// doesn't work, why?
 }
 
 void Sword::reset() {
@@ -68,17 +70,9 @@ void Sword::reset() {
 	
 	m_keyReleased = false;
 	
-	resetAnimation(0);
-	resetAnimation(1);
-	resetAnimation(2);
-	resetAnimation(3);
-	
-	resetAnimation(4);
-	resetAnimation(5);
-	resetAnimation(6);
-	resetAnimation(7);
-	
-	resetAnimation(8);
+	for(u8 i = 0 ; i < 9 ; i++) {
+		resetAnimation(i);
+	}
 	
 	m_x = -100;
 	m_y = -100;

@@ -1,48 +1,35 @@
 ===== CLEANING =====
 - Implement GamePad
-- Improve Object system (remove Object + improve its childs and the event system)
+- Improve MapObject
 - A unique view for maps (Map::view)
 	=> Model matrix
 	=> Class "Drawable"? Ok, but it's drawn by what?
-- Remove unnecessary dtors, etc.........
-- Use smart pointers instead of raw ones
-- Use spaces for alignment instead of tabs
-- Edit TODO part and check ISSUES part
+- Replace WINDOW_WIDTH / HEIGHT by SCREEN_WIDTH / HEIGHT
 
 ===== TODO =====
 - Finish 'Octorok'
-	=> Player can go through enemies sometimes (Enemies don't test collisions with Player)
+	=> Player can go through enemies sometimes
 	=> Add 'Projectile' class (inherits from 'Image'/'Sprite' and 'Entity')
 	=> Implement projectiles for octorok
 	=> Clean
-		-> Maybe create 'OctorokMovement' (or 'RandomMovement')
-			~> An improvement of 'Movement' may be required here
-			~> CharacterState => PlayerState
-			~> CharacterStateManager => PlayerStateManager
-			~> In each CharacterState child, replace 'm_character' by 'm_player'
-- Implement EnemyManager with 'data/config/enemies.xml'
-- Remove sword loading animation, and replace it by palette switch
-- Implement 'LanguageManager'
-	=> Like Asylia one
 - Implement 'NPC' class
-	=> Add movement
-		-> Add map collisions
-		-> Use 'Movement' class
 	=> When player press 'A' in front of a NPC, push a 'DialogState' with the NPC's text (maybe turn the NPC too?)
+- Remove sword loading animation, and replace it by palette switch
+- Implement EnemyLoader with 'data/config/enemies.xml'
+- Implement 'Translator'
+	=> Like Asylia LanguageManager
 - Add 'player.xml' config file in 'data/config/' directory
 - Add 'MovableObject', then 'PotObject' and 'BlockObject'
 	=> Movable contains the object movement thing
 	=> Pot is a Movable in all ways
-	=> Block can be moved once only, and requires the way it can be move
+	=> Block can be moved once only, or not at all, and requires the way it can be move
 - Add 'PowerBracelet', child of 'Weapon'
 	=> Add 'LiftableObject'
 		-> 'PotObject' and 'GrassObject' inherits from it
 	=> Add 'LiftingState' for Player
 - Improve OpenGL code
 	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'
-- Write an 'IOManager' (+ 'File' class?) namespace
-	=> Read from a given path (to launch the game outside of its folder)
-- Implement a game pad, movable and resizable via config files
+- Implement a game pad (movable and resizable via config files?)
 - Improve game for OpenGL ES and try on Android
 - Write a little game editor with Qt
 	=> Add maps
@@ -52,19 +39,20 @@
 		~> Add NPCs
 
 ===== ISSUES =====
+- Player can go through enemies sometimes
+- Player can be pushed out of the map during HurtMovement
+- Octorok's HurtMovement speed too slow?
+- Improve palette system
 - Improve collectable objets drop movement
 - Rupees are added one by one to the counter in the original game
 	=> There's also a sound effect
 - Lines have not the correct length in 'Dialog'
 	=> Maybe related to the 'à'?
 - When a color tag starts on one line and finishes on another one, the other line doesn't have color
-- In the original game, it's possible to attack during 'PushingState'
 - Check sound effect channels in real game
 	=> For example, is it possible to hear sword loading sound anymore when link releases spin attack?
 	=> It's not possible to hear text 'clicks' during 'tadaaaaaaa' (new item)
 	=> Define channel in constructor (and 'load'), so from Sound.cpp
-- Sometimes link looks strange
-- Use exceptions to prevents memory leaks
 - Fix grassDestroy animation
 	=> Find a way to rip it
 - Fix 'moonwalk' bug

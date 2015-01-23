@@ -40,7 +40,10 @@ class Inventory {
 		template<typename WeaponType, typename... Args>
 		std::unique_ptr<Weapon> &addWeapon(Args &&...args) {
 			auto pos = findEmptyPosition();
-			m_weapons[pos.first][pos.second].reset(new WeaponType(std::forward<Args>(args)...));
+			
+			WeaponType *weapon = new WeaponType(std::forward<Args>(args)...);
+			m_weapons[pos.first][pos.second].reset(weapon);
+			
 			return m_weapons[pos.first][pos.second];
 		}
 		

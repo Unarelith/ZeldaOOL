@@ -15,21 +15,13 @@
  *
  * =====================================================================================
  */
-#include "Player.hpp"
 #include "ChestOpenedState.hpp"
 #include "DialogState.hpp"
-#include "Map.hpp"
 #include "SoundEffect.hpp"
 
-ChestOpenedState::ChestOpenedState(ApplicationState *parent, float x, float y, Collectable *collectable) : ApplicationState(parent) {
-	m_state = State::Opening;
-	
-	m_collectable = collectable;
+ChestOpenedState::ChestOpenedState(ApplicationState *parent, float x, float y, Collectable &collectable) : ApplicationState(parent) {
+	m_collectable = &collectable;
 	m_collectable->setPosition(x + 7 - m_collectable->width() / 2, y + 8);
-	
-	m_movementCounter = 0;
-	
-	m_speed = 0.125f;
 	
 	Sprite::pause = true;
 }
@@ -50,7 +42,7 @@ void ChestOpenedState::update() {
 		
 		m_collectable->action();
 		
-		// FIXME: TO IMPROVE
+		// FIXME: TO IMPROVE (avoid the '[2]' repetition)
 		m_stateStack->push<DialogState>(this, "Vous obtenez [2]30 [2]Rubis[0]!\nC'est bien.");
 		
 		m_state = State::Finished;

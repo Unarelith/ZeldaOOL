@@ -21,6 +21,7 @@
 #include "KeyboardMovement.hpp"
 #include "MapHelper.hpp"
 #include "Map.hpp"
+#include "NPC.hpp"
 #include "Player.hpp"
 #include "PushingState.hpp"
 #include "StandingState.hpp"
@@ -108,16 +109,23 @@ void Player::collisionAction(MapObject &object) {
 		
 		hurt(enemy.strength(), vx, vy);
 	}
-	else if(object.checkType<Object>()) {
-		Object &obj = static_cast<Object&>(object);
+	else if(object.checkType<NPC>()) {
+		s16 vx = m_x - object.x();
+		s16 vy = m_y - object.y();
 		
+		if(vx != 0) vx /= abs(vx);
+		if(vy != 0) vy /= abs(vy);
+		
+		Character::mapCollisionAction(vx, vy);
+	}
+	else {
 		if(onTile(TilesData::TileType::Button)) {
-			obj.onEvent(Map::EventType::ButtonPressed);
+			object.onEvent(Map::EventType::ButtonPressed);
 		}
 		else if(MapHelper::onDoor(m_x + 8, m_y + 8) && !m_inDoor) {
 			m_inDoor = true;
 			
-			obj.onEvent(Map::EventType::ChangeMap);
+			object.onEvent(Map::EventType::ChangeMap);
 		}
 	}
 }
@@ -179,9 +187,7 @@ void Player::mapCollisions() {
 	
 	Map::currentMap->checkCollisionsFor(this);
 	
-	if(m_blocked) {
-		setNextState<PushingState>();
-	}
+	if(m_blocked) setNextState<PushingState>();
 	
 	if(onTile(TilesData::TileType::SlowingTile)) {
 		m_vx /= 2;

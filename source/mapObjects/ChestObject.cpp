@@ -22,15 +22,6 @@
 #include "RupeeCollectable.hpp"
 #include "SoundEffect.hpp"
 
-ChestObject::ChestObject(float x, float y) : Object(x, y) {
-	m_opened = false;
-	
-	m_collectable = new RupeeCollectable(x, y, 30);
-}
-
-ChestObject::~ChestObject() {
-}
-
 void ChestObject::onEvent(u8 event) {
 	if(event == Map::EventType::ChestOpened) {
 		SoundEffect::play("chest");

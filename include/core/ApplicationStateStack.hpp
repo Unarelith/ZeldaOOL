@@ -31,17 +31,11 @@ class ApplicationStateStack {
 			m_states.top()->setStackHandle(this);
 		}
 		
-		void pop() {
-			m_states.pop();
-		}
+		void pop() { m_states.pop(); }
 		
-		ApplicationState *top() {
-			return m_states.top().get();
-		}
+		ApplicationState *top() const { return m_states.top().get(); }
 		
-		std::size_t size() {
-			return m_states.size();
-		}
+		std::size_t size() const { return m_states.size(); }
 		
 		// FIXME: To remove. Used in ChestObject and DoorObject.
 		static ApplicationStateStack &getInstance() {

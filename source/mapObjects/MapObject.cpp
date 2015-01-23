@@ -19,13 +19,15 @@
 #include "MapObject.hpp"
 #include "TilesData.hpp"
 
-MapObject::MapObject(const std::string &textureName, float x, float y, u16 width, u16 height) : Sprite(textureName, width, height) {
+MapObject::MapObject(float x, float y, u16 width, u16 height) {
+	load(x, y, width, height);
+}
+
+MapObject::MapObject(const std::string &textureName, float x, float y, u16 width, u16 height) {
 	load(textureName, x, y, width, height);
 }
 
-void MapObject::load(const std::string &textureName, float x, float y, u16 width, u16 height) {
-	Sprite::load(textureName, width, height);
-	
+void MapObject::load(float x, float y, u16 width, u16 height) {
 	m_x = x;
 	m_y = y;
 	
@@ -40,9 +42,19 @@ void MapObject::load(const std::string &textureName, float x, float y, u16 width
 	m_lowWaterEffect.addAnimation({0, 1, 2}, 100);
 }
 
+void MapObject::load(const std::string &textureName, float x, float y, u16 width, u16 height) {
+	Sprite::load(textureName, width, height);
+	
+	load(x, y, width, height);
+}
+
 bool MapObject::inCollisionWith(const MapObject &object) const {
-	FloatRect rect1(m_x + m_hitbox.x, m_y + m_hitbox.y, m_hitbox.width, m_hitbox.height);
-	FloatRect rect2(object.m_x + object.m_hitbox.x, object.m_y + object.m_hitbox.y, object.m_hitbox.width, object.m_hitbox.height);
+	FloatRect rect1(m_x + m_vx + m_hitbox.x,
+	                m_y + m_vy + m_hitbox.y,
+	                m_hitbox.width, m_hitbox.height);
+	FloatRect rect2(object.m_x + object.m_vx + object.m_hitbox.x,
+	                object.m_y + object.m_vy + object.m_hitbox.y,
+	                object.m_hitbox.width, object.m_hitbox.height);
 	return rect1.intersects(rect2);
 }
 

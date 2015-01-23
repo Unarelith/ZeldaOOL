@@ -23,7 +23,7 @@
 
 class ChestOpenedState : public ApplicationState {
 	public:
-		ChestOpenedState(ApplicationState *parent, float x, float y, Collectable *collectable);
+		ChestOpenedState(ApplicationState *parent, float x, float y, Collectable &collectable);
 		
 		void update();
 		
@@ -36,13 +36,13 @@ class ChestOpenedState : public ApplicationState {
 		};
 		
 	private:
-		State m_state;
+		State m_state = State::Opening;
 		
-		Collectable *m_collectable;
+		Collectable *m_collectable = nullptr;
 		
-		float m_movementCounter;
+		float m_movementCounter = 0;
 		
-		float m_speed;
+		float m_speed = 0.125f;
 };
 
 #endif // CHESTOPENEDSTATE_HPP_

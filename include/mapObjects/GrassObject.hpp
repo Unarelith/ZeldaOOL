@@ -18,9 +18,9 @@
 #ifndef GRASSOBJECT_HPP_
 #define GRASSOBJECT_HPP_
 
-#include "Object.hpp"
+#include "MapObject.hpp"
 
-class GrassObject : public Object {
+class GrassObject : public MapObject {
 	public:
 		GrassObject(float x, float y, bool lowGrass = false);
 		

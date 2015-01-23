@@ -44,9 +44,9 @@ void Enemy::draw() {
 }
 
 void Enemy::mapBordersCollisions() {
-	if(m_x + m_hitbox.width + m_vx > Map::currentMap->width() * 16
+	if(m_x + m_vx + m_hitbox.width > Map::currentMap->width() * 16
 	|| m_x + m_vx < 0
-	|| m_y + m_hitbox.height + m_vy > Map::currentMap->height() * 16
+	|| m_y + m_vy + m_hitbox.height > Map::currentMap->height() * 16
 	|| m_y + m_vy < 0) {
 		mapCollisionAction(m_vx, m_vy);
 	}

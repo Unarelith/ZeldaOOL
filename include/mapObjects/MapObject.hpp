@@ -30,11 +30,13 @@ class MapObject : public Sprite {
 	public:
 		MapObject() = default;
 		MapObject(const MapObject &) = delete;
+		MapObject(float x, float y, u16 width, u16 height);
 		MapObject(const std::string &textureName, float x, float y, u16 width, u16 height);
 		virtual ~MapObject() = default;
 		
 		MapObject &operator=(const MapObject &) = delete;
 		
+		void load(float x, float y, u16 width, u16 height);
 		void load(const std::string &textureName, float x, float y, u16 width, u16 height);
 		
 		bool inCollisionWith(const MapObject &object) const;
@@ -42,6 +44,8 @@ class MapObject : public Sprite {
 		void addCollisionHandler(const std::function<void(void)> &collisionHandler);
 		
 		void testCollisions();
+		
+		virtual void onEvent(u8) {}
 		
 		bool onTile(u16 tile) const;
 		
@@ -63,6 +67,9 @@ class MapObject : public Sprite {
 	protected:
 		float m_x = 0;
 		float m_y = 0;
+		
+		float m_vx = 0;
+		float m_vy = 0;
 		
 		u16 m_width = 0;
 		u16 m_height = 0;

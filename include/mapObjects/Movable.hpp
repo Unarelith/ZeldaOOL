@@ -71,9 +71,6 @@ class Movable : public MapObject {
 		void resetMovement() { m_movement = m_defaultMovement; }
 		
 	protected:
-		float m_vx = 0;
-		float m_vy = 0;
-		
 		u8 m_direction = Direction::Down;
 		bool m_directionLocked = false;
 		

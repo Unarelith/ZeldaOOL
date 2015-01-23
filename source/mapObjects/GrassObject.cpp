@@ -21,7 +21,7 @@
 #include "RupeeCollectable.hpp"
 #include "SoundEffect.hpp"
 
-GrassObject::GrassObject(float x, float y, bool lowGrass) : Object(x, y) {
+GrassObject::GrassObject(float x, float y, bool lowGrass) : MapObject(x, y, 16, 16) {
 	m_grassDestroy.addAnimation({0, 1, 2, 3, 4, 5}, 50);
 	
 	m_lowGrass = lowGrass;
