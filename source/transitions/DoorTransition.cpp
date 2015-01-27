@@ -38,11 +38,11 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	
-	m_rect1.resize(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 16);
-	m_rect2.resize(WINDOW_WIDTH / 2, WINDOW_HEIGHT - 16);
+	m_rect1.resize(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 16);
+	m_rect2.resize(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 16);
 	
 	m_rect1.setPosition(0, 16);
-	m_rect2.setPosition(WINDOW_WIDTH / 2, 16);
+	m_rect2.setPosition(SCREEN_WIDTH / 2, 16);
 	
 	// FIXME: TEMPORARY
 	if(m_nextMap->area() == 0) {

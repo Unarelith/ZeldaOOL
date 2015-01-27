@@ -34,13 +34,13 @@ void SDLLoader::load() {
 	
 	int imgFlags = IMG_INIT_PNG;
 	if(!IMG_Init(imgFlags) & imgFlags) {
-		EXCEPTION("SDL image init error:", SDL_GetError());
+		EXCEPTION("SDL image init error:", IMG_GetError());
 	} else {
 		m_imgInitialized = true;
 	}
 	
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) {
-		EXCEPTION("SDL image init error:", SDL_GetError());
+		EXCEPTION("SDL mixer init error:", Mix_GetError());
 	} else {
 		m_mixInitialized = true;
 	}

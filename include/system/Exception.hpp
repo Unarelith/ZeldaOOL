@@ -29,17 +29,14 @@
 class Exception : public std::exception {
 	public:
 		template<typename... Args>
-		Exception(u16 line, std::string filename, Args &&...args) throw() {
+		Exception(u16 line, std::string filename, Args &&...args) noexcept {
 			m_line = line;
 			m_filename = filename;
 			
 			m_errorMsg = Debug::makeString(std::forward<Args>(args)...);
 		}
 		
-		~Exception() throw() {
-		}
-		
-		virtual const char *what() const throw() {
+		virtual const char *what() const noexcept {
 			return (Debug::textColor(Debug::TextColor::Red, true) + "at " + m_filename + ":" + std::to_string(m_line) + ": " + Debug::textColor(0, true) + m_errorMsg.c_str() + Debug::textColor()).c_str();
 		}
 		

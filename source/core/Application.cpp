@@ -49,8 +49,6 @@ void Application::handleEvents() {
 
 void Application::run() {
 	while(m_window.isOpen()) {
-		m_clock.measureLastFrameDuration();
-		
 		handleEvents();
 		
 		m_clock.updateGame([&] {

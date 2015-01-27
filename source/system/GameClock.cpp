@@ -29,10 +29,11 @@ u32 GameClock::getTicks(bool realTime) {
 }
 
 void GameClock::measureLastFrameDuration() {
-	m_now = getTicks(true) - m_timeDropped;
-	m_lastFrameDuration = m_now - m_lastFrameDate;
-	m_lastFrameDate = m_now;
-	m_lag += m_lastFrameDuration;
+	u32 now = getTicks(true) - m_timeDropped;
+	u32 lastFrameDuration = now - m_lastFrameDate;
+	
+	m_lastFrameDate = now;
+	m_lag += lastFrameDuration;
 	
 	if(m_lag >= 200) {
 		m_timeDropped += m_lag - m_timestep;
@@ -59,13 +60,12 @@ void GameClock::drawGame(std::function<void(void)> drawFunc) {
 		drawFunc();
 	}
 	
-	m_lastFrameDuration = getTicks(true) - m_timeDropped - m_lastFrameDate;
+	u32 lastFrameDuration = getTicks(true) - m_timeDropped - m_lastFrameDate;
 	
-	if(m_lastFrameDuration < m_timestep) {
-		SDL_Delay(m_timestep - m_lastFrameDuration);
+	if(lastFrameDuration < m_timestep) {
+		SDL_Delay(m_timestep - lastFrameDuration);
 	}
 	
-	m_now = 0;
-	m_lastFrameDuration = 0;
+	measureLastFrameDuration();
 }
 

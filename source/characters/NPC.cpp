@@ -34,10 +34,19 @@ void NPC::load(const std::string &textureName, u16 x, u16 y, u16 width, u16 heig
 	addAnimation({3, 7}, 150);
 }
 
+bool NPC::playerInFrontOfThis() {
+	FloatRect playerPosition{Player::player.x() / 16,
+	                       Player::player.y() / 16,
+	                       Player::player.x() / 16 + 1,
+	                       Player::player.y() / 16 + 1};
+	
+	FloatRect position(m_x / 16, m_y / 16, m_x / 16 + 1, m_y / 16 + 1);
+	
+	return false; //TODO
+}
+
 void NPC::update() {
-	if(Keyboard::isKeyPressedOnce(Keyboard::A)
-	&& floor(Player::player.x() / 16) == floor(m_x / 16)
-	&& floor(Player::player.y() / 16) == floor(m_y / 16 + 1)) {
+	if(Keyboard::isKeyPressedOnce(Keyboard::A) && playerInFrontOfThis()) {
 		// FIXME: TO REMOVE LATER
 		ApplicationStateStack::getInstance().push<DialogState>(ApplicationStateStack::getInstance().top(), "Il faut que tu sauves Nayru!");
 	}

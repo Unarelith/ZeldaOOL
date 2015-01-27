@@ -18,7 +18,7 @@
 #ifndef CONFIG_HPP_
 #define CONFIG_HPP_
 
-static const int WINDOW_WIDTH = 160;
-static const int WINDOW_HEIGHT = 144;
+static const int SCREEN_WIDTH = 160;
+static const int SCREEN_HEIGHT = 144;
 
 #endif // CONFIG_HPP_

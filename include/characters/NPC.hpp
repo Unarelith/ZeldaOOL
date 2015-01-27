@@ -27,6 +27,8 @@ class NPC : public Character {
 		
 		void load(const std::string &textureName, u16 x, u16 y, u16 width, u16 height, u8 direction);
 		
+		bool playerInFrontOfThis();
+		
 		void update();
 		
 		void draw();

@@ -24,16 +24,15 @@
 #include "OpenGL.hpp"
 #include "Window.hpp"
 
-static const char *APP_NAME = "The Legend of Zelda: Oracle of Time";
-
 Window::Window() {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
-	m_width = WINDOW_WIDTH * 3;
-	m_height = WINDOW_HEIGHT * 3;
+	m_width = SCREEN_WIDTH * 3;
+	m_height = SCREEN_HEIGHT * 3;
 	
-	m_window.reset(SDL_CreateWindow(APP_NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN));
+	auto caption = "The Legend of Zelda: Oracle of Time";
+	m_window.reset(SDL_CreateWindow(caption, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN));
 	if(!m_window) {
 		throw EXCEPTION("Error while initializing window:", SDL_GetError());
 	}
@@ -64,8 +63,7 @@ void Window::initGL() {
 	
 	Shader::bind(&m_shader);
 	
-	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f);
-	
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f);
 	m_shader.setUniform("u_projectionMatrix", projectionMatrix);
 }
 

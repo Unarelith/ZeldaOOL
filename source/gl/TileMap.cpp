@@ -29,7 +29,7 @@ void TileMap::load(const std::string &filename, Tileset &tileset) {
 	
 	m_tileset = &tileset;
 	
-	m_view.load(0, 16, WINDOW_WIDTH, WINDOW_HEIGHT - 16);
+	m_view.load(0, 16, SCREEN_WIDTH, SCREEN_HEIGHT - 16);
 	
 	VertexBuffer::bind(&m_vbo);
 	
