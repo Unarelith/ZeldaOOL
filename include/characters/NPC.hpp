@@ -32,6 +32,9 @@ class NPC : public Character {
 		void update();
 		
 		void draw();
+		
+	private:
+		u8 m_defaultDirection;
 };
 
 #endif // NPC_HPP_

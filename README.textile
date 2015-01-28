@@ -21,3 +21,9 @@ h2. How to compile
 * Run @mkdir build && cd build && cmake ..@ at the root of the game folder
 * Run @make@, wait, and enjoy!
 
+h2. Pre-compiled builds
+
+* *Windows:* (old) "ZeldaOOT.zip":https://dl.dropboxusercontent.com/u/41571323/ZeldaOOT.zip
+* *Linux:* _Not available yet_
+* *OS X:* _Not available yet_
+
