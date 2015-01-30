@@ -32,7 +32,7 @@ class Dialog {
 		void draw();
 		void drawText();
 		
-		enum Position {
+		enum Position : u8 {
 			Top		= 24,
 			Bottom	= 96
 		};

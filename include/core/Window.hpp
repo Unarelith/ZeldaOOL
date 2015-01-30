@@ -18,13 +18,11 @@
 #ifndef WINDOW_HPP_
 #define WINDOW_HPP_
 
-#include <functional>
 #include <memory>
 
 #include "SDLHeaders.hpp"
 #include "Shader.hpp"
 #include "Types.hpp"
-#include "View.hpp"
 
 class Window {
 	public:

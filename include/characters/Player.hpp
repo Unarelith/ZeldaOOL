@@ -40,6 +40,8 @@ class Player : public Battler {
 	private:
 		Inventory m_inventory;
 		
+		// Flag used to know if the player is still on
+		// a door after a DoorTransition
 		bool m_inDoor;
 };
 

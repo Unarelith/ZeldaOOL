@@ -59,9 +59,6 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	Sprite::pause = true;
 }
 
-DoorTransition::~DoorTransition() {
-}
-
 void DoorTransition::update() {
 	if(m_rect1.x() + m_rect1.width() < 0) {
 		Map::currentMap = m_nextMap;

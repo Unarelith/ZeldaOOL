@@ -1,26 +1,32 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Transition.cpp
+ *       Filename:  MainState.cpp
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  05/10/2014 17:42:33
+ *        Created:  31/01/2015 11:42:54
  *       Revision:  none
  *       Compiler:  gcc
  *
- *         Author:  Quentin BAZIN, <quent42340@gmail.com>
+ *         Author:  Quentin BAZIN, <gnidmoo@gmail.com>
  *        Company:  
  *
  * =====================================================================================
  */
-#include "Transition.hpp"
+#include "MainState.hpp"
 
-Transition::Transition() {
-	m_atEnd = false;
+MainState::MainState() {
 }
 
-Transition::~Transition() {
+void MainState::update() {
+	m_scene.update();
+}
+
+void MainState::render() {
+	m_scene.draw();
+	
+	m_statsBar.draw();
 }
 

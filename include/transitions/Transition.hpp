@@ -20,8 +20,7 @@
 
 class Transition {
 	public:
-		Transition();
-		virtual ~Transition();
+		virtual ~Transition() = default;
 		
 		virtual void update() = 0;
 		
@@ -30,7 +29,7 @@ class Transition {
 		bool atEnd() const { return m_atEnd; }
 		
 	protected:
-		bool m_atEnd;
+		bool m_atEnd = false;
 };
 
 #endif // TRANSITION_HPP_

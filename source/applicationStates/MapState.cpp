@@ -47,7 +47,7 @@ MapState::MapState() {
 	button.addTileChange(7, 6, 36);
 	button.addTileChange(8, 6, 36);
 	
-	Map::getMap(0, 0, 0).addObject<NPC>("characters-blueboy", 4 * 16, 1 * 16, 16, 16, Movable::Direction::Down);
+	//Map::getMap(0, 0, 0).addObject<NPC>("characters-blueboy", 4 * 16, 1 * 16, 16, 16, Movable::Direction::Down);
 	
 	Map::getMap(0, 0, 1).addObject<ChestObject>(1 * 16, 5 * 16);
 	Map::getMap(2, 0, 0).addObject<ChestObject>(5 * 16, 2 * 16);
@@ -59,9 +59,9 @@ MapState::MapState() {
 }
 
 void MapState::update() {
-	Map::currentMap->update();
-	
 	Player::player.update();
+	
+	Map::currentMap->update();
 	
 	if(Player::player.stateManager().currentState().canStartMapTransition()) {
 		if(Player::player.x() < -3) {

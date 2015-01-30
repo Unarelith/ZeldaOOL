@@ -26,12 +26,7 @@
 class Sprite : public Image {
 	public:
 		Sprite() = default;
-		Sprite(const Sprite &) = default;
-		Sprite(Sprite &&) = default;
 		Sprite(const std::string &filename, u16 frameWidth, u16 frameHeight);
-		
-		Sprite &operator=(const Sprite &) = default;
-		Sprite &operator=(Sprite &&) = default;
 		
 		void load(const std::string &filename, u16 frameWidth, u16 frameHeight);
 		
