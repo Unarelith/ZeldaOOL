@@ -72,8 +72,10 @@ void Player::load() {
 }
 
 void Player::update(bool states) {
+	// Check if the player is hurt
 	Battler::update();
 	
+	// Check if a chest is in front of the player and if A is pressed
 	if(m_direction == Direction::Up && MapHelper::isTile(m_x + 8, m_y + 4, TilesData::TileType::ClosedChest)) {
 		if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
 			ChestObject *chestObject = static_cast<ChestObject*>(Map::currentMap->getObject(m_x + 8, m_y - 2));
@@ -84,8 +86,10 @@ void Player::update(bool states) {
 	}
 	
 	if(states) {
+		// Update current state
 		m_stateManager.update();
 		
+		// Set current state to next state if it exists
 		m_stateManager.updateStates();
 	}
 }
@@ -101,6 +105,7 @@ void Player::collisionAction(MapObject &object) {
 		Enemy &enemy = static_cast<Enemy&>(object);
 		if(enemy.isDead()) return;
 		
+		// FIXME: Write an helper function for that, it could be used below
 		s16 vx = m_x - enemy.x();
 		s16 vy = m_y - enemy.y();
 		
@@ -110,13 +115,27 @@ void Player::collisionAction(MapObject &object) {
 		hurt(enemy.strength(), vx, vy);
 	}
 	else if(object.checkType<NPC>()) {
+		// FIXME: See above
 		s16 vx = m_x - object.x();
 		s16 vy = m_y - object.y();
 		
 		if(vx != 0) vx /= abs(vx);
 		if(vy != 0) vy /= abs(vy);
 		
-		Character::mapCollisionAction(vx, vy);
+		// TODO: Write an helper function for that, it could be used somewhere
+		// else, in Character::updateDirection or something like that
+		u8 direction = 0;
+		if(vx < 0) direction = Movable::Direction::Left;
+		if(vx > 0) direction = Movable::Direction::Right;
+		if(vy < 0) direction = Movable::Direction::Down;
+		if(vy > 0) direction = Movable::Direction::Up;
+		
+		if(m_direction == direction) {
+			Character::mapCollisionAction(vx, vy);
+		} else {
+			if(vx != 0) m_vx = 0;
+			if(vy != 0) m_vy = 0;
+		}
 	}
 	else {
 		if(onTile(TilesData::TileType::Button)) {
@@ -130,7 +149,9 @@ void Player::collisionAction(MapObject &object) {
 	}
 }
 
+// FIXME: Make an object for that, maybe using the Component pattern?
 void Player::mapCollisions() {
+	// Pixel-perfect link hitbox for each 4 directions
 	u8 collisionMatrix[4][4] = {
 		{12, 8,12,13},
 		{ 4, 8, 4,13},
@@ -138,9 +159,11 @@ void Player::mapCollisions() {
 		{ 5,15,10,15}
 	};
 	
+	// Iterate through the directions
 	for(u8 i = 0 ; i < 4 ; i++) {
 		bool test;
 		
+		// Test the velocity vector for each direction
 		if(i == 0) {
 			test = (m_vx > 0);
 		}
@@ -160,6 +183,7 @@ void Player::mapCollisions() {
 			if(i < 2)	m_vx = 0;
 			else		m_vy = 0;
 			
+			// If the player is looking at the wall, block it
 			if((i == 0 && m_direction == Direction::Right)
 			|| (i == 1 && m_direction == Direction::Left)
 			|| (i == 2 && m_direction == Direction::Up)
@@ -167,6 +191,9 @@ void Player::mapCollisions() {
 				m_blocked = true;
 			}
 			
+			//-----------------------------------------------------------------
+			// Test collisions with tile borders in order to shift the player
+			//-----------------------------------------------------------------
 			if( MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])
 			&& !MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])) {
 				if(i < 2 && m_vy == 0)	m_vy = 1;
@@ -185,6 +212,7 @@ void Player::mapCollisions() {
 		}
 	}
 	
+	// Check collisions with every object in Map::currentMap
 	Map::currentMap->checkCollisionsFor(this);
 	
 	if(m_blocked) setNextState<PushingState>();
@@ -202,11 +230,8 @@ void Player::mapCollisions() {
 		m_vy *= 3;
 	}
 	
-	//if(!MapHelper::onDoor(m_x +  2, m_y +  2)
-	//&& !MapHelper::onDoor(m_x + 14, m_y +  2)
-	//&& !MapHelper::onDoor(m_x +  2, m_y + 14)
-	//&& !MapHelper::onDoor(m_x + 14, m_y + 14)) {
-	if(!MapHelper::onDoor(m_x + 8, m_y + 8)) {
+	// Check if the player is not on a door anymore
+	if(m_inDoor && !MapHelper::onDoor(m_x + 8, m_y + 8)) {
 		m_inDoor = false;
 	}
 }

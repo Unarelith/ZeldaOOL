@@ -2,7 +2,7 @@ h1. The Legend of Zelda: Oracle of Time
 
 h3. By Quent42340
 
-* This game is a TLOZ: OO-like fangame
+* This game is a Zelda fangame, based on the _Oracle of_ series on GBC
 
 !http://img15.hostingpics.net/pics/255623Capturedcrande20141005181925.png!
 
@@ -18,12 +18,12 @@ h2. How to compile
 
 * Install @CMake@, @SDL2@, @SDL2_image@, @SDL2_mixer@, @glm@, @OpenGL@ (=> 2.1) and @glew@ (only required for Windows)
 * *GCC Users:* There's a "bug":https://gcc.gnu.org/bugzilla/show_bug.cgi?id=55914 in @GCC@ < 4.9, so the code won't compile. Please install @GCC 4.9@.
-* Run @mkdir build && cd build && cmake ..@ at the root of the game folder
-* Run @make@, wait, and enjoy!
+* Run @cmake .@ at the root of the game folder
+* Run @make@, wait, run the game and enjoy!
 
 h2. Pre-compiled builds
 
 * *Windows:* (old) "ZeldaOOT.zip":https://dl.dropboxusercontent.com/u/41571323/ZeldaOOT.zip
-* *Linux:* _Not available yet_
+* *Linux:* _Not available yet. However, *Windows* build runs quite well with @wine@, but without sound_
 * *OS X:* _Not available yet_
 

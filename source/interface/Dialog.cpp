@@ -26,8 +26,7 @@ Dialog::Dialog() {
 }
 
 void Dialog::update() {
-	if(m_soundTimer.time() > 60
-	&& !waitForUser()) {
+	if(m_soundTimer.time() > 60 && !waitForUser()) {
 		SoundEffect::play("textLetter");
 		
 		m_soundTimer.reset();
