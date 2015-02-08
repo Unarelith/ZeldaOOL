@@ -1,26 +1,46 @@
+#------------------------------------------------------------------------------
+# CMakeLists.txt
+# By gnidmoo <gnidmoo@gmail.com>
+#------------------------------------------------------------------------------
 cmake_minimum_required(VERSION 2.8)
 
-project(ZeldaOOT)
+project(ZeldaOOL)
 
-file(GLOB SOURCE_FILES source/*/*.cpp source/*.cpp external/*.cpp)
-file(GLOB HEADER_FILES include/*)
+#------------------------------------------------------------------------------
+# Get sources and headers
+#------------------------------------------------------------------------------
+file(GLOB_RECURSE SOURCE_FILES source/*.cpp external/*.cpp)
+file(GLOB_RECURSE HEADER_FILES include/*.hpp external/*.hpp)
 
-add_executable(ZeldaOOT
+foreach(HEADER_FILE ${HEADER_FILES})
+	get_filename_component(HEADER_DIRECTORY ${HEADER_FILE} DIRECTORY)
+	include_directories(${HEADER_DIRECTORY})
+endforeach(HEADER_FILE)
+
+add_executable(${CMAKE_PROJECT_NAME}
                ${SOURCE_FILES})
 
+#------------------------------------------------------------------------------
+# Compiler flags
+#------------------------------------------------------------------------------
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++11")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wfatal-errors -pedantic")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-variadic-macros")
 
-include_directories(external)
-include_directories(${HEADER_FILES})
-
+#------------------------------------------------------------------------------
+# Packages
+#------------------------------------------------------------------------------
+# - OpenGL
+#------------------------------------------------------------------------------
 find_package(OpenGL REQUIRED)
 
 if(NOT OPENGL_FOUND)
 	message(FATAL_ERROR "OpenGL not found !")
 endif(NOT OPENGL_FOUND)
 
+#------------------------------------------------------------------------------
+# - SDL2, SDL2_image, SDL2_mixer
+#------------------------------------------------------------------------------
 include(FindPkgConfig)
 
 pkg_search_module(SDL2 REQUIRED sdl2)
@@ -41,11 +61,14 @@ endif(NOT SDL2MIXER_FOUND)
 
 include_directories(${SDL2_INCLUDE_DIRS}
                     ${SDL2IMAGE_INCLUDE_DIRS}
-					${SDL2MIXER_INCLUDE_DIRS})
+                    ${SDL2MIXER_INCLUDE_DIRS})
 
-target_link_libraries(ZeldaOOT
-					  ${OPENGL_LIBRARIES}
-					  ${SDL2_LIBRARIES}
-					  ${SDL2IMAGE_LIBRARIES}
-					  ${SDL2MIXER_LIBRARIES})
+#------------------------------------------------------------------------------
+# Link options
+#------------------------------------------------------------------------------
+target_link_libraries(${CMAKE_PROJECT_NAME}
+                      ${OPENGL_LIBRARIES}
+                      ${SDL2_LIBRARIES}
+                      ${SDL2IMAGE_LIBRARIES}
+                      ${SDL2MIXER_LIBRARIES})
 
