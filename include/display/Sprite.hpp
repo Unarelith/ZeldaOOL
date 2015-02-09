@@ -45,6 +45,9 @@ class Sprite : public Image {
 		
 		static bool pause;
 		
+		u16 frameWidth() const { return m_frameWidth; }
+		u16 frameHeight() const { return m_frameHeight; }
+		
 	private:
 		u16 m_frameWidth;
 		u16 m_frameHeight;

@@ -71,7 +71,7 @@ void Image::draw() {
 		texRect.x,					texRect.y + texRect.height
 	};
 	
-	GLubyte indices[] = {
+	static const GLubyte indices[] = {
 		0, 1, 3,
 		3, 1, 2
 	};

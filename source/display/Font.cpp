@@ -1,11 +1,11 @@
 /*
  * =====================================================================================
  *
- *       Filename:  RectangleShape.cpp
+ *       Filename:  Font.cpp
  *
  *    Description:  
  *
- *        Created:  09/02/2015 02:52:18
+ *        Created:  09/02/2015 03:06:32
  *       Compiler:  gcc
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
@@ -13,22 +13,19 @@
  *
  * =====================================================================================
  */
-#include "OpenGL.hpp"
-#include "RectangleShape.hpp"
+#include "Font.hpp"
 #include "Shader.hpp"
 
-RectangleShape::RectangleShape(float x, float y, u16 width, u16 height) {
-	move(x, y);
-	resize(width, height);
+Font::Font(const std::string &filename, u16 charWidth, u16 charHeight) {
+	load(filename, charWidth, charHeight);
 }
 
-void RectangleShape::draw(Color color) {
-	GLfloat vertices[] = {
-		m_x,			m_y,
-		m_x + m_width,	m_y,
-		m_x + m_width,	m_y + m_height,
-		m_x,			m_y + m_height
-	};
+void Font::load(const std::string &filename, u16 charWidth, u16 charHeight) {
+	m_sprite.load(filename, charWidth, charHeight);
+}
+
+void Font::drawChar(float x, float y, u8 c, Color color) {
+	Shader::currentShader->enableVertexAttribArray("color");
 	
 	GLfloat colors[] = {
 		color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f,
@@ -37,20 +34,22 @@ void RectangleShape::draw(Color color) {
 		color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f
 	};
 	
-	static const GLubyte indices[] = {
-		0, 1, 3,
-		3, 1, 2
-	};
-	
-	Shader::currentShader->enableVertexAttribArray("coord2d");
-	Shader::currentShader->enableVertexAttribArray("color");
-	
-	glVertexAttribPointer(Shader::currentShader->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glVertexAttribPointer(Shader::currentShader->attrib("color"), 4, GL_FLOAT, GL_FALSE, 0, colors);
 	
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
+	if(c > 128 && c < 195) {
+		m_sprite.drawFrame(x, y, c + 35);
+	}
+	else if(c >= 32) {
+		m_sprite.drawFrame(x, y, c - 29);
+	}
 	
 	Shader::currentShader->disableVertexAttribArray("color");
-	Shader::currentShader->disableVertexAttribArray("coord2d");
+}
+
+void Font::drawString(float x, float y, const std::string &str, Color color) {
+	for(auto &it : str) {
+		drawChar(x, y, it, color);
+		x += charWidth();
+	}
 }
 

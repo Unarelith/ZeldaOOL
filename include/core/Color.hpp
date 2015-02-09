@@ -30,11 +30,11 @@ class Color {
 		u8 b = 255;
 		u8 a = 255;
 		
-		static const Color black;
-		static const Color white;
-		static const Color text;
-		static const Color blue;
-		static const Color red;
+		static Color black;
+		static Color white;
+		static Color text;
+		static Color blue;
+		static Color red;
 };
 
 #endif // COLOR_HPP_

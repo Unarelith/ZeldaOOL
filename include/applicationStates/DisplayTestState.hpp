@@ -17,6 +17,7 @@
 #define DISPLAYTESTSTATE_HPP_
 
 #include "ApplicationState.hpp"
+#include "Font.hpp"
 #include "Image.hpp"
 #include "RectangleShape.hpp"
 #include "Sprite.hpp"
@@ -35,6 +36,8 @@ class DisplayTestState : public ApplicationState {
 		Sprite m_sprite{"characters-link", 16, 16};
 		
 		RectangleShape m_rect{64, 16, 32, 16};
+		
+		Font m_font{"interface-font", 8, 16};
 };
 
 #endif // DISPLAYTESTSTATE_HPP_

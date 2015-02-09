@@ -38,11 +38,11 @@ class RectangleShape {
 		u16 height() const { return m_height; }
 		
 	private:
-		float m_x;
-		float m_y;
+		float m_x = 0;
+		float m_y = 0;
 		
-		u16 m_width;
-		u16 m_height;
+		u16 m_width = 0;
+		u16 m_height = 0;
 };
 
 #endif // RECTANGLESHAPE_HPP_
