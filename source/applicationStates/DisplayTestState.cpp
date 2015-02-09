@@ -15,10 +15,17 @@
  */
 #include "DisplayTestState.hpp"
 
+DisplayTestState::DisplayTestState() {
+	m_sprite.addAnimation({4, 0}, 150);
+}
+
 void DisplayTestState::update() {
 }
 
 void DisplayTestState::draw() {
 	m_image.draw();
+	
+	m_sprite.drawFrame(64, 0, 0);
+	m_sprite.playAnimation(80, 0, 0);
 }
 

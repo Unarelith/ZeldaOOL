@@ -18,15 +18,20 @@
 
 #include "ApplicationState.hpp"
 #include "Image.hpp"
+#include "Sprite.hpp"
 
 class DisplayTestState : public ApplicationState {
 	public:
+		DisplayTestState();
+		
 		void update() override;
 		
 		void draw() override;
 		
 	private:
 		Image m_image{"characters-link"};
+		
+		Sprite m_sprite{"characters-link", 16, 16};
 };
 
 #endif // DISPLAYTESTSTATE_HPP_
