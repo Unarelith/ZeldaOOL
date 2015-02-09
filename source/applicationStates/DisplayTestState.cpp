@@ -27,5 +27,7 @@ void DisplayTestState::draw() {
 	
 	m_sprite.drawFrame(64, 0, 0);
 	m_sprite.playAnimation(80, 0, 0);
+	
+	m_rect.draw(Color::white);
 }
 

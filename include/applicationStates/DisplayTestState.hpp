@@ -18,6 +18,7 @@
 
 #include "ApplicationState.hpp"
 #include "Image.hpp"
+#include "RectangleShape.hpp"
 #include "Sprite.hpp"
 
 class DisplayTestState : public ApplicationState {
@@ -32,6 +33,8 @@ class DisplayTestState : public ApplicationState {
 		Image m_image{"characters-link"};
 		
 		Sprite m_sprite{"characters-link", 16, 16};
+		
+		RectangleShape m_rect{64, 16, 32, 16};
 };
 
 #endif // DISPLAYTESTSTATE_HPP_
