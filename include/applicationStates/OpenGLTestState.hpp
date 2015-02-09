@@ -17,7 +17,7 @@
 #define OPENGLTESTSTATE_HPP_
 
 #include "ApplicationState.hpp"
-
+#include "ResourceHandler.hpp"
 #include "Texture.hpp"
 #include "VertexBuffer.hpp"
 
@@ -28,7 +28,7 @@ class OpenGLTestState : public ApplicationState {
 		void draw() override;
 		
 	private:
-		Texture m_texture{"graphics/characters/link.png"};
+		Texture &m_texture{ResourceHandler::getInstance().get<Texture>("characters-link")};
 		
 		VertexBuffer m_vbo;
 };

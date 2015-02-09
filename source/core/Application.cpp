@@ -15,30 +15,36 @@
  */
 #include "Application.hpp"
 #include "EventHandler.hpp"
+#include "ResourceHandler.hpp"
+#include "TextureLoader.hpp"
 
+#include "DisplayTestState.hpp"
 #include "OpenGLTestState.hpp"
 
 Application::Application() {
-	m_stateStack.push<OpenGLTestState>();
+	ResourceHandler::getInstance().addType<TextureLoader>("data/config/textures.xml");
+	
+	//m_stateStack.push<OpenGLTestState>();
+	m_stateStack.push<DisplayTestState>();
 }
 
-#include "Debug.hpp"
-
 void Application::run() {
-	while(m_window.isOpen() && m_stateStack.size() > 0) {
+	while(m_window.isOpen()) {
 		EventHandler::processSDLEvents(m_window);
 		
-		m_clock.updateGame([&] {
-			m_stateStack.top()->update();
-		});
-		
-		m_clock.drawGame([&] {
-			m_window.clear();
+		if(m_stateStack.size() > 0) {
+			m_clock.updateGame([&] {
+				m_stateStack.top()->update();
+			});
 			
-			m_stateStack.top()->draw();
-			
-			m_window.update();
-		});
+			m_clock.drawGame([&] {
+				m_window.clear();
+				
+				m_stateStack.top()->draw();
+				
+				m_window.update();
+			});
+		}
 	}
 }
 
