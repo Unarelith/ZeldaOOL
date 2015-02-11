@@ -26,7 +26,7 @@ class Font {
 		
 		void load(const std::string &filename, u16 charWidth, u16 charHeight);
 		
-		void drawChar(float x, float y, u8 c, Color color = Color::white);
+		void drawChar(float x, float y, u8 c);
 		void drawString(float x, float y, const std::string &str, Color color = Color::white);
 		
 		u16 charWidth() const { return m_sprite.frameWidth(); }

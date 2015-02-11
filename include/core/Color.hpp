@@ -16,12 +16,16 @@
 #ifndef COLOR_HPP_
 #define COLOR_HPP_
 
+#include <vector>
+
 #include "Types.hpp"
 
 class Color {
 	public:
 		Color() = default;
 		Color(u8 _r, u8 _g, u8 _b, u8 _a = 255);
+		
+		std::vector<float> makeArray(u8 vertices);
 		
 		Color operator-(const Color &color);
 		

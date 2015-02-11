@@ -71,6 +71,8 @@ void Image::draw() {
 		texRect.x,					texRect.y + texRect.height
 	};
 	
+	std::vector<float> colors = m_color.makeArray(4);
+	
 	static const GLubyte indices[] = {
 		0, 1, 3,
 		3, 1, 2
@@ -78,9 +80,11 @@ void Image::draw() {
 	
 	Shader::currentShader->enableVertexAttribArray("coord2d");
 	Shader::currentShader->enableVertexAttribArray("texCoord");
+	Shader::currentShader->enableVertexAttribArray("color");
 	
 	glVertexAttribPointer(Shader::currentShader->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glVertexAttribPointer(Shader::currentShader->attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+	glVertexAttribPointer(Shader::currentShader->attrib("color"), 4, GL_FLOAT, GL_FALSE, 0, colors.data());
 	
 	Texture::bind(m_texture);
 	

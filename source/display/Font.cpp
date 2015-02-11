@@ -24,31 +24,20 @@ void Font::load(const std::string &filename, u16 charWidth, u16 charHeight) {
 	m_sprite.load(filename, charWidth, charHeight);
 }
 
-void Font::drawChar(float x, float y, u8 c, Color color) {
-	Shader::currentShader->enableVertexAttribArray("color");
-	
-	GLfloat colors[] = {
-		color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f,
-		color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f,
-		color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f,
-		color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f
-	};
-	
-	glVertexAttribPointer(Shader::currentShader->attrib("color"), 4, GL_FLOAT, GL_FALSE, 0, colors);
-	
+void Font::drawChar(float x, float y, u8 c) {
 	if(c > 128 && c < 195) {
 		m_sprite.drawFrame(x, y, c + 35);
 	}
 	else if(c >= 32) {
 		m_sprite.drawFrame(x, y, c - 29);
 	}
-	
-	Shader::currentShader->disableVertexAttribArray("color");
 }
 
 void Font::drawString(float x, float y, const std::string &str, Color color) {
+	m_sprite.setColor(color);
+	
 	for(auto &it : str) {
-		drawChar(x, y, it, color);
+		drawChar(x, y, it);
 		x += charWidth();
 	}
 }

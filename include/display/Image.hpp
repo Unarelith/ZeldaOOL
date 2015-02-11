@@ -16,6 +16,7 @@
 #ifndef IMAGE_HPP_
 #define IMAGE_HPP_
 
+#include "Color.hpp"
 #include "Rect.hpp"
 #include "Texture.hpp"
 #include "Types.hpp"
@@ -36,6 +37,8 @@ class Image {
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
+		void setColor(Color color) { m_color = color; }
+		
 	private:
 		Texture *m_texture = nullptr;
 		
@@ -44,6 +47,8 @@ class Image {
 		
 		FloatRect m_clipRect;
 		FloatRect m_posRect;
+		
+		Color m_color = Color::white;
 };
 
 #endif // IMAGE_HPP_
