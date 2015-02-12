@@ -1,11 +1,11 @@
 /*
  * =====================================================================================
  *
- *       Filename:  DisplayTestState.cpp
+ *       Filename:  MapTestState.cpp
  *
  *    Description:  
  *
- *        Created:  09/02/2015 02:16:09
+ *        Created:  12/02/2015 23:12:10
  *       Compiler:  gcc
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
@@ -14,27 +14,16 @@
  * =====================================================================================
  */
 #include "ApplicationStateStack.hpp"
-#include "DisplayTestState.hpp"
 #include "GamePad.hpp"
+#include "MapTestState.hpp"
 
-DisplayTestState::DisplayTestState() {
-	m_sprite.addAnimation({4, 0}, 150);
-}
-
-void DisplayTestState::update() {
+void MapTestState::update() {
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
 		ApplicationStateStack::getInstance().pop();
 	}
 }
 
-void DisplayTestState::draw() {
-	m_image.draw();
-	
-	m_sprite.drawFrame(64, 0, 0);
-	m_sprite.playAnimation(80, 0, 0);
-	
-	m_rect.draw(Color::red);
-	
-	m_font.drawString(64, 16, "Haha lol", Color::blue);
+void MapTestState::draw() {
+	m_tilemap.draw();
 }
 

@@ -17,13 +17,17 @@
 #include "AudioLoader.hpp"
 #include "GamePad.hpp"
 #include "EventHandler.hpp"
+#include "MapLoader.hpp"
 #include "ResourceHandler.hpp"
 #include "TestState.hpp"
 #include "TextureLoader.hpp"
+#include "TilesetLoader.hpp"
 
 Application::Application() : m_stateStack(ApplicationStateStack::getInstance()) {
 	ResourceHandler::getInstance().addType<AudioLoader>("data/config/audio.xml");
 	ResourceHandler::getInstance().addType<TextureLoader>("data/config/textures.xml");
+	ResourceHandler::getInstance().addType<TilesetLoader>("data/config/tilesets.xml");
+	ResourceHandler::getInstance().addType<MapLoader>("data/config/maps.xml");
 	
 	GamePad::init(m_keyboardHandler);
 	
