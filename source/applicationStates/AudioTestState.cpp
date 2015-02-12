@@ -13,6 +13,7 @@
  *
  * =====================================================================================
  */
+#include "ApplicationStateStack.hpp"
 #include "ApplicationWindow.hpp"
 #include "AudioPlayer.hpp"
 #include "AudioTestState.hpp"
@@ -50,6 +51,10 @@ void AudioTestState::update() {
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Start)) {
 		AudioPlayer::playEffect("menuSelect");
+	}
+	
+	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
+		ApplicationStateStack::getInstance().pop();
 	}
 }
 

@@ -1,11 +1,11 @@
 /*
  * =====================================================================================
  *
- *       Filename:  OpenGLTestState.hpp
+ *       Filename:  TestState.hpp
  *
  *    Description:  
  *
- *        Created:  08/02/2015 23:00:19
+ *        Created:  12/02/2015 20:06:08
  *       Compiler:  gcc
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
@@ -13,24 +13,20 @@
  *
  * =====================================================================================
  */
-#ifndef OPENGLTESTSTATE_HPP_
-#define OPENGLTESTSTATE_HPP_
+#ifndef TESTSTATE_HPP_
+#define TESTSTATE_HPP_
 
 #include "ApplicationState.hpp"
-#include "ResourceHandler.hpp"
-#include "Texture.hpp"
-#include "VertexBuffer.hpp"
+#include "Font.hpp"
 
-class OpenGLTestState : public ApplicationState {
-	private:
+class TestState : public ApplicationState {
+	public:
 		void update() override;
 		
 		void draw() override;
 		
 	private:
-		Texture &m_texture{ResourceHandler::getInstance().get<Texture>("characters-link")};
-		
-		VertexBuffer m_vbo;
+		Font m_font{"interface-font", 8, 16};
 };
 
-#endif // OPENGLTESTSTATE_HPP_
+#endif // TESTSTATE_HPP_

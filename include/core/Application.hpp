@@ -28,7 +28,7 @@ class Application {
 		void run();
 		
 	private:
-		ApplicationStateStack m_stateStack;
+		ApplicationStateStack &m_stateStack;
 		
 		ApplicationWindow m_window;
 		

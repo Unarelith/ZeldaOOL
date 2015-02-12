@@ -13,10 +13,14 @@
  *
  * =====================================================================================
  */
+#include "ApplicationStateStack.hpp"
 #include "GamePad.hpp"
 #include "GamePadTestState.hpp"
 
 void GamePadTestState::update() {
+	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
+		ApplicationStateStack::getInstance().pop();
+	}
 }
 
 void GamePadTestState::draw() {
@@ -27,7 +31,6 @@ void GamePadTestState::draw() {
 	m_font.drawString(4, 64, "Up:");
 	m_font.drawString(4, 80, "Down:");
 	m_font.drawString(4, 96, "Start:");
-	m_font.drawString(4, 112, "Select:");
 	
 	m_font.drawString(100, 0,   std::to_string(GamePad::isKeyPressed(GameKey::A)));
 	m_font.drawString(100, 16,  std::to_string(GamePad::isKeyPressed(GameKey::B)));
@@ -36,7 +39,6 @@ void GamePadTestState::draw() {
 	m_font.drawString(100, 64,  std::to_string(GamePad::isKeyPressed(GameKey::Up)));
 	m_font.drawString(100, 80,  std::to_string(GamePad::isKeyPressed(GameKey::Down)));
 	m_font.drawString(100, 96,  std::to_string(GamePad::isKeyPressed(GameKey::Start)));
-	m_font.drawString(100, 112, std::to_string(GamePad::isKeyPressed(GameKey::Select)));
 	
 	m_font.drawString(116, 0,   std::to_string(GamePad::isKeyPressedOnce(GameKey::A)));
 	m_font.drawString(116, 16,  std::to_string(GamePad::isKeyPressedOnce(GameKey::B)));
@@ -45,6 +47,5 @@ void GamePadTestState::draw() {
 	m_font.drawString(116, 64,  std::to_string(GamePad::isKeyPressedOnce(GameKey::Up)));
 	m_font.drawString(116, 80,  std::to_string(GamePad::isKeyPressedOnce(GameKey::Down)));
 	m_font.drawString(116, 96,  std::to_string(GamePad::isKeyPressedOnce(GameKey::Start)));
-	m_font.drawString(116, 112, std::to_string(GamePad::isKeyPressedOnce(GameKey::Select)));
 }
 

@@ -18,42 +18,33 @@
 #include "GamePad.hpp"
 #include "EventHandler.hpp"
 #include "ResourceHandler.hpp"
+#include "TestState.hpp"
 #include "TextureLoader.hpp"
 
-#include "AudioTestState.hpp"
-#include "DisplayTestState.hpp"
-#include "GamePadTestState.hpp"
-#include "OpenGLTestState.hpp"
-
-Application::Application() {
+Application::Application() : m_stateStack(ApplicationStateStack::getInstance()) {
 	ResourceHandler::getInstance().addType<AudioLoader>("data/config/audio.xml");
 	ResourceHandler::getInstance().addType<TextureLoader>("data/config/textures.xml");
 	
 	GamePad::init(m_keyboardHandler);
 	
-	//m_stateStack.push<OpenGLTestState>();
-	//m_stateStack.push<DisplayTestState>();
-	//m_stateStack.push<GamePadTestState>();
-	m_stateStack.push<AudioTestState>();
+	m_stateStack.push<TestState>();
 }
 
 void Application::run() {
-	while(m_window.isOpen()) {
+	while(m_window.isOpen() && m_stateStack.size() > 0) {
 		EventHandler::processSDLEvents(m_window);
 		
-		if(m_stateStack.size() > 0) {
-			m_clock.updateGame([&] {
-				m_stateStack.top()->update();
-			});
+		m_clock.updateGame([&] {
+			if(m_stateStack.size() > 0) m_stateStack.top()->update();
+		});
+		
+		m_clock.drawGame([&] {
+			m_window.clear();
 			
-			m_clock.drawGame([&] {
-				m_window.clear();
-				
-				m_stateStack.top()->draw();
-				
-				m_window.update();
-			});
-		}
+			if(m_stateStack.size() > 0) m_stateStack.top()->draw();
+			
+			m_window.update();
+		});
 	}
 }
 

@@ -13,9 +13,17 @@
  *
  * =====================================================================================
  */
+#include "ApplicationStateStack.hpp"
+#include "Color.hpp"
+#include "GamePad.hpp"
 #include "OpenGLTestState.hpp"
-
 #include "Shader.hpp"
+
+void OpenGLTestState::update() {
+	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
+		ApplicationStateStack::getInstance().pop();
+	}
+}
 
 void OpenGLTestState::draw() {
 	GLfloat vertices[] = {
@@ -32,6 +40,8 @@ void OpenGLTestState::draw() {
 		0, 1
 	};
 	
+	std::vector<float> colors = Color::white.makeArray(4);
+	
 	GLubyte indices[] = {
 		0, 1, 3,
 		3, 1, 2
@@ -39,9 +49,11 @@ void OpenGLTestState::draw() {
 	
 	Shader::currentShader->enableVertexAttribArray("coord2d");
 	Shader::currentShader->enableVertexAttribArray("texCoord");
+	Shader::currentShader->enableVertexAttribArray("color");
 	
 	glVertexAttribPointer(Shader::currentShader->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glVertexAttribPointer(Shader::currentShader->attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, 0, texCoords);
+	glVertexAttribPointer(Shader::currentShader->attrib("color"), 4, GL_FLOAT, GL_FALSE, 0, colors.data());
 	
 	Texture::bind(&m_texture);
 	
@@ -49,6 +61,7 @@ void OpenGLTestState::draw() {
 	
 	Texture::bind(nullptr);
 	
+	Shader::currentShader->disableVertexAttribArray("color");
 	Shader::currentShader->disableVertexAttribArray("texCoord");
 	Shader::currentShader->disableVertexAttribArray("coord2d");
 }

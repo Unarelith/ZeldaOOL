@@ -13,13 +13,18 @@
  *
  * =====================================================================================
  */
+#include "ApplicationStateStack.hpp"
 #include "DisplayTestState.hpp"
+#include "GamePad.hpp"
 
 DisplayTestState::DisplayTestState() {
 	m_sprite.addAnimation({4, 0}, 150);
 }
 
 void DisplayTestState::update() {
+	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
+		ApplicationStateStack::getInstance().pop();
+	}
 }
 
 void DisplayTestState::draw() {

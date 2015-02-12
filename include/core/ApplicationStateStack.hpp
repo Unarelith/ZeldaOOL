@@ -34,7 +34,14 @@ class ApplicationStateStack {
 		
 		std::size_t size() const { return m_states.size(); }
 		
+		static ApplicationStateStack &getInstance() {
+			static ApplicationStateStack instance;
+			return instance;
+		}
+		
 	private:
+		ApplicationStateStack() = default;
+		
 		std::stack<std::shared_ptr<ApplicationState>> m_states;
 };
 
