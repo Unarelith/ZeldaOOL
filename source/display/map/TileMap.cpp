@@ -30,6 +30,8 @@ void TileMap::load(u16 width, u16 height, Tileset &tileset, const std::vector<u1
 	m_baseData = data;
 	m_data = data;
 	
+	m_view.reset(0, 0, m_width, m_height);
+	
 	VertexBuffer::bind(&m_vbo);
 	
 	m_vbo.setData(sizeof(VertexAttribute) * m_width * m_height * 6, nullptr, GL_DYNAMIC_DRAW);
@@ -55,10 +57,10 @@ void TileMap::updateTile(u16 tileX, u16 tileY, u16 id) {
 	float texTileHeight = tileHeight / m_tileset->height();
 	
 	VertexAttribute attributes[] = {	
-		{{x            , y             },    {texTileX               , texTileY},                    {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x + tileWidth, y             },    {texTileX + texTileWidth, texTileY},                    {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x            , y             },    {texTileX               , texTileY                },    {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x + tileWidth, y             },    {texTileX + texTileWidth, texTileY                },    {1.0f, 1.0f, 1.0f, 1.0f}},
 		{{x + tileWidth, y + tileHeight},    {texTileX + texTileWidth, texTileY + texTileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x            , y             },    {texTileX               , texTileY},                    {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x            , y             },    {texTileX               , texTileY                },    {1.0f, 1.0f, 1.0f, 1.0f}},
 		{{x + tileWidth, y + tileHeight},    {texTileX + texTileWidth, texTileY + texTileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}},
 		{{x            , y + tileHeight},    {texTileX               , texTileY + texTileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}}
 	};
@@ -69,6 +71,8 @@ void TileMap::updateTile(u16 tileX, u16 tileY, u16 id) {
 }
 
 void TileMap::draw() {
+	View::bind(&m_view);
+	
 	Shader::currentShader->enableVertexAttribArray("coord2d");
 	Shader::currentShader->enableVertexAttribArray("texCoord");
 	Shader::currentShader->enableVertexAttribArray("color");
@@ -90,6 +94,8 @@ void TileMap::draw() {
 	Shader::currentShader->disableVertexAttribArray("color");
 	Shader::currentShader->disableVertexAttribArray("texCoord");
 	Shader::currentShader->disableVertexAttribArray("coord2d");
+	
+	View::bind(nullptr);
 }
 
 void TileMap::resetTiles() {

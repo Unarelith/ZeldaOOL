@@ -18,6 +18,11 @@
 #include "MapTestState.hpp"
 
 void MapTestState::update() {
+	if(GamePad::isKeyPressed(GameKey::Left))  m_tilemap.view().move( 1,  0);
+	if(GamePad::isKeyPressed(GameKey::Right)) m_tilemap.view().move(-1,  0);
+	if(GamePad::isKeyPressed(GameKey::Up))    m_tilemap.view().move( 0,  1);
+	if(GamePad::isKeyPressed(GameKey::Down))  m_tilemap.view().move( 0, -1);
+	
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
 		ApplicationStateStack::getInstance().pop();
 	}

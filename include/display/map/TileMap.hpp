@@ -18,6 +18,7 @@
 
 #include "Tileset.hpp"
 #include "VertexBuffer.hpp"
+#include "View.hpp"
 
 class TileMap {
 	public:
@@ -37,6 +38,8 @@ class TileMap {
 		
 		Tileset &tileset() { return *m_tileset; }
 		
+		View &view() { return m_view; }
+		
 		static TileMap &getMap(u16 area, u16 mapX, u16 mapY);
 		
 	protected:
@@ -47,6 +50,8 @@ class TileMap {
 		
 		std::vector<u16> m_baseData;
 		std::vector<u16> m_data;
+		
+		View m_view;
 		
 		virtual void updateTile(u16 tileX, u16 tileY, u16 id);
 		
