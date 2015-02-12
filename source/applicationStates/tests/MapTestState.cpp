@@ -26,6 +26,8 @@ void MapTestState::update() {
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
 		ApplicationStateStack::getInstance().pop();
 	}
+	
+	m_tilemap.animateTiles();
 }
 
 void MapTestState::draw() {

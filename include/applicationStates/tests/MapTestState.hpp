@@ -21,7 +21,7 @@
 
 class MapTestState : public ApplicationState {
 	public:
-		MapTestState() : m_tilemap(TileMap::getMap(3, 0, 0)) {}
+		MapTestState() : m_tilemap(TileMap::getMap(0, 0, 0)) {}
 		
 		void update() override;
 		

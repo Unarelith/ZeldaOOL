@@ -16,6 +16,7 @@
 #ifndef TILEMAP_HPP_
 #define TILEMAP_HPP_
 
+#include "AnimatedTile.hpp"
 #include "Tileset.hpp"
 #include "VertexBuffer.hpp"
 #include "View.hpp"
@@ -31,6 +32,7 @@ class TileMap {
 		
 		void resetTiles();
 		void updateTiles();
+		void animateTiles();
 		
 		u16 getTile(u16 tileX, u16 tileY);
 		
@@ -57,6 +59,8 @@ class TileMap {
 		
 	private:
 		VertexBuffer m_vbo;
+		
+		std::vector<AnimatedTile> m_animatedTiles;
 };
 
 #endif // TILEMAP_HPP_
