@@ -14,23 +14,27 @@
  * =====================================================================================
  */
 #include "Application.hpp"
+#include "AudioLoader.hpp"
 #include "GamePad.hpp"
 #include "EventHandler.hpp"
 #include "ResourceHandler.hpp"
 #include "TextureLoader.hpp"
 
+#include "AudioTestState.hpp"
 #include "DisplayTestState.hpp"
 #include "GamePadTestState.hpp"
 #include "OpenGLTestState.hpp"
 
 Application::Application() {
+	ResourceHandler::getInstance().addType<AudioLoader>("data/config/audio.xml");
 	ResourceHandler::getInstance().addType<TextureLoader>("data/config/textures.xml");
+	
+	GamePad::init(m_keyboardHandler);
 	
 	//m_stateStack.push<OpenGLTestState>();
 	//m_stateStack.push<DisplayTestState>();
-	m_stateStack.push<GamePadTestState>();
-	
-	GamePad::init(m_keyboardHandler);
+	//m_stateStack.push<GamePadTestState>();
+	m_stateStack.push<AudioTestState>();
 }
 
 void Application::run() {

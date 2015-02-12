@@ -36,7 +36,7 @@ bool GamePad::isKeyPressed(GameKey key) {
 
 bool GamePad::isKeyPressedOnce(GameKey key) {
 	if(GamePad::isKeyPressed(key)) {
-		if(keysPressed[key]) {
+		if(!keysPressed[key]) {
 			keysPressed[key] = true;
 			return true;
 		} else {

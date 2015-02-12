@@ -13,3 +13,14 @@
  *
  * =====================================================================================
  */
+#ifndef AUDIOLOADER_HPP_
+#define AUDIOLOADER_HPP_
+
+#include "ResourceLoader.hpp"
+
+class AudioLoader : public ResourceLoader {
+	public:
+		void load(const std::string &xmlFilename, ResourceHandler &handler);
+};
+
+#endif // AUDIOLOADER_HPP_
