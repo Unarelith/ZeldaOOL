@@ -14,18 +14,23 @@
  * =====================================================================================
  */
 #include "Application.hpp"
+#include "GamePad.hpp"
 #include "EventHandler.hpp"
 #include "ResourceHandler.hpp"
 #include "TextureLoader.hpp"
 
 #include "DisplayTestState.hpp"
+#include "GamePadTestState.hpp"
 #include "OpenGLTestState.hpp"
 
 Application::Application() {
 	ResourceHandler::getInstance().addType<TextureLoader>("data/config/textures.xml");
 	
 	//m_stateStack.push<OpenGLTestState>();
-	m_stateStack.push<DisplayTestState>();
+	//m_stateStack.push<DisplayTestState>();
+	m_stateStack.push<GamePadTestState>();
+	
+	GamePad::init(m_keyboardHandler);
 }
 
 void Application::run() {

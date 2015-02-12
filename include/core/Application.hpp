@@ -19,6 +19,7 @@
 #include "ApplicationStateStack.hpp"
 #include "ApplicationWindow.hpp"
 #include "GameClock.hpp"
+#include "KeyboardHandler.hpp"
 
 class Application {
 	public:
@@ -32,6 +33,8 @@ class Application {
 		ApplicationWindow m_window;
 		
 		GameClock m_clock;
+		
+		KeyboardHandler m_keyboardHandler;
 };
 
 #endif // APPLICATION_HPP_

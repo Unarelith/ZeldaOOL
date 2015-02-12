@@ -30,12 +30,7 @@ void RectangleShape::draw(Color color) {
 		m_x,			m_y + m_height
 	};
 	
-	GLfloat colors[] = {
-		color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f,
-		color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f,
-		color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f,
-		color.r / 255.0f, color.g / 255.0f, color.b / 255.0f, color.a / 255.0f
-	};
+	std::vector<float> colors = color.makeArray(4);
 	
 	static const GLubyte indices[] = {
 		0, 1, 3,
@@ -46,7 +41,7 @@ void RectangleShape::draw(Color color) {
 	Shader::currentShader->enableVertexAttribArray("color");
 	
 	glVertexAttribPointer(Shader::currentShader->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glVertexAttribPointer(Shader::currentShader->attrib("color"), 4, GL_FLOAT, GL_FALSE, 0, colors);
+	glVertexAttribPointer(Shader::currentShader->attrib("color"), 4, GL_FLOAT, GL_FALSE, 0, colors.data());
 	
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
 	

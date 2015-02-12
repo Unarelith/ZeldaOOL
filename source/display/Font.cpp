@@ -24,7 +24,9 @@ void Font::load(const std::string &filename, u16 charWidth, u16 charHeight) {
 	m_sprite.load(filename, charWidth, charHeight);
 }
 
-void Font::drawChar(float x, float y, u8 c) {
+void Font::drawChar(float x, float y, u8 c, Color color) {
+	m_sprite.setColor(color);
+	
 	if(c > 128 && c < 195) {
 		m_sprite.drawFrame(x, y, c + 35);
 	}
@@ -34,10 +36,8 @@ void Font::drawChar(float x, float y, u8 c) {
 }
 
 void Font::drawString(float x, float y, const std::string &str, Color color) {
-	m_sprite.setColor(color);
-	
 	for(auto &it : str) {
-		drawChar(x, y, it);
+		drawChar(x, y, it, color);
 		x += charWidth();
 	}
 }
