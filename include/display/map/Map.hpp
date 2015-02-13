@@ -17,6 +17,7 @@
 #define MAP_HPP_
 
 #include "MapAnimator.hpp"
+#include "MapRenderer.hpp"
 #include "Tileset.hpp"
 #include "VertexBuffer.hpp"
 #include "View.hpp"
@@ -42,6 +43,9 @@ class Map {
 		u16 x() const { return m_x; }
 		u16 y() const { return m_y; }
 		
+		u16 width() const { return m_width; }
+		u16 height() const { return m_height; }
+		
 		Tileset &tileset() { return *m_tileset; }
 		
 		View &view() { return m_view; }
@@ -50,8 +54,6 @@ class Map {
 		Map &getSideMap(s8 dx, s8 dy) { return getMap(m_area, m_x + dx, m_y + dy); }
 		
 	private:
-		virtual void updateTile(u16 tileX, u16 tileY, u16 id);
-		
 		u16 m_area = 0;
 		u16 m_x = 0;
 		u16 m_y = 0;
@@ -63,14 +65,14 @@ class Map {
 		
 		MapAnimator m_mapAnimator;
 		
+		MapRenderer m_renderer;
+		
 		Tileset *m_tileset;
 		
 		std::vector<u16> m_baseData;
 		std::vector<u16> m_data;
 		
 		View m_view;
-		
-		VertexBuffer m_vbo;
 };
 
 #endif // TILEMAP_HPP_
