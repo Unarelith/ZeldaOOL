@@ -60,7 +60,7 @@ void Map::updateTile(u16 tileX, u16 tileY, u16 id) {
 	float texTileWidth  = tileWidth  / m_tileset->width();
 	float texTileHeight = tileHeight / m_tileset->height();
 	
-	VertexAttribute attributes[] = {	
+	VertexAttribute attributes[] = {
 		{{x            , y             },    {texTileX               , texTileY                },    {1.0f, 1.0f, 1.0f, 1.0f}},
 		{{x + tileWidth, y             },    {texTileX + texTileWidth, texTileY                },    {1.0f, 1.0f, 1.0f, 1.0f}},
 		{{x + tileWidth, y + tileHeight},    {texTileX + texTileWidth, texTileY + texTileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}},
@@ -72,6 +72,10 @@ void Map::updateTile(u16 tileX, u16 tileY, u16 id) {
 	m_vbo.updateData(sizeof(attributes) * (tileX + tileY * m_width), sizeof(attributes), attributes);
 	
 	VertexBuffer::bind(nullptr);
+}
+
+void Map::update() {
+	m_mapAnimator.animateTiles(*this);
 }
 
 void Map::draw() {
@@ -112,31 +116,7 @@ void Map::updateTiles() {
 			u16 tileID = getTile(tileX, tileY);
 			
 			updateTile(tileX, tileY, tileID);
-			
-			for(auto &it : m_tileset->anims()) {
-				for(auto &n : it.frames) {
-					if(tileID == n) {
-						m_animatedTiles.emplace_back(tileX, tileY, n + 1 % it.frames.size(), it);
-					}
-				}
-			}
-		}
-	}
-}
-
-void Map::animateTiles() {
-	for(auto &it : m_animatedTiles) {
-		if(!it.timer.isStarted()) {
-			it.timer.start();
-		}
-		
-		if(it.timer.time() >= it.anim.delay) {
-			setTile(it.tileX, it.tileY, it.anim.frames[it.nextFrame % it.anim.frames.size()]);
-			
-			it.nextFrame++;
-			
-			it.timer.reset();
-			it.timer.start();
+			m_mapAnimator.updateTile(tileX, tileY, tileID, m_tileset);
 		}
 	}
 }

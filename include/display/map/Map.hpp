@@ -16,7 +16,7 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
-#include "AnimatedTile.hpp"
+#include "MapAnimator.hpp"
 #include "Tileset.hpp"
 #include "VertexBuffer.hpp"
 #include "View.hpp"
@@ -28,11 +28,12 @@ class Map {
 		
 		void load(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data);
 		
+		void update();
+		
 		void draw();
 		
 		void resetTiles();
 		void updateTiles();
-		void animateTiles();
 		
 		u16 getTile(u16 tileX, u16 tileY);
 		void setTile(u16 tileX, u16 tileY, u16 id);
@@ -60,6 +61,8 @@ class Map {
 		u16 m_width = 0;
 		u16 m_height = 0;
 		
+		MapAnimator m_mapAnimator;
+		
 		Tileset *m_tileset;
 		
 		std::vector<u16> m_baseData;
@@ -68,8 +71,6 @@ class Map {
 		View m_view;
 		
 		VertexBuffer m_vbo;
-		
-		std::vector<AnimatedTile> m_animatedTiles;
 };
 
 #endif // TILEMAP_HPP_

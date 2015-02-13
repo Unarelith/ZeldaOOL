@@ -55,7 +55,7 @@ void MapTestState::update() {
 		ApplicationStateStack::getInstance().pop();
 	}
 	
-	m_map->animateTiles();
+	m_map->update();
 }
 
 void MapTestState::draw() {
