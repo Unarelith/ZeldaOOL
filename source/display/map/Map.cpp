@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  TileMap.cpp
+ *       Filename:  Map.cpp
  *
  *    Description:  
  *
@@ -14,14 +14,18 @@
  * =====================================================================================
  */
 #include "Shader.hpp"
-#include "TileMap.hpp"
+#include "Map.hpp"
 #include "VertexAttribute.hpp"
 
-TileMap::TileMap(u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data) {
-	load(width, height, tileset, data);
+Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data) {
+	load(area, x, y, width, height, tileset, data);
 }
 
-void TileMap::load(u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data) {
+void Map::load(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data) {
+	m_area = area;
+	m_x = x;
+	m_y = y;
+	
 	m_width = width;
 	m_height = height;
 	
@@ -41,7 +45,7 @@ void TileMap::load(u16 width, u16 height, Tileset &tileset, const std::vector<u1
 	updateTiles();
 }
 
-void TileMap::updateTile(u16 tileX, u16 tileY, u16 id) {
+void Map::updateTile(u16 tileX, u16 tileY, u16 id) {
 	VertexBuffer::bind(&m_vbo);
 	
 	float tileWidth  = m_tileset->tileWidth();
@@ -70,7 +74,7 @@ void TileMap::updateTile(u16 tileX, u16 tileY, u16 id) {
 	VertexBuffer::bind(nullptr);
 }
 
-void TileMap::draw() {
+void Map::draw() {
 	View::bind(&m_view);
 	
 	Shader::currentShader->enableVertexAttribArray("coord2d");
@@ -98,11 +102,11 @@ void TileMap::draw() {
 	View::bind(nullptr);
 }
 
-void TileMap::resetTiles() {
+void Map::resetTiles() {
 	m_data = m_baseData;
 }
 
-void TileMap::updateTiles() {
+void Map::updateTiles() {
 	for(u16 tileY = 0 ; tileY < m_height ; tileY++) {
 		for(u16 tileX = 0 ; tileX < m_width ; tileX++) {
 			u16 tileID = getTile(tileX, tileY);
@@ -120,7 +124,7 @@ void TileMap::updateTiles() {
 	}
 }
 
-void TileMap::animateTiles() {
+void Map::animateTiles() {
 	for(auto &it : m_animatedTiles) {
 		if(!it.timer.isStarted()) {
 			it.timer.start();
@@ -137,7 +141,7 @@ void TileMap::animateTiles() {
 	}
 }
 
-u16 TileMap::getTile(u16 tileX, u16 tileY) {
+u16 Map::getTile(u16 tileX, u16 tileY) {
 	if(tileX + tileY * m_width < m_width * m_height) {
 		return m_data[tileX + tileY * m_width];
 	} else {
@@ -145,18 +149,18 @@ u16 TileMap::getTile(u16 tileX, u16 tileY) {
 	}
 }
 
-void TileMap::setTile(u16 tileX, u16 tileY, u16 id) {
+void Map::setTile(u16 tileX, u16 tileY, u16 id) {
 	if(tileX + tileY * m_width < m_width * m_height) {
 		m_data[tileX + tileY * m_width] = id;
 	}
 	
-	TileMap::updateTile(tileX, tileY, id);
+	Map::updateTile(tileX, tileY, id);
 }
 
 #include "MapLoader.hpp"
 #include "ResourceHandler.hpp"
 
-TileMap &TileMap::getMap(u16 area, u16 mapX, u16 mapY) {
-	return ResourceHandler::getInstance().get<TileMap>(MapLoader::makeName(area, mapX, mapY));
+Map &Map::getMap(u16 area, u16 mapX, u16 mapY) {
+	return ResourceHandler::getInstance().get<Map>(MapLoader::makeName(area, mapX, mapY));
 }
 

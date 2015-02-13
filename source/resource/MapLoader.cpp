@@ -13,7 +13,7 @@
  *
  * =====================================================================================
  */
-#include "TileMap.hpp"
+#include "Map.hpp"
 #include "MapLoader.hpp"
 #include "XMLFile.hpp"
 
@@ -60,6 +60,6 @@ void MapLoader::loadMap(const std::string &filename, u16 area, u16 x, u16 y, Til
 		tileElement = tileElement->NextSiblingElement("tile");
 	}
 	
-	handler.add<TileMap>(makeName(area, x, y), width, height, tileset, data);
+	handler.add<Map>(makeName(area, x, y), area, x, y, width, height, tileset, data);
 }
 

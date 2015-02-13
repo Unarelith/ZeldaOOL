@@ -17,18 +17,21 @@
 #define MAPTESTSTATE_HPP_
 
 #include "ApplicationState.hpp"
-#include "TileMap.hpp"
+#include "Font.hpp"
+#include "Map.hpp"
 
 class MapTestState : public ApplicationState {
 	public:
-		MapTestState() : m_tilemap(TileMap::getMap(0, 0, 0)) {}
+		MapTestState() : m_map(&Map::getMap(0, 0, 0)) {}
 		
 		void update() override;
 		
 		void draw() override;
 		
 	private:
-		TileMap &m_tilemap;
+		Font m_font{"interface-font", 8, 16};
+		
+		Map *m_map;
 };
 
 #endif // MAPTESTSTATE_HPP_

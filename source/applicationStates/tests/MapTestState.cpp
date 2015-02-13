@@ -18,19 +18,54 @@
 #include "MapTestState.hpp"
 
 void MapTestState::update() {
-	if(GamePad::isKeyPressed(GameKey::Left))  m_tilemap.view().move( 1,  0);
-	if(GamePad::isKeyPressed(GameKey::Right)) m_tilemap.view().move(-1,  0);
-	if(GamePad::isKeyPressed(GameKey::Up))    m_tilemap.view().move( 0,  1);
-	if(GamePad::isKeyPressed(GameKey::Down))  m_tilemap.view().move( 0, -1);
+	if(GamePad::isKeyPressed(GameKey::Left))  m_map->view().move( 1,  0);
+	if(GamePad::isKeyPressed(GameKey::Right)) m_map->view().move(-1,  0);
+	if(GamePad::isKeyPressed(GameKey::Up))    m_map->view().move( 0,  1);
+	if(GamePad::isKeyPressed(GameKey::Down))  m_map->view().move( 0, -1);
+	
+	if(GamePad::isKeyPressedOnce(GameKey::A)) {
+		static u16 area = 1;
+		m_map = &Map::getMap(area++, 0, 0);
+		if(area > 3) area = 0;
+	}
+	
+	if(GamePad::isKeyPressedOnce(GameKey::B)) {
+		try {
+			m_map = &m_map->getSideMap(0, 1);
+		}
+		catch(...) {
+			try {
+				m_map = &m_map->getSideMap(1, 0);
+			}
+			catch(...) {
+				try {
+					m_map = &m_map->getSideMap(0, -1);
+				}
+				catch(...) {
+					try {
+						m_map = &m_map->getSideMap(-1, 0);
+					}
+					catch(...) {}
+				}
+			}
+		}
+	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
 		ApplicationStateStack::getInstance().pop();
 	}
 	
-	m_tilemap.animateTiles();
+	m_map->animateTiles();
 }
 
 void MapTestState::draw() {
-	m_tilemap.draw();
+	m_map->draw();
+	
+	View::bind(&m_map->view());
+	
+	m_font.drawString(0, -40, "A: change area");
+	m_font.drawString(0, -24, "B: change map");
+	
+	View::bind(nullptr);
 }
 
