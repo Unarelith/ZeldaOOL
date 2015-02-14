@@ -24,6 +24,10 @@ void DrawingSystem::draw(SceneObject &object) {
 		SpriteComponent *spriteComponent = object.getComponent<SpriteComponent>();
 		
 		if(spriteComponent) {
+			if(position->direction != Direction::None) {
+				spriteComponent->animID = static_cast<s8>(position->direction);
+			}
+			
 			if(spriteComponent->isAnimated) {
 				spriteComponent->sprite.playAnimation(position->x, position->y, spriteComponent->animID);
 			} else {

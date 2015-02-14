@@ -16,9 +16,11 @@
 #include "GamePad.hpp"
 #include "GamePadMovement.hpp"
 #include "MovementComponent.hpp"
+#include "PositionComponent.hpp"
 
 void GamePadMovement::process(SceneObject &object) {
 	MovementComponent *movementComponent = object.getComponent<MovementComponent>();
+	PositionComponent *positionComponent = object.getComponent<PositionComponent>();
 	
 	if(GamePad::isKeyPressed(GameKey::Left)) {
 		movementComponent->vx = -1;
@@ -26,7 +28,7 @@ void GamePadMovement::process(SceneObject &object) {
 		if(!GamePad::isKeyPressed(GameKey::Right)
 		&& !GamePad::isKeyPressed(GameKey::Up)
 		&& !GamePad::isKeyPressed(GameKey::Down)) {
-			//movable.setDirection(Movable::Direction::Left);
+			positionComponent->direction = Direction::Left;
 		}
 	}
 	else if(GamePad::isKeyPressed(GameKey::Right)) {
@@ -35,7 +37,7 @@ void GamePadMovement::process(SceneObject &object) {
 		if(!GamePad::isKeyPressed(GameKey::Left)
 		&& !GamePad::isKeyPressed(GameKey::Up)
 		&& !GamePad::isKeyPressed(GameKey::Down)) {
-			//movable.setDirection(Movable::Direction::Right);
+			positionComponent->direction = Direction::Right;
 		}
 	}
 	
@@ -45,7 +47,7 @@ void GamePadMovement::process(SceneObject &object) {
 		if(!GamePad::isKeyPressed(GameKey::Left)
 		&& !GamePad::isKeyPressed(GameKey::Right)
 		&& !GamePad::isKeyPressed(GameKey::Down)) {
-			//movable.setDirection(Movable::Direction::Up);
+			positionComponent->direction = Direction::Up;
 		}
 	}
 	else if(GamePad::isKeyPressed(GameKey::Down)) {
@@ -54,7 +56,7 @@ void GamePadMovement::process(SceneObject &object) {
 		if(!GamePad::isKeyPressed(GameKey::Left)
 		&& !GamePad::isKeyPressed(GameKey::Right)
 		&& !GamePad::isKeyPressed(GameKey::Up)) {
-			//movable.setDirection(Movable::Direction::Down);
+			positionComponent->direction = Direction::Down;
 		}
 	}
 	

@@ -41,14 +41,14 @@ class Sprite : public Image {
 		
 		void playAnimation(float x, float y, u16 anim);
 		
+		u16 frameWidth() const { return m_frameWidth; }
+		u16 frameHeight() const { return m_frameHeight; }
+		
 		u16 lastFrameDisplayed() const { return m_lastFrameDisplayed; }
 		
 		s16 currentAnimation() const { return m_currentAnimation; }
 		
 		static bool pause;
-		
-		u16 frameWidth() const { return m_frameWidth; }
-		u16 frameHeight() const { return m_frameHeight; }
 		
 	private:
 		u16 m_frameWidth = 0;

@@ -27,6 +27,9 @@ SceneObjectTestState::SceneObjectTestState() {
 	
 	SpriteComponent *spriteComponent = m_object.setComponent<SpriteComponent>("characters-link", 16, 16);
 	spriteComponent->sprite.addAnimation({4, 0}, 150);
+	spriteComponent->sprite.addAnimation({5, 1}, 150);
+	spriteComponent->sprite.addAnimation({6, 2}, 150);
+	spriteComponent->sprite.addAnimation({7, 3}, 150);
 	spriteComponent->isAnimated = true;
 }
 

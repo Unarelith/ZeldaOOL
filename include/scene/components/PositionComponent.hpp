@@ -16,6 +16,7 @@
 #ifndef POSITIONCOMPONENT_HPP_
 #define POSITIONCOMPONENT_HPP_
 
+#include "Direction.hpp"
 #include "Types.hpp"
 
 class PositionComponent {
@@ -28,6 +29,8 @@ class PositionComponent {
 		
 		u16 width = 0;
 		u16 height = 0;
+		
+		Direction direction = Direction::None;
 };
 
 #endif // POSITIONCOMPONENT_HPP_
