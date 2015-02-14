@@ -34,6 +34,8 @@ SceneObjectTestState::SceneObjectTestState() {
 }
 
 void SceneObjectTestState::update() {
+	m_movementSystem.process(m_object);
+	
 	if(GamePad::isKeyPressedOnce(GameKey::A)) {
 		SpriteComponent *spriteComponent = m_object.getComponent<SpriteComponent>();
 		spriteComponent->isAnimated = !spriteComponent->isAnimated;
@@ -42,8 +44,6 @@ void SceneObjectTestState::update() {
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
 		ApplicationStateStack::getInstance().pop();
 	}
-	
-	m_movementSystem.process(m_object);
 }
 
 void SceneObjectTestState::draw() {

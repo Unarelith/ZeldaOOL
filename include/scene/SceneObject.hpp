@@ -22,6 +22,13 @@
 
 class SceneObject {
 	public:
+		SceneObject() = default;
+		SceneObject(const SceneObject &) = delete;
+		SceneObject(SceneObject &&) = default;
+		
+		SceneObject &operator=(const SceneObject &) = delete;
+		SceneObject &operator=(SceneObject &&) = default;
+		
 		template<typename T, typename... Args>
 		T *setComponent(Args &&...args) {
 			m_components[typeid(T)] = std::make_shared<T>(std::forward<Args>(args)...);

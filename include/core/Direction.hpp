@@ -24,7 +24,7 @@ enum class Direction : s8 {
 	Left  = 2,
 	Up    = 3,
 	
-	None  = -1
+	None
 };
 
 #endif // DIRECTION_HPP_
