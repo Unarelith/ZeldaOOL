@@ -14,6 +14,7 @@
  * =====================================================================================
  */
 #include "ApplicationStateStack.hpp"
+#include "DoorTransition.hpp"
 #include "GamePad.hpp"
 #include "Map.hpp"
 #include "ScrollingTransition.hpp"
@@ -30,6 +31,7 @@ void TransitionTestState::update() {
 			m_mode = Mode::Scrolling;
 		}
 		else if(GamePad::isKeyPressedOnce(GameKey::B)) {
+			m_mode = Mode::Door;
 		}
 		
 		if(GamePad::isKeyPressedOnce(GameKey::Select)) {
@@ -48,6 +50,15 @@ void TransitionTestState::update() {
 		}
 		else if(GamePad::isKeyPressedOnce(GameKey::Down) && Map::currentMap->hasSideMap(0, 1)) {
 			ApplicationStateStack::getInstance().push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingDown), this);
+		}
+		
+		if(GamePad::isKeyPressedOnce(GameKey::Select)) {
+			m_mode = Mode::Menu;
+		}
+	}
+	else if(m_mode == Mode::Door) {
+		if(GamePad::isKeyPressedOnce(GameKey::Start)) {
+			ApplicationStateStack::getInstance().push<TransitionState>(new DoorTransition((Map::currentMap->area() + 1) % 4, 0, 0, 0, 0, 0), this);
 		}
 		
 		if(GamePad::isKeyPressedOnce(GameKey::Select)) {

@@ -30,7 +30,7 @@ Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const 
 	m_baseData = data;
 	m_data = data;
 	
-	m_view.reset(0, 0, m_width, m_height);
+	m_view.reset(0, 16, m_width, m_height);
 	
 	m_renderer.init(m_width, m_height);
 	

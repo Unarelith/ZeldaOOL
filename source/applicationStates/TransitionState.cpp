@@ -25,8 +25,6 @@ void TransitionState::update() {
 }
 
 void TransitionState::draw() {
-	m_parent->draw();
-	
 	m_transition->draw();
 }
 
