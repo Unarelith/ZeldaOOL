@@ -30,17 +30,21 @@ class ResourceHandler {
 		}
 		
 		template<typename T, typename... Args>
-		void add(std::string name, Args &&...args) {
-			if(m_resources.find(name) != m_resources.end()) {
+		void add(const std::string &name, Args &&...args) {
+			if(has(name)) {
 				throw EXCEPTION("A resource already exists with name:", name);
 			}
 			
 			m_resources.emplace(name, std::make_shared<T>(std::forward<Args>(args)...));
 		}
 		
+		bool has(const std::string &name) {
+			return m_resources.find(name) != m_resources.end();
+		}
+		
 		template<typename ResourceType>
 		ResourceType &get(const std::string &name) {
-			if(m_resources.find(name) == m_resources.end()) {
+			if(!has(name)) {
 				throw EXCEPTION("Unable to find resource with name:", name);
 			}
 			

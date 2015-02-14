@@ -21,10 +21,7 @@
 
 class Tileset : public Texture {
 	public:
-		Tileset() = default;
 		Tileset(const std::string &filename, const std::string &configFile, u16 tileWidth = 16, u16 tileHeight = 16);
-		
-		void load(const std::string &filename, const std::string &configFile, u16 tileWidth = 16, u16 tileHeight = 16);
 		
 		const std::vector<u16> &info() const { return m_info; }
 		

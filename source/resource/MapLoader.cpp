@@ -27,14 +27,14 @@ void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 		XMLElement *mapElement = areaElement->FirstChildElement("map");
 		while(mapElement) {
 			std::string path = mapElement->Attribute("path");
-			std::string tileset = mapElement->Attribute("tileset");
+			std::string tilesetName = mapElement->Attribute("tileset");
 			
 			u16 x = mapElement->IntAttribute("x");
 			u16 y = mapElement->IntAttribute("y");
 			
-			Tileset &tilesetRef = handler.get<Tileset>(tileset);
+			Tileset &tileset = handler.get<Tileset>(tilesetName);
 			
-			loadMap(path, area, x, y, tilesetRef, handler);
+			loadMap(path, area, x, y, tileset, handler);
 			
 			mapElement = mapElement->NextSiblingElement("map");
 		}
@@ -55,6 +55,7 @@ void MapLoader::loadMap(const std::string &filename, u16 area, u16 x, u16 y, Til
 	XMLElement *tileElement = mapElement->FirstChildElement("layer")->FirstChildElement("data")->FirstChildElement("tile");
 	while(tileElement) {
 		s16 tileID = tileElement->IntAttribute("gid") - 1;
+		
 		data.push_back((tileID >= 0) ? tileID : 0);
 		
 		tileElement = tileElement->NextSiblingElement("tile");

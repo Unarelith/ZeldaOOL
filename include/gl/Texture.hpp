@@ -24,16 +24,13 @@
 
 class Texture {
 	public:
-		Texture() = default;
-		Texture(const Texture &texture) = default;
-		Texture(Texture &&texture);
 		Texture(const std::string &filename);
+		Texture(const Texture &texture) = delete;
+		Texture(Texture &&texture);
 		~Texture();
 		
-		Texture &operator=(const Texture &) = default;
+		Texture &operator=(const Texture &) = delete;
 		Texture &operator=(Texture &&) = default;
-		
-		void load(const std::string &filename);
 		
 		static void bind(const Texture *texture);
 		

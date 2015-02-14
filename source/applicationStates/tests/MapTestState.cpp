@@ -25,29 +25,21 @@ void MapTestState::update() {
 	
 	if(GamePad::isKeyPressedOnce(GameKey::A)) {
 		static u16 area = 1;
-		m_map = &Map::getMap(area++, 0, 0);
-		if(area > 3) area = 0;
+		m_map = &Map::getMap(area++ % 4, 0, 0);
 	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::B)) {
-		try {
+		if(m_map->hasSideMap(0, 1)) {
 			m_map = &m_map->getSideMap(0, 1);
 		}
-		catch(...) {
-			try {
-				m_map = &m_map->getSideMap(1, 0);
-			}
-			catch(...) {
-				try {
-					m_map = &m_map->getSideMap(0, -1);
-				}
-				catch(...) {
-					try {
-						m_map = &m_map->getSideMap(-1, 0);
-					}
-					catch(...) {}
-				}
-			}
+		else if(m_map->hasSideMap(1, 0)) {
+			m_map = &m_map->getSideMap(1, 0);
+		}
+		else if(m_map->hasSideMap(0, -1)) {
+			m_map = &m_map->getSideMap(0, -1);
+		}
+		else if(m_map->hasSideMap(-1, 0)) {
+			m_map = &m_map->getSideMap(-1, 0);
 		}
 	}
 	

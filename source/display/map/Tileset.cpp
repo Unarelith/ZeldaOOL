@@ -18,13 +18,7 @@
 #include "Tileset.hpp"
 #include "XMLFile.hpp"
 
-Tileset::Tileset(const std::string &filename, const std::string &configFile, u16 tileWidth, u16 tileHeight) {
-	load(filename, configFile, tileWidth, tileHeight);
-}
-
-void Tileset::load(const std::string &filename, const std::string &configFile, u16 tileWidth, u16 tileHeight) {
-	Texture::load(filename);
-	
+Tileset::Tileset(const std::string &filename, const std::string &configFile, u16 tileWidth, u16 tileHeight) : Texture(filename) {
 	XMLFile doc(configFile);
 	
 	XMLElement *animationElement = doc.FirstChildElement("tileset").FirstChildElement("animation").ToElement();

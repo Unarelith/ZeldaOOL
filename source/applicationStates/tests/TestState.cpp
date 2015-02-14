@@ -21,6 +21,7 @@
 #include "MapTestState.hpp"
 #include "OpenGLTestState.hpp"
 #include "TestState.hpp"
+#include "TransitionTestState.hpp"
 
 void TestState::update() {
 	if(GamePad::isKeyPressedOnce(GameKey::A))      ApplicationStateStack::getInstance().push<OpenGLTestState>();
@@ -28,6 +29,7 @@ void TestState::update() {
 	if(GamePad::isKeyPressedOnce(GameKey::Left))   ApplicationStateStack::getInstance().push<GamePadTestState>();
 	if(GamePad::isKeyPressedOnce(GameKey::Right))  ApplicationStateStack::getInstance().push<AudioTestState>();
 	if(GamePad::isKeyPressedOnce(GameKey::Up))     ApplicationStateStack::getInstance().push<MapTestState>();
+	if(GamePad::isKeyPressedOnce(GameKey::Down))   ApplicationStateStack::getInstance().push<TransitionTestState>();
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) ApplicationStateStack::getInstance().pop();
 }
 
@@ -37,7 +39,7 @@ void TestState::draw() {
 	m_font.drawString(4, 32,  "Left:   GamePad");
 	m_font.drawString(4, 48,  "Right:  Audio");
 	m_font.drawString(4, 64,  "Up:     Map");
-	//m_font.drawString(4, 80,  "Down:   ");
+	m_font.drawString(4, 80,  "Down:   Transitions");
 	//m_font.drawString(4, 96,  "Start:  ");
 	m_font.drawString(4, 112, "Select: Exit");
 }

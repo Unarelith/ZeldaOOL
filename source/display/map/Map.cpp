@@ -17,19 +17,15 @@
 #include "MapLoader.hpp"
 #include "ResourceHandler.hpp"
 
-Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data) {
-	load(area, x, y, width, height, tileset, data);
-}
+Map *Map::currentMap = nullptr;
 
-void Map::load(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data) {
+Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data) : m_tileset(tileset) {
 	m_area = area;
 	m_x = x;
 	m_y = y;
 	
 	m_width = width;
 	m_height = height;
-	
-	m_tileset = &tileset;
 	
 	m_baseData = data;
 	m_data = data;
@@ -82,5 +78,9 @@ void Map::setTile(u16 tileX, u16 tileY, u16 id) {
 
 Map &Map::getMap(u16 area, u16 mapX, u16 mapY) {
 	return ResourceHandler::getInstance().get<Map>(MapLoader::makeName(area, mapX, mapY));
+}
+
+bool Map::mapExists(u16 area, u16 mapX, u16 mapY) {
+	return ResourceHandler::getInstance().has(MapLoader::makeName(area, mapX, mapY));
 }
 

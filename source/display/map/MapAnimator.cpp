@@ -16,8 +16,8 @@
 #include "Map.hpp"
 #include "MapAnimator.hpp"
 
-void MapAnimator::updateTile(u16 tileX, u16 tileY, u16 tileID, const Tileset *tileset) {
-	for(auto &it : tileset->anims()) {
+void MapAnimator::updateTile(u16 tileX, u16 tileY, u16 tileID, const Tileset &tileset) {
+	for(auto &it : tileset.anims()) {
 		for(auto &n : it.frames) {
 			if(tileID == n) {
 				m_animatedTiles.emplace_back(tileX, tileY, n + 1 % it.frames.size(), it);
