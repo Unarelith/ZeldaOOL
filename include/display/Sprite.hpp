@@ -41,6 +41,8 @@ class Sprite : public Image {
 		
 		void playAnimation(float x, float y, u16 anim);
 		
+		u16 lastFrameDisplayed() const { return m_lastFrameDisplayed; }
+		
 		s16 currentAnimation() const { return m_currentAnimation; }
 		
 		static bool pause;
@@ -49,14 +51,14 @@ class Sprite : public Image {
 		u16 frameHeight() const { return m_frameHeight; }
 		
 	private:
-		u16 m_frameWidth;
-		u16 m_frameHeight;
+		u16 m_frameWidth = 0;
+		u16 m_frameHeight = 0;
 		
 		std::vector<SpriteAnimation> m_animations;
 		
-		u16 m_lastFrameDisplayed;
+		u16 m_lastFrameDisplayed = 0;
 		
-		s16 m_currentAnimation;
+		s16 m_currentAnimation = -1;
 };
 
 #endif // SPRITE_HPP_

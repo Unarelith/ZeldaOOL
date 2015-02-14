@@ -20,27 +20,41 @@
 #include "GamePadTestState.hpp"
 #include "MapTestState.hpp"
 #include "OpenGLTestState.hpp"
+#include "SceneObjectTestState.hpp"
 #include "TestState.hpp"
 #include "TransitionTestState.hpp"
 
 void TestState::update() {
-	if(GamePad::isKeyPressedOnce(GameKey::A))      ApplicationStateStack::getInstance().push<OpenGLTestState>();
-	if(GamePad::isKeyPressedOnce(GameKey::B))      ApplicationStateStack::getInstance().push<DisplayTestState>();
-	if(GamePad::isKeyPressedOnce(GameKey::Left))   ApplicationStateStack::getInstance().push<GamePadTestState>();
-	if(GamePad::isKeyPressedOnce(GameKey::Right))  ApplicationStateStack::getInstance().push<AudioTestState>();
-	if(GamePad::isKeyPressedOnce(GameKey::Up))     ApplicationStateStack::getInstance().push<MapTestState>();
-	if(GamePad::isKeyPressedOnce(GameKey::Down))   ApplicationStateStack::getInstance().push<TransitionTestState>();
+	if(m_page == 0) {
+		if(GamePad::isKeyPressedOnce(GameKey::A))      ApplicationStateStack::getInstance().push<OpenGLTestState>();
+		if(GamePad::isKeyPressedOnce(GameKey::B))      ApplicationStateStack::getInstance().push<DisplayTestState>();
+		if(GamePad::isKeyPressedOnce(GameKey::Left))   ApplicationStateStack::getInstance().push<GamePadTestState>();
+		if(GamePad::isKeyPressedOnce(GameKey::Right))  ApplicationStateStack::getInstance().push<AudioTestState>();
+		if(GamePad::isKeyPressedOnce(GameKey::Up))     ApplicationStateStack::getInstance().push<MapTestState>();
+		if(GamePad::isKeyPressedOnce(GameKey::Down))   ApplicationStateStack::getInstance().push<TransitionTestState>();
+	}
+	else if(m_page == 1) {
+		if(GamePad::isKeyPressedOnce(GameKey::A))      ApplicationStateStack::getInstance().push<SceneObjectTestState>();
+	}
+	
+	if(GamePad::isKeyPressedOnce(GameKey::Start))  m_page++; m_page %= 2;
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) ApplicationStateStack::getInstance().pop();
 }
 
 void TestState::draw() {
-	m_font.drawString(4, 0,   "A:      OpenGL");
-	m_font.drawString(4, 16,  "B:      Display");
-	m_font.drawString(4, 32,  "Left:   GamePad");
-	m_font.drawString(4, 48,  "Right:  Audio");
-	m_font.drawString(4, 64,  "Up:     Map");
-	m_font.drawString(4, 80,  "Down:   Transitions");
-	//m_font.drawString(4, 96,  "Start:  ");
-	m_font.drawString(4, 112, "Select: Exit");
+	if(m_page == 0) {
+		m_font.drawString(4, 0,   "A:      OpenGL");
+		m_font.drawString(4, 16,  "B:      Display");
+		m_font.drawString(4, 32,  "Left:   GamePad");
+		m_font.drawString(4, 48,  "Right:  Audio");
+		m_font.drawString(4, 64,  "Up:     Map");
+		m_font.drawString(4, 80,  "Down:   Transitions");
+	}
+	else if(m_page == 1) {
+		m_font.drawString(4, 0,   "A:      SceneObject");
+	}
+	
+	m_font.drawString(4, 104, "Start:  Next page");
+	m_font.drawString(4, 120, "Select: Exit");
 }
 

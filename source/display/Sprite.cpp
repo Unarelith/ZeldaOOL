@@ -27,10 +27,6 @@ void Sprite::load(const std::string &filename, u16 frameWidth, u16 frameHeight) 
 	
 	m_frameWidth = frameWidth;
 	m_frameHeight = frameHeight;
-	
-	m_lastFrameDisplayed = 0;
-	
-	m_currentAnimation = -1;
 }
 
 void Sprite::addAnimation(std::initializer_list<u16> frames, u16 delay) {

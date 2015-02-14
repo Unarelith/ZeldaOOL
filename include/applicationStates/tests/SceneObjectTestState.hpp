@@ -1,11 +1,11 @@
 /*
  * =====================================================================================
  *
- *       Filename:  TestState.hpp
+ *       Filename:  SceneObjectTestState.hpp
  *
  *    Description:  
  *
- *        Created:  12/02/2015 20:06:08
+ *        Created:  14/02/2015 17:37:32
  *       Compiler:  gcc
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
@@ -13,22 +13,31 @@
  *
  * =====================================================================================
  */
-#ifndef TESTSTATE_HPP_
-#define TESTSTATE_HPP_
+#ifndef SCENEOBJECTTESTSTATE_HPP_
+#define SCENEOBJECTTESTSTATE_HPP_
 
 #include "ApplicationState.hpp"
+#include "DrawingSystem.hpp"
 #include "Font.hpp"
+#include "MovementSystem.hpp"
+#include "SceneObject.hpp"
 
-class TestState : public ApplicationState {
+class SceneObjectTestState : public ApplicationState {
 	public:
+		SceneObjectTestState();
+		
 		void update() override;
 		
 		void draw() override;
 		
 	private:
-		u8 m_page = 0;
+		DrawingSystem m_drawingSystem;
+		
+		MovementSystem m_movementSystem;
 		
 		Font m_font{"interface-font", 8, 16};
+		
+		SceneObject m_object;
 };
 
-#endif // TESTSTATE_HPP_
+#endif // SCENEOBJECTTESTSTATE_HPP_
