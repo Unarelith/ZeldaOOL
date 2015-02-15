@@ -17,12 +17,13 @@
 #define POSITIONCOMPONENT_HPP_
 
 #include "Direction.hpp"
+#include "Rect.hpp"
 #include "Types.hpp"
 
 class PositionComponent {
 	public:
 		PositionComponent(float _x, float _y, u16 _width, u16 _height)
-			: x(_x), y(_y), width(_width), height(_height) {}
+			: x(_x), y(_y), width(_width), height(_height), hitbox(0, 0, width, height) {}
 		
 		void updateDirection(float vx, float vy) {
 			if(vx < 0) direction = Direction::Left;
@@ -38,6 +39,8 @@ class PositionComponent {
 		u16 height = 0;
 		
 		Direction direction = Direction::None;
+		
+		IntRect hitbox;
 };
 
 #endif // POSITIONCOMPONENT_HPP_

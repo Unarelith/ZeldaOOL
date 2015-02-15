@@ -16,11 +16,15 @@
 #include "ApplicationStateStack.hpp"
 #include "FactoriesTestState.hpp"
 #include "GamePad.hpp"
+#include "GamePadMovement.hpp"
+#include "MovementComponent.hpp"
 #include "OctorokFactory.hpp"
 #include "PlayerFactory.hpp"
 
 FactoriesTestState::FactoriesTestState() {
 	m_player = PlayerFactory::create(75, 50);
+	m_player.getComponent<MovementComponent>()->collisionHandlers.clear();
+	
 	m_octoroks.emplace_back(OctorokFactory::create(100, 80));
 }
 

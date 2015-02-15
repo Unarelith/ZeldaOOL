@@ -46,8 +46,8 @@ void mapCollisions(SceneObject &object) {
 	
 	// Pixel-perfect link hitbox for each 4 directions
 	u8 collisionMatrix[4][4] = {
-		{12, 8,12,13},
 		{ 4, 8, 4,13},
+		{12, 8,12,13},
 		{ 5, 5,10, 5},
 		{ 5,15,10,15}
 	};
@@ -58,10 +58,10 @@ void mapCollisions(SceneObject &object) {
 		
 		// Test the velocity vector for each direction
 		if(i == 0) {
-			test = (movementComponent->vx > 0);
+			test = (movementComponent->vx < 0);
 		}
 		else if(i == 1) {
-			test = (movementComponent->vx < 0);
+			test = (movementComponent->vx > 0);
 		}
 		else if(i == 2) {
 			test = (movementComponent->vy < 0);

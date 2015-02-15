@@ -58,7 +58,7 @@ class Rect {
 		T height = 0;
 };
 
-typedef Rect<int> IntRect;
-typedef Rect<float> FloatRect;
+using IntRect = Rect<int>;
+using FloatRect = Rect<float>;
 
 #endif // RECT_HPP_

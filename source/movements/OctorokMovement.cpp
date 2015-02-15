@@ -13,6 +13,8 @@
  *
  * =====================================================================================
  */
+#include <cstdlib>
+
 #include "MovementComponent.hpp"
 #include "OctorokMovement.hpp"
 #include "PositionComponent.hpp"

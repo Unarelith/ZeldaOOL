@@ -24,9 +24,11 @@
 class Image {
 	public:
 		Image() = default;
-		Image(const std::string &filename);
+		Image(const std::string &resourceName);
 		
-		void load(const std::string &filename);
+		void load(const std::string &resourceName);
+		
+		void setTexture(const std::string &resourceName);
 		
 		void setClipRect(float x, float y, u16 width, u16 height);
 		void setPosRect(float x, float y, u16 width, u16 height);

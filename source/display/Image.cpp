@@ -18,12 +18,12 @@
 #include "ResourceHandler.hpp"
 #include "Shader.hpp"
 
-Image::Image(const std::string &filename) {
-	load(filename);
+Image::Image(const std::string &resourceName) {
+	load(resourceName);
 }
 
-void Image::load(const std::string &filename) {
-	m_texture = &ResourceHandler::getInstance().get<Texture>(filename);
+void Image::load(const std::string &resourceName) {
+	m_texture = &ResourceHandler::getInstance().get<Texture>(resourceName);
 	
 	m_width = m_texture->width();
 	m_height = m_texture->height();
