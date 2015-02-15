@@ -36,6 +36,9 @@ class Map {
 		u16 getTile(u16 tileX, u16 tileY);
 		void setTile(u16 tileX, u16 tileY, u16 id);
 		
+		bool passable(float x, float y);
+		bool isTile(float x, float y, u16 tile);
+		
 		u16 area() const { return m_area; }
 		u16 x() const { return m_x; }
 		u16 y() const { return m_y; }

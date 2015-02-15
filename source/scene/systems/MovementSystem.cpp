@@ -26,7 +26,9 @@ void MovementSystem::process(SceneObject &object) {
 		
 		// Reset blocked to false here
 		
-		// Check collisions here
+		for(auto &it : movementComponent->collisionHandlers) {
+			it(object);
+		}
 		
 		movementComponent->isMoving = (movementComponent->vx || movementComponent->vy) ? true : false;
 		

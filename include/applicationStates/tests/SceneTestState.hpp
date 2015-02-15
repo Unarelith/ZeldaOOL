@@ -18,7 +18,6 @@
 
 #include "ApplicationState.hpp"
 #include "Font.hpp"
-#include "Map.hpp"
 #include "Scene.hpp"
 
 class SceneTestState : public ApplicationState {
@@ -33,8 +32,6 @@ class SceneTestState : public ApplicationState {
 		Font m_font{"interface-font", 8, 16};
 		
 		Scene m_scene;
-		
-		Map *m_map;
 };
 
 #endif // SCENETESTSTATE_HPP_

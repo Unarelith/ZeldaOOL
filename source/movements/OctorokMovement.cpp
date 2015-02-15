@@ -54,25 +54,28 @@ void OctorokMovement::process(SceneObject &object) {
 			movementComponent->vx = m_vx;
 			movementComponent->vy = m_vy;
 			
-			//octorok.testCollisions();
+			for(auto &it : movementComponent->collisionHandlers) {
+				it(object);
+			}
+			
 			positionComponent->updateDirection(m_vx, m_vy);
 			
-			//if(!octorok.blocked()) {
+			if(!movementComponent->isBlocked) {
 				m_state = State::Moving;
-			//}
+			}
 		}
 	}
 	else if(m_state == State::Moving) {
-		//if(octorok.blocked()) {
-		//	if(m_vx != 0) {
-		//		m_vy = m_vx;
-		//		m_vx = 0;
-		//	}
-		//	else if(m_vy != 0) {
-		//		m_vx = m_vy;
-		//		m_vy = 0;
-		//	}
-		//}
+		if(movementComponent->isBlocked) {
+			if(m_vx != 0) {
+				m_vy = m_vx;
+				m_vx = 0;
+			}
+			else if(m_vy != 0) {
+				m_vx = m_vy;
+				m_vy = 0;
+			}
+		}
 		
 		if(m_movementCounter < m_randomMaxMovement) {
 			movementComponent->vx = m_vx;

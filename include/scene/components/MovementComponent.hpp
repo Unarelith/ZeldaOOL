@@ -17,6 +17,7 @@
 #define MOVEMENTCOMPONENT_HPP_
 
 #include <memory>
+#include <vector>
 
 #include "Movement.hpp"
 
@@ -27,11 +28,15 @@ class MovementComponent {
 		float vx = 0;
 		float vy = 0;
 		
-		float speed = 0.35f;
+		float speed = 0.4f;
 		
 		bool isMoving = false;
 		
 		std::unique_ptr<Movement> movement;
+		
+		bool isBlocked = false;
+		
+		std::vector<std::function<void(SceneObject&)>> collisionHandlers;
 };
 
 #endif // MOVEMENTCOMPONENT_HPP_

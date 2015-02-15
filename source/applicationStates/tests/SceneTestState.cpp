@@ -15,16 +15,19 @@
  */
 #include "ApplicationStateStack.hpp"
 #include "GamePad.hpp"
+#include "Map.hpp"
 #include "OctorokFactory.hpp"
 #include "PlayerFactory.hpp"
 #include "SceneTestState.hpp"
 
-SceneTestState::SceneTestState() : m_map(&Map::getMap(0, 0, 0)) {
+SceneTestState::SceneTestState() {
+	Map::currentMap = &Map::getMap(0, 0, 0);
+	
 	m_scene.addObject(PlayerFactory::create(75, 50));
 }
 
 void SceneTestState::update() {
-	m_map->update();
+	Map::currentMap->update();
 	
 	m_scene.update();
 	
@@ -40,8 +43,12 @@ void SceneTestState::update() {
 void SceneTestState::draw() {
 	m_font.drawString(4, -2, "A: Spawn an Octorok");
 	
-	m_map->draw();
+	Map::currentMap->draw();
+	
+	View::bind(&Map::currentMap->view());
 	
 	m_scene.draw();
+	
+	View::bind(nullptr);
 }
 

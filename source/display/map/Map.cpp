@@ -16,6 +16,7 @@
 #include "Map.hpp"
 #include "MapLoader.hpp"
 #include "ResourceHandler.hpp"
+#include "TilesInfos.hpp"
 
 Map *Map::currentMap = nullptr;
 
@@ -74,6 +75,15 @@ void Map::setTile(u16 tileX, u16 tileY, u16 id) {
 	}
 	
 	m_renderer.updateTile(tileX, tileY, id, *this);
+}
+
+bool Map::passable(float x, float y) {
+	s16 tile = m_tileset.info()[getTile(x / m_tileset.tileWidth(), y / m_tileset.tileHeight())];
+	return TilesInfos::infos[tile][(int(x) & 0xF) / m_tileset.tileWidth() + (int(y) & 0xF) / m_tileset.tileHeight() * 2] != 1;
+}
+
+bool Map::isTile(float x, float y, u16 tile) {
+	return m_tileset.info()[getTile(x / m_tileset.tileWidth(), y / m_tileset.tileHeight())] == tile;
 }
 
 Map &Map::getMap(u16 area, u16 mapX, u16 mapY) {
