@@ -14,6 +14,7 @@
  * =====================================================================================
  */
 #include "DrawingSystem.hpp"
+#include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
@@ -28,10 +29,15 @@ void DrawingSystem::draw(SceneObject &object) {
 				spriteComponent->animID = static_cast<s8>(position->direction);
 			}
 			
+			MovementComponent *movementComponent = object.getComponent<MovementComponent>();
+			if(movementComponent) {
+				spriteComponent->isAnimated = movementComponent->isMoving;
+			}
+			
 			if(spriteComponent->isAnimated) {
 				spriteComponent->sprite.playAnimation(position->x, position->y, spriteComponent->animID);
 			} else {
-				spriteComponent->sprite.drawFrame(position->x, position->y, spriteComponent->sprite.lastFrameDisplayed());
+				spriteComponent->sprite.drawFrame(position->x, position->y, spriteComponent->animID);
 			}
 		}
 	}

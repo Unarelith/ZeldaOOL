@@ -20,6 +20,8 @@
 
 class Movement {
 	public:
+		virtual ~Movement() = default;
+		
 		virtual void process(SceneObject &object) = 0;
 };
 

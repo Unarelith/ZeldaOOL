@@ -22,24 +22,19 @@
 #include "SpriteComponent.hpp"
 
 SceneObjectTestState::SceneObjectTestState() {
-	m_object.setComponent<PositionComponent>(0, 0, 16, 16);
+	m_object.setComponent<PositionComponent>(75, 50, 16, 16);
 	m_object.setComponent<MovementComponent>(new GamePadMovement);
 	
 	SpriteComponent *spriteComponent = m_object.setComponent<SpriteComponent>("characters-link", 16, 16);
-	spriteComponent->sprite.addAnimation({4, 0}, 150);
-	spriteComponent->sprite.addAnimation({5, 1}, 150);
-	spriteComponent->sprite.addAnimation({6, 2}, 150);
-	spriteComponent->sprite.addAnimation({7, 3}, 150);
+	spriteComponent->sprite.addAnimation({4, 0}, 110);
+	spriteComponent->sprite.addAnimation({5, 1}, 110);
+	spriteComponent->sprite.addAnimation({6, 2}, 110);
+	spriteComponent->sprite.addAnimation({7, 3}, 110);
 	spriteComponent->isAnimated = true;
 }
 
 void SceneObjectTestState::update() {
 	m_movementSystem.process(m_object);
-	
-	if(GamePad::isKeyPressedOnce(GameKey::A)) {
-		SpriteComponent *spriteComponent = m_object.getComponent<SpriteComponent>();
-		spriteComponent->isAnimated = !spriteComponent->isAnimated;
-	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
 		ApplicationStateStack::getInstance().pop();
@@ -47,8 +42,7 @@ void SceneObjectTestState::update() {
 }
 
 void SceneObjectTestState::draw() {
-	m_font.drawString(24, 2, "Move the player", Color::blue);
-	m_font.drawString(4, 24, "A: Toggle animation");
+	m_font.drawString(20, 2, "Move the player", Color::blue);
 	
 	m_drawingSystem.draw(m_object);
 }

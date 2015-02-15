@@ -24,6 +24,12 @@ void MovementSystem::process(SceneObject &object) {
 	if(positionComponent && movementComponent) {
 		movementComponent->movement->process(object);
 		
+		// Reset blocked to false here
+		
+		// Check collisions here
+		
+		movementComponent->isMoving = (movementComponent->vx || movementComponent->vy) ? true : false;
+		
 		positionComponent->x += movementComponent->vx * movementComponent->speed;
 		positionComponent->y += movementComponent->vy * movementComponent->speed;
 		

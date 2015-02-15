@@ -1,11 +1,11 @@
 /*
  * =====================================================================================
  *
- *       Filename:  PlayerFactory.hpp
+ *       Filename:  OctorokFactory.hpp
  *
  *    Description:  
  *
- *        Created:  14/02/2015 22:01:37
+ *        Created:  15/02/2015 01:05:50
  *       Compiler:  gcc
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
@@ -13,14 +13,14 @@
  *
  * =====================================================================================
  */
-#ifndef PLAYERFACTORY_HPP_
-#define PLAYERFACTORY_HPP_
+#ifndef OCTOROKFACTORY_HPP_
+#define OCTOROKFACTORY_HPP_
 
 #include "SceneObject.hpp"
 
-class PlayerFactory {
+class OctorokFactory {
 	public:
 		static SceneObject create(float x, float y);
 };
 
-#endif // PLAYERFACTORY_HPP_
+#endif // OCTOROKFACTORY_HPP_

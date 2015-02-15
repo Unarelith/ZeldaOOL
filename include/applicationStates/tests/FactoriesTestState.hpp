@@ -38,6 +38,7 @@ class FactoriesTestState : public ApplicationState {
 		Font m_font{"interface-font", 8, 16};
 		
 		SceneObject m_player;
+		std::vector<SceneObject> m_octoroks;
 };
 
 #endif // FACTORIESTESTSTATE_HPP_

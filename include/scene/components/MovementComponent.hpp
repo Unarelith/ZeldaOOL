@@ -27,7 +27,9 @@ class MovementComponent {
 		float vx = 0;
 		float vy = 0;
 		
-		float speed = 0.3f;
+		float speed = 0.35f;
+		
+		bool isMoving = false;
 		
 		std::unique_ptr<Movement> movement;
 };
