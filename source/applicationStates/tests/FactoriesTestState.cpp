@@ -21,7 +21,7 @@
 
 FactoriesTestState::FactoriesTestState() {
 	m_player = PlayerFactory::create(75, 50);
-	m_octoroks.push_back(OctorokFactory::create(100, 80));
+	m_octoroks.emplace_back(OctorokFactory::create(100, 80));
 }
 
 void FactoriesTestState::update() {
@@ -32,7 +32,7 @@ void FactoriesTestState::update() {
 	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::A)) {
-		m_octoroks.push_back(OctorokFactory::create(100, 80));
+		m_octoroks.emplace_back(OctorokFactory::create(100, 80));
 	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {

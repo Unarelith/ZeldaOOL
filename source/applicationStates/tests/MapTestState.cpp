@@ -43,11 +43,11 @@ void MapTestState::update() {
 		}
 	}
 	
+	m_map->update();
+	
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
 		ApplicationStateStack::getInstance().pop();
 	}
-	
-	m_map->update();
 }
 
 void MapTestState::draw() {

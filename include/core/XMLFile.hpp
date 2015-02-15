@@ -26,8 +26,6 @@ class XMLFile {
 	public:
 		XMLFile() = default;
 		XMLFile(const std::string &filename);
-		XMLFile(const XMLFile &) = default;
-		XMLFile(XMLFile &&) = default;
 		
 		void load(const std::string &filename);
 		

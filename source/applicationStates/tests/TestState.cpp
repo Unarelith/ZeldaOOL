@@ -21,6 +21,7 @@
 #include "GamePadTestState.hpp"
 #include "MapTestState.hpp"
 #include "OpenGLTestState.hpp"
+#include "SceneTestState.hpp"
 #include "SceneObjectTestState.hpp"
 #include "TestState.hpp"
 #include "TransitionTestState.hpp"
@@ -37,6 +38,7 @@ void TestState::update() {
 	else if(m_page == 1) {
 		if(GamePad::isKeyPressedOnce(GameKey::A))      ApplicationStateStack::getInstance().push<SceneObjectTestState>();
 		if(GamePad::isKeyPressedOnce(GameKey::B))      ApplicationStateStack::getInstance().push<FactoriesTestState>();
+		if(GamePad::isKeyPressedOnce(GameKey::Left))   ApplicationStateStack::getInstance().push<SceneTestState>();
 	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Start))  m_page++; m_page %= 2;
@@ -55,6 +57,7 @@ void TestState::draw() {
 	else if(m_page == 1) {
 		m_font.drawString(4, 0,   "A:      SceneObject");
 		m_font.drawString(4, 16,  "B:      Factories");
+		m_font.drawString(4, 32,  "Left:   Scene");
 	}
 	
 	m_font.drawString(4, 104, "Start:  Next page");

@@ -31,12 +31,15 @@ int main(int, char *[]) {
 	}
 	catch(const Exception &e) {
 		std::cerr << "Fatal error " << e.what() << std::endl;
+		return 1;
 	}
 	catch(const std::exception &e) {
 		std::cerr << "Exception caught: " << e.what() << std::endl;
+		return 1;
 	}
 	catch(...) {
 		std::cerr << "Fatal error: Unknown error." << std::endl;
+		return 1;
 	}
 	
 	return 0;
