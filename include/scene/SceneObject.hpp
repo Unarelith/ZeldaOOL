@@ -44,6 +44,11 @@ class SceneObject {
 			}
 		}
 		
+		template<typename T>
+		void removeComponent() {
+			m_components.erase(typeid(T));
+		}
+		
 	private:
 		std::map<std::type_index, std::shared_ptr<void>> m_components;
 };

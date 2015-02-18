@@ -15,6 +15,7 @@
  */
 #include <cstdlib>
 
+#include "CollisionComponent.hpp"
 #include "MovementComponent.hpp"
 #include "OctorokMovement.hpp"
 #include "PositionComponent.hpp"
@@ -28,13 +29,12 @@ void OctorokMovement::reset(SceneObject &) {
 	
 	m_randomMinTimeToWait = 1000 + (rand() % 2) * 500;
 	m_randomMaxMovement = 16 + (rand() % 5) * 8;
-	
-	//movable.stopAnimation(movable.direction());
 }
 
 void OctorokMovement::process(SceneObject &object) {
 	MovementComponent *movementComponent = object.getComponent<MovementComponent>();
 	PositionComponent *positionComponent = object.getComponent<PositionComponent>();
+	CollisionComponent *collisionComponent = object.getComponent<CollisionComponent>();
 	
 	movementComponent->speed = 0.3f;
 	
@@ -56,9 +56,7 @@ void OctorokMovement::process(SceneObject &object) {
 			movementComponent->vx = m_vx;
 			movementComponent->vy = m_vy;
 			
-			for(auto &it : movementComponent->collisionHandlers) {
-				it(object);
-			}
+			if(collisionComponent) collisionComponent->checkCollisions(object);
 			
 			positionComponent->updateDirection(m_vx, m_vy);
 			

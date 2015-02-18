@@ -18,6 +18,7 @@
 
 #include "MapAnimator.hpp"
 #include "MapRenderer.hpp"
+#include "Scene.hpp"
 #include "Tileset.hpp"
 #include "VertexBuffer.hpp"
 #include "View.hpp"
@@ -46,6 +47,8 @@ class Map {
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
+		Scene &scene() { return m_scene; }
+		
 		Tileset &tileset() { return m_tileset; }
 		
 		View &view() { return m_view; }
@@ -68,9 +71,11 @@ class Map {
 		u16 m_width = 0;
 		u16 m_height = 0;
 		
-		MapAnimator m_mapAnimator;
+		MapAnimator m_animator;
 		
 		MapRenderer m_renderer;
+		
+		Scene m_scene;
 		
 		Tileset &m_tileset;
 		

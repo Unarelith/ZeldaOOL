@@ -16,11 +16,8 @@
 #ifndef SCENE_HPP_
 #define SCENE_HPP_
 
-#include <utility>
 #include <vector>
 
-#include "DrawingSystem.hpp"
-#include "MovementSystem.hpp"
 #include "SceneObject.hpp"
 
 class Scene {
@@ -29,13 +26,11 @@ class Scene {
 		
 		void draw();
 		
-		void addObject(SceneObject &&object) { m_objects.push_back(std::move(object)); }
+		SceneObject &addObject(SceneObject &&object);
+		
+		void checkCollisionsFor(SceneObject &object);
 		
 	private:
-		DrawingSystem m_drawingSystem;
-		
-		MovementSystem m_movementSystem;
-		
 		std::vector<SceneObject> m_objects;
 };
 

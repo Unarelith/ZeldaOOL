@@ -39,11 +39,19 @@ Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const 
 }
 
 void Map::update() {
-	m_mapAnimator.animateTiles(*this);
+	m_animator.animateTiles(*this);
+	
+	m_scene.update();
 }
 
 void Map::draw() {
+	View::bind(&m_view);
+	
 	m_renderer.draw(*this);
+	
+	m_scene.draw();
+	
+	View::bind(nullptr);
 }
 
 void Map::resetTiles() {
@@ -56,7 +64,7 @@ void Map::updateTiles() {
 			u16 tileID = getTile(tileX, tileY);
 			
 			m_renderer.updateTile(tileX, tileY, tileID, *this);
-			m_mapAnimator.updateTile(tileX, tileY, tileID, m_tileset);
+			m_animator.updateTile(tileX, tileY, tileID, m_tileset);
 		}
 	}
 }

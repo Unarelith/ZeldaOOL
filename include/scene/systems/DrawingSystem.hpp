@@ -20,7 +20,7 @@
 
 class DrawingSystem {
 	public:
-		void draw(SceneObject &object);
+		static void draw(SceneObject &object);
 };
 
 #endif // DRAWINGSYSTEM_HPP_

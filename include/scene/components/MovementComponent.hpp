@@ -32,11 +32,9 @@ class MovementComponent {
 		
 		bool isMoving = false;
 		
-		std::unique_ptr<Movement> movement;
-		
 		bool isBlocked = false;
 		
-		std::vector<std::function<void(SceneObject&)>> collisionHandlers;
+		std::unique_ptr<Movement> movement;
 };
 
 #endif // MOVEMENTCOMPONENT_HPP_

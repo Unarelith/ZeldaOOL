@@ -13,6 +13,7 @@
  *
  * =====================================================================================
  */
+#include "CollisionComponent.hpp"
 #include "MovementComponent.hpp"
 #include "MovementSystem.hpp"
 #include "PositionComponent.hpp"
@@ -20,15 +21,14 @@
 void MovementSystem::process(SceneObject &object) {
 	PositionComponent *positionComponent = object.getComponent<PositionComponent>();
 	MovementComponent *movementComponent = object.getComponent<MovementComponent>();
+	CollisionComponent *collisionComponent = object.getComponent<CollisionComponent>();
 	
 	if(positionComponent && movementComponent) {
 		movementComponent->movement->process(object);
 		
-		// Reset blocked to false here
+		movementComponent->isBlocked = false;
 		
-		for(auto &it : movementComponent->collisionHandlers) {
-			it(object);
-		}
+		if(collisionComponent) collisionComponent->checkCollisions(object);
 		
 		movementComponent->isMoving = (movementComponent->vx || movementComponent->vy) ? true : false;
 		

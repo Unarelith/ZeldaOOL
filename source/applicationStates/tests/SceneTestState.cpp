@@ -23,16 +23,14 @@
 SceneTestState::SceneTestState() {
 	Map::currentMap = &Map::getMap(0, 0, 0);
 	
-	m_scene.addObject(PlayerFactory::create(75, 50));
+	Map::currentMap->scene().addObject(PlayerFactory::create(75, 50));
 }
 
 void SceneTestState::update() {
 	Map::currentMap->update();
 	
-	m_scene.update();
-	
 	if(GamePad::isKeyPressedOnce(GameKey::A)) {
-		m_scene.addObject(OctorokFactory::create(100, 80));
+		Map::currentMap->scene().addObject(OctorokFactory::create(100, 80));
 	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
@@ -44,11 +42,5 @@ void SceneTestState::draw() {
 	m_font.drawString(4, -2, "A: Spawn an Octorok");
 	
 	Map::currentMap->draw();
-	
-	View::bind(&Map::currentMap->view());
-	
-	m_scene.draw();
-	
-	View::bind(nullptr);
 }
 

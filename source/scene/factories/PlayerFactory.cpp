@@ -13,6 +13,7 @@
  *
  * =====================================================================================
  */
+#include "CollisionComponent.hpp"
 #include "GamePadMovement.hpp"
 #include "MovementComponent.hpp"
 #include "PlayerFactory.hpp"
@@ -24,9 +25,10 @@ void mapCollisions(SceneObject &player);
 SceneObject PlayerFactory::create(float x, float y) {
 	SceneObject object;
 	object.setComponent<PositionComponent>(x, y, 16, 16);
+	object.setComponent<MovementComponent>(new GamePadMovement);
 	
-	MovementComponent *movementComponent = object.setComponent<MovementComponent>(new GamePadMovement);
-	movementComponent->collisionHandlers.push_back(&mapCollisions);
+	CollisionComponent *collisionComponent = object.setComponent<CollisionComponent>();
+	collisionComponent->checkers.push_back(&mapCollisions);
 	
 	SpriteComponent *spriteComponent = object.setComponent<SpriteComponent>("characters-link", 16, 16);
 	spriteComponent->sprite.addAnimation({4, 0}, 110);

@@ -20,7 +20,7 @@
 
 class MovementSystem {
 	public:
-		void process(SceneObject &object);
+		static void process(SceneObject &object);
 };
 
 #endif // MOVEMENTSYSTEM_HPP_
