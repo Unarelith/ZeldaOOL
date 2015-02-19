@@ -14,29 +14,35 @@
  * =====================================================================================
  */
 #include "CollisionComponent.hpp"
+#include "CollisionSystem.hpp"
 #include "DrawingSystem.hpp"
 #include "MovementComponent.hpp"
 #include "MovementSystem.hpp"
+#include "PositionComponent.hpp"
 #include "Scene.hpp"
 
-void Scene::update() {
+void Scene::update(SceneObject &player) {
 	for(auto &it : m_objects) {
 		MovementSystem::process(it);
 	}
+	
+	MovementSystem::process(player);
 }
 
-void Scene::draw() {
+void Scene::draw(SceneObject &player) {
 	for(auto &it : m_objects) {
 		DrawingSystem::draw(it);
 	}
+	
+	DrawingSystem::draw(player);
 }
 
 SceneObject &Scene::addObject(SceneObject &&object) {
-	m_objects.push_back(std::move(object));
+	m_objects.push_front(std::move(object));
 	
-	CollisionComponent *collisionComponent = m_objects.back().getComponent<CollisionComponent>();
+	auto collisionComponent = m_objects.back().getComponent<CollisionComponent>();
 	if(collisionComponent) {
-		collisionComponent->checkers.push_back([&](SceneObject &object) {
+		collisionComponent->addChecker([&](SceneObject &object) {
 			checkCollisionsFor(object);
 		});
 	}
@@ -47,11 +53,13 @@ SceneObject &Scene::addObject(SceneObject &&object) {
 void Scene::checkCollisionsFor(SceneObject &object) {
 	for(auto &it : m_objects) {
 		if(&object != &it) {
-			CollisionComponent *collisionComponent1 = object.getComponent<CollisionComponent>();
-			CollisionComponent *collisionComponent2 = it.getComponent<CollisionComponent>();
+			auto collisionComponent1 = object.getComponent<CollisionComponent>();
+			auto collisionComponent2 = it.getComponent<CollisionComponent>();
 			
-			if(collisionComponent1 && collisionComponent2) {
-				// Collision actions goes here
+			if(collisionComponent1 && collisionComponent2
+			&& CollisionSystem::inCollision(object, it)) {
+				collisionComponent1->collisionActions(object, it);
+				collisionComponent2->collisionActions(it, object);
 			}
 		}
 	}

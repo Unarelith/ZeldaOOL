@@ -28,8 +28,10 @@ class Map {
 		Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data);
 		
 		void update();
+		void update(SceneObject &player);
 		
 		void draw();
+		void draw(SceneObject &player);
 		
 		void resetTiles();
 		void updateTiles();

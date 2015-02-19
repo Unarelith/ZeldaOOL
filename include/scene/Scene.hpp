@@ -16,22 +16,22 @@
 #ifndef SCENE_HPP_
 #define SCENE_HPP_
 
-#include <vector>
+#include <deque>
 
 #include "SceneObject.hpp"
 
 class Scene {
 	public:
-		void update();
+		void update(SceneObject &player);
 		
-		void draw();
+		void draw(SceneObject &player);
 		
 		SceneObject &addObject(SceneObject &&object);
 		
 		void checkCollisionsFor(SceneObject &object);
 		
 	private:
-		std::vector<SceneObject> m_objects;
+		std::deque<SceneObject> m_objects;
 };
 
 #endif // SCENE_HPP_

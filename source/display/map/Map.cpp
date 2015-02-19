@@ -40,16 +40,24 @@ Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const 
 
 void Map::update() {
 	m_animator.animateTiles(*this);
+}
+
+void Map::update(SceneObject &player) {
+	update();
 	
-	m_scene.update();
+	m_scene.update(player);
 }
 
 void Map::draw() {
+	m_renderer.draw(*this);
+}
+
+void Map::draw(SceneObject &player) {
+	draw();
+	
 	View::bind(&m_view);
 	
-	m_renderer.draw(*this);
-	
-	m_scene.draw();
+	m_scene.draw(player);
 	
 	View::bind(nullptr);
 }

@@ -19,17 +19,17 @@
 #include "SpriteComponent.hpp"
 
 void DrawingSystem::draw(SceneObject &object) {
-	PositionComponent *position = object.getComponent<PositionComponent>();
+	auto position = object.getComponent<PositionComponent>();
 	
 	if(position) {
-		SpriteComponent *spriteComponent = object.getComponent<SpriteComponent>();
+		auto spriteComponent = object.getComponent<SpriteComponent>();
 		
 		if(spriteComponent) {
 			if(position->direction != Direction::None) {
 				spriteComponent->animID = static_cast<s8>(position->direction);
 			}
 			
-			MovementComponent *movementComponent = object.getComponent<MovementComponent>();
+			auto movementComponent = object.getComponent<MovementComponent>();
 			if(movementComponent) {
 				spriteComponent->isAnimated = movementComponent->isMoving;
 			}

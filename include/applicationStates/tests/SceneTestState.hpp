@@ -18,6 +18,7 @@
 
 #include "ApplicationState.hpp"
 #include "Font.hpp"
+#include "SceneObject.hpp"
 
 class SceneTestState : public ApplicationState {
 	public:
@@ -29,6 +30,8 @@ class SceneTestState : public ApplicationState {
 		
 	private:
 		Font m_font{"interface-font", 8, 16};
+		
+		SceneObject m_player;
 };
 
 #endif // SCENETESTSTATE_HPP_

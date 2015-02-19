@@ -24,7 +24,7 @@ SceneObject OctorokFactory::create(float x, float y) {
 	object.setComponent<PositionComponent>(x, y, 16, 16);
 	object.setComponent<MovementComponent>(new OctorokMovement);
 	
-	SpriteComponent *spriteComponent = object.setComponent<SpriteComponent>("enemies-octorok", 16, 16);
+	auto spriteComponent = object.setComponent<SpriteComponent>("enemies-octorok", 16, 16);
 	spriteComponent->sprite.addAnimation({4, 0}, 150);
 	spriteComponent->sprite.addAnimation({5, 1}, 150);
 	spriteComponent->sprite.addAnimation({6, 2}, 150);

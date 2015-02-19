@@ -25,7 +25,7 @@ SceneObjectTestState::SceneObjectTestState() {
 	m_object.setComponent<PositionComponent>(75, 50, 16, 16);
 	m_object.setComponent<MovementComponent>(new GamePadMovement);
 	
-	SpriteComponent *spriteComponent = m_object.setComponent<SpriteComponent>("characters-link", 16, 16);
+	auto spriteComponent = m_object.setComponent<SpriteComponent>("characters-link", 16, 16);
 	spriteComponent->sprite.addAnimation({4, 0}, 110);
 	spriteComponent->sprite.addAnimation({5, 1}, 110);
 	spriteComponent->sprite.addAnimation({6, 2}, 110);

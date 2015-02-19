@@ -15,6 +15,7 @@
  */
 #include "CollisionComponent.hpp"
 #include "GamePadMovement.hpp"
+#include "Map.hpp"
 #include "MovementComponent.hpp"
 #include "PlayerFactory.hpp"
 #include "PositionComponent.hpp"
@@ -24,13 +25,15 @@ void mapCollisions(SceneObject &player);
 
 SceneObject PlayerFactory::create(float x, float y) {
 	SceneObject object;
-	object.setComponent<PositionComponent>(x, y, 16, 16);
 	object.setComponent<MovementComponent>(new GamePadMovement);
 	
-	CollisionComponent *collisionComponent = object.setComponent<CollisionComponent>();
-	collisionComponent->checkers.push_back(&mapCollisions);
+	auto positionComponent = object.setComponent<PositionComponent>(x, y, 16, 16);
+	positionComponent->hitbox.reset(4, 5, 8, 10);
 	
-	SpriteComponent *spriteComponent = object.setComponent<SpriteComponent>("characters-link", 16, 16);
+	auto collisionComponent = object.setComponent<CollisionComponent>();
+	collisionComponent->addChecker(&mapCollisions);
+	
+	auto spriteComponent = object.setComponent<SpriteComponent>("characters-link", 16, 16);
 	spriteComponent->sprite.addAnimation({4, 0}, 110);
 	spriteComponent->sprite.addAnimation({5, 1}, 110);
 	spriteComponent->sprite.addAnimation({6, 2}, 110);
@@ -40,11 +43,9 @@ SceneObject PlayerFactory::create(float x, float y) {
 	return object;
 }
 
-#include "Map.hpp"
-
 void mapCollisions(SceneObject &object) {
-	PositionComponent *positionComponent = object.getComponent<PositionComponent>();
-	MovementComponent *movementComponent = object.getComponent<MovementComponent>();
+	auto positionComponent = object.getComponent<PositionComponent>();
+	auto movementComponent = object.getComponent<MovementComponent>();
 	
 	// Pixel-perfect link hitbox for each 4 directions
 	u8 collisionMatrix[4][4] = {
@@ -112,5 +113,7 @@ void mapCollisions(SceneObject &object) {
 			}
 		}
 	}
+	
+	Map::currentMap->scene().checkCollisionsFor(object);
 }
 

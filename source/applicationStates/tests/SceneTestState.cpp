@@ -14,6 +14,7 @@
  * =====================================================================================
  */
 #include "ApplicationStateStack.hpp"
+#include "ButtonFactory.hpp"
 #include "GamePad.hpp"
 #include "Map.hpp"
 #include "OctorokFactory.hpp"
@@ -23,11 +24,13 @@
 SceneTestState::SceneTestState() {
 	Map::currentMap = &Map::getMap(0, 0, 0);
 	
-	Map::currentMap->scene().addObject(PlayerFactory::create(75, 50));
+	m_player = PlayerFactory::create(75, 50);
+	
+	Map::currentMap->scene().addObject(ButtonFactory::create(7, 2));
 }
 
 void SceneTestState::update() {
-	Map::currentMap->update();
+	Map::currentMap->update(m_player);
 	
 	if(GamePad::isKeyPressedOnce(GameKey::A)) {
 		Map::currentMap->scene().addObject(OctorokFactory::create(100, 80));
@@ -41,6 +44,6 @@ void SceneTestState::update() {
 void SceneTestState::draw() {
 	m_font.drawString(4, -2, "A: Spawn an Octorok");
 	
-	Map::currentMap->draw();
+	Map::currentMap->draw(m_player);
 }
 

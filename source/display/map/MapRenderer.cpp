@@ -56,6 +56,8 @@ void MapRenderer::updateTile(u16 tileX, u16 tileY, u16 id, Map &map) {
 }
 
 void MapRenderer::draw(Map &map) {
+	View::bind(&map.view());
+	
 	Shader::currentShader->enableVertexAttribArray("coord2d");
 	Shader::currentShader->enableVertexAttribArray("texCoord");
 	Shader::currentShader->enableVertexAttribArray("color");
@@ -77,5 +79,7 @@ void MapRenderer::draw(Map &map) {
 	Shader::currentShader->disableVertexAttribArray("color");
 	Shader::currentShader->disableVertexAttribArray("texCoord");
 	Shader::currentShader->disableVertexAttribArray("coord2d");
+	
+	View::bind(nullptr);
 }
 

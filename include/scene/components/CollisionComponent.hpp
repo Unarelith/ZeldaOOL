@@ -22,13 +22,22 @@
 
 class CollisionComponent {
 	public:
-		void checkCollisions(SceneObject &object) {
-			for(auto &it : checkers) it(object);
+		void checkCollisions(SceneObject &object);
+		
+		void collisionActions(SceneObject &object1, SceneObject &object2);
+		
+		void addChecker(std::function<void(SceneObject&)> checker) {
+			m_checkers.push_back(checker);
 		}
 		
-		std::vector<std::function<void(SceneObject&)>> checkers;
+		void addAction(std::function<void(SceneObject&, SceneObject&)> action) {
+			m_actions.push_back(action);
+		}
 		
-		std::vector<std::function<void(SceneObject&, SceneObject&)>> actions;
+	private:
+		std::vector<std::function<void(SceneObject&)>> m_checkers;
+		
+		std::vector<std::function<void(SceneObject&, SceneObject&)>> m_actions;
 };
 
 #endif // COLLISIONCOMPONENT_HPP_
