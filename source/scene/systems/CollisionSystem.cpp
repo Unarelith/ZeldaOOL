@@ -18,11 +18,11 @@
 #include "PositionComponent.hpp"
 
 bool CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2) {
-	auto position1 = object1.getComponent<PositionComponent>();
-	auto position2 = object2.getComponent<PositionComponent>();
+	auto *position1 = object1.getComponent<PositionComponent>();
+	auto *position2 = object2.getComponent<PositionComponent>();
 	
-	auto movement1 = object1.getComponent<MovementComponent>();
-	auto movement2 = object2.getComponent<MovementComponent>();
+	auto *movement1 = object1.getComponent<MovementComponent>();
+	auto *movement2 = object2.getComponent<MovementComponent>();
 	
 	if(position1 && position2) {
 		FloatRect rect1(position1->x + position1->hitbox.x,

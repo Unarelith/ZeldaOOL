@@ -19,9 +19,9 @@
 #include "PositionComponent.hpp"
 
 void MovementSystem::process(SceneObject &object) {
-	auto positionComponent = object.getComponent<PositionComponent>();
-	auto movementComponent = object.getComponent<MovementComponent>();
-	auto collisionComponent = object.getComponent<CollisionComponent>();
+	auto *positionComponent = object.getComponent<PositionComponent>();
+	auto *movementComponent = object.getComponent<MovementComponent>();
+	auto *collisionComponent = object.getComponent<CollisionComponent>();
 	
 	if(positionComponent && movementComponent) {
 		movementComponent->movement->process(object);

@@ -21,9 +21,9 @@ void CollisionComponent::checkCollisions(SceneObject &object) {
 	}
 }
 
-void CollisionComponent::collisionActions(SceneObject &object1, SceneObject &object2) {
+void CollisionComponent::collisionActions(SceneObject &object1, SceneObject &object2, bool collision) {
 	for(auto &it : m_actions) {
-		it(object1, object2);
+		it(object1, object2, collision);
 	}
 }
 

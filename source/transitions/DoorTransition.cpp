@@ -16,9 +16,11 @@
 #include "ApplicationWindow.hpp"
 #include "DoorTransition.hpp"
 #include "Map.hpp"
+#include "PositionComponent.hpp"
+#include "Scene.hpp"
 #include "Sprite.hpp"
 
-DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer) {
+DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection) {
 	m_nextMap = &Map::getMap(area, mapX, mapY);
 	m_nextMap->resetTiles();
 	m_nextMap->updateTiles();
@@ -27,8 +29,6 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	m_playerY = playerY;
 	
 	m_playerDirection = playerDirection;
-	
-	m_movePlayer = movePlayer;
 	
 	m_timer.start();
 	
@@ -40,7 +40,7 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	m_rect1.setPosition(0, 16);
 	m_rect2.setPosition(ApplicationWindow::screenWidth / 2, 16);
 	
-	//Player::player.setNextState<StandingState>();
+	//Scene::player->setNextState<StandingState>();
 	
 	Sprite::pause = true;
 }
@@ -49,8 +49,15 @@ void DoorTransition::update() {
 	if(m_timer.time() > 250) {
 		glClearColor(Color::text.r / 255.0f, Color::text.g / 255.0f, Color::text.b / 255.0f, 1.0f);
 		
-		//Player::player.setPosition(m_playerX, m_playerY);
-		//Player::player.setDirection(m_playerDirection);
+		if(Scene::player) {
+			auto positionComponent = Scene::player->getComponent<PositionComponent>();
+			if(positionComponent) {
+				positionComponent->x = m_playerX;
+				positionComponent->y = m_playerY;
+				
+				positionComponent->direction = m_playerDirection;
+			}
+		}
 		
 		m_rect1.move(-1.5, 0);
 		m_rect2.move(1.5, 0);
@@ -70,12 +77,6 @@ void DoorTransition::update() {
 void DoorTransition::draw() {
 	if(m_timer.time() > 250) {
 		m_nextMap->draw();
-		
-		//View::bind(&Map::currentMap->view());
-		
-		//Player::player.draw();
-		
-		//View::bind(nullptr);
 		
 		m_rect1.draw(Color::text);
 		m_rect2.draw(Color::text);

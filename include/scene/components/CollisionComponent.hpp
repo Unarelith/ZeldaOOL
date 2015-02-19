@@ -20,24 +20,27 @@
 
 #include "SceneObject.hpp"
 
+using CollisionChecker = std::function<void(SceneObject&)>;
+using CollisionAction  = std::function<void(SceneObject&, SceneObject&, bool)>;
+
 class CollisionComponent {
 	public:
 		void checkCollisions(SceneObject &object);
 		
-		void collisionActions(SceneObject &object1, SceneObject &object2);
+		void collisionActions(SceneObject &object1, SceneObject &object2, bool collision);
 		
-		void addChecker(std::function<void(SceneObject&)> checker) {
+		void addChecker(CollisionChecker checker) {
 			m_checkers.push_back(checker);
 		}
 		
-		void addAction(std::function<void(SceneObject&, SceneObject&)> action) {
+		void addAction(CollisionAction action) {
 			m_actions.push_back(action);
 		}
 		
 	private:
-		std::vector<std::function<void(SceneObject&)>> m_checkers;
+		std::vector<CollisionChecker> m_checkers;
 		
-		std::vector<std::function<void(SceneObject&, SceneObject&)>> m_actions;
+		std::vector<CollisionAction> m_actions;
 };
 
 #endif // COLLISIONCOMPONENT_HPP_

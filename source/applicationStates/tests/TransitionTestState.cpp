@@ -58,7 +58,7 @@ void TransitionTestState::update() {
 	}
 	else if(m_mode == Mode::Door) {
 		if(GamePad::isKeyPressedOnce(GameKey::Start)) {
-			ApplicationStateStack::getInstance().push<TransitionState>(new DoorTransition((Map::currentMap->area() + 1) % 4, 0, 0, 0, 0, 0), this);
+			ApplicationStateStack::getInstance().push<TransitionState>(new DoorTransition((Map::currentMap->area() + 1) % 4, 0, 0, 0, 0, Direction::None), this);
 		}
 		
 		if(GamePad::isKeyPressedOnce(GameKey::Select)) {

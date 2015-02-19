@@ -22,13 +22,16 @@
 
 class Scene {
 	public:
-		void update(SceneObject &player);
+		void update();
 		
-		void draw(SceneObject &player);
+		void draw();
 		
 		SceneObject &addObject(SceneObject &&object);
 		
 		void checkCollisionsFor(SceneObject &object);
+		
+		static bool isPlayer(SceneObject &object) { return &object == player; }
+		static SceneObject *player;
 		
 	private:
 		std::deque<SceneObject> m_objects;

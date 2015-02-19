@@ -16,13 +16,14 @@
 #ifndef DOORTRANSITION_HPP_
 #define DOORTRANSITION_HPP_
 
+#include "Direction.hpp"
 #include "Map.hpp"
 #include "RectangleShape.hpp"
 #include "Transition.hpp"
 
 class DoorTransition : public Transition {
 	public:
-		DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer = false);
+		DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection);
 		
 		void update() override;
 		
@@ -34,9 +35,7 @@ class DoorTransition : public Transition {
 		u16 m_playerX = 0;
 		u16 m_playerY = 0;
 		
-		u16 m_playerDirection = 0;
-		
-		bool m_movePlayer = false;
+		Direction m_playerDirection = Direction::None;
 		
 		Timer m_timer;
 		
