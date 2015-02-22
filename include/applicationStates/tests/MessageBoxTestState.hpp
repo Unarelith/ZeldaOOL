@@ -1,32 +1,32 @@
 /*
  * =====================================================================================
  *
- *       Filename:  TestState.hpp
+ *       Filename:  MessageBoxTestState.hpp
  *
  *    Description:  
  *
- *        Created:  12/02/2015 20:06:08
+ *        Created:  22/02/2015 17:50:43
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef TESTSTATE_HPP_
-#define TESTSTATE_HPP_
+#ifndef MESSAGEBOXTESTSTATE_HPP_
+#define MESSAGEBOXTESTSTATE_HPP_
 
 #include "ApplicationState.hpp"
-#include "Font.hpp"
+#include "MessageBox.hpp"
 
-class TestState : public ApplicationState {
+class MessageBoxTestState : public ApplicationState {
 	public:
+		MessageBoxTestState();
+		
 		void update() override;
 		
 		void draw() override;
 		
 	private:
-		u8 m_page = 1;
-		
-		Font m_font{"interface-font", 8, 16};
+		MessageBox m_messageBox;
 };
 
-#endif // TESTSTATE_HPP_
+#endif // MESSAGEBOXTESTSTATE_HPP_

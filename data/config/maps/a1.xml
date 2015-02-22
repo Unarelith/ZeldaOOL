@@ -3,7 +3,7 @@
 		<destination area="1" mapX="0" mapY="0"/>
 		<player tileX="4.5" tileY="6" direction="up"/>
 	</teleporter>
-
+	
 	<button tileX="7" tileY="2">
 		<tileChange tileX="7" tileY="6" newID="36"/>
 		<tileChange tileX="8" tileY="6" newID="36"/>

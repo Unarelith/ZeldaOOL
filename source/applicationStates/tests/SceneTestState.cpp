@@ -25,8 +25,6 @@ SceneTestState::SceneTestState() {
 	
 	m_player = PlayerFactory::create(75, 50);
 	Scene::player = &m_player;
-	
-	Map::currentMap->scene().addObject(ButtonFactory::create(7, 2));
 }
 
 void SceneTestState::update() {

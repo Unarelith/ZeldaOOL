@@ -12,16 +12,18 @@
  * =====================================================================================
  */
 #include "ApplicationStateStack.hpp"
+#include "GamePad.hpp"
+#include "TestState.hpp"
+
 #include "AudioTestState.hpp"
 #include "DisplayTestState.hpp"
 #include "FactoriesTestState.hpp"
-#include "GamePad.hpp"
 #include "GamePadTestState.hpp"
 #include "MapTestState.hpp"
+#include "MessageBoxTestState.hpp"
 #include "OpenGLTestState.hpp"
 #include "SceneTestState.hpp"
 #include "SceneObjectTestState.hpp"
-#include "TestState.hpp"
 #include "TransitionTestState.hpp"
 
 void TestState::update() {
@@ -37,6 +39,7 @@ void TestState::update() {
 		if(GamePad::isKeyPressedOnce(GameKey::A))      ApplicationStateStack::getInstance().push<SceneObjectTestState>();
 		if(GamePad::isKeyPressedOnce(GameKey::B))      ApplicationStateStack::getInstance().push<FactoriesTestState>();
 		if(GamePad::isKeyPressedOnce(GameKey::Left))   ApplicationStateStack::getInstance().push<SceneTestState>();
+		if(GamePad::isKeyPressedOnce(GameKey::Right))  ApplicationStateStack::getInstance().push<MessageBoxTestState>();
 	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Start))  m_page++; m_page %= 2;
@@ -56,6 +59,7 @@ void TestState::draw() {
 		m_font.drawString(4, 0,   "A:      SceneObject");
 		m_font.drawString(4, 16,  "B:      Factories");
 		m_font.drawString(4, 32,  "Left:   Scene");
+		m_font.drawString(4, 48,  "Right:  MessageBox");
 	}
 	
 	m_font.drawString(4, 104, "Start:  Next page");
