@@ -15,6 +15,7 @@
 #include "BackgroundMusic.hpp"
 #include "ResourceHandler.hpp"
 #include "SoundEffect.hpp"
+#include "Timer.hpp"
 
 void AudioPlayer::playMusic(const std::string &resourceName) {
 	ResourceHandler::getInstance().get<BackgroundMusic>(std::string("bgm-") + resourceName).play();
@@ -22,6 +23,16 @@ void AudioPlayer::playMusic(const std::string &resourceName) {
 
 void AudioPlayer::playEffect(const std::string &resourceName, s8 channel) {
 	ResourceHandler::getInstance().get<SoundEffect>(std::string("sfx-") + resourceName).play(channel);
+}
+
+void AudioPlayer::playDelayedEffect(const std::string &resourceName, u8 delay) {
+	static Timer m_timer;
+	m_timer.start();
+	
+	if(m_timer.time() > delay) {
+		playEffect(resourceName);
+		m_timer.reset();
+	}
 }
 
 void AudioPlayer::pauseMusic() {

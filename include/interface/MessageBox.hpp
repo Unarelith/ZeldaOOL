@@ -46,6 +46,8 @@ class MessageBox {
 		void setPosition(Position position) { m_rectangle.setPosition(8, position); }
 		
 	private:
+		const u8 m_charPerLine = 16;
+		
 		std::string m_text;
 		
 		Font m_font{"interface-font", 8, 16};
@@ -55,6 +57,8 @@ class MessageBox {
 		RectangleShape m_rectangle{8, Position::Top, 144, 40};
 		
 		Timer m_charTimer;
+		
+		bool m_displayArrow = true;
 		
 		u8 m_page = 0;
 };

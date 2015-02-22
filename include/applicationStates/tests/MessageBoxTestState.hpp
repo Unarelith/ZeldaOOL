@@ -20,6 +20,7 @@
 class MessageBoxTestState : public ApplicationState {
 	public:
 		MessageBoxTestState();
+		~MessageBoxTestState();
 		
 		void update() override;
 		

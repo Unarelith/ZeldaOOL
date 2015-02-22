@@ -17,9 +17,14 @@
 #include "OpenGL.hpp"
 
 MessageBoxTestState::MessageBoxTestState() {
-	m_messageBox.setText("L'Arbre Bojo est tout à l'est de cette grotte.");
+	//m_messageBox.setText("L'Arbre Bojo est tout à l'est de cette grotte.");
+	m_messageBox.setText("Vous obtenez 30 rubis!\nC'est bien.");
 	
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+}
+
+MessageBoxTestState::~MessageBoxTestState() {
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
 void MessageBoxTestState::update() {
@@ -27,8 +32,6 @@ void MessageBoxTestState::update() {
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
 		ApplicationStateStack::getInstance().pop();
-		
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	}
 }
 
