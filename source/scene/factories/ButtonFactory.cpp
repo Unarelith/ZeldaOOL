@@ -25,7 +25,7 @@ SceneObject ButtonFactory::create(u16 tileX, u16 tileY) {
 	SceneObject object;
 	
 	auto *positionComponent = object.setComponent<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
-	positionComponent->hitbox.reset(4, 4, 8, 4);
+	positionComponent->hitbox.reset(4, 4, 8, 8);
 	
 	auto *buttonComponent = object.setComponent<ButtonComponent>();
 	buttonComponent->addTileChange(7, 6, 36);

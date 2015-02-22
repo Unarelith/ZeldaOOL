@@ -24,8 +24,9 @@
 class ApplicationStateStack {
 	public:
 		template<typename T, typename... Args>
-		void push(Args &&...args) {
-			m_states.push(std::make_shared<T>(std::forward<Args>(args)...));
+		T &push(Args &&...args) {
+			m_states.emplace(new T(std::forward<Args>(args)...));
+			return *static_cast<T*>(top());
 		}
 		
 		void pop() { m_states.pop(); }
@@ -42,7 +43,7 @@ class ApplicationStateStack {
 	private:
 		ApplicationStateStack() = default;
 		
-		std::stack<std::shared_ptr<ApplicationState>> m_states;
+		std::stack<std::unique_ptr<ApplicationState>> m_states;
 };
 
 #endif // APPLICATIONSTATESTACK_HPP_

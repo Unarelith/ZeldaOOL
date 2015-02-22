@@ -16,6 +16,7 @@
 #include "CollisionComponent.hpp"
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
+#include "TeleporterComponent.hpp"
 #include "TeleporterFactory.hpp"
 
 void teleporterAction(SceneObject &teleporter, SceneObject &object, bool collision);
@@ -29,6 +30,9 @@ SceneObject TeleporterFactory::create(u16 tileX, u16 tileY) {
 	auto *collisionComponent = object.setComponent<CollisionComponent>();
 	collisionComponent->addAction(&teleporterAction);
 	
+	auto *teleporterComponent = object.setComponent<TeleporterComponent>();
+	teleporterComponent->setDestination(1, 0, 0, 4.5 * 16, 6 * 16, Direction::Up);
+	
 	return object;
 }
 
@@ -37,11 +41,21 @@ SceneObject TeleporterFactory::create(u16 tileX, u16 tileY) {
 #include "TransitionState.hpp"
 
 void teleporterAction(SceneObject &teleporter, SceneObject &object, bool collision) {
+	auto *teleporterComponent = teleporter.getComponent<TeleporterComponent>();
+	
 	if(Scene::isPlayer(object)) {
-		if(collision) {
-			ApplicationStateStack::getInstance().push<TransitionState>(new DoorTransition(1, 0, 0, 4.5 * 16, 6 * 16, Direction::Up), ApplicationStateStack::getInstance().top());
-		} else {
+		if(collision && teleporterComponent->isActivated()) {
+			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+			state.setTransition<DoorTransition>(teleporterComponent->area(),
+			                                    teleporterComponent->mapX(),
+			                                    teleporterComponent->mapY(),
+			                                    teleporterComponent->playerX(),
+			                                    teleporterComponent->playerY(),
+			                                    teleporterComponent->playerDirection());
 			
+			teleporterComponent->toggleOFF();
+		} else {
+			teleporterComponent->toggleON();
 		}
 	}
 }

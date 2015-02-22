@@ -40,16 +40,20 @@ void TransitionTestState::update() {
 	}
 	else if(m_mode == Mode::Scrolling) {
 		if(GamePad::isKeyPressedOnce(GameKey::Left) && Map::currentMap->hasSideMap(-1, 0)) {
-			ApplicationStateStack::getInstance().push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingLeft), this);
+			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(this);
+			state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingLeft);
 		}
 		else if(GamePad::isKeyPressedOnce(GameKey::Right) && Map::currentMap->hasSideMap(1, 0)) {
-			ApplicationStateStack::getInstance().push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingRight), this);
+			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(this);
+			state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingRight);
 		}
 		else if(GamePad::isKeyPressedOnce(GameKey::Up) && Map::currentMap->hasSideMap(0, -1)) {
-			ApplicationStateStack::getInstance().push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingUp), this);
+			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(this);
+			state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingUp);
 		}
 		else if(GamePad::isKeyPressedOnce(GameKey::Down) && Map::currentMap->hasSideMap(0, 1)) {
-			ApplicationStateStack::getInstance().push<TransitionState>(new ScrollingTransition(ScrollingTransition::Mode::ScrollingDown), this);
+			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(this);
+			state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingDown);
 		}
 		
 		if(GamePad::isKeyPressedOnce(GameKey::Select)) {
@@ -58,7 +62,8 @@ void TransitionTestState::update() {
 	}
 	else if(m_mode == Mode::Door) {
 		if(GamePad::isKeyPressedOnce(GameKey::Start)) {
-			ApplicationStateStack::getInstance().push<TransitionState>(new DoorTransition((Map::currentMap->area() + 1) % 4, 0, 0, 0, 0, Direction::None), this);
+			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(this);
+			state.setTransition<DoorTransition>((Map::currentMap->area() + 1) % 4, 0, 0, 0, 0, Direction::None);
 		}
 		
 		if(GamePad::isKeyPressedOnce(GameKey::Select)) {
