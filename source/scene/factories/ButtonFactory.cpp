@@ -11,23 +11,21 @@
  *
  * =====================================================================================
  */
-#include "ButtonComponent.hpp"
 #include "ButtonFactory.hpp"
-#include "CollisionComponent.hpp"
 #include "Scene.hpp"
+
+#include "ButtonComponent.hpp"
+#include "CollisionComponent.hpp"
 #include "PositionComponent.hpp"
 
 void buttonAction(SceneObject &button, SceneObject &object, bool collision);
 
 SceneObject ButtonFactory::create(u16 tileX, u16 tileY) {
 	SceneObject object;
+	object.setComponent<ButtonComponent>();
 	
 	auto *positionComponent = object.setComponent<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 	positionComponent->hitbox.reset(4, 4, 8, 8);
-	
-	auto *buttonComponent = object.setComponent<ButtonComponent>();
-	buttonComponent->addTileChange(7, 6, 36);
-	buttonComponent->addTileChange(8, 6, 36);
 	
 	auto *collisionComponent = object.setComponent<CollisionComponent>();
 	collisionComponent->addAction(&buttonAction);

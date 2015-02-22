@@ -14,7 +14,7 @@
 #ifndef SCENE_HPP_
 #define SCENE_HPP_
 
-#include <deque>
+#include <vector>
 
 #include "SceneObject.hpp"
 
@@ -32,7 +32,7 @@ class Scene {
 		static SceneObject *player;
 		
 	private:
-		std::deque<SceneObject> m_objects;
+		std::vector<SceneObject> m_objects;
 };
 
 #endif // SCENE_HPP_

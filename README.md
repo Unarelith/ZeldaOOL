@@ -8,10 +8,10 @@
 
 ## Keys
 
-- A               : `W` (or `Z` on QWERTY keyboards)
-- B               : `X`
-- Start           : `Enter`
-- Select          : `Backspace`
+- A : `W` (or `Z` on QWERTY keyboards)
+- B : `X`
+- Start : `Enter`
+- Select : `Backspace`
 - Directional keys: Arrows
 
 ## How to compile

@@ -38,7 +38,7 @@ void Scene::draw() {
 }
 
 SceneObject &Scene::addObject(SceneObject &&object) {
-	m_objects.push_front(std::move(object));
+	m_objects.push_back(std::move(object));
 	
 	auto *collisionComponent = m_objects.back().getComponent<CollisionComponent>();
 	if(collisionComponent) {
