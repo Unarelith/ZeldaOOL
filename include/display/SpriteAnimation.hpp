@@ -6,10 +6,8 @@
  *    Description:  
  *
  *        Created:  09/02/2015 02:40:21
- *       Compiler:  gcc
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
- *        Company:  
  *
  * =====================================================================================
  */
