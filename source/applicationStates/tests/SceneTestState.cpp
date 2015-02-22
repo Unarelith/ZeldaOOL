@@ -27,7 +27,6 @@ SceneTestState::SceneTestState() {
 	Scene::player = &m_player;
 	
 	Map::currentMap->scene().addObject(ButtonFactory::create(7, 2));
-	Map::currentMap->scene().addObject(TeleporterFactory::create(2, 5));
 }
 
 void SceneTestState::update() {

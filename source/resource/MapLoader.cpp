@@ -13,6 +13,7 @@
  */
 #include "Map.hpp"
 #include "MapLoader.hpp"
+#include "SceneObjectLoader.hpp"
 #include "XMLFile.hpp"
 
 void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
@@ -24,7 +25,7 @@ void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 		
 		XMLElement *mapElement = areaElement->FirstChildElement("map");
 		while(mapElement) {
-			std::string path = mapElement->Attribute("path");
+			std::string name = mapElement->Attribute("name");
 			std::string tilesetName = mapElement->Attribute("tileset");
 			
 			u16 x = mapElement->IntAttribute("x");
@@ -32,7 +33,7 @@ void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 			
 			Tileset &tileset = handler.get<Tileset>(tilesetName);
 			
-			loadMap(path, area, x, y, tileset, handler);
+			loadMap(name, area, x, y, tileset, handler);
 			
 			mapElement = mapElement->NextSiblingElement("map");
 		}
@@ -41,8 +42,8 @@ void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 	}
 }
 
-void MapLoader::loadMap(const std::string &filename, u16 area, u16 x, u16 y, Tileset &tileset, ResourceHandler &handler) {
-	XMLFile doc(filename);
+void MapLoader::loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset &tileset, ResourceHandler &handler) {
+	XMLFile doc("data/maps/" + name + ".tmx");
 	
 	XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
 	
@@ -59,6 +60,8 @@ void MapLoader::loadMap(const std::string &filename, u16 area, u16 x, u16 y, Til
 		tileElement = tileElement->NextSiblingElement("tile");
 	}
 	
-	handler.add<Map>(makeName(area, x, y), area, x, y, width, height, tileset, data);
+	Map &map = handler.add<Map>(makeName(area, x, y), area, x, y, width, height, tileset, data);
+	
+	SceneObjectLoader::load(name, map.scene());
 }
 

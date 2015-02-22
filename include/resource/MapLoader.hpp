@@ -14,13 +14,14 @@
 #ifndef MAPLOADER_HPP_
 #define MAPLOADER_HPP_
 
+#include "Scene.hpp"
 #include "ResourceLoader.hpp"
 #include "Tileset.hpp"
 
 class MapLoader : public ResourceLoader {
 	public:
 		void load(const std::string &xmlFilename, ResourceHandler &handler);
-		void loadMap(const std::string &filename, u16 area, u16 x, u16 y, Tileset &tileset, ResourceHandler &handler);
+		void loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset &tileset, ResourceHandler &handler);
 		
 		static std::string makeName(u16 area, u16 x, u16 y) {
 			return std::to_string(area) + "-" + std::to_string(x) + "-" + std::to_string(y);

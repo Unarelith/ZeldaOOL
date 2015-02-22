@@ -28,25 +28,27 @@ class ResourceHandler {
 		}
 		
 		template<typename T, typename... Args>
-		void add(const std::string &name, Args &&...args) {
+		T &add(const std::string &name, Args &&...args) {
 			if(has(name)) {
 				throw EXCEPTION("A resource already exists with name:", name);
 			}
 			
 			m_resources.emplace(name, std::make_shared<T>(std::forward<Args>(args)...));
+			
+			return get<T>(name);
 		}
 		
 		bool has(const std::string &name) {
 			return m_resources.find(name) != m_resources.end();
 		}
 		
-		template<typename ResourceType>
-		ResourceType &get(const std::string &name) {
+		template<typename T>
+		T &get(const std::string &name) {
 			if(!has(name)) {
 				throw EXCEPTION("Unable to find resource with name:", name);
 			}
 			
-			return *static_cast<ResourceType*>(m_resources[name].get());
+			return *std::static_pointer_cast<T>(m_resources[name]);
 		}
 		
 		static ResourceHandler &getInstance() {
