@@ -11,10 +11,15 @@
  *
  * =====================================================================================
  */
+#include "ApplicationStateStack.hpp"
 #include "MessageBoxState.hpp"
 
 void MessageBoxState::update() {
 	m_messageBox.update();
+	
+	if(m_messageBox.finished()) {
+		ApplicationStateStack::getInstance().pop();
+	}
 }
 
 void MessageBoxState::draw() {

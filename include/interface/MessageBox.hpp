@@ -17,11 +17,10 @@
 #include <algorithm>
 #include <functional>
 #include <string>
-#include <map>
 
-#include "Font.hpp"
 #include "Image.hpp"
 #include "RectangleShape.hpp"
+#include "TextBox.hpp"
 
 class MessageBox {
 	public:
@@ -35,37 +34,19 @@ class MessageBox {
 		void update();
 		
 		void draw();
-		void drawText();
-		
-		void setText(const std::string &text);
 		
 		void setPosition(Position position) { m_rectangle.setPosition(8, position); }
 		
+		bool finished() const { return m_finished; }
+		
 	private:
-		bool isTimeToDisplayLetter(u16 letterIndex);
-		bool textDisplayFinished();
-		
-		const u8 m_charPerLine = 16;
-		const u8 m_delay = 50;
-		
-		std::string m_text;
-		
-		Font m_font{"interface-font", 8, 16};
-		
 		Image m_dialogArrow{"interface-dialogArrow"};
 		
 		RectangleShape m_rectangle{8, Position::Top, 144, 40};
 		
-		Timer m_charTimer;
+		TextBox m_textBox;
 		
-		bool m_displayArrow = true;
-		
-		u8 m_page = 0;
-		
-		u16 m_charsToDisplay = m_charPerLine * 2;
-		
-		Color m_currentColor = Color::text;
-		std::map<u16, Color> m_colorChanges;
+		bool m_finished = false;
 };
 
 #endif // MESSAGEBOX_HPP_

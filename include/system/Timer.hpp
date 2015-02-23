@@ -24,7 +24,7 @@ class Timer {
 		void start();
 		void reset();
 		
-		u32 time();
+		u32 time() const;
 		
 		void setTime(u32 time);
 		
