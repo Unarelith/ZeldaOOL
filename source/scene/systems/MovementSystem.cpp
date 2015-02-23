@@ -30,8 +30,8 @@ void MovementSystem::process(SceneObject &object) {
 		
 		movementComponent->isMoving = (movementComponent->vx || movementComponent->vy) ? true : false;
 		
-		positionComponent->x += movementComponent->vx * movementComponent->speed;
-		positionComponent->y += movementComponent->vy * movementComponent->speed;
+		positionComponent->move(movementComponent->vx * movementComponent->speed,
+		                        movementComponent->vy * movementComponent->speed);
 		
 		movementComponent->vx = 0;
 		movementComponent->vy = 0;

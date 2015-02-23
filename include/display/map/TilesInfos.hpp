@@ -16,25 +16,36 @@
 
 #include "Types.hpp"
 
-#define TILE_NB 18
-
 namespace TilesInfos {
-	extern u16 infos[TILE_NB][4];
-	
-	enum SubTileType {
+	enum SubTileType : u8 {
 		Passable		= 0,
-		NonPassable		= 1,
-		ChangeMap		= 2
+		NonPassable		= 1
 	};
 	
-	enum TileType {
-		SlowingTile		= 11,
-		LowGrassTile	= 12,
-		LowWaterTile	= 13,
-		GrassTile		= 14,
-		Button			= 15,
-		ClosedChest		= 16,
-		OpenedChest		= 17
+	static const u16 infos[6][4] = {
+		// Tile 0: Passable
+		{0, 0,
+		 0, 0},
+		
+		// Tile 1: Non passable
+		{1, 1,
+		 1, 1},
+		
+		// Tile 2: Half bottom passable
+		{1, 1,
+		 0, 0},
+		
+		// Tile 3: Half top passable
+		{0, 0,
+		 1, 1},
+		
+		// Tile 4: Half right passable
+		{1, 0,
+		 1, 0},
+		
+		// Tile 5; Half left passable
+		{0, 1,
+		 0, 1},
 	};
 }
 

@@ -41,11 +41,6 @@ class TeleporterComponent {
 		
 		Direction playerDirection() const { return m_playerDirection; }
 		
-		bool isActivated() const { return m_isActivated; }
-		
-		void toggleON() { m_isActivated = true; }
-		void toggleOFF() { m_isActivated = false; }
-		
 	private:
 		u16 m_area = 0;
 		
@@ -56,8 +51,6 @@ class TeleporterComponent {
 		u16 m_playerY = 0;
 		
 		Direction m_playerDirection = Direction::None;
-		
-		bool m_isActivated = true;
 };
 
 #endif // TELEPORTERCOMPONENT_HPP_

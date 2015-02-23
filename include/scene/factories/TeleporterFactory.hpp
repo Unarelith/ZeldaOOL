@@ -19,7 +19,7 @@
 
 class TeleporterFactory {
 	public:
-		static SceneObject create(u16 tileX, u16 tileY);
+		static SceneObject create(float tileX, float tileY);
 };
 
 #endif // TELEPORTERFACTORY_HPP_

@@ -11,11 +11,15 @@
  *
  * =====================================================================================
  */
-#include "CollisionComponent.hpp"
+#include "ApplicationStateStack.hpp"
 #include "GamePadMovement.hpp"
 #include "Map.hpp"
-#include "MovementComponent.hpp"
 #include "PlayerFactory.hpp"
+#include "ScrollingTransition.hpp"
+#include "TransitionState.hpp"
+
+#include "CollisionComponent.hpp"
+#include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
@@ -117,6 +121,23 @@ void mapCollisions(SceneObject &object) {
 					movementComponent->isBlocked = false;
 				}
 			}
+		}
+		
+		if(positionComponent->x < -3) {
+			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+			state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingLeft);
+		}
+		else if(positionComponent->x + 13 > Map::currentMap->width() * 16) {
+			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+			state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingRight);
+		}
+		else if(positionComponent->y < -1) {
+			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+			state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingUp);
+		}
+		else if(positionComponent->y + 15 > Map::currentMap->height() * 16) {
+			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+			state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingDown);
 		}
 	}
 }

@@ -19,18 +19,18 @@
 
 class ScrollingTransition : public Transition {
 	public:
-		ScrollingTransition(u8 mode);
-		
-		void update();
-		
-		void draw();
-		
-		enum Mode {
+		enum class Mode {
 			ScrollingLeft,
 			ScrollingRight,
 			ScrollingUp,
 			ScrollingDown
 		};
+		
+		ScrollingTransition(Mode mode);
+		
+		void update();
+		
+		void draw();
 		
 	private:
 		Mode m_mode;

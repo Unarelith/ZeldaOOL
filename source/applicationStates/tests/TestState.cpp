@@ -42,8 +42,14 @@ void TestState::update() {
 		if(GamePad::isKeyPressedOnce(GameKey::Right))  ApplicationStateStack::getInstance().push<MessageBoxTestState>();
 	}
 	
-	if(GamePad::isKeyPressedOnce(GameKey::Start))  m_page++; m_page %= 2;
-	if(GamePad::isKeyPressedOnce(GameKey::Select)) ApplicationStateStack::getInstance().pop();
+	if(GamePad::isKeyPressedOnce(GameKey::Start))  {
+		m_page++;
+		m_page %= 2;
+	}
+	
+	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
+		ApplicationStateStack::getInstance().pop();
+	}
 }
 
 void TestState::draw() {

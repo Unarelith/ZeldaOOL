@@ -11,6 +11,7 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "ButtonComponent.hpp"
 #include "Map.hpp"
 
@@ -20,6 +21,8 @@ void ButtonComponent::addTileChange(u16 tileX, u16 tileY, u16 newID) {
 
 void ButtonComponent::pressedAction(u16 buttonTileX, u16 buttonTileY) {
 	if(m_pressed) return;
+	
+	AudioPlayer::playEffect("chest");
 	
 	Map::currentMap->setTile(buttonTileX, buttonTileY, 8);
 	

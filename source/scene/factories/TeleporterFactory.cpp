@@ -12,6 +12,7 @@
  * =====================================================================================
  */
 #include "ApplicationStateStack.hpp"
+#include "AudioPlayer.hpp"
 #include "DoorTransition.hpp"
 #include "Scene.hpp"
 #include "TeleporterFactory.hpp"
@@ -23,12 +24,12 @@
 
 void teleporterAction(SceneObject &teleporter, SceneObject &object, bool collision);
 
-SceneObject TeleporterFactory::create(u16 tileX, u16 tileY) {
+SceneObject TeleporterFactory::create(float tileX, float tileY) {
 	SceneObject object;
 	object.setComponent<TeleporterComponent>();
 	
 	auto *positionComponent = object.setComponent<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
-	positionComponent->hitbox.reset(4, 4, 8, 8);
+	positionComponent->hitbox.reset(4, 4, 8, 6);
 	
 	auto *collisionComponent = object.setComponent<CollisionComponent>();
 	collisionComponent->addAction(&teleporterAction);
@@ -37,21 +38,27 @@ SceneObject TeleporterFactory::create(u16 tileX, u16 tileY) {
 }
 
 void teleporterAction(SceneObject &teleporter, SceneObject &object, bool collision) {
+	static bool playerOnDoor = false;
+	
 	auto *teleporterComponent = teleporter.getComponent<TeleporterComponent>();
 	
 	if(Scene::isPlayer(object)) {
-		if(collision && teleporterComponent->isActivated()) {
-			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
-			state.setTransition<DoorTransition>(teleporterComponent->area(),
-			                                    teleporterComponent->mapX(),
-			                                    teleporterComponent->mapY(),
-			                                    teleporterComponent->playerX(),
-			                                    teleporterComponent->playerY(),
-			                                    teleporterComponent->playerDirection());
-			
-			teleporterComponent->toggleOFF();
+		if(collision) {
+			if(!playerOnDoor) {
+				AudioPlayer::playEffect("mapStairs");
+				
+				auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+				state.setTransition<DoorTransition>(teleporterComponent->area(),
+													teleporterComponent->mapX(),
+													teleporterComponent->mapY(),
+													teleporterComponent->playerX(),
+													teleporterComponent->playerY(),
+													teleporterComponent->playerDirection());
+				
+				playerOnDoor = true;
+			}
 		} else {
-			teleporterComponent->toggleON();
+			playerOnDoor = false;
 		}
 	}
 }

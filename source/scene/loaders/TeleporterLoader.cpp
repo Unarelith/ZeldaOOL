@@ -17,8 +17,8 @@
 #include "TeleporterLoader.hpp"
 
 void TeleporterLoader::load(XMLElement *teleporterElement, Scene &scene) {
-	u16 tileX = teleporterElement->IntAttribute("tileX");
-	u16 tileY = teleporterElement->IntAttribute("tileY");
+	float tileX = teleporterElement->FloatAttribute("tileX");
+	float tileY = teleporterElement->FloatAttribute("tileY");
 	
 	XMLElement *destinationElement = teleporterElement->FirstChildElement("destination");
 	

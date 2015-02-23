@@ -30,6 +30,11 @@ class PositionComponent {
 			if(vy > 0) direction = Direction::Down;
 		}
 		
+		void move(float dx, float dy) {
+			x += dx;
+			y += dy;
+		}
+		
 		float x = 0;
 		float y = 0;
 		
