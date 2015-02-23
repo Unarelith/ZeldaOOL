@@ -26,13 +26,7 @@ void AudioPlayer::playEffect(const std::string &resourceName, s8 channel) {
 }
 
 void AudioPlayer::playDelayedEffect(const std::string &resourceName, u8 delay) {
-	static Timer m_timer;
-	m_timer.start();
-	
-	if(m_timer.time() > delay) {
-		playEffect(resourceName);
-		m_timer.reset();
-	}
+	ResourceHandler::getInstance().get<SoundEffect>(std::string("sfx-") + resourceName).playDelayed(delay);
 }
 
 void AudioPlayer::pauseMusic() {

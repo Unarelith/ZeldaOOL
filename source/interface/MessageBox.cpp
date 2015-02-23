@@ -13,6 +13,7 @@
  */
 #include "ApplicationStateStack.hpp"
 #include "AudioPlayer.hpp"
+#include "Exception.hpp"
 #include "GamePad.hpp"
 #include "MessageBox.hpp"
 
@@ -21,20 +22,29 @@ MessageBox::MessageBox() {
 }
 
 void MessageBox::update() {
-	if(GamePad::isKeyPressedOnce(GameKey::A)
-	&& m_charTimer.time() / 42 > m_charPerLine * (2u + m_page)) {
-		AudioPlayer::playEffect("dialogContinue");
-		
-		m_charTimer.setTime(m_charPerLine * (2 + m_page) * 42);
-		
-		if(m_text.length() / m_charPerLine > m_page + 1u) {
-			m_page++;
+	// GamePad::isKeyPressedOnce must be called once for a key only
+	bool keyPressed = (GamePad::isKeyPressedOnce(GameKey::A)
+	                || GamePad::isKeyPressedOnce(GameKey::B));
+	
+	if(keyPressed) {
+		if(textDisplayFinished()) {
+			AudioPlayer::playEffect("dialogContinue");
+			
+			m_charTimer.setTime(m_charsToDisplay * m_delay);
+			
+			if(m_text.length() / m_charPerLine > m_page + 1u) {
+				m_page++;
+			} else {
+				ApplicationStateStack::getInstance().pop();
+				return;
+			}
 		} else {
-			ApplicationStateStack::getInstance().pop();
-			return; // This object don't exist anymore
+			m_charTimer.setTime((m_charsToDisplay + m_page * m_charPerLine) * m_delay);
 		}
 	}
 	
+	// I do this check in 'update()' because the time changes between
+	// each update, and that's not the case between each 'draw()'
 	m_displayArrow = (m_charTimer.time() % 540 > 269)
 	              && (m_text.length() / m_charPerLine > m_page + 1u);
 }
@@ -44,49 +54,114 @@ void MessageBox::draw() {
 	
 	drawText();
 	
-	if(m_charTimer.time() / 42 > m_charPerLine * (2u + m_page)) {
-		if(m_displayArrow) m_dialogArrow.draw(m_rectangle.x() + m_rectangle.width() - 8, m_rectangle.y() + m_rectangle.height() - 7);
+	if(m_displayArrow && textDisplayFinished()) {
+		m_dialogArrow.draw(m_rectangle.x() + m_rectangle.width()  - 8,
+		                   m_rectangle.y() + m_rectangle.height() - 7);
 	}
 }
 
 void MessageBox::drawText() {
-	u16 x = m_rectangle.x() + 8;
-	u16 y = m_rectangle.y();
+	u16 charX = m_rectangle.x() + 8;
+	u16 charY = m_rectangle.y();
 	
-	for(u16 i = m_page * m_charPerLine ; i < m_text.length() ; i++) {
-		if(y + m_font.charHeight() > m_rectangle.y() + m_rectangle.height()) break;
+	m_charsToDisplay = m_charPerLine * 2;
+	
+	m_currentColor = Color::text;
+	
+	for(u16 i = 0 ; i < m_text.length() ; i++) {
+		// Change color if a color tag is found
+		if(m_colorChanges.find(i) != m_colorChanges.end()) {
+			m_currentColor = m_colorChanges[i];
+		}
 		
-		if(m_charTimer.time() / 42 < i) {
-			AudioPlayer::playDelayedEffect("textLetter", 40);
+		// If the text is out of the box, don't display it
+		if(i < m_page * m_charPerLine) continue;
+		
+		// If the text is out of the box, don't display it
+		if(charY + m_font.charHeight() > m_rectangle.y() + m_rectangle.height()) {
 			break;
 		}
 		
+		// Letter by letter text display
+		if(isTimeToDisplayLetter(i)) {
+			AudioPlayer::playDelayedEffect("textLetter", m_delay);
+			break;
+		}
+		
+		// Jump to next line if a newline character is encountered
 		if(m_text[i] == '\n') {
-			x = m_rectangle.x() + 8;
-			y += m_font.charHeight();
+			m_charsToDisplay -= m_charPerLine - (charX - m_rectangle.x() - 8) / m_font.charWidth();
+			
+			charX = m_rectangle.x() + 8;
+			charY += m_font.charHeight();
 			
 			continue;
 		}
 		
 		if(m_text[i] == ' ') {
-			if(x == m_rectangle.x() + 8) continue;
+			// If a space is the first character of a line, don't display it
+			if(charX == m_rectangle.x() + 8) continue;
 			
 			size_t nextSpace = m_text.find_first_of(' ', i + 1);
 			
 			u8 wordLength = ((nextSpace != std::string::npos) ? nextSpace : m_text.length()) - i - 1;
 			
-			//if(wordLength + (x - m_rectangle.x() - 8) / m_font.charWidth() > m_charPerLine) {
-			if(x + wordLength * m_font.charWidth() > m_rectangle.x() + m_rectangle.width() - 16) {
-				x = m_rectangle.x() + 8;
-				y += m_font.charHeight();
+			// Check if the word is out of the box, if it is, jump to next line
+			if(charX + wordLength * m_font.charWidth() > m_rectangle.x() + m_rectangle.width() - 16) {
+				m_charsToDisplay -= m_charPerLine - (charX - m_rectangle.x() - 8) / m_font.charWidth();
+				
+				charX = m_rectangle.x() + 8;
+				charY += m_font.charHeight();
 				
 				continue;
 			}
 		}
 		
-		m_font.drawChar(x, y, m_text[i], Color::text);
+		m_font.drawChar(charX, charY, m_text[i], m_currentColor);
 		
-		x += m_font.charWidth();
+		charX += m_font.charWidth();
 	}
+}
+
+void MessageBox::setText(const std::string &text) {
+	m_text = text;
+	
+	// Fix problems with accents
+	m_text.erase(std::remove_if(m_text.begin(), m_text.end(), std::bind(std::equal_to<u8>(), 195, std::placeholders::_1)), m_text.end());
+	
+	// Search for color tags in the form '[0..9]', for example: '[2]'
+	// and add their informations to m_colorChanges
+	size_t nextColorTag = m_text.find_first_of('[');
+	while(nextColorTag != std::string::npos) {
+		Color color;
+		
+		// Find the color
+		switch(m_text[nextColorTag + 1]) {
+			case '0': color = Color::text; break;
+			case '1': color = Color::blue; break;
+			case '2': color = Color::red;  break;
+			default: throw EXCEPTION("MessageBox parsing error at string index", std::to_string(nextColorTag + 1) + ":", "Unrecognized color tag");
+		}
+		
+		// Make sure that the tag is complete
+		if(m_text[nextColorTag + 2] != ']') {
+			throw EXCEPTION("MessageBox parsing error at string index", std::to_string(nextColorTag + 2) + ":", "Missing ']'");
+		}
+		
+		m_colorChanges[nextColorTag] = color;
+		
+		// Delete the tag from the string
+		m_text.erase(nextColorTag, 3);
+		
+		nextColorTag = m_text.find_first_of('[', nextColorTag);
+	}
+}
+
+bool MessageBox::isTimeToDisplayLetter(u16 letterIndex) {
+	return m_charTimer.time() / m_delay < letterIndex;
+}
+
+bool MessageBox::textDisplayFinished() {
+	return m_charTimer.time() / m_delay > u16(m_charsToDisplay + m_page * m_charPerLine);
 }
 

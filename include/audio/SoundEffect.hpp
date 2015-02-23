@@ -18,6 +18,7 @@
 #include <string>
 
 #include "SDLHeaders.hpp"
+#include "Timer.hpp"
 #include "Types.hpp"
 
 class SoundEffect {
@@ -29,10 +30,14 @@ class SoundEffect {
 		
 		void play(s8 channel = -1);
 		
+		void playDelayed(u16 delay);
+		
 	private:
 		using Mix_ChunkPtr = std::unique_ptr<Mix_Chunk, decltype(&Mix_FreeChunk)>;
 		
 		Mix_ChunkPtr m_sfx{nullptr, Mix_FreeChunk};
+		
+		Timer m_timer;
 };
 
 #endif // SOUNDEFFECT_HPP_

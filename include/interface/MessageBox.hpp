@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <functional>
 #include <string>
+#include <map>
 
 #include "Font.hpp"
 #include "Image.hpp"
@@ -36,17 +37,16 @@ class MessageBox {
 			Bottom = 96
 		};
 		
-		void setText(const std::string &text) {
-			m_text = text;
-			
-			// Fix problems with accents
-			m_text.erase(std::remove_if(m_text.begin(), m_text.end(), std::bind(std::equal_to<u8>(), 195, std::placeholders::_1)), m_text.end());
-		}
+		void setText(const std::string &text);
 		
 		void setPosition(Position position) { m_rectangle.setPosition(8, position); }
 		
 	private:
+		bool isTimeToDisplayLetter(u16 letterIndex);
+		bool textDisplayFinished();
+		
 		const u8 m_charPerLine = 16;
+		const u8 m_delay = 50;
 		
 		std::string m_text;
 		
@@ -61,6 +61,11 @@ class MessageBox {
 		bool m_displayArrow = true;
 		
 		u8 m_page = 0;
+		
+		u16 m_charsToDisplay = m_charPerLine * 2;
+		
+		Color m_currentColor = Color::text;
+		std::map<u16, Color> m_colorChanges;
 };
 
 #endif // MESSAGEBOX_HPP_

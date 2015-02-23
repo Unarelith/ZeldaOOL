@@ -23,9 +23,18 @@ void SoundEffect::load(const std::string &filename) {
 	if(!m_sfx) {
 		throw EXCEPTION("Unable to load sound effect", filename, ":", Mix_GetError());
 	}
+	m_timer.start();
+	
 }
 
 void SoundEffect::play(s8 channel) {
 	Mix_PlayChannel(channel, m_sfx.get(), 0);
+}
+
+void SoundEffect::playDelayed(u16 delay) {
+	if(m_timer.time() > delay) {
+		play();
+		m_timer.reset();
+	}
 }
 

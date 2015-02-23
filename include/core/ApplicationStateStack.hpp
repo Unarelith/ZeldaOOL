@@ -27,6 +27,8 @@ class ApplicationStateStack {
 			return *static_cast<T*>(top());
 		}
 		
+		// WARNING: When you use this function, make sure that you're
+		// not reading/writing anything from/to the deleted objects
 		void pop() { m_states.pop(); }
 		
 		ApplicationState *top() const { return m_states.top().get(); }

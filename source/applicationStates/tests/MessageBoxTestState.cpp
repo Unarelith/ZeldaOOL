@@ -17,10 +17,10 @@
 #include "OpenGL.hpp"
 
 MessageBoxTestState::MessageBoxTestState() {
-	//m_messageBox.setText("L'Arbre Bojo est tout à l'est de cette grotte.");
-	m_messageBox.setText("Vous obtenez 30 rubis!\nC'est bien.");
+	//m_messageBox.setText("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.");
+	m_messageBox.setText("Vous obtenez [2]30 Rubis[0]!\nC'est bien.");
 	
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
 }
 
 MessageBoxTestState::~MessageBoxTestState() {
