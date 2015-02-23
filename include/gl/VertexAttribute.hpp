@@ -18,6 +18,8 @@
 #ifndef VERTEXATTRIBUTE_HPP_
 #define VERTEXATTRIBUTE_HPP_
 
+#include "OpenGL.hpp"
+
 struct VertexAttribute {
 	GLfloat coord2d[2];
 	GLfloat texCoord[2];

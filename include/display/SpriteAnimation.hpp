@@ -23,11 +23,10 @@
 #include "Timer.hpp"
 
 struct SpriteAnimation {
-	SpriteAnimation(u16 _delay) :
-		delay(_delay), isPlaying(false) {}
+	SpriteAnimation(u16 _delay) : delay(_delay) {}
 	
-	u16 delay;
-	bool isPlaying;
+	u16 delay = 0;
+	bool isPlaying = false;
 	Timer timer;
 	std::vector<u16> frames;
 };

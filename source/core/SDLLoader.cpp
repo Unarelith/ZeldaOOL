@@ -27,20 +27,20 @@ SDLLoader::~SDLLoader() {
 
 void SDLLoader::load() {
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
-		EXCEPTION("SDL init error:", SDL_GetError());
+		throw EXCEPTION("SDL init error:", SDL_GetError());
 	} else {
 		m_sdlInitialized = true;
 	}
 	
 	int imgFlags = IMG_INIT_PNG;
 	if(!IMG_Init(imgFlags) & imgFlags) {
-		EXCEPTION("SDL image init error:", IMG_GetError());
+		throw EXCEPTION("SDL image init error:", IMG_GetError());
 	} else {
 		m_imgInitialized = true;
 	}
 	
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1) {
-		EXCEPTION("SDL mixer init error:", Mix_GetError());
+		throw EXCEPTION("SDL mixer init error:", Mix_GetError());
 	} else {
 		m_mixInitialized = true;
 	}

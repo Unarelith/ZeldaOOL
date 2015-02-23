@@ -1,6 +1,7 @@
 ===== CLEANING =====
 - Is the fact having the pair update/draw a bad thing or it is the implementation
   of them in the same class the bad thing?
+	-> The implementation
 - Comment some things
 - Use DP Component for MapObject
 	=> Break inheritance
@@ -35,6 +36,20 @@
 - Implement GamePad (implemented in 'rewrite' branch)
 - A unique view for maps (Map::view)
 	=> Model matrix
+
+Objects needs:
+	* Event system
+	* Collision handler
+
+Collectables needs:
+	* Movement system
+	* Collision handler
+	* Image display
+
+Character needs:
+	* Movement system
+	* Collision handler
+	* Sprite display
 
 ===== TODO =====
 - Finish 'Octorok'

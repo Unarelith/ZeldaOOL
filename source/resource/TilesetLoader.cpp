@@ -25,9 +25,9 @@ void TilesetLoader::load(const std::string &xmlFilename, ResourceHandler &handle
 	XMLElement *tilesetElement = doc.FirstChildElement("tilesets").FirstChildElement("tileset").ToElement();
 	while(tilesetElement) {
 		std::string name = tilesetElement->Attribute("name");
-		std::string filename = std::string("graphics/tilesets/") + name + ".png";
+		std::string filename = "graphics/tilesets/" + name + ".png";
 		
-		std::string configFile = std::string("data/tilesets/") + name + ".xml";
+		std::string configFile = "data/tilesets/" + name + ".xml";
 		
 		handler.add<Tileset>(name, filename, configFile);
 		

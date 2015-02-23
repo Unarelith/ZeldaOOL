@@ -24,29 +24,28 @@
 
 class ScrollingTransition : public Transition {
 	public:
-		ScrollingTransition(u8 mode);
-		~ScrollingTransition();
-		
-		void update();
-		
-		void draw();
-		
-		enum Mode {
+		enum class Mode {
 			ScrollingLeft,
 			ScrollingRight,
 			ScrollingUp,
 			ScrollingDown
 		};
 		
+		ScrollingTransition(Mode mode);
+		
+		void update();
+		
+		void draw();
+		
 	private:
 		Mode m_mode;
 		
-		float m_vx;
-		float m_vy;
+		float m_vx = 0;
+		float m_vy = 0;
 		
-		Map *m_nextMap;
+		Map *m_nextMap = nullptr;
 		
-		float m_scrolled;
+		float m_scrolled = 0;
 		
 		StatsBar m_statsBar;
 };

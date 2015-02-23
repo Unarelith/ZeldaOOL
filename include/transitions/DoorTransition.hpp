@@ -26,7 +26,6 @@
 class DoorTransition : public Transition {
 	public:
 		DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer = false);
-		~DoorTransition();
 		
 		void update();
 		

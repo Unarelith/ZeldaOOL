@@ -31,7 +31,7 @@ void AnimatedMap::updateTile(u16 tileX, u16 tileY, u16 id) {
 	for(auto &it : m_tileset->anims()) {
 		for(auto &n : it.frames) {
 			if(id == n) {
-				m_animatedTiles.push_back(AnimatedTile(tileX, tileY, n + 1 % it.frames.size(), it));
+				m_animatedTiles.emplace_back(tileX, tileY, n + 1 % it.frames.size(), it);
 			}
 		}
 	}

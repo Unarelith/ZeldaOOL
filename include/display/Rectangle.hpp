@@ -24,8 +24,6 @@
 class Rectangle {
 	public:
 		Rectangle() = default;
-		Rectangle(Rectangle &&) = default;
-		Rectangle(const Rectangle &) = default;
 		Rectangle(float x, float y, u16 width, u16 height);
 		
 		void draw(Color color = Color::black);
