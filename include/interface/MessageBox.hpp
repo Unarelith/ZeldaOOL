@@ -25,17 +25,17 @@
 
 class MessageBox {
 	public:
-		MessageBox();
+		enum Position : u8 {
+			Top    = 24,
+			Bottom = 96
+		};
+		
+		MessageBox(const std::string &text = "", Position position = Position::Top);
 		
 		void update();
 		
 		void draw();
 		void drawText();
-		
-		enum Position : u8 {
-			Top    = 24,
-			Bottom = 96
-		};
 		
 		void setText(const std::string &text);
 		

@@ -17,8 +17,11 @@
 #include "GamePad.hpp"
 #include "MessageBox.hpp"
 
-MessageBox::MessageBox() {
+MessageBox::MessageBox(const std::string &text, Position position) {
 	m_charTimer.start();
+	
+	setPosition(position);
+	setText(text);
 }
 
 void MessageBox::update() {

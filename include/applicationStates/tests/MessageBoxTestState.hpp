@@ -15,7 +15,7 @@
 #define MESSAGEBOXTESTSTATE_HPP_
 
 #include "ApplicationState.hpp"
-#include "MessageBox.hpp"
+#include "Font.hpp"
 
 class MessageBoxTestState : public ApplicationState {
 	public:
@@ -27,7 +27,7 @@ class MessageBoxTestState : public ApplicationState {
 		void draw() override;
 		
 	private:
-		MessageBox m_messageBox;
+		Font m_font{"interface-font", 8, 16};
 };
 
 #endif // MESSAGEBOXTESTSTATE_HPP_
