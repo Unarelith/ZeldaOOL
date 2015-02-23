@@ -28,7 +28,7 @@ SceneObject TeleporterFactory::create(u16 tileX, u16 tileY) {
 	object.setComponent<TeleporterComponent>();
 	
 	auto *positionComponent = object.setComponent<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
-	positionComponent->hitbox.reset(0, 0, 16, 16);
+	positionComponent->hitbox.reset(4, 4, 8, 8);
 	
 	auto *collisionComponent = object.setComponent<CollisionComponent>();
 	collisionComponent->addAction(&teleporterAction);

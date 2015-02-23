@@ -84,12 +84,16 @@ void Map::setTile(u16 tileX, u16 tileY, u16 id) {
 }
 
 bool Map::passable(float x, float y) {
-	s16 tile = m_tileset.info()[getTile(x / m_tileset.tileWidth(), y / m_tileset.tileHeight())];
-	return TilesInfos::infos[tile][(int(x) & 0xF) / m_tileset.tileWidth() + (int(y) & 0xF) / m_tileset.tileHeight() * 2] != 1;
+	s16 tile = m_tileset.info()[getTile(x / m_tileset.tileWidth(),
+	                                    y / m_tileset.tileHeight())];
+	
+	return TilesInfos::infos[tile][(int(x) & 0xF) / (m_tileset.tileWidth()  / 2)
+	                             + (int(y) & 0xF) / (m_tileset.tileHeight() / 2) * 2] != TilesInfos::SubTileType::NonPassable;
 }
 
 bool Map::isTile(float x, float y, u16 tile) {
-	return m_tileset.info()[getTile(x / m_tileset.tileWidth(), y / m_tileset.tileHeight())] == tile;
+	return m_tileset.info()[getTile(x / m_tileset.tileWidth(),
+	                                y / m_tileset.tileHeight())] == tile;
 }
 
 Map &Map::getMap(u16 area, u16 mapX, u16 mapY) {
