@@ -13,7 +13,7 @@
  */
 #include "ApplicationStateStack.hpp"
 #include "AudioPlayer.hpp"
-#include "DoorTransition.hpp"
+#include "TeleporterTransition.hpp"
 #include "Scene.hpp"
 #include "TeleporterFactory.hpp"
 #include "TransitionState.hpp"
@@ -48,7 +48,7 @@ void teleporterAction(SceneObject &teleporter, SceneObject &object, bool collisi
 				AudioPlayer::playEffect("mapStairs");
 				
 				auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
-				state.setTransition<DoorTransition>(teleporterComponent->area(),
+				state.setTransition<TeleporterTransition>(teleporterComponent->area(),
 													teleporterComponent->mapX(),
 													teleporterComponent->mapY(),
 													teleporterComponent->playerX(),

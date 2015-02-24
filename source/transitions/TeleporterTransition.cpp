@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  DoorTransition.cpp
+ *       Filename:  TeleporterTransition.cpp
  *
  *    Description:  
  *
@@ -12,13 +12,13 @@
  * =====================================================================================
  */
 #include "ApplicationWindow.hpp"
-#include "DoorTransition.hpp"
+#include "TeleporterTransition.hpp"
 #include "Map.hpp"
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
 #include "Sprite.hpp"
 
-DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection) {
+TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection) {
 	m_nextMap = &Map::getMap(area, mapX, mapY);
 	m_nextMap->resetTiles();
 	m_nextMap->updateTiles();
@@ -43,7 +43,7 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	Sprite::pause = true;
 }
 
-void DoorTransition::update() {
+void TeleporterTransition::update() {
 	if(m_timer.time() > 250) {
 		glClearColor(Color::text.r / 255.0f, Color::text.g / 255.0f, Color::text.b / 255.0f, 1.0f);
 		
@@ -72,7 +72,7 @@ void DoorTransition::update() {
 	}
 }
 
-void DoorTransition::draw() {
+void TeleporterTransition::draw() {
 	if(m_timer.time() > 250) {
 		m_nextMap->draw();
 		

@@ -12,10 +12,10 @@
  * =====================================================================================
  */
 #include "ApplicationStateStack.hpp"
-#include "DoorTransition.hpp"
 #include "GamePad.hpp"
 #include "Map.hpp"
 #include "ScrollingTransition.hpp"
+#include "TeleporterTransition.hpp"
 #include "TransitionState.hpp"
 #include "TransitionTestState.hpp"
 
@@ -61,7 +61,7 @@ void TransitionTestState::update() {
 	else if(m_mode == Mode::Door) {
 		if(GamePad::isKeyPressedOnce(GameKey::Start)) {
 			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(this);
-			state.setTransition<DoorTransition>((Map::currentMap->area() + 1) % 4, 0, 0, 0, 0, Direction::None);
+			state.setTransition<TeleporterTransition>((Map::currentMap->area() + 1) % 4, 0, 0, 0, 0, Direction::None);
 		}
 		
 		if(GamePad::isKeyPressedOnce(GameKey::Select)) {

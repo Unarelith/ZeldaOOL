@@ -1,5 +1,8 @@
 ===== TODO =====
-- Rename DoorTransition to TeleporterTransition
+- Collectable system
+- Weapon system
+- Inventory system
+- Menu
 
 ===== ISSUES =====
 - The dialog arrow in MessageBox disappears too fastly the first time
