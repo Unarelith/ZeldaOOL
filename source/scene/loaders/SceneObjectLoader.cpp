@@ -16,6 +16,7 @@
 #include "XMLFile.hpp"
 
 #include "ButtonLoader.hpp"
+#include "ChestLoader.hpp"
 #include "TeleporterLoader.hpp"
 
 void SceneObjectLoader::load(const std::string &mapName, Scene &scene) {
@@ -26,11 +27,14 @@ void SceneObjectLoader::load(const std::string &mapName, Scene &scene) {
 		while(objectElement) {
 			std::string objectName = objectElement->Name();
 			
-			if(objectName == "teleporter") {
-				TeleporterLoader::load(objectElement, scene);
-			}
-			else if(objectName == "button") {
+			if(objectName == "button") {
 				ButtonLoader::load(objectElement, scene);
+			}
+			else if(objectName == "chest") {
+				ChestLoader::load(objectElement, scene);
+			}
+			else if(objectName == "teleporter") {
+				TeleporterLoader::load(objectElement, scene);
 			}
 			
 			objectElement = objectElement->NextSiblingElement();

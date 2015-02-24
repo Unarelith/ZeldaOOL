@@ -12,8 +12,8 @@
  * =====================================================================================
  */
 #include "ButtonComponent.hpp"
-#include "ButtonLoader.hpp"
 #include "ButtonFactory.hpp"
+#include "ButtonLoader.hpp"
 
 void ButtonLoader::load(XMLElement *buttonElement, Scene &scene) {
 	u16 tileX = buttonElement->IntAttribute("tileX");
