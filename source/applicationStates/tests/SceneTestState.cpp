@@ -12,19 +12,21 @@
  * =====================================================================================
  */
 #include "ApplicationStateStack.hpp"
-#include "ButtonFactory.hpp"
 #include "GamePad.hpp"
 #include "Map.hpp"
+#include "SceneTestState.hpp"
+
+#include "CollectableFactory.hpp"
 #include "OctorokFactory.hpp"
 #include "PlayerFactory.hpp"
-#include "SceneTestState.hpp"
-#include "TeleporterFactory.hpp"
 
 SceneTestState::SceneTestState() {
 	Map::currentMap = &Map::getMap(0, 0, 0);
 	
 	m_player = PlayerFactory::create(75, 50);
 	Scene::player = &m_player;
+	
+	Map::currentMap->scene().addObject(CollectableFactory::createRupees(96, 64, RupeesAmount::Thirty));
 }
 
 void SceneTestState::update() {

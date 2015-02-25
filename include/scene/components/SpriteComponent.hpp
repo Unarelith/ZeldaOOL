@@ -18,8 +18,8 @@
 
 class SpriteComponent {
 	public:
-		SpriteComponent(const std::string &resourceName, u16 frameWidth, u16 frameHeight)
-			: sprite(resourceName, frameWidth, frameHeight) {}
+		SpriteComponent(const std::string &textureName, u16 frameWidth, u16 frameHeight)
+			: sprite(textureName, frameWidth, frameHeight) {}
 		
 		Sprite sprite;
 		

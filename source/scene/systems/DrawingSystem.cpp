@@ -12,6 +12,7 @@
  * =====================================================================================
  */
 #include "DrawingSystem.hpp"
+#include "Image.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
@@ -20,9 +21,13 @@ void DrawingSystem::draw(SceneObject &object) {
 	auto *position = object.getComponent<PositionComponent>();
 	
 	if(position) {
+		auto *image = object.getComponent<Image>();
 		auto *spriteComponent = object.getComponent<SpriteComponent>();
 		
-		if(spriteComponent) {
+		if(image) {
+			image->draw(position->x, position->y);
+		}
+		else if(spriteComponent) {
 			if(position->direction != Direction::None) {
 				spriteComponent->animID = static_cast<s8>(position->direction);
 			}
