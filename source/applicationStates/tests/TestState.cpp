@@ -40,6 +40,8 @@ void TestState::update() {
 		if(GamePad::isKeyPressedOnce(GameKey::B))      ApplicationStateStack::getInstance().push<FactoriesTestState>();
 		if(GamePad::isKeyPressedOnce(GameKey::Left))   ApplicationStateStack::getInstance().push<SceneTestState>();
 		if(GamePad::isKeyPressedOnce(GameKey::Right))  ApplicationStateStack::getInstance().push<MessageBoxTestState>();
+		//if(GamePad::isKeyPressedOnce(GameKey::Up))     ApplicationStateStack::getInstance().push<>();
+		//if(GamePad::isKeyPressedOnce(GameKey::Down))   ApplicationStateStack::getInstance().push<>();
 	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Start))  {
@@ -66,6 +68,8 @@ void TestState::draw() {
 		m_font.drawString(4, 16,  "B:      Factories");
 		m_font.drawString(4, 32,  "Left:   Scene");
 		m_font.drawString(4, 48,  "Right:  MessageBox");
+		//m_font.drawString(4, 64,  "Up:     ");
+		//m_font.drawString(4, 80,  "Down:   ");
 	}
 	
 	m_font.drawString(4, 104, "Start:  Next page");

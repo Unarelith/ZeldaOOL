@@ -25,7 +25,7 @@ enum class RupeesAmount : u8 {
 
 class CollectableFactory {
 	public:
-		static SceneObject create(u16 x, u16 y, const std::string &name);
+		static SceneObject create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName);
 		
 		static SceneObject createRupees(u16 x, u16 y, RupeesAmount amount);
 };
