@@ -13,16 +13,36 @@
  */
 #include "ApplicationStateStack.hpp"
 #include "AudioPlayer.hpp"
+#include "CollectableFactory.hpp"
 #include "ChestOpeningState.hpp"
+#include "LifetimeComponent.hpp"
+#include "Map.hpp"
 #include "MessageBoxState.hpp"
+#include "MovementSystem.hpp"
+#include "MovementComponent.hpp"
+#include "PositionComponent.hpp"
 #include "Sprite.hpp"
 
-ChestOpeningState::ChestOpeningState(ApplicationState *parent) : ApplicationState(parent) {
+ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *parent) : ApplicationState(parent) {
+	m_item = &Map::currentMap->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::OutOfChest));
+	
+	auto *chestPosition = chest.getComponent<PositionComponent>();
+	auto *itemPosition = m_item->getComponent<PositionComponent>();
+	
+	itemPosition->x = chestPosition->x + 7 - itemPosition->width / 2;
+	itemPosition->y = chestPosition->y - 8;
+	
 	Sprite::pause = true;
 }
 
 void ChestOpeningState::update() {
 	if(m_state == State::Opening) {
+		MovementSystem::process(*m_item);
+		
+		auto *movementComponent = m_item->getComponent<MovementComponent>();
+		if(movementComponent->movement->isFinished()) {
+			m_state = State::Opened;
+		}
 	}
 	else if(m_state == State::Opened) {
 		AudioPlayer::playEffect("itemNew");
@@ -33,6 +53,8 @@ void ChestOpeningState::update() {
 	}
 	else if(m_state == State::Finished) {
 		Sprite::pause = false;
+		
+		m_item->getComponent<LifetimeComponent>()->kill();
 		
 		ApplicationStateStack::getInstance().pop();
 	}

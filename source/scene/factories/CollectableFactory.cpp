@@ -21,12 +21,14 @@
 #include "CollectableComponent.hpp"
 #include "CollisionComponent.hpp"
 #include "LifetimeComponent.hpp"
+#include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 
 void collectableAction(SceneObject &collectable, SceneObject &object, bool collision);
 
-SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName) {
+SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType) {
 	SceneObject object;
+	object.setComponent<MovementComponent>(new CollectableMovement(movementType));
 	object.setComponent<CollectableComponent>(soundEffectName);
 	object.setComponent<LifetimeComponent>(6000);
 	
@@ -40,10 +42,10 @@ SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, co
 	return object;
 }
 
-SceneObject CollectableFactory::createRupees(u16 x, u16 y, RupeesAmount amount) {
+SceneObject CollectableFactory::createRupees(u16 x, u16 y, RupeesAmount amount, CollectableMovement::Type movementType) {
 	std::string name = "rupees" + std::to_string(static_cast<u8>(amount));
 	
-	SceneObject object = create(x, y, name, (amount == RupeesAmount::One) ? "getRupee" : "getRupees5");
+	SceneObject object = create(x, y, name, (amount == RupeesAmount::One) ? "getRupee" : "getRupees5", movementType);
 	object.getComponent<CollectableComponent>()->setAction([](SceneObject &player) {
 		// TODO: Add rupees to player here
 	});

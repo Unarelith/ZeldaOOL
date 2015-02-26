@@ -18,16 +18,16 @@
 
 class LifetimeComponent {
 	public:
-		LifetimeComponent(u32 lifetime) : m_lifetime(lifetime) {
+		LifetimeComponent(u32 lifetime = 0) : m_lifetime(lifetime) {
 			m_timer.start();
 		}
-		
-		u32 aliveTime() { return m_timer.time(); }
 		
 		void kill() { m_dead = true; }
 		
 		bool almostDead() { return m_timer.time() > m_lifetime / 4 * 3; }
-		bool dead() { return m_dead || m_timer.time() > m_lifetime; }
+		bool dead() { return m_dead || (m_lifetime != 0 && m_timer.time() > m_lifetime); }
+		
+		u32 aliveTime() { return m_timer.time(); }
 		
 	private:
 		Timer m_timer;

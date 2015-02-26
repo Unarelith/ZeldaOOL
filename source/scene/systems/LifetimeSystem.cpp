@@ -14,7 +14,7 @@
 #include "LifetimeComponent.hpp"
 #include "LifetimeSystem.hpp"
 
-void LifetimeSystem::process(std::vector<SceneObject> &objects) {
+void LifetimeSystem::process(std::deque<SceneObject> &objects) {
 	for(u16 i = 0 ; i < objects.size() ; i++) {
 		auto *lifetimeComponent = objects[i].getComponent<LifetimeComponent>();
 		

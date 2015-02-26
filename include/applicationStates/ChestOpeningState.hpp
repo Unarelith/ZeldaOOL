@@ -15,10 +15,11 @@
 #define CHESTOPENINGSTATE_HPP_
 
 #include "ApplicationState.hpp"
+#include "SceneObject.hpp"
 
 class ChestOpeningState : public ApplicationState {
 	public:
-		ChestOpeningState(ApplicationState *parent);
+		ChestOpeningState(SceneObject &chest, ApplicationState *parent);
 		
 		void update() override;
 		
@@ -31,7 +32,9 @@ class ChestOpeningState : public ApplicationState {
 		};
 		
 	private:
-		State m_state = State::Opened;
+		State m_state = State::Opening;
+		
+		SceneObject *m_item = nullptr;
 };
 
 #endif // CHESTOPENINGSTATE_HPP_

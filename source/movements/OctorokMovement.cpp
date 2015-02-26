@@ -30,9 +30,9 @@ void OctorokMovement::reset(SceneObject &) {
 }
 
 void OctorokMovement::process(SceneObject &object) {
-	MovementComponent *movementComponent = object.getComponent<MovementComponent>();
-	PositionComponent *positionComponent = object.getComponent<PositionComponent>();
-	CollisionComponent *collisionComponent = object.getComponent<CollisionComponent>();
+	auto *movementComponent = object.getComponent<MovementComponent>();
+	auto *positionComponent = object.getComponent<PositionComponent>();
+	auto *collisionComponent = object.getComponent<CollisionComponent>();
 	
 	movementComponent->speed = 0.3f;
 	

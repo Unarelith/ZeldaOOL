@@ -17,8 +17,8 @@
 #include "PositionComponent.hpp"
 
 void GamePadMovement::process(SceneObject &object) {
-	MovementComponent *movementComponent = object.getComponent<MovementComponent>();
-	PositionComponent *positionComponent = object.getComponent<PositionComponent>();
+	auto *movementComponent = object.getComponent<MovementComponent>();
+	auto *positionComponent = object.getComponent<PositionComponent>();
 	
 	if(GamePad::isKeyPressed(GameKey::Left)) {
 		movementComponent->vx = -1;

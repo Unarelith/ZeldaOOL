@@ -14,13 +14,13 @@
 #ifndef LIFETIMESYSTEM_HPP_
 #define LIFETIMESYSTEM_HPP_
 
-#include <vector>
+#include <deque>
 
 #include "SceneObject.hpp"
 
 class LifetimeSystem {
 	public:
-		static void process(std::vector<SceneObject> &objects);
+		static void process(std::deque<SceneObject> &objects);
 };
 
 #endif // LIFETIMESYSTEM_HPP_
