@@ -11,27 +11,32 @@
  *
  * =====================================================================================
  */
+#include "Scene.hpp"
+
 #include "CollisionComponent.hpp"
+#include "MovementComponent.hpp"
+#include "PositionComponent.hpp"
+
 #include "CollisionSystem.hpp"
 #include "DrawingSystem.hpp"
-#include "MovementComponent.hpp"
+#include "LifetimeSystem.hpp"
 #include "MovementSystem.hpp"
-#include "PositionComponent.hpp"
-#include "Scene.hpp"
 
 SceneObject *Scene::player = nullptr;
 
 void Scene::update() {
-	for(auto &it : m_objects) {
-		MovementSystem::process(it);
+	LifetimeSystem::process(m_objects);
+	
+	for(SceneObject &object : m_objects) {
+		MovementSystem::process(object);
 	}
 	
 	if(player) MovementSystem::process(*player);
 }
 
 void Scene::draw() {
-	for(auto &it : m_objects) {
-		DrawingSystem::draw(it);
+	for(SceneObject &object : m_objects) {
+		DrawingSystem::draw(object);
 	}
 	
 	if(player) DrawingSystem::draw(*player);
@@ -51,16 +56,16 @@ SceneObject &Scene::addObject(SceneObject &&object) {
 }
 
 void Scene::checkCollisionsFor(SceneObject &object) {
-	for(auto &it : m_objects) {
-		if(&object != &it) {
+	for(SceneObject &obj : m_objects) {
+		if(&object != &obj) {
 			auto *collisionComponent1 = object.getComponent<CollisionComponent>();
-			auto *collisionComponent2 = it.getComponent<CollisionComponent>();
+			auto *collisionComponent2 = obj.getComponent<CollisionComponent>();
 			
 			if(collisionComponent1 && collisionComponent2) {
-				bool collision = CollisionSystem::inCollision(object, it);
+				bool collision = CollisionSystem::inCollision(object, obj);
 				
-				collisionComponent1->collisionActions(object, it, collision);
-				collisionComponent2->collisionActions(it, object, collision);
+				collisionComponent1->collisionActions(object, obj, collision);
+				collisionComponent2->collisionActions(obj, object, collision);
 			}
 		}
 	}

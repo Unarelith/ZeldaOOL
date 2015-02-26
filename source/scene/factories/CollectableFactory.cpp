@@ -20,6 +20,7 @@
 #include "Image.hpp"
 #include "CollectableComponent.hpp"
 #include "CollisionComponent.hpp"
+#include "LifetimeComponent.hpp"
 #include "PositionComponent.hpp"
 
 void collectableAction(SceneObject &collectable, SceneObject &object, bool collision);
@@ -27,6 +28,7 @@ void collectableAction(SceneObject &collectable, SceneObject &object, bool colli
 SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName) {
 	SceneObject object;
 	object.setComponent<CollectableComponent>(soundEffectName);
+	object.setComponent<LifetimeComponent>(6000);
 	
 	auto *image = object.setComponent<Image>("collectables-" + name);
 	
@@ -34,10 +36,6 @@ SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, co
 	
 	auto *collisionComponent = object.setComponent<CollisionComponent>();
 	collisionComponent->addAction(&collectableAction);
-	
-	// TODO: Add a lifetime component
-	// -> LifetimeSystem checks the lifetime and remove objets from their scene
-	// -> DrawingSystem handles the disappearance
 	
 	return object;
 }
@@ -55,11 +53,14 @@ SceneObject CollectableFactory::createRupees(u16 x, u16 y, RupeesAmount amount) 
 
 void collectableAction(SceneObject &collectable, SceneObject &object, bool collision) {
 	auto *collectableComponent = collectable.getComponent<CollectableComponent>();
+	auto *lifetimeComponent = collectable.getComponent<LifetimeComponent>();
 	
 	if(Scene::isPlayer(object) && collision && collectableComponent) {
 		AudioPlayer::playEffect(collectableComponent->soundEffectName());
 		
 		collectableComponent->action(object);
+		
+		lifetimeComponent->kill();
 	}
 }
 
