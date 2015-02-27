@@ -11,17 +11,37 @@
  *
  * =====================================================================================
  */
+#include <cmath>
+
 #include "CollectableMovement.hpp"
 #include "MovementComponent.hpp"
+
+#include "Debug.hpp"
 
 void CollectableMovement::process(SceneObject &object) {
 	auto *movementComponent = object.getComponent<MovementComponent>();
 	
 	if(m_type == Type::Dropped) {
-		if(m_movementCounter < 5) {
-			m_movementCounter += 0.25f;
+		if(m_movementCounter < 24) {
+			if(m_movementCounter > 4 && m_speed == -m_baseSpeed) {
+				m_speed = -m_baseSpeed / 2;
+			}
+			if(m_movementCounter > 6 && m_speed == -m_baseSpeed / 2) {
+				m_speed = -m_baseSpeed / 3;
+			}
+			if(m_movementCounter > 8 && m_speed == -m_baseSpeed / 3) {
+				m_speed = m_baseSpeed / 2;
+			}
+			if(m_movementCounter > 16 && m_speed == m_baseSpeed / 2) {
+				m_speed = -m_baseSpeed / 2;
+			}
+			if(m_movementCounter > 20 && m_speed == -m_baseSpeed / 2) {
+				m_speed = m_baseSpeed / 2;
+			}
 			
-			movementComponent->vy = 0.25f;
+			m_movementCounter += fabs(m_speed);
+			
+			movementComponent->vy = m_speed;
 		} else {
 			m_isFinished = true;
 		}

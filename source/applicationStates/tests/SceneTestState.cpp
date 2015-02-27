@@ -26,7 +26,7 @@ SceneTestState::SceneTestState() {
 	m_player = PlayerFactory::create(75, 50);
 	Scene::player = &m_player;
 	
-	Map::currentMap->scene().addObject(CollectableFactory::createRupees(96, 64, RupeesAmount::Thirty, CollectableMovement::Type::Dropped));
+	Map::currentMap->scene().addObject(CollectableFactory::createRupees(6 * 16 + 6, 4 * 16 + 1, RupeesAmount::Thirty, CollectableMovement::Type::Dropped));
 }
 
 void SceneTestState::update() {
@@ -36,7 +36,7 @@ void SceneTestState::update() {
 		Map::currentMap->scene().addObject(OctorokFactory::create(100, 80));
 	}
 	else if(GamePad::isKeyPressedOnce(GameKey::B)) {
-		Map::currentMap->scene().addObject(CollectableFactory::createRupees(100, 80, RupeesAmount::Thirty, CollectableMovement::Type::Dropped));
+		Map::currentMap->scene().addObject(CollectableFactory::createRupees(6 * 16 + 6, 4 * 16 + 1, RupeesAmount::Thirty, CollectableMovement::Type::Dropped));
 	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {

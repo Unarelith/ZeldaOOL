@@ -31,6 +31,9 @@ class CollectableMovement : public Movement {
 	private:
 		Type m_type;
 		
+		const float m_baseSpeed = 0.5f;
+		
+		float m_speed = -m_baseSpeed;
 		float m_movementCounter = 0;
 };
 
