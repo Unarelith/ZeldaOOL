@@ -25,6 +25,7 @@
 
 ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *parent) : ApplicationState(parent) {
 	m_item = &Map::currentMap->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::OutOfChest));
+	m_item->setComponent<LifetimeComponent>();
 	
 	auto *chestPosition = chest.getComponent<PositionComponent>();
 	auto *itemPosition = m_item->getComponent<PositionComponent>();

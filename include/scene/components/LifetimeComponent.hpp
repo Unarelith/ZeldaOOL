@@ -24,7 +24,7 @@ class LifetimeComponent {
 		
 		void kill() { m_dead = true; }
 		
-		bool almostDead() { return m_timer.time() > m_lifetime / 4 * 3; }
+		bool almostDead() { return m_lifetime != 0 && m_timer.time() > m_lifetime / 4 * 3; }
 		bool dead() { return m_dead || (m_lifetime != 0 && m_timer.time() > m_lifetime); }
 		
 		u32 aliveTime() { return m_timer.time(); }

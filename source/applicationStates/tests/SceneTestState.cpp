@@ -23,7 +23,7 @@
 SceneTestState::SceneTestState() {
 	Map::currentMap = &Map::getMap(0, 0, 0);
 	
-	m_player = PlayerFactory::create(75, 50);
+	m_player = PlayerFactory::create(80, 48);
 	Scene::player = &m_player;
 	
 	Map::currentMap->scene().addObject(CollectableFactory::createRupees(6 * 16 + 6, 4 * 16 + 1, RupeesAmount::Thirty, CollectableMovement::Type::Dropped));
