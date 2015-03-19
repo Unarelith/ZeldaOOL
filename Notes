@@ -1,7 +1,28 @@
 ===== TODO =====
 - Weapon system
+	-> Working on Sword
+		o SpriteAnimation upgraded, can now use (x;y) for each frame
+		o SwordFactory creaaated
+		- Where to write the animation code?
+			-> SwordComponent...
 - Inventory system
 - Menu
+- Grass objects
+- Sign object
+	-> Same thing as chest, maybe write generic detectors?
+- Missing teleporters and rooms
+- Battle system
+	-> Life management, strengh, etc: BattlerComponent
+	-> HurtMovement
+	-> BattleSystem
+
+===== CLEAN =====
+- There's a lot of specific components, like:
+	* ButtonComponent
+	* SwordComponent
+	* TeleporterComponent
+	* etc...
+	=> Find a way to merge some of them
 
 ===== ISSUES =====
 - The dialog arrow in MessageBox disappears too fastly the first time

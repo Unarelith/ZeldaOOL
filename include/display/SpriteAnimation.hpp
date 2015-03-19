@@ -21,7 +21,10 @@
 class SpriteAnimation {
 	public:
 		SpriteAnimation(std::vector<u16> frames, u16 delay)
-			: m_frames(frames), m_delay(delay) {}
+			: m_frames(frames), m_positions(frames.size(), {0, 0}), m_delay(delay) {}
+		
+		SpriteAnimation(std::vector<u16> frames, std::vector<std::pair<s16, s16>> positions, u16 delay)
+			: m_frames(frames), m_positions(positions), m_delay(delay) {}
 		
 		void reset(u16 frame = 0) {
 			m_timer.reset();
@@ -31,16 +34,19 @@ class SpriteAnimation {
 		void start() { m_timer.start(); }
 		void stop() { m_timer.stop(); }
 		
-		u16 currentFrame() { return m_timer.time() / m_delay; }
-		u16 currentFrameID() { return m_frames[currentFrame()]; }
+		u16 currentFrame() const { return m_timer.time() / m_delay; }
+		u16 currentFrameID() const { return m_frames[currentFrame()]; }
 		
-		bool isPlaying() { return m_timer.isStarted(); }
-		bool finished() { return currentFrame() >= m_frames.size(); }
+		std::pair<s16, s16> currentPosition() const { return m_positions[currentFrame()]; }
+		
+		bool isPlaying() const { return m_timer.isStarted(); }
+		bool finished() const { return currentFrame() >= m_frames.size(); }
 		
 		u16 delay() const { return m_delay; }
 		
 	private:
 		std::vector<u16> m_frames;
+		std::vector<std::pair<s16, s16>> m_positions;
 		
 		Timer m_timer;
 		

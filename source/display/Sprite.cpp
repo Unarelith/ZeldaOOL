@@ -27,8 +27,12 @@ void Sprite::load(const std::string &filename, u16 frameWidth, u16 frameHeight) 
 	m_frameHeight = frameHeight;
 }
 
-void Sprite::addAnimation(std::initializer_list<u16> frames, u16 delay) {
+void Sprite::addAnimation(std::vector<u16> frames, u16 delay) {
 	m_animations.emplace_back(frames, delay);
+}
+
+void Sprite::addAnimation(std::vector<u16> frames, std::vector<std::pair<s16, s16>> positions, u16 delay) {
+	m_animations.emplace_back(frames, positions, delay);
 }
 
 void Sprite::drawFrame(float x, float y, u16 frame) {
@@ -44,23 +48,22 @@ void Sprite::drawFrame(float x, float y, u16 frame) {
 
 void Sprite::resetAnimation(u16 anim, u16 frame) {
 	m_animations[anim].reset(frame);
-	m_currentAnimation = -1;
 }
 
 void Sprite::startAnimation(u16 anim) {
 	m_animations[anim].start();
-	m_currentAnimation = anim;
 }
 
 void Sprite::stopAnimation(u16 anim) {
 	m_animations[anim].stop();
-	m_currentAnimation = anim;
 }
 
 void Sprite::playAnimation(float x, float y, u16 anim) {
 	if(anim > m_animations.size()) {
 		throw EXCEPTION("Trying to play inexistant animation:", anim, "| Animations:", m_animations.size());
 	}
+	
+	m_currentAnimation = anim;
 	
 	if(pause) stopAnimation(anim);
 	else      startAnimation(anim);
@@ -69,6 +72,9 @@ void Sprite::playAnimation(float x, float y, u16 anim) {
 		resetAnimation(anim);
 		startAnimation(anim);
 	}
+	
+	x += m_animations[anim].currentPosition().first;
+	y += m_animations[anim].currentPosition().second;
 	
 	drawFrame(x, y, m_animations[anim].currentFrameID());
 }
