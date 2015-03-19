@@ -16,8 +16,6 @@
 #include "CollectableMovement.hpp"
 #include "MovementComponent.hpp"
 
-#include "Debug.hpp"
-
 void CollectableMovement::process(SceneObject &object) {
 	auto *movementComponent = object.getComponent<MovementComponent>();
 	

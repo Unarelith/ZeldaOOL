@@ -21,19 +21,13 @@
 
 class ResourceHandler {
 	public:
-		template<typename ResourceLoader>
-		void addType(const std::string &xmlFilename) {
-			ResourceLoader loader;
-			loader.load(xmlFilename, *this);
-		}
-		
 		template<typename T, typename... Args>
 		T &add(const std::string &name, Args &&...args) {
 			if(has(name)) {
 				throw EXCEPTION("A resource already exists with name:", name);
 			}
 			
-			m_resources.emplace(name, std::make_shared<T>(std::forward<Args>(args)...));
+			m_resources[name] = std::make_shared<T>(std::forward<Args>(args)...);
 			
 			return get<T>(name);
 		}
@@ -49,6 +43,12 @@ class ResourceHandler {
 			}
 			
 			return *std::static_pointer_cast<T>(m_resources[name]);
+		}
+		
+		template<typename ResourceLoader>
+		static void loadConfigFile(const std::string &xmlFilename) {
+			ResourceLoader loader;
+			loader.load(xmlFilename, getInstance());
 		}
 		
 		static ResourceHandler &getInstance() {

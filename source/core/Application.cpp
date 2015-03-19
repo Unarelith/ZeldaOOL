@@ -22,10 +22,10 @@
 #include "TilesetLoader.hpp"
 
 Application::Application() : m_stateStack(ApplicationStateStack::getInstance()) {
-	ResourceHandler::getInstance().addType<AudioLoader>("data/config/audio.xml");
-	ResourceHandler::getInstance().addType<TextureLoader>("data/config/textures.xml");
-	ResourceHandler::getInstance().addType<TilesetLoader>("data/config/tilesets.xml");
-	ResourceHandler::getInstance().addType<MapLoader>("data/config/maps.xml");
+	ResourceHandler::loadConfigFile<AudioLoader>("data/config/audio.xml");
+	ResourceHandler::loadConfigFile<TextureLoader>("data/config/textures.xml");
+	ResourceHandler::loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
+	ResourceHandler::loadConfigFile<MapLoader>("data/config/maps.xml");
 	
 	GamePad::init(m_keyboardHandler);
 	

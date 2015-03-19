@@ -45,7 +45,7 @@ void SceneTestState::update() {
 }
 
 void SceneTestState::draw() {
-	m_font.drawString(4, -2, "A: Octorok | B: Rupees");
+	m_font.drawString(4, -2, "Press A or B");
 	
 	Map::currentMap->draw();
 }
