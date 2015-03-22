@@ -29,6 +29,10 @@ SceneTestState::SceneTestState() {
 	Map::currentMap->scene().addObject(CollectableFactory::createRupees(6 * 16 + 6, 4 * 16 + 1, RupeesAmount::Thirty, CollectableMovement::Type::Dropped));
 }
 
+SceneTestState::~SceneTestState() {
+	Scene::player = nullptr;
+}
+
 void SceneTestState::update() {
 	Map::currentMap->update();
 	

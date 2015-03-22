@@ -31,8 +31,6 @@
 
 ===== ISSUES =====
 - The dialog arrow in MessageBox disappears too fastly the first time
-- Play Scene test, go into the cave, press backspace, play Map test: Segfault
-	-> Scene::player should be resetted to avoid this problem
 - Map collisions are weird in the house
 	-> Collide the shelfs on the right, by the bottom
 		=> The semi tile should be passable

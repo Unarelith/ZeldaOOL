@@ -21,6 +21,7 @@
 class SceneTestState : public ApplicationState {
 	public:
 		SceneTestState();
+		~SceneTestState();
 		
 		void update() override;
 		
