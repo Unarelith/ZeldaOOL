@@ -35,9 +35,12 @@ class SpriteAnimation {
 		void stop() { m_timer.stop(); }
 		
 		u16 currentFrame() const { return m_timer.time() / m_delay; }
-		u16 currentFrameID() const { return m_frames[currentFrame()]; }
+		u16 currentFrameID() const { return (!finished()) ? m_frames[currentFrame()] : 0; }
 		
-		std::pair<s16, s16> currentPosition() const { return m_positions[currentFrame()]; }
+		std::pair<s16, s16> currentPosition() const {
+			if(!finished()) return m_positions[currentFrame()];
+			else return {0, 0};
+		}
 		
 		bool isPlaying() const { return m_timer.isStarted(); }
 		bool finished() const { return currentFrame() >= m_frames.size(); }

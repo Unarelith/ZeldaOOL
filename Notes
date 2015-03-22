@@ -2,9 +2,14 @@
 - Weapon system
 	-> Working on Sword
 		o SpriteAnimation upgraded, can now use (x;y) for each frame
-		o SwordFactory creaaated
+		o SwordFactory created
 		- Where to write the animation code?
-			-> SwordComponent...
+			-> SwordComponent
+			or
+			-> AnimationComponent?
+			or
+			-> Maybe I need to find a solution to handle state of things
+				=> StateStackComponent
 - Inventory system
 - Menu
 - Grass objects
@@ -27,5 +32,10 @@
 ===== ISSUES =====
 - The dialog arrow in MessageBox disappears too fastly the first time
 - Play Scene test, go into the cave, press backspace, play Map test: Segfault
-	=> Scene::player should be resetted to avoid this problem
+	-> Scene::player should be resetted to avoid this problem
+- Map collisions are weird in the house
+	-> Collide the shelfs on the right, by the bottom
+		=> The semi tile should be passable
+	-> Then, collide them by the left
+		=> The shelfs shouldn't be passable WTF
 

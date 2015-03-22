@@ -16,6 +16,8 @@
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
+#include "Debug.hpp"
+
 bool CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2) {
 	auto *position1 = object1.getComponent<PositionComponent>();
 	auto *position2 = object2.getComponent<PositionComponent>();

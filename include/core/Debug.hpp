@@ -27,7 +27,7 @@
 #define _FILE_ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
 
 #ifdef DEBUG_ENABLED
-#	define DEBUG(args...) { std::cout << _FILE_ << ":" << __LINE__ << ":"; Debug::print(args); }
+#	define DEBUG(args...) { std::cout << _FILE_ << ":" << __LINE__ << ": "; Debug::print(args); }
 #else
 #	define DEBUG(args...) {}
 #endif

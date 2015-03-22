@@ -42,7 +42,7 @@ class Sprite : public Image {
 		
 		u16 lastFrameDisplayed() const { return m_lastFrameDisplayed; }
 		
-		//s16 currentAnimation() const { return m_currentAnimation; }
+		s16 currentAnimationID() const { return m_currentAnimation; }
 		const SpriteAnimation &currentAnimation() const { return m_animations[m_currentAnimation]; }
 		
 		static bool pause;
