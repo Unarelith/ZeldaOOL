@@ -14,10 +14,11 @@
 #include "DrawingSystem.hpp"
 
 #include "Image.hpp"
+#include "Sprite.hpp"
+
 #include "LifetimeComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
-#include "SpriteComponent.hpp"
 #include "StateComponent.hpp"
 
 void DrawingSystem::draw(SceneObject &object) {
@@ -25,45 +26,51 @@ void DrawingSystem::draw(SceneObject &object) {
 	auto *positionComponent = object.getComponent<PositionComponent>();
 	
 	if(positionComponent) {
-		auto *image = object.getComponent<Image>();
-		auto *spriteComponent = object.getComponent<SpriteComponent>();
-		
 		if(!lifetimeComponent || !lifetimeComponent->almostDead()
 		|| (!lifetimeComponent->dead(object) && lifetimeComponent->aliveTime() % 120 > 59)) {
-			if(image) {
-				image->draw(positionComponent->x, positionComponent->y);
+			if(object.hasComponent<Image>()) {
+				drawImage(object, positionComponent->x, positionComponent->y);
 			}
-			else if(spriteComponent) {
-				auto *movementComponent = object.getComponent<MovementComponent>();
-				auto *stateComponent = object.getComponent<StateComponent>();
-				
-				if(stateComponent) {
-					spriteComponent->animID = stateComponent->currentAnimation();
-					spriteComponent->isAnimated = stateComponent->isAnimated();
-				}
-				else if(movementComponent) {
-					spriteComponent->isAnimated = movementComponent->isMoving;
-				}
-				
-				if(positionComponent->direction != Direction::None) {
-					if(stateComponent) {
-						spriteComponent->animID += static_cast<s8>(positionComponent->direction);
-					} else {
-						spriteComponent->animID = static_cast<s8>(positionComponent->direction);
-					}
-				}
-				
-				if(spriteComponent->isAnimated) {
-					spriteComponent->sprite.playAnimation(positionComponent->x,
-					                                      positionComponent->y,
-					                                      spriteComponent->animID);
-				} else {
-					spriteComponent->sprite.drawFrame(positionComponent->x,
-					                                  positionComponent->y,
-					                                  spriteComponent->animID);
-				}
+			
+			if(object.hasComponent<Sprite>()) {
+				drawSprite(object, positionComponent->x, positionComponent->y);
 			}
 		}
+	}
+}
+
+void DrawingSystem::drawImage(SceneObject &object, float x, float y) {
+	object.getComponent<Image>()->draw(x, y);
+}
+
+void DrawingSystem::drawSprite(SceneObject &object, float x, float y) {
+	auto *movementComponent = object.getComponent<MovementComponent>();
+	auto *positionComponent = object.getComponent<PositionComponent>();
+	auto *stateComponent = object.getComponent<StateComponent>();
+	
+	bool animated = false;
+	u16 animID = 0;
+	
+	if(stateComponent) {
+		animID = stateComponent->currentAnimation();
+		animated = stateComponent->isAnimated();
+	}
+	else if(movementComponent) {
+		animated = movementComponent->isMoving;
+	}
+	
+	if(positionComponent->direction != Direction::None) {
+		if(stateComponent) {
+			animID += static_cast<s8>(positionComponent->direction);
+		} else {
+			animID = static_cast<s8>(positionComponent->direction);
+		}
+	}
+	
+	if(animated) {
+		object.getComponent<Sprite>()->playAnimation(x, y, animID);
+	} else {
+		object.getComponent<Sprite>()->drawFrame(x, y, animID);
 	}
 }
 

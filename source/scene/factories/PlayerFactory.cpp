@@ -16,12 +16,12 @@
 #include "Map.hpp"
 #include "PlayerFactory.hpp"
 #include "ScrollingTransition.hpp"
+#include "Sprite.hpp"
 #include "TransitionState.hpp"
 
 #include "CollisionComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
-#include "SpriteComponent.hpp"
 #include "StateComponent.hpp"
 
 void mapCollisions(SceneObject &player);
@@ -39,30 +39,28 @@ SceneObject PlayerFactory::create(float x, float y) {
 		Map::currentMap->scene().checkCollisionsFor(object);
 	});
 	
-	auto *spriteComponent = object.setComponent<SpriteComponent>("characters-link", 16, 16);
+	auto *spriteComponent = object.setComponent<Sprite>("characters-link", 16, 16);
 	
 	// Walking
-	spriteComponent->sprite.addAnimation({4, 0}, 110);
-	spriteComponent->sprite.addAnimation({5, 1}, 110);
-	spriteComponent->sprite.addAnimation({6, 2}, 110);
-	spriteComponent->sprite.addAnimation({7, 3}, 110);
+	spriteComponent->addAnimation({4, 0}, 110);
+	spriteComponent->addAnimation({5, 1}, 110);
+	spriteComponent->addAnimation({6, 2}, 110);
+	spriteComponent->addAnimation({7, 3}, 110);
 	
 	// Pushing
-	spriteComponent->sprite.addAnimation({ 8, 12}, 90);
-	spriteComponent->sprite.addAnimation({ 9, 13}, 90);
-	spriteComponent->sprite.addAnimation({10, 14}, 90);
-	spriteComponent->sprite.addAnimation({11, 15}, 90);
+	spriteComponent->addAnimation({ 8, 12}, 90);
+	spriteComponent->addAnimation({ 9, 13}, 90);
+	spriteComponent->addAnimation({10, 14}, 90);
+	spriteComponent->addAnimation({11, 15}, 90);
 	
 	// Using sword
-	spriteComponent->sprite.addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, 40);
-	spriteComponent->sprite.addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, 40);
-	spriteComponent->sprite.addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 40);
-	spriteComponent->sprite.addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 40);
+	spriteComponent->addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, 40);
+	spriteComponent->addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, 40);
+	spriteComponent->addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 40);
+	spriteComponent->addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 40);
 	
 	// SpinAttack
-	spriteComponent->sprite.addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
-	
-	spriteComponent->isAnimated = true;
+	spriteComponent->addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
 	
 	auto *stateComponent = object.setComponent<StateComponent>();
 	stateComponent->addState("Standing", 0, false);

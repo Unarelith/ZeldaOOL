@@ -19,6 +19,9 @@
 class DrawingSystem {
 	public:
 		static void draw(SceneObject &object);
+		
+		static void drawImage(SceneObject &object, float x, float y);
+		static void drawSprite(SceneObject &object, float x, float y);
 };
 
 #endif // DRAWINGSYSTEM_HPP_

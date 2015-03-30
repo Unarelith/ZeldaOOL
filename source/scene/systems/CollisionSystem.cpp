@@ -12,11 +12,10 @@
  * =====================================================================================
  */
 #include "CollisionSystem.hpp"
+#include "Sprite.hpp"
+
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
-#include "SpriteComponent.hpp"
-
-#include "Debug.hpp"
 
 bool CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2) {
 	auto *position1 = object1.getComponent<PositionComponent>();
@@ -25,8 +24,8 @@ bool CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2) {
 	auto *movement1 = object1.getComponent<MovementComponent>();
 	auto *movement2 = object2.getComponent<MovementComponent>();
 	
-	auto *sprite1 = object1.getComponent<SpriteComponent>();
-	auto *sprite2 = object2.getComponent<SpriteComponent>();
+	auto *sprite1 = object1.getComponent<Sprite>();
+	auto *sprite2 = object2.getComponent<Sprite>();
 	
 	if(position1 && position2) {
 		FloatRect rect1(position1->x + position1->hitbox.x,
@@ -46,14 +45,14 @@ bool CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2) {
 			rect2.y += movement2->vy;
 		}
 		
-		if(sprite1 && sprite1->sprite.hasAnimations()) {
-			rect1.x += sprite1->sprite.currentAnimation().currentPosition().first;
-			rect1.y += sprite1->sprite.currentAnimation().currentPosition().second;
+		if(sprite1 && sprite1->hasAnimations()) {
+			rect1.x += sprite1->currentAnimation().currentPosition().first;
+			rect1.y += sprite1->currentAnimation().currentPosition().second;
 		}
 		
-		if(sprite2 && sprite2->sprite.hasAnimations()) {
-			rect2.x += sprite2->sprite.currentAnimation().currentPosition().first;
-			rect2.y += sprite2->sprite.currentAnimation().currentPosition().second;
+		if(sprite2 && sprite2->hasAnimations()) {
+			rect2.x += sprite2->currentAnimation().currentPosition().first;
+			rect2.y += sprite2->currentAnimation().currentPosition().second;
 		}
 		
 		return rect1.intersects(rect2);
