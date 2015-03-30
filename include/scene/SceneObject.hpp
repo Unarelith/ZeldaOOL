@@ -34,8 +34,13 @@ class SceneObject {
 		}
 		
 		template<typename T>
+		bool hasComponent() {
+			return m_components.find(typeid(T)) != m_components.end();
+		}
+		
+		template<typename T>
 		T *getComponent() {
-			if(m_components.find(typeid(T)) != m_components.end()) {
+			if(hasComponent<T>()) {
 				return std::static_pointer_cast<T>(m_components[typeid(T)]).get();
 			} else {
 				return nullptr;

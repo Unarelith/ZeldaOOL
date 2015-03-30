@@ -11,11 +11,8 @@
  *
  * =====================================================================================
  */
-#include "Scene.hpp"
-
 #include "CollisionComponent.hpp"
-#include "MovementComponent.hpp"
-#include "PositionComponent.hpp"
+#include "Scene.hpp"
 
 #include "CollisionSystem.hpp"
 #include "DrawingSystem.hpp"

@@ -18,7 +18,7 @@ void LifetimeSystem::process(std::deque<SceneObject> &objects) {
 	for(u16 i = 0 ; i < objects.size() ; i++) {
 		auto *lifetimeComponent = objects[i].getComponent<LifetimeComponent>();
 		
-		if(lifetimeComponent && lifetimeComponent->dead()) {
+		if(lifetimeComponent && lifetimeComponent->dead(objects[i])) {
 			objects.erase(objects.begin() + i);
 			
 			i--;

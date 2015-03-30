@@ -13,11 +13,16 @@
  */
 #include "SwordFactory.hpp"
 
+#include "LifetimeComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
 SceneObject SwordFactory::create(float x, float y) {
 	SceneObject object;
+	object.setComponent<LifetimeComponent>([](SceneObject &object) {
+		Sprite &spr = object.getComponent<SpriteComponent>()->sprite;
+		return spr.currentAnimation().finished();
+	});
 	
 	auto *positionComponent = object.setComponent<PositionComponent>(x, y, 16, 16);
 	positionComponent->hitbox.reset(0, 0, 16, 16); // TODO

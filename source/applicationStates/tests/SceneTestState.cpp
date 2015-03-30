@@ -19,6 +19,7 @@
 #include "CollectableFactory.hpp"
 #include "OctorokFactory.hpp"
 #include "PlayerFactory.hpp"
+#include "SwordFactory.hpp"
 
 SceneTestState::SceneTestState() {
 	Map::currentMap = &Map::getMap(0, 0, 0);

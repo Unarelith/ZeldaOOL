@@ -22,6 +22,7 @@
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
+#include "StateComponent.hpp"
 
 void mapCollisions(SceneObject &player);
 
@@ -39,18 +40,43 @@ SceneObject PlayerFactory::create(float x, float y) {
 	});
 	
 	auto *spriteComponent = object.setComponent<SpriteComponent>("characters-link", 16, 16);
+	
+	// Walking
 	spriteComponent->sprite.addAnimation({4, 0}, 110);
 	spriteComponent->sprite.addAnimation({5, 1}, 110);
 	spriteComponent->sprite.addAnimation({6, 2}, 110);
 	spriteComponent->sprite.addAnimation({7, 3}, 110);
+	
+	// Pushing
+	spriteComponent->sprite.addAnimation({ 8, 12}, 90);
+	spriteComponent->sprite.addAnimation({ 9, 13}, 90);
+	spriteComponent->sprite.addAnimation({10, 14}, 90);
+	spriteComponent->sprite.addAnimation({11, 15}, 90);
+	
+	// Using sword
+	spriteComponent->sprite.addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, 40);
+	spriteComponent->sprite.addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, 40);
+	spriteComponent->sprite.addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 40);
+	spriteComponent->sprite.addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 40);
+	
+	// SpinAttack
+	spriteComponent->sprite.addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
+	
 	spriteComponent->isAnimated = true;
+	
+	auto *stateComponent = object.setComponent<StateComponent>();
+	stateComponent->addState("Standing", 0, false);
+	stateComponent->addState("Moving", 0);
+	stateComponent->addState("Pushing", 4);
+	stateComponent->setCurrentState("Standing");
 	
 	return object;
 }
 
 void mapCollisions(SceneObject &object) {
-	auto *positionComponent = object.getComponent<PositionComponent>();
 	auto *movementComponent = object.getComponent<MovementComponent>();
+	auto *positionComponent = object.getComponent<PositionComponent>();
+	auto *stateComponent = object.getComponent<StateComponent>();
 	
 	if(positionComponent && movementComponent) {
 		// Pixel-perfect link hitbox for each 4 directions
@@ -64,41 +90,40 @@ void mapCollisions(SceneObject &object) {
 			{ 5,15,10,15}
 		};
 		
-		// Iterate through the directions
+		// Iterate through directions
 		for(u8 i = 0 ; i < 4 ; i++) {
-			bool test;
+			bool velocityTest = false;
+			bool directionTest = false;
 			
-			// Test the velocity vector for each direction
 			if(i == 0) {
-				test = (movementComponent->vx < 0);
+				velocityTest = movementComponent->vx < 0;
+				directionTest = positionComponent->direction == Direction::Left;
 			}
 			else if(i == 1) {
-				test = (movementComponent->vx > 0);
+				velocityTest = movementComponent->vx > 0;
+				directionTest = positionComponent->direction == Direction::Right;;
 			}
 			else if(i == 2) {
-				test = (movementComponent->vy < 0);
+				velocityTest = movementComponent->vy < 0;
+				directionTest = positionComponent->direction == Direction::Up;
 			}
 			else if(i == 3) {
-				test = (movementComponent->vy > 0);
+				velocityTest = movementComponent->vy > 0;
+				directionTest = positionComponent->direction == Direction::Down;
 			}
 			
-			if(test
-			&& (!Map::currentMap->passable(positionComponent->x + collisionMatrix[i][0], positionComponent->y + collisionMatrix[i][1])
-			||  !Map::currentMap->passable(positionComponent->x + collisionMatrix[i][2], positionComponent->y + collisionMatrix[i][3]))) {
+			bool firstPosPassable  = Map::currentMap->passable(positionComponent->x + collisionMatrix[i][0], positionComponent->y + collisionMatrix[i][1]);
+			bool secondPosPassable = Map::currentMap->passable(positionComponent->x + collisionMatrix[i][2], positionComponent->y + collisionMatrix[i][3]);
+			
+			if(velocityTest && (!firstPosPassable || !secondPosPassable)) {
 				if(i < 2)	movementComponent->vx = 0;
 				else		movementComponent->vy = 0;
 				
 				// If the player is looking at the wall, block it
-				if((i == 0 && positionComponent->direction == Direction::Right)
-				|| (i == 1 && positionComponent->direction == Direction::Left)
-				|| (i == 2 && positionComponent->direction == Direction::Up)
-				|| (i == 3 && positionComponent->direction == Direction::Down)) {
-					movementComponent->isBlocked = true;
-				}
+				if(directionTest) movementComponent->isBlocked = true;
 				
 				// Test collisions with tile borders in order to shift the player
-				if( Map::currentMap->passable(positionComponent->x + collisionMatrix[i][2], positionComponent->y + collisionMatrix[i][3])
-				&& !Map::currentMap->passable(positionComponent->x + collisionMatrix[i][0], positionComponent->y + collisionMatrix[i][1])) {
+				if(!firstPosPassable && secondPosPassable) {
 					if(i < 2 && movementComponent->vy == 0) {
 						movementComponent->vy = 1;
 					}
@@ -109,8 +134,7 @@ void mapCollisions(SceneObject &object) {
 					movementComponent->isBlocked = false;
 				}
 				
-				if( Map::currentMap->passable(positionComponent->x + collisionMatrix[i][0], positionComponent->y + collisionMatrix[i][1])
-				&& !Map::currentMap->passable(positionComponent->x + collisionMatrix[i][2], positionComponent->y + collisionMatrix[i][3])) {
+				if(firstPosPassable && !secondPosPassable) {
 					if(i < 2 && movementComponent->vy == 0) {
 						movementComponent->vy = -1;
 					}
@@ -121,6 +145,15 @@ void mapCollisions(SceneObject &object) {
 					movementComponent->isBlocked = false;
 				}
 			}
+		}
+		
+		if(movementComponent->isBlocked) {
+			stateComponent->setCurrentState("Pushing");
+		}
+		else if(movementComponent->isMoving) {
+			stateComponent->setCurrentState("Moving");
+		} else {
+			stateComponent->setCurrentState("Standing");
 		}
 		
 		if(positionComponent->x < -3) {

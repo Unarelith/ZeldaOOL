@@ -18,34 +18,49 @@
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
+#include "StateComponent.hpp"
 
 void DrawingSystem::draw(SceneObject &object) {
-	auto *position = object.getComponent<PositionComponent>();
 	auto *lifetimeComponent = object.getComponent<LifetimeComponent>();
+	auto *positionComponent = object.getComponent<PositionComponent>();
 	
-	if(position) {
+	if(positionComponent) {
 		auto *image = object.getComponent<Image>();
 		auto *spriteComponent = object.getComponent<SpriteComponent>();
 		
 		if(!lifetimeComponent || !lifetimeComponent->almostDead()
-		|| (!lifetimeComponent->dead() && lifetimeComponent->aliveTime() % 120 > 59)) {
+		|| (!lifetimeComponent->dead(object) && lifetimeComponent->aliveTime() % 120 > 59)) {
 			if(image) {
-				image->draw(position->x, position->y);
+				image->draw(positionComponent->x, positionComponent->y);
 			}
 			else if(spriteComponent) {
-				if(position->direction != Direction::None) {
-					spriteComponent->animID = static_cast<s8>(position->direction);
-				}
-				
 				auto *movementComponent = object.getComponent<MovementComponent>();
-				if(movementComponent) {
+				auto *stateComponent = object.getComponent<StateComponent>();
+				
+				if(stateComponent) {
+					spriteComponent->animID = stateComponent->currentAnimation();
+					spriteComponent->isAnimated = stateComponent->isAnimated();
+				}
+				else if(movementComponent) {
 					spriteComponent->isAnimated = movementComponent->isMoving;
 				}
 				
+				if(positionComponent->direction != Direction::None) {
+					if(stateComponent) {
+						spriteComponent->animID += static_cast<s8>(positionComponent->direction);
+					} else {
+						spriteComponent->animID = static_cast<s8>(positionComponent->direction);
+					}
+				}
+				
 				if(spriteComponent->isAnimated) {
-					spriteComponent->sprite.playAnimation(position->x, position->y, spriteComponent->animID);
+					spriteComponent->sprite.playAnimation(positionComponent->x,
+					                                      positionComponent->y,
+					                                      spriteComponent->animID);
 				} else {
-					spriteComponent->sprite.drawFrame(position->x, position->y, spriteComponent->animID);
+					spriteComponent->sprite.drawFrame(positionComponent->x,
+					                                  positionComponent->y,
+					                                  spriteComponent->animID);
 				}
 			}
 		}
