@@ -27,26 +27,26 @@ void chestAction(SceneObject &chest, SceneObject &object, bool collision);
 SceneObject ChestFactory::create(u16 tileX, u16 tileY) {
 	SceneObject object;
 	
-	object.setComponent<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
+	object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 	
-	auto *collisionComponent = object.setComponent<CollisionComponent>();
-	collisionComponent->addAction(&chestAction);
+	auto &collisionComponent = object.set<CollisionComponent>();
+	collisionComponent.addAction(&chestAction);
 	
 	return object;
 }
 
 void chestAction(SceneObject &chest, SceneObject &object, bool collision) {
-	auto *chestPosition = chest.getComponent<PositionComponent>();
+	auto &chestPosition = chest.get<PositionComponent>();
 	
 	if(Scene::isPlayer(object) && collision) {
-		auto *positionComponent = object.getComponent<PositionComponent>();
+		auto &positionComponent = object.get<PositionComponent>();
 		
-		if(positionComponent->direction == Direction::Up
+		if(positionComponent.direction == Direction::Up
 		&& GamePad::isKeyPressedOnce(GameKey::A)) {
 			AudioPlayer::playEffect("chest");
 			
-			Map::currentMap->setTile(chestPosition->x / 16,
-			                         chestPosition->y / 16, 240);
+			Map::currentMap->setTile(chestPosition.x / 16,
+			                         chestPosition.y / 16, 240);
 			
 			ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, ApplicationStateStack::getInstance().top());
 		}

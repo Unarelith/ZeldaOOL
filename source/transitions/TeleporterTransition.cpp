@@ -47,14 +47,13 @@ void TeleporterTransition::update() {
 	if(m_timer.time() > 250) {
 		glClearColor(Color::text.r / 255.0f, Color::text.g / 255.0f, Color::text.b / 255.0f, 1.0f);
 		
-		if(Scene::player) {
-			auto positionComponent = Scene::player->getComponent<PositionComponent>();
-			if(positionComponent) {
-				positionComponent->x = m_playerX;
-				positionComponent->y = m_playerY;
-				
-				positionComponent->direction = m_playerDirection;
-			}
+		if(Scene::player && Scene::player->has<PositionComponent>()) {
+			auto &positionComponent = Scene::player->get<PositionComponent>();
+			
+			positionComponent.x = m_playerX;
+			positionComponent.y = m_playerY;
+			
+			positionComponent.direction = m_playerDirection;
 		}
 		
 		m_rect1.move(-1.5, 0);

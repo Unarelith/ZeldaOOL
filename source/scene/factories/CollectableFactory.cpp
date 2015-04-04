@@ -28,16 +28,16 @@ void collectableAction(SceneObject &collectable, SceneObject &object, bool colli
 
 SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType) {
 	SceneObject object;
-	object.setComponent<MovementComponent>(new CollectableMovement(movementType));
-	object.setComponent<CollectableComponent>(soundEffectName);
-	object.setComponent<LifetimeComponent>(6000);
+	object.set<MovementComponent>(new CollectableMovement(movementType));
+	object.set<CollectableComponent>(soundEffectName);
+	object.set<LifetimeComponent>(6000);
 	
-	auto *image = object.setComponent<Image>("collectables-" + name);
+	auto &image = object.set<Image>("collectables-" + name);
 	
-	object.setComponent<PositionComponent>(x, y, image->width(), image->height());
+	object.set<PositionComponent>(x, y, image.width(), image.height());
 	
-	auto *collisionComponent = object.setComponent<CollisionComponent>();
-	collisionComponent->addAction(&collectableAction);
+	auto &collisionComponent = object.set<CollisionComponent>();
+	collisionComponent.addAction(&collectableAction);
 	
 	return object;
 }
@@ -46,7 +46,7 @@ SceneObject CollectableFactory::createRupees(u16 x, u16 y, RupeesAmount amount, 
 	std::string name = "rupees" + std::to_string(static_cast<u8>(amount));
 	
 	SceneObject object = create(x, y, name, (amount == RupeesAmount::One) ? "getRupee" : "getRupees5", movementType);
-	object.getComponent<CollectableComponent>()->setAction([](SceneObject &player) {
+	object.get<CollectableComponent>().setAction([](SceneObject &player) {
 		// TODO: Add rupees to player here
 	});
 	
@@ -54,15 +54,15 @@ SceneObject CollectableFactory::createRupees(u16 x, u16 y, RupeesAmount amount, 
 }
 
 void collectableAction(SceneObject &collectable, SceneObject &object, bool collision) {
-	auto *collectableComponent = collectable.getComponent<CollectableComponent>();
-	auto *lifetimeComponent = collectable.getComponent<LifetimeComponent>();
+	auto &collectableComponent = collectable.get<CollectableComponent>();
+	auto &lifetimeComponent = collectable.get<LifetimeComponent>();
 	
-	if(Scene::isPlayer(object) && collision && collectableComponent) {
-		AudioPlayer::playEffect(collectableComponent->soundEffectName());
+	if(Scene::isPlayer(object) && collision) {
+		AudioPlayer::playEffect(collectableComponent.soundEffectName());
 		
-		collectableComponent->action(object);
+		collectableComponent.action(object);
 		
-		lifetimeComponent->kill();
+		lifetimeComponent.kill();
 	}
 }
 

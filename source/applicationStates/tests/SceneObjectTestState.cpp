@@ -20,14 +20,14 @@
 #include "Sprite.hpp"
 
 SceneObjectTestState::SceneObjectTestState() {
-	m_object.setComponent<PositionComponent>(75, 50, 16, 16);
-	m_object.setComponent<MovementComponent>(new GamePadMovement);
+	m_object.set<PositionComponent>(75, 50, 16, 16);
+	m_object.set<MovementComponent>(new GamePadMovement);
 	
-	auto spriteComponent = m_object.setComponent<Sprite>("characters-link", 16, 16);
-	spriteComponent->addAnimation({4, 0}, 110);
-	spriteComponent->addAnimation({5, 1}, 110);
-	spriteComponent->addAnimation({6, 2}, 110);
-	spriteComponent->addAnimation({7, 3}, 110);
+	auto &spriteComponent = m_object.set<Sprite>("characters-link", 16, 16);
+	spriteComponent.addAnimation({4, 0}, 110);
+	spriteComponent.addAnimation({5, 1}, 110);
+	spriteComponent.addAnimation({6, 2}, 110);
+	spriteComponent.addAnimation({7, 3}, 110);
 }
 
 void SceneObjectTestState::update() {

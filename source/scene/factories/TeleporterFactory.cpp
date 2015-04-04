@@ -26,13 +26,13 @@ void teleporterAction(SceneObject &teleporter, SceneObject &object, bool collisi
 
 SceneObject TeleporterFactory::create(float tileX, float tileY) {
 	SceneObject object;
-	object.setComponent<TeleporterComponent>();
+	object.set<TeleporterComponent>();
 	
-	auto *positionComponent = object.setComponent<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
-	positionComponent->hitbox.reset(4, 4, 8, 6);
+	auto &positionComponent = object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
+	positionComponent.hitbox.reset(4, 4, 8, 6);
 	
-	auto *collisionComponent = object.setComponent<CollisionComponent>();
-	collisionComponent->addAction(&teleporterAction);
+	auto &collisionComponent = object.set<CollisionComponent>();
+	collisionComponent.addAction(&teleporterAction);
 	
 	return object;
 }
@@ -40,7 +40,7 @@ SceneObject TeleporterFactory::create(float tileX, float tileY) {
 void teleporterAction(SceneObject &teleporter, SceneObject &object, bool collision) {
 	static bool playerOnDoor = false;
 	
-	auto *teleporterComponent = teleporter.getComponent<TeleporterComponent>();
+	auto &teleporterComponent = teleporter.get<TeleporterComponent>();
 	
 	if(Scene::isPlayer(object)) {
 		if(collision) {
@@ -48,12 +48,12 @@ void teleporterAction(SceneObject &teleporter, SceneObject &object, bool collisi
 				AudioPlayer::playEffect("mapStairs");
 				
 				auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
-				state.setTransition<TeleporterTransition>(teleporterComponent->area(),
-													teleporterComponent->mapX(),
-													teleporterComponent->mapY(),
-													teleporterComponent->playerX(),
-													teleporterComponent->playerY(),
-													teleporterComponent->playerDirection());
+				state.setTransition<TeleporterTransition>(teleporterComponent.area(),
+				                                          teleporterComponent.mapX(),
+				                                          teleporterComponent.mapY(),
+				                                          teleporterComponent.playerX(),
+				                                          teleporterComponent.playerY(),
+				                                          teleporterComponent.playerDirection());
 				
 				playerOnDoor = true;
 			}

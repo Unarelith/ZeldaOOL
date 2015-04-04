@@ -17,7 +17,7 @@
 #include "MovementComponent.hpp"
 
 void CollectableMovement::process(SceneObject &object) {
-	auto *movementComponent = object.getComponent<MovementComponent>();
+	auto &movementComponent = object.get<MovementComponent>();
 	
 	if(m_type == Type::Dropped) {
 		if(m_movementCounter < 24) {
@@ -39,7 +39,7 @@ void CollectableMovement::process(SceneObject &object) {
 			
 			m_movementCounter += fabs(m_speed);
 			
-			movementComponent->vy = m_speed;
+			movementComponent.vy = m_speed;
 		} else {
 			m_isFinished = true;
 		}
@@ -48,7 +48,7 @@ void CollectableMovement::process(SceneObject &object) {
 		if(m_movementCounter < 8) {
 			m_movementCounter += 0.125f;
 			
-			movementComponent->vy = -0.125f;
+			movementComponent.vy = -0.125f;
 		} else {
 			m_isFinished = true;
 		}

@@ -25,13 +25,13 @@
 
 ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *parent) : ApplicationState(parent) {
 	m_item = &Map::currentMap->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::OutOfChest));
-	m_item->setComponent<LifetimeComponent>();
+	m_item->set<LifetimeComponent>();
 	
-	auto *chestPosition = chest.getComponent<PositionComponent>();
-	auto *itemPosition = m_item->getComponent<PositionComponent>();
+	auto &chestPosition = chest.get<PositionComponent>();
+	auto &itemPosition = m_item->get<PositionComponent>();
 	
-	itemPosition->x = chestPosition->x + 7 - itemPosition->width / 2;
-	itemPosition->y = chestPosition->y - 8;
+	itemPosition.x = chestPosition.x + 7 - itemPosition.width / 2;
+	itemPosition.y = chestPosition.y - 8;
 	
 	Sprite::pause = true;
 }
@@ -40,8 +40,8 @@ void ChestOpeningState::update() {
 	if(m_state == State::Opening) {
 		MovementSystem::process(*m_item);
 		
-		auto *movementComponent = m_item->getComponent<MovementComponent>();
-		if(movementComponent->movement->isFinished()) {
+		auto &movementComponent = m_item->get<MovementComponent>();
+		if(movementComponent.movement->isFinished()) {
 			m_state = State::Opened;
 		}
 	}
@@ -55,7 +55,7 @@ void ChestOpeningState::update() {
 	else if(m_state == State::Finished) {
 		Sprite::pause = false;
 		
-		m_item->getComponent<LifetimeComponent>()->kill();
+		m_item->get<LifetimeComponent>().kill();
 		
 		ApplicationStateStack::getInstance().pop();
 	}

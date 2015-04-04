@@ -22,28 +22,28 @@ void buttonAction(SceneObject &button, SceneObject &object, bool collision);
 
 SceneObject ButtonFactory::create(u16 tileX, u16 tileY) {
 	SceneObject object;
-	object.setComponent<ButtonComponent>();
+	object.set<ButtonComponent>();
 	
-	auto *positionComponent = object.setComponent<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
-	positionComponent->hitbox.reset(4, 4, 8, 8);
+	auto &positionComponent = object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
+	positionComponent.hitbox.reset(4, 4, 8, 8);
 	
-	auto *collisionComponent = object.setComponent<CollisionComponent>();
-	collisionComponent->addAction(&buttonAction);
+	auto &collisionComponent = object.set<CollisionComponent>();
+	collisionComponent.addAction(&buttonAction);
 	
 	return object;
 }
 
 void buttonAction(SceneObject &button, SceneObject &object, bool collision) {
-	auto *positionComponent = button.getComponent<PositionComponent>();
-	auto *buttonComponent = button.getComponent<ButtonComponent>();
+	auto &positionComponent = button.get<PositionComponent>();
+	auto &buttonComponent = button.get<ButtonComponent>();
 	
 	if(Scene::isPlayer(object)) {
 		if(collision) {
-			buttonComponent->pressedAction(positionComponent->x / 16,
-			                               positionComponent->y / 16);
+			buttonComponent.pressedAction(positionComponent.x / 16,
+			                              positionComponent.y / 16);
 		} else {
-			buttonComponent->releasedAction(positionComponent->x / 16,
-			                                positionComponent->y / 16);
+			buttonComponent.releasedAction(positionComponent.x / 16,
+			                               positionComponent.y / 16);
 		}
 	}
 }

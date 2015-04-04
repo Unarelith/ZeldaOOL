@@ -17,24 +17,25 @@
 #include "PositionComponent.hpp"
 
 void MovementSystem::process(SceneObject &object) {
-	auto *positionComponent = object.getComponent<PositionComponent>();
-	auto *movementComponent = object.getComponent<MovementComponent>();
-	auto *collisionComponent = object.getComponent<CollisionComponent>();
-	
-	if(positionComponent && movementComponent) {
-		movementComponent->movement->process(object);
+	if(object.has<PositionComponent>() && object.has<MovementComponent>()) {
+		auto &positionComponent = object.get<PositionComponent>();
+		auto &movementComponent = object.get<MovementComponent>();
 		
-		movementComponent->isBlocked = false;
+		movementComponent.movement->process(object);
 		
-		if(collisionComponent) collisionComponent->checkCollisions(object);
+		movementComponent.isBlocked = false;
 		
-		movementComponent->isMoving = (movementComponent->vx || movementComponent->vy) ? true : false;
+		if(object.has<CollisionComponent>()) {
+			object.get<CollisionComponent>().checkCollisions(object);
+		}
 		
-		positionComponent->move(movementComponent->vx * movementComponent->speed,
-		                        movementComponent->vy * movementComponent->speed);
+		movementComponent.isMoving = (movementComponent.vx || movementComponent.vy) ? true : false;
 		
-		movementComponent->vx = 0;
-		movementComponent->vy = 0;
+		positionComponent.move(movementComponent.vx * movementComponent.speed,
+		                       movementComponent.vy * movementComponent.speed);
+		
+		movementComponent.vx = 0;
+		movementComponent.vy = 0;
 	}
 }
 

@@ -42,9 +42,8 @@ void Scene::draw() {
 SceneObject &Scene::addObject(SceneObject &&object) {
 	m_objects.push_back(std::move(object));
 	
-	auto *collisionComponent = m_objects.back().getComponent<CollisionComponent>();
-	if(collisionComponent) {
-		collisionComponent->addChecker([&](SceneObject &object) {
+	if(m_objects.back().has<CollisionComponent>()) {
+		m_objects.back().get<CollisionComponent>().addChecker([&](SceneObject &object) {
 			checkCollisionsFor(object);
 		});
 	}
@@ -55,14 +54,14 @@ SceneObject &Scene::addObject(SceneObject &&object) {
 void Scene::checkCollisionsFor(SceneObject &object) {
 	for(SceneObject &obj : m_objects) {
 		if(&object != &obj) {
-			auto *collisionComponent1 = object.getComponent<CollisionComponent>();
-			auto *collisionComponent2 = obj.getComponent<CollisionComponent>();
-			
-			if(collisionComponent1 && collisionComponent2) {
+			if(object.has<CollisionComponent>() && obj.has<CollisionComponent>()) {
+				auto &collisionComponent1 = object.get<CollisionComponent>();
+				auto &collisionComponent2 = obj.get<CollisionComponent>();
+				
 				bool collision = CollisionSystem::inCollision(object, obj);
 				
-				collisionComponent1->collisionActions(object, obj, collision);
-				collisionComponent2->collisionActions(obj, object, collision);
+				collisionComponent1.collisionActions(object, obj, collision);
+				collisionComponent2.collisionActions(obj, object, collision);
 			}
 		}
 	}

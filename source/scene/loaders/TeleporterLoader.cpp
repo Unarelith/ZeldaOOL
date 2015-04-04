@@ -48,7 +48,7 @@ void TeleporterLoader::load(XMLElement *teleporterElement, Scene &scene) {
 	
 	SceneObject &teleporter = scene.addObject(TeleporterFactory::create(tileX, tileY));
 	
-	auto *teleporterComponent = teleporter.getComponent<TeleporterComponent>();
-	teleporterComponent->setDestination(area, mapX, mapY, playerX, playerY, playerDirection);
+	auto &teleporterComponent = teleporter.get<TeleporterComponent>();
+	teleporterComponent.setDestination(area, mapX, mapY, playerX, playerY, playerDirection);
 }
 

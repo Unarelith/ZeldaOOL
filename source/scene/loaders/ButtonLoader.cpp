@@ -20,7 +20,7 @@ void ButtonLoader::load(XMLElement *buttonElement, Scene &scene) {
 	u16 tileY = buttonElement->IntAttribute("tileY");
 	
 	SceneObject &button = scene.addObject(ButtonFactory::create(tileX, tileY));
-	auto *buttonComponent = button.getComponent<ButtonComponent>();
+	auto &buttonComponent = button.get<ButtonComponent>();
 	
 	XMLElement *tileChangeElement = buttonElement->FirstChildElement("tileChange");
 	while(tileChangeElement) {
@@ -29,7 +29,7 @@ void ButtonLoader::load(XMLElement *buttonElement, Scene &scene) {
 		
 		u16 newID = tileChangeElement->IntAttribute("newID");
 		
-		buttonComponent->addTileChange(tileX, tileY, newID);
+		buttonComponent.addTileChange(tileX, tileY, newID);
 		
 		tileChangeElement = tileChangeElement->NextSiblingElement("tileChange");
 	}

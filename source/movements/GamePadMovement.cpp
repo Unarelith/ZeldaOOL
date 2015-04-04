@@ -17,51 +17,51 @@
 #include "PositionComponent.hpp"
 
 void GamePadMovement::process(SceneObject &object) {
-	auto *movementComponent = object.getComponent<MovementComponent>();
-	auto *positionComponent = object.getComponent<PositionComponent>();
+	auto &movementComponent = object.get<MovementComponent>();
+	auto &positionComponent = object.get<PositionComponent>();
 	
 	if(GamePad::isKeyPressed(GameKey::Left)) {
-		movementComponent->vx = -1;
+		movementComponent.vx = -1;
 		
 		if(!GamePad::isKeyPressed(GameKey::Right)
 		&& !GamePad::isKeyPressed(GameKey::Up)
 		&& !GamePad::isKeyPressed(GameKey::Down)) {
-			positionComponent->direction = Direction::Left;
+			positionComponent.direction = Direction::Left;
 		}
 	}
 	else if(GamePad::isKeyPressed(GameKey::Right)) {
-		movementComponent->vx = 1;
+		movementComponent.vx = 1;
 		
 		if(!GamePad::isKeyPressed(GameKey::Left)
 		&& !GamePad::isKeyPressed(GameKey::Up)
 		&& !GamePad::isKeyPressed(GameKey::Down)) {
-			positionComponent->direction = Direction::Right;
+			positionComponent.direction = Direction::Right;
 		}
 	}
 	
 	if(GamePad::isKeyPressed(GameKey::Up)) {
-		movementComponent->vy = -1;
+		movementComponent.vy = -1;
 		
 		if(!GamePad::isKeyPressed(GameKey::Left)
 		&& !GamePad::isKeyPressed(GameKey::Right)
 		&& !GamePad::isKeyPressed(GameKey::Down)) {
-			positionComponent->direction = Direction::Up;
+			positionComponent.direction = Direction::Up;
 		}
 	}
 	else if(GamePad::isKeyPressed(GameKey::Down)) {
-		movementComponent->vy = 1;
+		movementComponent.vy = 1;
 		
 		if(!GamePad::isKeyPressed(GameKey::Left)
 		&& !GamePad::isKeyPressed(GameKey::Right)
 		&& !GamePad::isKeyPressed(GameKey::Up)) {
-			positionComponent->direction = Direction::Down;
+			positionComponent.direction = Direction::Down;
 		}
 	}
 	
 	if((GamePad::isKeyPressed(GameKey::Left) || GamePad::isKeyPressed(GameKey::Right))
 	&& (GamePad::isKeyPressed(GameKey::Up)   || GamePad::isKeyPressed(GameKey::Down))) {
-		movementComponent->vx /= 1.4;
-		movementComponent->vy /= 1.4;
+		movementComponent.vx /= 1.4;
+		movementComponent.vy /= 1.4;
 	}
 }
 

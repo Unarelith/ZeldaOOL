@@ -50,7 +50,7 @@ void ScrollingTransition::update() {
 	PositionComponent *positionComponent = nullptr;
 	
 	if(Scene::player) {
-		positionComponent = Scene::player->getComponent<PositionComponent>();
+		positionComponent = &Scene::player->get<PositionComponent>();
 		positionComponent->move(m_vx * 0.15f, m_vy * 0.21f);
 	}
 	

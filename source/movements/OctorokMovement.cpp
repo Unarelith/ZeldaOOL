@@ -30,11 +30,10 @@ void OctorokMovement::reset(SceneObject &) {
 }
 
 void OctorokMovement::process(SceneObject &object) {
-	auto *movementComponent = object.getComponent<MovementComponent>();
-	auto *positionComponent = object.getComponent<PositionComponent>();
-	auto *collisionComponent = object.getComponent<CollisionComponent>();
+	auto &movementComponent = object.get<MovementComponent>();
+	auto &positionComponent = object.get<PositionComponent>();
 	
-	movementComponent->speed = 0.3f;
+	movementComponent.speed = 0.3f;
 	
 	if(m_state == State::Standing) {
 		m_timer.start();
@@ -51,20 +50,22 @@ void OctorokMovement::process(SceneObject &object) {
 				}
 			}
 			
-			movementComponent->vx = m_vx;
-			movementComponent->vy = m_vy;
+			movementComponent.vx = m_vx;
+			movementComponent.vy = m_vy;
 			
-			if(collisionComponent) collisionComponent->checkCollisions(object);
+			if(object.has<CollisionComponent>()) {
+				object.get<CollisionComponent>().checkCollisions(object);
+			}
 			
-			positionComponent->updateDirection(m_vx, m_vy);
+			positionComponent.updateDirection(m_vx, m_vy);
 			
-			if(!movementComponent->isBlocked) {
+			if(!movementComponent.isBlocked) {
 				m_state = State::Moving;
 			}
 		}
 	}
 	else if(m_state == State::Moving) {
-		if(movementComponent->isBlocked) {
+		if(movementComponent.isBlocked) {
 			if(m_vx != 0) {
 				m_vy = m_vx;
 				m_vx = 0;
@@ -76,10 +77,10 @@ void OctorokMovement::process(SceneObject &object) {
 		}
 		
 		if(m_movementCounter < m_randomMaxMovement) {
-			movementComponent->vx = m_vx;
-			movementComponent->vy = m_vy;
+			movementComponent.vx = m_vx;
+			movementComponent.vy = m_vy;
 			
-			positionComponent->updateDirection(m_vx, m_vy);
+			positionComponent.updateDirection(m_vx, m_vy);
 			
 			m_movementCounter += 0.3f;
 		} else {

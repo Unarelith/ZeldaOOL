@@ -20,14 +20,14 @@
 
 SceneObject OctorokFactory::create(float x, float y) {
 	SceneObject object;
-	object.setComponent<PositionComponent>(x, y, 16, 16);
-	object.setComponent<MovementComponent>(new OctorokMovement);
+	object.set<PositionComponent>(x, y, 16, 16);
+	object.set<MovementComponent>(new OctorokMovement);
 	
-	auto *spriteComponent = object.setComponent<Sprite>("enemies-octorok", 16, 16);
-	spriteComponent->addAnimation({4, 0}, 150);
-	spriteComponent->addAnimation({5, 1}, 150);
-	spriteComponent->addAnimation({6, 2}, 150);
-	spriteComponent->addAnimation({7, 3}, 150);
+	auto &spriteComponent = object.set<Sprite>("enemies-octorok", 16, 16);
+	spriteComponent.addAnimation({4, 0}, 150);
+	spriteComponent.addAnimation({5, 1}, 150);
+	spriteComponent.addAnimation({6, 2}, 150);
+	spriteComponent.addAnimation({7, 3}, 150);
 	
 	return object;
 }

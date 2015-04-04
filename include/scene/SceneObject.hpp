@@ -18,6 +18,8 @@
 #include <memory>
 #include <typeindex>
 
+#include "Exception.hpp"
+
 class SceneObject {
 	public:
 		SceneObject() = default;
@@ -28,22 +30,22 @@ class SceneObject {
 		SceneObject &operator=(SceneObject &&) = default;
 		
 		template<typename T, typename... Args>
-		T *setComponent(Args &&...args) {
+		T &set(Args &&...args) {
 			m_components[typeid(T)] = std::make_shared<T>(std::forward<Args>(args)...);
-			return getComponent<T>();
+			return get<T>();
 		}
 		
 		template<typename T>
-		bool hasComponent() {
+		bool has() {
 			return m_components.find(typeid(T)) != m_components.end();
 		}
 		
 		template<typename T>
-		T *getComponent() {
-			if(hasComponent<T>()) {
-				return std::static_pointer_cast<T>(m_components[typeid(T)]).get();
+		T &get() {
+			if(has<T>()) {
+				return *std::static_pointer_cast<T>(m_components[typeid(T)]).get();
 			} else {
-				return nullptr;
+				throw EXCEPTION("SceneObject", (void*)this, "doesn't have a component of type:", typeid(T).name());
 			}
 		}
 		
