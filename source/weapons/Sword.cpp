@@ -5,13 +5,9 @@
  *
  *    Description:  
  *
- *        Version:  1.0
  *        Created:  15/09/2014 22:26:14
- *       Revision:  none
- *       Compiler:  gcc
  *
- *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
@@ -19,7 +15,6 @@
 #include "GrassObject.hpp"
 #include "Keyboard.hpp"
 #include "Map.hpp"
-#include "MapHelper.hpp"
 #include "PlayerState.hpp"
 #include "StandingState.hpp"
 #include "Sword.hpp"
@@ -285,8 +280,8 @@ void Sword::collisionAction(MapObject &object) {
 		if(Map::currentMap->objectAtPosition(grass, m_x + 8, m_y + 8)) {
 			if(((m_state == Sword::State::Swinging && animationCurrentFrame(m_player.direction()) > 2)
 			  || m_state == Sword::State::SpinAttack)
-			 && (MapHelper::isTile(m_x + 8, m_y + 8, TilesData::TileType::GrassTile)
-			  || MapHelper::isTile(m_x + 8, m_y + 8, TilesData::TileType::LowGrassTile))) {
+			 && (Map::currentMap->isTile(m_x + 8, m_y + 8, TilesData::TileType::GrassTile)
+			  || Map::currentMap->isTile(m_x + 8, m_y + 8, TilesData::TileType::LowGrassTile))) {
 				grass.onEvent(Map::EventType::GrassCutted);
 			}
 		}

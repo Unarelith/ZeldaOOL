@@ -24,7 +24,6 @@
 
 struct TileAnimation {
 	TileAnimation(u16 _delay) : delay(_delay) {}
-	TileAnimation(TileAnimation &&tileAnimation) : frames(std::move(tileAnimation.frames)), delay(tileAnimation.delay) {}
 	
 	std::vector<u16> frames;
 	

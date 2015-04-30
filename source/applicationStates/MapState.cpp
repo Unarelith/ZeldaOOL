@@ -5,13 +5,9 @@
  *
  *    Description:  
  *
- *        Version:  1.0
  *        Created:  15/09/2014 00:22:30
- *       Revision:  none
- *       Compiler:  gcc
  *
- *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
@@ -89,9 +85,9 @@ void MapState::update() {
 }
 
 void MapState::draw() {
-	View::bind(&Map::currentMap->view());
-	
 	Map::currentMap->draw();
+	
+	View::bind(&Map::currentMap->view());
 	
 	Player::player.draw();
 	

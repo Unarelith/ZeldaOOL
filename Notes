@@ -1,59 +1,21 @@
 ===== REFACTORING =====
 - Improve 'Dialog' and 'DialogState'
-	=> Use ZeldaOOL
-
-===== CLEANING =====
-- Is the fact having the pair update/draw a bad thing or it is the implementation
-  of them in the same class the bad thing?
-	-> The implementation
-- Comment some things
-- Use DP Component for MapObject
-	=> Break inheritance
-		-> Break Movable into components:
-			* MovementComponent  => Works exactly like Movable, using Movements
-			* CollisionComponent => Use collision handlers, like Movable
-		-> Merge Battler and Enemy into components:
-			* Battler would become 'BattleComponent'
-			* Enemy would be broken into the parts needing it
-	=> Go further
-		-> Break inheritance for Map/AnimatedMap/TileMap/XMLTileMap
-			* AnimatedMap becomes AnimationComponent (maybe used by Sprite?)
-			* TileMap becomes MapDisplayComponent
-			* XMLTileMap will be merged to MapLoader, which becomes TileMapLoader
-			* Map becomes Scene
-				~ Break MapObject into a PositionComponent
-				~ Find a way to represent any Entity by a single ID
-					~> Maybe use two dimensional arrays?
-					   The first layer is the Entity ID
-					   The second one is the Components for this Entity
-					~> So we must have component subtypes, to handle them easily
-						> GameLogicComponent or UpdateComponent
-						> DisplayComponent
-						> ConditionalComponent, this Component would be useful
-						  for things like reset() (variadic constructor, virtual
-						  function testCondition(), that sort of things...)
-			            > Good, Scene now handles pack of components
-			* Since entities doesn't exist anymore, something must give an
-			  access to current Scene class
-				~ Use a static pointer to current Scene object, like Map
-			* The old map will be a particular entity
-- Implement GamePad (implemented in 'rewrite' branch)
-- A unique view for maps (Map::view)
-	=> Model matrix
-
-Objects needs:
-	* Event system
-	* Collision handler
-
-Collectables needs:
-	* Movement system
-	* Collision handler
-	* Image display
-
-Character needs:
-	* Movement system
-	* Collision handler
-	* Sprite display
+	=> See ZeldaOOL
+- Improve 'XMLTileMap', 'TileMap', 'AnimatedMap', 'Map'
+	=> See ZeldaOOL
+- Implement GamePad
+	=> See ZeldaOOL
+- Improve OpenGL code
+	=> Use model matrix instead of raw positions
+		-> Base class Transformable?
+	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'
+- Improve Sprite and SpriteAnimation
+	=> See ZeldaOOL
+- Improve Sword
+	=> See the array in SwordFactory of ZeldaOOL
+- Improve game object system
+- Rename TilesData to TilesInfos
+- Improve Debug and Exception
 
 ===== TODO =====
 - Finish 'Octorok'
@@ -68,6 +30,7 @@ Character needs:
 - Implement 'Translator'
 	=> Like Asylia LanguageManager
 - Add 'player.xml' config file in 'data/config/' directory
+	=> Add PlayerLoader
 - Add 'MovableObject', then 'PotObject' and 'BlockObject'
 	=> Movable contains the object movement thing
 	=> Pot is a Movable in all ways
@@ -76,9 +39,6 @@ Character needs:
 	=> Add 'LiftableObject'
 		-> 'PotObject' and 'GrassObject' inherits from it
 	=> Add 'LiftingState' for Player
-- Improve OpenGL code
-	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'
-- Implement a game pad (movable and resizable via config files?)
 - Improve game for OpenGL ES and try on Android
 - Write a little game editor with Qt
 	=> Add maps
@@ -105,3 +65,5 @@ Character needs:
 - Fix grassDestroy animation
 	=> Find a way to rip it
 - Fix 'moonwalk' bug
+- When link is trying to cut a grass tile being too close nothing happens
+

@@ -5,13 +5,9 @@
  *
  *    Description:  
  *
- *        Version:  1.0
  *        Created:  17/01/2015 22:54:52
- *       Revision:  none
- *       Compiler:  gcc
  *
- *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */

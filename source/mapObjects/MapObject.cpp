@@ -5,18 +5,13 @@
  *
  *    Description:  
  *
- *        Version:  1.0
  *        Created:  18/01/2015 00:42:29
- *       Revision:  none
- *       Compiler:  gcc
  *
- *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#include "MapHelper.hpp"
-#include "MapObject.hpp"
+#include "Map.hpp"
 #include "TilesData.hpp"
 
 MapObject::MapObject(float x, float y, u16 width, u16 height) {
@@ -52,9 +47,11 @@ bool MapObject::inCollisionWith(const MapObject &object) const {
 	FloatRect rect1(m_x + m_vx + m_hitbox.x,
 	                m_y + m_vy + m_hitbox.y,
 	                m_hitbox.width, m_hitbox.height);
+	
 	FloatRect rect2(object.m_x + object.m_vx + object.m_hitbox.x,
 	                object.m_y + object.m_vy + object.m_hitbox.y,
 	                object.m_hitbox.width, object.m_hitbox.height);
+	
 	return rect1.intersects(rect2);
 }
 
@@ -69,10 +66,10 @@ void MapObject::testCollisions() {
 }
 
 bool MapObject::onTile(u16 tile) const {
-	return (MapHelper::isTile(m_x + 6, m_y + 11, tile) 
-		&&  MapHelper::isTile(m_x + 7, m_y + 11, tile) 
-		&&  MapHelper::isTile(m_x + 6, m_y + 12, tile) 
-		&&  MapHelper::isTile(m_x + 7, m_y + 12, tile));
+	return (Map::currentMap->isTile(m_x + 6, m_y + 11, tile) 
+	    &&  Map::currentMap->isTile(m_x + 7, m_y + 11, tile) 
+	    &&  Map::currentMap->isTile(m_x + 6, m_y + 12, tile) 
+	    &&  Map::currentMap->isTile(m_x + 7, m_y + 12, tile));
 }
 
 void MapObject::draw() {

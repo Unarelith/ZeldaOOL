@@ -5,18 +5,14 @@
  *
  *    Description:  
  *
- *        Version:  1.0
  *        Created:  15/09/2014 22:17:29
- *       Revision:  none
- *       Compiler:  gcc
  *
- *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
 #include "Character.hpp"
-#include "MapHelper.hpp"
+#include "Map.hpp"
 
 Character::Character(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction) {
 	load(filename, x, y, width, height, direction);
@@ -48,27 +44,27 @@ void Character::turn(bool clockwise) {
 
 void Character::mapCollisions() {
 	if(m_vy != 0) {
-		if (!MapHelper::passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_vy)
-		||  !MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_vy)
-		||  !MapHelper::passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_vy + m_hitbox.height)
-		||  !MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_vy + m_hitbox.height)) {
-			if (!MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_vy)
-			&&	 MapHelper::passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_vy)) {
+		if (!Map::currentMap->passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_vy)
+		||  !Map::currentMap->passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_vy)
+		||  !Map::currentMap->passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_vy + m_hitbox.height)
+		||  !Map::currentMap->passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_vy + m_hitbox.height)) {
+			if (!Map::currentMap->passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_vy)
+			&&	 Map::currentMap->passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_vy)) {
 				m_vx = -1;
 			}
 			
-			if (!MapHelper::passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_vy)
-			&&   MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_vy)) {
+			if (!Map::currentMap->passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_vy)
+			&&   Map::currentMap->passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_vy)) {
 				m_vx = 1;
 			}
 			
-			if (!MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_hitbox.height + m_vy)
-			&&	 MapHelper::passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_hitbox.height + m_vy)) {
+			if (!Map::currentMap->passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_hitbox.height + m_vy)
+			&&	 Map::currentMap->passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_hitbox.height + m_vy)) {
 				m_vx = -1;
 			}
 			
-			if (!MapHelper::passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_hitbox.height + m_vy)
-			&&   MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_hitbox.height + m_vy)) {
+			if (!Map::currentMap->passable(m_x + m_hitbox.x,					m_y + m_hitbox.y + m_hitbox.height + m_vy)
+			&&   Map::currentMap->passable(m_x + m_hitbox.x + m_hitbox.width, m_y + m_hitbox.y + m_hitbox.height + m_vy)) {
 				m_vx = 1;
 			}
 			
@@ -77,27 +73,27 @@ void Character::mapCollisions() {
 	}
 	
 	if(m_vx != 0) {
-		if (!MapHelper::passable(m_x + m_hitbox.x + m_vx,				   m_y + m_hitbox.y)
-		||  !MapHelper::passable(m_x + m_hitbox.x + m_vx + m_hitbox.width, m_y + m_hitbox.y)
-		||  !MapHelper::passable(m_x + m_hitbox.x + m_vx,				   m_y + m_hitbox.y + m_hitbox.height)
-		||  !MapHelper::passable(m_x + m_hitbox.x + m_vx + m_hitbox.width, m_y + m_hitbox.y + m_hitbox.height)) {
-			if (!MapHelper::passable(m_x + m_hitbox.x + m_vx, m_y + m_hitbox.y + m_hitbox.height)
-			&&	 MapHelper::passable(m_x + m_hitbox.x + m_vx, m_y + m_hitbox.y)) {
+		if (!Map::currentMap->passable(m_x + m_hitbox.x + m_vx,				   m_y + m_hitbox.y)
+		||  !Map::currentMap->passable(m_x + m_hitbox.x + m_vx + m_hitbox.width, m_y + m_hitbox.y)
+		||  !Map::currentMap->passable(m_x + m_hitbox.x + m_vx,				   m_y + m_hitbox.y + m_hitbox.height)
+		||  !Map::currentMap->passable(m_x + m_hitbox.x + m_vx + m_hitbox.width, m_y + m_hitbox.y + m_hitbox.height)) {
+			if (!Map::currentMap->passable(m_x + m_hitbox.x + m_vx, m_y + m_hitbox.y + m_hitbox.height)
+			&&	 Map::currentMap->passable(m_x + m_hitbox.x + m_vx, m_y + m_hitbox.y)) {
 				m_vy = -1;
 			}
 			
-			if (!MapHelper::passable(m_x + m_hitbox.x + m_vx, m_y + m_hitbox.y)
-			&&   MapHelper::passable(m_x + m_hitbox.x + m_vx, m_y + m_hitbox.y + m_hitbox.height)) {
+			if (!Map::currentMap->passable(m_x + m_hitbox.x + m_vx, m_y + m_hitbox.y)
+			&&   Map::currentMap->passable(m_x + m_hitbox.x + m_vx, m_y + m_hitbox.y + m_hitbox.height)) {
 				m_vy = 1;
 			}
 			
-			if (!MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width + m_vx, m_y + m_hitbox.y + m_hitbox.height)
-			&&	 MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width + m_vx, m_y + m_hitbox.y)) {
+			if (!Map::currentMap->passable(m_x + m_hitbox.x + m_hitbox.width + m_vx, m_y + m_hitbox.y + m_hitbox.height)
+			&&	 Map::currentMap->passable(m_x + m_hitbox.x + m_hitbox.width + m_vx, m_y + m_hitbox.y)) {
 				m_vy = -1;
 			}
 			
-			if (!MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width + m_vx, m_y + m_hitbox.y)
-			&&   MapHelper::passable(m_x + m_hitbox.x + m_hitbox.width + m_vx, m_y + m_hitbox.y + m_hitbox.height)) {
+			if (!Map::currentMap->passable(m_x + m_hitbox.x + m_hitbox.width + m_vx, m_y + m_hitbox.y)
+			&&   Map::currentMap->passable(m_x + m_hitbox.x + m_hitbox.width + m_vx, m_y + m_hitbox.y + m_hitbox.height)) {
 				m_vy = 1;
 			}
 			

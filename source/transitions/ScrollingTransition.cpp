@@ -5,13 +5,9 @@
  *
  *    Description:  
  *
- *        Version:  1.0
  *        Created:  05/10/2014 17:45:59
- *       Revision:  none
- *       Compiler:  gcc
  *
- *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
@@ -78,13 +74,11 @@ void ScrollingTransition::update() {
 }
 
 void ScrollingTransition::draw() {
-	View::bind(&m_nextMap->view());
-	
 	m_nextMap->draw();
 	
-	View::bind(&Map::currentMap->view());
-	
 	Map::currentMap->draw();
+	
+	View::bind(&Map::currentMap->view());
 	
 	Player::player.draw();
 	

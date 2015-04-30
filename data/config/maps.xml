@@ -1,16 +1,16 @@
 <maps>
 	<area id="0">
-		<map path="data/maps/a1.tmx" tileset="plain" x="0" y="0" zoneID="0"/>
-		<map path="data/maps/a2.tmx" tileset="plain" x="1" y="0" zoneID="0"/>
-		<map path="data/maps/b1.tmx" tileset="plain" x="0" y="1" zoneID="0"/>
-		<map path="data/maps/b2.tmx" tileset="plain" x="1" y="1" zoneID="0"/>
+		<map name="a1" tileset="plain" x="0" y="0" zoneID="0"/>
+		<map name="a2" tileset="plain" x="1" y="0" zoneID="0"/>
+		<map name="b1" tileset="plain" x="0" y="1" zoneID="0"/>
+		<map name="b2" tileset="plain" x="1" y="1" zoneID="0"/>
 	</area>
 	
 	<area id="1">
-		<map path="data/maps/in1.tmx" tileset="indoor" x="0" y="0" zoneID="0"/>
+		<map name="in1" tileset="indoor" x="0" y="0" zoneID="0"/>
 	</area>
 	
 	<area id="2">
-		<map path="data/maps/ca1a1.tmx" tileset="underground" x="0" y="0" zoneID="0"/>
+		<map name="ca1a1" tileset="underground" x="0" y="0" zoneID="0"/>
 	</area>
 </maps>

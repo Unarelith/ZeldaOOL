@@ -5,13 +5,9 @@
  *
  *    Description:  
  *
- *        Version:  1.0
  *        Created:  12/01/2015 15:05:28
- *       Revision:  none
- *       Compiler:  gcc
  *
- *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
@@ -27,21 +23,41 @@ void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 		
 		XMLElement *mapElement = areaElement->FirstChildElement("map");
 		while(mapElement) {
-			std::string path = mapElement->Attribute("path");
-			std::string tileset = mapElement->Attribute("tileset");
+			std::string name = mapElement->Attribute("name");
+			std::string tilesetName = mapElement->Attribute("tileset");
 			
 			u16 x = mapElement->IntAttribute("x");
 			u16 y = mapElement->IntAttribute("y");
 			
-			//u16 zoneID = mapElement->IntAttribute("zoneID");
+			Tileset &tileset = handler.get<Tileset>(tilesetName);
 			
-			Tileset &tilesetRef = handler.get<Tileset>(tileset);
-			handler.add<Map>(makeName(area, x, y), path, tilesetRef, area, x, y);
+			loadMap(name, area, x, y, tileset, handler);
 			
 			mapElement = mapElement->NextSiblingElement("map");
 		}
 		
 		areaElement = areaElement->NextSiblingElement("area");
 	}
+}
+
+void MapLoader::loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset &tileset, ResourceHandler &handler) {
+	XMLFile doc("data/maps/" + name + ".tmx");
+	
+	XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
+	
+	u16 width = mapElement->IntAttribute("width");
+	u16 height = mapElement->IntAttribute("height");
+	
+	std::vector<u16> data;
+	XMLElement *tileElement = mapElement->FirstChildElement("layer")->FirstChildElement("data")->FirstChildElement("tile");
+	while(tileElement) {
+		s16 tileID = tileElement->IntAttribute("gid") - 1;
+		
+		data.push_back((tileID >= 0) ? tileID : 0);
+		
+		tileElement = tileElement->NextSiblingElement("tile");
+	}
+	
+	handler.add<Map>(makeName(area, x, y), area, x, y, width, height, tileset, data);
 }
 

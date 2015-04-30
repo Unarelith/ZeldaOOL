@@ -5,13 +5,9 @@
  *
  *    Description:  
  *
- *        Version:  1.0
  *        Created:  15/09/2014 22:17:50
- *       Revision:  none
- *       Compiler:  gcc
  *
- *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
@@ -19,7 +15,6 @@
 #include "DoorObject.hpp"
 #include "Keyboard.hpp"
 #include "KeyboardMovement.hpp"
-#include "MapHelper.hpp"
 #include "Map.hpp"
 #include "NPC.hpp"
 #include "Player.hpp"
@@ -67,8 +62,6 @@ void Player::load() {
 	
 	auto &sword = m_inventory.addWeapon<Sword>();
 	m_inventory.setWeaponA(sword);
-	
-	m_inDoor = false;
 }
 
 void Player::update(bool states) {
@@ -76,7 +69,7 @@ void Player::update(bool states) {
 	Battler::update();
 	
 	// Check if a chest is in front of the player and if A is pressed
-	if(m_direction == Direction::Up && MapHelper::isTile(m_x + 8, m_y + 4, TilesData::TileType::ClosedChest)) {
+	if(m_direction == Direction::Up && Map::currentMap->isTile(m_x + 8, m_y + 4, TilesData::TileType::ClosedChest)) {
 		if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
 			ChestObject *chestObject = static_cast<ChestObject*>(Map::currentMap->getObject(m_x + 8, m_y - 2));
 			if(chestObject) {
@@ -141,7 +134,7 @@ void Player::collisionAction(MapObject &object) {
 		if(onTile(TilesData::TileType::Button)) {
 			object.onEvent(Map::EventType::ButtonPressed);
 		}
-		else if(MapHelper::onDoor(m_x + 8, m_y + 8) && !m_inDoor) {
+		else if(!m_inDoor && Map::currentMap->onDoor(m_x + 8, m_y + 8)) {
 			m_inDoor = true;
 			
 			object.onEvent(Map::EventType::ChangeMap);
@@ -178,8 +171,8 @@ void Player::mapCollisions() {
 		}
 		
 		if(test
-		&& (!MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])
-		||  !MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3]))) {
+		&& (!Map::currentMap->passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])
+		||  !Map::currentMap->passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3]))) {
 			if(i < 2)	m_vx = 0;
 			else		m_vy = 0;
 			
@@ -194,16 +187,16 @@ void Player::mapCollisions() {
 			//-----------------------------------------------------------------
 			// Test collisions with tile borders in order to shift the player
 			//-----------------------------------------------------------------
-			if( MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])
-			&& !MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])) {
+			if( Map::currentMap->passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])
+			&& !Map::currentMap->passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])) {
 				if(i < 2 && m_vy == 0)	m_vy = 1;
 				else if(    m_vx == 0)	m_vx = 1;
 				
 				m_blocked = false;
 			}
 			
-			if( MapHelper::passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])
-			&& !MapHelper::passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])) {
+			if( Map::currentMap->passable(m_x + collisionMatrix[i][0], m_y + collisionMatrix[i][1])
+			&& !Map::currentMap->passable(m_x + collisionMatrix[i][2], m_y + collisionMatrix[i][3])) {
 				if(i < 2 && m_vy == 0)	m_vy = -1;
 				else if(    m_vx == 0)	m_vx = -1;
 				
@@ -231,7 +224,7 @@ void Player::mapCollisions() {
 	}
 	
 	// Check if the player is not on a door anymore
-	if(m_inDoor && !MapHelper::onDoor(m_x + 8, m_y + 8)) {
+	if(m_inDoor && !Map::currentMap->onDoor(m_x + 8, m_y + 8)) {
 		m_inDoor = false;
 	}
 }

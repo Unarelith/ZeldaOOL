@@ -5,13 +5,9 @@
  *
  *    Description:  
  *
- *        Version:  1.0
  *        Created:  15/09/2014 22:17:43
- *       Revision:  none
- *       Compiler:  gcc
  *
- *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
@@ -42,7 +38,7 @@ class Player : public Battler {
 		
 		// Flag used to know if the player is still on
 		// a door after a DoorTransition
-		bool m_inDoor;
+		bool m_inDoor = false;
 };
 
 #endif // PLAYER_HPP_

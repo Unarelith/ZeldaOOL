@@ -5,13 +5,9 @@
  *
  *    Description:  
  *
- *        Version:  1.0
  *        Created:  29/09/2014 19:38:51
- *       Revision:  none
- *       Compiler:  gcc
  *
- *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
@@ -32,7 +28,7 @@ DialogState::DialogState(ApplicationState *parent, const std::string &text) : Ap
 }
 
 void DialogState::update() {
-	Map::currentMap->update(true);
+	Map::currentMap->update();
 	
 	m_dialog.update();
 	

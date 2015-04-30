@@ -5,13 +5,9 @@
  *
  *    Description:  
  *
- *        Version:  1.0
  *        Created:  05/10/2014 21:52:55
- *       Revision:  none
- *       Compiler:  gcc
  *
- *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
@@ -81,8 +77,6 @@ void DoorTransition::update() {
 
 void DoorTransition::draw() {
 	if(m_timer.time() > 250) {
-		View::bind(&m_nextMap->view());
-		
 		m_nextMap->draw();
 		
 		View::bind(&Map::currentMap->view());
