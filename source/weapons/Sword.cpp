@@ -15,12 +15,12 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "GrassObject.hpp"
 #include "Keyboard.hpp"
 #include "Map.hpp"
 #include "MapHelper.hpp"
 #include "PlayerState.hpp"
-#include "SoundEffect.hpp"
 #include "StandingState.hpp"
 #include "Sword.hpp"
 #include "SwordState.hpp"
@@ -125,7 +125,7 @@ void Sword::update() {
 				
 				m_keyReleased = false;
 				
-				SoundEffect::play("swordSlash1");
+				AudioPlayer::playEffect("swordSlash1");
 				
 				m_player.resetAnimation(m_player.direction() + 8);
 				resetAnimation(m_player.direction());
@@ -136,12 +136,12 @@ void Sword::update() {
 			if(m_loadingTimer.time() > 650 && !m_loaded) {
 				m_loaded = true;
 				
-				SoundEffect::play("swordCharge");
+				AudioPlayer::playEffect("swordCharge");
 			}
 			
 			if(!keyPressed()) {
 				if(m_loadingTimer.time() > 650) {
-					SoundEffect::play("swordSpin");
+					AudioPlayer::playEffect("swordSpin");
 					
 					m_loaded = false;
 					

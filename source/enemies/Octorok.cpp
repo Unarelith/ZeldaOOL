@@ -15,10 +15,10 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "HurtMovement.hpp"
 #include "Octorok.hpp"
 #include "OctorokMovement.hpp"
-#include "SoundEffect.hpp"
 
 Octorok::Octorok(u16 x, u16 y, u8 direction) {
 	load(x, y, direction);
@@ -65,7 +65,7 @@ void Octorok::draw() {
 }
 
 void Octorok::hurtAction(s16 vx, s16 vy) {
-	SoundEffect::play("enemyHit");
+	AudioPlayer::playEffect("enemyHit");
 	
 	setMovement<HurtMovement>(vx, vy, 0.8);
 }

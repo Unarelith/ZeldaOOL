@@ -15,7 +15,7 @@
  *
  * =====================================================================================
  */
-#include "BackgroundMusic.hpp"
+#include "AudioPlayer.hpp"
 #include "ButtonObject.hpp"
 #include "ChestObject.hpp"
 #include "DialogState.hpp"
@@ -30,14 +30,13 @@
 #include "Player.hpp"
 #include "ResourceHandler.hpp"
 #include "ScrollingTransition.hpp"
-#include "SoundEffect.hpp"
 #include "TilesetLoader.hpp"
 #include "TransitionState.hpp"
 
 MapState::MapState() {
-	ResourceHandler::getInstance().addType("data/config/tilesets.xml", TilesetLoader());
-	ResourceHandler::getInstance().addType("data/config/maps.xml", MapLoader());
-	ResourceHandler::getInstance().addType("data/config/doors.xml", DoorLoader());
+	ResourceHandler::getInstance().loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
+	ResourceHandler::getInstance().loadConfigFile<MapLoader>("data/config/maps.xml");
+	ResourceHandler::getInstance().loadConfigFile<DoorLoader>("data/config/doors.xml");
 	
 	Map::currentMap = &Map::getMap(0, 0, 0);
 	
@@ -55,7 +54,7 @@ MapState::MapState() {
 	Map::getMap(0, 1, 0).addObject<Octorok>(5 * 16, 4 * 16, Movable::Direction::Right);
 	Map::getMap(2, 0, 0).addObject<Octorok>(5 * 16, 3 * 16, Movable::Direction::Right);
 	
-	BackgroundMusic::play("plain");
+	AudioPlayer::playMusic("plain");
 }
 
 void MapState::update() {
@@ -83,13 +82,13 @@ void MapState::update() {
 	}
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::Start)) {
-		SoundEffect::play("menuOpen");
+		AudioPlayer::playEffect("menuOpen");
 		
 		m_stateStack->push<MenuState>();
 	}
 }
 
-void MapState::render() {
+void MapState::draw() {
 	View::bind(&Map::currentMap->view());
 	
 	Map::currentMap->draw();

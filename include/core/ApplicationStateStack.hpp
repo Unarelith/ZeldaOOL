@@ -28,7 +28,7 @@ class ApplicationStateStack {
 		template<typename T, typename... Args>
 		void push(Args &&...args) {
 			m_states.push(std::make_shared<T>(std::forward<Args>(args)...));
-			m_states.top()->setStackHandle(this);
+			m_states.top()->setStateStack(this);
 		}
 		
 		void pop() { m_states.pop(); }

@@ -26,12 +26,7 @@
 class Image {
 	public:
 		Image() = default;
-		Image(const Image &) = default;
-		Image(Image &&) = default;
 		Image(const std::string &filename);
-		
-		Image &operator=(const Image &) = default;
-		Image &operator=(Image &&) = default;
 		
 		void load(const std::string &filename);
 		

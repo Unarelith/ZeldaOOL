@@ -15,9 +15,9 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "ButtonObject.hpp"
 #include "Map.hpp"
-#include "SoundEffect.hpp"
 
 void ButtonObject::addTileChange(u16 tileX, u16 tileY, u16 newTileID) {
 	m_mapChanges.emplace_back(tileX, tileY, newTileID);
@@ -25,7 +25,7 @@ void ButtonObject::addTileChange(u16 tileX, u16 tileY, u16 newTileID) {
 
 void ButtonObject::onEvent(u8 event) {
 	if(event == Map::EventType::ButtonPressed) {
-		SoundEffect::play("chest");
+		AudioPlayer::playEffect("chest");
 		
 		Map::currentMap->setTile(m_x / 16, m_y / 16, 8);
 		

@@ -29,7 +29,7 @@ class TransitionState : public ApplicationState {
 		
 		void update();
 		
-		void render();
+		void draw();
 		
 	private:
 		std::unique_ptr<Transition> m_transition;

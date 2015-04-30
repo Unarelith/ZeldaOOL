@@ -24,28 +24,36 @@
 #include "Exception.hpp"
 #include "XMLFile.hpp"
 
-class ResourceLoader;
-
 class ResourceHandler {
 	public:
-		void addType(const std::string &xmlFilename, ResourceLoader &&loader);
-		
 		template<typename T, typename... Args>
-		void add(std::string name, Args &&...args) {
-			if(m_resources.find(name) != m_resources.end()) {
+		T &add(const std::string &name, Args &&...args) {
+			if(has(name)) {
 				throw EXCEPTION("A resource already exists with name:", name);
 			}
 			
-			m_resources.emplace(name, std::make_shared<T>(std::forward<Args>(args)...));
+			m_resources[name] = std::make_shared<T>(std::forward<Args>(args)...);
+			
+			return get<T>(name);
 		}
 		
-		template<typename ResourceType>
-		ResourceType &get(const std::string &name) {
-			if(m_resources.find(name) == m_resources.end()) {
+		bool has(const std::string &name) {
+			return m_resources.find(name) != m_resources.end();
+		}
+		
+		template<typename T>
+		T &get(const std::string &name) {
+			if(!has(name)) {
 				throw EXCEPTION("Unable to find resource with name:", name);
 			}
 			
-			return *static_cast<ResourceType*>(m_resources[name].get());
+			return *std::static_pointer_cast<T>(m_resources[name]);
+		}
+		
+		template<typename ResourceLoader>
+		static void loadConfigFile(const std::string &xmlFilename) {
+			ResourceLoader loader;
+			loader.load(xmlFilename, getInstance());
 		}
 		
 		static ResourceHandler &getInstance() {

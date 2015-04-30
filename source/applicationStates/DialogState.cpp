@@ -15,11 +15,11 @@
  *
  * =====================================================================================
  */
-#include "Player.hpp"
+#include "AudioPlayer.hpp"
 #include "DialogState.hpp"
 #include "Keyboard.hpp"
 #include "Map.hpp"
-#include "SoundEffect.hpp"
+#include "Player.hpp"
 
 DialogState::DialogState(ApplicationState *parent, const std::string &text) : ApplicationState(parent) {
 	Sprite::pause = true;
@@ -39,7 +39,7 @@ void DialogState::update() {
 	if(Keyboard::isKeyPressedOnce(Keyboard::B)
 	|| Keyboard::isKeyPressedOnce(Keyboard::A)) {
 		if(!m_dialog.lastPage()) {
-			SoundEffect::play("dialogContinue");
+			AudioPlayer::playEffect("dialogContinue");
 			
 			m_dialog.scrollDown();
 		} else {
@@ -50,8 +50,8 @@ void DialogState::update() {
 	}
 }
 
-void DialogState::render() {
-	m_parent->render();
+void DialogState::draw() {
+	m_parent->draw();
 	
 	m_dialog.draw();
 }

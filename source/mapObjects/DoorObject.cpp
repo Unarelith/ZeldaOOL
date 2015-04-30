@@ -16,10 +16,10 @@
  * =====================================================================================
  */
 #include "ApplicationStateStack.hpp"
+#include "AudioPlayer.hpp"
 #include "DoorObject.hpp"
 #include "DoorTransition.hpp"
 #include "Map.hpp"
-#include "SoundEffect.hpp"
 #include "TransitionState.hpp"
 
 void DoorObject::setDestination(u16 area, u8 mapX, u8 mapY, float playerX, float playerY, u8 playerDirection) {
@@ -36,7 +36,7 @@ void DoorObject::setDestination(u16 area, u8 mapX, u8 mapY, float playerX, float
 
 void DoorObject::onEvent(u8 event) {
 	if(event == Map::EventType::ChangeMap) {
-		SoundEffect::play("mapStairs");
+		AudioPlayer::playEffect("mapStairs");
 		
 		// FIXME: TO REMOVE LATER
 		ApplicationStateStack::getInstance().push<TransitionState>(new DoorTransition(m_area, m_mapX, m_mapY, m_playerX, m_playerY, m_playerDirection));

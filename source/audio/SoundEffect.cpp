@@ -16,7 +16,6 @@
  * =====================================================================================
  */
 #include "Exception.hpp"
-#include "ResourceHandler.hpp"
 #include "SoundEffect.hpp"
 
 SoundEffect::SoundEffect(const std::string &filename) {
@@ -28,13 +27,20 @@ void SoundEffect::load(const std::string &filename) {
 	if(!m_sfx) {
 		throw EXCEPTION("Unable to load sound effect:", filename, ":", Mix_GetError());
 	}
+	
+	m_timer.start();
 }
 
 void SoundEffect::play(s8 channel) {
 	Mix_PlayChannel(channel, m_sfx.get(), 0);
 }
 
-void SoundEffect::play(const std::string &resourceName) {
-	ResourceHandler::getInstance().get<SoundEffect>(std::string("sfx-") + resourceName).play();
+void SoundEffect::repeat(u16 delay, s8 channel) {
+	if(m_timer.time() > delay) {
+		play(channel);
+		
+		m_timer.reset();
+		m_timer.start();
+	}
 }
 

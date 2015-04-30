@@ -17,7 +17,6 @@
  */
 #include "Exception.hpp"
 #include "BackgroundMusic.hpp"
-#include "ResourceHandler.hpp"
 
 BackgroundMusic::BackgroundMusic(const std::string &filename) {
 	load(filename);
@@ -32,9 +31,5 @@ void BackgroundMusic::load(const std::string &filename) {
 
 void BackgroundMusic::play() {
 	Mix_PlayMusic(m_music.get(), -1);
-}
-
-void BackgroundMusic::play(const std::string &resourceName) {
-	ResourceHandler::getInstance().get<BackgroundMusic>(std::string("bgm-") + resourceName).play();
 }
 

@@ -16,15 +16,15 @@
  * =====================================================================================
  */
 #include "ApplicationStateStack.hpp"
+#include "AudioPlayer.hpp"
 #include "ChestObject.hpp"
 #include "ChestOpenedState.hpp"
 #include "Map.hpp"
 #include "RupeeCollectable.hpp"
-#include "SoundEffect.hpp"
 
 void ChestObject::onEvent(u8 event) {
 	if(event == Map::EventType::ChestOpened) {
-		SoundEffect::play("chest");
+		AudioPlayer::playEffect("chest");
 		
 		m_opened = true;
 		

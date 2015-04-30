@@ -27,7 +27,7 @@ class DialogState : public ApplicationState {
 		
 		void update();
 		
-		void render();
+		void draw();
 		
 	private:
 		Dialog m_dialog;

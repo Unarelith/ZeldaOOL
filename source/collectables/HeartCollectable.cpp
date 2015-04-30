@@ -15,16 +15,16 @@
  *
  * =====================================================================================
  */
-#include "Player.hpp"
+#include "AudioPlayer.hpp"
 #include "HeartCollectable.hpp"
-#include "SoundEffect.hpp"
+#include "Player.hpp"
 
 HeartCollectable::HeartCollectable(float x, float y) {
 	Collectable::load("collectables-heart", x, y);
 }
 
 void HeartCollectable::action() {
-	SoundEffect::play("getHeart");
+	AudioPlayer::playEffect("getHeart");
 	
 	Player::player.addHearts(1);
 }

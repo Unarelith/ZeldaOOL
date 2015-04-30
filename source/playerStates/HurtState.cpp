@@ -15,13 +15,13 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "HurtMovement.hpp"
 #include "HurtState.hpp"
 #include "StandingState.hpp"
-#include "SoundEffect.hpp"
 
 HurtState::HurtState(s16 vx, s16 vy, float speed) {
-	SoundEffect::play("linkHurt");
+	AudioPlayer::playEffect("linkHurt");
 	
 	m_character.setMovement<HurtMovement>(vx, vy, speed);
 }

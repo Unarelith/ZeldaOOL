@@ -15,15 +15,15 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "Keyboard.hpp"
 #include "MapHelper.hpp"
 #include "Map.hpp"
-#include "SoundEffect.hpp"
 #include "SwordState.hpp"
 #include "TilesData.hpp"
 
 SwordState::SwordState(Sword *sword) {
-	SoundEffect::play("swordSlash1");
+	AudioPlayer::playEffect("swordSlash1");
 	
 	m_playerMoved = false;
 	

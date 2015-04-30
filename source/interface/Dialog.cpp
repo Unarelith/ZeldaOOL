@@ -15,8 +15,8 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "Dialog.hpp"
-#include "SoundEffect.hpp"
 
 Dialog::Dialog() {
 	m_arrowTimer.start();
@@ -27,7 +27,7 @@ Dialog::Dialog() {
 
 void Dialog::update() {
 	if(m_soundTimer.time() > 60 && !waitForUser()) {
-		SoundEffect::play("textLetter");
+		AudioPlayer::playEffect("textLetter");
 		
 		m_soundTimer.reset();
 		m_soundTimer.start();

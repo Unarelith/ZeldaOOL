@@ -26,15 +26,11 @@
 class BackgroundMusic {
 	public:
 		BackgroundMusic() = default;
-		BackgroundMusic(const BackgroundMusic &) = delete;
-		BackgroundMusic(BackgroundMusic &&music) = default;
 		BackgroundMusic(const std::string &filename);
 		
 		void load(const std::string &filename);
 		
 		void play();
-		
-		static void play(const std::string &resourceName);
 		
 	private:
 		using Mix_MusicPtr = std::unique_ptr<Mix_Music, decltype(&Mix_FreeMusic)>;

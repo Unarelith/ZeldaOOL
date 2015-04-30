@@ -15,9 +15,9 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "Enemy.hpp"
 #include "Map.hpp"
-#include "SoundEffect.hpp"
 
 Enemy::Enemy(const std::string &filename, u16 x, u16 y, u16 width, u16 height, u8 direction) : Enemy() {
 	load(filename, x, y, width, height, direction);
@@ -56,7 +56,7 @@ void Enemy::checkDeath() {
 	if(m_life == 0) {
 		m_dead = true;
 		
-		SoundEffect::play("enemyDie");
+		AudioPlayer::playEffect("enemyDie");
 		
 		m_life = m_maxLife;
 	}

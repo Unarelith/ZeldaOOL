@@ -27,7 +27,7 @@ class ChestOpenedState : public ApplicationState {
 		
 		void update();
 		
-		void render();
+		void draw();
 		
 		enum State {
 			Opening,

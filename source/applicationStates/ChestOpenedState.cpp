@@ -15,9 +15,9 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "ChestOpenedState.hpp"
 #include "DialogState.hpp"
-#include "SoundEffect.hpp"
 
 ChestOpenedState::ChestOpenedState(ApplicationState *parent, float x, float y, Collectable &collectable) : ApplicationState(parent) {
 	m_collectable = &collectable;
@@ -38,7 +38,7 @@ void ChestOpenedState::update() {
 	}
 	
 	if(m_state == State::Opened) {
-		SoundEffect::play("itemNew");
+		AudioPlayer::playEffect("itemNew");
 		
 		m_collectable->action();
 		
@@ -54,8 +54,8 @@ void ChestOpenedState::update() {
 	}
 }
 
-void ChestOpenedState::render() {
-	m_parent->render();
+void ChestOpenedState::draw() {
+	m_parent->draw();
 	
 	if(m_state == State::Opening || (m_state == State::Finished && m_stateStack->size() > 1)) {
 		m_collectable->draw();

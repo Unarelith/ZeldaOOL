@@ -27,7 +27,7 @@ class MapState : public ApplicationState {
 		
 		void update();
 		
-		void render();
+		void draw();
 		
 	protected:
 		StatsBar m_statsBar;

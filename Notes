@@ -1,3 +1,7 @@
+===== REFACTORING =====
+- Improve 'Dialog' and 'DialogState'
+	=> Use ZeldaOOL
+
 ===== CLEANING =====
 - Is the fact having the pair update/draw a bad thing or it is the implementation
   of them in the same class the bad thing?
@@ -59,8 +63,6 @@ Character needs:
 	=> Clean
 - Finish 'NPC'
 	=> Player can't move on the side when it collides an NPC
-- Improve 'Dialog' and 'DialogState'
-	=> Maybe rewrite it?
 - Remove sword loading animation, and replace it by palette switch
 - Implement EnemyLoader with 'data/config/enemies.xml'
 - Implement 'Translator'

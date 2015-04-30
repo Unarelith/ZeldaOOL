@@ -15,7 +15,7 @@
  *
  * =====================================================================================
  */
-#include "BackgroundMusic.hpp"
+#include "AudioPlayer.hpp"
 #include "Config.hpp"
 #include "DoorTransition.hpp"
 #include "Map.hpp"
@@ -46,12 +46,12 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	
 	// FIXME: TEMPORARY
 	if(m_nextMap->area() == 0) {
-		BackgroundMusic::play("plain");
+		AudioPlayer::playMusic("plain");
 	}
 	else if(m_nextMap->area() == 1) {
-		BackgroundMusic::play("indoor");
+		AudioPlayer::playMusic("indoor");
 	} else {
-		BackgroundMusic::play("underground");
+		AudioPlayer::playMusic("underground");
 	}
 	
 	Player::player.setNextState<StandingState>();

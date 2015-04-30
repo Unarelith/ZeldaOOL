@@ -15,21 +15,21 @@
  *
  * =====================================================================================
  */
+#include "AudioPlayer.hpp"
 #include "Keyboard.hpp"
 #include "MenuState.hpp"
-#include "SoundEffect.hpp"
 
 void MenuState::update() {
 	m_menu.update();
 	
 	if(Keyboard::isKeyPressedOnce(Keyboard::Start)) {
-		SoundEffect::play("menuClose");
+		AudioPlayer::playEffect("menuClose");
 		
 		m_stateStack->pop();
 	}
 }
 
-void MenuState::render() {
+void MenuState::draw() {
 	m_statsBar.draw();
 	
 	m_menu.draw();

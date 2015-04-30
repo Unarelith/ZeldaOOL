@@ -25,12 +25,13 @@ class ApplicationState {
 		ApplicationState(ApplicationState *parent = nullptr) : m_parent(parent) {}
 		ApplicationState(const ApplicationState &) = delete;
 		ApplicationState(ApplicationState &&) = default;
-		
-		void setStackHandle(ApplicationStateStack *stateStack) { m_stateStack = stateStack; }
+		virtual ~ApplicationState() = default;
 		
 		virtual void update() = 0;
 		
-		virtual void render() = 0;
+		virtual void draw() = 0;
+		
+		void setStateStack(ApplicationStateStack *stateStack) { m_stateStack = stateStack; }
 		
 	protected:
 		ApplicationState *m_parent = nullptr;

@@ -22,8 +22,8 @@
 #include "TextureLoader.hpp"
 
 Application::Application() : m_stateStack(ApplicationStateStack::getInstance()) {
-	ResourceHandler::getInstance().addType("data/config/audio.xml", AudioLoader());
-	ResourceHandler::getInstance().addType("data/config/textures.xml", TextureLoader());
+	ResourceHandler::getInstance().loadConfigFile<AudioLoader>("data/config/audio.xml");
+	ResourceHandler::getInstance().loadConfigFile<TextureLoader>("data/config/textures.xml");
 	
 	m_stateStack.push<MapState>();
 }
@@ -58,7 +58,7 @@ void Application::run() {
 		m_clock.drawGame([&] {
 			m_window.clear();
 			
-			m_stateStack.top()->render();
+			m_stateStack.top()->draw();
 			
 			m_window.update();
 		});

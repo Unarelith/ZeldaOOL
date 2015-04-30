@@ -26,7 +26,7 @@ class MenuState : public ApplicationState {
 	public:
 		void update();
 		
-		void render();
+		void draw();
 		
 	private:
 		StatsBar m_statsBar;

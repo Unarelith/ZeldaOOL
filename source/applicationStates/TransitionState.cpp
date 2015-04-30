@@ -25,7 +25,7 @@ void TransitionState::update() {
 	}
 }
 
-void TransitionState::render() {
+void TransitionState::draw() {
 	m_transition->draw();
 }
 
