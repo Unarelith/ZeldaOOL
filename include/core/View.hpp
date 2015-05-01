@@ -14,7 +14,7 @@
 #ifndef VIEW_HPP_
 #define VIEW_HPP_
 
-#include "Types.hpp"
+#include "IntTypes.hpp"
 
 class View {
 	public:

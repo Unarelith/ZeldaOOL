@@ -14,8 +14,8 @@
 #ifndef HURTMOVEMENT_HPP_
 #define HURTMOVEMENT_HPP_
 
+#include "IntTypes.hpp"
 #include "Movement.hpp"
-#include "Types.hpp"
 
 class HurtMovement : public Movement {
 	public:

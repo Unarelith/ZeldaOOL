@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Rectangle.hpp
+ *       Filename:  RectangleShape.hpp
  *
  *    Description:  
  *
@@ -11,16 +11,15 @@
  *
  * =====================================================================================
  */
-#ifndef RECTANGLE_HPP_
-#define RECTANGLE_HPP_
+#ifndef RECTANGLESHAPE_HPP_
+#define RECTANGLESHAPE_HPP_
 
 #include "Color.hpp"
-#include "Types.hpp"
 
-class Rectangle {
+class RectangleShape {
 	public:
-		Rectangle() = default;
-		Rectangle(float x, float y, u16 width, u16 height);
+		RectangleShape() = default;
+		RectangleShape(float x, float y, u16 width, u16 height);
 		
 		void draw(Color color = Color::black);
 		
@@ -43,4 +42,4 @@ class Rectangle {
 		u16 m_height;
 };
 
-#endif // RECTANGLE_HPP_
+#endif // RECTANGLESHAPE_HPP_

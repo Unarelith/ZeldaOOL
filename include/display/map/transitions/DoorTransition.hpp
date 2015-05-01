@@ -15,7 +15,7 @@
 #define DOORTRANSITION_HPP_
 
 #include "Map.hpp"
-#include "Rectangle.hpp"
+#include "RectangleShape.hpp"
 #include "StatsBar.hpp"
 #include "Transition.hpp"
 
@@ -39,8 +39,8 @@ class DoorTransition : public Transition {
 		
 		Timer m_timer;
 		
-		Rectangle m_rect1;
-		Rectangle m_rect2;
+		RectangleShape m_rect1;
+		RectangleShape m_rect2;
 		
 		StatsBar m_statsBar;
 };

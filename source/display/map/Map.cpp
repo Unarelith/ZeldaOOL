@@ -15,7 +15,7 @@
 #include "Map.hpp"
 #include "MapLoader.hpp"
 #include "ResourceHandler.hpp"
-#include "TilesData.hpp"
+#include "TilesInfos.hpp"
 
 Map *Map::currentMap = nullptr;
 
@@ -68,10 +68,10 @@ void Map::updateTiles() {
 			u16 x = tileX * m_tileset.tileWidth();
 			u16 y = tileY * m_tileset.tileHeight();
 			
-			if(m_tileset.info()[tileID] == TilesData::TileType::GrassTile) {
+			if(m_tileset.info()[tileID] == TilesInfos::TileType::GrassTile) {
 				addObject<GrassObject>(x, y);
 			}
-			else if(m_tileset.info()[tileID] == TilesData::TileType::LowGrassTile) {
+			else if(m_tileset.info()[tileID] == TilesInfos::TileType::LowGrassTile) {
 				addObject<GrassObject>(x, y, true);
 			}
 		}
@@ -98,16 +98,16 @@ bool Map::passable(float x, float y) {
 	s16 tile = m_tileset.info()[getTile(x / m_tileset.tileWidth(),
 	                                    y / m_tileset.tileHeight())];
 	
-	return TilesData::infos[tile][(s16(x) & 0xF) / (m_tileset.tileWidth()  / 2)
-	                            + (s16(y) & 0xF) / (m_tileset.tileHeight() / 2) * 2] != TilesData::SubTileType::NonPassable;
+	return TilesInfos::infos[tile][(s16(x) & 0xF) / (m_tileset.tileWidth()  / 2)
+	                             + (s16(y) & 0xF) / (m_tileset.tileHeight() / 2) * 2] != TilesInfos::SubTileType::NonPassable;
 }
 
 bool Map::onDoor(float x, float y) {
 	s16 tile = m_tileset.info()[getTile(x / m_tileset.tileWidth(),
 	                                    y / m_tileset.tileHeight())];
 	
-	return TilesData::infos[tile][(s16(x) & 0xF) / (m_tileset.tileWidth()  / 2)
-	                            + (s16(y) & 0xF) / (m_tileset.tileHeight() / 2) * 2] == TilesData::SubTileType::ChangeMap;
+	return TilesInfos::infos[tile][(s16(x) & 0xF) / (m_tileset.tileWidth()  / 2)
+	                             + (s16(y) & 0xF) / (m_tileset.tileHeight() / 2) * 2] == TilesInfos::SubTileType::ChangeMap;
 }
 
 bool Map::isTile(float x, float y, u16 tile) {

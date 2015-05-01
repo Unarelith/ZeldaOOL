@@ -17,7 +17,7 @@
 #include <array>
 #include <memory>
 
-#include "Types.hpp"
+#include "IntTypes.hpp"
 
 class Weapon;
 

@@ -17,7 +17,7 @@
 #include <vector>
 
 #include "Font.hpp"
-#include "Rectangle.hpp"
+#include "RectangleShape.hpp"
 
 class Dialog {
 	public:
@@ -43,7 +43,7 @@ class Dialog {
 		bool lastPage() { return (m_currentLine + 2 >= (u8)m_lines.size()); }
 		
 	private:
-		Rectangle m_rectangle{8, Position::Top, 144, 40};
+		RectangleShape m_rectangle{8, Position::Top, 144, 40};
 		
 		Font m_font{"interface-font", 8, 16};
 		

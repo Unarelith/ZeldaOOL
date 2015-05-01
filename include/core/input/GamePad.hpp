@@ -18,7 +18,7 @@
 #include <memory>
 
 #include "InputHandler.hpp"
-#include "Types.hpp"
+#include "IntTypes.hpp"
 
 class GamePad {
 	public:

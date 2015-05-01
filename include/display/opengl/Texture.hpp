@@ -16,9 +16,9 @@
 
 #include <string>
 
+#include "IntTypes.hpp"
 #include "OpenGL.hpp"
 #include "SDLHeaders.hpp"
-#include "Types.hpp"
 
 class Texture {
 	public:

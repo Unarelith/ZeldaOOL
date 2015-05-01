@@ -16,9 +16,9 @@
 
 #include <memory>
 
+#include "IntTypes.hpp"
 #include "SDLHeaders.hpp"
 #include "Shader.hpp"
-#include "Types.hpp"
 
 class Window {
 	public:

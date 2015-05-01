@@ -11,6 +11,7 @@
  *
  * =====================================================================================
  */
+#include "IntTypes.hpp"
 #include "KeyboardHandler.hpp"
 
 bool KeyboardHandler::isKeyPressed(GameKey key) {

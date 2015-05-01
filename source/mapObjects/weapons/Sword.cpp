@@ -19,7 +19,7 @@
 #include "StandingState.hpp"
 #include "Sword.hpp"
 #include "SwordState.hpp"
-#include "TilesData.hpp"
+#include "TilesInfos.hpp"
 
 s16 swordPosition[4][7][2] = {
 	{{-15,   0}, {-13,  15}, {-13,  15}, { -1,  16}, { -1,  16}, { -1,  16}, { -1,  14}},
@@ -280,8 +280,8 @@ void Sword::collisionAction(MapObject &object) {
 		if(Map::currentMap->objectAtPosition(grass, m_x + 8, m_y + 8)) {
 			if(((m_state == Sword::State::Swinging && animationCurrentFrame(m_player.direction()) > 2)
 			  || m_state == Sword::State::SpinAttack)
-			 && (Map::currentMap->isTile(m_x + 8, m_y + 8, TilesData::TileType::GrassTile)
-			  || Map::currentMap->isTile(m_x + 8, m_y + 8, TilesData::TileType::LowGrassTile))) {
+			 && (Map::currentMap->isTile(m_x + 8, m_y + 8, TilesInfos::TileType::GrassTile)
+			  || Map::currentMap->isTile(m_x + 8, m_y + 8, TilesInfos::TileType::LowGrassTile))) {
 				grass.onEvent(Map::EventType::GrassCutted);
 			}
 		}

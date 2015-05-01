@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Rectangle.cpp
+ *       Filename:  RectangleShape.cpp
  *
  *    Description:  
  *
@@ -12,15 +12,15 @@
  * =====================================================================================
  */
 #include "OpenGL.hpp"
-#include "Rectangle.hpp"
+#include "RectangleShape.hpp"
 #include "Shader.hpp"
 
-Rectangle::Rectangle(float x, float y, u16 width, u16 height) {
+RectangleShape::RectangleShape(float x, float y, u16 width, u16 height) {
 	move(x, y);
 	resize(width, height);
 }
 
-void Rectangle::draw(Color color) {
+void RectangleShape::draw(Color color) {
 	GLfloat vertices[] = {
 		m_x,			m_y,
 		m_x + m_width,	m_y,

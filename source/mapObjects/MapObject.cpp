@@ -12,7 +12,7 @@
  * =====================================================================================
  */
 #include "Map.hpp"
-#include "TilesData.hpp"
+#include "TilesInfos.hpp"
 
 MapObject::MapObject(float x, float y, u16 width, u16 height) {
 	load(x, y, width, height);
@@ -73,11 +73,11 @@ bool MapObject::onTile(u16 tile) const {
 }
 
 void MapObject::draw() {
-	if(onTile(TilesData::TileType::LowGrassTile)) {
+	if(onTile(TilesInfos::TileType::LowGrassTile)) {
 		m_grassEffect.draw(m_x, m_y);
 	}
 	
-	if(onTile(TilesData::TileType::LowWaterTile)) {
+	if(onTile(TilesInfos::TileType::LowWaterTile)) {
 		m_lowWaterEffect.playAnimation(m_x, m_y + 8, 0);
 	}
 }

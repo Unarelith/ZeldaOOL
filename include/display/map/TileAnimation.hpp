@@ -20,7 +20,7 @@
 
 #include <vector>
 
-#include "Types.hpp"
+#include "IntTypes.hpp"
 
 struct TileAnimation {
 	TileAnimation(u16 _delay) : delay(_delay) {}

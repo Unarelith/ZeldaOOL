@@ -12,8 +12,6 @@
 	=> See the array in SwordFactory of ZeldaOOL
 - Improve game object system
 - Rename TilesData to TilesInfos
-- Rename Rectangle to RectangleShape
-- Rename Types to IntTypes
 - Reorganize project tree
 
 ===== TODO =====

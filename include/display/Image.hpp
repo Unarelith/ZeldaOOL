@@ -17,7 +17,6 @@
 #include "Color.hpp"
 #include "Rect.hpp"
 #include "Texture.hpp"
-#include "Types.hpp"
 
 class Image {
 	public:

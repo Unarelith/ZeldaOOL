@@ -18,7 +18,6 @@
 
 #include "InputHandler.hpp"
 #include "SDLHeaders.hpp"
-#include "Types.hpp"
 
 class KeyboardHandler : public InputHandler {
 	public:

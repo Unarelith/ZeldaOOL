@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  TilesData.hpp
+ *       Filename:  TilesInfos.hpp
  *
  *    Description:  
  *
@@ -11,14 +11,14 @@
  *
  * =====================================================================================
  */
-#ifndef TILESDATA_HPP_
-#define TILESDATA_HPP_
+#ifndef TILESINFOS_HPP_
+#define TILESINFOS_HPP_
 
-#include "Types.hpp"
+#include "IntTypes.hpp"
 
 #define TILE_NB 18
 
-namespace TilesData {
+namespace TilesInfos {
 	extern u16 infos[TILE_NB][4];
 	
 	enum SubTileType {
@@ -38,4 +38,4 @@ namespace TilesData {
 	};
 }
 
-#endif // TILESDATA_HPP_
+#endif // TILESINFOS_HPP_

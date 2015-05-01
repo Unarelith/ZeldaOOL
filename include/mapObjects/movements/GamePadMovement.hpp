@@ -11,8 +11,8 @@
  *
  * =====================================================================================
  */
-#ifndef KEYBOARDMOVEMENT_HPP_
-#define KEYBOARDMOVEMENT_HPP_
+#ifndef GAMEPADMOVEMENT_HPP_
+#define GAMEPADMOVEMENT_HPP_
 
 #include "Movement.hpp"
 
@@ -21,4 +21,4 @@ class GamePadMovement : public Movement {
 		void doMovement(Movable &movable) override;
 };
 
-#endif // KEYBOARDMOVEMENT_HPP_
+#endif // GAMEPADMOVEMENT_HPP_

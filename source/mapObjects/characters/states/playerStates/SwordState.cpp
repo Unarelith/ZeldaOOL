@@ -15,7 +15,6 @@
 #include "GamePad.hpp"
 #include "Map.hpp"
 #include "SwordState.hpp"
-#include "TilesData.hpp"
 
 SwordState::SwordState(Sword *sword) {
 	AudioPlayer::playEffect("swordSlash1");

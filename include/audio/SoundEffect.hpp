@@ -19,7 +19,6 @@
 
 #include "SDLHeaders.hpp"
 #include "Timer.hpp"
-#include "Types.hpp"
 
 class SoundEffect {
 	public:

@@ -16,7 +16,7 @@
 
 #include <string>
 
-#include "Types.hpp"
+#include "IntTypes.hpp"
 
 class AudioPlayer {
 	public:

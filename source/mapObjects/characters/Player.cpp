@@ -21,7 +21,7 @@
 #include "PushingState.hpp"
 #include "StandingState.hpp"
 #include "Sword.hpp"
-#include "TilesData.hpp"
+#include "TilesInfos.hpp"
 
 Player Player::player;
 
@@ -69,7 +69,7 @@ void Player::update(bool states) {
 	Battler::update();
 	
 	// Check if a chest is in front of the player and if A is pressed
-	if(m_direction == Direction::Up && Map::currentMap->isTile(m_x + 8, m_y + 4, TilesData::TileType::ClosedChest)) {
+	if(m_direction == Direction::Up && Map::currentMap->isTile(m_x + 8, m_y + 4, TilesInfos::TileType::ClosedChest)) {
 		if(GamePad::isKeyPressedOnce(GameKey::A)) {
 			ChestObject *chestObject = static_cast<ChestObject*>(Map::currentMap->getObject(m_x + 8, m_y - 2));
 			if(chestObject) {
@@ -131,7 +131,7 @@ void Player::collisionAction(MapObject &object) {
 		}
 	}
 	else {
-		if(onTile(TilesData::TileType::Button)) {
+		if(onTile(TilesInfos::TileType::Button)) {
 			object.onEvent(Map::EventType::ButtonPressed);
 		}
 		else if(!m_inDoor && Map::currentMap->onDoor(m_x + 8, m_y + 8)) {
@@ -210,12 +210,12 @@ void Player::mapCollisions() {
 	
 	if(m_blocked) setNextState<PushingState>();
 	
-	if(onTile(TilesData::TileType::SlowingTile)) {
+	if(onTile(TilesInfos::TileType::SlowingTile)) {
 		m_vx /= 2;
 		m_vy /= 2;
 	}
 	
-	if(onTile(TilesData::TileType::LowGrassTile)) {
+	if(onTile(TilesInfos::TileType::LowGrassTile)) {
 		m_vx /= 4;
 		m_vx *= 3;
 		

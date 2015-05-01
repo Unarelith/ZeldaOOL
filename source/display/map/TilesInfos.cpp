@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  TilesData.cpp
+ *       Filename:  TilesInfos.cpp
  *
  *    Description:  
  *
@@ -11,9 +11,9 @@
  *
  * =====================================================================================
  */
-#include "TilesData.hpp"
+#include "TilesInfos.hpp"
 
-u16 TilesData::infos[TILE_NB][4] = {
+u16 TilesInfos::infos[TILE_NB][4] = {
 	// Tile 0: Passable
 	{0, 0,
 	 0, 0},
