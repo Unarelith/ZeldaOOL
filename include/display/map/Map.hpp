@@ -14,14 +14,10 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
-#include <memory>
-
 #include "MapAnimator.hpp"
-#include "MapObject.hpp"
 #include "MapRenderer.hpp"
-#include "Player.hpp"
+#include "Scene.hpp"
 #include "Tileset.hpp"
-#include "VertexBuffer.hpp"
 #include "View.hpp"
 
 class Map {
@@ -49,6 +45,8 @@ class Map {
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 		
+		Scene &scene() { return m_scene; }
+		
 		Tileset &tileset() { return m_tileset; }
 		
 		View &view() { return m_view; }
@@ -60,49 +58,6 @@ class Map {
 		bool hasSideMap(s8 dx, s8 dy) { return mapExists(m_area, m_x + dx, m_y + dy); }
 		
 		static Map *currentMap;
-		
-		// OLD PART BEGINS HERE
-		template<typename T, typename... Args>
-		T &addObject(Args &&...args) {
-			m_objects.emplace_back(new T(std::forward<Args>(args)...));
-			m_objects.back()->addCollisionHandler(std::bind(&Map::checkCollisionsFor, this, m_objects.back().get()));
-			return static_cast<T&>(*m_objects.back());
-		}
-		
-		void removeObject(MapObject &object) {
-			m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(),
-							[&](std::unique_ptr<MapObject> &it) {
-								return it.get() == &object;
-							}), m_objects.end());
-		}
-		
-		bool objectAtPosition(const MapObject &obj, float x, float y) const {
-			return((floor(obj.x() / 8) == floor(x / 8)
-				 || floor(obj.x() / 8) == floor(x / 8) - 1)
-				&& (floor(obj.y() / 8) == floor(y / 8)
-				 || floor(obj.y() / 8) == floor(y / 8) - 1));
-		}
-		
-		MapObject *getObject(float x, float y) {
-			for(auto &it : m_objects) {
-				if(objectAtPosition(*it, x, y)) {
-					return it.get();
-				}
-			}
-			
-			return nullptr;
-		}
-
-		void checkCollisionsFor(MapObject *object) {
-			for(auto &it : m_objects) {
-				MapObject *object2 = (it && it.get() != object) ? it.get() : &Player::player;
-				
-				if(object->inCollisionWith(*object2)) {
-					object->collisionAction(*object2);
-					object2->collisionAction(*object);
-				}
-			}
-		}
 		
 		enum EventType {
 			ButtonPressed,
@@ -125,14 +80,14 @@ class Map {
 		
 		MapRenderer m_renderer;
 		
+		Scene m_scene;
+		
 		Tileset &m_tileset;
 		
 		std::vector<u16> m_baseData;
 		std::vector<u16> m_data;
 		
 		View m_view;
-		
-		std::vector<std::unique_ptr<MapObject>> m_objects;
 };
 
 #endif // TILEMAP_HPP_

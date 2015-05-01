@@ -28,6 +28,20 @@ Player Player::player;
 void Player::load() {
 	Battler::load("characters-link", 4 * 16, 3 * 16, 16, 16, Direction::Down);
 	
+	std::vector<std::vector<std::pair<s16, s16>>> usingSwordPosition = {
+		{{ 0,  0}, { 0,  0}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  0}, { 0,  0}},
+		{{ 0,  0}, { 0,  0}, { 4,  0}, { 4,  0}, { 4,  0}, { 4,  0}, { 0,  0}, { 0,  0}},
+		{{ 0,  0}, { 0,  0}, {-4,  0}, {-4,  0}, {-4,  0}, {-4,  0}, { 0,  0}, { 0,  0}},
+		{{ 0,  0}, { 0,  0}, { 0, -3}, { 0, -3}, { 0, -3}, { 0, -3}, { 0,  0}, { 0,  0}}
+	};
+	
+	std::vector<std::pair<s16, s16>> swordSpinAttackPosition = {
+		{ 0,  3}, { 0,  3},
+		{-4,  0}, {-4,  0},
+		{ 0, -3}, { 0, -3},
+		{ 4,  0}, { 4,  0}
+	};
+	
 	// Movement
 	addAnimation({4, 0}, 110);
 	addAnimation({5, 1}, 110);
@@ -41,13 +55,13 @@ void Player::load() {
 	addAnimation({11, 15}, 90);
 	
 	// Using sword
-	addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, 40);
-	addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, 40);
-	addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 40);
-	addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 40);
+	addAnimation({16, 16, 20, 20, 20, 20, 20, 20}, usingSwordPosition[0], 40);
+	addAnimation({17, 17, 21, 21, 21, 21, 21, 21}, usingSwordPosition[1], 40);
+	addAnimation({18, 18, 22, 22, 22, 22, 22, 22}, usingSwordPosition[2], 40);
+	addAnimation({19, 19, 23, 23, 23, 23, 23, 23}, usingSwordPosition[3], 40);
 	
 	// SpinAttack
-	addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
+	addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, swordSpinAttackPosition, 50);
 	
 	setMovement<GamePadMovement>();
 	addCollisionHandler(std::bind(&Player::mapCollisions, this));
@@ -71,7 +85,7 @@ void Player::update(bool states) {
 	// Check if a chest is in front of the player and if A is pressed
 	if(m_direction == Direction::Up && Map::currentMap->isTile(m_x + 8, m_y + 4, TilesInfos::TileType::ClosedChest)) {
 		if(GamePad::isKeyPressedOnce(GameKey::A)) {
-			ChestObject *chestObject = static_cast<ChestObject*>(Map::currentMap->getObject(m_x + 8, m_y - 2));
+			ChestObject *chestObject = static_cast<ChestObject*>(Map::currentMap->scene().getObject(m_x + 8, m_y - 2));
 			if(chestObject) {
 				chestObject->onEvent(Map::EventType::ChestOpened);
 			}
@@ -206,7 +220,7 @@ void Player::mapCollisions() {
 	}
 	
 	// Check collisions with every object in Map::currentMap
-	Map::currentMap->checkCollisionsFor(this);
+	Map::currentMap->scene().checkCollisionsFor(this);
 	
 	if(m_blocked) setNextState<PushingState>();
 	

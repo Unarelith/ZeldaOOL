@@ -29,13 +29,17 @@ class Sprite : public Image {
 		
 		void drawFrame(float x, float y, u16 frame);
 		
+		void drawAnimationFrame(float x, float y, u16 anim, s16 frame = -1);
 		void playAnimation(float x, float y, u16 anim);
 		
 		u16 frameWidth() const { return m_frameWidth; }
 		u16 frameHeight() const { return m_frameHeight; }
 		
+		bool hasAnimations() const { return m_animations.size() > 0; }
+		
 		SpriteAnimation &getAnimation(u16 anim) { return m_animations[anim]; }
 		SpriteAnimation &currentAnimation() { return m_animations[m_currentAnimation]; }
+		void setCurrentAnimation(u16 animID) { m_currentAnimation = animID; }
 		
 		static bool pause;
 		

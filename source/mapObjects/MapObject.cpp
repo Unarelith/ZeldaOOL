@@ -43,14 +43,24 @@ void MapObject::load(const std::string &textureName, float x, float y, u16 width
 	load(x, y, width, height);
 }
 
-bool MapObject::inCollisionWith(const MapObject &object) const {
+bool MapObject::inCollisionWith(MapObject &object) {
 	FloatRect rect1(m_x + m_vx + m_hitbox.x,
 	                m_y + m_vy + m_hitbox.y,
 	                m_hitbox.width, m_hitbox.height);
 	
-	FloatRect rect2(object.m_x + object.m_vx + object.m_hitbox.x,
-	                object.m_y + object.m_vy + object.m_hitbox.y,
+	FloatRect rect2(object.m_x + object.m_vx,
+	                object.m_y + object.m_vy,
 	                object.m_hitbox.width, object.m_hitbox.height);
+	
+	if(hasAnimations()) {
+		rect1.x += currentAnimation().currentPosition().first;
+		rect1.y += currentAnimation().currentPosition().second;
+	}
+	
+	if(object.hasAnimations()) {
+		rect2.x += object.currentAnimation().currentPosition().first;
+		rect2.y += object.currentAnimation().currentPosition().second;
+	}
 	
 	return rect1.intersects(rect2);
 }

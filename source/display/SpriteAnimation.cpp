@@ -39,9 +39,9 @@ void SpriteAnimation::play() {
 	}
 }
 
-u16 SpriteAnimation::currentFrameID() const {
+u16 SpriteAnimation::getFrameID(u16 frame) const {
 	if(!isFinished()) {
-		return m_frames[framesDisplayed()];
+		return m_frames[frame];
 	} else {
 		return 0;
 	}

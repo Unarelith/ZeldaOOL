@@ -38,17 +38,17 @@ MapState::MapState() {
 	
 	Player::player.load();
 	
-	ButtonObject &button = Map::currentMap->addObject<ButtonObject>(7 * 16, 2 * 16);
+	ButtonObject &button = Map::currentMap->scene().addObject<ButtonObject>(7 * 16, 2 * 16);
 	button.addTileChange(7, 6, 36);
 	button.addTileChange(8, 6, 36);
 	
-	//Map::getMap(0, 0, 0).addObject<NPC>("characters-blueboy", 4 * 16, 1 * 16, 16, 16, Movable::Direction::Down);
+	//Map::getMap(0, 0, 0).scene().addObject<NPC>("characters-blueboy", 4 * 16, 1 * 16, 16, 16, Movable::Direction::Down);
 	
-	Map::getMap(0, 0, 1).addObject<ChestObject>(1 * 16, 5 * 16);
-	Map::getMap(2, 0, 0).addObject<ChestObject>(5 * 16, 2 * 16);
+	Map::getMap(0, 0, 1).scene().addObject<ChestObject>(1 * 16, 5 * 16);
+	Map::getMap(2, 0, 0).scene().addObject<ChestObject>(5 * 16, 2 * 16);
 	
-	Map::getMap(0, 1, 0).addObject<Octorok>(5 * 16, 4 * 16, Movable::Direction::Right);
-	Map::getMap(2, 0, 0).addObject<Octorok>(5 * 16, 3 * 16, Movable::Direction::Right);
+	Map::getMap(0, 1, 0).scene().addObject<Octorok>(5 * 16, 4 * 16, Movable::Direction::Right);
+	Map::getMap(2, 0, 0).scene().addObject<Octorok>(5 * 16, 3 * 16, Movable::Direction::Right);
 	
 	AudioPlayer::playMusic("plain");
 }

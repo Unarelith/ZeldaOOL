@@ -44,6 +44,20 @@ void Sprite::drawFrame(float x, float y, u16 frame) {
 	draw(x, y, m_frameWidth, m_frameHeight);
 }
 
+void Sprite::drawAnimationFrame(float x, float y, u16 anim, s16 frame) {
+	u16 frameID;
+	if(frame == -1) {
+		frameID = m_animations[anim].currentFrameID();
+	} else {
+		frameID = m_animations[anim].getFrameID(frame);
+	}
+	
+	x += m_animations[anim].currentPosition().first;
+	y += m_animations[anim].currentPosition().second;
+	
+	drawFrame(x, y, frameID);
+}
+
 void Sprite::playAnimation(float x, float y, u16 anim) {
 	if(anim > m_animations.size()) {
 		throw EXCEPTION("Trying to play inexistant animation:", anim, "| Animations:", m_animations.size());
@@ -53,9 +67,6 @@ void Sprite::playAnimation(float x, float y, u16 anim) {
 	
 	m_animations[anim].play();
 	
-	x += m_animations[anim].currentPosition().first;
-	y += m_animations[anim].currentPosition().second;
-	
-	drawFrame(x, y, m_animations[anim].currentFrameID());
+	drawAnimationFrame(x, y, anim);
 }
 

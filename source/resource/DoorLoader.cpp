@@ -43,7 +43,7 @@ void DoorLoader::load(const std::string &xmlFilename, ResourceHandler &) {
 		                       doorElement->IntAttribute("mapX"),
 		                       doorElement->IntAttribute("mapY"));
 		
-		DoorObject &door = map.addObject<DoorObject>(x, y);
+		DoorObject &door = map.scene().addObject<DoorObject>(x, y);
 		door.setDestination(doorElement->FirstChildElement("destination")->IntAttribute("area"),
 		                    doorElement->FirstChildElement("destination")->IntAttribute("mapX"),
 		                    doorElement->FirstChildElement("destination")->IntAttribute("mapY"),

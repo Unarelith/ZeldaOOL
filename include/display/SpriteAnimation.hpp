@@ -32,7 +32,8 @@ class SpriteAnimation {
 		
 		void play();
 		
-		u16 currentFrameID() const;
+		u16 getFrameID(u16 frame) const;
+		u16 currentFrameID() const { return getFrameID(framesDisplayed()); }
 		u16 framesDisplayed() const;
 		
 		const std::pair<s16, s16> currentPosition() const;

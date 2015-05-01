@@ -51,6 +51,7 @@ class Movable : public MapObject {
 		void lockDirection() { m_directionLocked = true; }
 		void unlockDirection() { m_directionLocked = false; }
 		
+		bool isMoving() const { return m_moving; }
 		bool blocked() const { return m_blocked; }
 		
 		float speed() const { return m_speed; }

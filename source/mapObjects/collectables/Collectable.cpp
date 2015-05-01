@@ -35,7 +35,7 @@ void Collectable::update() {
 	else if(Player::player.inCollisionWith(*this)) {
 		action();
 		
-		Map::currentMap->removeObject(*this);
+		Map::currentMap->scene().removeObject(*this);
 	}
 }
 

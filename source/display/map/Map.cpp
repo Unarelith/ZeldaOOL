@@ -40,7 +40,7 @@ Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const 
 void Map::update() {
 	m_animator.animateTiles(*this);
 	
-	for(auto &it : m_objects) it->update();
+	m_scene.update();
 }
 
 void Map::draw() {
@@ -48,7 +48,7 @@ void Map::draw() {
 	
 	m_renderer.draw(*this);
 	
-	for(auto &it : m_objects) it->draw();
+	m_scene.draw();
 	
 	View::bind(nullptr);
 }
@@ -69,10 +69,10 @@ void Map::updateTiles() {
 			u16 y = tileY * m_tileset.tileHeight();
 			
 			if(m_tileset.info()[tileID] == TilesInfos::TileType::GrassTile) {
-				addObject<GrassObject>(x, y);
+				m_scene.addObject<GrassObject>(x, y);
 			}
 			else if(m_tileset.info()[tileID] == TilesInfos::TileType::LowGrassTile) {
-				addObject<GrassObject>(x, y, true);
+				m_scene.addObject<GrassObject>(x, y, true);
 			}
 		}
 	}

@@ -35,7 +35,7 @@ class MapObject : public Sprite {
 		void load(float x, float y, u16 width, u16 height);
 		void load(const std::string &textureName, float x, float y, u16 width, u16 height);
 		
-		bool inCollisionWith(const MapObject &object) const;
+		bool inCollisionWith(MapObject &object);
 		
 		void addCollisionHandler(const std::function<void(void)> &collisionHandler);
 		
@@ -54,8 +54,8 @@ class MapObject : public Sprite {
 		template<typename T>
 		bool checkType() { return typeid(*this) == typeid(T) || dynamic_cast<T*>(this) != nullptr; }
 		
-		float x() const { return m_x; }
-		float y() const { return m_y; }
+		float x(bool animPos = true) { return m_x + ((animPos && hasAnimations()) ? currentAnimation().currentPosition().first : 0); }
+		float y(bool animPos = true) { return m_y + ((animPos && hasAnimations()) ? currentAnimation().currentPosition().second : 0); }
 		
 		void setPosition(float x, float y) { m_x = x; m_y = y; }
 		void move(float dx, float dy) { m_x += dx; m_y += dy; }
