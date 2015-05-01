@@ -14,7 +14,7 @@
 #include <glm/vec2.hpp>
 
 #include "ApplicationStateStack.hpp"
-#include "DialogState.hpp"
+#include "MessageBoxState.hpp"
 #include "GamePad.hpp"
 #include "NPC.hpp"
 #include "Player.hpp"
@@ -54,7 +54,7 @@ void NPC::update() {
 		m_direction = 3 - Player::player.direction();
 		
 		// FIXME: TO REMOVE LATER
-		ApplicationStateStack::getInstance().push<DialogState>(ApplicationStateStack::getInstance().top(), "Il faut que tu sauves Nayru!");
+		ApplicationStateStack::getInstance().push<MessageBoxState>("Il faut que tu sauves Nayru!", ApplicationStateStack::getInstance().top());
 	}
 }
 

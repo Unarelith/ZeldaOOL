@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  ChestOpenedState.hpp
+ *       Filename:  ChestOpeningState.hpp
  *
  *    Description:  
  *
@@ -11,15 +11,15 @@
  *
  * =====================================================================================
  */
-#ifndef CHESTOPENEDSTATE_HPP_
-#define CHESTOPENEDSTATE_HPP_
+#ifndef CHESTOPENINGSTATE_HPP_
+#define CHESTOPENINGSTATE_HPP_
 
 #include "Collectable.hpp"
 #include "ApplicationState.hpp"
 
-class ChestOpenedState : public ApplicationState {
+class ChestOpeningState : public ApplicationState {
 	public:
-		ChestOpenedState(ApplicationState *parent, float x, float y, Collectable &collectable);
+		ChestOpeningState(ApplicationState *parent, float x, float y, Collectable &collectable);
 		
 		void update();
 		
@@ -41,4 +41,4 @@ class ChestOpenedState : public ApplicationState {
 		float m_speed = 0.125f;
 };
 
-#endif // CHESTOPENEDSTATE_HPP_
+#endif // CHESTOPENINGSTATE_HPP_

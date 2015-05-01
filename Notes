@@ -11,8 +11,7 @@
 - Improve Sword
 	=> See the array in SwordFactory of ZeldaOOL
 - Improve game object system
-- Rename TilesData to TilesInfos
-- Reorganize project tree
+- Add CollectableMovement
 
 ===== TODO =====
 - Finish 'Octorok'

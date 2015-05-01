@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  ChestOpenedState.cpp
+ *       Filename:  ChestOpeningState.cpp
  *
  *    Description:  
  *
@@ -12,17 +12,17 @@
  * =====================================================================================
  */
 #include "AudioPlayer.hpp"
-#include "ChestOpenedState.hpp"
-#include "DialogState.hpp"
+#include "ChestOpeningState.hpp"
+#include "MessageBoxState.hpp"
 
-ChestOpenedState::ChestOpenedState(ApplicationState *parent, float x, float y, Collectable &collectable) : ApplicationState(parent) {
+ChestOpeningState::ChestOpeningState(ApplicationState *parent, float x, float y, Collectable &collectable) : ApplicationState(parent) {
 	m_collectable = &collectable;
 	m_collectable->setPosition(x + 7 - m_collectable->width() / 2, y + 8);
 	
 	Sprite::pause = true;
 }
 
-void ChestOpenedState::update() {
+void ChestOpeningState::update() {
 	if(m_state == State::Opening) {
 		m_collectable->move(0, -m_speed);
 		
@@ -38,8 +38,7 @@ void ChestOpenedState::update() {
 		
 		m_collectable->action();
 		
-		// FIXME: TO IMPROVE (avoid the '[2]' repetition)
-		m_stateStack->push<DialogState>(this, "Vous obtenez [2]30 [2]Rubis[0]!\nC'est bien.");
+		m_stateStack->push<MessageBoxState>("Vous obtenez [2]30 Rubis[0]!\nC'est bien.", this);
 		
 		m_state = State::Finished;
 	}
@@ -50,7 +49,7 @@ void ChestOpenedState::update() {
 	}
 }
 
-void ChestOpenedState::draw() {
+void ChestOpeningState::draw() {
 	m_parent->draw();
 	
 	if(m_state == State::Opening || (m_state == State::Finished && m_stateStack->size() > 1)) {

@@ -14,13 +14,13 @@
 #include "AudioPlayer.hpp"
 #include "ButtonObject.hpp"
 #include "ChestObject.hpp"
-#include "DialogState.hpp"
 #include "DoorLoader.hpp"
 #include "DoorTransition.hpp"
 #include "GamePad.hpp"
 #include "MapLoader.hpp"
 #include "MapState.hpp"
 #include "MenuState.hpp"
+#include "MessageBoxState.hpp"
 #include "NPC.hpp"
 #include "Octorok.hpp"
 #include "Player.hpp"
@@ -74,7 +74,7 @@ void MapState::update() {
 	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
-		m_stateStack->push<DialogState>(this, "L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.");
+		m_stateStack->push<MessageBoxState>("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", this);
 	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Start)) {

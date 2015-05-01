@@ -14,7 +14,7 @@
 #include "ApplicationStateStack.hpp"
 #include "AudioPlayer.hpp"
 #include "ChestObject.hpp"
-#include "ChestOpenedState.hpp"
+#include "ChestOpeningState.hpp"
 #include "Map.hpp"
 #include "RupeeCollectable.hpp"
 
@@ -27,7 +27,7 @@ void ChestObject::onEvent(u8 event) {
 		reset(*Map::currentMap);
 		
 		// FIXME: TO REMOVE LATER
-		ApplicationStateStack::getInstance().push<ChestOpenedState>(ApplicationStateStack::getInstance().top(), m_x, m_y, m_collectable);
+		ApplicationStateStack::getInstance().push<ChestOpeningState>(ApplicationStateStack::getInstance().top(), m_x, m_y, m_collectable);
 	}
 }
 

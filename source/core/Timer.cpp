@@ -39,7 +39,7 @@ void Timer::reset() {
 	m_tick = 0;
 }
 
-u32 Timer::time() {
+u32 Timer::time() const {
 	if(m_isStarted) {
 		return GameClock::getTicks(m_useRealTime) - m_t;
 	} else {

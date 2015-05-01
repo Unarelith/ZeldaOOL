@@ -19,14 +19,12 @@
 class Timer {
 	public:
 		Timer(bool useRealTime = false);
-		Timer(const Timer &) = default;
-		Timer(Timer &&) = default;
 		
 		void stop();
 		void start();
 		void reset();
 		
-		u32 time();
+		u32 time() const;
 		
 		void setTime(u32 time);
 		
