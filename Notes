@@ -1,8 +1,6 @@
 ===== REFACTORING =====
 - Improve 'Dialog' and 'DialogState'
 	=> See ZeldaOOL
-- Implement GamePad
-	=> See ZeldaOOL
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?
@@ -13,7 +11,6 @@
 - Improve Sword
 	=> See the array in SwordFactory of ZeldaOOL
 - Improve game object system
-- Improve Debug and Exception
 - Rename TilesData to TilesInfos
 - Rename Rectangle to RectangleShape
 - Rename Types to IntTypes

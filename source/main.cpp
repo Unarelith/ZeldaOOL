@@ -28,12 +28,12 @@ int main(int, char *[]) {
 		
 		app.run();
 	}
-	catch(const Exception &err) {
-		std::cerr << Debug::textColor(Debug::TextColor::Red, true) << "Fatal error " << Debug::textColor() << err.what() << std::endl;
+	catch(const Exception &e) {
+		std::cerr << "Fatal error " << e.what() << std::endl;
 		return 1;
 	}
 	catch(const std::exception &e) {
-		std::cerr << Debug::textColor(Debug::TextColor::Red, true) << "Exception caught: " << Debug::textColor(0, true) << e.what() << Debug::textColor() << std::endl;
+		std::cerr << "Exception caught: " << e.what() << std::endl;
 		return 1;
 	}
 	catch(...) {
