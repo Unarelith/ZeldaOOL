@@ -3,9 +3,6 @@
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?
 	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'
-- Improve Sprite and SpriteAnimation
-	=> See ZeldaOOL
-	=> Add position for frames
 - Improve Sword
 	=> See the array in SwordFactory of ZeldaOOL
 - Add CollectableMovement

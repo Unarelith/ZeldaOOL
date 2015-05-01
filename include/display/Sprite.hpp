@@ -25,6 +25,7 @@ class Sprite : public Image {
 		void load(const std::string &filename, u16 frameWidth, u16 frameHeight);
 		
 		void addAnimation(std::vector<u16> frames, u16 delay);
+		void addAnimation(std::vector<u16> frames, std::vector<std::pair<s16, s16>> positions, u16 delay);
 		
 		void drawFrame(float x, float y, u16 frame);
 		

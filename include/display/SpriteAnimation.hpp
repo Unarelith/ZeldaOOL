@@ -20,7 +20,10 @@
 
 class SpriteAnimation {
 	public:
-		SpriteAnimation(std::vector<u16> frames, u16 delay);
+		SpriteAnimation(std::vector<u16> frames, u16 delay)
+			: m_frames(frames), m_positions(frames.size(), {0, 0}), m_delay(delay) {}
+		SpriteAnimation(std::vector<u16> frames, std::vector<std::pair<s16, s16>> positions, u16 delay)
+			: m_frames(frames), m_positions(positions), m_delay(delay) {}
 		
 		void reset(u16 frame = 0);
 		
@@ -32,6 +35,8 @@ class SpriteAnimation {
 		u16 currentFrameID() const;
 		u16 framesDisplayed() const;
 		
+		const std::pair<s16, s16> currentPosition() const;
+		
 		bool isPlaying() const { return m_timer.isStarted(); }
 		bool isFinished() const { return framesDisplayed() >= m_frames.size(); }
 		
@@ -39,6 +44,7 @@ class SpriteAnimation {
 		
 	private:
 		std::vector<u16> m_frames;
+		std::vector<std::pair<s16, s16>> m_positions;
 		
 		Timer m_timer;
 		

@@ -31,6 +31,10 @@ void Sprite::addAnimation(std::vector<u16> frames, u16 delay) {
 	m_animations.emplace_back(frames, delay);
 }
 
+void Sprite::addAnimation(std::vector<u16> frames, std::vector<std::pair<s16, s16>> positions, u16 delay) {
+	m_animations.emplace_back(frames, positions, delay);
+}
+
 void Sprite::drawFrame(float x, float y, u16 frame) {
 	u16 frameX = frame % (width() / m_frameWidth);
 	u16 frameY = frame / (width() / m_frameWidth);
@@ -48,6 +52,9 @@ void Sprite::playAnimation(float x, float y, u16 anim) {
 	m_currentAnimation = anim;
 	
 	m_animations[anim].play();
+	
+	x += m_animations[anim].currentPosition().first;
+	y += m_animations[anim].currentPosition().second;
 	
 	drawFrame(x, y, m_animations[anim].currentFrameID());
 }

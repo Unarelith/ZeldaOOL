@@ -13,11 +13,6 @@
  */
 #include "Sprite.hpp"
 
-SpriteAnimation::SpriteAnimation(std::vector<u16> frames, u16 delay)
-	: m_frames(frames), m_delay(delay)
-{
-}
-
 void SpriteAnimation::reset(u16 frame) {
 	m_timer.reset();
 	m_timer.setTime(frame * m_delay);
@@ -56,3 +51,11 @@ u16 SpriteAnimation::framesDisplayed() const {
 	return m_timer.time() / m_delay;
 }
 
+
+const std::pair<s16, s16> SpriteAnimation::currentPosition() const {
+	if(!isFinished()) {
+		return m_positions[framesDisplayed()];
+	} else {
+		return std::pair<s16, s16>(0, 0);
+	}
+}
