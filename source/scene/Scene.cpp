@@ -11,25 +11,68 @@
  *
  * =====================================================================================
  */
+#include "CollisionComponent.hpp"
+#include "CollisionSystem.hpp"
+#include "LifetimeSystem.hpp"
+#include "MovementSystem.hpp"
+#include "DrawingSystem.hpp"
 #include "Scene.hpp"
 
 void Scene::update() {
-	for(auto &it : m_objects) {
+	for(auto &it : m_oldObjects) {
 		it->update();
+	}
+	
+	LifetimeSystem::process(m_objects);
+	
+	for(auto &it : m_objects) {
+		MovementSystem::process(it);
 	}
 }
 
 void Scene::draw() {
-	for(auto &it : m_objects) {
+	for(auto &it : m_oldObjects) {
 		it->draw();
+	}
+	
+	for(auto &it : m_objects) {
+		DrawingSystem::draw(it);
+	}
+}
+
+SceneObject &Scene::addObject(SceneObject &&object) {
+	m_objects.push_back(std::move(object));
+	
+	if(m_objects.back().has<CollisionComponent>()) {
+		m_objects.back().get<CollisionComponent>().addChecker([&](SceneObject &object) {
+			checkCollisionsFor(object);
+		});
+	}
+	
+	return m_objects.back();
+}
+
+void Scene::checkCollisionsFor(SceneObject &object) {
+	for(SceneObject &obj : m_objects) {
+		if(&object != &obj) {
+			if(object.has<CollisionComponent>() && obj.has<CollisionComponent>()) {
+				auto &collisionComponent1 = object.get<CollisionComponent>();
+				auto &collisionComponent2 = obj.get<CollisionComponent>();
+				
+				bool collision = CollisionSystem::inCollision(object, obj);
+				
+				collisionComponent1.collisionActions(object, obj, collision);
+				collisionComponent2.collisionActions(obj, object, collision);
+			}
+		}
 	}
 }
 
 void Scene::removeObject(MapObject &object) {
-	m_objects.erase(std::remove_if(m_objects.begin(), m_objects.end(),
+	m_oldObjects.erase(std::remove_if(m_oldObjects.begin(), m_oldObjects.end(),
 					[&](std::unique_ptr<MapObject> &it) {
 						return it.get() == &object;
-					}), m_objects.end());
+					}), m_oldObjects.end());
 }
 
 bool Scene::objectAtPosition(MapObject &obj, float x, float y) {
@@ -40,7 +83,7 @@ bool Scene::objectAtPosition(MapObject &obj, float x, float y) {
 }
 
 MapObject *Scene::getObject(float x, float y) {
-	for(auto &it : m_objects) {
+	for(auto &it : m_oldObjects) {
 		if(objectAtPosition(*it, x, y)) {
 			return it.get();
 		}
@@ -50,7 +93,7 @@ MapObject *Scene::getObject(float x, float y) {
 }
 
 void Scene::checkCollisionsFor(MapObject *object) {
-	for(auto &it : m_objects) {
+	for(auto &it : m_oldObjects) {
 		MapObject *object2 = (it && it.get() != object) ? it.get() : &Player::player;
 		
 		if(object->inCollisionWith(*object2)) {

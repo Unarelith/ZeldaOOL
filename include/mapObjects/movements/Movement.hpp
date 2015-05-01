@@ -16,11 +16,25 @@
 
 class Movable;
 
-class Movement {
+class OldMovement {
 	public:
 		virtual void reset(Movable &) {}
 		
-		virtual void doMovement(Movable &movable) = 0;
+		virtual void process(Movable &movable) = 0;
+};
+
+#include "SceneObject.hpp"
+
+class Movement {
+	public:
+		virtual ~Movement() = default;
+		
+		bool isFinished() const { return m_isFinished; }
+		
+		virtual void process(SceneObject &object) = 0;
+		
+	protected:
+		bool m_isFinished = false;
 };
 
 #endif // MOVEMENT_HPP_

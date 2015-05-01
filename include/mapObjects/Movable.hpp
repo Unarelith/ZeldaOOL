@@ -18,6 +18,7 @@
 
 #include "MapObject.hpp"
 #include "Movement.hpp"
+#include "SceneObject.hpp"
 
 class Movable : public MapObject {
 	public:
@@ -57,7 +58,7 @@ class Movable : public MapObject {
 		float speed() const { return m_speed; }
 		void setSpeed(float speed) { m_speed = speed; }
 		
-		Movement &getMovement() { return *m_movement; }
+		OldMovement &getMovement() { return *m_movement; }
 		
 		template<typename T, typename... Args>
 		void setMovement(Args &&...args) {
@@ -78,8 +79,8 @@ class Movable : public MapObject {
 		float m_speed = 0.4f;
 		
 	private:
-		std::shared_ptr<Movement> m_defaultMovement{nullptr};
-		std::shared_ptr<Movement> m_movement{nullptr};
+		std::shared_ptr<OldMovement> m_defaultMovement{nullptr};
+		std::shared_ptr<OldMovement> m_movement{nullptr};
 };
 
 #endif // MOVABLE_HPP_

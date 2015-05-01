@@ -1,24 +1,24 @@
 /*
  * =====================================================================================
  *
- *       Filename:  GamePadMovement.hpp
+ *       Filename:  MovementSystem.hpp
  *
  *    Description:  
  *
- *        Created:  18/01/2015 02:00:33
+ *        Created:  01/05/2015 23:27:12
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef GAMEPADMOVEMENT_HPP_
-#define GAMEPADMOVEMENT_HPP_
+#ifndef MOVEMENTSYSTEM_HPP_
+#define MOVEMENTSYSTEM_HPP_
 
-#include "Movement.hpp"
+#include "SceneObject.hpp"
 
-class GamePadMovement : public OldMovement {
+class MovementSystem {
 	public:
-		void process(Movable &movable) override;
+		static void process(SceneObject &object);
 };
 
-#endif // GAMEPADMOVEMENT_HPP_
+#endif // MOVEMENTSYSTEM_HPP_

@@ -1,24 +1,26 @@
 /*
  * =====================================================================================
  *
- *       Filename:  GamePadMovement.hpp
+ *       Filename:  LifetimeSystem.hpp
  *
  *    Description:  
  *
- *        Created:  18/01/2015 02:00:33
+ *        Created:  01/05/2015 23:44:57
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef GAMEPADMOVEMENT_HPP_
-#define GAMEPADMOVEMENT_HPP_
+#ifndef LIFETIMESYSTEM_HPP_
+#define LIFETIMESYSTEM_HPP_
 
-#include "Movement.hpp"
+#include <deque>
 
-class GamePadMovement : public OldMovement {
+#include "SceneObject.hpp"
+
+class LifetimeSystem {
 	public:
-		void process(Movable &movable) override;
+		static void process(std::deque<SceneObject> &objects);
 };
 
-#endif // GAMEPADMOVEMENT_HPP_
+#endif // LIFETIMESYSTEM_HPP_

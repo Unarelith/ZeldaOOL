@@ -28,7 +28,7 @@ void OctorokMovement::reset(Movable &movable) {
 	movable.getAnimation(movable.direction()).stop();
 }
 
-void OctorokMovement::doMovement(Movable &movable) {
+void OctorokMovement::process(Movable &movable) {
 	Octorok &octorok = static_cast<Octorok&>(movable);
 	octorok.setSpeed(0.3f);
 	

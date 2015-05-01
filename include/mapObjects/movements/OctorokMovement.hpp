@@ -17,7 +17,7 @@
 #include "Movement.hpp"
 #include "Timer.hpp"
 
-class OctorokMovement : public Movement {
+class OctorokMovement : public OldMovement {
 	public:
 		enum class State {
 			Standing,
@@ -26,7 +26,7 @@ class OctorokMovement : public Movement {
 		
 		void reset(Movable &movable) override;
 		
-		void doMovement(Movable &movable) override;
+		void process(Movable &movable) override;
 		
 	private:
 		State m_state = State::Standing;

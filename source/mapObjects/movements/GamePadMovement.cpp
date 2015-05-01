@@ -15,7 +15,7 @@
 #include "GamePadMovement.hpp"
 #include "Movable.hpp"
 
-void GamePadMovement::doMovement(Movable &movable) {
+void GamePadMovement::process(Movable &movable) {
 	float vx = 0;
 	float vy = 0;
 	

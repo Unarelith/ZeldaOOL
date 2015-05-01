@@ -22,7 +22,7 @@ HurtMovement::HurtMovement(s16 vx, s16 vy, float speed) {
 	m_speed = speed;
 }
 
-void HurtMovement::doMovement(Movable &movable) {
+void HurtMovement::process(Movable &movable) {
 	movable.setSpeed(m_speed);
 	
 	if(m_movementCounter < 16) {

@@ -12,6 +12,7 @@
  * =====================================================================================
  */
 #include "AudioPlayer.hpp"
+#include "CollectableFactory.hpp"
 #include "GrassObject.hpp"
 #include "HeartCollectable.hpp"
 #include "Map.hpp"
@@ -43,17 +44,17 @@ void GrassObject::onEvent(u8 event) {
 		
 		m_cutted = true;
 		
-		if(rand() % 10 == 0) {
-			Map::currentMap->scene().addObject<RupeeCollectable>(m_x, m_y, 1);
+		if(rand() % 5 == 0) {
+			Map::currentMap->scene().addObject(CollectableFactory::createRupees(m_x, m_y, RupeesAmount::One, CollectableMovement::Type::Dropped));
 		}
-		else if(rand() % 30 == 14) {
+		else if(rand() % 15 == 7) {
 			Map::currentMap->scene().addObject<HeartCollectable>(m_x, m_y);
 		}
-		else if(rand() % 50 == 22) {
-			Map::currentMap->scene().addObject<RupeeCollectable>(m_x, m_y, 5);
+		else if(rand() % 25 == 11) {
+			Map::currentMap->scene().addObject(CollectableFactory::createRupees(m_x, m_y, RupeesAmount::Five, CollectableMovement::Type::Dropped));
 		}
-		else if(rand() % 500 == 333) {
-			Map::currentMap->scene().addObject<RupeeCollectable>(m_x, m_y, 30);
+		else if(rand() % 250 == 176) {
+			Map::currentMap->scene().addObject(CollectableFactory::createRupees(m_x, m_y, RupeesAmount::Thirty, CollectableMovement::Type::Dropped));
 		}
 		
 		Map::currentMap->setTile((m_x + 8) / 16, (m_y + 8) / 16, 36);

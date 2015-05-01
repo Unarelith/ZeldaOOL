@@ -1,24 +1,24 @@
 /*
  * =====================================================================================
  *
- *       Filename:  GamePadMovement.hpp
+ *       Filename:  DrawingSystem.hpp
  *
  *    Description:  
  *
- *        Created:  18/01/2015 02:00:33
+ *        Created:  01/05/2015 23:57:52
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef GAMEPADMOVEMENT_HPP_
-#define GAMEPADMOVEMENT_HPP_
+#ifndef DRAWINGSYSTEM_HPP_
+#define DRAWINGSYSTEM_HPP_
 
-#include "Movement.hpp"
+#include "SceneObject.hpp"
 
-class GamePadMovement : public OldMovement {
+class DrawingSystem {
 	public:
-		void process(Movable &movable) override;
+		static void draw(SceneObject &object);
 };
 
-#endif // GAMEPADMOVEMENT_HPP_
+#endif // DRAWINGSYSTEM_HPP_

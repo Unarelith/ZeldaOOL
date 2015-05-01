@@ -17,11 +17,11 @@
 #include "IntTypes.hpp"
 #include "Movement.hpp"
 
-class HurtMovement : public Movement {
+class HurtMovement : public OldMovement {
 	public:
 		HurtMovement(s16 vx, s16 vy, float speed);
 		
-		void doMovement(Movable &movable) override;
+		void process(Movable &movable) override;
 		
 	private:
 		s16 m_vx = 0;
