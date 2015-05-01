@@ -56,7 +56,7 @@ void Octorok::draw() {
 		playAnimation(m_x, m_y, m_direction);
 	}
 	else {
-		drawFrame(m_x, m_y, m_lastFrameDisplayed);
+		drawFrame(m_x, m_y, m_direction);
 	}
 }
 

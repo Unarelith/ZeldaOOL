@@ -24,13 +24,13 @@ GrassObject::GrassObject(float x, float y, bool lowGrass) : MapObject(x, y, 16, 
 }
 
 void GrassObject::reset(Map &) {
-	m_grassDestroy.resetAnimation(0);
+	m_grassDestroy.currentAnimation().reset();
 	
 	m_cutted = false;
 }
 
 void GrassObject::draw() {
-	if(m_cutted && !m_grassDestroy.animationAtEnd(0)) {
+	if(m_cutted && !m_grassDestroy.currentAnimation().isFinished()) {
 		m_grassDestroy.playAnimation(m_x - 8, m_y - 8, 0);
 	}
 }

@@ -18,13 +18,31 @@
 
 #include "Timer.hpp"
 
-struct SpriteAnimation {
-	SpriteAnimation(u16 _delay) : delay(_delay) {}
-	
-	u16 delay = 0;
-	bool isPlaying = false;
-	Timer timer;
-	std::vector<u16> frames;
+class SpriteAnimation {
+	public:
+		SpriteAnimation(std::vector<u16> frames, u16 delay);
+		
+		void reset(u16 frame = 0);
+		
+		void start();
+		void stop();
+		
+		void play();
+		
+		u16 currentFrameID() const;
+		u16 framesDisplayed() const;
+		
+		bool isPlaying() const { return m_timer.isStarted(); }
+		bool isFinished() const { return framesDisplayed() >= m_frames.size(); }
+		
+		u16 delay() const { return m_delay; }
+		
+	private:
+		std::vector<u16> m_frames;
+		
+		Timer m_timer;
+		
+		u16 m_delay = 0;
 };
 
 #endif // SPRITEANIMATION_HPP_

@@ -67,35 +67,35 @@ void SwordState::update() {
 	
 	if(m_sword->state() != Sword::State::SpinAttack) {
 		if(!m_playerMoved) {
-			if(m_sword->animationCurrentFrame(m_character.direction()) == 1) {
+			if(m_sword->getAnimation(m_character.direction()).framesDisplayed() == 1) {
 				movePlayer(m_character.direction());
 			}
-			else if(m_sword->animationCurrentFrame(m_character.direction()) == 6) {
+			else if(m_sword->getAnimation(m_character.direction()).framesDisplayed() == 6) {
 				movePlayer(m_character.direction(), false);
 			}
 		}
-		else if((m_sword->animationCurrentFrame(m_character.direction()) != 1)
-			 && (m_sword->animationCurrentFrame(m_character.direction()) != 6)) {
+		else if((m_sword->getAnimation(m_character.direction()).framesDisplayed() != 1)
+			 && (m_sword->getAnimation(m_character.direction()).framesDisplayed() != 6)) {
 			m_playerMoved = false;
 		}
 	} else {
-		if(!m_playerMoved && !(m_sword->animationCurrentFrame(8) & 1)) {
+		if(!m_playerMoved && !(m_sword->getAnimation(8).framesDisplayed() & 1)) {
 			u8 prevMovementDirection = 0;
 			u8 movementDirection = 0;
 			
-			if(m_sword->animationCurrentFrame(8) % 8 == 0) {
+			if(m_sword->getAnimation(8).framesDisplayed() % 8 == 0) {
 				prevMovementDirection = Player::Direction::Right;
 				movementDirection = Player::Direction::Down;
 			}
-			else if(m_sword->animationCurrentFrame(8) % 8 == 2) {
+			else if(m_sword->getAnimation(8).framesDisplayed() % 8 == 2) {
 				prevMovementDirection = Player::Direction::Down;
 				movementDirection = Player::Direction::Left;
 			}
-			else if(m_sword->animationCurrentFrame(8) % 8 == 4) {
+			else if(m_sword->getAnimation(8).framesDisplayed() % 8 == 4) {
 				prevMovementDirection = Player::Direction::Left;
 				movementDirection = Player::Direction::Up;
 			}
-			else if(m_sword->animationCurrentFrame(8) % 8 == 6) {
+			else if(m_sword->getAnimation(8).framesDisplayed() % 8 == 6) {
 				prevMovementDirection = Player::Direction::Up;
 				movementDirection = Player::Direction::Right;
 			}
@@ -106,7 +106,7 @@ void SwordState::update() {
 			
 			movePlayer(movementDirection);
 		}
-		else if(m_sword->animationCurrentFrame(8) & 1) {
+		else if(m_sword->getAnimation(8).framesDisplayed() & 1) {
 			m_playerMoved = false;
 		}
 	}

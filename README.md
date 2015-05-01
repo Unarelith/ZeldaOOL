@@ -1,4 +1,4 @@
-# The Legend of Zelda: Oracle of Time
+# The Legend of Zelda: Oracle of Light
 
 ### By gnidmoo
 
@@ -27,7 +27,7 @@
 
 ## Pre-compiled builds
 
-- **Windows:** (old) [ZeldaOOT.zip](https://dl.dropboxusercontent.com/u/41571323/ZeldaOOT.zip)
+- **Windows:** (old) [ZeldaOOT.zip](https://dl.dropboxusercontent.com/u/41571323/ZeldaOOT.zip) _works with Wine without sound_
 - **Linux:** _Not available yet_
 - **OS X:** _Not available yet_
 

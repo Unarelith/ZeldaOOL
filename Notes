@@ -1,6 +1,4 @@
 ===== REFACTORING =====
-- Improve 'Dialog' and 'DialogState'
-	=> See ZeldaOOL
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?
@@ -10,8 +8,10 @@
 	=> Add position for frames
 - Improve Sword
 	=> See the array in SwordFactory of ZeldaOOL
-- Improve game object system
 - Add CollectableMovement
+- Rename MapObject into SceneObject
+	=> Split Map's object management part into Scene
+- Improve game object system
 
 ===== TODO =====
 - Finish 'Octorok'

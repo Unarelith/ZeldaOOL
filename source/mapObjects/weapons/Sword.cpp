@@ -66,7 +66,7 @@ void Sword::reset() {
 	m_keyReleased = false;
 	
 	for(u8 i = 0 ; i < 9 ; i++) {
-		resetAnimation(i);
+		getAnimation(i).reset();
 	}
 	
 	m_x = -100;
@@ -76,7 +76,7 @@ void Sword::reset() {
 void Sword::update() {
 	switch(m_state) {
 		case State::Swinging:
-			if(animationAtEnd(m_player.direction())) {
+			if(getAnimation(m_player.direction()).isFinished()) {
 				m_state = State::Loading;
 				
 				m_loadingTimer.reset();
@@ -88,7 +88,7 @@ void Sword::update() {
 			if(!keyPressed()) {
 				m_keyReleased = true;
 			}
-			else if(m_keyReleased && animationCurrentFrame(m_player.direction()) >= 4) {
+			else if(m_keyReleased && getAnimation(m_player.direction()).framesDisplayed() >= 4) {
 				if(m_player.direction() == Character::Direction::Left) {
 					m_player.move(4, 0);
 				}
@@ -122,8 +122,8 @@ void Sword::update() {
 				
 				AudioPlayer::playEffect("swordSlash1");
 				
-				m_player.resetAnimation(m_player.direction() + 8);
-				resetAnimation(m_player.direction());
+				m_player.getAnimation(m_player.direction() + 8).reset();
+				getAnimation(m_player.direction()).reset();
 			}
 			
 			break;
@@ -155,11 +155,11 @@ void Sword::update() {
 						m_spinCurrentFrame = 0;
 					}
 					
-					resetAnimation(8, m_spinCurrentFrame);
-					startAnimation(8);
+					getAnimation(8).reset(m_spinCurrentFrame);
+					getAnimation(8).start();
 					
-					m_player.resetAnimation(12, m_spinCurrentFrame);
-					m_player.startAnimation(12);
+					m_player.getAnimation(12).reset(m_spinCurrentFrame);
+					m_player.getAnimation(12).start();
 				} else {
 					m_player.setNextState<StandingState>();
 				}
@@ -167,17 +167,17 @@ void Sword::update() {
 			break;
 		case State::SpinAttack:
 			if(m_spinFrameCounter < 9) {
-				if(m_spinCurrentFrame != animationCurrentFrame(8)) {
-					m_spinCurrentFrame = animationCurrentFrame(8);
+				if(m_spinCurrentFrame != getAnimation(8).framesDisplayed()) {
+					m_spinCurrentFrame = getAnimation(8).framesDisplayed();
 					
 					m_spinFrameCounter++;
 				}
 			} else {
-				m_animations[8].timer.stop();
+				getAnimation(8).stop();
 				
 				m_spinTimer.start();
 				
-				if(m_spinTimer.time() >= m_animations[8].delay) {
+				if(m_spinTimer.time() >= getAnimation(8).delay()) {
 					if(m_player.direction() == Character::Direction::Left) {
 						m_player.move(4, 0);
 					}
@@ -208,8 +208,8 @@ void Sword::update() {
 void Sword::updatePosition() {
 	switch(m_state) {
 		case State::Swinging:
-			m_x = m_player.x() + swordPosition[m_player.direction()][animationCurrentFrame(m_player.direction())][0];
-			m_y = m_player.y() + swordPosition[m_player.direction()][animationCurrentFrame(m_player.direction())][1];
+			m_x = m_player.x() + swordPosition[m_player.direction()][getAnimation(m_player.direction()).framesDisplayed()][0];
+			m_y = m_player.y() + swordPosition[m_player.direction()][getAnimation(m_player.direction()).framesDisplayed()][1];
 			
 			break;
 		case State::Loading:
@@ -218,8 +218,8 @@ void Sword::updatePosition() {
 			
 			break;
 		case State::SpinAttack:
-			m_x = m_player.x() + spinAttackPosition[animationCurrentFrame(8)][0];
-			m_y = m_player.y() + spinAttackPosition[animationCurrentFrame(8)][1];
+			m_x = m_player.x() + spinAttackPosition[getAnimation(8).framesDisplayed()][0];
+			m_y = m_player.y() + spinAttackPosition[getAnimation(8).framesDisplayed()][1];
 			
 			break;
 		default:
@@ -278,7 +278,7 @@ void Sword::collisionAction(MapObject &object) {
 		GrassObject &grass = static_cast<GrassObject&>(object);
 		
 		if(Map::currentMap->objectAtPosition(grass, m_x + 8, m_y + 8)) {
-			if(((m_state == Sword::State::Swinging && animationCurrentFrame(m_player.direction()) > 2)
+			if(((m_state == Sword::State::Swinging && getAnimation(m_player.direction()).framesDisplayed() > 2)
 			  || m_state == Sword::State::SpinAttack)
 			 && (Map::currentMap->isTile(m_x + 8, m_y + 8, TilesInfos::TileType::GrassTile)
 			  || Map::currentMap->isTile(m_x + 8, m_y + 8, TilesInfos::TileType::LowGrassTile))) {

@@ -25,7 +25,7 @@ void OctorokMovement::reset(Movable &movable) {
 	m_randomMinTimeToWait = 1000 + (rand() % 2) * 500;
 	m_randomMaxMovement = 16 + (rand() % 5) * 8;
 	
-	movable.stopAnimation(movable.direction());
+	movable.currentAnimation().stop();
 }
 
 void OctorokMovement::doMovement(Movable &movable) {

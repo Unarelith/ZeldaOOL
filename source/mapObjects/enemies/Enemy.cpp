@@ -28,13 +28,13 @@ void Enemy::load(const std::string &filename, u16 x, u16 y, u16 width, u16 heigh
 void Enemy::reset(Map &map) {
 	Battler::reset(map);
 	
-	m_destroyAnimation.resetAnimation(0);
+	m_destroyAnimation.currentAnimation().reset();
 	
 	m_dead = false;
 }
 
 void Enemy::draw() {
-	if(m_dead && !m_destroyAnimation.animationAtEnd(0)) {
+	if(m_dead && !m_destroyAnimation.currentAnimation().isFinished()) {
 		m_destroyAnimation.playAnimation(m_x - 8, m_y - 8, 0);
 	}
 }

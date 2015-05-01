@@ -27,7 +27,7 @@ class Battler : public Character {
 		
 		virtual void update() override;
 		
-		void drawFrame(float x, float y, u16 frame) override;
+		void drawFrame(float x, float y, u16 frame);// override;
 		
 		void addHearts(float hearts);
 		void removeLife(u16 life);
