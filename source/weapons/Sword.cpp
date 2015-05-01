@@ -13,7 +13,7 @@
  */
 #include "AudioPlayer.hpp"
 #include "GrassObject.hpp"
-#include "Keyboard.hpp"
+#include "GamePad.hpp"
 #include "Map.hpp"
 #include "PlayerState.hpp"
 #include "StandingState.hpp"
@@ -102,19 +102,19 @@ void Sword::update() {
 					m_player.move(0, -3);
 				}
 				
-				if(Keyboard::isKeyPressed(Keyboard::Left)) {
+				if(GamePad::isKeyPressed(GameKey::Left)) {
 					m_player.setDirection(Character::Direction::Left);
 				}
 				
-				if(Keyboard::isKeyPressed(Keyboard::Right)) {
+				if(GamePad::isKeyPressed(GameKey::Right)) {
 					m_player.setDirection(Character::Direction::Right);
 				}
 				
-				if(Keyboard::isKeyPressed(Keyboard::Up)) {
+				if(GamePad::isKeyPressed(GameKey::Up)) {
 					m_player.setDirection(Character::Direction::Up);
 				}
 				
-				if(Keyboard::isKeyPressed(Keyboard::Down)) {
+				if(GamePad::isKeyPressed(GameKey::Down)) {
 					m_player.setDirection(Character::Direction::Down);
 				}
 				

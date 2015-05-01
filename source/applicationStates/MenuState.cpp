@@ -12,13 +12,13 @@
  * =====================================================================================
  */
 #include "AudioPlayer.hpp"
-#include "Keyboard.hpp"
+#include "GamePad.hpp"
 #include "MenuState.hpp"
 
 void MenuState::update() {
 	m_menu.update();
 	
-	if(Keyboard::isKeyPressedOnce(Keyboard::Start)) {
+	if(GamePad::isKeyPressedOnce(GameKey::Start)) {
 		AudioPlayer::playEffect("menuClose");
 		
 		m_stateStack->pop();

@@ -15,7 +15,7 @@
 
 #include "ApplicationStateStack.hpp"
 #include "DialogState.hpp"
-#include "Keyboard.hpp"
+#include "GamePad.hpp"
 #include "NPC.hpp"
 #include "Player.hpp"
 
@@ -50,7 +50,7 @@ bool NPC::playerInFrontOfThis() {
 void NPC::update() {
 	m_direction = m_defaultDirection;
 	
-	if(Keyboard::isKeyPressedOnce(Keyboard::A) && playerInFrontOfThis()) {
+	if(GamePad::isKeyPressedOnce(GameKey::A) && playerInFrontOfThis()) {
 		m_direction = 3 - Player::player.direction();
 		
 		// FIXME: TO REMOVE LATER

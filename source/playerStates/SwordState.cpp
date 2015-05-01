@@ -12,7 +12,7 @@
  * =====================================================================================
  */
 #include "AudioPlayer.hpp"
-#include "Keyboard.hpp"
+#include "GamePad.hpp"
 #include "Map.hpp"
 #include "SwordState.hpp"
 #include "TilesData.hpp"
@@ -124,10 +124,10 @@ void SwordState::drawPlayer() {
 		m_character.playAnimation(m_character.x(), m_character.y(), m_character.direction() + 8);
 	}
 	else if(m_sword->state() == Sword::State::Loading
-		&& (Keyboard::isKeyPressed(Keyboard::Left)
-		 || Keyboard::isKeyPressed(Keyboard::Right)
-		 || Keyboard::isKeyPressed(Keyboard::Up)
-		 || Keyboard::isKeyPressed(Keyboard::Down))) {
+		&& (GamePad::isKeyPressed(GameKey::Left)
+		 || GamePad::isKeyPressed(GameKey::Right)
+		 || GamePad::isKeyPressed(GameKey::Up)
+		 || GamePad::isKeyPressed(GameKey::Down))) {
 		m_character.playAnimation(m_character.x(), m_character.y(), m_character.direction());
 	}
 	else if(m_sword->state() == Sword::State::SpinAttack) {

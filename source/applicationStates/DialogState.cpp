@@ -13,7 +13,7 @@
  */
 #include "AudioPlayer.hpp"
 #include "DialogState.hpp"
-#include "Keyboard.hpp"
+#include "GamePad.hpp"
 #include "Map.hpp"
 #include "Player.hpp"
 
@@ -32,8 +32,8 @@ void DialogState::update() {
 	
 	m_dialog.update();
 	
-	if(Keyboard::isKeyPressedOnce(Keyboard::B)
-	|| Keyboard::isKeyPressedOnce(Keyboard::A)) {
+	if(GamePad::isKeyPressedOnce(GameKey::B)
+	|| GamePad::isKeyPressedOnce(GameKey::A)) {
 		if(!m_dialog.lastPage()) {
 			AudioPlayer::playEffect("dialogContinue");
 			

@@ -11,26 +11,26 @@
  *
  * =====================================================================================
  */
-#include "Keyboard.hpp"
+#include "GamePad.hpp"
 #include "MovingState.hpp"
 #include "StandingState.hpp"
 #include "Weapon.hpp"
 
 void StandingState::update() {
-	if(Keyboard::isKeyPressedOnce(Keyboard::A)
+	if(GamePad::isKeyPressedOnce(GameKey::A)
 	&& m_character.inventory().weaponA() != nullptr) {
 		m_character.inventory().weaponA()->updateOwnerNextState();
 	}
 	
-	if(Keyboard::isKeyPressedOnce(Keyboard::B)
+	if(GamePad::isKeyPressedOnce(GameKey::B)
 	&& m_character.inventory().weaponB() != nullptr) {
 		m_character.inventory().weaponB()->updateOwnerNextState();
 	}
 	
-	if(Keyboard::isKeyPressed(Keyboard::Left)
-	|| Keyboard::isKeyPressed(Keyboard::Right)
-	|| Keyboard::isKeyPressed(Keyboard::Up)
-	|| Keyboard::isKeyPressed(Keyboard::Down)) {
+	if(GamePad::isKeyPressed(GameKey::Left)
+	|| GamePad::isKeyPressed(GameKey::Right)
+	|| GamePad::isKeyPressed(GameKey::Up)
+	|| GamePad::isKeyPressed(GameKey::Down)) {
 		setNextState<MovingState>();
 	}
 }

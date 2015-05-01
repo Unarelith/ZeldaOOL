@@ -13,8 +13,8 @@
  */
 #include "ChestObject.hpp"
 #include "DoorObject.hpp"
-#include "Keyboard.hpp"
-#include "KeyboardMovement.hpp"
+#include "GamePad.hpp"
+#include "GamePadMovement.hpp"
 #include "Map.hpp"
 #include "NPC.hpp"
 #include "Player.hpp"
@@ -49,7 +49,7 @@ void Player::load() {
 	// SpinAttack
 	addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
 	
-	setMovement<KeyboardMovement>();
+	setMovement<GamePadMovement>();
 	addCollisionHandler(std::bind(&Player::mapCollisions, this));
 	
 	setNextState<StandingState>();
@@ -70,7 +70,7 @@ void Player::update(bool states) {
 	
 	// Check if a chest is in front of the player and if A is pressed
 	if(m_direction == Direction::Up && Map::currentMap->isTile(m_x + 8, m_y + 4, TilesData::TileType::ClosedChest)) {
-		if(Keyboard::isKeyPressedOnce(Keyboard::A)) {
+		if(GamePad::isKeyPressedOnce(GameKey::A)) {
 			ChestObject *chestObject = static_cast<ChestObject*>(Map::currentMap->getObject(m_x + 8, m_y - 2));
 			if(chestObject) {
 				chestObject->onEvent(Map::EventType::ChestOpened);

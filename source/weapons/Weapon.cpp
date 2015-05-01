@@ -11,8 +11,8 @@
  *
  * =====================================================================================
  */
+#include "GamePad.hpp"
 #include "Player.hpp"
-#include "Keyboard.hpp"
 #include "Weapon.hpp"
 
 Weapon::Weapon(const std::string &textureName, u8 level, u16 width, u16 height) : Movable(textureName, 0, 0, width, height), m_player(Player::player) {
@@ -25,16 +25,16 @@ Weapon::Weapon(const std::string &textureName, u8 level, u16 width, u16 height) 
 }
 
 bool Weapon::keyPressed() {
-	return((Keyboard::isKeyPressed(Keyboard::A)
+	return((GamePad::isKeyPressed(GameKey::A)
 		 && m_player.inventory().weaponA() == this)
-		|| (Keyboard::isKeyPressed(Keyboard::B)
+		|| (GamePad::isKeyPressed(GameKey::B)
 		 && m_player.inventory().weaponB() == this));
 }
 
 bool Weapon::keyPressedOnce() {
-	return((Keyboard::isKeyPressedOnce(Keyboard::A)
+	return((GamePad::isKeyPressedOnce(GameKey::A)
 		 && m_player.inventory().weaponA() == this)
-		|| (Keyboard::isKeyPressedOnce(Keyboard::B)
+		|| (GamePad::isKeyPressedOnce(GameKey::B)
 		 && m_player.inventory().weaponB() == this));
 }
 

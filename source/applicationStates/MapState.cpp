@@ -17,7 +17,7 @@
 #include "DialogState.hpp"
 #include "DoorLoader.hpp"
 #include "DoorTransition.hpp"
-#include "Keyboard.hpp"
+#include "GamePad.hpp"
 #include "MapLoader.hpp"
 #include "MapState.hpp"
 #include "MenuState.hpp"
@@ -73,11 +73,11 @@ void MapState::update() {
 		}
 	}
 	
-	if(Keyboard::isKeyPressedOnce(Keyboard::Select)) {
+	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
 		m_stateStack->push<DialogState>(this, "L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.");
 	}
 	
-	if(Keyboard::isKeyPressedOnce(Keyboard::Start)) {
+	if(GamePad::isKeyPressedOnce(GameKey::Start)) {
 		AudioPlayer::playEffect("menuOpen");
 		
 		m_stateStack->push<MenuState>();

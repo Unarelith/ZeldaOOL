@@ -1,8 +1,6 @@
 ===== REFACTORING =====
 - Improve 'Dialog' and 'DialogState'
 	=> See ZeldaOOL
-- Improve 'XMLTileMap', 'TileMap', 'AnimatedMap', 'Map'
-	=> See ZeldaOOL
 - Implement GamePad
 	=> See ZeldaOOL
 - Improve OpenGL code
@@ -11,11 +9,15 @@
 	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'
 - Improve Sprite and SpriteAnimation
 	=> See ZeldaOOL
+	=> Add position for frames
 - Improve Sword
 	=> See the array in SwordFactory of ZeldaOOL
 - Improve game object system
-- Rename TilesData to TilesInfos
 - Improve Debug and Exception
+- Rename TilesData to TilesInfos
+- Rename Rectangle to RectangleShape
+- Rename Types to IntTypes
+- Reorganize project tree
 
 ===== TODO =====
 - Finish 'Octorok'
@@ -66,4 +68,5 @@
 	=> Find a way to rip it
 - Fix 'moonwalk' bug
 - When link is trying to cut a grass tile being too close nothing happens
+- Sometimes the Dialog box is displayed too far in the right
 

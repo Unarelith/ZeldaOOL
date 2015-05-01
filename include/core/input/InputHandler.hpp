@@ -1,24 +1,24 @@
 /*
  * =====================================================================================
  *
- *       Filename:  KeyboardMovement.hpp
+ *       Filename:  InputHandler.hpp
  *
  *    Description:  
  *
- *        Created:  18/01/2015 02:00:33
+ *        Created:  12/02/2015 17:16:57
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef KEYBOARDMOVEMENT_HPP_
-#define KEYBOARDMOVEMENT_HPP_
+#ifndef INPUTHANDLER_HPP_
+#define INPUTHANDLER_HPP_
 
-#include "Movement.hpp"
+#include "GameKey.hpp"
 
-class KeyboardMovement : public Movement {
+class InputHandler {
 	public:
-		void doMovement(Movable &movable) override;
+		virtual bool isKeyPressed(GameKey key) = 0;
 };
 
-#endif // KEYBOARDMOVEMENT_HPP_
+#endif // INPUTHANDLER_HPP_

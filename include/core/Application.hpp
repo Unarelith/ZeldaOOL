@@ -16,6 +16,7 @@
 
 #include "ApplicationStateStack.hpp"
 #include "GameClock.hpp"
+#include "KeyboardHandler.hpp"
 #include "Window.hpp"
 
 class Application {
@@ -30,6 +31,8 @@ class Application {
 		ApplicationStateStack &m_stateStack;
 		
 		GameClock m_clock;
+		
+		KeyboardHandler m_keyboardHandler;
 		
 		Window m_window;
 };
