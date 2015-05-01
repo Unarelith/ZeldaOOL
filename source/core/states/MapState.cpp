@@ -24,7 +24,9 @@
 #include "NPC.hpp"
 #include "Octorok.hpp"
 #include "Player.hpp"
+#include "PlayerFactory.hpp"
 #include "ResourceHandler.hpp"
+#include "Scene.hpp"
 #include "ScrollingTransition.hpp"
 #include "TilesetLoader.hpp"
 #include "TransitionState.hpp"
@@ -49,6 +51,10 @@ MapState::MapState() {
 	
 	Map::getMap(0, 1, 0).scene().addObject<Octorok>(5 * 16, 4 * 16, Movable::Direction::Right);
 	Map::getMap(2, 0, 0).scene().addObject<Octorok>(5 * 16, 3 * 16, Movable::Direction::Right);
+	
+	m_player = PlayerFactory::create(64, 48);
+	
+	Scene::player = &m_player;
 	
 	AudioPlayer::playMusic("plain");
 }

@@ -15,6 +15,7 @@
 #define MAPSTATE_HPP_
 
 #include "ApplicationState.hpp"
+#include "SceneObject.hpp"
 #include "StatsBar.hpp"
 
 class MapState : public ApplicationState {
@@ -26,6 +27,8 @@ class MapState : public ApplicationState {
 		void draw();
 		
 	protected:
+		SceneObject m_player;
+		
 		StatsBar m_statsBar;
 };
 

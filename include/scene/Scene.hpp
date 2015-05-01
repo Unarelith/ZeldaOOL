@@ -47,7 +47,9 @@ class Scene {
 		
 		void checkCollisionsFor(MapObject *object);
 		
-		static bool isPlayer(const SceneObject &) { return false; }
+		static bool isPlayer(const SceneObject &object) { return player == &object; }
+		
+		static SceneObject *player;
 		
 	private:
 		std::vector<std::unique_ptr<MapObject>> m_oldObjects;

@@ -12,13 +12,15 @@
  * =====================================================================================
  */
 #include "Application.hpp"
-#include "Player.hpp"
 #include "Config.hpp"
 #include "Map.hpp"
+#include "PositionComponent.hpp"
+#include "Player.hpp"
+#include "Scene.hpp"
 #include "ScrollingTransition.hpp"
 
 ScrollingTransition::ScrollingTransition(Mode mode) {
-	m_mode = (Mode)mode;
+	m_mode = mode;
 	
 	if(m_mode == Mode::ScrollingLeft) {
 		m_vx = -1;
@@ -47,6 +49,13 @@ ScrollingTransition::ScrollingTransition(Mode mode) {
 }
 
 void ScrollingTransition::update() {
+	PositionComponent *positionComponent = nullptr;
+	
+	if(Scene::player) {
+		positionComponent = &Scene::player->get<PositionComponent>();
+		positionComponent->move(m_vx * 0.15f, m_vy * 0.21f);
+	}
+	
 	Player::player.move(m_vx * 0.15f, m_vy * 0.21f);
 	
 	Map::currentMap->view().move(-m_vx * 1.6f, -m_vy * 1.5f);
@@ -61,6 +70,13 @@ void ScrollingTransition::update() {
 		else if(m_vx > 0) Player::player.move(-Map::currentMap->width() * 16, 0);
 		else if(m_vy < 0) Player::player.move(0, m_nextMap->height() * 16);
 		else if(m_vy > 0) Player::player.move(0, -Map::currentMap->height() * 16);
+		
+		if(positionComponent) {
+			if(m_vx < 0)      positionComponent->move(m_nextMap->width() * 16, 0);
+			else if(m_vx > 0) positionComponent->move(-Map::currentMap->width() * 16, 0);
+			else if(m_vy < 0) positionComponent->move(0, m_nextMap->height() * 16);
+			else if(m_vy > 0) positionComponent->move(0, -Map::currentMap->height() * 16);
+		}
 		
 		Map::currentMap = m_nextMap;
 		Map::currentMap->view().setPosition(0, 16);

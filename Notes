@@ -1,14 +1,10 @@
 ===== REFACTORING =====
+- Improve game object system
+- Remove Config.hpp
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?
 	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'
-- Improve Sword
-	=> See the array in SwordFactory of ZeldaOOL
-- Add CollectableMovement
-- Rename MapObject into SceneObject
-	=> Split Map's object management part into Scene
-- Improve game object system
 
 ===== TODO =====
 - Finish 'Octorok'

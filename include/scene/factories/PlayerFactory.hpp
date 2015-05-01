@@ -1,24 +1,24 @@
 /*
  * =====================================================================================
  *
- *       Filename:  GamePadMovement.hpp
+ *       Filename:  PlayerFactory.hpp
  *
  *    Description:  
  *
- *        Created:  18/01/2015 02:00:33
+ *        Created:  02/05/2015 00:24:33
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef GAMEPADMOVEMENT_HPP_
-#define GAMEPADMOVEMENT_HPP_
+#ifndef PLAYERFACTORY_HPP_
+#define PLAYERFACTORY_HPP_
 
-#include "Movement.hpp"
+#include "SceneObject.hpp"
 
-class GamePadMovement : public OldMovement {
+class PlayerFactory {
 	public:
-		void process(Movable &movable) override;
+		static SceneObject create(float x, float y);
 };
 
-#endif // GAMEPADMOVEMENT_HPP_
+#endif // PLAYERFACTORY_HPP_

@@ -63,7 +63,7 @@ void Player::load() {
 	// SpinAttack
 	addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, swordSpinAttackPosition, 50);
 	
-	setMovement<GamePadMovement>();
+	setMovement<OldGamePadMovement>();
 	addCollisionHandler(std::bind(&Player::mapCollisions, this));
 	
 	setNextState<StandingState>();

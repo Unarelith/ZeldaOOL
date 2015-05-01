@@ -11,31 +11,32 @@
  *
  * =====================================================================================
  */
+#include "MovementSystem.hpp"
+
 #include "CollisionComponent.hpp"
 #include "MovementComponent.hpp"
-#include "MovementSystem.hpp"
 #include "PositionComponent.hpp"
 
 void MovementSystem::process(SceneObject &object) {
 	if(object.has<PositionComponent>() && object.has<MovementComponent>()) {
-		auto &positionComponent = object.get<PositionComponent>();
-		auto &movementComponent = object.get<MovementComponent>();
+		auto &position = object.get<PositionComponent>();
+		auto &movement = object.get<MovementComponent>();
 		
-		movementComponent.movement->process(object);
+		movement.movement->process(object);
 		
-		movementComponent.isBlocked = false;
+		movement.isBlocked = false;
 		
 		if(object.has<CollisionComponent>()) {
 			object.get<CollisionComponent>().checkCollisions(object);
 		}
 		
-		movementComponent.isMoving = (movementComponent.vx || movementComponent.vy) ? true : false;
+		movement.isMoving = (movement.vx || movement.vy) ? true : false;
 		
-		positionComponent.x += movementComponent.vx * movementComponent.speed;
-		positionComponent.y += movementComponent.vy * movementComponent.speed;
+		position.move(movement.vx * movement.speed,
+		              movement.vy * movement.speed);
 		
-		movementComponent.vx = 0;
-		movementComponent.vy = 0;
+		movement.vx = 0;
+		movement.vy = 0;
 	}
 }
 

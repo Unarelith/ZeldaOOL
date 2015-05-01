@@ -30,6 +30,29 @@ void DrawingSystem::draw(SceneObject &object) {
 		if(object.has<Image>()) {
 			object.get<Image>().draw(position.x, position.y);
 		}
+		
+		if(object.has<Sprite>()) {
+			drawSprite(object, position.x, position.y);
+		}
+	}
+}
+
+void DrawingSystem::drawSprite(SceneObject &object, float x, float y) {
+	bool animated = false;
+	u16 animID = 0;
+	
+	if(object.has<MovementComponent>()) {
+		animated = object.get<MovementComponent>().isMoving;
+	}
+	
+	if(object.get<PositionComponent>().direction != Direction::None) {
+		animID += static_cast<s8>(object.get<PositionComponent>().direction);
+	}
+	
+	if(animated) {
+		object.get<Sprite>().playAnimation(x, y, animID);
+	} else {
+		object.get<Sprite>().drawFrame(x, y, animID);
 	}
 }
 

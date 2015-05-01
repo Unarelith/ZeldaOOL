@@ -18,6 +18,8 @@
 #include "DrawingSystem.hpp"
 #include "Scene.hpp"
 
+SceneObject *Scene::player = nullptr;
+
 void Scene::update() {
 	for(auto &it : m_oldObjects) {
 		it->update();
@@ -28,6 +30,8 @@ void Scene::update() {
 	for(auto &it : m_objects) {
 		MovementSystem::process(it);
 	}
+	
+	if(player) MovementSystem::process(*player);
 }
 
 void Scene::draw() {
@@ -38,6 +42,8 @@ void Scene::draw() {
 	for(auto &it : m_objects) {
 		DrawingSystem::draw(it);
 	}
+	
+	if(player) DrawingSystem::draw(*player);
 }
 
 SceneObject &Scene::addObject(SceneObject &&object) {
