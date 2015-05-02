@@ -67,7 +67,7 @@ void DrawingSystem::drawSpriteComponent(SceneObject &object, float x, float y) {
 	if(sprite.isAnimated) {
 		sprite.sprite.playAnimation(x, y, sprite.animID);
 	} else {
-		sprite.sprite.drawFrame(x, y, sprite.frameID);
+		sprite.sprite.drawAnimationFrame(x, y, sprite.animID, sprite.frameID);
 	}
 }
 

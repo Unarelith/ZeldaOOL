@@ -41,29 +41,29 @@ SceneObject PlayerFactory::create(float x, float y) {
 		Map::currentMap->scene().checkCollisionsFor(object);
 	});
 	
-	auto &sprite = object.set<SpriteComponent>("characters-link", 16, 16);
-	sprite.sprite.setColorMod(Color(125, 125, 255));
+	auto &spriteComponent = object.set<SpriteComponent>("characters-link", 16, 16);
+	spriteComponent.sprite.setColorMod(Color(125, 125, 255));
 	
 	// Walking
-	sprite.sprite.addAnimation({4, 0}, 110);
-	sprite.sprite.addAnimation({5, 1}, 110);
-	sprite.sprite.addAnimation({6, 2}, 110);
-	sprite.sprite.addAnimation({7, 3}, 110);
+	spriteComponent.sprite.addAnimation({4, 0}, 110);
+	spriteComponent.sprite.addAnimation({5, 1}, 110);
+	spriteComponent.sprite.addAnimation({6, 2}, 110);
+	spriteComponent.sprite.addAnimation({7, 3}, 110);
 	
 	// Pushing
-	sprite.sprite.addAnimation({ 8, 12}, 90);
-	sprite.sprite.addAnimation({ 9, 13}, 90);
-	sprite.sprite.addAnimation({10, 14}, 90);
-	sprite.sprite.addAnimation({11, 15}, 90);
+	spriteComponent.sprite.addAnimation({ 8, 12}, 90);
+	spriteComponent.sprite.addAnimation({ 9, 13}, 90);
+	spriteComponent.sprite.addAnimation({10, 14}, 90);
+	spriteComponent.sprite.addAnimation({11, 15}, 90);
 	
 	// Using sword
-	sprite.sprite.addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, 40);
-	sprite.sprite.addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, 40);
-	sprite.sprite.addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 40);
-	sprite.sprite.addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 40);
+	spriteComponent.sprite.addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, 40);
+	spriteComponent.sprite.addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, 40);
+	spriteComponent.sprite.addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 40);
+	spriteComponent.sprite.addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 40);
 	
 	// Spin attack
-	sprite.sprite.addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
+	spriteComponent.sprite.addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
 	
 	return object;
 }

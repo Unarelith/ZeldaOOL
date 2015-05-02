@@ -73,7 +73,7 @@ void Player::load() {
 	m_hitbox = IntRect(4, 5, 8, 10);
 	
 	auto &sword = m_inventory.addWeapon<Sword>();
-	m_inventory.setWeaponA(sword);
+	m_inventory.setWeaponB(sword);
 }
 
 void Player::update(bool states) {

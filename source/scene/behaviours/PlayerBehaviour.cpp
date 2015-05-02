@@ -11,7 +11,10 @@
  *
  * =====================================================================================
  */
+#include "GamePad.hpp"
+#include "Map.hpp"
 #include "PlayerBehaviour.hpp"
+#include "SwordFactory.hpp"
 
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
@@ -19,9 +22,15 @@
 
 void PlayerBehaviour::action(SceneObject &object) {
 	auto &movement = object.get<MovementComponent>();
+	auto &position = object.get<PositionComponent>();
 	
 	switch(m_state) {
 		case State::Standing:
+			if(GamePad::isKeyPressedOnce(GameKey::A)) {
+				SceneObject sword = SwordFactory::create(position.x, position.y, position.direction, object);
+				Map::currentMap->scene().addObject(std::move(sword));
+			}
+			
 			if(movement.isMoving) {
 				m_state = State::Moving;
 			}
@@ -57,10 +66,11 @@ void PlayerBehaviour::updateSprite(SceneObject &object) {
 	auto &sprite = object.get<SpriteComponent>();
 	
 	switch(m_state) {
-		case State::Standing:
 		case State::Hurt:
+		case State::Standing:
 			sprite.isAnimated = false;
-			sprite.frameID = static_cast<s8>(position.direction);
+			sprite.animID = static_cast<s8>(position.direction);
+			sprite.frameID = 1;
 			break;
 		case State::Moving:
 			sprite.isAnimated = true;

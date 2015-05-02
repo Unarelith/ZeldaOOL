@@ -24,7 +24,7 @@ class SpriteComponent {
 		bool isAnimated = false;
 		
 		u16 animID = 0;
-		s16 frameID = 0;
+		u16 frameID = 0;
 		
 		Sprite sprite;
 };

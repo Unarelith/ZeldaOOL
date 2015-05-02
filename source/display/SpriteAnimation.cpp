@@ -40,11 +40,11 @@ void SpriteAnimation::play() {
 }
 
 u16 SpriteAnimation::getFrameID(u16 frame) const {
-	if(!isFinished()) {
+	//if(!isFinished()) {
 		return m_frames[frame];
-	} else {
-		return 0;
-	}
+	//} else {
+	//	return m_frames[0];
+	//}
 }
 
 u16 SpriteAnimation::framesDisplayed() const {
