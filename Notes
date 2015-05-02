@@ -1,6 +1,5 @@
 ===== REFACTORING =====
 - Improve game object system
-- Remove Config.hpp
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?

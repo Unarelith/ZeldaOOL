@@ -11,8 +11,8 @@
  *
  * =====================================================================================
  */
+#include "Application.hpp"
 #include "AudioPlayer.hpp"
-#include "Config.hpp"
 #include "DoorTransition.hpp"
 #include "Map.hpp"
 #include "Player.hpp"
@@ -36,11 +36,11 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	
-	m_rect1.resize(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 16);
-	m_rect2.resize(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 16);
+	m_rect1.resize(Application::screenWidth / 2, Application::screenHeight - 16);
+	m_rect2.resize(Application::screenWidth / 2, Application::screenHeight - 16);
 	
 	m_rect1.setPosition(0, 16);
-	m_rect2.setPosition(SCREEN_WIDTH / 2, 16);
+	m_rect2.setPosition(Application::screenWidth / 2, 16);
 	
 	// FIXME: TEMPORARY
 	if(m_nextMap->area() == 0) {

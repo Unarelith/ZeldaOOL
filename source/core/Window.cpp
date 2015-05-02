@@ -15,7 +15,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Config.hpp"
+#include "Application.hpp"
 #include "Exception.hpp"
 #include "OpenGL.hpp"
 #include "Window.hpp"
@@ -24,8 +24,8 @@ Window::Window() {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	
-	m_width = SCREEN_WIDTH * 3;
-	m_height = SCREEN_HEIGHT * 3;
+	m_width = Application::screenWidth * 3;
+	m_height = Application::screenHeight * 3;
 	
 	auto caption = "The Legend of Zelda: Oracle of Time";
 	m_window.reset(SDL_CreateWindow(caption, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN));
@@ -59,7 +59,7 @@ void Window::initGL() {
 	
 	Shader::bind(&m_shader);
 	
-	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f);
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)Application::screenWidth, (float)Application::screenHeight, 0.0f);
 	m_shader.setUniform("u_projectionMatrix", projectionMatrix);
 }
 

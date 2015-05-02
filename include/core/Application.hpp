@@ -27,6 +27,9 @@ class Application {
 		
 		void run();
 		
+		static const u16 screenWidth = 160;
+		static const u16 screenHeight = 144;
+		
 	private:
 		ApplicationStateStack &m_stateStack;
 		

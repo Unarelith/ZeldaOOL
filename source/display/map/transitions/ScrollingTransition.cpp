@@ -12,7 +12,6 @@
  * =====================================================================================
  */
 #include "Application.hpp"
-#include "Config.hpp"
 #include "Map.hpp"
 #include "PositionComponent.hpp"
 #include "Player.hpp"
@@ -64,8 +63,8 @@ void ScrollingTransition::update() {
 	if(m_vx != 0) m_scrolled += 1.6f;
 	if(m_vy != 0) m_scrolled += 1.5f;
 	
-	if((m_scrolled >= SCREEN_WIDTH       && m_vx != 0)
-	|| (m_scrolled >= SCREEN_HEIGHT - 16 && m_vy != 0)) {
+	if((m_scrolled >= Application::screenWidth       && m_vx != 0)
+	|| (m_scrolled >= Application::screenHeight - 16 && m_vy != 0)) {
 		if(m_vx < 0)      Player::player.move(m_nextMap->width() * 16, 0);
 		else if(m_vx > 0) Player::player.move(-Map::currentMap->width() * 16, 0);
 		else if(m_vy < 0) Player::player.move(0, m_nextMap->height() * 16);
