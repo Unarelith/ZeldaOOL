@@ -22,6 +22,12 @@
 
 SceneObject *Scene::player = nullptr;
 
+void Scene::reset() {
+	for(auto &it : m_objects) {
+		BehaviourSystem::reset(it);
+	}
+}
+
 void Scene::update() {
 	LifetimeSystem::process(m_objects);
 	
@@ -37,9 +43,9 @@ void Scene::update() {
 }
 
 void Scene::updateObject(SceneObject &object) {
-	BehaviourSystem::process(object);
-	
 	MovementSystem::process(object);
+	
+	BehaviourSystem::process(object);
 }
 
 void Scene::draw() {
@@ -69,15 +75,7 @@ SceneObject &Scene::addObject(SceneObject &&object) {
 void Scene::checkCollisionsFor(SceneObject &object) {
 	for(SceneObject &obj : m_objects) {
 		if(&object != &obj) {
-			if(object.has<CollisionComponent>() && obj.has<CollisionComponent>()) {
-				auto &collisionComponent1 = object.get<CollisionComponent>();
-				auto &collisionComponent2 = obj.get<CollisionComponent>();
-				
-				bool collision = CollisionSystem::inCollision(object, obj);
-				
-				collisionComponent1.collisionActions(object, obj, collision);
-				collisionComponent2.collisionActions(obj, object, collision);
-			}
+			CollisionSystem::checkCollision(object, obj);
 		}
 	}
 }

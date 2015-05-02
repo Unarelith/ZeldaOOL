@@ -21,3 +21,9 @@ void BehaviourSystem::process(SceneObject &object) {
 	}
 }
 
+void BehaviourSystem::reset(SceneObject &object) {
+	if(object.has<BehaviourComponent>()) {
+		object.get<BehaviourComponent>().behaviour->reset(object);
+	}
+}
+

@@ -24,11 +24,12 @@ class Map {
 	public:
 		Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data);
 		
+		void reset();
+		
 		void update();
 		
 		void draw();
 		
-		void resetTiles();
 		void updateTiles();
 		
 		u16 getTile(u16 tileX, u16 tileY);

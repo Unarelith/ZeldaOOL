@@ -14,8 +14,22 @@
 #include "CollisionSystem.hpp"
 #include "Sprite.hpp"
 
+#include "CollisionComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
+#include "SpriteComponent.hpp"
+
+void CollisionSystem::checkCollision(SceneObject &object1, SceneObject &object2) {
+	bool collision = inCollision(object1, object2);
+	
+	if(object1.has<CollisionComponent>()) {
+		object1.get<CollisionComponent>().collisionActions(object1, object2, collision);
+	}
+	
+	if(object2.has<CollisionComponent>()) {
+		object2.get<CollisionComponent>().collisionActions(object2, object1, collision);
+	}
+}
 
 bool CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2) {
 	if(object1.has<PositionComponent>() && object2.has<PositionComponent>()) {
@@ -37,6 +51,16 @@ bool CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2) {
 		if(object2.has<MovementComponent>()) {
 			rect2.x += object2.get<MovementComponent>().vx;
 			rect2.y += object2.get<MovementComponent>().vy;
+		}
+		
+		if(object1.has<SpriteComponent>()) {
+			rect1.x += object1.get<SpriteComponent>().sprite.currentAnimation().currentPosition().first;
+			rect1.y += object1.get<SpriteComponent>().sprite.currentAnimation().currentPosition().second;
+		}
+		
+		if(object2.has<SpriteComponent>()) {
+			rect2.x += object2.get<SpriteComponent>().sprite.currentAnimation().currentPosition().first;
+			rect2.y += object2.get<SpriteComponent>().sprite.currentAnimation().currentPosition().second;
 		}
 		
 		return rect1.intersects(rect2);

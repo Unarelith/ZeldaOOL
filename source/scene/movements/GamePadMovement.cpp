@@ -69,6 +69,8 @@ void OldGamePadMovement::process(Movable &movable) {
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 
+#include "Debug.hpp"
+
 void GamePadMovement::process(SceneObject &object) {
 	auto &movementComponent = object.get<MovementComponent>();
 	auto &positionComponent = object.get<PositionComponent>();

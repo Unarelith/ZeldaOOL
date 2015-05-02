@@ -38,10 +38,14 @@ void SwordBehaviour::action(SceneObject &sword) {
 	
 	if(m_state == "Swinging") {
 		if(sprite.currentAnimation().isFinished()) {
-			m_state = "Loading";
-			
-			m_loadingTimer.reset();
-			m_loadingTimer.start();
+			if(!m_keyReleased) {
+				m_state = "Loading";
+				
+				m_loadingTimer.reset();
+				m_loadingTimer.start();
+			} else {
+				m_state = "Finished";
+			}
 		}
 		
 		//if(!keyPressed()) {
@@ -133,8 +137,6 @@ void SwordBehaviour::action(SceneObject &sword) {
 		}
 	}
 	
-	// Movable::testCollisions();
-	
 	updateSprite(sword);
 }
 
@@ -155,6 +157,9 @@ void SwordBehaviour::updateSprite(SceneObject &sword) {
 	else if(m_state == "SpinAttack") {
 		spriteComponent.isAnimated = true;
 		spriteComponent.animID = 8;
+	}
+	else {
+		spriteComponent.isDisabled = true;
 	}
 }
 

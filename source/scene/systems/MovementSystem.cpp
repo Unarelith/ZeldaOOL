@@ -18,17 +18,21 @@
 #include "PositionComponent.hpp"
 
 void MovementSystem::process(SceneObject &object) {
-	if(object.has<PositionComponent>() && object.has<MovementComponent>()) {
-		auto &position = object.get<PositionComponent>();
+	if(object.has<MovementComponent>()) {
 		auto &movement = object.get<MovementComponent>();
 		
 		if(movement.movement) movement.movement->process(object);
 		
 		movement.isBlocked = false;
-		
-		if(object.has<CollisionComponent>()) {
-			object.get<CollisionComponent>().checkCollisions(object);
-		}
+	}
+	
+	if(object.has<CollisionComponent>()) {
+		object.get<CollisionComponent>().checkCollisions(object);
+	}
+	
+	if(object.has<PositionComponent>() && object.has<MovementComponent>()) {
+		auto &position = object.get<PositionComponent>();
+		auto &movement = object.get<MovementComponent>();
 		
 		movement.isMoving = (movement.vx || movement.vy) ? true : false;
 		

@@ -42,7 +42,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 	});
 	
 	auto &spriteComponent = object.set<SpriteComponent>("characters-link", 16, 16);
-	spriteComponent.sprite.setColorMod(Color(125, 125, 255));
+	spriteComponent.sprite.setColorMod(Color(255, 255, 255, 200));
 	
 	std::vector<std::vector<std::pair<s16, s16>>> usingSwordPosition = {
 		{{ 0,  0}, { 0,  0}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  0}, { 0,  0}},

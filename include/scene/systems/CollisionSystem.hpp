@@ -18,6 +18,8 @@
 
 class CollisionSystem {
 	public:
+		static void checkCollision(SceneObject &object1, SceneObject &object2);
+		
 		static bool inCollision(SceneObject &object1, SceneObject &object2);
 };
 

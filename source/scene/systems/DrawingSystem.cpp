@@ -17,7 +17,6 @@
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
-#include "Sprite.hpp"
 
 void DrawingSystem::draw(SceneObject &object) {
 	if(object.has<PositionComponent>()) {
@@ -64,10 +63,12 @@ void DrawingSystem::drawSprite(SceneObject &object, float x, float y) {
 void DrawingSystem::drawSpriteComponent(SceneObject &object, float x, float y) {
 	auto &sprite = object.get<SpriteComponent>();
 	
-	if(sprite.isAnimated) {
-		sprite.sprite.playAnimation(x, y, sprite.animID);
-	} else {
-		sprite.sprite.drawAnimationFrame(x, y, sprite.animID, sprite.frameID);
+	if(!sprite.isDisabled) {
+		if(sprite.isAnimated) {
+			sprite.sprite.playAnimation(x, y, sprite.animID);
+		} else {
+			sprite.sprite.drawAnimationFrame(x, y, sprite.animID, sprite.frameID);
+		}
 	}
 }
 

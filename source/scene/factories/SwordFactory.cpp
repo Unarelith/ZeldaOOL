@@ -27,23 +27,23 @@ SceneObject SwordFactory::create(float x, float y, Direction direction, SceneObj
 	object.set<WeaponComponent>(owner);
 	
 	auto &positionComponent = object.set<PositionComponent>(x, y, 16, 16);
-	positionComponent.hitbox.reset(0, 0, 16, 16); // TODO
+	positionComponent.hitbox.reset(4, 4, 8, 8); // TODO
 	positionComponent.direction = direction;
 	
 	auto &spriteComponent = object.set<SpriteComponent>("animations-sword", 16, 16);
 	
 	std::vector<std::vector<std::pair<s16, s16>>> swordPosition = {
-		{{-15,   0}, {-13,  15}, {-13,  15}, { -1,  16}, { -1,  16}, { -1,  16}, { -1,  14}, { -1,  14}},
-		{{ -5, -15}, { 12, -12}, { 12, -12}, { 15,   1}, { 15,   1}, { 15,   1}, { 12,   1}, { 12,   1}},
-		{{  5, -15}, {-12, -12}, {-12, -12}, {-15,   1}, {-15,   1}, {-15,   1}, {-12,   1}, {-12,   1}},
-		{{ 14,   4}, { 12, -12}, { 12, -12}, {  0, -15}, {  0, -15}, {  0, -15}, {  0, -11}, {  0, -11}}
+		{{-15,   0}, {-13,  15}, {-13,  15}, { -1,  16}, { -1,  16}, { -1,  16}, { -1,  14}},
+		{{ -5, -15}, { 12, -12}, { 12, -12}, { 15,   1}, { 15,   1}, { 15,   1}, { 12,   1}},
+		{{  5, -15}, {-12, -12}, {-12, -12}, {-15,   1}, {-15,   1}, {-15,   1}, {-12,   1}},
+		{{ 14,   4}, { 12, -12}, { 12, -12}, {  0, -15}, {  0, -15}, {  0, -15}, {  0, -11}}
 	};
 	
 	std::vector<std::pair<s16, s16>> spinAttackPosition = {
 		{ -1,  16}, {-12,  12}, {-15,  1}, {-12, -12},
 		{  0, -15}, { 11, -12}, { 15,  2}, { 13,  13}
 	};
-
+	
 	// Swinging
 	spriteComponent.sprite.addAnimation({0, 4, 4,  8,  8,  8,  8}, swordPosition[0], 40);
 	spriteComponent.sprite.addAnimation({1, 5, 5,  9,  9,  9,  9}, swordPosition[1], 40);

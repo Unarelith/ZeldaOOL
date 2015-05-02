@@ -21,6 +21,8 @@ class Behaviour {
 		Behaviour(const std::string &state = "") : m_state(state) {}
 		virtual ~Behaviour() = default;
 		
+		virtual void reset(SceneObject &) {}
+		
 		virtual void action(SceneObject &object) = 0;
 		
 		const std::string &state() const { return m_state; }

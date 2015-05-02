@@ -1,8 +1,12 @@
 ===== REFACTORING =====
 - Improve game object system
 	=> Implement Battler + HurtState equivalent for Scene::player and octoroks
-	=> Replace Sword by a SceneObject
-		-> Remove Sword, Character, NPC and Weapon
+		-> Remove Sword
+- Fix Sword bugs
+	=> Sometimes the tile under the player get cutted too, even in spin attack, why?
+	=> When changing map in loading state the sword stays in its scene
+- Implement a new Inventory system
+	=> Remove Inventory + mapObjects folders + OldGamePadMovement
 - Use m_parent in TransitionState
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
@@ -15,8 +19,6 @@
 	=> Add 'Projectile' class
 	=> Implement projectiles for octorok
 	=> Clean
-- Finish 'NPC'
-	=> Player can't move on the side when it collides an NPC
 - Remove sword loading animation, and replace it by palette switch
 - Implement 'Translator'
 	=> Like Asylia LanguageManager
@@ -29,6 +31,7 @@
 - Add 'PowerBracelet'
 	=> Pots and grass are liftable
 	=> Add State::Lifting for player
+- Add NPCs
 - Improve sword positions
 - Improve game for OpenGL ES and try on Android
 - Write a little game editor with Qt

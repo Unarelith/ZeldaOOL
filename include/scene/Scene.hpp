@@ -24,6 +24,8 @@
 
 class Scene {
 	public:
+		void reset();
+		
 		void update();
 		void updateObject(SceneObject &object);
 		

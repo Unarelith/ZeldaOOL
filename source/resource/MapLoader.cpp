@@ -41,6 +41,9 @@ void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 	}
 }
 
+#include "GrassFactory.hpp"
+#include "TilesInfos.hpp"
+
 void MapLoader::loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset &tileset, ResourceHandler &handler) {
 	XMLFile doc("data/maps/" + name + ".tmx");
 	
@@ -60,6 +63,19 @@ void MapLoader::loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset
 	}
 	
 	Map &map = handler.add<Map>(makeName(area, x, y), area, x, y, width, height, tileset, data);
+	
+	for(u16 tileY = 0 ; tileY < height ; tileY++) {
+		for(u16 tileX = 0 ; tileX < width ; tileX++) {
+			u16 tileID = map.getTile(tileX, tileY);
+			
+			if(tileset.info()[tileID] == TilesInfos::TileType::GrassTile) {
+				map.scene().addObject(GrassFactory::create(tileX, tileY));
+			}
+			else if(tileset.info()[tileID] == TilesInfos::TileType::LowGrassTile) {
+				map.scene().addObject(GrassFactory::create(tileX, tileY, true));
+			}
+		}
+	}
 	
 	SceneObjectLoader::load(name, map.scene());
 }

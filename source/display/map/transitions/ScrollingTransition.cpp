@@ -38,7 +38,7 @@ ScrollingTransition::ScrollingTransition(Mode mode) {
 	                         Map::currentMap->x() + m_vx,
 	                         Map::currentMap->y() + m_vy);
 	
-	m_nextMap->resetTiles();
+	m_nextMap->reset();
 	m_nextMap->updateTiles();
 	
 	m_nextMap->view().setPosition(Map::currentMap->width() * 16 * m_vx,

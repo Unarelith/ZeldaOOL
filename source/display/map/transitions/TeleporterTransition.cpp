@@ -22,7 +22,7 @@
 
 TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection, bool movePlayer) {
 	m_nextMap = &Map::getMap(area, mapX, mapY);
-	m_nextMap->resetTiles();
+	m_nextMap->reset();
 	m_nextMap->updateTiles();
 	
 	m_playerX = playerX;

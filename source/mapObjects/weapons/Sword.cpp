@@ -12,7 +12,6 @@
  * =====================================================================================
  */
 #include "AudioPlayer.hpp"
-#include "GrassObject.hpp"
 #include "GamePad.hpp"
 #include "Map.hpp"
 #include "PlayerState.hpp"
@@ -205,22 +204,22 @@ void Sword::draw() {
 	}
 }
 
-void Sword::collisionAction(MapObject &object) {
-	if(object.checkType<GrassObject>()) {
-		GrassObject &grass = static_cast<GrassObject&>(object);
-		
-		float x = m_x + 8 + currentAnimation().currentPosition().first;
-		float y = m_y + 8 + currentAnimation().currentPosition().second;
-		
-		if(Map::currentMap->scene().objectAtPosition(grass, x, y)) {
-			if(((m_state == Sword::State::Swinging && getAnimation(m_player.direction()).framesDisplayed() > 2)
-			  || m_state == Sword::State::SpinAttack)
-			 && (Map::currentMap->isTile(x, y, TilesInfos::TileType::GrassTile)
-			  || Map::currentMap->isTile(x, y, TilesInfos::TileType::LowGrassTile))) {
-				grass.onEvent(Map::EventType::GrassCutted);
-			}
-		}
-	}
+void Sword::collisionAction(MapObject &) {
+	// if(object.checkType<GrassObject>()) {
+	// 	GrassObject &grass = static_cast<GrassObject&>(object);
+	// 	
+	// 	float x = m_x + 8 + currentAnimation().currentPosition().first;
+	// 	float y = m_y + 8 + currentAnimation().currentPosition().second;
+	// 	
+	// 	if(Map::currentMap->scene().objectAtPosition(grass, x, y)) {
+	// 		if(((m_state == Sword::State::Swinging && getAnimation(m_player.direction()).framesDisplayed() > 2)
+	// 		  || m_state == Sword::State::SpinAttack)
+	// 		 && (Map::currentMap->isTile(x, y, TilesInfos::TileType::GrassTile)
+	// 		  || Map::currentMap->isTile(x, y, TilesInfos::TileType::LowGrassTile))) {
+	// 			grass.onEvent(Map::EventType::GrassCutted);
+	// 		}
+	// 	}
+	// }
 }
 
 void Sword::updateOwnerNextState() {

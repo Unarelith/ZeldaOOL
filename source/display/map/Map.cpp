@@ -11,7 +11,6 @@
  *
  * =====================================================================================
  */
-#include "GrassObject.hpp"
 #include "Map.hpp"
 #include "MapLoader.hpp"
 #include "ResourceHandler.hpp"
@@ -28,13 +27,19 @@ Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const 
 	m_height = height;
 	
 	m_baseData = data;
-	m_data = data;
+	m_data = m_baseData;
 	
 	m_view.reset(0, 16, m_width * tileset.tileWidth(), m_height * tileset.tileHeight());
 	
 	m_renderer.init(m_width, m_height);
 	
 	updateTiles();
+}
+
+void Map::reset() {
+	m_data = m_baseData;
+	
+	m_scene.reset();
 }
 
 void Map::update() {
@@ -53,10 +58,6 @@ void Map::draw() {
 	View::bind(nullptr);
 }
 
-void Map::resetTiles() {
-	m_data = m_baseData;
-}
-
 void Map::updateTiles() {
 	for(u16 tileY = 0 ; tileY < m_height ; tileY++) {
 		for(u16 tileX = 0 ; tileX < m_width ; tileX++) {
@@ -64,16 +65,6 @@ void Map::updateTiles() {
 			
 			m_renderer.updateTile(tileX, tileY, tileID, *this);
 			m_animator.updateTile(tileX, tileY, tileID, m_tileset);
-			
-			u16 x = tileX * m_tileset.tileWidth();
-			u16 y = tileY * m_tileset.tileHeight();
-			
-			if(m_tileset.info()[tileID] == TilesInfos::TileType::GrassTile) {
-				m_scene.addObject<GrassObject>(x, y);
-			}
-			else if(m_tileset.info()[tileID] == TilesInfos::TileType::LowGrassTile) {
-				m_scene.addObject<GrassObject>(x, y, true);
-			}
 		}
 	}
 }

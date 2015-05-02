@@ -15,6 +15,7 @@
 #define RECTANGLESHAPE_HPP_
 
 #include "Color.hpp"
+#include "Rect.hpp"
 
 class RectangleShape {
 	public:
