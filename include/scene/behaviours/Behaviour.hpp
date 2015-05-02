@@ -1,26 +1,24 @@
 /*
  * =====================================================================================
  *
- *       Filename:  DrawingSystem.hpp
+ *       Filename:  Behaviour.hpp
  *
  *    Description:  
  *
- *        Created:  01/05/2015 23:57:52
+ *        Created:  02/05/2015 15:20:00
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef DRAWINGSYSTEM_HPP_
-#define DRAWINGSYSTEM_HPP_
+#ifndef BEHAVIOUR_HPP_
+#define BEHAVIOUR_HPP_
 
 #include "SceneObject.hpp"
 
-class DrawingSystem {
+class Behaviour {
 	public:
-		static void draw(SceneObject &object);
-		
-		static void drawSprite(SceneObject &object, float x, float y);
+		virtual void action(SceneObject &object) = 0;
 };
 
-#endif // DRAWINGSYSTEM_HPP_
+#endif // BEHAVIOUR_HPP_

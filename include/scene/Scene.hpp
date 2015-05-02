@@ -25,6 +25,7 @@
 class Scene {
 	public:
 		void update();
+		void updateObject(SceneObject &object);
 		
 		void draw();
 		

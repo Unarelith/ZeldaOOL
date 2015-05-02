@@ -1,6 +1,9 @@
 ===== REFACTORING =====
 - Improve game object system
+	=> Implement component based button and door
 	=> Implement Battler + HurtState equivalent for Scene::player and octoroks
+	=> Replace Sword by a SceneObject
+		-> Remove Sword, Character, NPC and Weapon
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?
@@ -15,7 +18,6 @@
 - Finish 'NPC'
 	=> Player can't move on the side when it collides an NPC
 - Remove sword loading animation, and replace it by palette switch
-- Implement EnemyLoader with 'data/config/enemies.xml'
 - Implement 'Translator'
 	=> Like Asylia LanguageManager
 - Add 'player.xml' config file in 'data/config/' directory
@@ -24,10 +26,10 @@
 	=> Movable contains the object movement thing
 	=> Pot is a Movable in all ways
 	=> Block can be moved once only, or not at all, and requires the way it can be move
-- Add 'PowerBracelet', child of 'Weapon'
-	=> Add 'LiftableObject'
-		-> 'PotObject' and 'GrassObject' inherits from it
-	=> Add 'LiftingState' for Player
+- Add 'PowerBracelet'
+	=> Pots and grass are liftable
+	=> Add State::Lifting for player
+- Improve sword positions
 - Improve game for OpenGL ES and try on Android
 - Write a little game editor with Qt
 	=> Add maps

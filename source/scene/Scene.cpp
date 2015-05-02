@@ -12,11 +12,13 @@
  * =====================================================================================
  */
 #include "CollisionComponent.hpp"
+#include "Scene.hpp"
+
+#include "BehaviourSystem.hpp"
 #include "CollisionSystem.hpp"
 #include "LifetimeSystem.hpp"
 #include "MovementSystem.hpp"
 #include "DrawingSystem.hpp"
-#include "Scene.hpp"
 
 SceneObject *Scene::player = nullptr;
 
@@ -24,14 +26,20 @@ void Scene::update() {
 	LifetimeSystem::process(m_objects);
 	
 	for(auto &it : m_objects) {
-		MovementSystem::process(it);
+		updateObject(it);
 	}
 	
-	if(player) MovementSystem::process(*player);
+	if(player) updateObject(*player);
 	
 	for(auto &it : m_oldObjects) {
 		it->update();
 	}
+}
+
+void Scene::updateObject(SceneObject &object) {
+	BehaviourSystem::process(object);
+	
+	MovementSystem::process(object);
 }
 
 void Scene::draw() {

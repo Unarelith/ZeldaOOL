@@ -12,11 +12,12 @@
  * =====================================================================================
  */
 #include "DrawingSystem.hpp"
-#include "Sprite.hpp"
 
 #include "LifetimeComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
+#include "SpriteComponent.hpp"
+#include "Sprite.hpp"
 
 void DrawingSystem::draw(SceneObject &object) {
 	if(object.has<PositionComponent>()) {
@@ -33,6 +34,10 @@ void DrawingSystem::draw(SceneObject &object) {
 		
 		if(object.has<Sprite>()) {
 			drawSprite(object, position.x, position.y);
+		}
+		
+		if(object.has<SpriteComponent>()) {
+			drawSpriteComponent(object, position.x, position.y);
 		}
 	}
 }
@@ -53,6 +58,16 @@ void DrawingSystem::drawSprite(SceneObject &object, float x, float y) {
 		object.get<Sprite>().playAnimation(x, y, animID);
 	} else {
 		object.get<Sprite>().drawFrame(x, y, animID);
+	}
+}
+
+void DrawingSystem::drawSpriteComponent(SceneObject &object, float x, float y) {
+	auto &sprite = object.get<SpriteComponent>();
+	
+	if(sprite.isAnimated) {
+		sprite.sprite.playAnimation(x, y, sprite.animID);
+	} else {
+		sprite.sprite.drawFrame(x, y, sprite.frameID);
 	}
 }
 

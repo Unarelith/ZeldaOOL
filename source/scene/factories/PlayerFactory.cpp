@@ -14,18 +14,21 @@
 #include "ApplicationStateStack.hpp"
 #include "GamePadMovement.hpp"
 #include "Map.hpp"
+#include "PlayerBehaviour.hpp"
 #include "PlayerFactory.hpp"
 #include "ScrollingTransition.hpp"
 #include "TilesInfos.hpp"
 #include "TransitionState.hpp"
 
+#include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
-#include "Sprite.hpp"
+#include "SpriteComponent.hpp"
 
 SceneObject PlayerFactory::create(float x, float y) {
 	SceneObject object;
+	object.set<BehaviourComponent>(new PlayerBehaviour);
 	object.set<MovementComponent>(new GamePadMovement);
 	
 	auto &positionComponent = object.set<PositionComponent>(x, y, 16, 16);
@@ -37,43 +40,29 @@ SceneObject PlayerFactory::create(float x, float y) {
 		Map::currentMap->scene().checkCollisionsFor(object);
 	});
 	
-	auto &sprite = object.set<Sprite>("characters-link", 16, 16);
-	sprite.setColorMod(Color(125, 125, 255));
+	auto &sprite = object.set<SpriteComponent>("characters-link", 16, 16);
+	sprite.sprite.setColorMod(Color(125, 125, 255));
 	
-	sprite.addAnimation({4, 0}, 110);
-	sprite.addAnimation({5, 1}, 110);
-	sprite.addAnimation({6, 2}, 110);
-	sprite.addAnimation({7, 3}, 110);
+	// Walking
+	sprite.sprite.addAnimation({4, 0}, 110);
+	sprite.sprite.addAnimation({5, 1}, 110);
+	sprite.sprite.addAnimation({6, 2}, 110);
+	sprite.sprite.addAnimation({7, 3}, 110);
 	
-	sprite.addAnimation({ 8, 12}, 90);
-	sprite.addAnimation({ 9, 13}, 90);
-	sprite.addAnimation({10, 14}, 90);
-	sprite.addAnimation({11, 15}, 90);
+	// Pushing
+	sprite.sprite.addAnimation({ 8, 12}, 90);
+	sprite.sprite.addAnimation({ 9, 13}, 90);
+	sprite.sprite.addAnimation({10, 14}, 90);
+	sprite.sprite.addAnimation({11, 15}, 90);
 	
-	sprite.addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, 40);
-	sprite.addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, 40);
-	sprite.addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 40);
-	sprite.addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 40);
+	// Using sword
+	sprite.sprite.addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, 40);
+	sprite.sprite.addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, 40);
+	sprite.sprite.addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 40);
+	sprite.sprite.addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 40);
 	
-	sprite.addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
-	
-	/*auto &stateComponent = object.set<StateComponent>();
-	
-	auto &standingState = stateComponent.addState("Standing");
-	standingState.addTransition("Moving", [](SceneObject &object) {
-		return object.get<MovementComponent>().isMoving;
-	});
-	standingState.addTransition("Sword", [](SceneObject &) {
-		return GamePad::isKeyPressedOnce(GameKey::A);
-	});
-	
-	auto &movingState = stateComponent.addState("Moving");
-	movingState.addTransition("Standing", [](SceneObject &object) {
-		return !object.get<MovementComponent>().isMoving;
-	});
-	movingState.addTransition("Pushing", [](SceneObject &object) {
-		return object.get<MovementComponent>().isBlocked;
-	});*/
+	// Spin attack
+	sprite.sprite.addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
 	
 	return object;
 }
