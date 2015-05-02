@@ -28,6 +28,7 @@ class CollectableFactory {
 	public:
 		static SceneObject create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType);
 		
+		static SceneObject createHeart(u16 x, u16 y, CollectableMovement::Type movementType);
 		static SceneObject createRupees(u16 x, u16 y, RupeesAmount amount, CollectableMovement::Type movementType);
 };
 

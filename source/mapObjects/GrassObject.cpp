@@ -14,7 +14,6 @@
 #include "AudioPlayer.hpp"
 #include "CollectableFactory.hpp"
 #include "GrassObject.hpp"
-#include "HeartCollectable.hpp"
 #include "Map.hpp"
 
 GrassObject::GrassObject(float x, float y, bool lowGrass) : MapObject(x, y, 16, 16) {
@@ -47,7 +46,7 @@ void GrassObject::onEvent(u8 event) {
 			Map::currentMap->scene().addObject(CollectableFactory::createRupees(m_x, m_y, RupeesAmount::One, CollectableMovement::Type::Dropped));
 		}
 		else if(rand() % 15 == 7) {
-			Map::currentMap->scene().addObject<HeartCollectable>(m_x, m_y);
+			Map::currentMap->scene().addObject(CollectableFactory::createHeart(m_x, m_y, CollectableMovement::Type::Dropped));
 		}
 		else if(rand() % 25 == 11) {
 			Map::currentMap->scene().addObject(CollectableFactory::createRupees(m_x, m_y, RupeesAmount::Five, CollectableMovement::Type::Dropped));
