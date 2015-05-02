@@ -32,7 +32,7 @@ class Map {
 		void updateTiles();
 		
 		u16 getTile(u16 tileX, u16 tileY);
-		void setTile(u16 tileX, u16 tileY, u16 id);
+		void setTile(u16 tileX, u16 tileY, u16 id, bool persistent = false);
 		
 		bool passable(float x, float y);
 		bool onDoor(float x, float y);

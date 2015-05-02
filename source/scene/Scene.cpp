@@ -21,10 +21,6 @@
 SceneObject *Scene::player = nullptr;
 
 void Scene::update() {
-	for(auto &it : m_oldObjects) {
-		it->update();
-	}
-	
 	LifetimeSystem::process(m_objects);
 	
 	for(auto &it : m_objects) {
@@ -32,6 +28,10 @@ void Scene::update() {
 	}
 	
 	if(player) MovementSystem::process(*player);
+	
+	for(auto &it : m_oldObjects) {
+		it->update();
+	}
 }
 
 void Scene::draw() {

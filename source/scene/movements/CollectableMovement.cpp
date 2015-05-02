@@ -44,7 +44,7 @@ void CollectableMovement::process(SceneObject &object) {
 			m_isFinished = true;
 		}
 	}
-	else if(m_type == Type::OutOfChest) {
+	else if(m_type == Type::Chest) {
 		if(m_movementCounter < 8) {
 			m_movementCounter += 0.125f;
 			

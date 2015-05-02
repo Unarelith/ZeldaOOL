@@ -13,7 +13,6 @@
  */
 #include "AudioPlayer.hpp"
 #include "ButtonObject.hpp"
-#include "ChestObject.hpp"
 #include "DoorLoader.hpp"
 #include "DoorTransition.hpp"
 #include "GamePad.hpp"
@@ -46,9 +45,6 @@ MapState::MapState() {
 	
 	//Map::getMap(0, 0, 0).scene().addObject<NPC>("characters-blueboy", 4 * 16, 1 * 16, 16, 16, Movable::Direction::Down);
 	
-	Map::getMap(0, 0, 1).scene().addObject<ChestObject>(1 * 16, 5 * 16);
-	Map::getMap(2, 0, 0).scene().addObject<ChestObject>(5 * 16, 2 * 16);
-	
 	Map::getMap(0, 1, 0).scene().addObject<Octorok>(5 * 16, 4 * 16, Movable::Direction::Right);
 	Map::getMap(2, 0, 0).scene().addObject<Octorok>(5 * 16, 3 * 16, Movable::Direction::Right);
 	
@@ -60,9 +56,9 @@ MapState::MapState() {
 }
 
 void MapState::update() {
-	Player::player.update();
-	
 	Map::currentMap->update();
+	
+	Player::player.update();
 	
 	if(Player::player.stateManager().currentState().canStartMapTransition()) {
 		if(Player::player.x() < -3) {

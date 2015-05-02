@@ -86,9 +86,11 @@ u16 Map::getTile(u16 tileX, u16 tileY) {
 	}
 }
 
-void Map::setTile(u16 tileX, u16 tileY, u16 id) {
+void Map::setTile(u16 tileX, u16 tileY, u16 id, bool persistent) {
 	if(tileX + tileY * m_width < m_width * m_height) {
 		m_data[tileX + tileY * m_width] = id;
+		
+		if(persistent) m_baseData[tileX + tileY * m_width] = id;
 	}
 	
 	m_renderer.updateTile(tileX, tileY, id, *this);

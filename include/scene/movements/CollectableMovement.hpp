@@ -21,7 +21,7 @@ class CollectableMovement : public Movement {
 	public:
 		enum class Type {
 			Dropped,
-			OutOfChest
+			Chest
 		};
 		
 		CollectableMovement(Type type) : m_type(type) {}

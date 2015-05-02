@@ -18,7 +18,7 @@
 #include "IntTypes.hpp"
 #include "SceneObject.hpp"
 
-enum class RupeesAmount : u8 {
+enum RupeesAmount : u8 {
 	One    = 1,
 	Five   = 5,
 	Thirty = 30,

@@ -13,6 +13,7 @@
  */
 #include "Map.hpp"
 #include "MapLoader.hpp"
+#include "SceneObjectLoader.hpp"
 
 void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 	XMLFile doc(xmlFilename);
@@ -58,6 +59,8 @@ void MapLoader::loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset
 		tileElement = tileElement->NextSiblingElement("tile");
 	}
 	
-	handler.add<Map>(makeName(area, x, y), area, x, y, width, height, tileset, data);
+	Map &map = handler.add<Map>(makeName(area, x, y), area, x, y, width, height, tileset, data);
+	
+	SceneObjectLoader::load(name, map.scene());
 }
 

@@ -43,11 +43,11 @@ SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, co
 }
 
 SceneObject CollectableFactory::createRupees(u16 x, u16 y, RupeesAmount amount, CollectableMovement::Type movementType) {
-	std::string name = "rupees" + std::to_string(static_cast<u8>(amount));
+	std::string name = "rupees" + std::to_string(amount);
 	
 	SceneObject object = create(x, y, name, (amount == RupeesAmount::One) ? "getRupee" : "getRupees5", movementType);
-	object.get<CollectableComponent>().setAction([](SceneObject &player) {
-		// TODO: Add rupees to player here
+	object.get<CollectableComponent>().setAction([amount](SceneObject &) {
+		Player::player.inventory().addRupees(amount);
 	});
 	
 	return object;

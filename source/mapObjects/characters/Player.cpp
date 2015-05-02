@@ -11,7 +11,6 @@
  *
  * =====================================================================================
  */
-#include "ChestObject.hpp"
 #include "DoorObject.hpp"
 #include "GamePad.hpp"
 #include "GamePadMovement.hpp"
@@ -81,16 +80,6 @@ void Player::load() {
 void Player::update(bool states) {
 	// Check if the player is hurt
 	Battler::update();
-	
-	// Check if a chest is in front of the player and if A is pressed
-	if(m_direction == Direction::Up && Map::currentMap->isTile(m_x + 8, m_y + 4, TilesInfos::TileType::ClosedChest)) {
-		if(GamePad::isKeyPressedOnce(GameKey::A)) {
-			ChestObject *chestObject = static_cast<ChestObject*>(Map::currentMap->scene().getObject(m_x + 8, m_y - 2));
-			if(chestObject) {
-				chestObject->onEvent(Map::EventType::ChestOpened);
-			}
-		}
-	}
 	
 	if(states) {
 		// Update current state

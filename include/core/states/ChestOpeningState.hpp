@@ -14,18 +14,18 @@
 #ifndef CHESTOPENINGSTATE_HPP_
 #define CHESTOPENINGSTATE_HPP_
 
-#include "Collectable.hpp"
 #include "ApplicationState.hpp"
+#include "SceneObject.hpp"
 
 class ChestOpeningState : public ApplicationState {
 	public:
-		ChestOpeningState(ApplicationState *parent, float x, float y, Collectable &collectable);
+		ChestOpeningState(SceneObject &chest, ApplicationState *parent);
 		
-		void update();
+		void update() override;
 		
-		void draw();
+		void draw() override;
 		
-		enum State {
+		enum class State {
 			Opening,
 			Opened,
 			Finished
@@ -34,11 +34,7 @@ class ChestOpeningState : public ApplicationState {
 	private:
 		State m_state = State::Opening;
 		
-		Collectable *m_collectable = nullptr;
-		
-		float m_movementCounter = 0;
-		
-		float m_speed = 0.125f;
+		SceneObject *m_item = nullptr;
 };
 
 #endif // CHESTOPENINGSTATE_HPP_

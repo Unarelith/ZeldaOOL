@@ -1,0 +1,5 @@
+<map>
+	<chest tileX="1" tileY="5">
+		<item name="rupees30"/>
+	</chest>
+</map>
