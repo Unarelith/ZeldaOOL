@@ -11,11 +11,14 @@
  *
  * =====================================================================================
  */
-#include "Movable.hpp"
-#include "Octorok.hpp"
-#include "OctorokMovement.hpp"
+#include <cstdlib>
 
-void OctorokMovement::reset(Movable &movable) {
+#include "CollisionComponent.hpp"
+#include "MovementComponent.hpp"
+#include "OctorokMovement.hpp"
+#include "PositionComponent.hpp"
+
+void OctorokMovement::reset(SceneObject &) {
 	m_state = State::Standing;
 	
 	m_timer.reset();
@@ -24,13 +27,13 @@ void OctorokMovement::reset(Movable &movable) {
 	
 	m_randomMinTimeToWait = 1000 + (rand() % 2) * 500;
 	m_randomMaxMovement = 16 + (rand() % 5) * 8;
-	
-	movable.getAnimation(movable.direction()).stop();
 }
 
-void OctorokMovement::process(Movable &movable) {
-	Octorok &octorok = static_cast<Octorok&>(movable);
-	octorok.setSpeed(0.3f);
+void OctorokMovement::process(SceneObject &object) {
+	auto &movementComponent = object.get<MovementComponent>();
+	auto &positionComponent = object.get<PositionComponent>();
+	
+	movementComponent.speed = 0.3f;
 	
 	if(m_state == State::Standing) {
 		m_timer.start();
@@ -47,18 +50,22 @@ void OctorokMovement::process(Movable &movable) {
 				}
 			}
 			
-			octorok.setVelocity(m_vx, m_vy);
+			movementComponent.vx = m_vx;
+			movementComponent.vy = m_vy;
 			
-			octorok.testCollisions();
-			octorok.updateDirection();
+			if(object.has<CollisionComponent>()) {
+				object.get<CollisionComponent>().checkCollisions(object);
+			}
 			
-			if(!octorok.blocked()) {
+			positionComponent.updateDirection(m_vx, m_vy);
+			
+			if(!movementComponent.isBlocked) {
 				m_state = State::Moving;
 			}
 		}
 	}
 	else if(m_state == State::Moving) {
-		if(octorok.blocked()) {
+		if(movementComponent.isBlocked) {
 			if(m_vx != 0) {
 				m_vy = m_vx;
 				m_vx = 0;
@@ -70,12 +77,14 @@ void OctorokMovement::process(Movable &movable) {
 		}
 		
 		if(m_movementCounter < m_randomMaxMovement) {
-			octorok.setVelocity(m_vx, m_vy);
-			octorok.updateDirection();
+			movementComponent.vx = m_vx;
+			movementComponent.vy = m_vy;
+			
+			positionComponent.updateDirection(m_vx, m_vy);
 			
 			m_movementCounter += 0.3f;
 		} else {
-			reset(octorok);
+			reset(object);
 		}
 	}
 }

@@ -16,6 +16,7 @@
 #include "XMLFile.hpp"
 
 #include "ChestLoader.hpp"
+#include "OctorokLoader.hpp"
 
 void SceneObjectLoader::load(const std::string &mapName, Scene &scene) {
 	if(Filesystem::fileExists("data/config/maps/" + mapName + ".xml")) {
@@ -27,6 +28,9 @@ void SceneObjectLoader::load(const std::string &mapName, Scene &scene) {
 			
 			if(objectName == "chest") {
 				ChestLoader::load(objectElement, scene);
+			}
+			else if(objectName == "octorok") {
+				OctorokLoader::load(objectElement, scene);
 			}
 			
 			objectElement = objectElement->NextSiblingElement();

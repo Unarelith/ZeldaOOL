@@ -97,20 +97,7 @@ void Player::draw() {
 }
 
 void Player::collisionAction(MapObject &object) {
-	if(object.checkType<Enemy>()) {
-		Enemy &enemy = static_cast<Enemy&>(object);
-		if(enemy.isDead()) return;
-		
-		// FIXME: Write an helper function for that, it could be used below
-		s16 vx = m_x - enemy.x();
-		s16 vy = m_y - enemy.y();
-		
-		if(vx != 0) vx /= abs(vx);
-		if(vy != 0) vy /= abs(vy);
-		
-		hurt(enemy.strength(), vx, vy);
-	}
-	else if(object.checkType<NPC>()) {
+	if(object.checkType<NPC>()) {
 		// FIXME: See above
 		s16 vx = m_x - object.x();
 		s16 vy = m_y - object.y();

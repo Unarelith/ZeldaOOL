@@ -1,5 +1,6 @@
 ===== REFACTORING =====
 - Improve game object system
+	=> Implement Battler + HurtState equivalent for Scene::player and octoroks
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?

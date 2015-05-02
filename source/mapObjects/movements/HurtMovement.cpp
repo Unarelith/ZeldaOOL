@@ -11,7 +11,6 @@
  *
  * =====================================================================================
  */
-#include "Enemy.hpp"
 #include "HurtMovement.hpp"
 #include "Movable.hpp"
 
@@ -31,10 +30,10 @@ void HurtMovement::process(Movable &movable) {
 		m_movementCounter += m_speed;
 	} else {
 		// FIXME: TO REMOVE LATER
-		if(movable.checkType<Enemy>()) {
-			Enemy &enemy = static_cast<Enemy&>(movable);
-			enemy.checkDeath();
-		}
+		// if(movable.checkType<Enemy>()) {
+		// 	Enemy &enemy = static_cast<Enemy&>(movable);
+		// 	enemy.checkDeath();
+		// }
 		
 		movable.resetMovement();
 	}

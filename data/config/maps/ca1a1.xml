@@ -2,4 +2,6 @@
 	<chest tileX="5" tileY="2">
 		<item name="rupees30"/>
 	</chest>
+
+	<octorok tileX="5" tileY="3"/>
 </map>

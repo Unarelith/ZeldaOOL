@@ -17,16 +17,16 @@
 #include "Movement.hpp"
 #include "Timer.hpp"
 
-class OctorokMovement : public OldMovement {
+class OctorokMovement : public Movement {
 	public:
 		enum class State {
 			Standing,
 			Moving
 		};
 		
-		void reset(Movable &movable) override;
+		void reset(SceneObject &object);
 		
-		void process(Movable &movable) override;
+		void process(SceneObject &object) override;
 		
 	private:
 		State m_state = State::Standing;

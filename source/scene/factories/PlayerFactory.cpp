@@ -24,8 +24,6 @@
 #include "PositionComponent.hpp"
 #include "Sprite.hpp"
 
-void mapCollisions(SceneObject &player);
-
 SceneObject PlayerFactory::create(float x, float y) {
 	SceneObject object;
 	object.set<MovementComponent>(new GamePadMovement);
@@ -34,7 +32,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 	positionComponent.hitbox.reset(4, 5, 8, 10);
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
-	collisionComponent.addChecker(&mapCollisions);
+	collisionComponent.addChecker(&PlayerFactory::mapCollisions);
 	collisionComponent.addChecker([](SceneObject &object) {
 		Map::currentMap->scene().checkCollisionsFor(object);
 	});
@@ -80,7 +78,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 	return object;
 }
 
-void mapCollisions(SceneObject &object) {
+void PlayerFactory::mapCollisions(SceneObject &object) {
 	auto &movement = object.get<MovementComponent>();
 	auto &position = object.get<PositionComponent>();
 	

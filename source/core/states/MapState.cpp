@@ -21,7 +21,6 @@
 #include "MenuState.hpp"
 #include "MessageBoxState.hpp"
 #include "NPC.hpp"
-#include "Octorok.hpp"
 #include "Player.hpp"
 #include "PlayerFactory.hpp"
 #include "ResourceHandler.hpp"
@@ -44,9 +43,6 @@ MapState::MapState() {
 	button.addTileChange(8, 6, 36);
 	
 	//Map::getMap(0, 0, 0).scene().addObject<NPC>("characters-blueboy", 4 * 16, 1 * 16, 16, 16, Movable::Direction::Down);
-	
-	Map::getMap(0, 1, 0).scene().addObject<Octorok>(5 * 16, 4 * 16, Movable::Direction::Right);
-	Map::getMap(2, 0, 0).scene().addObject<Octorok>(5 * 16, 3 * 16, Movable::Direction::Right);
 	
 	m_player = PlayerFactory::create(64, 48);
 	

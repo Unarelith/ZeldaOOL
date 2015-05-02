@@ -206,25 +206,25 @@ void Sword::draw() {
 }
 
 void Sword::collisionAction(MapObject &object) {
-	if(object.checkType<Enemy>()) {
-		Enemy &enemy = static_cast<Enemy&>(object);
-		if(enemy.isDead()) return;
-		
-		if(!enemy.hurt()) {
-			s16 vx = enemy.x() - m_player.x();
-			s16 vy = enemy.y() - m_player.y();
-			
-			if(vx != 0) vx /= abs(vx);
-			if(vy != 0) vy /= abs(vy);
-			
-			if(m_state == State::SpinAttack) {
-				enemy.hurt(m_strength * 2, vx, vy);
-			} else {
-				enemy.hurt(m_strength, vx, vy);
-			}
-		}
-	}
-	else if(object.checkType<GrassObject>()) {
+	// if(object.checkType<Enemy>()) {
+	// 	Enemy &enemy = static_cast<Enemy&>(object);
+	// 	if(enemy.isDead()) return;
+	// 	
+	// 	if(!enemy.hurt()) {
+	// 		s16 vx = enemy.x() - m_player.x();
+	// 		s16 vy = enemy.y() - m_player.y();
+	// 		
+	// 		if(vx != 0) vx /= abs(vx);
+	// 		if(vy != 0) vy /= abs(vy);
+	// 		
+	// 		if(m_state == State::SpinAttack) {
+	// 			enemy.hurt(m_strength * 2, vx, vy);
+	// 		} else {
+	// 			enemy.hurt(m_strength, vx, vy);
+	// 		}
+	// 	}
+	// }
+	if(object.checkType<GrassObject>()) {
 		GrassObject &grass = static_cast<GrassObject&>(object);
 		
 		float x = m_x + 8 + currentAnimation().currentPosition().first;

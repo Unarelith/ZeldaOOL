@@ -14,7 +14,6 @@
 #ifndef WEAPON_HPP_
 #define WEAPON_HPP_
 
-#include "Enemy.hpp"
 #include "PlayerState.hpp"
 
 class Weapon : public Movable {

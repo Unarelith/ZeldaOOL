@@ -1,26 +1,24 @@
 /*
  * =====================================================================================
  *
- *       Filename:  PlayerFactory.hpp
+ *       Filename:  OctorokFactory.hpp
  *
  *    Description:  
  *
- *        Created:  02/05/2015 00:24:33
+ *        Created:  02/05/2015 02:23:36
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef PLAYERFACTORY_HPP_
-#define PLAYERFACTORY_HPP_
+#ifndef OCTOROKFACTORY_HPP_
+#define OCTOROKFACTORY_HPP_
 
 #include "SceneObject.hpp"
 
-class PlayerFactory {
+class OctorokFactory {
 	public:
 		static SceneObject create(float x, float y);
-		
-		static void mapCollisions(SceneObject &player);
 };
 
-#endif // PLAYERFACTORY_HPP_
+#endif // OCTOROKFACTORY_HPP_
