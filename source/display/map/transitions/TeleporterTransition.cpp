@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  DoorTransition.cpp
+ *       Filename:  TeleporterTransition.cpp
  *
  *    Description:  
  *
@@ -13,14 +13,14 @@
  */
 #include "Application.hpp"
 #include "AudioPlayer.hpp"
-#include "DoorTransition.hpp"
+#include "TeleporterTransition.hpp"
 #include "Map.hpp"
 #include "Player.hpp"
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
 #include "StandingState.hpp"
 
-DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer) {
+TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection, bool movePlayer) {
 	m_nextMap = &Map::getMap(area, mapX, mapY);
 	m_nextMap->resetTiles();
 	m_nextMap->updateTiles();
@@ -57,7 +57,7 @@ DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 pl
 	Sprite::pause = true;
 }
 
-void DoorTransition::update() {
+void TeleporterTransition::update() {
 	if(m_rect1.x() + m_rect1.width() < 0) {
 		Map::currentMap = m_nextMap;
 		
@@ -81,14 +81,14 @@ void DoorTransition::update() {
 		}
 		
 		Player::player.setPosition(m_playerX, m_playerY);
-		Player::player.setDirection(m_playerDirection);
+		Player::player.setDirection((u8)m_playerDirection);
 		
 		m_rect1.move(-1.5, 0);
 		m_rect2.move(1.5, 0);
 	}
 }
 
-void DoorTransition::draw() {
+void TeleporterTransition::draw() {
 	if(m_timer.time() > 250) {
 		m_nextMap->draw();
 		

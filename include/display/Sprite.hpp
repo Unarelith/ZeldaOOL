@@ -20,9 +20,9 @@
 class Sprite : public Image {
 	public:
 		Sprite() = default;
-		Sprite(const std::string &filename, u16 frameWidth, u16 frameHeight);
+		Sprite(const std::string &textureName, u16 frameWidth, u16 frameHeight);
 		
-		void load(const std::string &filename, u16 frameWidth, u16 frameHeight);
+		void load(const std::string &textureName, u16 frameWidth, u16 frameHeight);
 		
 		void addAnimation(std::vector<u16> frames, u16 delay);
 		void addAnimation(std::vector<u16> frames, std::vector<std::pair<s16, s16>> positions, u16 delay);

@@ -16,12 +16,12 @@
 
 bool Sprite::pause = false;
 
-Sprite::Sprite(const std::string &filename, u16 frameWidth, u16 frameHeight) {
-	load(filename, frameWidth, frameHeight);
+Sprite::Sprite(const std::string &textureName, u16 frameWidth, u16 frameHeight) {
+	load(textureName, frameWidth, frameHeight);
 }
 
-void Sprite::load(const std::string &filename, u16 frameWidth, u16 frameHeight) {
-	Image::load(filename);
+void Sprite::load(const std::string &textureName, u16 frameWidth, u16 frameHeight) {
+	Image::load(textureName);
 	
 	m_frameWidth = frameWidth;
 	m_frameHeight = frameHeight;

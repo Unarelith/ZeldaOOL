@@ -1,6 +1,6 @@
 <map>
 	<teleporter tileX="4.5" tileY="7">
-		<destination area="0" mapX="0" mapY="0"/>
-		<player tileX="2" tileY="5" direction="down"/>
+		<destination area="0" mapX="1" mapY="0"/>
+		<player tileX="3" tileY="2" direction="down"/>
 	</teleporter>
 </map>

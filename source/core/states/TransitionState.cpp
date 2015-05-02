@@ -11,17 +11,21 @@
  *
  * =====================================================================================
  */
+#include "ApplicationStateStack.hpp"
+#include "Debug.hpp"
 #include "TransitionState.hpp"
 
 void TransitionState::update() {
-	m_transition->update();
+	if(m_transition) m_transition->update();
 	
-	if(m_transition->atEnd()) {
-		m_stateStack->pop();
+	if(!m_transition || m_transition->atEnd()) {
+		if(!m_transition) DEBUG("Empty TransitionState created, I'll pop it.");
+		
+		ApplicationStateStack::getInstance().pop();
 	}
 }
 
 void TransitionState::draw() {
-	m_transition->draw();
+	if(m_transition) m_transition->draw();
 }
 

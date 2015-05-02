@@ -11,7 +11,6 @@
  *
  * =====================================================================================
  */
-#include "DoorObject.hpp"
 #include "GamePad.hpp"
 #include "GamePadMovement.hpp"
 #include "Map.hpp"

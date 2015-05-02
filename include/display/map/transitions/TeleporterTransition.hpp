@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  DoorTransition.hpp
+ *       Filename:  TeleporterTransition.hpp
  *
  *    Description:  
  *
@@ -11,17 +11,18 @@
  *
  * =====================================================================================
  */
-#ifndef DOORTRANSITION_HPP_
-#define DOORTRANSITION_HPP_
+#ifndef TELEPORTERTRANSITION_HPP_
+#define TELEPORTERTRANSITION_HPP_
 
+#include "Direction.hpp"
 #include "Map.hpp"
 #include "RectangleShape.hpp"
 #include "StatsBar.hpp"
 #include "Transition.hpp"
 
-class DoorTransition : public Transition {
+class TeleporterTransition : public Transition {
 	public:
-		DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer = false);
+		TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection, bool movePlayer = false);
 		
 		void update();
 		
@@ -33,7 +34,7 @@ class DoorTransition : public Transition {
 		u16 m_playerX;
 		u16 m_playerY;
 		
-		u16 m_playerDirection;
+		Direction m_playerDirection;
 		
 		bool m_movePlayer;
 		
@@ -45,4 +46,4 @@ class DoorTransition : public Transition {
 		StatsBar m_statsBar;
 };
 
-#endif // DOORTRANSITION_HPP_
+#endif // TELEPORTERTRANSITION_HPP_

@@ -15,8 +15,10 @@
 #include "SceneObjectLoader.hpp"
 #include "XMLFile.hpp"
 
+#include "ButtonLoader.hpp"
 #include "ChestLoader.hpp"
 #include "OctorokLoader.hpp"
+#include "TeleporterLoader.hpp"
 
 void SceneObjectLoader::load(const std::string &mapName, Scene &scene) {
 	if(Filesystem::fileExists("data/config/maps/" + mapName + ".xml")) {
@@ -26,11 +28,17 @@ void SceneObjectLoader::load(const std::string &mapName, Scene &scene) {
 		while(objectElement) {
 			std::string objectName = objectElement->Name();
 			
+			if(objectName == "button") {
+				ButtonLoader::load(objectElement, scene);
+			}
 			if(objectName == "chest") {
 				ChestLoader::load(objectElement, scene);
 			}
 			else if(objectName == "octorok") {
 				OctorokLoader::load(objectElement, scene);
+			}
+			else if(objectName == "teleporter") {
+				TeleporterLoader::load(objectElement, scene);
 			}
 			
 			objectElement = objectElement->NextSiblingElement();

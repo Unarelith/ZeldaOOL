@@ -32,6 +32,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 	object.set<MovementComponent>(new GamePadMovement);
 	
 	auto &positionComponent = object.set<PositionComponent>(x, y, 16, 16);
+	positionComponent.direction = Direction::Down;
 	positionComponent.hitbox.reset(4, 5, 8, 10);
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
@@ -159,21 +160,21 @@ void PlayerFactory::mapCollisions(SceneObject &object) {
 		movement.vy *= 3;
 	}
 	
-	//if(positionComponent.x < -3) {
-	//	auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
-	//	state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingLeft);
-	//}
-	//else if(positionComponent.x + 13 > Map::currentMap->width() * 16) {
-	//	auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
-	//	state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingRight);
-	//}
-	//else if(positionComponent.y < -1) {
-	//	auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
-	//	state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingUp);
-	//}
-	//else if(positionComponent.y + 15 > Map::currentMap->height() * 16) {
-	//	auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
-	//	state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingDown);
-	//}
+	if(position.x < -3) {
+		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingLeft);
+	}
+	else if(position.x + 13 > Map::currentMap->width() * 16) {
+		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingRight);
+	}
+	else if(position.y < -1) {
+		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingUp);
+	}
+	else if(position.y + 15 > Map::currentMap->height() * 16) {
+		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingDown);
+	}
 }
 
