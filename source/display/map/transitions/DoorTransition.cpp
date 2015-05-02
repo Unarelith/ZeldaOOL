@@ -16,6 +16,8 @@
 #include "DoorTransition.hpp"
 #include "Map.hpp"
 #include "Player.hpp"
+#include "PositionComponent.hpp"
+#include "Scene.hpp"
 #include "StandingState.hpp"
 
 DoorTransition::DoorTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, u8 playerDirection, bool movePlayer) {
@@ -67,6 +69,17 @@ void DoorTransition::update() {
 	}
 	
 	if(m_timer.time() > 250) {
+		glClearColor(Color::text.r / 255.0f, Color::text.g / 255.0f, Color::text.b / 255.0f, 1.0f);
+		
+		if(Scene::player && Scene::player->has<PositionComponent>()) {
+			auto &positionComponent = Scene::player->get<PositionComponent>();
+			
+			positionComponent.x = m_playerX;
+			positionComponent.y = m_playerY;
+			
+			positionComponent.direction = (Direction)m_playerDirection;
+		}
+		
 		Player::player.setPosition(m_playerX, m_playerY);
 		Player::player.setDirection(m_playerDirection);
 		
