@@ -78,7 +78,8 @@ void GamePadMovement::process(SceneObject &object) {
 		
 		if(!GamePad::isKeyPressed(GameKey::Right)
 		&& !GamePad::isKeyPressed(GameKey::Up)
-		&& !GamePad::isKeyPressed(GameKey::Down)) {
+		&& !GamePad::isKeyPressed(GameKey::Down)
+		&& !m_directionLocked) {
 			positionComponent.direction = Direction::Left;
 		}
 	}
@@ -87,7 +88,8 @@ void GamePadMovement::process(SceneObject &object) {
 		
 		if(!GamePad::isKeyPressed(GameKey::Left)
 		&& !GamePad::isKeyPressed(GameKey::Up)
-		&& !GamePad::isKeyPressed(GameKey::Down)) {
+		&& !GamePad::isKeyPressed(GameKey::Down)
+		&& !m_directionLocked) {
 			positionComponent.direction = Direction::Right;
 		}
 	}
@@ -97,7 +99,8 @@ void GamePadMovement::process(SceneObject &object) {
 		
 		if(!GamePad::isKeyPressed(GameKey::Left)
 		&& !GamePad::isKeyPressed(GameKey::Right)
-		&& !GamePad::isKeyPressed(GameKey::Down)) {
+		&& !GamePad::isKeyPressed(GameKey::Down)
+		&& !m_directionLocked) {
 			positionComponent.direction = Direction::Up;
 		}
 	}
@@ -106,7 +109,8 @@ void GamePadMovement::process(SceneObject &object) {
 		
 		if(!GamePad::isKeyPressed(GameKey::Left)
 		&& !GamePad::isKeyPressed(GameKey::Right)
-		&& !GamePad::isKeyPressed(GameKey::Up)) {
+		&& !GamePad::isKeyPressed(GameKey::Up)
+		&& !m_directionLocked) {
 			positionComponent.direction = Direction::Down;
 		}
 	}

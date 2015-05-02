@@ -19,21 +19,13 @@
 
 class SwordBehaviour : public Behaviour {
 	public:
-		SwordBehaviour() { m_loadingTimer.start(); }
+		SwordBehaviour();
 		
-		void action(SceneObject &object) override;
+		void action(SceneObject &sword) override;
 		
-		void updateSprite(SceneObject &object);
+		void updateSprite(SceneObject &sword);
 		
 	private:
-		enum class State {
-			Swinging,
-			Loading,
-			SpinAttack
-		};
-		
-		State m_state = State::Swinging;
-		
 		bool m_keyReleased = false;
 		
 		bool m_isLoaded = false;

@@ -44,6 +44,20 @@ SceneObject PlayerFactory::create(float x, float y) {
 	auto &spriteComponent = object.set<SpriteComponent>("characters-link", 16, 16);
 	spriteComponent.sprite.setColorMod(Color(125, 125, 255));
 	
+	std::vector<std::vector<std::pair<s16, s16>>> usingSwordPosition = {
+		{{ 0,  0}, { 0,  0}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  0}, { 0,  0}},
+		{{ 0,  0}, { 0,  0}, { 4,  0}, { 4,  0}, { 4,  0}, { 4,  0}, { 0,  0}, { 0,  0}},
+		{{ 0,  0}, { 0,  0}, {-4,  0}, {-4,  0}, {-4,  0}, {-4,  0}, { 0,  0}, { 0,  0}},
+		{{ 0,  0}, { 0,  0}, { 0, -3}, { 0, -3}, { 0, -3}, { 0, -3}, { 0,  0}, { 0,  0}}
+	};
+	
+	std::vector<std::pair<s16, s16>> swordSpinAttackPosition = {
+		{ 0,  3}, { 0,  3},
+		{-4,  0}, {-4,  0},
+		{ 0, -3}, { 0, -3},
+		{ 4,  0}, { 4,  0}
+	};
+	
 	// Walking
 	spriteComponent.sprite.addAnimation({4, 0}, 110);
 	spriteComponent.sprite.addAnimation({5, 1}, 110);
@@ -57,13 +71,13 @@ SceneObject PlayerFactory::create(float x, float y) {
 	spriteComponent.sprite.addAnimation({11, 15}, 90);
 	
 	// Using sword
-	spriteComponent.sprite.addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, 40);
-	spriteComponent.sprite.addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, 40);
-	spriteComponent.sprite.addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, 40);
-	spriteComponent.sprite.addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, 40);
+	spriteComponent.sprite.addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, usingSwordPosition[0], 40);
+	spriteComponent.sprite.addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, usingSwordPosition[1], 40);
+	spriteComponent.sprite.addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, usingSwordPosition[2], 40);
+	spriteComponent.sprite.addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, usingSwordPosition[3], 40);
 	
 	// Spin attack
-	spriteComponent.sprite.addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, 50);
+	spriteComponent.sprite.addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, swordSpinAttackPosition, 50);
 	
 	return object;
 }

@@ -18,7 +18,15 @@
 
 class Behaviour {
 	public:
+		Behaviour(const std::string &state = "") : m_state(state) {}
+		virtual ~Behaviour() = default;
+		
 		virtual void action(SceneObject &object) = 0;
+		
+		const std::string &state() const { return m_state; }
+		
+	protected:
+		std::string m_state;
 };
 
 #endif // BEHAVIOUR_HPP_

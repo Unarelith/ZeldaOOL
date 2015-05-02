@@ -18,20 +18,14 @@
 
 class PlayerBehaviour : public Behaviour{
 	public:
+		PlayerBehaviour() : Behaviour("Standing") {}
+		
 		void action(SceneObject &object) override;
 		
 		void updateSprite(SceneObject &object);
 		
 	private:
-		enum class State {
-			Standing,
-			Moving,
-			Pushing,
-			Hurt,
-			Sword
-		};
-		
-		State m_state = State::Standing;
+		SceneObject *m_sword = nullptr;
 };
 
 #endif // PLAYERBEHAVIOUR_HPP_

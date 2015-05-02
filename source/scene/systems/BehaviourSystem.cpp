@@ -17,7 +17,7 @@
 
 void BehaviourSystem::process(SceneObject &object) {
 	if(object.has<BehaviourComponent>()) {
-		object.get<BehaviourComponent>().action(object);
+		object.get<BehaviourComponent>().behaviour->action(object);
 	}
 }
 

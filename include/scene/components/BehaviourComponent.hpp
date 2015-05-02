@@ -18,17 +18,9 @@
 
 class BehaviourComponent {
 	public:
-		BehaviourComponent(Behaviour *behaviour = nullptr)
-			: m_behaviour(behaviour) {}
+		BehaviourComponent(Behaviour *_behaviour) : behaviour(_behaviour) {}
 		
-		void action(SceneObject &object) {
-			if(m_behaviour) {
-				m_behaviour->action(object);
-			}
-		}
-		
-	private:
-		std::unique_ptr<Behaviour> m_behaviour;
+		std::unique_ptr<Behaviour> behaviour;
 };
 
 #endif // BEHAVIOURCOMPONENT_HPP_

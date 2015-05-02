@@ -22,7 +22,7 @@ void MovementSystem::process(SceneObject &object) {
 		auto &position = object.get<PositionComponent>();
 		auto &movement = object.get<MovementComponent>();
 		
-		movement.movement->process(object);
+		if(movement.movement) movement.movement->process(object);
 		
 		movement.isBlocked = false;
 		
