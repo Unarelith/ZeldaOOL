@@ -26,8 +26,11 @@ SceneObject SwordFactory::create(float x, float y, Direction direction, SceneObj
 	object.set<LifetimeComponent>();
 	object.set<WeaponComponent>(owner);
 	
+	// FIXME: TEMP: FOR DEBUG
+	// object.set<std::string>("Sword");
+	
 	auto &positionComponent = object.set<PositionComponent>(x, y, 16, 16);
-	positionComponent.hitbox.reset(4, 4, 8, 8); // TODO
+	positionComponent.hitbox.reset(7, 7, 2, 2); // TODO: Improve it
 	positionComponent.direction = direction;
 	
 	auto &spriteComponent = object.set<SpriteComponent>("animations-sword", 16, 16);

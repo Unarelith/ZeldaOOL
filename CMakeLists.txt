@@ -33,10 +33,15 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-variadic-macros")
 # - OpenGL
 #------------------------------------------------------------------------------
 find_package(OpenGL REQUIRED)
+find_package(GLM REQUIRED)
 
 if(NOT OPENGL_FOUND)
 	message(FATAL_ERROR "OpenGL not found !")
 endif(NOT OPENGL_FOUND)
+
+if(NOT GLM_FOUND)
+	message(FATAL_ERROR "glm not found !")
+endif(NOT GLM_FOUND)
 
 #------------------------------------------------------------------------------
 # - SDL2, SDL2_image, SDL2_mixer

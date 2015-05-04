@@ -72,8 +72,8 @@ void Player::load() {
 	
 	m_hitbox = IntRect(4, 5, 8, 10);
 	
-	auto &sword = m_inventory.addWeapon<Sword>();
-	m_inventory.setWeaponB(sword);
+	// auto &sword = m_inventory.addWeapon<Sword>();
+	// m_inventory.setWeaponB(sword);
 }
 
 void Player::update(bool states) {
@@ -90,9 +90,9 @@ void Player::update(bool states) {
 }
 
 void Player::draw() {
-	m_stateManager.render();
-	
-	MapObject::draw();
+	// m_stateManager.render();
+	//
+	// MapObject::draw();
 }
 
 void Player::collisionAction(MapObject &object) {

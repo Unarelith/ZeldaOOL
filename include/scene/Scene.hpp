@@ -35,19 +35,6 @@ class Scene {
 		
 		void checkCollisionsFor(SceneObject &object);
 		
-		template<typename T, typename... Args>
-		T &addObject(Args &&...args) {
-			m_oldObjects.emplace_back(new T(std::forward<Args>(args)...));
-			m_oldObjects.back()->addCollisionHandler(std::bind(static_cast<void(Scene::*)(MapObject*)>(&Scene::checkCollisionsFor), this, m_oldObjects.back().get()));
-			return static_cast<T&>(*m_oldObjects.back());
-		}
-		
-		void removeObject(MapObject &object);
-		
-		bool objectAtPosition(MapObject &obj, float x, float y);
-		
-		MapObject *getObject(float x, float y);
-		
 		void checkCollisionsFor(MapObject *object);
 		
 		static bool isPlayer(const SceneObject &object) { return player == &object; }

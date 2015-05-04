@@ -20,6 +20,8 @@
 
 #include "Exception.hpp"
 
+#include "Debug.hpp"
+
 class SceneObject {
 	public:
 		SceneObject() = default;
@@ -52,6 +54,15 @@ class SceneObject {
 		template<typename T>
 		void remove() {
 			m_components.erase(typeid(T));
+		}
+		
+		void debug() {
+			DEBUG("=== Component list of object:", (void*)this, " ===");
+			DEBUG("=== List address:", (void*)&m_components);
+			for(auto &it : m_components) {
+				DEBUG(it.first.name(), ":", (void*)it.second.get());
+			}
+			DEBUG("=== End of list. ===");
 		}
 		
 	private:

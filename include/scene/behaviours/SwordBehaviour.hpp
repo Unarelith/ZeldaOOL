@@ -28,12 +28,12 @@ class SwordBehaviour : public Behaviour {
 	private:
 		bool m_keyReleased = false;
 		
-		bool m_isLoaded = false;
 		Timer m_loadingTimer;
+		bool m_isLoaded = false;
 		
+		Timer m_spinTimer;
 		u16 m_spinCurrentFrame = 0;
 		u16 m_spinFrameCounter = 0;
-		Timer m_spinTimer;
 };
 
 #endif // SWORDBEHAVIOUR_HPP_

@@ -80,30 +80,6 @@ void Scene::checkCollisionsFor(SceneObject &object) {
 	}
 }
 
-void Scene::removeObject(MapObject &object) {
-	m_oldObjects.erase(std::remove_if(m_oldObjects.begin(), m_oldObjects.end(),
-					[&](std::unique_ptr<MapObject> &it) {
-						return it.get() == &object;
-					}), m_oldObjects.end());
-}
-
-bool Scene::objectAtPosition(MapObject &obj, float x, float y) {
-	return((floor(obj.x() / 8) == floor(x / 8)
-		 || floor(obj.x() / 8) == floor(x / 8) - 1)
-		&& (floor(obj.y() / 8) == floor(y / 8)
-		 || floor(obj.y() / 8) == floor(y / 8) - 1));
-}
-
-MapObject *Scene::getObject(float x, float y) {
-	for(auto &it : m_oldObjects) {
-		if(objectAtPosition(*it, x, y)) {
-			return it.get();
-		}
-	}
-	
-	return nullptr;
-}
-
 void Scene::checkCollisionsFor(MapObject *object) {
 	for(auto &it : m_oldObjects) {
 		MapObject *object2 = (it && it.get() != object) ? it.get() : &Player::player;
