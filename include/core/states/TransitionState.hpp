@@ -17,6 +17,7 @@
 #include <memory>
 
 #include "ApplicationState.hpp"
+#include "StatsBar.hpp"
 #include "Transition.hpp"
 
 class TransitionState : public ApplicationState {
@@ -34,6 +35,8 @@ class TransitionState : public ApplicationState {
 		}
 		
 	private:
+		StatsBar m_statsBar;
+		
 		std::unique_ptr<Transition> m_transition;
 };
 

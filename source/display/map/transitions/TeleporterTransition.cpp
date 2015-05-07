@@ -17,6 +17,7 @@
 #include "Map.hpp"
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
+#include "Sprite.hpp"
 
 TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection, bool movePlayer) {
 	m_nextMap = &Map::getMap(area, mapX, mapY);
@@ -52,6 +53,8 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 	
 	// Player::player.setNextState<StandingState>();
 	
+	m_drawStatsBar = false;
+	
 	Sprite::pause = true;
 }
 
@@ -68,6 +71,8 @@ void TeleporterTransition::update() {
 	
 	if(m_timer.time() > 250) {
 		glClearColor(Color::text.r / 255.0f, Color::text.g / 255.0f, Color::text.b / 255.0f, 1.0f);
+		
+		m_drawStatsBar = true;
 		
 		if(Scene::player && Scene::player->has<PositionComponent>()) {
 			auto &positionComponent = Scene::player->get<PositionComponent>();
@@ -89,8 +94,6 @@ void TeleporterTransition::draw() {
 		
 		m_rect1.draw(Color::text);
 		m_rect2.draw(Color::text);
-		
-		m_statsBar.draw();
 	}
 }
 

@@ -17,7 +17,6 @@
 #include "Direction.hpp"
 #include "Map.hpp"
 #include "RectangleShape.hpp"
-#include "StatsBar.hpp"
 #include "Transition.hpp"
 
 class TeleporterTransition : public Transition {
@@ -42,8 +41,6 @@ class TeleporterTransition : public Transition {
 		
 		RectangleShape m_rect1;
 		RectangleShape m_rect2;
-		
-		StatsBar m_statsBar;
 };
 
 #endif // TELEPORTERTRANSITION_HPP_

@@ -24,8 +24,12 @@ class Transition {
 		
 		bool atEnd() const { return m_atEnd; }
 		
+		bool drawStatsBar() const { return m_drawStatsBar; }
+		
 	protected:
 		bool m_atEnd = false;
+		
+		bool m_drawStatsBar = true;
 };
 
 #endif // TRANSITION_HPP_

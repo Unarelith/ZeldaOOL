@@ -16,6 +16,7 @@
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
 #include "ScrollingTransition.hpp"
+#include "Sprite.hpp"
 
 ScrollingTransition::ScrollingTransition(Mode mode) {
 	m_mode = mode;
@@ -84,7 +85,5 @@ void ScrollingTransition::draw() {
 	m_nextMap->draw();
 	
 	Map::currentMap->draw();
-	
-	m_statsBar.draw();
 }
 

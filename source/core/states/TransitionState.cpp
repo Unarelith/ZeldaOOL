@@ -16,16 +16,20 @@
 #include "TransitionState.hpp"
 
 void TransitionState::update() {
-	if(m_transition) m_transition->update();
-	
 	if(!m_transition || m_transition->atEnd()) {
-		if(!m_transition) DEBUG("Empty TransitionState created, I'll pop it.");
+		if(!m_transition) DEBUG("Empty TransitionState created, I'll pop it");
 		
 		ApplicationStateStack::getInstance().pop();
+	} else {
+		m_transition->update();
 	}
 }
 
 void TransitionState::draw() {
-	if(m_transition) m_transition->draw();
+	m_transition->draw();
+	
+	if(m_transition->drawStatsBar()) {
+		m_statsBar.draw();
+	}
 }
 
