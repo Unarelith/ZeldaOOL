@@ -14,60 +14,43 @@
 #include "CollisionComponent.hpp"
 #include "Scene.hpp"
 
-#include "BehaviourSystem.hpp"
 #include "CollisionSystem.hpp"
-#include "LifetimeSystem.hpp"
-#include "MovementSystem.hpp"
-#include "DrawingSystem.hpp"
+#include "SceneSystem.hpp"
 
 SceneObject *Scene::player = nullptr;
 
 void Scene::reset() {
-	for(auto &it : m_objects) {
-		BehaviourSystem::reset(it);
-	}
+	SceneSystem::reset(m_objects);
 }
 
 void Scene::update() {
-	LifetimeSystem::process(m_objects);
+	SceneSystem::update(m_objects);
 	
-	for(auto &it : m_objects) {
-		updateObject(it);
-	}
-	
-	if(player) updateObject(*player);
-}
-
-void Scene::updateObject(SceneObject &object) {
-	MovementSystem::process(object);
-	
-	BehaviourSystem::process(object);
+	if(player) SceneSystem::updateObject(*player);
 }
 
 void Scene::draw() {
-	for(auto &it : m_objects) {
-		DrawingSystem::draw(it);
-	}
+	SceneSystem::draw(m_objects);
 	
-	if(player) DrawingSystem::draw(*player);
+	if(player) SceneSystem::drawObject(*player);
 }
 
 SceneObject &Scene::addObject(SceneObject &&object) {
-	m_objects.push_back(std::move(object));
+	SceneObject &obj = m_objects.addObject(std::move(object));
 	
-	if(m_objects.back().has<CollisionComponent>()) {
-		m_objects.back().get<CollisionComponent>().addChecker([&](SceneObject &object) {
+	if(obj.has<CollisionComponent>()) {
+		obj.get<CollisionComponent>().addChecker([&](SceneObject &object) {
 			checkCollisionsFor(object);
 		});
 	}
 	
-	return m_objects.back();
+	return obj;
 }
 
 void Scene::checkCollisionsFor(SceneObject &object) {
-	for(SceneObject &obj : m_objects) {
-		if(&object != &obj) {
-			CollisionSystem::checkCollision(object, obj);
+	for(SceneObject &object2 : m_objects) {
+		if(&object != &object2) {
+			CollisionSystem::checkCollision(object, object2);
 		}
 	}
 }

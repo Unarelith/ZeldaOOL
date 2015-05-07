@@ -15,6 +15,7 @@
 #include "GamePadMovement.hpp"
 #include "Map.hpp"
 #include "PlayerBehaviour.hpp"
+#include "SceneObjectList.hpp"
 #include "SwordFactory.hpp"
 
 #include "BehaviourComponent.hpp"
@@ -23,15 +24,14 @@
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
-void PlayerBehaviour::action(SceneObject &object) {
-	auto &movement = object.get<MovementComponent>();
-	auto &position = object.get<PositionComponent>();
+void PlayerBehaviour::action(SceneObject &player) {
+	auto &movement = player.get<MovementComponent>();
+	auto &position = player.get<PositionComponent>();
+	auto &objects = player.get<SceneObjectList>();
 	
 	if(m_state == "Standing") {
 		if(GamePad::isKeyPressedOnce(GameKey::A)) {
-			SceneObject sword = SwordFactory::create(position.x, position.y, position.direction, object);
-			m_sword = &Map::currentMap->scene().addObject(std::move(sword));
-			
+			m_sword = &objects.addObject(SwordFactory::create(position.x, position.y, position.direction, player));
 			m_state = "Sword";
 		}
 		
@@ -41,9 +41,7 @@ void PlayerBehaviour::action(SceneObject &object) {
 	}
 	else if(m_state == "Moving") {
 		if(GamePad::isKeyPressedOnce(GameKey::A)) {
-			SceneObject sword = SwordFactory::create(position.x, position.y, position.direction, object);
-			m_sword = &Map::currentMap->scene().addObject(std::move(sword));
-			
+			m_sword = &objects.addObject(SwordFactory::create(position.x, position.y, position.direction, player));
 			m_state = "Sword";
 		}
 		
@@ -57,9 +55,7 @@ void PlayerBehaviour::action(SceneObject &object) {
 	}
 	else if(m_state == "Pushing") {
 		if(GamePad::isKeyPressedOnce(GameKey::A)) {
-			SceneObject sword = SwordFactory::create(position.x, position.y, position.direction, object);
-			m_sword = &Map::currentMap->scene().addObject(std::move(sword));
-			
+			m_sword = &objects.addObject(SwordFactory::create(position.x, position.y, position.direction, player));
 			m_state = "Sword";
 		}
 		
@@ -68,49 +64,36 @@ void PlayerBehaviour::action(SceneObject &object) {
 		}
 	}
 	else if(m_state == "Sword") {
-		auto &movementComponent = object.get<MovementComponent>();
-		
-		static SceneObject *sword = nullptr;
-		
-		std::string swordState;
-		if(m_sword->has<BehaviourComponent>()) {
-			sword = m_sword;
-			swordState = m_sword->get<BehaviourComponent>().behaviour->state();
-		} else {
-			// m_sword->debug();
-			throw EXCEPTION("Current sword:", m_sword, " | Previous: ", sword);
-		}
-		
+		static std::string swordState = m_sword->get<BehaviourComponent>().behaviour->state();
 		
 		if(swordState == "Swinging") {
-			movementComponent.movement.reset(nullptr);
+			movement.movement.reset(nullptr);
 		}
 		else if(swordState == "Loading") {
-			movementComponent.movement.reset(new GamePadMovement(true));
+			movement.movement.reset(new GamePadMovement(true));
 		}
 		else if(swordState == "SpinAttack") {
-			movementComponent.movement.reset(nullptr);
+			movement.movement.reset(nullptr);
 		}
 		else if(swordState == "Finished") {
 			m_sword->get<LifetimeComponent>().kill();
 			m_sword = nullptr;
 			
-			movementComponent.movement.reset(new GamePadMovement);
+			movement.movement.reset(new GamePadMovement);
 			
 			m_state = "Standing";
 		}
-	}
-	else {
+	} else {
 		throw EXCEPTION("Unknown player state:", m_state);
 	}
 	
-	updateSprite(object);
+	updateSprite(player);
 }
 
-void PlayerBehaviour::updateSprite(SceneObject &object) {
-	auto &movement = object.get<MovementComponent>();
-	auto &position = object.get<PositionComponent>();
-	auto &sprite = object.get<SpriteComponent>();
+void PlayerBehaviour::updateSprite(SceneObject &player) {
+	auto &movement = player.get<MovementComponent>();
+	auto &position = player.get<PositionComponent>();
+	auto &sprite = player.get<SpriteComponent>();
 	
 	if(m_state == "Hurt" || m_state == "Standing") {
 		sprite.isAnimated = false;
@@ -139,8 +122,7 @@ void PlayerBehaviour::updateSprite(SceneObject &object) {
 		else if(swordState == "SpinAttack") {
 			sprite.isAnimated = true;
 			sprite.animID = 12;
-		}
-		else {
+		} else {
 			sprite.isAnimated = false;
 			sprite.animID = static_cast<s8>(position.direction);
 			sprite.frameID = 1;

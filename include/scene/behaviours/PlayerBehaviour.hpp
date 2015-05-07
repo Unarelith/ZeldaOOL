@@ -20,9 +20,9 @@ class PlayerBehaviour : public Behaviour{
 	public:
 		PlayerBehaviour() : Behaviour("Standing") {}
 		
-		void action(SceneObject &object) override;
+		void action(SceneObject &player) override;
 		
-		void updateSprite(SceneObject &object);
+		void updateSprite(SceneObject &player);
 		
 	private:
 		SceneObject *m_sword = nullptr;

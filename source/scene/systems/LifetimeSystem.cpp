@@ -14,13 +14,11 @@
 #include "LifetimeComponent.hpp"
 #include "LifetimeSystem.hpp"
 
-void LifetimeSystem::process(std::deque<SceneObject> &objects) {
+void LifetimeSystem::process(SceneObjectList &objects) {
 	for(u16 i = 0 ; i < objects.size() ; i++) {
 		if(objects[i].has<LifetimeComponent>()
 		&& objects[i].get<LifetimeComponent>().dead(objects[i])) {
-			objects.erase(objects.begin() + i);
-			
-			i--;
+			objects.remove(i--);
 		}
 	}
 }

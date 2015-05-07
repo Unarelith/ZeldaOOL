@@ -1,12 +1,6 @@
 ===== REFACTORING =====
-- Add more debug tools, like a Logger class
-- Fix Sword bugs
-	=> Sometimes the tile under the player get cutted too, even in spin attack, why?
-	=> Sometimes an exception is thrown, catch it
-	=> When changing map in loading state the sword stays in its scene
-		-> Create SceneObjectList (or another name if the class can be generic)
-		-> Add a SceneObjectList as a component to Player
-		-> Add/remove sword from this list, and update this list in Scene
+- Fix Sword hitbox
+	=> Make a class Hitbox and DirectionalHitbox with a method 'inCollisionWith(Hitbox)'
 - Improve game object system
 	=> Implement Battler + HurtState equivalent for Scene::player and octoroks
 - Implement a new Inventory system
@@ -22,6 +16,7 @@
 	=> https://msdn.microsoft.com/en-us/library/1w06ktdy(v=vs.110).aspx
 - Add unit testing with CxxTest
 	=> http://blog.developpez.com/tanek/p7195/informatique/title_118
+- Add more debug tools, like a Logger class
 
 ===== TODO =====
 - Finish 'Octorok'

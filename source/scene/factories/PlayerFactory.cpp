@@ -16,6 +16,7 @@
 #include "Map.hpp"
 #include "PlayerBehaviour.hpp"
 #include "PlayerFactory.hpp"
+#include "SceneObjectList.hpp"
 #include "ScrollingTransition.hpp"
 #include "TilesInfos.hpp"
 #include "TransitionState.hpp"
@@ -27,21 +28,22 @@
 #include "SpriteComponent.hpp"
 
 SceneObject PlayerFactory::create(float x, float y) {
-	SceneObject object;
-	object.set<BehaviourComponent>(new PlayerBehaviour);
-	object.set<MovementComponent>(new GamePadMovement);
+	SceneObject player;
+	player.set<BehaviourComponent>(new PlayerBehaviour);
+	player.set<MovementComponent>(new GamePadMovement);
+	player.set<SceneObjectList>();
 	
-	auto &positionComponent = object.set<PositionComponent>(x, y, 16, 16);
+	auto &positionComponent = player.set<PositionComponent>(x, y, 16, 16);
 	positionComponent.direction = Direction::Down;
 	positionComponent.hitbox.reset(4, 5, 8, 10);
 	
-	auto &collisionComponent = object.set<CollisionComponent>();
+	auto &collisionComponent = player.set<CollisionComponent>();
 	collisionComponent.addChecker(&PlayerFactory::mapCollisions);
-	collisionComponent.addChecker([](SceneObject &object) {
-		Map::currentMap->scene().checkCollisionsFor(object);
+	collisionComponent.addChecker([](SceneObject &player) {
+		Map::currentMap->scene().checkCollisionsFor(player);
 	});
 	
-	auto &spriteComponent = object.set<SpriteComponent>("characters-link", 16, 16);
+	auto &spriteComponent = player.set<SpriteComponent>("characters-link", 16, 16);
 	
 	std::vector<std::vector<std::pair<s16, s16>>> usingSwordPosition = {
 		{{ 0,  0}, { 0,  0}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  0}, { 0,  0}},
@@ -78,12 +80,12 @@ SceneObject PlayerFactory::create(float x, float y) {
 	// Spin attack
 	spriteComponent.sprite.addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, swordSpinAttackPosition, 50);
 	
-	return object;
+	return player;
 }
 
-void PlayerFactory::mapCollisions(SceneObject &object) {
-	auto &movement = object.get<MovementComponent>();
-	auto &position = object.get<PositionComponent>();
+void PlayerFactory::mapCollisions(SceneObject &player) {
+	auto &movement = player.get<MovementComponent>();
+	auto &position = player.get<PositionComponent>();
 	
 	// Pixel-perfect link hitbox for each 4 directions
 	// Two hitboxes:

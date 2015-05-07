@@ -11,10 +11,12 @@
  *
  * =====================================================================================
  */
+#include "Map.hpp"
 #include "SwordBehaviour.hpp"
 #include "SwordFactory.hpp"
 
 #include "BehaviourComponent.hpp"
+#include "CollisionComponent.hpp"
 #include "LifetimeComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
@@ -32,6 +34,11 @@ SceneObject SwordFactory::create(float x, float y, Direction direction, SceneObj
 	auto &positionComponent = object.set<PositionComponent>(x, y, 16, 16);
 	positionComponent.hitbox.reset(7, 7, 2, 2); // TODO: Improve it
 	positionComponent.direction = direction;
+	
+	auto &collisionComponent = object.set<CollisionComponent>();
+	collisionComponent.addChecker([](SceneObject &sword) {
+		Map::currentMap->scene().checkCollisionsFor(sword);
+	});
 	
 	auto &spriteComponent = object.set<SpriteComponent>("animations-sword", 16, 16);
 	

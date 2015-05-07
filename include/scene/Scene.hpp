@@ -14,16 +14,14 @@
 #ifndef SCENE_HPP_
 #define SCENE_HPP_
 
-#include <deque>
-
 #include "SceneObject.hpp"
+#include "SceneObjectList.hpp"
 
 class Scene {
 	public:
 		void reset();
 		
 		void update();
-		void updateObject(SceneObject &object);
 		
 		void draw();
 		
@@ -36,7 +34,7 @@ class Scene {
 		static SceneObject *player;
 		
 	private:
-		std::deque<SceneObject> m_objects;
+		SceneObjectList m_objects;
 };
 
 #endif // SCENE_HPP_
