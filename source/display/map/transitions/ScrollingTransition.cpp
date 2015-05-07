@@ -79,6 +79,15 @@ void ScrollingTransition::update() {
 		
 		m_atEnd = true;
 	}
+	
+	if(Scene::player && positionComponent) {
+		auto &objectList = Scene::player->get<SceneObjectList>();
+		for(auto &object : objectList) {
+			auto &position = object.get<PositionComponent>();
+			position.x = positionComponent->x;
+			position.y = positionComponent->y;
+		}
+	}
 }
 
 void ScrollingTransition::draw() {

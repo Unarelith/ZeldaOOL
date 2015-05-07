@@ -64,7 +64,7 @@ void PlayerBehaviour::action(SceneObject &player) {
 		}
 	}
 	else if(m_state == "Sword") {
-		static std::string swordState = m_sword->get<BehaviourComponent>().behaviour->state();
+		std::string swordState = m_sword->get<BehaviourComponent>().behaviour->state();
 		
 		if(swordState == "Swinging") {
 			movement.movement.reset(nullptr);
