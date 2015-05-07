@@ -42,11 +42,10 @@ SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, co
 	return object;
 }
 
-
 SceneObject CollectableFactory::createHeart(u16 x, u16 y, CollectableMovement::Type movementType) {
 	SceneObject object = create(x, y, "heart", "getHeart", movementType);
 	object.get<CollectableComponent>().setAction([](SceneObject &) {
-		Player::player.addHearts(1);
+		// Player::player.addHearts(1);
 	});
 	
 	return object;
@@ -57,7 +56,7 @@ SceneObject CollectableFactory::createRupees(u16 x, u16 y, RupeesAmount amount, 
 	
 	SceneObject object = create(x, y, name, (amount == RupeesAmount::One) ? "getRupee" : "getRupees5", movementType);
 	object.get<CollectableComponent>().setAction([amount](SceneObject &) {
-		Player::player.inventory().addRupees(amount);
+		// Player::player.inventory().addRupees(amount);
 	});
 	
 	return object;

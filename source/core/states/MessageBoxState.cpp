@@ -13,12 +13,14 @@
  */
 #include "ApplicationStateStack.hpp"
 #include "MessageBoxState.hpp"
-#include "Player.hpp"
+#include "PositionComponent.hpp"
+#include "Scene.hpp"
 
 MessageBoxState::MessageBoxState(const std::string &text, ApplicationState *parent, MessageBox::Position position)
 	: ApplicationState(parent), m_messageBox(text, position)
 {
-	if(Player::player.y() + 32 < MessageBox::Position::Bottom) {
+	if(Scene::player
+	&& Scene::player->get<PositionComponent>().y + 32 < MessageBox::Position::Bottom) {
 		m_messageBox.setPosition(MessageBox::Position::Bottom);
 	}
 }

@@ -13,17 +13,17 @@
  */
 #include <cmath>
 
-#include "Player.hpp"
 #include "StatsBar.hpp"
-#include "Weapon.hpp"
 
 void StatsBar::draw() {
 	m_background.draw(0, 0);
 	
-	u8 maxLife = Player::player.maxLife();
+	// u8 maxLife = Player::player.maxLife();
+	u8 maxLife = 13 * 4;
 	for(u8 j = 0 ; j <= maxLife / 28 ; j++) {
 		for(u8 i = 0 ; i < maxLife / 4 - j * 7 && i < 7 ; i++) {
-			s16 life = Player::player.life() - j * 28;
+			// s16 life = Player::player.life() - j * 28;
+			s16 life = 11 * 4 - j * 28;
 			
 			if(life > (i + 1) * 4) {
 				m_hearts.drawFrame(104 + i * 8, j * 8, 4);
@@ -36,20 +36,21 @@ void StatsBar::draw() {
 		}
 	}
 	
-	u16 rupees = Player::player.inventory().rupees();
+	// u16 rupees = Player::player.inventory().rupees();
+	u16 rupees = 197;
 	for(u8 i = 0 ; i <= log10(rupees) ; i++) {
 		m_numbers.drawFrame(81 + 8 * i, 9, (rupees % (u16)pow(10, floor(log10(rupees) - i + 1))) / pow(10, floor(log10(rupees) - i)));
 	}
 	
-	Weapon *weaponA = Player::player.inventory().weaponA();
-	Weapon *weaponB = Player::player.inventory().weaponB();
+	// Weapon *weaponA = Player::player.inventory().weaponA();
+	// Weapon *weaponB = Player::player.inventory().weaponB();
 	
-	if(weaponA != nullptr) {
-		weaponA->icon().draw(46, -1);
-	}
+	// if(weaponA != nullptr) {
+		// weaponA->icon().draw(46, -1);
+	// }
 	
-	if(weaponB != nullptr) {
-		weaponB->icon().draw(6, -1);
-	}
+	// if(weaponB != nullptr) {
+		// weaponB->icon().draw(6, -1);
+	// }
 }
 

@@ -12,30 +12,21 @@
  * =====================================================================================
  */
 #include "HurtMovement.hpp"
-#include "Movable.hpp"
+#include "MovementComponent.hpp"
 
-HurtMovement::HurtMovement(s16 vx, s16 vy, float speed) {
-	m_vx = vx;
-	m_vy = vy;
+void HurtMovement::process(SceneObject &object) {
+	auto &movement = object.get<MovementComponent>();
 	
-	m_speed = speed;
-}
-
-void HurtMovement::process(Movable &movable) {
-	movable.setSpeed(m_speed);
+	m_oldSpeed = movement.speed;
+	movement.speed = m_speed;
 	
 	if(m_movementCounter < 16) {
-		movable.setVelocity(m_vx, m_vy);
+		movement.vx = m_vx;
+		movement.vy = m_vy;
 		
 		m_movementCounter += m_speed;
 	} else {
-		// FIXME: TO REMOVE LATER
-		// if(movable.checkType<Enemy>()) {
-		// 	Enemy &enemy = static_cast<Enemy&>(movable);
-		// 	enemy.checkDeath();
-		// }
-		
-		movable.resetMovement();
+		movement.speed = m_oldSpeed;
 	}
 }
 

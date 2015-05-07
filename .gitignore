@@ -1,5 +1,9 @@
 CMakeFiles
 CMakeCache.txt
+CTestTestfile.cmake
 cmake_install.cmake
 Makefile
 ZeldaOOL
+ZeldaOOL_tests
+unit-test.cpp
+*.a

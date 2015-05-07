@@ -18,7 +18,6 @@
 #include "MapState.hpp"
 #include "MenuState.hpp"
 #include "MessageBoxState.hpp"
-#include "Player.hpp"
 #include "PlayerFactory.hpp"
 #include "ResourceHandler.hpp"
 #include "Scene.hpp"
@@ -30,8 +29,6 @@ MapState::MapState() {
 	
 	Map::currentMap = &Map::getMap(0, 0, 0);
 	
-	Player::player.load();
-	
 	m_player = PlayerFactory::create(64, 48);
 	Scene::player = &m_player;
 	
@@ -40,8 +37,6 @@ MapState::MapState() {
 
 void MapState::update() {
 	Map::currentMap->update();
-	
-	Player::player.update();
 	
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
 		m_stateStack->push<MessageBoxState>("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", this);
@@ -56,12 +51,6 @@ void MapState::update() {
 
 void MapState::draw() {
 	Map::currentMap->draw();
-	
-	View::bind(&Map::currentMap->view());
-	
-	Player::player.draw();
-	
-	View::bind(nullptr);
 	
 	m_statsBar.draw();
 }

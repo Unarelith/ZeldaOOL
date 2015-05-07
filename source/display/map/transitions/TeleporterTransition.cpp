@@ -15,10 +15,8 @@
 #include "AudioPlayer.hpp"
 #include "TeleporterTransition.hpp"
 #include "Map.hpp"
-#include "Player.hpp"
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
-#include "StandingState.hpp"
 
 TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection, bool movePlayer) {
 	m_nextMap = &Map::getMap(area, mapX, mapY);
@@ -52,7 +50,7 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 		AudioPlayer::playMusic("underground");
 	}
 	
-	Player::player.setNextState<StandingState>();
+	// Player::player.setNextState<StandingState>();
 	
 	Sprite::pause = true;
 }
@@ -80,9 +78,6 @@ void TeleporterTransition::update() {
 			positionComponent.direction = (Direction)m_playerDirection;
 		}
 		
-		Player::player.setPosition(m_playerX, m_playerY);
-		Player::player.setDirection((u8)m_playerDirection);
-		
 		m_rect1.move(-1.5, 0);
 		m_rect2.move(1.5, 0);
 	}
@@ -91,12 +86,6 @@ void TeleporterTransition::update() {
 void TeleporterTransition::draw() {
 	if(m_timer.time() > 250) {
 		m_nextMap->draw();
-		
-		View::bind(&Map::currentMap->view());
-		
-		Player::player.draw();
-		
-		View::bind(nullptr);
 		
 		m_rect1.draw(Color::text);
 		m_rect2.draw(Color::text);

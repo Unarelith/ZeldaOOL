@@ -14,15 +14,6 @@
 #ifndef MOVEMENT_HPP_
 #define MOVEMENT_HPP_
 
-class Movable;
-
-class OldMovement {
-	public:
-		virtual void reset(Movable &) {}
-		
-		virtual void process(Movable &movable) = 0;
-};
-
 #include "SceneObject.hpp"
 
 class Movement {

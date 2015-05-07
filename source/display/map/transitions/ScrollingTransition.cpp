@@ -14,7 +14,6 @@
 #include "Application.hpp"
 #include "Map.hpp"
 #include "PositionComponent.hpp"
-#include "Player.hpp"
 #include "Scene.hpp"
 #include "ScrollingTransition.hpp"
 
@@ -55,8 +54,6 @@ void ScrollingTransition::update() {
 		positionComponent->move(m_vx * 0.15f, m_vy * 0.21f);
 	}
 	
-	Player::player.move(m_vx * 0.15f, m_vy * 0.21f);
-	
 	Map::currentMap->view().move(-m_vx * 1.6f, -m_vy * 1.5f);
 	m_nextMap->view().move(-m_vx * 1.6f, -m_vy * 1.5f);
 	
@@ -65,11 +62,6 @@ void ScrollingTransition::update() {
 	
 	if((m_scrolled >= Application::screenWidth       && m_vx != 0)
 	|| (m_scrolled >= Application::screenHeight - 16 && m_vy != 0)) {
-		if(m_vx < 0)      Player::player.move(m_nextMap->width() * 16, 0);
-		else if(m_vx > 0) Player::player.move(-Map::currentMap->width() * 16, 0);
-		else if(m_vy < 0) Player::player.move(0, m_nextMap->height() * 16);
-		else if(m_vy > 0) Player::player.move(0, -Map::currentMap->height() * 16);
-		
 		if(positionComponent) {
 			if(m_vx < 0)      positionComponent->move(m_nextMap->width() * 16, 0);
 			else if(m_vx > 0) positionComponent->move(-Map::currentMap->width() * 16, 0);
@@ -92,12 +84,6 @@ void ScrollingTransition::draw() {
 	m_nextMap->draw();
 	
 	Map::currentMap->draw();
-	
-	View::bind(&Map::currentMap->view());
-	
-	Player::player.draw();
-	
-	View::bind(nullptr);
 	
 	m_statsBar.draw();
 }

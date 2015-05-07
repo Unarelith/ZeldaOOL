@@ -14,8 +14,6 @@
 #include "AudioPlayer.hpp"
 #include "GamePad.hpp"
 #include "Menu.hpp"
-#include "Player.hpp"
-#include "Weapon.hpp"
 
 void Menu::update() {
 	if(GamePad::isKeyPressedWithDelay(GameKey::Left, 250)) {
@@ -58,15 +56,15 @@ void Menu::update() {
 	if(GamePad::isKeyPressedOnce(GameKey::A)) {
 		AudioPlayer::playEffect("menuSelect");
 		
-		auto &newWeaponA = Player::player.inventory().getWeapon(m_cursorX, m_cursorY);
-		Player::player.inventory().setWeaponA(newWeaponA);
+		// auto &newWeaponA = Player::player.inventory().getWeapon(m_cursorX, m_cursorY);
+		// Player::player.inventory().setWeaponA(newWeaponA);
 	}
 	
 	if(GamePad::isKeyPressedOnce(GameKey::B)) {
 		AudioPlayer::playEffect("menuSelect");
 		
-		auto &newWeaponB = Player::player.inventory().getWeapon(m_cursorX, m_cursorY);
-		Player::player.inventory().setWeaponB(newWeaponB);
+		// auto &newWeaponB = Player::player.inventory().getWeapon(m_cursorX, m_cursorY);
+		// Player::player.inventory().setWeaponB(newWeaponB);
 	}
 }
 
@@ -75,14 +73,14 @@ void Menu::draw() {
 	
 	m_cursor.draw(22 + m_cursorX * 32, 25 + m_cursorY * 24);
 	
-	for(u8 y = 0 ; y < 4 ; y++) {
-		for(u8 x = 0 ; x < 4 ; x++) {
-			auto &currentWeapon = Player::player.inventory().getWeapon(x, y);
-			
-			if(currentWeapon) {
-				currentWeapon->icon().draw(22 + x * 32, 23 + y * 24);
-			}
-		}
-	}
+	// for(u8 y = 0 ; y < 4 ; y++) {
+	// 	for(u8 x = 0 ; x < 4 ; x++) {
+	// 		auto &currentWeapon = Player::player.inventory().getWeapon(x, y);
+	// 		
+	// 		if(currentWeapon) {
+	// 			currentWeapon->icon().draw(22 + x * 32, 23 + y * 24);
+	// 		}
+	// 	}
+	// }
 }
 

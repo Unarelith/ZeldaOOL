@@ -56,6 +56,13 @@ void PlayerBehaviour::action(SceneObject &object) {
 		}
 	}
 	else if(m_state == "Pushing") {
+		if(GamePad::isKeyPressedOnce(GameKey::A)) {
+			SceneObject sword = SwordFactory::create(position.x, position.y, position.direction, object);
+			m_sword = &Map::currentMap->scene().addObject(std::move(sword));
+			
+			m_state = "Sword";
+		}
+		
 		if(!movement.isBlocked) {
 			m_state = "Standing";
 		}
@@ -63,12 +70,15 @@ void PlayerBehaviour::action(SceneObject &object) {
 	else if(m_state == "Sword") {
 		auto &movementComponent = object.get<MovementComponent>();
 		
+		static SceneObject *sword = nullptr;
+		
 		std::string swordState;
 		if(m_sword->has<BehaviourComponent>()) {
+			sword = m_sword;
 			swordState = m_sword->get<BehaviourComponent>().behaviour->state();
 		} else {
 			// m_sword->debug();
-			throw EXCEPTION("Problem in sword components");
+			throw EXCEPTION("Current sword:", m_sword, " | Previous: ", sword);
 		}
 		
 		
@@ -83,6 +93,7 @@ void PlayerBehaviour::action(SceneObject &object) {
 		}
 		else if(swordState == "Finished") {
 			m_sword->get<LifetimeComponent>().kill();
+			m_sword = nullptr;
 			
 			movementComponent.movement.reset(new GamePadMovement);
 			

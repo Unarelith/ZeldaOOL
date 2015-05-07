@@ -26,9 +26,3 @@
 - Run `cmake .` at the root of the game folder
 - Run `make`, wait, run the game and enjoy!
 
-## Pre-compiled builds
-
-- **Windows:** (old) [ZeldaOOT.zip](https://dl.dropboxusercontent.com/u/41571323/ZeldaOOT.zip) _works with Wine without sound_
-- **Linux:** _Not available yet_
-- **OS X:** _Not available yet_
-

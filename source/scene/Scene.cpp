@@ -36,10 +36,6 @@ void Scene::update() {
 	}
 	
 	if(player) updateObject(*player);
-	
-	for(auto &it : m_oldObjects) {
-		it->update();
-	}
 }
 
 void Scene::updateObject(SceneObject &object) {
@@ -49,10 +45,6 @@ void Scene::updateObject(SceneObject &object) {
 }
 
 void Scene::draw() {
-	for(auto &it : m_oldObjects) {
-		it->draw();
-	}
-	
 	for(auto &it : m_objects) {
 		DrawingSystem::draw(it);
 	}
@@ -76,17 +68,6 @@ void Scene::checkCollisionsFor(SceneObject &object) {
 	for(SceneObject &obj : m_objects) {
 		if(&object != &obj) {
 			CollisionSystem::checkCollision(object, obj);
-		}
-	}
-}
-
-void Scene::checkCollisionsFor(MapObject *object) {
-	for(auto &it : m_oldObjects) {
-		MapObject *object2 = (it && it.get() != object) ? it.get() : &Player::player;
-		
-		if(object->inCollisionWith(*object2)) {
-			object->collisionAction(*object2);
-			object2->collisionAction(*object);
 		}
 	}
 }

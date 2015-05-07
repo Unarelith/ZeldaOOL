@@ -48,15 +48,16 @@ SceneObject OctorokFactory::create(float x, float y) {
 
 void octorokAction(SceneObject &octorok, SceneObject &object, bool collision) {
 	if(Scene::isPlayer(object) && collision) {
+		auto &playerPosition = object.get<PositionComponent>();
 		auto &octorokPosition = octorok.get<PositionComponent>();
 		
-		s16 vx = Player::player.x() - octorokPosition.x;
-		s16 vy = Player::player.y() - octorokPosition.y;
+		s16 vx = playerPosition.x - octorokPosition.x;
+		s16 vy = playerPosition.y - octorokPosition.y;
 		
 		if(vx != 0) vx /= abs(vx);
 		if(vy != 0) vy /= abs(vy);
 		
-		Player::player.hurt(1, vx, vy);
+		// Player::player.hurt(1, vx, vy);
 	}
 }
 

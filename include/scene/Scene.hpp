@@ -15,10 +15,6 @@
 #define SCENE_HPP_
 
 #include <deque>
-#include <memory>
-
-#include "MapObject.hpp"
-#include "Player.hpp"
 
 #include "SceneObject.hpp"
 
@@ -35,15 +31,11 @@ class Scene {
 		
 		void checkCollisionsFor(SceneObject &object);
 		
-		void checkCollisionsFor(MapObject *object);
-		
 		static bool isPlayer(const SceneObject &object) { return player == &object; }
 		
 		static SceneObject *player;
 		
 	private:
-		std::vector<std::unique_ptr<MapObject>> m_oldObjects;
-		
 		std::deque<SceneObject> m_objects;
 };
 

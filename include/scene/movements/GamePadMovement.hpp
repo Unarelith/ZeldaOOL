@@ -16,11 +16,6 @@
 
 #include "Movement.hpp"
 
-class OldGamePadMovement : public OldMovement {
-	public:
-		void process(Movable &movable) override;
-};
-
 class GamePadMovement : public Movement {
 	public:
 		GamePadMovement(bool directionLocked = false)
