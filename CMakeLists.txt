@@ -20,18 +20,14 @@ endforeach(HEADER_FILE)
 #------------------------------------------------------------------------------
 # Unit testing
 #------------------------------------------------------------------------------
-file(GLOB_RECURSE TESTS_FILES tests/*.hpp)
+find_package(CxxTest QUIET)
 
-find_package(CxxTest REQUIRED)
-
-if(NOT CXXTEST_FOUND)
-	message(FATAL_ERROR "CxxTest not found !")
-endif(NOT CXXTEST_FOUND)
-
-include_directories(${CXXTEST_INCLUDE_DIRS})
-
-ENABLE_TESTING()
-CXXTEST_ADD_TEST(unit-test tests/unit-test.cpp ${TESTS_FILES})
+if(CXXTEST_FOUND)
+	include_directories(${CXXTEST_INCLUDE_DIRS})
+	enable_testing()
+else(CXXTEST_FOUND)
+	message(WARNING "CxxTest not found!")
+endif(CXXTEST_FOUND)
 
 #------------------------------------------------------------------------------
 # Add executables
@@ -42,8 +38,10 @@ add_library(${CMAKE_PROJECT_NAME}_lib STATIC
 add_executable(${CMAKE_PROJECT_NAME}
                source/main.cpp)
 
-add_executable(${CMAKE_PROJECT_NAME}_tests
-               tests/unit-test.cpp)
+if(CXXTEST_FOUND)
+	add_executable(${CMAKE_PROJECT_NAME}_tests
+	               tests/unit-test.cpp)
+endif(CXXTEST_FOUND)
 
 #------------------------------------------------------------------------------
 # Compiler flags
@@ -62,11 +60,11 @@ find_package(OpenGL REQUIRED)
 # find_package(GLM REQUIRED)
 
 if(NOT OPENGL_FOUND)
-	message(FATAL_ERROR "OpenGL not found !")
+	message(FATAL_ERROR "OpenGL not found!")
 endif(NOT OPENGL_FOUND)
 
 # if(NOT GLM_FOUND)
-# 	message(FATAL_ERROR "glm not found !")
+# 	message(FATAL_ERROR "glm not found!")
 # endif(NOT GLM_FOUND)
 #
 # include_directories(${GLM_INCLUDE_DIRS})
@@ -81,15 +79,15 @@ pkg_search_module(SDL2IMAGE REQUIRED SDL2_image)
 pkg_search_module(SDL2MIXER REQUIRED SDL2_mixer)
 
 if(NOT SDL2_FOUND)
-	message(FATAL_ERROR "SDL2 not found !")
+	message(FATAL_ERROR "SDL2 not found!")
 endif(NOT SDL2_FOUND)
 
 if(NOT SDL2IMAGE_FOUND)
-	message(FATAL_ERROR "SDL2_image not found !")
+	message(FATAL_ERROR "SDL2_image not found!")
 endif(NOT SDL2IMAGE_FOUND)
 
 if(NOT SDL2MIXER_FOUND)
-	message(FATAL_ERROR "SDL2_mixer not found !")
+	message(FATAL_ERROR "SDL2_mixer not found!")
 endif(NOT SDL2MIXER_FOUND)
 
 include_directories(${SDL2_INCLUDE_DIRS}
@@ -99,12 +97,14 @@ include_directories(${SDL2_INCLUDE_DIRS}
 #------------------------------------------------------------------------------
 # Link options
 #------------------------------------------------------------------------------
-target_link_libraries(${CMAKE_PROJECT_NAME}_tests
-                      ${CMAKE_PROJECT_NAME}_lib
-                      ${OPENGL_LIBRARIES}
-                      ${SDL2_LIBRARIES}
-                      ${SDL2IMAGE_LIBRARIES}
-                      ${SDL2MIXER_LIBRARIES})
+if(CXXTEST_FOUND)
+	target_link_libraries(${CMAKE_PROJECT_NAME}_tests
+	                      ${CMAKE_PROJECT_NAME}_lib
+	                      ${OPENGL_LIBRARIES}
+	                      ${SDL2_LIBRARIES}
+	                      ${SDL2IMAGE_LIBRARIES}
+	                      ${SDL2MIXER_LIBRARIES})
+endif(CXXTEST_FOUND)
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
                       ${CMAKE_PROJECT_NAME}_lib
