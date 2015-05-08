@@ -17,7 +17,6 @@
 	
 	<texture folder="icons" name="swordL1"/>
 	
-	<texture folder="interface" name="30rupees"/>
 	<texture folder="interface" name="dialogArrow"/>
 	<texture folder="interface" name="font"/>
 	<texture folder="interface" name="hearts"/>
