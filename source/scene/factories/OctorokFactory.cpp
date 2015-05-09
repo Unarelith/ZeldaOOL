@@ -21,7 +21,7 @@
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 
-void octorokAction(SceneObject &octorok, SceneObject &object, bool collision);
+void octorokAction(SceneObject &octorok, SceneObject &object, CollisionInformations& collisionInformations);
 
 SceneObject OctorokFactory::create(float x, float y) {
 	SceneObject object;
@@ -46,8 +46,8 @@ SceneObject OctorokFactory::create(float x, float y) {
 	return object;
 }
 
-void octorokAction(SceneObject &octorok, SceneObject &object, bool collision) {
-	if(Scene::isPlayer(object) && collision) {
+void octorokAction(SceneObject &octorok, SceneObject &object, CollisionInformations &collisionInformations) {
+	if(Scene::isPlayer(object) && !collisionInformations.empty()) {
 		auto &playerPosition = object.get<PositionComponent>();
 		auto &octorokPosition = octorok.get<PositionComponent>();
 		

@@ -18,11 +18,10 @@
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 #include "WeaponComponent.hpp"
+#include "HitboxesComponent.hpp"
 
 SwordBehaviour::SwordBehaviour() : Behaviour("Swinging") {
 	AudioPlayer::playEffect("swordSlash1");
-	
-	m_loadingTimer.start();
 }
 
 void SwordBehaviour::action(SceneObject &sword) {
@@ -31,7 +30,8 @@ void SwordBehaviour::action(SceneObject &sword) {
 	
 	SceneObject &owner = sword.get<WeaponComponent>().owner;
 	auto &ownerPosition = owner.get<PositionComponent>();
-	auto &ownerSprite = owner.get<SpriteComponent>().sprite;
+	auto &ownerSpriteComponent = owner.get<SpriteComponent>();
+	auto &ownerSprite = ownerSpriteComponent.sprite;
 	
 	swordPosition.x = ownerPosition.x;
 	swordPosition.y = ownerPosition.y;
@@ -127,7 +127,7 @@ void SwordBehaviour::action(SceneObject &sword) {
 			sprite.getAnimation(8).stop();
 			
 			ownerSprite.getAnimation(12).stop();
-			ownerSprite.setCurrentAnimation((s8)ownerPosition.direction);
+			ownerSpriteComponent.animID = (s8)ownerPosition.direction;
 			
 			m_spinTimer.start();
 			
@@ -138,11 +138,11 @@ void SwordBehaviour::action(SceneObject &sword) {
 	}
 	
 	updateSprite(sword);
+	updateHitboxes(sword);
 }
 
 void SwordBehaviour::updateSprite(SceneObject &sword) {
 	auto &spriteComponent = sword.get<SpriteComponent>();
-	
 	auto &ownerPosition = sword.get<WeaponComponent>().owner.get<PositionComponent>();
 	
 	if(m_state == "Swinging") {
@@ -157,9 +157,21 @@ void SwordBehaviour::updateSprite(SceneObject &sword) {
 	else if(m_state == "SpinAttack") {
 		spriteComponent.isAnimated = true;
 		spriteComponent.animID = 8;
-	}
-	else {
+	} else {
 		spriteComponent.isDisabled = true;
 	}
 }
 
+void SwordBehaviour::updateHitboxes(SceneObject &sword) {
+	auto &spriteComponent = sword.get<SpriteComponent>();
+	auto &hitboxesComponent = sword.get<HitboxesComponent>();
+	
+	u16 frameID = spriteComponent.sprite.getLastDrawedFrameID();
+	hitboxesComponent.disableHitboxes();
+	if(frameID < 12) {
+		hitboxesComponent[frameID].enable = true;
+	}
+	else if(frameID < 16) {
+		hitboxesComponent[frameID - 4].enable = true;
+	}
+}

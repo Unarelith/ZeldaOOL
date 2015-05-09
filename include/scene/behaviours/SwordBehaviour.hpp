@@ -24,6 +24,7 @@ class SwordBehaviour : public Behaviour {
 		void action(SceneObject &sword) override;
 		
 		void updateSprite(SceneObject &sword);
+		void updateHitboxes(SceneObject &sword);
 		
 	private:
 		bool m_keyReleased = false;

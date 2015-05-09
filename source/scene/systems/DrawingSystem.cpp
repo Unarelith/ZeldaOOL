@@ -13,6 +13,7 @@
  */
 #include "DrawingSystem.hpp"
 
+#include "HitboxesComponent.hpp"
 #include "LifetimeComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
@@ -37,24 +38,33 @@ void DrawingSystem::draw(SceneObject &object) {
 			drawSprite(object, position.x, position.y);
 		}
 		
-		// static RectangleShape rect;
-		// rect.setPosition(position.x + position.hitbox.x,
-		//                  position.y + position.hitbox.y);
-		
 		if(object.has<SpriteComponent>()) {
 			drawSpriteComponent(object, position.x, position.y);
-			
-		// 	rect.move(object.get<SpriteComponent>().sprite.currentAnimation().currentPosition().first,
-		// 	          object.get<SpriteComponent>().sprite.currentAnimation().currentPosition().second);
 		}
 		
-		// rect.resize(position.hitbox.width, position.hitbox.height);
-		//
-		// if(object.has<std::string>() && object.get<std::string>() == "Sword") {
-		// 	rect.draw(Color::red);
-		// } else {
-		// 	rect.draw(Color::white);
-		// }
+		if(object.has<HitboxesComponent>()) {
+			auto &hitboxes = object.get<HitboxesComponent>();
+			static RectangleShape rect;
+			
+			for(auto& hitbox : hitboxes) {
+				if(hitbox.enable) {
+					rect.setPosition(position.x + hitbox.rect.x, position.y + hitbox.rect.y);
+					rect.resize(hitbox.rect.width, hitbox.rect.height);
+					
+					if(object.has<SpriteComponent>()) {
+						u16 animID = object.get<SpriteComponent>().animID;
+						rect.move(object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition().first,
+						          object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition().second);
+					}
+					
+					if(object.has<std::string>() && object.get<std::string>() == "Sword") {
+						rect.draw(Color::red, true);
+					} else {
+						rect.draw(Color::white, true);
+					}
+				}
+			}
+		}
 	}
 }
 

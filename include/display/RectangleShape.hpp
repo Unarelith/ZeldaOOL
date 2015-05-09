@@ -22,7 +22,7 @@ class RectangleShape {
 		RectangleShape() = default;
 		RectangleShape(float x, float y, u16 width, u16 height);
 		
-		void draw(Color color = Color::black);
+		void draw(Color color = Color::black, bool wireframe = false);
 		
 		void setPosition(float x, float y) { m_x = x; m_y = y; }
 		void move(float dx, float dy) { m_x += dx; m_y += dy; }

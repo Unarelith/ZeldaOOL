@@ -23,7 +23,7 @@
 #include "CollisionComponent.hpp"
 #include "PositionComponent.hpp"
 
-void chestAction(SceneObject &chest, SceneObject &object, bool collision);
+void chestAction(SceneObject &chest, SceneObject &object, CollisionInformations &collisionInformations);
 
 SceneObject ChestFactory::create(u16 tileX, u16 tileY) {
 	SceneObject object;
@@ -33,13 +33,16 @@ SceneObject ChestFactory::create(u16 tileX, u16 tileY) {
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addAction(&chestAction);
 	
+	auto &hitboxesComponent = object.set<HitboxesComponent>();
+	hitboxesComponent.addHitbox(IntRect(0, 0, 16, 16));
+	
 	return object;
 }
 
-void chestAction(SceneObject &chest, SceneObject &object, bool collision) {
+void chestAction(SceneObject &chest, SceneObject &object, CollisionInformations &collisionInformations) {
 	auto &chestPosition = chest.get<PositionComponent>();
 	
-	if(Scene::isPlayer(object) && collision) {
+	if(Scene::isPlayer(object) && !collisionInformations.empty()) {
 		auto &playerPosition = object.get<PositionComponent>();
 		
 		if(playerPosition.direction == Direction::Up

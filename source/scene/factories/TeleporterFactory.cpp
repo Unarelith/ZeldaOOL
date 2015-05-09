@@ -21,15 +21,17 @@
 #include "CollisionComponent.hpp"
 #include "PositionComponent.hpp"
 #include "TeleporterComponent.hpp"
+#include "HitboxesComponent.hpp"
 
-void teleporterAction(SceneObject &teleporter, SceneObject &object, bool collision);
+void teleporterAction(SceneObject &teleporter, SceneObject &object, CollisionInformations &collisionInformations);
 
 SceneObject TeleporterFactory::create(float tileX, float tileY) {
 	SceneObject object;
 	object.set<TeleporterComponent>();
+	object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 	
-	auto &positionComponent = object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
-	positionComponent.hitbox.reset(4, 4, 8, 6);
+	auto &hitboxesComponent = object.set<HitboxesComponent>();
+	hitboxesComponent.addHitbox(IntRect(4, 4, 8, 6));
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addAction(&teleporterAction);
@@ -37,13 +39,13 @@ SceneObject TeleporterFactory::create(float tileX, float tileY) {
 	return object;
 }
 
-void teleporterAction(SceneObject &teleporter, SceneObject &object, bool collision) {
+void teleporterAction(SceneObject &teleporter, SceneObject &object, CollisionInformations &collisionInformations) {
 	static bool playerOnDoor = false;
 	
 	auto &teleporterComponent = teleporter.get<TeleporterComponent>();
 	
 	if(Scene::isPlayer(object)) {
-		if(collision) {
+		if(!collisionInformations.empty()) {
 			if(!playerOnDoor) {
 				AudioPlayer::playEffect("mapStairs");
 				

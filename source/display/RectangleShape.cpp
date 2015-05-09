@@ -20,7 +20,7 @@ RectangleShape::RectangleShape(float x, float y, u16 width, u16 height) {
 	resize(width, height);
 }
 
-void RectangleShape::draw(Color color) {
+void RectangleShape::draw(Color color, bool wireframe) {
 	GLfloat vertices[] = {
 		m_x,			m_y,
 		m_x + m_width,	m_y,
@@ -46,7 +46,12 @@ void RectangleShape::draw(Color color) {
 	glVertexAttribPointer(Shader::currentShader->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glVertexAttribPointer(Shader::currentShader->attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
 	
+	
+	if(wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
+	
+	if(wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	
 	Shader::currentShader->disableVertexAttribArray("color");
 	Shader::currentShader->disableVertexAttribArray("coord2d");

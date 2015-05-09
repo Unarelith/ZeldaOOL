@@ -78,7 +78,7 @@ void PlayerBehaviour::action(SceneObject &player) {
 		else if(swordState == "Finished") {
 			m_sword->get<LifetimeComponent>().kill();
 			m_sword = nullptr;
-			
+			DEBUG("KILL")
 			movement.movement.reset(new GamePadMovement);
 			
 			m_state = "Standing";
