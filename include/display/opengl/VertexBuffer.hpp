@@ -23,6 +23,9 @@ class VertexBuffer {
 		VertexBuffer(VertexBuffer &&vertexBuffer);
 		~VertexBuffer();
 		
+		VertexBuffer &operator=(const VertexBuffer &) = delete;
+		VertexBuffer &operator=(VertexBuffer &&vertexBuffer);
+		
 		void setData(GLsizeiptr size, const GLvoid *data, GLenum usage);
 		void updateData(GLintptr offset, GLsizeiptr size, const GLvoid *data);
 		

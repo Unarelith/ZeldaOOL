@@ -23,6 +23,14 @@ class Color {
 		
 		Color operator-(const Color &color);
 		
+		bool operator==(const Color &color) {
+			return r == color.r && g == color.g && b == color.b && a == color.a;
+		}
+		
+		bool operator!=(const Color &color) {
+			return !(*this == color);
+		}
+		
 		float r = 1.0f;
 		float g = 1.0f;
 		float b = 1.0f;

@@ -32,7 +32,7 @@ class SceneObjectList {
 		
 		void remove(size_t n) { m_objects.erase(m_objects.begin() + n); }
 		
-		iterator begin() noexcept { return m_objects.begin();}
+		iterator begin() noexcept { return m_objects.begin(); }
 		iterator end() noexcept { return m_objects.end(); }
 		
 		size_t size() const { return m_objects.size(); }

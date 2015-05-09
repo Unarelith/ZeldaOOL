@@ -26,6 +26,12 @@ VertexBuffer::~VertexBuffer() {
 	glDeleteBuffers(1, &m_id);
 }
 
+VertexBuffer &VertexBuffer::operator=(VertexBuffer &&vertexBuffer) {
+	m_id = vertexBuffer.m_id;
+	vertexBuffer.m_id = 0;
+	return *this;
+}
+
 void VertexBuffer::setData(GLsizeiptr size, const GLvoid *data, GLenum usage) {
 	glBufferData(GL_ARRAY_BUFFER, size, data, usage);
 }
