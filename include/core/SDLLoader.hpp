@@ -21,6 +21,9 @@ class SDLLoader {
 		SDLLoader(SDLLoader &&) = delete;
 		~SDLLoader();
 		
+		SDLLoader& operator=(const SDLLoader &) = delete;
+		SDLLoader& operator=(SDLLoader &&) = delete;
+		
 		void load();
 		
 	private:

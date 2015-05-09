@@ -14,6 +14,7 @@
 	=> http://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c
 	=> http://stackoverflow.com/questions/25280440/why-include-direct-h-or-sys-stat-h-conditionally-based-on-win32-or-linux
 	=> https://msdn.microsoft.com/en-us/library/1w06ktdy(v=vs.110).aspx
+	=> http://stackoverflow.com/questions/18320486/how-to-check-if-file-exists-in-c-in-a-portable-way
 - Add unit testing with CxxTest
 	=> http://blog.developpez.com/tanek/p7195/informatique/title_118
 - Add more debug tools, like a Logger class

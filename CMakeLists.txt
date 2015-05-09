@@ -22,9 +22,13 @@ endforeach(HEADER_FILE)
 #------------------------------------------------------------------------------
 find_package(CxxTest QUIET)
 
+file(GLOB_RECURSE TEST_FILES tests/*.hpp)
+
 if(CXXTEST_FOUND)
 	include_directories(${CXXTEST_INCLUDE_DIRS})
 	enable_testing()
+	
+	CXXTEST_ADD_TEST(unit-test tests/unit-test.cpp ${TEST_FILES})
 else(CXXTEST_FOUND)
 	message(WARNING "CxxTest not found!")
 endif(CXXTEST_FOUND)

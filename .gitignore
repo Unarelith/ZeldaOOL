@@ -5,5 +5,8 @@ cmake_install.cmake
 Makefile
 ZeldaOOL
 ZeldaOOL_tests
+unit-test
 unit-test.cpp
 *.a
+doxygen/html
+doxygen/latex
