@@ -21,8 +21,6 @@
 
 SwordBehaviour::SwordBehaviour() : Behaviour("Swinging") {
 	AudioPlayer::playEffect("swordSlash1");
-	
-	m_loadingTimer.start();
 }
 
 void SwordBehaviour::action(SceneObject &sword) {

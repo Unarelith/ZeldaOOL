@@ -4,7 +4,8 @@
 - Improve game object system
 	=> Implement Battler + HurtState equivalent for Scene::player and octoroks
 - Implement a new Inventory system
-	=> Remove Inventory + mapObjects folders + OldGamePadMovement
+	=> Try to implement it using TDD
+	=> Item object, Weapon object containing a std::function to create the SceneObject
 - Use m_parent in TransitionState
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions

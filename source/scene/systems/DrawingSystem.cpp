@@ -39,21 +39,21 @@ void DrawingSystem::draw(SceneObject &object) {
 		
 		// static RectangleShape rect;
 		// rect.setPosition(position.x + position.hitbox.x,
-		//                  position.y + position.hitbox.y);
+		//                   position.y + position.hitbox.y);
 		
 		if(object.has<SpriteComponent>()) {
 			drawSpriteComponent(object, position.x, position.y);
 			
-		// 	rect.move(object.get<SpriteComponent>().sprite.currentAnimation().currentPosition().first,
-		// 	          object.get<SpriteComponent>().sprite.currentAnimation().currentPosition().second);
+		 	// rect.move(object.get<SpriteComponent>().sprite.currentAnimation().currentPosition().first,
+		 	//           object.get<SpriteComponent>().sprite.currentAnimation().currentPosition().second);
 		}
 		
 		// rect.resize(position.hitbox.width, position.hitbox.height);
-		//
+		
 		// if(object.has<std::string>() && object.get<std::string>() == "Sword") {
 		// 	rect.draw(Color::red);
 		// } else {
-		// 	rect.draw(Color::white);
+		//	rect.draw(Color::white);
 		// }
 	}
 }
