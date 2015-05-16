@@ -22,9 +22,9 @@ void AudioLoader::load(const std::string &xmlFilename, ResourceHandler &handler)
 	XMLElement *musicElement = doc.FirstChildElement("audio").FirstChildElement("music").ToElement();
 	while(musicElement) {
 		std::string name = musicElement->Attribute("name");
-		std::string filename = std::string("audio/music/") + name + ".ogg";
+		std::string filename = "audio/music/" + name + ".ogg";
 		
-		handler.add<BackgroundMusic>(std::string("bgm-") + name, filename);
+		handler.add<BackgroundMusic>("bgm-" + name, filename);
 		
 		musicElement = musicElement->NextSiblingElement("music");
 	}
@@ -32,9 +32,9 @@ void AudioLoader::load(const std::string &xmlFilename, ResourceHandler &handler)
 	XMLElement *soundEffectElement = doc.FirstChildElement("audio").FirstChildElement("soundeffect").ToElement();
 	while(soundEffectElement) {
 		std::string name = soundEffectElement->Attribute("name");
-		std::string filename = std::string("audio/effects/") + name + ".wav";
+		std::string filename = "audio/effects/" + name + ".wav";
 		
-		handler.add<SoundEffect>(std::string("sfx-") + name, filename);
+		handler.add<SoundEffect>("sfx-" + name, filename);
 		
 		soundEffectElement = soundEffectElement->NextSiblingElement("soundeffect");
 	}

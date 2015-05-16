@@ -22,13 +22,13 @@ endforeach(HEADER_FILE)
 #------------------------------------------------------------------------------
 find_package(CxxTest QUIET)
 
-file(GLOB_RECURSE TEST_FILES tests/*.hpp)
-
 if(CXXTEST_FOUND)
 	include_directories(${CXXTEST_INCLUDE_DIRS})
 	enable_testing()
 	
-	CXXTEST_ADD_TEST(unit-test tests/unit-test.cpp ${TEST_FILES})
+	file(GLOB_RECURSE TEST_FILES tests/*.hpp)
+	
+	CXXTEST_ADD_TEST(${CMAKE_PROJECT_NAME}_tests tests/unit-test.cpp ${TEST_FILES})
 else(CXXTEST_FOUND)
 	message(WARNING "CxxTest not found!")
 endif(CXXTEST_FOUND)
@@ -41,11 +41,6 @@ add_library(${CMAKE_PROJECT_NAME}_lib STATIC
 
 add_executable(${CMAKE_PROJECT_NAME}
                source/main.cpp)
-
-if(CXXTEST_FOUND)
-	add_executable(${CMAKE_PROJECT_NAME}_tests
-	               tests/unit-test.cpp)
-endif(CXXTEST_FOUND)
 
 #------------------------------------------------------------------------------
 # Compiler flags

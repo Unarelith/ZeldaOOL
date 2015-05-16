@@ -13,6 +13,8 @@
  */
 #include <cmath>
 
+#include "InventoryComponent.hpp"
+#include "Scene.hpp"
 #include "StatsBar.hpp"
 
 void StatsBar::draw() {
@@ -42,15 +44,14 @@ void StatsBar::draw() {
 		m_numbers.drawFrame(81 + 8 * i, 9, (rupees % (u16)pow(10, floor(log10(rupees) - i + 1))) / pow(10, floor(log10(rupees) - i)));
 	}
 	
-	// Weapon *weaponA = Player::player.inventory().weaponA();
-	// Weapon *weaponB = Player::player.inventory().weaponB();
+	auto &weapons = Scene::player->get<InventoryComponent>().weapons;
 	
-	// if(weaponA != nullptr) {
-		// weaponA->icon().draw(46, -1);
-	// }
+	if(weapons.find(Vector2i{0, -1}) != weapons.end()) {
+		weapons.at(Vector2i{0, -1}).icon().draw(6, -1);
+	}
 	
-	// if(weaponB != nullptr) {
-		// weaponB->icon().draw(6, -1);
-	// }
+	if(weapons.find(Vector2i{1, -1}) != weapons.end()) {
+		weapons.at(Vector2i{1, -1}).icon().draw(46, -1);
+	}
 }
 

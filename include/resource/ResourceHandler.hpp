@@ -25,7 +25,7 @@ class ResourceHandler {
 		template<typename T, typename... Args>
 		T &add(const std::string &name, Args &&...args) {
 			if(has(name)) {
-				throw EXCEPTION("A resource already exists with name:", name);
+				throw EXCEPTION("A resource of type", typeid(T).name(), "already exists with name:", name);
 			}
 			
 			m_resources[name] = std::make_shared<T>(std::forward<Args>(args)...);

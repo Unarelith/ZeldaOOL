@@ -23,6 +23,7 @@
 
 #include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
+#include "InventoryComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
@@ -79,6 +80,10 @@ SceneObject PlayerFactory::create(float x, float y) {
 	
 	// Spin attack
 	spriteComponent.sprite.addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, swordSpinAttackPosition, 50);
+	
+	auto &inventoryComponent = player.set<InventoryComponent>();
+	
+	inventoryComponent.addWeapon(Vector2i{0, -1}, "swordL1");
 	
 	return player;
 }
