@@ -44,14 +44,12 @@ void StatsBar::draw() {
 		m_numbers.drawFrame(81 + 8 * i, 9, (rupees % (u16)pow(10, floor(log10(rupees) - i + 1))) / pow(10, floor(log10(rupees) - i)));
 	}
 	
-	auto &weapons = Scene::player->get<InventoryComponent>().weapons;
+	auto &inventory = Scene::player->get<InventoryComponent>();
 	
-	if(weapons.find(Vector2i{0, -1}) != weapons.end()) {
-		weapons.at(Vector2i{0, -1}).icon().draw(6, -1);
-	}
+	Weapon *weaponA = inventory.getWeaponA();
+	Weapon *weaponB = inventory.getWeaponB();
 	
-	if(weapons.find(Vector2i{1, -1}) != weapons.end()) {
-		weapons.at(Vector2i{1, -1}).icon().draw(46, -1);
-	}
+	if(weaponA) weaponA->icon().draw(46, -1);
+	if(weaponB) weaponB->icon().draw(6, -1);
 }
 

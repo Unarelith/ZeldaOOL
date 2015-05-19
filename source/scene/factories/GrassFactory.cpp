@@ -41,7 +41,7 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 		spriteComponent.sprite.setColorMod(Color(255, 255, 255, 127));
 	}
 	
-	// isCutted flag
+	// FIXME: isCutted flag
 	object.set<bool>(false);
 	
 	object.set<BehaviourComponent>(new EasyBehaviour([](SceneObject &object) {

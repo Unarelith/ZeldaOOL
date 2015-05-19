@@ -82,8 +82,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 	spriteComponent.sprite.addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, swordSpinAttackPosition, 50);
 	
 	auto &inventoryComponent = player.set<InventoryComponent>();
-	
-	inventoryComponent.addWeapon(Vector2i{0, -1}, "swordL1");
+	inventoryComponent.addWeapon(InventoryComponent::weaponA, "swordL1");
 	
 	return player;
 }

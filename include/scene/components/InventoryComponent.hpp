@@ -31,10 +31,9 @@ class Item {
 		std::string name() const { return m_name; }
 		std::string description() const { return m_description; }
 		
-	protected:
+	private:
 		Image m_icon;
 		
-	private:
 		std::string m_name;
 		std::string m_description;
 };
@@ -55,6 +54,20 @@ class InventoryComponent {
 		void addWeapon(Vector2i position, const std::string &name) {
 			weapons.emplace(position, ResourceHandler::getInstance().get<Weapon>("weapon-" + name));
 		}
+		
+		bool hasWeapon(Vector2i position) {
+			return weapons.find(position) != weapons.end();
+		}
+		
+		Weapon *getWeaponA() { return getWeapon(weaponA); }
+		Weapon *getWeaponB() { return getWeapon(weaponB); }
+		
+		Weapon *getWeapon(Vector2i position) {
+			return hasWeapon(position) ? &weapons.at(position) : nullptr;
+		}
+		
+		static const Vector2i weaponA;
+		static const Vector2i weaponB;
 		
 		std::map<Vector2i, Weapon&> weapons;
 };

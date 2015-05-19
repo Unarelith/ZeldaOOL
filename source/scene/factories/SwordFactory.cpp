@@ -22,18 +22,18 @@
 #include "SpriteComponent.hpp"
 #include "WeaponComponent.hpp"
 
-SceneObject SwordFactory::create(float x, float y, Direction direction, SceneObject &owner) {
+SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &owner, Weapon &weaponInfos) {
 	SceneObject object;
 	object.set<BehaviourComponent>(new SwordBehaviour);
 	object.set<LifetimeComponent>();
-	object.set<WeaponComponent>(owner);
+	object.set<WeaponComponent>(owner, weaponInfos, key, "Sword");
 	
 	// FIXME: TEMP: FOR DEBUG
 	// object.set<std::string>("Sword");
 	
 	auto &positionComponent = object.set<PositionComponent>(x, y, 16, 16);
 	positionComponent.hitbox.reset(7, 7, 2, 2); // TODO: Improve it
-	positionComponent.direction = direction;
+	positionComponent.direction = owner.get<PositionComponent>().direction;
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addChecker([](SceneObject &sword) {

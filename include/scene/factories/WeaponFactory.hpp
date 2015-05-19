@@ -1,26 +1,26 @@
 /*
  * =====================================================================================
  *
- *       Filename:  SwordFactory.hpp
+ *       Filename:  WeaponFactory.hpp
  *
  *    Description:  
  *
- *        Created:  02/05/2015 17:29:14
+ *        Created:  19/05/2015 23:53:19
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef SWORDFACTORY_HPP_
-#define SWORDFACTORY_HPP_
+#ifndef WEAPONFACTORY_HPP_
+#define WEAPONFACTORY_HPP_
 
 #include "GameKey.hpp"
 #include "InventoryComponent.hpp"
 #include "SceneObject.hpp"
 
-class SwordFactory {
+class WeaponFactory {
 	public:
-		static SceneObject create(float x, float y, GameKey key, SceneObject &owner, Weapon &weaponInfos);
+		static SceneObject create(Weapon &weaponInfos, float x, float y, GameKey key, SceneObject &owner);
 };
 
-#endif // SWORDFACTORY_HPP_
+#endif // WEAPONFACTORY_HPP_

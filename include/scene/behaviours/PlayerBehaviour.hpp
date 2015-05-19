@@ -21,11 +21,12 @@ class PlayerBehaviour : public Behaviour{
 		PlayerBehaviour() : Behaviour("Standing") {}
 		
 		void action(SceneObject &player) override;
+		void weaponAction(SceneObject &player);
 		
 		void updateSprite(SceneObject &player);
 		
 	private:
-		SceneObject *m_sword = nullptr;
+		SceneObject *m_weapon = nullptr;
 };
 
 #endif // PLAYERBEHAVIOUR_HPP_

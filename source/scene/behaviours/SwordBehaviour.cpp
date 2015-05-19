@@ -25,9 +25,10 @@ SwordBehaviour::SwordBehaviour() : Behaviour("Swinging") {
 
 void SwordBehaviour::action(SceneObject &sword) {
 	auto &swordPosition = sword.get<PositionComponent>();
+	auto &weaponComponent = sword.get<WeaponComponent>();
 	Sprite &sprite = sword.get<SpriteComponent>().sprite;
 	
-	SceneObject &owner = sword.get<WeaponComponent>().owner;
+	SceneObject &owner = weaponComponent.owner;
 	auto &ownerPosition = owner.get<PositionComponent>();
 	auto &ownerSprite = owner.get<SpriteComponent>().sprite;
 	
@@ -47,7 +48,7 @@ void SwordBehaviour::action(SceneObject &sword) {
 		}
 		
 		//if(!keyPressed()) {
-		if(!GamePad::isKeyPressed(GameKey::A)) {
+		if(!GamePad::isKeyPressed(weaponComponent.key)) {
 			m_keyReleased = true;
 		}
 		else if(m_keyReleased && sprite.getAnimation((s8)ownerPosition.direction).framesDisplayed() >= 4) {
@@ -83,7 +84,7 @@ void SwordBehaviour::action(SceneObject &sword) {
 		}
 		
 		//if(!keyPressed()) {
-		if(!GamePad::isKeyPressed(GameKey::A)) {
+		if(!GamePad::isKeyPressed(weaponComponent.key)) {
 			if(m_loadingTimer.time() > 650) {
 				AudioPlayer::playEffect("swordSpin");
 				

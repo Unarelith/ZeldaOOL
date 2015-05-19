@@ -16,68 +16,46 @@
 #include "Map.hpp"
 #include "PlayerBehaviour.hpp"
 #include "SceneObjectList.hpp"
-#include "SwordFactory.hpp"
+#include "WeaponFactory.hpp"
 
 #include "BehaviourComponent.hpp"
 #include "LifetimeComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
+#include "WeaponComponent.hpp"
 
 void PlayerBehaviour::action(SceneObject &player) {
 	auto &movement = player.get<MovementComponent>();
-	auto &position = player.get<PositionComponent>();
-	auto &objects = player.get<SceneObjectList>();
 	
 	if(m_state == "Standing") {
-		if(GamePad::isKeyPressedOnce(GameKey::A)) {
-			m_sword = &objects.addObject(SwordFactory::create(position.x, position.y, position.direction, player));
-			m_state = "Sword";
-		}
+		weaponAction(player);
 		
-		if(movement.isMoving) {
-			m_state = "Moving";
-		}
+		if(movement.isMoving) m_state = "Moving";
 	}
 	else if(m_state == "Moving") {
-		if(GamePad::isKeyPressedOnce(GameKey::A)) {
-			m_sword = &objects.addObject(SwordFactory::create(position.x, position.y, position.direction, player));
-			m_state = "Sword";
-		}
+		weaponAction(player);
 		
-		if(!movement.isMoving) {
-			m_state = "Standing";
-		}
-		
-		if(movement.isBlocked) {
-			m_state = "Pushing";
-		}
+		if(!movement.isMoving) m_state = "Standing";
+		if(movement.isBlocked) m_state = "Pushing";
 	}
 	else if(m_state == "Pushing") {
-		if(GamePad::isKeyPressedOnce(GameKey::A)) {
-			m_sword = &objects.addObject(SwordFactory::create(position.x, position.y, position.direction, player));
-			m_state = "Sword";
-		}
+		weaponAction(player);
 		
-		if(!movement.isBlocked) {
-			m_state = "Standing";
-		}
+		if(!movement.isBlocked) m_state = "Standing";
 	}
 	else if(m_state == "Sword") {
-		std::string swordState = m_sword->get<BehaviourComponent>().behaviour->state();
+		std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
 		
-		if(swordState == "Swinging") {
+		if(swordState == "Swinging" || swordState == "SpinAttack") {
 			movement.movement.reset(nullptr);
 		}
 		else if(swordState == "Loading") {
 			movement.movement.reset(new GamePadMovement(true));
 		}
-		else if(swordState == "SpinAttack") {
-			movement.movement.reset(nullptr);
-		}
 		else if(swordState == "Finished") {
-			m_sword->get<LifetimeComponent>().kill();
-			m_sword = nullptr;
+			m_weapon->get<LifetimeComponent>().kill();
+			m_weapon = nullptr;
 			
 			movement.movement.reset(new GamePadMovement);
 			
@@ -88,6 +66,27 @@ void PlayerBehaviour::action(SceneObject &player) {
 	}
 	
 	updateSprite(player);
+}
+
+void PlayerBehaviour::weaponAction(SceneObject &player) {
+	auto &position = player.get<PositionComponent>();
+	auto &objects = player.get<SceneObjectList>();
+	
+	Weapon *weapon = nullptr;
+	GameKey key;
+	if(GamePad::isKeyPressedOnce(GameKey::A)) {
+		weapon = player.get<InventoryComponent>().getWeaponA();
+		key = GameKey::A;
+	}
+	else if(GamePad::isKeyPressedOnce(GameKey::B)) {
+		weapon = player.get<InventoryComponent>().getWeaponB();
+		key = GameKey::B;
+	}
+	
+	if(weapon) {
+		m_weapon = &objects.addObject(WeaponFactory::create(*weapon, position.x, position.y, key, player));
+		m_state = m_weapon->get<WeaponComponent>().playerState;
+	}
 }
 
 void PlayerBehaviour::updateSprite(SceneObject &player) {
@@ -109,7 +108,7 @@ void PlayerBehaviour::updateSprite(SceneObject &player) {
 		sprite.animID = static_cast<s8>(position.direction) + 4;
 	}
 	else if(m_state == "Sword") {
-		std::string swordState = m_sword->get<BehaviourComponent>().behaviour->state();
+		std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
 		
 		if(swordState == "Swinging") {
 			sprite.isAnimated = true;
