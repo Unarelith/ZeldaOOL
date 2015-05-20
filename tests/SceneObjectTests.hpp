@@ -11,12 +11,15 @@
  *
  * =====================================================================================
  */
+#ifndef SCENEOBJECTTESTS_HPP_
+#define SCENEOBJECTTESTS_HPP_
+
 #include <cxxtest/TestSuite.h>
 
 #include "Exception.hpp"
 #include "SceneObject.hpp"
 
-class SceneObjectTest : public CxxTest::TestSuite  {
+class SceneObjectTests : public CxxTest::TestSuite  {
 	public:
 		void testGet() {
 			SceneObject object;
@@ -46,3 +49,4 @@ class SceneObjectTest : public CxxTest::TestSuite  {
 		}
 };
 
+#endif // SCENEOBJECTTESTS_HPP_

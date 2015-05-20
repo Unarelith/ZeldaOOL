@@ -20,6 +20,7 @@
 #include "Image.hpp"
 #include "CollectableComponent.hpp"
 #include "CollisionComponent.hpp"
+#include "InventoryComponent.hpp"
 #include "LifetimeComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
@@ -55,8 +56,8 @@ SceneObject CollectableFactory::createRupees(u16 x, u16 y, RupeesAmount amount, 
 	std::string name = "rupees" + std::to_string(amount);
 	
 	SceneObject object = create(x, y, name, (amount == RupeesAmount::One) ? "getRupee" : "getRupees5", movementType);
-	object.get<CollectableComponent>().setAction([amount](SceneObject &) {
-		// Player::player.inventory().addRupees(amount);
+	object.get<CollectableComponent>().setAction([amount](SceneObject &player) {
+		player.get<InventoryComponent>().addRupees(amount);
 	});
 	
 	return object;

@@ -38,16 +38,15 @@ void StatsBar::draw() {
 		}
 	}
 	
-	// u16 rupees = Player::player.inventory().rupees();
-	u16 rupees = 197;
+	auto &playerInventory = Scene::player->get<InventoryComponent>();
+	
+	u16 rupees = playerInventory.rupees();
 	for(u8 i = 0 ; i <= log10(rupees) ; i++) {
 		m_numbers.drawFrame(81 + 8 * i, 9, (rupees % (u16)pow(10, floor(log10(rupees) - i + 1))) / pow(10, floor(log10(rupees) - i)));
 	}
 	
-	auto &inventory = Scene::player->get<InventoryComponent>();
-	
-	Weapon *weaponA = inventory.getWeaponA();
-	Weapon *weaponB = inventory.getWeaponB();
+	Weapon *weaponA = playerInventory.getWeaponA();
+	Weapon *weaponB = playerInventory.getWeaponB();
 	
 	if(weaponA) weaponA->icon().draw(46, -1);
 	if(weaponB) weaponB->icon().draw(6, -1);

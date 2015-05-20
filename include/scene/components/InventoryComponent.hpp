@@ -17,9 +17,9 @@
 #include <map>
 #include <string>
 
+#include "GameKey.hpp"
 #include "Image.hpp"
 #include "ResourceHandler.hpp"
-#include "Vector2.hpp"
 
 class Item {
 	public:
@@ -51,25 +51,28 @@ class Weapon : public Item {
 
 class InventoryComponent {
 	public:
-		void addWeapon(Vector2i position, const std::string &name) {
-			weapons.emplace(position, ResourceHandler::getInstance().get<Weapon>("weapon-" + name));
-		}
+		Weapon *addWeapon(const std::string &name);
+		Weapon *getWeapon(u8 x, u8 y) { return m_weapons[x][y]; }
+		void removeWeapon(u8 x, u8 y) { m_weapons[x][y] = nullptr; }
 		
-		bool hasWeapon(Vector2i position) {
-			return weapons.find(position) != weapons.end();
-		}
+		void equipWeapon(u8 x, u8 y, GameKey key);
 		
-		Weapon *getWeaponA() { return getWeapon(weaponA); }
-		Weapon *getWeaponB() { return getWeapon(weaponB); }
+		Weapon *getWeaponA() { return m_weaponA; }
+		Weapon *getWeaponB() { return m_weaponB; }
 		
-		Weapon *getWeapon(Vector2i position) {
-			return hasWeapon(position) ? &weapons.at(position) : nullptr;
-		}
+		void addRupees(u16 rupees) { m_rupees = (m_rupees + rupees > 999) ? 999 : m_rupees + rupees; }
+		void removeRupees(u16 rupees) { m_rupees = (m_rupees - rupees < 0) ? 0 : m_rupees - rupees; }
 		
-		static const Vector2i weaponA;
-		static const Vector2i weaponB;
+		u16 rupees() const { return m_rupees; }
 		
-		std::map<Vector2i, Weapon&> weapons;
+	private:
+		// NOTE: The '{}' are here to value-initialize the pointers (extra braces are needed until C++14)
+		std::array<std::array<Weapon*, 4>, 4> m_weapons{{{{}}, {{}}, {{}}, {{}}}};
+		
+		Weapon *m_weaponA = nullptr;
+		Weapon *m_weaponB = nullptr;
+		
+		u16 m_rupees = 197;
 };
 
 #endif // INVENTORYCOMPONENT_HPP_

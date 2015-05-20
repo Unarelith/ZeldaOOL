@@ -11,6 +11,9 @@
  *
  * =====================================================================================
  */
+#ifndef VECTOR2TESTS_HPP_
+#define VECTOR2TESTS_HPP_
+
 #include <cxxtest/TestSuite.h>
 
 #include "Vector2.hpp"
@@ -51,3 +54,4 @@ class Vector2Tests : public CxxTest::TestSuite  {
 		}
 };
 
+#endif // VECTOR2TESTS_HPP_
