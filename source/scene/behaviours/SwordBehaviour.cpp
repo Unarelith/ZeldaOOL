@@ -30,7 +30,9 @@ void SwordBehaviour::action(SceneObject &sword) {
 	
 	SceneObject &owner = weaponComponent.owner;
 	auto &ownerPosition = owner.get<PositionComponent>();
-	auto &ownerSprite = owner.get<SpriteComponent>().sprite;
+	
+	auto &ownerSpriteComponent = owner.get<SpriteComponent>();
+	auto &ownerSprite = ownerSpriteComponent.sprite;
 	
 	swordPosition.x = ownerPosition.x;
 	swordPosition.y = ownerPosition.y;
@@ -126,7 +128,7 @@ void SwordBehaviour::action(SceneObject &sword) {
 			sprite.getAnimation(8).stop();
 			
 			ownerSprite.getAnimation(12).stop();
-			ownerSprite.setCurrentAnimation((s8)ownerPosition.direction);
+			ownerSpriteComponent.animID = (s8)ownerPosition.direction;
 			
 			m_spinTimer.start();
 			

@@ -1,22 +1,10 @@
 ===== REFACTORING =====
-- Fix Sword hitbox
-	=> Make a class Hitbox and DirectionalHitbox with a method 'inCollisionWith(Hitbox)'
 - Improve game object system
 	=> Implement Battler + HurtState equivalent for Scene::player and octoroks
-- Implement a new Inventory system
-	=> Try to implement it using TDD
-	=> Item object, Weapon object containing a std::function to create the SceneObject
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?
 	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'
-- Improve Filesystem: use stat
-	=> http://stackoverflow.com/questions/12774207/fastest-way-to-check-if-a-file-exist-using-standard-c-c11-c
-	=> http://stackoverflow.com/questions/25280440/why-include-direct-h-or-sys-stat-h-conditionally-based-on-win32-or-linux
-	=> https://msdn.microsoft.com/en-us/library/1w06ktdy(v=vs.110).aspx
-	=> http://stackoverflow.com/questions/18320486/how-to-check-if-file-exists-in-c-in-a-portable-way
-- Add unit testing with CxxTest
-	=> http://blog.developpez.com/tanek/p7195/informatique/title_118
 - Add more debug tools, like a Logger class
 
 ===== TODO =====
@@ -27,8 +15,6 @@
 	=> Improve palette system
 - Implement 'Translator'
 	=> Like Asylia LanguageManager
-- Add 'player.xml' config file in 'data/config/' directory
-	=> Add PlayerLoader
 - Add 'MovableObject', then 'PotObject' and 'BlockObject'
 	=> Movable contains the object movement thing
 	=> Pot is a Movable in all ways

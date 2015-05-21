@@ -11,18 +11,14 @@
  *
  * =====================================================================================
  */
-#include <fstream>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include "Filesystem.hpp"
 
 bool Filesystem::fileExists(const std::string &filename) {
-	std::ifstream f(filename);
-	if(f.good()) {
-		f.close();
-		return true;
-	} else {
-		f.close();
-		return false;
-	}
+	struct stat info;
+	
+	return !stat(filename.c_str(), &info);
 }
 

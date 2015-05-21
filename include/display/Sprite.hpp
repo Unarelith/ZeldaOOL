@@ -39,7 +39,6 @@ class Sprite : public Image {
 		
 		SpriteAnimation &getAnimation(u16 anim) { return m_animations[anim]; }
 		SpriteAnimation &currentAnimation() { return m_animations[m_currentAnimation]; }
-		void setCurrentAnimation(u16 animID) { m_currentAnimation = animID; }
 		
 		static bool pause;
 		
