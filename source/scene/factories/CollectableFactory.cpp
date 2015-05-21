@@ -25,7 +25,7 @@
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 
-void collectableAction(SceneObject &collectable, SceneObject &object, bool collision);
+void collectableAction(SceneObject &collectable, SceneObject &object, CollisionInformations &collisionInformations);
 
 SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType) {
 	SceneObject object;
@@ -39,6 +39,9 @@ SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, co
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addAction(&collectableAction);
+	
+	auto &hitboxesComponent = object.set<HitboxesComponent>();
+	hitboxesComponent.addHitbox(Hitbox(IntRect(2, 2, 3, 4)));
 	
 	return object;
 }
@@ -63,11 +66,11 @@ SceneObject CollectableFactory::createRupees(u16 x, u16 y, RupeesAmount amount, 
 	return object;
 }
 
-void collectableAction(SceneObject &collectable, SceneObject &object, bool collision) {
+void collectableAction(SceneObject &collectable, SceneObject &object, CollisionInformations &collisionInformations) {
 	auto &collectableComponent = collectable.get<CollectableComponent>();
 	auto &lifetimeComponent = collectable.get<LifetimeComponent>();
 	
-	if(Scene::isPlayer(object) && collision) {
+	if(Scene::isPlayer(object) && !collisionInformations.empty()) {
 		AudioPlayer::playEffect(collectableComponent.soundEffectName());
 		
 		collectableComponent.action(object);

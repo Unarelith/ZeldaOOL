@@ -20,7 +20,7 @@
 class PositionComponent {
 	public:
 		PositionComponent(float _x, float _y, u16 _width, u16 _height)
-			: x(_x), y(_y), width(_width), height(_height), hitbox(0, 0, width, height) {}
+			: x(_x), y(_y), width(_width), height(_height) {}
 		
 		void updateDirection(float vx, float vy) {
 			if(vx < 0) direction = Direction::Left;
@@ -36,8 +36,6 @@ class PositionComponent {
 		
 		u16 width = 0;
 		u16 height = 0;
-		
-		IntRect hitbox;
 		
 		Direction direction = Direction::None;
 };

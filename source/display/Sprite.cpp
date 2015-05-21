@@ -55,6 +55,8 @@ void Sprite::drawAnimationFrame(float x, float y, u16 anim, s16 frame) {
 	x += m_animations[anim].currentPosition().first;
 	y += m_animations[anim].currentPosition().second;
 	
+	m_lastDrawedFrameID = frameID; // TODO try to fix the function "currentAnimation()" and erase this line.
+	
 	drawFrame(x, y, frameID);
 }
 

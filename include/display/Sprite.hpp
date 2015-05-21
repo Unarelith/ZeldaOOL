@@ -37,6 +37,8 @@ class Sprite : public Image {
 		
 		bool hasAnimations() const { return m_animations.size() > 0; }
 		
+		u16 getLastDrawedFrameID() { return m_lastDrawedFrameID; }
+		
 		SpriteAnimation &getAnimation(u16 anim) { return m_animations[anim]; }
 		SpriteAnimation &currentAnimation() { return m_animations[m_currentAnimation]; }
 		
@@ -47,6 +49,8 @@ class Sprite : public Image {
 		u16 m_frameHeight = 0;
 		
 		std::vector<SpriteAnimation> m_animations;
+		
+		u16 m_lastDrawedFrameID = -1;
 		
 		u16 m_currentAnimation = 0;
 };

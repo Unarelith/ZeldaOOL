@@ -51,11 +51,10 @@ u16 SpriteAnimation::framesDisplayed() const {
 	return m_timer.time() / m_delay;
 }
 
-
 const std::pair<s16, s16> SpriteAnimation::currentPosition() const {
 	if(!isFinished()) {
 		return m_positions[framesDisplayed()];
 	} else {
-		return std::pair<s16, s16>(0, 0);
+		return m_positions[m_frames.size() - 1];//return std::pair<s16, s16>(0, 0);
 	}
 }

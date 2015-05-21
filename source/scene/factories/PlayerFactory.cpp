@@ -27,6 +27,7 @@
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
+#include "HitboxesComponent.hpp"
 
 SceneObject PlayerFactory::create(float x, float y) {
 	SceneObject player;
@@ -36,7 +37,9 @@ SceneObject PlayerFactory::create(float x, float y) {
 	
 	auto &positionComponent = player.set<PositionComponent>(x, y, 16, 16);
 	positionComponent.direction = Direction::Down;
-	positionComponent.hitbox.reset(4, 5, 8, 10);
+	
+	auto &hitboxesComponent = player.set<HitboxesComponent>();
+	hitboxesComponent.addHitbox(Hitbox(IntRect(4, 5, 8, 10)));
 	
 	auto &collisionComponent = player.set<CollisionComponent>();
 	collisionComponent.addChecker(&PlayerFactory::mapCollisions);
@@ -57,7 +60,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 		{ 0,  3}, { 0,  3},
 		{-4,  0}, {-4,  0},
 		{ 0, -3}, { 0, -3},
-		{ 4,  0}, { 4,  0}
+		{ 4,  0}, { 16,  16}
 	};
 	
 	// Walking
