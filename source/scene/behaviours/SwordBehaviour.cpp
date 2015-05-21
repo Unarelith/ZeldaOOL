@@ -15,10 +15,10 @@
 #include "GamePad.hpp"
 #include "SwordBehaviour.hpp"
 
+#include "HitboxesComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 #include "WeaponComponent.hpp"
-#include "HitboxesComponent.hpp"
 
 SwordBehaviour::SwordBehaviour() : Behaviour("Swinging") {
 	AudioPlayer::playEffect("swordSlash1");
@@ -139,8 +139,23 @@ void SwordBehaviour::action(SceneObject &sword) {
 		}
 	}
 	
-	updateSprite(sword);
 	updateHitboxes(sword);
+	updateSprite(sword);
+}
+
+void SwordBehaviour::updateHitboxes(SceneObject &sword) {
+	auto &spriteComponent = sword.get<SpriteComponent>();
+	auto &hitboxesComponent = sword.get<HitboxesComponent>();
+	
+	hitboxesComponent.disableHitboxes();
+	
+	u16 frameID = spriteComponent.sprite.getLastDrawedFrameID();
+	if(frameID < 12) {
+		hitboxesComponent[frameID].isEnabled = true;
+	}
+	else if(frameID < 16) {
+		hitboxesComponent[frameID - 4].isEnabled = true;
+	}
 }
 
 void SwordBehaviour::updateSprite(SceneObject &sword) {
@@ -161,20 +176,6 @@ void SwordBehaviour::updateSprite(SceneObject &sword) {
 		spriteComponent.animID = 8;
 	} else {
 		spriteComponent.isDisabled = true;
-	}
-}
-
-void SwordBehaviour::updateHitboxes(SceneObject &sword) {
-	auto &spriteComponent = sword.get<SpriteComponent>();
-	auto &hitboxesComponent = sword.get<HitboxesComponent>();
-	
-	u16 frameID = spriteComponent.sprite.getLastDrawedFrameID();
-	hitboxesComponent.disableHitboxes();
-	if(frameID < 12) {
-		hitboxesComponent[frameID].enable = true;
-	}
-	else if(frameID < 16) {
-		hitboxesComponent[frameID - 4].enable = true;
 	}
 }
 

@@ -45,7 +45,9 @@ void chestAction(SceneObject &chest, SceneObject &object, CollisionInformations 
 	if(Scene::isPlayer(object) && !collisionInformations.empty()) {
 		auto &playerPosition = object.get<PositionComponent>();
 		
+		// FIXME: Find a better way to find if the player is facing the chest
 		if(playerPosition.direction == Direction::Up
+		&& playerPosition.y > chestPosition.y
 		&& GamePad::isKeyPressedOnce(GameKey::A)
 		&& !chest.get<ChestComponent>().opened) {
 			AudioPlayer::playEffect("chest");

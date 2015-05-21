@@ -47,7 +47,7 @@ void DrawingSystem::draw(SceneObject &object) {
 			static RectangleShape rect;
 			
 			for(auto& hitbox : hitboxes) {
-				if(hitbox.enable) {
+				if(hitbox.isEnabled) {
 					rect.setPosition(position.x + hitbox.rect.x, position.y + hitbox.rect.y);
 					rect.resize(hitbox.rect.width, hitbox.rect.height);
 					

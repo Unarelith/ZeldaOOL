@@ -18,18 +18,18 @@
 
 class Hitbox {
 	public:
-		Hitbox(IntRect _rect, std::string _name = "default", bool _enable = true, float _sensitivity = 1.0f)
-			: rect(_rect), name(_name), enable(_enable), sensitivity(_sensitivity) {}
-			
+		Hitbox(IntRect _rect, std::string _name = "default", bool _isEnabled = true, float _sensitivity = 1.0f)
+			: rect(_rect), name(_name), isEnabled(_isEnabled), sensitivity(_sensitivity) {}
+		
 		IntRect rect;
 		std::string name;
-		bool enable;
+		bool isEnabled;
 		float sensitivity;
 };
 
 class HitboxesComponent {
 	using iterator = std::vector<Hitbox>::iterator;
-		
+	
 	public:
 		template<typename... Args>
 		void addHitbox(Args &&...args) {
@@ -45,19 +45,22 @@ class HitboxesComponent {
 		}
 		
 		void disableHitboxes() {
-			for(auto& hitbox : m_hitboxes)
-				hitbox.enable = false;
+			for(auto& hitbox : m_hitboxes) {
+				hitbox.isEnabled = false;
+			}
 		}
 		
 		void enableHitboxes() {
-			for(auto& hitbox : m_hitboxes)
-				hitbox.enable = true;
+			for(auto& hitbox : m_hitboxes) {
+				hitbox.isEnabled = true;
+			}
 		}
 		
-		bool isHitboxesEnable() {
-			for(auto& hitbox : m_hitboxes)
-				if(hitbox.enable) return true;
-		return false;
+		bool isHitboxesEnabled() {
+			for(auto& hitbox : m_hitboxes) {
+				if(hitbox.isEnabled) return true;
+			}
+			return false;
 		}
 		
 		iterator begin() noexcept { return m_hitboxes.begin(); }

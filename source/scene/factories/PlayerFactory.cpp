@@ -60,7 +60,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 		{ 0,  3}, { 0,  3},
 		{-4,  0}, {-4,  0},
 		{ 0, -3}, { 0, -3},
-		{ 4,  0}, { 16,  16}
+		{ 4,  0}, { 4,  0}
 	};
 	
 	// Walking

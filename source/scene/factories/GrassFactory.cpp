@@ -25,7 +25,6 @@ void grassAction(SceneObject &grass, SceneObject &object, CollisionInformations 
 
 SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	SceneObject object;
-	
 	object.set<PositionComponent>(tileX * 16 - 8, tileY * 16 - 8, 16, 16);
 	
 	auto &hitboxesComponent = object.set<HitboxesComponent>();
@@ -74,7 +73,7 @@ void grassAction(SceneObject &grass, SceneObject &object, CollisionInformations 
 		auto &weaponComponent = object.get<WeaponComponent>();
 		
 		if(Scene::isPlayer(weaponComponent.owner)
-		&& grassSpriteComponent.isDisabled && grassHitboxesComponent.isHitboxesEnable()) {
+		&& grassSpriteComponent.isDisabled && grassHitboxesComponent.isHitboxesEnabled()) {
 			auto &grassPosition = grass.get<PositionComponent>();
 			auto &playerDirection = weaponComponent.owner.get<PositionComponent>().direction;
 			auto &swordSprite = object.get<SpriteComponent>().sprite;

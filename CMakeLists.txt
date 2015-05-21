@@ -111,3 +111,4 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
                       ${SDL2_LIBRARIES}
                       ${SDL2IMAGE_LIBRARIES}
                       ${SDL2MIXER_LIBRARIES})
+

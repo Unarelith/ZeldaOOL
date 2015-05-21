@@ -41,7 +41,7 @@ SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, co
 	collisionComponent.addAction(&collectableAction);
 	
 	auto &hitboxesComponent = object.set<HitboxesComponent>();
-	hitboxesComponent.addHitbox(Hitbox(IntRect(2, 2, 3, 4)));
+	hitboxesComponent.addHitbox(Hitbox(IntRect(0, 0, image.width(), image.height())));
 	
 	return object;
 }

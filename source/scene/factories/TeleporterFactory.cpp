@@ -19,9 +19,9 @@
 #include "TransitionState.hpp"
 
 #include "CollisionComponent.hpp"
+#include "HitboxesComponent.hpp"
 #include "PositionComponent.hpp"
 #include "TeleporterComponent.hpp"
-#include "HitboxesComponent.hpp"
 
 void teleporterAction(SceneObject &teleporter, SceneObject &object, CollisionInformations &collisionInformations);
 

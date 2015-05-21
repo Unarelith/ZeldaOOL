@@ -20,8 +20,8 @@
 #include "SpriteComponent.hpp"
 
 void CollisionSystem::checkCollision(SceneObject &object1, SceneObject &object2) {
-	
 	CollisionInformations collisionInformations;
+	
 	inCollision(object1, object2, collisionInformations);
 	
 	if(object1.has<CollisionComponent>()) {
@@ -34,12 +34,11 @@ void CollisionSystem::checkCollision(SceneObject &object1, SceneObject &object2)
 }
 
 void CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2, CollisionInformations &collisionInformations) {
-	if(object1.has<PositionComponent>()
-	&& object1.has<HitboxesComponent>()
-	&& object2.has<PositionComponent>()
-	&& object2.has<HitboxesComponent>() ) {
+	if(object1.has<PositionComponent>() && object1.has<HitboxesComponent>()
+	&& object2.has<PositionComponent>() && object2.has<HitboxesComponent>()) {
 		auto &position1 = object1.get<PositionComponent>();
 		auto &hitboxes1 = object1.get<HitboxesComponent>();
+		
 		auto &position2 = object2.get<PositionComponent>();
 		auto &hitboxes2 = object2.get<HitboxesComponent>();
 		
@@ -70,7 +69,7 @@ void CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2, Co
 		
 		for(size_t i = 0; i < hitboxes1.size(); i++)
 			for(size_t j = 0; j < hitboxes2.size(); j++){
-				if(hitboxes1[i].enable && hitboxes2[j].enable) {
+				if(hitboxes1[i].isEnabled && hitboxes2[j].isEnabled) {
 					FloatRect rect1(hitboxes1[i].rect.x + offset1x,
 					                hitboxes1[i].rect.y + offset1y,
 					                hitboxes1[i].rect.width,
