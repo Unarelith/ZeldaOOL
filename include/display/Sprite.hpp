@@ -20,17 +20,17 @@
 class Sprite : public Image {
 	public:
 		Sprite() = default;
-		Sprite(const std::string &textureName, u16 frameWidth, u16 frameHeight);
+		Sprite(const std::string &textureName, s16 frameWidth = -1, s16 frameHeight = -1);
 		
-		void load(const std::string &textureName, u16 frameWidth, u16 frameHeight);
+		void load(const std::string &textureName, s16 frameWidth = -1, s16 frameHeight = -1);
 		
 		void addAnimation(std::vector<u16> frames, u16 delay);
-		void addAnimation(std::vector<u16> frames, std::vector<Vector2s16> positions, u16 delay);
+		void addAnimation(std::vector<u16> frames, std::vector<Vector2i> positions, u16 delay);
 		
-		void drawFrame(Vector2f position, u16 frame);
+		void drawFrame(float x, float y, u16 frame);
 		
-		void drawAnimationFrame(Vector2f position, u16 animID, s16 frameID = -1);
-		void playAnimation(Vector2f position, u16 animID);
+		void drawAnimationFrame(float x, float y, u16 animID, s16 frameID = -1);
+		void playAnimation(float x, float y, u16 animID);
 		
 		u16 frameWidth() const { return m_frameWidth; }
 		u16 frameHeight() const { return m_frameHeight; }

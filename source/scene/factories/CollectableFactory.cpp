@@ -27,7 +27,7 @@
 
 void collectableAction(SceneObject &collectable, SceneObject &object, CollisionInformations &collisionInformations);
 
-SceneObject CollectableFactory::create(Vector2f position, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType) {
+SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType) {
 	SceneObject object;
 	object.set<MovementComponent>(new CollectableMovement(movementType));
 	object.set<CollectableComponent>(soundEffectName);
@@ -35,7 +35,7 @@ SceneObject CollectableFactory::create(Vector2f position, const std::string &nam
 	
 	auto &image = object.set<Image>("collectables-" + name);
 	
-	object.set<PositionComponent>(position.x + 7 - image.width() / 2, position.y + 8 - image.height() / 2, image.width(), image.height());
+	object.set<PositionComponent>(x + 7 - image.width() / 2, y + 8 - image.height() / 2, image.width(), image.height());
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addAction(&collectableAction);
@@ -46,8 +46,8 @@ SceneObject CollectableFactory::create(Vector2f position, const std::string &nam
 	return object;
 }
 
-SceneObject CollectableFactory::createHeart(Vector2f position, CollectableMovement::Type movementType) {
-	SceneObject object = create(position, "heart", "getHeart", movementType);
+SceneObject CollectableFactory::createHeart(u16 x, u16 y, CollectableMovement::Type movementType) {
+	SceneObject object = create(x, y, "heart", "getHeart", movementType);
 	object.get<CollectableComponent>().setAction([](SceneObject &) {
 		// Player::player.addHearts(1);
 	});
@@ -55,10 +55,10 @@ SceneObject CollectableFactory::createHeart(Vector2f position, CollectableMoveme
 	return object;
 }
 
-SceneObject CollectableFactory::createRupees(Vector2f position, RupeesAmount amount, CollectableMovement::Type movementType) {
+SceneObject CollectableFactory::createRupees(u16 x, u16 y, RupeesAmount amount, CollectableMovement::Type movementType) {
 	std::string name = "rupees" + std::to_string(amount);
 	
-	SceneObject object = create(position, name, (amount == RupeesAmount::One) ? "getRupee" : "getRupees5", movementType);
+	SceneObject object = create(x, y, name, (amount == RupeesAmount::One) ? "getRupee" : "getRupees5", movementType);
 	object.get<CollectableComponent>().setAction([amount](SceneObject &player) {
 		player.get<InventoryComponent>().addRupees(amount);
 	});

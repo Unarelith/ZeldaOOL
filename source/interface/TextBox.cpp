@@ -23,12 +23,11 @@ TextBox::TextBox(const std::string &text) {
 	setText(text);
 }
 
-void TextBox::draw(IntRect rect) {
-	Vector2u16 charPosition = {0, 0};
-	charPosition = rect.position();
-	charPosition.x += 8;
+void TextBox::draw(u16 x, u16 y, u16 width, u16 height) {
+	u16 charX = x + 8;
+	u16 charY = y;
 	
-	m_charPerLine = (rect.width - 16) / m_font.charWidth();
+	m_charPerLine = (width - 16) / m_font.charWidth();
 	
 	m_charsToDisplay = m_charPerLine * 2;
 	
@@ -44,7 +43,7 @@ void TextBox::draw(IntRect rect) {
 		if(i < m_page * m_charPerLine) continue;
 		
 		// If the text is out of the box, don't display it
-		if(charPosition.y + m_font.charHeight() > rect.y + rect.height) {
+		if(charY + m_font.charHeight() > y + height) {
 			break;
 		}
 		
@@ -56,36 +55,36 @@ void TextBox::draw(IntRect rect) {
 		
 		// Jump to next line if a newline character is encountered
 		if(m_text[i] == '\n') {
-			m_charsToDisplay -= m_charPerLine - (charPosition.x - rect.x - 8) / m_font.charWidth();
+			m_charsToDisplay -= m_charPerLine - (charX - x - 8) / m_font.charWidth();
 			
-			charPosition.x = rect.x + 8;
-			charPosition.y += m_font.charHeight();
+			charX = x + 8;
+			charY += m_font.charHeight();
 			
 			continue;
 		}
 		
 		if(m_text[i] == ' ') {
 			// If a space is the first character of a line, don't display it
-			if(charPosition.x == rect.x + 8) continue;
+			if(charX == x + 8) continue;
 			
 			size_t nextSpace = m_text.find_first_of(' ', i + 1);
 			
 			u8 wordLength = ((nextSpace != std::string::npos) ? nextSpace : m_text.length()) - i - 1;
 			
 			// Check if the word is out of the box, if it is, jump to next line
-			if(charPosition.x + wordLength * m_font.charWidth() > rect.x + rect.width - 16) {
-				m_charsToDisplay -= m_charPerLine - (charPosition.x - rect.x - 8) / m_font.charWidth();
+			if(charX + wordLength * m_font.charWidth() > x + width - 16) {
+				m_charsToDisplay -= m_charPerLine - (charX - x - 8) / m_font.charWidth();
 				
-				charPosition.x = rect.x + 8;
-				charPosition.y += m_font.charHeight();
+				charX = x + 8;
+				charY += m_font.charHeight();
 				
 				continue;
 			}
 		}
 		
-		m_font.drawChar(charPosition, m_text[i], m_currentColor);
+		m_font.drawChar(charX, charY, m_text[i], m_currentColor);
 		
-		charPosition.x += m_font.charWidth();
+		charX += m_font.charWidth();
 	}
 }
 

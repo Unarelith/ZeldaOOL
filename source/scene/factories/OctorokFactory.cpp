@@ -18,6 +18,7 @@
 #include "Sprite.hpp"
 
 #include "CollisionComponent.hpp"
+#include "EffectsComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 
@@ -36,6 +37,10 @@ SceneObject OctorokFactory::create(float x, float y) {
 	});
 	
 	collisionComponent.addAction(&octorokAction);
+	
+	auto &effectsComponent = object.set<EffectsComponent>();
+	effectsComponent.addEffect("grass", "animations-grassEffect");
+	effectsComponent.addEffect("lowWater", "animations-lowWaterEffect");
 	
 	auto &spriteComponent = object.set<Sprite>("enemies-octorok", 16, 16);
 	spriteComponent.addAnimation({4, 0}, 150);

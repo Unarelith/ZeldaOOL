@@ -25,10 +25,10 @@
 
 void teleporterAction(SceneObject &teleporter, SceneObject &object, CollisionInformations &collisionInformations);
 
-SceneObject TeleporterFactory::create(Vector2f tile) {
+SceneObject TeleporterFactory::create(float tileX, float tileY) {
 	SceneObject object;
 	object.set<TeleporterComponent>();
-	object.set<PositionComponent>(tile * 16, 16, 16);
+	object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 	
 	auto &hitboxesComponent = object.set<HitboxesComponent>();
 	hitboxesComponent.addHitbox(IntRect(4, 4, 8, 6));
@@ -51,8 +51,10 @@ void teleporterAction(SceneObject &teleporter, SceneObject &object, CollisionInf
 				
 				auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
 				state.setTransition<TeleporterTransition>(teleporterComponent.area(),
-				                                          teleporterComponent.map(),
-				                                          teleporterComponent.playerPosition(),
+				                                          teleporterComponent.mapX(),
+				                                          teleporterComponent.mapY(),
+				                                          teleporterComponent.playerX(),
+				                                          teleporterComponent.playerY(),
 				                                          teleporterComponent.playerDirection());
 				
 				playerOnDoor = true;

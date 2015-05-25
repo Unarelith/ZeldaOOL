@@ -15,7 +15,6 @@
 #define MENU_HPP_
 
 #include "Image.hpp"
-#include "Vector2.hpp"
 
 class Menu {
 	public:
@@ -27,7 +26,8 @@ class Menu {
 		Image m_background{"interface-menuBackground"};
 		Image m_cursor{"interface-menuCursor"};
 		
-		Vector2s8 m_cursorPosition = {0, 0};
+		s8 m_cursorX = 0;
+		s8 m_cursorY = 0;
 };
 
 #endif // MENU_HPP_

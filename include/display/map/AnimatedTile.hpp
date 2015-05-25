@@ -20,13 +20,13 @@
 
 #include "Timer.hpp"
 #include "TileAnimation.hpp"
-#include "Vector2.hpp"
 
 struct AnimatedTile {
-	AnimatedTile(Vector2u16 _tile, u16 _nextFrame, const TileAnimation &_anim) :
-		tile(_tile), nextFrame(_nextFrame), anim(_anim) {}
+	AnimatedTile(u16 _tileX, u16 _tileY, u16 _nextFrame, const TileAnimation &_anim) :
+		tileX(_tileX), tileY(_tileY), nextFrame(_nextFrame), anim(_anim) {}
 	
-	Vector2u16 tile;
+	u16 tileX;
+	u16 tileY;
 	
 	u16 nextFrame;
 	

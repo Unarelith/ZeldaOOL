@@ -21,10 +21,10 @@
 
 void buttonAction(SceneObject &button, SceneObject &object, CollisionInformations &collisionInformations);
 
-SceneObject ButtonFactory::create(Vector2u16 tile) {
+SceneObject ButtonFactory::create(u16 tileX, u16 tileY) {
 	SceneObject object;
 	object.set<ButtonComponent>();
-	object.set<PositionComponent>((Vector2f)tile * 16, 16, 16);
+	object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 	
 	auto &hitboxesComponent = object.set<HitboxesComponent>();
 	hitboxesComponent.addHitbox(Hitbox(IntRect(4, 4, 8, 8)));
@@ -41,9 +41,11 @@ void buttonAction(SceneObject &button, SceneObject &object, CollisionInformation
 	
 	if(Scene::isPlayer(object)) {
 		if(!collisionInformations.empty()) {
-			buttonComponent.pressedAction(positionComponent.position());
+			buttonComponent.pressedAction(positionComponent.x / 16,
+			                              positionComponent.y / 16);
 		} else {
-			buttonComponent.releasedAction(positionComponent.position());
+			buttonComponent.releasedAction(positionComponent.x / 16,
+			                               positionComponent.y / 16);
 		}
 	}
 }

@@ -35,14 +35,14 @@ class MessageBox {
 		
 		void draw();
 		
-		void setPosition(Position position) { m_rectangle.setPosition({(float)8, (float)position}); }
+		void setPosition(Position position) { m_rectangle.setPosition(8, position); }
 		
 		bool finished() const { return m_finished; }
 		
 	private:
 		Image m_dialogArrow{"interface-dialogArrow"};
 		
-		RectangleShape m_rectangle{{8.0f, Position::Top}, 144, 40};
+		RectangleShape m_rectangle{8, Position::Top, 144, 40};
 		
 		TextBox m_textBox;
 		

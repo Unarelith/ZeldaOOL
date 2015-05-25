@@ -52,7 +52,8 @@ void chestAction(SceneObject &chest, SceneObject &object, CollisionInformations 
 		&& !chest.get<ChestComponent>().opened) {
 			AudioPlayer::playEffect("chest");
 			
-			Map::currentMap->setTile(chestPosition.position() / 16, 240, true);
+			Map::currentMap->setTile(chestPosition.x / 16,
+			                         chestPosition.y / 16, 240, true);
 			
 			ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, ApplicationStateStack::getInstance().top());
 			

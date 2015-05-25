@@ -18,7 +18,7 @@
 
 class Hitbox {
 	public:
-		Hitbox(IntRect _rect, std::string _name = "default", bool _isEnabled = true, float _sensitivity = 1.0f)
+		Hitbox(IntRect _rect, const std::string &_name = "default", bool _isEnabled = true, float _sensitivity = 1.0f)
 			: rect(_rect), name(_name), isEnabled(_isEnabled), sensitivity(_sensitivity) {}
 		
 		IntRect rect;

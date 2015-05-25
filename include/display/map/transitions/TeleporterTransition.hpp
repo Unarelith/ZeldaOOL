@@ -21,7 +21,7 @@
 
 class TeleporterTransition : public Transition {
 	public:
-		TeleporterTransition(u16 area, Vector2u16 map, Vector2f playerPosition, Direction playerDirection, bool movePlayer = false);
+		TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection, bool movePlayer = false);
 		
 		void update();
 		
@@ -30,7 +30,8 @@ class TeleporterTransition : public Transition {
 	private:
 		Map *m_nextMap;
 		
-		Vector2f m_playerPosition;
+		u16 m_playerX;
+		u16 m_playerY;
 		
 		Direction m_playerDirection;
 		

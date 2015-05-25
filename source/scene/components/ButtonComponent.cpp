@@ -15,36 +15,40 @@
 #include "ButtonComponent.hpp"
 #include "Map.hpp"
 
-void ButtonComponent::addTileChange(Vector2u16 tile, u16 newID) {
-	m_tileChanges.emplace_back(tile, -1, newID);
+void ButtonComponent::addTileChange(u16 tileX, u16 tileY, u16 newID) {
+	m_tileChanges.emplace_back(tileX, tileY, -1, newID);
 }
 
-void ButtonComponent::pressedAction(Vector2u16 buttonTile) {
+void ButtonComponent::pressedAction(u16 buttonTileX, u16 buttonTileY) {
 	if(m_pressed) return;
 	
 	AudioPlayer::playEffect("chest");
 	
-	Map::currentMap->setTile(buttonTile, 8);
+	Map::currentMap->setTile(buttonTileX, buttonTileY, 8);
 	
 	for(auto &tileChange : m_tileChanges) {
 		if(tileChange.oldID == -1) {
-			tileChange.oldID = Map::currentMap->getTile(tileChange.tile);
+			tileChange.oldID = Map::currentMap->getTile(tileChange.tileX, tileChange.tileY);
 		}
 		
-		Map::currentMap->setTile(tileChange.tile, tileChange.newID);
+		Map::currentMap->setTile(tileChange.tileX,
+								 tileChange.tileY,
+								 tileChange.newID);
 	}
 	
 	m_pressed = true;
 }
 
-void ButtonComponent::releasedAction(Vector2u16 buttonTile) {
+void ButtonComponent::releasedAction(u16 buttonTileX, u16 buttonTileY) {
 	if(!m_pressed) return;
 	
-	Map::currentMap->setTile(buttonTile, 7);
+	Map::currentMap->setTile(buttonTileX, buttonTileY, 7);
 	
 	for(auto &tileChange : m_tileChanges) {
 		if(tileChange.oldID != -1) {
-			Map::currentMap->setTile(tileChange.tile, tileChange.oldID);
+			Map::currentMap->setTile(tileChange.tileX,
+									 tileChange.tileY,
+									 tileChange.oldID);
 		}
 	}
 	

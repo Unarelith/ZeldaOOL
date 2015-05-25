@@ -23,6 +23,7 @@
 
 #include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
+#include "EffectsComponent.hpp"
 #include "InventoryComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
@@ -47,16 +48,20 @@ SceneObject PlayerFactory::create(float x, float y) {
 		Map::currentMap->scene().checkCollisionsFor(player);
 	});
 	
+	auto &effectsComponent = player.set<EffectsComponent>();
+	effectsComponent.addEffect("grass", "animations-grassEffect");
+	effectsComponent.addEffect("lowWater", "animations-lowWaterEffect");
+	
 	auto &spriteComponent = player.set<SpriteComponent>("characters-link", 16, 16);
 	
-	std::vector<std::vector<Vector2s16>> usingSwordPosition = {
+	std::vector<std::vector<Vector2i>> usingSwordPosition = {
 		{{ 0,  0}, { 0,  0}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  0}, { 0,  0}},
 		{{ 0,  0}, { 0,  0}, { 4,  0}, { 4,  0}, { 4,  0}, { 4,  0}, { 0,  0}, { 0,  0}},
 		{{ 0,  0}, { 0,  0}, {-4,  0}, {-4,  0}, {-4,  0}, {-4,  0}, { 0,  0}, { 0,  0}},
 		{{ 0,  0}, { 0,  0}, { 0, -3}, { 0, -3}, { 0, -3}, { 0, -3}, { 0,  0}, { 0,  0}}
 	};
 	
-	std::vector<Vector2s16> swordSpinAttackPosition = {
+	std::vector<Vector2i> swordSpinAttackPosition = {
 		{ 0,  3}, { 0,  3},
 		{-4,  0}, {-4,  0},
 		{ 0, -3}, { 0, -3},
@@ -86,7 +91,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 	
 	auto &inventoryComponent = player.set<InventoryComponent>();
 	inventoryComponent.addWeapon("swordL1");
-	inventoryComponent.equipWeapon({0, 0}, GameKey::A);
+	inventoryComponent.equipWeapon(0, 0, GameKey::A);
 	
 	return player;
 }
@@ -94,6 +99,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 void PlayerFactory::mapCollisions(SceneObject &player) {
 	auto &movement = player.get<MovementComponent>();
 	auto &position = player.get<PositionComponent>();
+	auto &effects = player.get<EffectsComponent>();
 	
 	// Pixel-perfect link hitbox for each 4 directions
 	// Two hitboxes:
@@ -128,8 +134,8 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 			directionTest = position.direction == Direction::Down;
 		}
 		
-		bool firstPosPassable  = Map::currentMap->passable({(u16)position.x + collisionMatrix[i][0], (u16)position.y + collisionMatrix[i][1]});
-		bool secondPosPassable = Map::currentMap->passable({(u16)position.x + collisionMatrix[i][2], (u16)position.y + collisionMatrix[i][3]});
+		bool firstPosPassable  = Map::currentMap->passable(position.x + collisionMatrix[i][0], position.y + collisionMatrix[i][1]);
+		bool secondPosPassable = Map::currentMap->passable(position.x + collisionMatrix[i][2], position.y + collisionMatrix[i][3]);
 		
 		if(velocityTest && (!firstPosPassable || !secondPosPassable)) {
 			if(i < 2)	movement.v.x = 0;
@@ -164,10 +170,10 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 	}
 	
 	auto onTile = [position](u16 tile) {
-		return (Map::currentMap->isTile({(u16)position.x + 6, (u16)position.y + 11}, tile) 
-			&&  Map::currentMap->isTile({(u16)position.x + 7, (u16)position.y + 11}, tile) 
-			&&  Map::currentMap->isTile({(u16)position.x + 6, (u16)position.y + 12}, tile) 
-			&&  Map::currentMap->isTile({(u16)position.x + 7, (u16)position.y + 12}, tile));
+		return (Map::currentMap->isTile(position.x + 6, position.y + 11, tile) 
+			&&  Map::currentMap->isTile(position.x + 7, position.y + 11, tile) 
+			&&  Map::currentMap->isTile(position.x + 6, position.y + 12, tile) 
+			&&  Map::currentMap->isTile(position.x + 7, position.y + 12, tile));
 	};
 	
 	if(onTile(TilesInfos::TileType::SlowingTile)) {
@@ -179,11 +185,13 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 		movement.v *= 3;
 	}
 	
+	effects.enableIf("grass", onTile(TilesInfos::TileType::LowGrassTile));
+	
 	if(position.x < -3) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingLeft);
 	}
-	else if(position.x + 13 > Map::currentMap->rect().width * 16) {
+	else if(position.x + 13 > Map::currentMap->width() * 16) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingRight);
 	}
@@ -191,7 +199,7 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingUp);
 	}
-	else if(position.y + 15 > Map::currentMap->rect().height * 16) {
+	else if(position.y + 15 > Map::currentMap->height() * 16) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingDown);
 	}

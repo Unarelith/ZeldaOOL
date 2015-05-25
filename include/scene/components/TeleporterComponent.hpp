@@ -15,34 +15,39 @@
 #define TELEPORTERCOMPONENT_HPP_
 
 #include "Direction.hpp"
-#include "Vector2.hpp"
 
 class TeleporterComponent {
 	public:
-		void setDestination(u16 area, Vector2u16 map, Vector2f playerPosition, Direction playerDirection) {
+		void setDestination(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection) {
 			m_area = area;
 			
-			m_map = map;
+			m_mapX = mapX;
+			m_mapY = mapY;
 			
-			m_playerPosition = playerPosition;
+			m_playerX = playerX;
+			m_playerY = playerY;
 			
 			m_playerDirection = playerDirection;
 		}
 		
 		u16 area() const { return m_area; }
 		
-		Vector2u16 map() const { return m_map; }
+		u16 mapX() const { return m_mapX; }
+		u16 mapY() const { return m_mapY; }
 		
-		Vector2f playerPosition() const { return m_playerPosition; }
+		u16 playerX() const { return m_playerX; }
+		u16 playerY() const { return m_playerY; }
 		
 		Direction playerDirection() const { return m_playerDirection; }
 		
 	private:
 		u16 m_area = 0;
 		
-		Vector2u16 m_map = {0, 0};
+		u16 m_mapX = 0;
+		u16 m_mapY = 0;
 		
-		Vector2f m_playerPosition = {0, 0};
+		u16 m_playerX = 0;
+		u16 m_playerY = 0;
 		
 		Direction m_playerDirection = Direction::None;
 };

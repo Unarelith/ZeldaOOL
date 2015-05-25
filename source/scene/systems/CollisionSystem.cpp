@@ -66,8 +66,8 @@ void CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2, Co
 		for(size_t i = 0; i < hitboxes1.size(); i++)
 			for(size_t j = 0; j < hitboxes2.size(); j++){
 				if(hitboxes1[i].isEnabled && hitboxes2[j].isEnabled) {
-					FloatRect rect1(hitboxes1[i].rect.position() + offset1, hitboxes1[i].rect.width, hitboxes1[i].rect.height);
-					FloatRect rect2(hitboxes2[j].rect.position() + offset2, hitboxes2[j].rect.width, hitboxes2[j].rect.height);
+					FloatRect rect1(hitboxes1[i].rect + offset1);
+					FloatRect rect2(hitboxes2[j].rect + offset2);
 					
 					if(rect1.intersects(rect2)) {
 						collisionInformations.addInformation(hitboxes1[i], hitboxes2[j]);

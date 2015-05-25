@@ -23,29 +23,29 @@
 #include "SpriteComponent.hpp"
 #include "WeaponComponent.hpp"
 
-SceneObject SwordFactory::create(Vector2f position, GameKey key, SceneObject &owner, Weapon &weaponInfos) {
+SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &owner, Weapon &weaponInfos) {
 	SceneObject object;
 	object.set<BehaviourComponent>(new SwordBehaviour);
 	object.set<LifetimeComponent>();
 	object.set<WeaponComponent>(owner, weaponInfos, key, "Sword");
-	object.set<std::string>("Sword");
+	//object.set<std::string>("Sword");
 	
-	auto &positionComponent = object.set<PositionComponent>(position, 16, 16);
+	auto &positionComponent = object.set<PositionComponent>(x, y, 16, 16);
 	positionComponent.direction = owner.get<PositionComponent>().direction;
 	
 	auto &hitboxesComponent = object.set<HitboxesComponent>();
-	hitboxesComponent.addHitbox(IntRect(0, 7, 15, 6),  "swordLeftLHand",      false);
-	hitboxesComponent.addHitbox(IntRect(10, 0, 6, 15), "swordUpRhand",        false);
-	hitboxesComponent.addHitbox(IntRect(1, 0, 6, 15),  "swordUpLHand",        false);
-	hitboxesComponent.addHitbox(IntRect(1, 1, 15, 6),  "swordRightLHand",     false);
-	hitboxesComponent.addHitbox(IntRect(1, 0, 15, 15), "swordSwingRightDown", false);
-	hitboxesComponent.addHitbox(IntRect(0, 0, 15, 15), "swordSwingLeftUp",    false);
-	hitboxesComponent.addHitbox(IntRect(1, 0, 15, 15), "swordSwingRightUp",   false);
-	hitboxesComponent.addHitbox(IntRect(1, 0, 15, 15), "swordSwingLeftDown",  false);
-	hitboxesComponent.addHitbox(IntRect(9, 0, 6, 15),  "swordDownLHand",      false);
-	hitboxesComponent.addHitbox(IntRect(0, 8, 15, 6),  "swordRightRHand",     false);
-	hitboxesComponent.addHitbox(IntRect(1, 8, 15, 6),  "swordLeftRHand",      false);
-	hitboxesComponent.addHitbox(IntRect(1, 1, 6, 15),  "swordDownRHand",      false);
+	hitboxesComponent.addHitbox(IntRect( 0,  7, 15,  6), "swordLeftLHand",      false);
+	hitboxesComponent.addHitbox(IntRect(10,  0,  6, 15), "swordUpRhand",        false);
+	hitboxesComponent.addHitbox(IntRect( 1,  0,  6, 15), "swordUpLHand",        false);
+	hitboxesComponent.addHitbox(IntRect( 1,  1, 15,  6), "swordRightLHand",     false);
+	hitboxesComponent.addHitbox(IntRect( 1,  0, 15, 15), "swordSwingRightDown", false);
+	hitboxesComponent.addHitbox(IntRect( 0,  0, 15, 15), "swordSwingLeftUp",    false);
+	hitboxesComponent.addHitbox(IntRect( 1,  0, 15, 15), "swordSwingRightUp",   false);
+	hitboxesComponent.addHitbox(IntRect( 1,  0, 15, 15), "swordSwingLeftDown",  false);
+	hitboxesComponent.addHitbox(IntRect( 9,  0,  6, 15), "swordDownLHand",      false);
+	hitboxesComponent.addHitbox(IntRect( 0,  8, 15,  6), "swordRightRHand",     false);
+	hitboxesComponent.addHitbox(IntRect( 1,  8, 15,  6), "swordLeftRHand",      false);
+	hitboxesComponent.addHitbox(IntRect( 1,  1,  6, 15), "swordDownRHand",      false);
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addChecker([](SceneObject &sword) {
@@ -54,14 +54,14 @@ SceneObject SwordFactory::create(Vector2f position, GameKey key, SceneObject &ow
 	
 	auto &spriteComponent = object.set<SpriteComponent>("animations-sword", 16, 16);
 	
-	std::vector<std::vector<Vector2s16>> swordPosition = {
+	std::vector<std::vector<Vector2i>> swordPosition = {
 		{{-15,   0}, {-13,  15}, {-13,  15}, { -1,  16}, { -1,  16}, { -1,  16}, { -1,  14}},
 		{{ -5, -15}, { 12, -12}, { 12, -12}, { 15,   1}, { 15,   1}, { 15,   1}, { 12,   1}},
 		{{  5, -15}, {-12, -12}, {-12, -12}, {-15,   1}, {-15,   1}, {-15,   1}, {-12,   1}},
 		{{ 14,   4}, { 12, -12}, { 12, -12}, {  0, -15}, {  0, -15}, {  0, -15}, {  0, -11}}
 	};
 	
-	std::vector<Vector2s16> spinAttackPosition = {
+	std::vector<Vector2i> spinAttackPosition = {
 		{ -1,  16}, {-12,  12}, {-15,  1}, {-12, -12},
 		{  0, -15}, { 11, -12}, { 15,  2}, { 13,  13}
 	};

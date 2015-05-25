@@ -24,8 +24,7 @@ class SceneObjectTests : public CxxTest::TestSuite  {
 		void testGet() {
 			SceneObject object;
 			
-			TS_ASSERT_THROWS(object.get<int>(), Exception);
-			// TS_ASSERT_THROWS_ANYTHING(object.get<int>());
+			TS_ASSERT_THROWS_ANYTHING(object.get<int>());
 		}
 		
 		void testSet() {

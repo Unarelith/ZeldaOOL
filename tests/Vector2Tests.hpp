@@ -28,6 +28,16 @@ class Vector2Tests : public CxxTest::TestSuite  {
 			TS_ASSERT(v1 == v3);
 		}
 		
+		void testAssignement() {
+			Vector2i v1, v2;
+			
+			v1 = {2, 6};
+			v2 = 0;
+			
+			TS_ASSERT_EQUALS(v1, (Vector2i{2, 6}));
+			TS_ASSERT_EQUALS(v2, (Vector2i{0, 0}));
+		}
+		
 		void testAddition() {
 			Vector2i v1{5, 4}, v2{2, 6}, v3{2, 3}, v4{4, 8};
 			
@@ -53,7 +63,14 @@ class Vector2Tests : public CxxTest::TestSuite  {
 			Vector2i v1{5, -4};
 			
 			TS_ASSERT_EQUALS(v1 * -4, (Vector2i{-20, 16}));
-			TS_ASSERT_EQUALS(8 * v1, (Vector2i{40, -32}));
+			TS_ASSERT_EQUALS( 8 * v1, (Vector2i{40, -32}));
+		}
+		
+		void testDivision() {
+			Vector2i v1{4, -4};
+			
+			TS_ASSERT_EQUALS(v1 / -4, (Vector2i{-1, 1}));
+			TS_ASSERT_THROWS_ANYTHING(v1 / 0);
 		}
 };
 

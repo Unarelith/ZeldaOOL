@@ -15,14 +15,15 @@
 #define DRAWINGSYSTEM_HPP_
 
 #include "SceneObject.hpp"
-#include "Vector2.hpp"
 
 class DrawingSystem {
 	public:
 		static void draw(SceneObject &object);
 		
-		static void drawSprite(SceneObject &object, Vector2f position);
-		static void drawSpriteComponent(SceneObject &object, Vector2f position);
+		static void drawEffects(SceneObject &object, float x, float y);
+		static void drawHitboxes(SceneObject &object, float x, float y);
+		static void drawSprite(SceneObject &object, float x, float y);
+		static void drawSpriteComponent(SceneObject &object, float x, float y);
 };
 
 #endif // DRAWINGSYSTEM_HPP_

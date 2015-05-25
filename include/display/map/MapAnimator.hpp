@@ -21,7 +21,7 @@ class Map;
 
 class MapAnimator {
 	public:
-		void updateTile(Vector2u16 tile, u16 tileID, const Tileset &tileset);
+		void updateTile(u16 tileX, u16 tileY, u16 tileID, const Tileset &tileset);
 		
 		void animateTiles(Map &map);
 		

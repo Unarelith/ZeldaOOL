@@ -25,11 +25,10 @@ class Image {
 		
 		void load(const std::string &textureName);
 		
-		void setClipRect(FloatRect rect);
-		void setPosRect(FloatRect rect);
+		void setClipRect(float x, float y, u16 width, u16 height);
+		void setPosRect(float x, float y, u16 width, u16 height);
 		
-		void draw(Vector2f position, s16 width = -1, s16 height = -1);
-		void draw(FloatRect rect);
+		void draw(float x, float y, s16 width = -1, s16 height = -1);
 		void draw();
 		
 		u16 width() const { return m_width; }

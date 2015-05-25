@@ -26,9 +26,14 @@ class Rect {
 		Rect(T _x, T _y, T _width, T _height) {
 			reset(_x, _y, _width, _height);
 		}
-		Rect(Vector2<T> _position, T _width, T _height) {
-			reset(_position.x, _position.y, _width, _height);
+		
+		Rect(const Vector2<T> &_position, const Vector2<T> &_size) {
+			reset(_position.x, _position.y, _size.x, _size.y);
 		}
+		
+		template<typename U>
+		Rect(const Rect<U> &rect)
+			: Rect(rect.x, rect.y, rect.width, rect.height) {}
 		
 		void reset(T _x, T _y, T _width, T _height) {
 			x = _x;
@@ -37,14 +42,10 @@ class Rect {
 			height = _height;
 		}
 		
-		void reset(Rect<T> rect) {
-			x = rect.x;
-			y = rect.y;
-			width = rect.width;
-			height = rect.height;
-		}
+		void reset(Rect<T> rect) { reset(rect.x, rect.y, rect.width, rect.height); }
 		
-		void move(Vector2<T> d) { x += d.x; y += d.y; }
+		void move(T _x, T _y) { x += _x; y += _y; }
+		void move(Vector2<T> d) { move(d.x, d.y); }
 		
 		bool intersects(const Rect<T> &rect) const {
 			T r1MinX = std::min(x, static_cast<T>(x + width));
@@ -65,7 +66,7 @@ class Rect {
 			return interLeft < interRight && interTop < interBottom;
 		}
 		
-		Vector2<T> position() { return {x, y}; }
+		Vector2<T> position() const { return {x, y}; }
 		
 		void setPosition(Vector2<T> vector2) { x = vector2.x; y = vector2.y; }
 		
@@ -82,18 +83,6 @@ class Rect {
 };
 
 using IntRect = Rect<int>;
-//using Rects8 = Rect<s8>;
-//using Rects16 = Rect<s16>;
-//using Rects32 = Rect<s32>;
-//using Rects64 = Rect<s64>;
-//
-//using Rectu = Rect<unsigned int>;
-//using Rectu8 = Rect<u8>;
-//using Rectu16 = Rect<u16>;
-//using Rectu32 = Rect<u32>;
-//using Rectu64 = Rect<u64>;
-
 using FloatRect = Rect<float>;
-using DoubleRect = Rect<double>;
 
 #endif // RECT_HPP_

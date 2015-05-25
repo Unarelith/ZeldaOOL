@@ -19,12 +19,13 @@
 #include "Scene.hpp"
 #include "Sprite.hpp"
 
-TeleporterTransition::TeleporterTransition(u16 area, Vector2u16 map, Vector2f playerPosition, Direction playerDirection, bool movePlayer) {
-	m_nextMap = &Map::getMap(area, map);
+TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection, bool movePlayer) {
+	m_nextMap = &Map::getMap(area, mapX, mapY);
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
 	
-	m_playerPosition = playerPosition;
+	m_playerX = playerX;
+	m_playerY = playerY;
 	
 	m_playerDirection = playerDirection;
 	
@@ -37,8 +38,8 @@ TeleporterTransition::TeleporterTransition(u16 area, Vector2u16 map, Vector2f pl
 	m_rect1.resize(Application::screenWidth / 2, Application::screenHeight - 16);
 	m_rect2.resize(Application::screenWidth / 2, Application::screenHeight - 16);
 	
-	m_rect1.setPosition({0.0f, 16.0f});
-	m_rect2.setPosition({Application::screenWidth / 2.0f, 16.0f});
+	m_rect1.setPosition(0, 16);
+	m_rect2.setPosition(Application::screenWidth / 2, 16);
 	
 	// FIXME: TEMPORARY
 	if(m_nextMap->area() == 0) {
@@ -58,7 +59,7 @@ TeleporterTransition::TeleporterTransition(u16 area, Vector2u16 map, Vector2f pl
 }
 
 void TeleporterTransition::update() {
-	if(m_rect1.position().x + m_rect1.width() < 0) {
+	if(m_rect1.x() + m_rect1.width() < 0) {
 		Map::currentMap = m_nextMap;
 		
 		m_atEnd = true;
@@ -76,13 +77,14 @@ void TeleporterTransition::update() {
 		if(Scene::player && Scene::player->has<PositionComponent>()) {
 			auto &positionComponent = Scene::player->get<PositionComponent>();
 			
-			positionComponent.setPosition(m_playerPosition);
+			positionComponent.x = m_playerX;
+			positionComponent.y = m_playerY;
 			
 			positionComponent.direction = (Direction)m_playerDirection;
 		}
 		
-		m_rect1.move(Vector2f(-1.5, 0));
-		m_rect2.move(Vector2f(1.5, 0));
+		m_rect1.move(-1.5, 0);
+		m_rect2.move(1.5, 0);
 	}
 }
 

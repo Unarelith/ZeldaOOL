@@ -17,20 +17,20 @@
 #include "TeleporterLoader.hpp"
 
 void TeleporterLoader::load(XMLElement *teleporterElement, Scene &scene) {
-	Vector2f tile = {teleporterElement->FloatAttribute("tileX"),
-	                 teleporterElement->FloatAttribute("tileY")};
+	float tileX = teleporterElement->FloatAttribute("tileX");
+	float tileY = teleporterElement->FloatAttribute("tileY");
 	
 	XMLElement *destinationElement = teleporterElement->FirstChildElement("destination");
 	
 	u16 area = destinationElement->IntAttribute("area");
 	
-	Vector2u16 map = {(u16)destinationElement->IntAttribute("mapX"),
-	                  (u16)destinationElement->IntAttribute("mapY")};
+	u16 mapX = destinationElement->IntAttribute("mapX");
+	u16 mapY = destinationElement->IntAttribute("mapY");
 	
 	XMLElement *playerElement = teleporterElement->FirstChildElement("player");
 	
-	Vector2f playerPosition = {playerElement->FloatAttribute("tileX") * 16,
-	                           playerElement->FloatAttribute("tileY") * 16};
+	u16 playerX = playerElement->FloatAttribute("tileX") * 16;
+	u16 playerY = playerElement->FloatAttribute("tileY") * 16;
 	
 	Direction playerDirection = Direction::None;
 	if(playerElement->Attribute("direction", "left")) {
@@ -46,9 +46,9 @@ void TeleporterLoader::load(XMLElement *teleporterElement, Scene &scene) {
 		playerDirection = Direction::Down;
 	}
 	
-	SceneObject &teleporter = scene.addObject(TeleporterFactory::create(tile));
+	SceneObject &teleporter = scene.addObject(TeleporterFactory::create(tileX, tileY));
 	
 	auto &teleporterComponent = teleporter.get<TeleporterComponent>();
-	teleporterComponent.setDestination(area, map, playerPosition, playerDirection);
+	teleporterComponent.setDestination(area, mapX, mapY, playerX, playerY, playerDirection);
 }
 

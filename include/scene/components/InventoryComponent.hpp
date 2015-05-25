@@ -52,10 +52,10 @@ class Weapon : public Item {
 class InventoryComponent {
 	public:
 		Weapon *addWeapon(const std::string &name);
-		Weapon *getWeapon(Vector2u8 position) { return m_weapons[position.x][position.y]; }
-		void removeWeapon(Vector2u8 position) { m_weapons[position.x][position.y] = nullptr; }
+		Weapon *getWeapon(u8 x, u8 y) { return m_weapons[x][y]; }
+		void removeWeapon(u8 x, u8 y) { m_weapons[x][y] = nullptr; }
 		
-		void equipWeapon(Vector2u8 position, GameKey key);
+		void equipWeapon(u8 x, u8 y, GameKey key);
 		
 		Weapon *getWeaponA() { return m_weaponA; }
 		Weapon *getWeaponB() { return m_weaponB; }

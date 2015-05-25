@@ -16,15 +16,13 @@
 
 #include "MapAnimator.hpp"
 #include "MapRenderer.hpp"
-#include "Rect.hpp"
 #include "Scene.hpp"
 #include "Tileset.hpp"
-#include "Vector2.hpp"
 #include "View.hpp"
 
 class Map {
 	public:
-		Map(u16 area, IntRect rect, Tileset &tileset, const std::vector<u16> &data);
+		Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data);
 		
 		void reset();
 		
@@ -34,15 +32,19 @@ class Map {
 		
 		void updateTiles();
 		
-		u16 getTile(Vector2u16 tile);
-		void setTile(Vector2u16 tile, u16 id, bool persistent = false);
+		u16 getTile(u16 tileX, u16 tileY);
+		void setTile(u16 tileX, u16 tileY, u16 id, bool persistent = false);
 		
-		bool passable(Vector2u16 position);
-		bool onDoor(Vector2u16 position);
-		bool isTile(Vector2u16 position, u16 tile);
+		bool passable(float x, float y);
+		bool onDoor(float x, float y);
+		bool isTile(float x, float y, u16 tile);
 		
 		u16 area() const { return m_area; }
-		IntRect rect() const { return m_rect; }
+		u16 x() const { return m_x; }
+		u16 y() const { return m_y; }
+		
+		u16 width() const { return m_width; }
+		u16 height() const { return m_height; }
 		
 		Scene &scene() { return m_scene; }
 		
@@ -50,11 +52,11 @@ class Map {
 		
 		View &view() { return m_view; }
 		
-		static Map &getMap(u16 area, Vector2u16 map);
-		static bool mapExists(u16 area, Vector2u16 map);
+		static Map &getMap(u16 area, u16 mapX, u16 mapY);
+		static bool mapExists(u16 area, u16 mapX, u16 mapY);
 		
-		Map &getSideMap(Vector2s8 d) { return getMap(m_area, m_rect.position() + d); }
-		bool hasSideMap(Vector2s8 d) { return mapExists(m_area, m_rect.position() + d); }
+		Map &getSideMap(s8 dx, s8 dy) { return getMap(m_area, m_x + dx, m_y + dy); }
+		bool hasSideMap(s8 dx, s8 dy) { return mapExists(m_area, m_x + dx, m_y + dy); }
 		
 		static Map *currentMap;
 		
@@ -67,9 +69,13 @@ class Map {
 		
 	private:
 		u16 m_area = 0;
-		IntRect m_rect = {0, 0, 0, 0};
+		u16 m_x = 0;
+		u16 m_y = 0;
 		
 		u16 m_zoneID = 0;
+		
+		u16 m_width = 0;
+		u16 m_height = 0;
 		
 		MapAnimator m_animator;
 		

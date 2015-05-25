@@ -16,19 +16,20 @@
 #include "ButtonLoader.hpp"
 
 void ButtonLoader::load(XMLElement *buttonElement, Scene &scene) {
-	Vector2u16 tile = {(u16)buttonElement->IntAttribute("tileX"),
-	                   (u16)buttonElement->IntAttribute("tileY")};
+	u16 tileX = buttonElement->IntAttribute("tileX");
+	u16 tileY = buttonElement->IntAttribute("tileY");
 	
-	SceneObject &button = scene.addObject(ButtonFactory::create(tile));
+	SceneObject &button = scene.addObject(ButtonFactory::create(tileX, tileY));
 	auto &buttonComponent = button.get<ButtonComponent>();
 	
 	XMLElement *tileChangeElement = buttonElement->FirstChildElement("tileChange");
 	while(tileChangeElement) {
-		Vector2u16 tile = {(u16)tileChangeElement->IntAttribute("tileX"),
-		                   (u16)tileChangeElement->IntAttribute("tileY")};
+		u16 tileX = tileChangeElement->IntAttribute("tileX");
+		u16 tileY = tileChangeElement->IntAttribute("tileY");
+		
 		u16 newID = tileChangeElement->IntAttribute("newID");
 		
-		buttonComponent.addTileChange(tile, newID);
+		buttonComponent.addTileChange(tileX, tileY, newID);
 		
 		tileChangeElement = tileChangeElement->NextSiblingElement("tileChange");
 	}

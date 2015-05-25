@@ -16,35 +16,35 @@
 
 bool Sprite::pause = false;
 
-Sprite::Sprite(const std::string &textureName, u16 frameWidth, u16 frameHeight) {
+Sprite::Sprite(const std::string &textureName, s16 frameWidth, s16 frameHeight) {
 	load(textureName, frameWidth, frameHeight);
 }
 
-void Sprite::load(const std::string &textureName, u16 frameWidth, u16 frameHeight) {
+void Sprite::load(const std::string &textureName, s16 frameWidth, s16 frameHeight) {
 	Image::load(textureName);
 	
-	m_frameWidth = frameWidth;
-	m_frameHeight = frameHeight;
+	m_frameWidth  = (frameWidth  < 0) ? width()  : frameWidth;
+	m_frameHeight = (frameHeight < 0) ? height() : frameHeight;
 }
 
 void Sprite::addAnimation(std::vector<u16> frames, u16 delay) {
 	m_animations.emplace_back(frames, delay);
 }
 
-void Sprite::addAnimation(std::vector<u16> frames, std::vector<Vector2s16> positions, u16 delay) {
+void Sprite::addAnimation(std::vector<u16> frames, std::vector<Vector2i> positions, u16 delay) {
 	m_animations.emplace_back(frames, positions, delay);
 }
 
-void Sprite::drawFrame(Vector2f position, u16 frame) {
+void Sprite::drawFrame(float x, float y, u16 frame) {
 	u16 frameX = frame % (width() / m_frameWidth);
 	u16 frameY = frame / (width() / m_frameWidth);
 	
-	setClipRect(FloatRect{frameX * m_frameWidth, frameY * m_frameHeight, m_frameWidth, m_frameHeight});
+	setClipRect(frameX * m_frameWidth, frameY * m_frameHeight, m_frameWidth, m_frameHeight);
 	
-	draw(position, m_frameWidth, m_frameHeight);
+	draw(x, y, m_frameWidth, m_frameHeight);
 }
 
-void Sprite::drawAnimationFrame(Vector2f position, u16 animID, s16 frameID) {
+void Sprite::drawAnimationFrame(float x, float y, u16 animID, s16 frameID) {
 	u16 frame;
 	if(frameID == -1) {
 		frame = m_animations[animID].currentFrame();
@@ -52,20 +52,21 @@ void Sprite::drawAnimationFrame(Vector2f position, u16 animID, s16 frameID) {
 		frame = m_animations[animID].getFrame(frameID);
 	}
 	
-	position += m_animations[animID].currentPosition();
+	x += m_animations[animID].currentPosition().x;
+	y += m_animations[animID].currentPosition().y;
 	
 	m_currentAnimation = animID;
 	
-	drawFrame(position, frame);
+	drawFrame(x, y, frame);
 }
 
-void Sprite::playAnimation(Vector2f position, u16 animID) {
+void Sprite::playAnimation(float x, float y, u16 animID) {
 	if(animID > m_animations.size()) {
 		throw EXCEPTION("Trying to play inexistant animation:", animID, "| Animations:", m_animations.size());
 	}
 	
 	m_animations[animID].play();
 	
-	drawAnimationFrame(position, animID);
+	drawAnimationFrame(x, y, animID);
 }
 

@@ -1,11 +1,11 @@
 ===== REFACTORING =====
-- Improve game object system
-	=> Implement Battler + HurtState equivalent for Scene::player and octoroks
+- Implement Battler + HurtState equivalent for Scene::player and octoroks (HealthComponent)
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?
 	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'
 - Add more debug tools, like a Logger class
+- Add more unit tests
 
 ===== TODO =====
 - Finish 'Octorok'
@@ -37,12 +37,8 @@
 - Player can be pushed out of the map during HurtMovement
 - Octorok's HurtMovement speed too slow?
 - Improve palette system
-- Improve collectable objets drop movement
 - Rupees are added one by one to the counter in the original game
 	=> There's also a sound effect
-- Lines have not the correct length in 'Dialog'
-	=> Maybe related to the 'à'?
-- When a color tag starts on one line and finishes on another one, the other line doesn't have color
 - Check sound effect channels in real game
 	=> For example, is it possible to hear sword loading sound anymore when link releases spin attack?
 	=> It's not possible to hear text 'clicks' during 'tadaaaaaaa' (new item)
@@ -50,6 +46,4 @@
 - Fix grassDestroy animation
 	=> Find a way to rip it
 - Fix 'moonwalk' bug
-- When link is trying to cut a grass tile being too close nothing happens
-- Sometimes the Dialog box is displayed too far in the right
 

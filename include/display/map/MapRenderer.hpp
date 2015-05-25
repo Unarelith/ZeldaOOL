@@ -23,7 +23,7 @@ class MapRenderer {
 	public:
 		void init(u16 mapWidth, u16 mapHeight);
 		
-		void updateTile(Vector2u16 tile, u16 id, Map &map);
+		void updateTile(u16 tileX, u16 tileY, u16 id, Map &map);
 		
 		void draw(Map &map);
 		

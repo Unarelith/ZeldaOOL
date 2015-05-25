@@ -56,10 +56,10 @@ u16 SpriteAnimation::displayedFramesAmount() const {
 	return m_timer.time() / m_delay;
 }
 
-const Vector2f SpriteAnimation::currentPosition() const {
+const Vector2i &SpriteAnimation::currentPosition() const {
 	if(!isFinished()) {
-		return m_positions[displayedFramesAmount()];
+		return m_positions.at(displayedFramesAmount());
 	} else {
-		return m_positions[m_frames.size() - 1];
+		return m_positions.at(m_frames.size() - 1);
 	}
 }

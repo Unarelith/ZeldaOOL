@@ -15,11 +15,10 @@
 #define TELEPORTERFACTORY_HPP_
 
 #include "SceneObject.hpp"
-#include "Vector2.hpp"
 
 class TeleporterFactory {
 	public:
-		static SceneObject create(Vector2f tile);
+		static SceneObject create(float tileX, float tileY);
 };
 
 #endif // TELEPORTERFACTORY_HPP_

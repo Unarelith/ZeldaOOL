@@ -26,11 +26,11 @@ class PositionComponent : public FloatRect {
 			: FloatRect(x, y, width, height) {
 		}
 		
-		PositionComponent(Vector2f position, float width, float height)
-			: FloatRect(position, width, height) {
+		PositionComponent(const Vector2f &position, const Vector2f &size)
+			: FloatRect(position, size) {
 		}
 		
-		void updateDirection(Vector2f v) {
+		void updateDirection(const Vector2f &v) {
 			if(v.x < 0) direction = Direction::Left;
 			if(v.x > 0) direction = Direction::Right;
 			if(v.y < 0) direction = Direction::Up;

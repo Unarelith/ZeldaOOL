@@ -23,7 +23,7 @@ class MovementComponent {
 	public:
 		MovementComponent(Movement *_movement) : movement(_movement) {}
 		
-		Vector2f v = {0.0f, 0.0f};
+		Vector2f v{0, 0};
 		
 		float speed = 0.4f;
 		

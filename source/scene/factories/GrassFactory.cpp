@@ -23,9 +23,9 @@
 
 void grassAction(SceneObject &grass, SceneObject &object, CollisionInformations &collisionInformations);
 
-SceneObject GrassFactory::create(Vector2u16 tile, bool lowGrass) {
+SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	SceneObject object;
-	object.set<PositionComponent>((Vector2f)tile * 16 - Vector2f{8, 8}, 16, 16);
+	object.set<PositionComponent>(tileX * 16 - 8, tileY * 16 - 8, 16, 16);
 	
 	auto &hitboxesComponent = object.set<HitboxesComponent>();
 	hitboxesComponent.addHitbox(IntRect(14, 14, 4, 4));
@@ -65,6 +65,7 @@ SceneObject GrassFactory::create(Vector2u16 tile, bool lowGrass) {
 #include "WeaponComponent.hpp"
 
 void grassAction(SceneObject &grass, SceneObject &object, CollisionInformations &collisionInformations) {
+	
 	if(!collisionInformations.empty() && object.has<WeaponComponent>()) {
 		auto &grassSpriteComponent = grass.get<SpriteComponent>();
 		auto &grassHitboxesComponent = grass.get<HitboxesComponent>();
@@ -84,19 +85,20 @@ void grassAction(SceneObject &grass, SceneObject &object, CollisionInformations 
 				AudioPlayer::playEffect("grassDestroy");
 				
 				if(rand() % 5 == 0) {
-					Map::currentMap->scene().addObject(CollectableFactory::createRupees((grassPosition + Vector2f{8, 8}).position(), RupeesAmount::One, CollectableMovement::Type::Dropped));
+					Map::currentMap->scene().addObject(CollectableFactory::createRupees(grassPosition.x + 8, grassPosition.y + 8, RupeesAmount::One, CollectableMovement::Type::Dropped));
 				}
 				else if(rand() % 15 == 7) {
-					Map::currentMap->scene().addObject(CollectableFactory::createHeart((grassPosition + Vector2f{8, 8}).position(), CollectableMovement::Type::Dropped));
+					Map::currentMap->scene().addObject(CollectableFactory::createHeart(grassPosition.x + 8, grassPosition.y + 8, CollectableMovement::Type::Dropped));
 				}
 				else if(rand() % 25 == 11) {
-					Map::currentMap->scene().addObject(CollectableFactory::createRupees((grassPosition + Vector2f{8, 8}).position(), RupeesAmount::Five, CollectableMovement::Type::Dropped));
+					Map::currentMap->scene().addObject(CollectableFactory::createRupees(grassPosition.x + 8, grassPosition.y + 8, RupeesAmount::Five, CollectableMovement::Type::Dropped));
 				}
 				else if(rand() % 250 == 176) {
-					Map::currentMap->scene().addObject(CollectableFactory::createRupees((grassPosition + Vector2f{8, 8}).position(), RupeesAmount::Thirty, CollectableMovement::Type::Dropped));
+					Map::currentMap->scene().addObject(CollectableFactory::createRupees(grassPosition.x + 8, grassPosition.y + 8, RupeesAmount::Thirty, CollectableMovement::Type::Dropped));
 				}
 				
-				Map::currentMap->setTile((grassPosition + Vector2u16{8, 8}).position() / 16, 36);
+				Map::currentMap->setTile((grassPosition.x + 8) / 16,
+				                         (grassPosition.y + 8) / 16, 36);
 				
 				grassSpriteComponent.isDisabled = false;
 				grassHitboxesComponent.disableHitboxes();

@@ -18,16 +18,20 @@
 
 Map *Map::currentMap = nullptr;
 
-Map::Map(u16 area, IntRect rect, Tileset &tileset, const std::vector<u16> &data) : m_tileset(tileset) {
+Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data) : m_tileset(tileset) {
 	m_area = area;
-	m_rect = rect;
+	m_x = x;
+	m_y = y;
+	
+	m_width = width;
+	m_height = height;
 	
 	m_baseData = data;
 	m_data = m_baseData;
 	
-	m_view.reset(0, 16, m_rect.width * tileset.tileWidth(), m_rect.height * tileset.tileHeight());
+	m_view.reset(0, 16, m_width * tileset.tileWidth(), m_height * tileset.tileHeight());
 	
-	m_renderer.init(m_rect.width, m_rect.height);
+	m_renderer.init(m_width, m_height);
 	
 	updateTiles();
 }
@@ -55,61 +59,60 @@ void Map::draw() {
 }
 
 void Map::updateTiles() {
-	Vector2u16 tile = {0, 0};
-	for(tile.y = 0 ; tile.y < m_rect.height ; tile.y++) {
-		for(tile.x = 0 ; tile.x < m_rect.width ; tile.x++) {
-			u16 tileID = getTile(tile);
+	for(u16 tileY = 0 ; tileY < m_height ; tileY++) {
+		for(u16 tileX = 0 ; tileX < m_width ; tileX++) {
+			u16 tileID = getTile(tileX, tileY);
 			
-			m_renderer.updateTile(tile, tileID, *this);
-			m_animator.updateTile(tile, tileID, m_tileset);
+			m_renderer.updateTile(tileX, tileY, tileID, *this);
+			m_animator.updateTile(tileX, tileY, tileID, m_tileset);
 		}
 	}
 }
 
-u16 Map::getTile(Vector2u16 tile) {
-	if(tile.x + tile.y * m_rect.width < m_rect.width * m_rect.height) {
-		return m_data[tile.x + tile.y * m_rect.width];
+u16 Map::getTile(u16 tileX, u16 tileY) {
+	if(tileX + tileY * m_width < m_width * m_height) {
+		return m_data[tileX + tileY * m_width];
 	} else {
 		return 0;
 	}
 }
 
-void Map::setTile(Vector2u16 tile, u16 id, bool persistent) {
-	if(tile.x + tile.y * m_rect.width < m_rect.width * m_rect.height) {
-		m_data[tile.x + tile.y * m_rect.width] = id;
+void Map::setTile(u16 tileX, u16 tileY, u16 id, bool persistent) {
+	if(tileX + tileY * m_width < m_width * m_height) {
+		m_data[tileX + tileY * m_width] = id;
 		
-		if(persistent) m_baseData[tile.x + tile.y * m_rect.width] = id;
+		if(persistent) m_baseData[tileX + tileY * m_width] = id;
 	}
 	
-	m_renderer.updateTile(tile, id, *this);
+	m_renderer.updateTile(tileX, tileY, id, *this);
 }
 
-bool Map::passable(Vector2u16 position) {
-	s16 tile = m_tileset.info()[getTile({(u16)position.x / m_tileset.tileWidth(),
-	                                     (u16)position.y / m_tileset.tileHeight()})];
+bool Map::passable(float x, float y) {
+	s16 tile = m_tileset.info()[getTile(x / m_tileset.tileWidth(),
+	                                    y / m_tileset.tileHeight())];
 	
-	return TilesInfos::infos[tile][((s16)position.x & 0xF) / (m_tileset.tileWidth()  / 2)
-	                             + ((s16)position.y & 0xF) / (m_tileset.tileHeight() / 2) * 2] != TilesInfos::SubTileType::NonPassable;
+	return TilesInfos::infos[tile][(s16(x) & 0xF) / (m_tileset.tileWidth()  / 2)
+	                             + (s16(y) & 0xF) / (m_tileset.tileHeight() / 2) * 2] != TilesInfos::SubTileType::NonPassable;
 }
 
-bool Map::onDoor(Vector2u16 position) {
-	s16 tile = m_tileset.info()[getTile({position.x / m_tileset.tileWidth(),
-	                                     position.y / m_tileset.tileHeight()})];
+bool Map::onDoor(float x, float y) {
+	s16 tile = m_tileset.info()[getTile(x / m_tileset.tileWidth(),
+	                                    y / m_tileset.tileHeight())];
 	
-	return TilesInfos::infos[tile][((s16)position.x & 0xF) / (m_tileset.tileWidth()  / 2)
-	                             + ((s16)position.y & 0xF) / (m_tileset.tileHeight() / 2) * 2] == TilesInfos::SubTileType::ChangeMap;
+	return TilesInfos::infos[tile][(s16(x) & 0xF) / (m_tileset.tileWidth()  / 2)
+	                             + (s16(y) & 0xF) / (m_tileset.tileHeight() / 2) * 2] == TilesInfos::SubTileType::ChangeMap;
 }
 
-bool Map::isTile(Vector2u16 position, u16 tile) {
-	return m_tileset.info()[getTile({(u16)position.x / m_tileset.tileWidth(),
-	                                 (u16)position.y / m_tileset.tileHeight()})] == tile;
+bool Map::isTile(float x, float y, u16 tile) {
+	return m_tileset.info()[getTile(x / m_tileset.tileWidth(),
+	                                y / m_tileset.tileHeight())] == tile;
 }
 
-Map &Map::getMap(u16 area, Vector2u16 map) {
-	return ResourceHandler::getInstance().get<Map>(MapLoader::makeName(area, map));
+Map &Map::getMap(u16 area, u16 mapX, u16 mapY) {
+	return ResourceHandler::getInstance().get<Map>(MapLoader::makeName(area, mapX, mapY));
 }
 
-bool Map::mapExists(u16 area, Vector2u16 map) {
-	return ResourceHandler::getInstance().has(MapLoader::makeName(area, map));
+bool Map::mapExists(u16 area, u16 mapX, u16 mapY) {
+	return ResourceHandler::getInstance().has(MapLoader::makeName(area, mapX, mapY));
 }
 
