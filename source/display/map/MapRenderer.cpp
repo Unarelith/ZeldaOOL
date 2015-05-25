@@ -24,14 +24,14 @@ void MapRenderer::init(u16 mapWidth, u16 mapHeight) {
 	VertexBuffer::bind(nullptr);
 }
 
-void MapRenderer::updateTile(u16 tileX, u16 tileY, u16 id, Map &map) {
+void MapRenderer::updateTile(Vector2u16 tile, u16 id, Map &map) {
 	VertexBuffer::bind(&m_vbo);
 	
 	float tileWidth  = map.tileset().tileWidth();
 	float tileHeight = map.tileset().tileHeight();
 	
-	float x = tileX * tileWidth;
-	float y = tileY * tileHeight;
+	float x = tile.x * tileWidth;
+	float y = tile.y * tileHeight;
 	
 	float texTileX = id % u16(map.tileset().width() / tileWidth) * tileWidth  / map.tileset().width();
 	float texTileY = id / u16(map.tileset().width() / tileWidth) * tileHeight / map.tileset().height();
@@ -48,7 +48,7 @@ void MapRenderer::updateTile(u16 tileX, u16 tileY, u16 id, Map &map) {
 		{{x            , y + tileHeight},    {texTileX               , texTileY + texTileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}}
 	};
 	
-	m_vbo.updateData(sizeof(attributes) * (tileX + tileY * map.width()), sizeof(attributes), attributes);
+	m_vbo.updateData(sizeof(attributes) * (tile.x + tile.y * map.rect().width), sizeof(attributes), attributes);
 	
 	VertexBuffer::bind(nullptr);
 }
@@ -66,7 +66,7 @@ void MapRenderer::draw(Map &map) {
 	
 	Texture::bind(&map.tileset());
 	
-	glDrawArrays(GL_TRIANGLES, 0, 6 * map.width() * map.height());
+	glDrawArrays(GL_TRIANGLES, 0, 6 * map.rect().width * map.rect().height);
 	
 	Texture::bind(nullptr);
 	

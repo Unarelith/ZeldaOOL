@@ -21,8 +21,7 @@ void HurtMovement::process(SceneObject &object) {
 	movement.speed = m_speed;
 	
 	if(m_movementCounter < 16) {
-		movement.vx = m_vx;
-		movement.vy = m_vy;
+		movement.v = m_v;
 		
 		m_movementCounter += m_speed;
 	} else {

@@ -51,11 +51,10 @@ void octorokAction(SceneObject &octorok, SceneObject &object, CollisionInformati
 		auto &playerPosition = object.get<PositionComponent>();
 		auto &octorokPosition = octorok.get<PositionComponent>();
 		
-		s16 vx = playerPosition.x - octorokPosition.x;
-		s16 vy = playerPosition.y - octorokPosition.y;
+		Vector2f v = playerPosition.position() - octorokPosition.position();
 		
-		if(vx != 0) vx /= abs(vx);
-		if(vy != 0) vy /= abs(vy);
+		if(v.x != 0) v.x /= abs(v.x);
+		if(v.y != 0) v.y /= abs(v.y);
 		
 		// Player::player.hurt(1, vx, vy);
 	}

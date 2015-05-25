@@ -16,6 +16,7 @@
 
 #include "Movement.hpp"
 #include "Timer.hpp"
+#include "Vector2.hpp"
 
 class OctorokMovement : public Movement {
 	public:
@@ -33,8 +34,7 @@ class OctorokMovement : public Movement {
 		
 		Timer m_timer;
 		
-		s8 m_vx = 0;
-		s8 m_vy = 0;
+		Vector2f m_v = {0.0f, 0.0f};
 		
 		float m_movementCounter = 0;
 		

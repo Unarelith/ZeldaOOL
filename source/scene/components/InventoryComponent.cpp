@@ -26,15 +26,15 @@ Weapon *InventoryComponent::addWeapon(const std::string &name) {
 	return nullptr;
 }
 
-void InventoryComponent::equipWeapon(u8 x, u8 y, GameKey key) {
-	Weapon *temp = m_weapons[x][y];
+void InventoryComponent::equipWeapon(Vector2u8 position, GameKey key) {
+	Weapon *temp = m_weapons[position.x][position.y];
 	
 	if(key == GameKey::A) {
-		m_weapons[x][y] = m_weaponA;
+		m_weapons[position.x][position.y] = m_weaponA;
 		m_weaponA = temp;
 	}
 	else if(key == GameKey::B) {
-		m_weapons[x][y] = m_weaponB;
+		m_weapons[position.x][position.y] = m_weaponB;
 		m_weaponB = temp;
 	}
 }

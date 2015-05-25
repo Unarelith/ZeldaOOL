@@ -16,26 +16,26 @@
 
 #include "Direction.hpp"
 #include "Rect.hpp"
+#include "Vector2.hpp"
 
-class PositionComponent {
+class PositionComponent : public FloatRect {
 	public:
-		PositionComponent(float _x, float _y, u16 _width, u16 _height)
-			: x(_x), y(_y), width(_width), height(_height) {}
+		PositionComponent() = default;
 		
-		void updateDirection(float vx, float vy) {
-			if(vx < 0) direction = Direction::Left;
-			if(vx > 0) direction = Direction::Right;
-			if(vy < 0) direction = Direction::Up;
-			if(vy > 0) direction = Direction::Down;
+		PositionComponent(float x, float y, float width, float height)
+			: FloatRect(x, y, width, height) {
 		}
 		
-		void move(float dx, float dy) { x += dx; y += dy; }
+		PositionComponent(Vector2f position, float width, float height)
+			: FloatRect(position, width, height) {
+		}
 		
-		float x = 0;
-		float y = 0;
-		
-		u16 width = 0;
-		u16 height = 0;
+		void updateDirection(Vector2f v) {
+			if(v.x < 0) direction = Direction::Left;
+			if(v.x > 0) direction = Direction::Right;
+			if(v.y < 0) direction = Direction::Up;
+			if(v.y > 0) direction = Direction::Down;
+		}
 		
 		Direction direction = Direction::None;
 };

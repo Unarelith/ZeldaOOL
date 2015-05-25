@@ -45,19 +45,19 @@ class HitboxesComponent {
 		}
 		
 		void disableHitboxes() {
-			for(auto& hitbox : m_hitboxes) {
+			for(auto &hitbox : m_hitboxes) {
 				hitbox.isEnabled = false;
 			}
 		}
 		
 		void enableHitboxes() {
-			for(auto& hitbox : m_hitboxes) {
+			for(auto &hitbox : m_hitboxes) {
 				hitbox.isEnabled = true;
 			}
 		}
 		
 		bool isHitboxesEnabled() {
-			for(auto& hitbox : m_hitboxes) {
+			for(auto &hitbox : m_hitboxes) {
 				if(hitbox.isEnabled) return true;
 			}
 			return false;

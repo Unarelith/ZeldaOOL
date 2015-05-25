@@ -22,7 +22,7 @@ class TextBox {
 	public:
 		TextBox(const std::string &text);
 		
-		void draw(u16 x, u16 y, u16 width, u16 height);
+		void draw(IntRect rect);
 		
 		void setText(const std::string &text);
 		

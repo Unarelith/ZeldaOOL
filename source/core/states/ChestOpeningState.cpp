@@ -24,7 +24,7 @@
 #include "Sprite.hpp"
 
 ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *parent) : ApplicationState(parent) {
-	m_item = &Map::currentMap->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
+	m_item = &Map::currentMap->scene().addObject(CollectableFactory::createRupees({0, 0}, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
 	m_item->set<LifetimeComponent>();
 	
 	auto &chestPosition = chest.get<PositionComponent>();

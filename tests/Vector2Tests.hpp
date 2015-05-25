@@ -34,7 +34,10 @@ class Vector2Tests : public CxxTest::TestSuite  {
 			TS_ASSERT_EQUALS(v1 + v2, (Vector2i{ 7, 10}));
 			TS_ASSERT_EQUALS(v2 + v3, (Vector2i{ 4,  9}));
 			TS_ASSERT_EQUALS(v1 + v1, (Vector2i{10,  8}));
-			TS_ASSERT_EQUALS(v4 + v2, (Vector2i{ 6, 14}));
+			
+			v4 += v2;
+			
+			TS_ASSERT_EQUALS(v4, (Vector2i{ 6, 14}));
 		}
 		
 		void testSubtraction() {

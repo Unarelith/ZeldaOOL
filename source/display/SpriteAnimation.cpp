@@ -13,9 +13,9 @@
  */
 #include "Sprite.hpp"
 
-void SpriteAnimation::reset(u16 frame) {
+void SpriteAnimation::reset(u16 frameID) {
 	m_timer.reset();
-	m_timer.setTime(frame * m_delay);
+	m_timer.setTime(frameID * m_delay);
 }
 
 void SpriteAnimation::start() {
@@ -39,22 +39,27 @@ void SpriteAnimation::play() {
 	}
 }
 
-u16 SpriteAnimation::getFrameID(u16 frame) const {
-	//if(!isFinished()) {
-		return m_frames[frame];
-	//} else {
-	//	return m_frames[0];
-	//}
+u16 SpriteAnimation::getFrame(u16 frameID) const {
+	return m_frames[frameID];
 }
 
-u16 SpriteAnimation::framesDisplayed() const {
+u16 SpriteAnimation::currentFrame() const {
+	u16 frameID = displayedFramesAmount();
+	if(frameID >= m_frames.size()) {
+		return getFrame(m_frames.size() - 1);
+	} else {
+		return getFrame(frameID);
+	}
+}
+
+u16 SpriteAnimation::displayedFramesAmount() const {
 	return m_timer.time() / m_delay;
 }
 
-const std::pair<s16, s16> SpriteAnimation::currentPosition() const {
+const Vector2f SpriteAnimation::currentPosition() const {
 	if(!isFinished()) {
-		return m_positions[framesDisplayed()];
+		return m_positions[displayedFramesAmount()];
 	} else {
-		return m_positions[m_frames.size() - 1];//return std::pair<s16, s16>(0, 0);
+		return m_positions[m_frames.size() - 1];
 	}
 }

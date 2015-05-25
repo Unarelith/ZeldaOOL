@@ -16,17 +16,17 @@
 
 #include "IntTypes.hpp"
 #include "Movement.hpp"
+#include "Vector2.hpp"
 
 class HurtMovement : public Movement {
 	public:
-		HurtMovement(s16 vx, s16 vy, float speed)
-			: m_vx(vx), m_vy(vy), m_speed(speed) {}
+		HurtMovement(Vector2f v, float speed)
+			: m_v(v), m_speed(speed) {}
 		
 		void process(SceneObject &object) override;
 		
 	private:
-		s16 m_vx;
-		s16 m_vy;
+		Vector2f m_v;
 		
 		float m_speed;
 		float m_oldSpeed;

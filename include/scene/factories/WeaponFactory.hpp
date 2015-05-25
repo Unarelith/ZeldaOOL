@@ -17,10 +17,11 @@
 #include "GameKey.hpp"
 #include "InventoryComponent.hpp"
 #include "SceneObject.hpp"
+#include "Vector2.hpp"
 
 class WeaponFactory {
 	public:
-		static SceneObject create(Weapon &weaponInfos, float x, float y, GameKey key, SceneObject &owner);
+		static SceneObject create(Weapon &weaponInfos, Vector2f position, GameKey key, SceneObject &owner);
 };
 
 #endif // WEAPONFACTORY_HPP_

@@ -14,11 +14,11 @@
 #include "Map.hpp"
 #include "MapAnimator.hpp"
 
-void MapAnimator::updateTile(u16 tileX, u16 tileY, u16 tileID, const Tileset &tileset) {
+void MapAnimator::updateTile(Vector2u16 tile, u16 tileID, const Tileset &tileset) {
 	for(auto &it : tileset.anims()) {
 		for(auto &n : it.frames) {
 			if(tileID == n) {
-				m_animatedTiles.emplace_back(tileX, tileY, n + 1 % it.frames.size(), it);
+				m_animatedTiles.emplace_back(tile, n + 1 % it.frames.size(), it);
 			}
 		}
 	}
@@ -31,7 +31,7 @@ void MapAnimator::animateTiles(Map &map) {
 		}
 		
 		if(it.timer.time() >= it.anim.delay) {
-			map.setTile(it.tileX, it.tileY, it.anim.frames[it.nextFrame % it.anim.frames.size()]);
+			map.setTile(it.tile, it.anim.frames[it.nextFrame % it.anim.frames.size()]);
 			
 			it.nextFrame++;
 			

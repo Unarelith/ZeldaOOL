@@ -39,7 +39,7 @@ void CollectableMovement::process(SceneObject &object) {
 			
 			m_movementCounter += fabs(m_speed);
 			
-			movementComponent.vy = m_speed;
+			movementComponent.v.y = m_speed;
 		} else {
 			m_isFinished = true;
 		}
@@ -48,7 +48,7 @@ void CollectableMovement::process(SceneObject &object) {
 		if(m_movementCounter < 8) {
 			m_movementCounter += 0.125f;
 			
-			movementComponent.vy = -0.125f;
+			movementComponent.v.y = -0.125f;
 		} else {
 			m_isFinished = true;
 		}

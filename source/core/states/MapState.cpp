@@ -27,7 +27,7 @@ MapState::MapState() {
 	ResourceHandler::getInstance().loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
 	ResourceHandler::getInstance().loadConfigFile<MapLoader>("data/config/maps.xml");
 	
-	Map::currentMap = &Map::getMap(0, 0, 0);
+	Map::currentMap = &Map::getMap(0, {0, 0});
 	
 	m_player = PlayerFactory::create(64, 48);
 	Scene::player = &m_player;

@@ -17,13 +17,13 @@
 #include <memory>
 
 #include "Movement.hpp"
+#include "Vector2.hpp"
 
 class MovementComponent {
 	public:
 		MovementComponent(Movement *_movement) : movement(_movement) {}
 		
-		float vx = 0;
-		float vy = 0;
+		Vector2f v = {0.0f, 0.0f};
 		
 		float speed = 0.4f;
 		

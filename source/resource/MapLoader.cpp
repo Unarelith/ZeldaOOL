@@ -27,12 +27,12 @@ void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 			std::string name = mapElement->Attribute("name");
 			std::string tilesetName = mapElement->Attribute("tileset");
 			
-			u16 x = mapElement->IntAttribute("x");
-			u16 y = mapElement->IntAttribute("y");
+			Vector2u16 position = {(u16)mapElement->IntAttribute("x"),
+			                       (u16)mapElement->IntAttribute("y")};
 			
 			Tileset &tileset = handler.get<Tileset>(tilesetName);
 			
-			loadMap(name, area, x, y, tileset, handler);
+			loadMap(name, area, position, tileset, handler);
 			
 			mapElement = mapElement->NextSiblingElement("map");
 		}
@@ -44,7 +44,7 @@ void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 #include "GrassFactory.hpp"
 #include "TilesInfos.hpp"
 
-void MapLoader::loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset &tileset, ResourceHandler &handler) {
+void MapLoader::loadMap(const std::string &name, u16 area, Vector2u16 position, Tileset &tileset, ResourceHandler &handler) {
 	XMLFile doc("data/maps/" + name + ".tmx");
 	
 	XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
@@ -62,17 +62,17 @@ void MapLoader::loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset
 		tileElement = tileElement->NextSiblingElement("tile");
 	}
 	
-	Map &map = handler.add<Map>(makeName(area, x, y), area, x, y, width, height, tileset, data);
-	
-	for(u16 tileY = 0 ; tileY < height ; tileY++) {
-		for(u16 tileX = 0 ; tileX < width ; tileX++) {
-			u16 tileID = map.getTile(tileX, tileY);
+	Map &map = handler.add<Map>(makeName(area, position), area, IntRect{position, width, height}, tileset, data);
+	Vector2u16 tile = {0, 0};
+	for(tile.y = 0 ; tile.y < height ; tile.y++) {
+		for(tile.x = 0 ; tile.x < width ; tile.x++) {
+			u16 tileID = map.getTile(tile);
 			
 			if(tileset.info()[tileID] == TilesInfos::TileType::GrassTile) {
-				map.scene().addObject(GrassFactory::create(tileX, tileY));
+				map.scene().addObject(GrassFactory::create(tile));
 			}
 			else if(tileset.info()[tileID] == TilesInfos::TileType::LowGrassTile) {
-				map.scene().addObject(GrassFactory::create(tileX, tileY, true));
+				map.scene().addObject(GrassFactory::create(tile, true));
 			}
 		}
 	}

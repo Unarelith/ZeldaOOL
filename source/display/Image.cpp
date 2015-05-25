@@ -32,29 +32,33 @@ void Image::load(const std::string &textureName) {
 	m_colorMod = Color(255, 255, 255);
 }
 
-void Image::setClipRect(float x, float y, u16 width, u16 height) {
-	m_clipRect.reset(x, y, width, height);
+void Image::setClipRect(FloatRect rect) {
+	m_clipRect.reset(rect);
 }
 
-void Image::setPosRect(float x, float y, u16 width, u16 height) {
-	m_posRect.reset(x, y, width, height);
+void Image::setPosRect(FloatRect rect) {
+	m_posRect.reset(rect);
 }
 
-void Image::draw(float x, float y, s16 width, s16 height) {
-	if(width == -1) width = m_width;
-	if(height == -1) height = m_height;
+void Image::draw(Vector2f position, s16 width, s16 height) {
+	draw({position, (float)width, (float)height});
+}
+
+void Image::draw(FloatRect rect) {
+	if(rect.width == -1) rect.width = m_width;
+	if(rect.height == -1) rect.height = m_height;
 	
-	setPosRect(x, y, width, height);
+	setPosRect(rect);
 	
 	draw();
 }
 
 void Image::draw() {
 	GLfloat vertices[] = {
-		m_posRect.x,					m_posRect.y,
-		m_posRect.x + m_posRect.width,	m_posRect.y,
-		m_posRect.x + m_posRect.width,	m_posRect.y + m_posRect.height,
-		m_posRect.x,					m_posRect.y + m_posRect.height
+		m_posRect.x,                   m_posRect.y,
+		m_posRect.x + m_posRect.width, m_posRect.y,
+		m_posRect.x + m_posRect.width, m_posRect.y + m_posRect.height,
+		m_posRect.x,                   m_posRect.y + m_posRect.height
 	};
 	
 	FloatRect texRect = FloatRect(
@@ -65,10 +69,10 @@ void Image::draw() {
 	);
 	
 	GLfloat texCoords[] = {
-		texRect.x,					texRect.y,
-		texRect.x + texRect.width,	texRect.y,
-		texRect.x + texRect.width,	texRect.y + texRect.height,
-		texRect.x,					texRect.y + texRect.height
+		texRect.x,                 texRect.y,
+		texRect.x + texRect.width, texRect.y,
+		texRect.x + texRect.width, texRect.y + texRect.height,
+		texRect.x,                 texRect.y + texRect.height
 	};
 	
 	GLfloat colorMod[] = {

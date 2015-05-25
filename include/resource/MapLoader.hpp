@@ -21,10 +21,10 @@ class MapLoader : public ResourceLoader {
 	public:
 		void load(const std::string &xmlFilename, ResourceHandler &handler);
 		
-		void loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset &tileset, ResourceHandler &handler);
+		void loadMap(const std::string &name, u16 area, Vector2u16 position, Tileset &tileset, ResourceHandler &handler);
 		
-		static std::string makeName(u16 area, u16 x, u16 y) {
-			return std::to_string(area) + "-" + std::to_string(x) + "-" + std::to_string(y);
+		static std::string makeName(u16 area, Vector2u16 position) {
+			return std::to_string(area) + "-" + std::to_string(position.x) + "-" + std::to_string(position.y);
 		}
 };
 

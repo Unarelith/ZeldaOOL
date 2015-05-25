@@ -23,13 +23,14 @@
 #include "SpriteComponent.hpp"
 #include "WeaponComponent.hpp"
 
-SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &owner, Weapon &weaponInfos) {
+SceneObject SwordFactory::create(Vector2f position, GameKey key, SceneObject &owner, Weapon &weaponInfos) {
 	SceneObject object;
 	object.set<BehaviourComponent>(new SwordBehaviour);
 	object.set<LifetimeComponent>();
 	object.set<WeaponComponent>(owner, weaponInfos, key, "Sword");
+	object.set<std::string>("Sword");
 	
-	auto &positionComponent = object.set<PositionComponent>(x, y, 16, 16);
+	auto &positionComponent = object.set<PositionComponent>(position, 16, 16);
 	positionComponent.direction = owner.get<PositionComponent>().direction;
 	
 	auto &hitboxesComponent = object.set<HitboxesComponent>();
@@ -53,14 +54,14 @@ SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &own
 	
 	auto &spriteComponent = object.set<SpriteComponent>("animations-sword", 16, 16);
 	
-	std::vector<std::vector<std::pair<s16, s16>>> swordPosition = {
+	std::vector<std::vector<Vector2s16>> swordPosition = {
 		{{-15,   0}, {-13,  15}, {-13,  15}, { -1,  16}, { -1,  16}, { -1,  16}, { -1,  14}},
 		{{ -5, -15}, { 12, -12}, { 12, -12}, { 15,   1}, { 15,   1}, { 15,   1}, { 12,   1}},
 		{{  5, -15}, {-12, -12}, {-12, -12}, {-15,   1}, {-15,   1}, {-15,   1}, {-12,   1}},
 		{{ 14,   4}, { 12, -12}, { 12, -12}, {  0, -15}, {  0, -15}, {  0, -15}, {  0, -11}}
 	};
 	
-	std::vector<std::pair<s16, s16>> spinAttackPosition = {
+	std::vector<Vector2s16> spinAttackPosition = {
 		{ -1,  16}, {-12,  12}, {-15,  1}, {-12, -12},
 		{  0, -15}, { 11, -12}, { 15,  2}, { 13,  13}
 	};

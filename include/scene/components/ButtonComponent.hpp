@@ -18,14 +18,14 @@
 #include <vector>
 
 #include "IntTypes.hpp"
+#include "Vector2.hpp"
 
 class TileChange {
 	public:
-		TileChange(u16 _tileX, u16 _tileY, s16 _oldID, s16 _newID)
-			: tileX(_tileX), tileY(_tileY), oldID(_oldID), newID(_newID) {}
+		TileChange(Vector2u16 _tile, s16 _oldID, u16 _newID)
+			: tile(_tile), oldID(_oldID), newID(_newID) {}
 		
-		u16 tileX;
-		u16 tileY;
+		Vector2u16 tile;
 		
 		s16 oldID;
 		u16 newID;
@@ -33,10 +33,10 @@ class TileChange {
 
 class ButtonComponent {
 	public:
-		void addTileChange(u16 tileX, u16 tileY, u16 newID);
+		void addTileChange(Vector2u16 tile, u16 newID);
 		
-		void pressedAction(u16 buttonTileX, u16 buttonTileY);
-		void releasedAction(u16 buttonTileX, u16 buttonTileY);
+		void pressedAction(Vector2u16 buttonTile);
+		void releasedAction(Vector2u16 buttonTile);
 		
 		const std::vector<TileChange> &tileChanges() const { return m_tileChanges; }
 		

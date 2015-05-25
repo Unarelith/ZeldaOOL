@@ -42,42 +42,32 @@ void CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2, Co
 		auto &position2 = object2.get<PositionComponent>();
 		auto &hitboxes2 = object2.get<HitboxesComponent>();
 		
-		float offset1x = position1.x;
-		float offset1y = position1.y;
-		float offset2x = position2.x;
-		float offset2y = position2.y;
+		Vector2f offset1 = position1.position();
+		Vector2f offset2 = position2.position();
 		
 		if(object1.has<MovementComponent>()) {
-			offset1x += object1.get<MovementComponent>().vx;
-			offset1y += object1.get<MovementComponent>().vy;
+			offset1 += object1.get<MovementComponent>().v;
 		}
 		
 		if(object2.has<MovementComponent>()) {
-			offset2x += object2.get<MovementComponent>().vx;
-			offset2y += object2.get<MovementComponent>().vy;
+			offset2 += object2.get<MovementComponent>().v;
 		}
 		
 		if(object1.has<SpriteComponent>()) {
-			offset1x += object1.get<SpriteComponent>().sprite.currentAnimation().currentPosition().first;
-			offset1y += object1.get<SpriteComponent>().sprite.currentAnimation().currentPosition().second;
+			u16 animID = object1.get<SpriteComponent>().animID;
+			offset1 += object1.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
 		}
 		
 		if(object2.has<SpriteComponent>()) {
-			offset2x += object2.get<SpriteComponent>().sprite.currentAnimation().currentPosition().first;
-			offset2y += object2.get<SpriteComponent>().sprite.currentAnimation().currentPosition().second;
+			u16 animID = object2.get<SpriteComponent>().animID;
+			offset2 += object2.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
 		}
 		
 		for(size_t i = 0; i < hitboxes1.size(); i++)
 			for(size_t j = 0; j < hitboxes2.size(); j++){
 				if(hitboxes1[i].isEnabled && hitboxes2[j].isEnabled) {
-					FloatRect rect1(hitboxes1[i].rect.x + offset1x,
-					                hitboxes1[i].rect.y + offset1y,
-					                hitboxes1[i].rect.width,
-					                hitboxes1[i].rect.height);
-					FloatRect rect2(hitboxes2[j].rect.x + offset2x,
-					                hitboxes2[j].rect.y + offset2y,
-					                hitboxes2[j].rect.width,
-					                hitboxes2[j].rect.height);
+					FloatRect rect1(hitboxes1[i].rect.position() + offset1, hitboxes1[i].rect.width, hitboxes1[i].rect.height);
+					FloatRect rect2(hitboxes2[j].rect.position() + offset2, hitboxes2[j].rect.width, hitboxes2[j].rect.height);
 					
 					if(rect1.intersects(rect2)) {
 						collisionInformations.addInformation(hitboxes1[i], hitboxes2[j]);

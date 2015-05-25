@@ -16,6 +16,7 @@
 
 #include "Map.hpp"
 #include "Transition.hpp"
+#include "Vector2.hpp"
 
 class ScrollingTransition : public Transition {
 	public:
@@ -35,8 +36,7 @@ class ScrollingTransition : public Transition {
 	private:
 		Mode m_mode;
 		
-		float m_vx = 0;
-		float m_vy = 0;
+		Vector2f m_v = {0.0f, 0.0f};
 		
 		Map *m_nextMap = nullptr;
 		

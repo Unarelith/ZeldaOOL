@@ -49,14 +49,14 @@ SceneObject PlayerFactory::create(float x, float y) {
 	
 	auto &spriteComponent = player.set<SpriteComponent>("characters-link", 16, 16);
 	
-	std::vector<std::vector<std::pair<s16, s16>>> usingSwordPosition = {
+	std::vector<std::vector<Vector2s16>> usingSwordPosition = {
 		{{ 0,  0}, { 0,  0}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  0}, { 0,  0}},
 		{{ 0,  0}, { 0,  0}, { 4,  0}, { 4,  0}, { 4,  0}, { 4,  0}, { 0,  0}, { 0,  0}},
 		{{ 0,  0}, { 0,  0}, {-4,  0}, {-4,  0}, {-4,  0}, {-4,  0}, { 0,  0}, { 0,  0}},
 		{{ 0,  0}, { 0,  0}, { 0, -3}, { 0, -3}, { 0, -3}, { 0, -3}, { 0,  0}, { 0,  0}}
 	};
 	
-	std::vector<std::pair<s16, s16>> swordSpinAttackPosition = {
+	std::vector<Vector2s16> swordSpinAttackPosition = {
 		{ 0,  3}, { 0,  3},
 		{-4,  0}, {-4,  0},
 		{ 0, -3}, { 0, -3},
@@ -86,7 +86,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 	
 	auto &inventoryComponent = player.set<InventoryComponent>();
 	inventoryComponent.addWeapon("swordL1");
-	inventoryComponent.equipWeapon(0, 0, GameKey::A);
+	inventoryComponent.equipWeapon({0, 0}, GameKey::A);
 	
 	return player;
 }
@@ -112,50 +112,50 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 		bool directionTest = false;
 		
 		if(i == 0) {
-			velocityTest = movement.vx < 0;
+			velocityTest = movement.v.x < 0;
 			directionTest = position.direction == Direction::Left;
 		}
 		else if(i == 1) {
-			velocityTest = movement.vx > 0;
+			velocityTest = movement.v.x > 0;
 			directionTest = position.direction == Direction::Right;;
 		}
 		else if(i == 2) {
-			velocityTest = movement.vy < 0;
+			velocityTest = movement.v.y < 0;
 			directionTest = position.direction == Direction::Up;
 		}
 		else if(i == 3) {
-			velocityTest = movement.vy > 0;
+			velocityTest = movement.v.y > 0;
 			directionTest = position.direction == Direction::Down;
 		}
 		
-		bool firstPosPassable  = Map::currentMap->passable(position.x + collisionMatrix[i][0], position.y + collisionMatrix[i][1]);
-		bool secondPosPassable = Map::currentMap->passable(position.x + collisionMatrix[i][2], position.y + collisionMatrix[i][3]);
+		bool firstPosPassable  = Map::currentMap->passable({(u16)position.x + collisionMatrix[i][0], (u16)position.y + collisionMatrix[i][1]});
+		bool secondPosPassable = Map::currentMap->passable({(u16)position.x + collisionMatrix[i][2], (u16)position.y + collisionMatrix[i][3]});
 		
 		if(velocityTest && (!firstPosPassable || !secondPosPassable)) {
-			if(i < 2)	movement.vx = 0;
-			else		movement.vy = 0;
+			if(i < 2)	movement.v.x = 0;
+			else		movement.v.y = 0;
 			
 			// If the player is looking at the wall, block it
 			if(directionTest) movement.isBlocked = true;
 			
 			// Test collisions with tile borders in order to shift the player
 			if(!firstPosPassable && secondPosPassable) {
-				if(i < 2 && movement.vy == 0) {
-					movement.vy = 1;
+				if(i < 2 && movement.v.y == 0) {
+					movement.v.y = 1;
 				}
-				else if(movement.vx == 0) {
-					movement.vx = 1;
+				else if(movement.v.x == 0) {
+					movement.v.x = 1;
 				}
 				
 				movement.isBlocked = false;
 			}
 			
 			if(firstPosPassable && !secondPosPassable) {
-				if(i < 2 && movement.vy == 0) {
-					movement.vy = -1;
+				if(i < 2 && movement.v.y == 0) {
+					movement.v.y = -1;
 				}
-				else if(movement.vx == 0) {
-					movement.vx = -1;
+				else if(movement.v.x == 0) {
+					movement.v.x = -1;
 				}
 				
 				movement.isBlocked = false;
@@ -164,30 +164,26 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 	}
 	
 	auto onTile = [position](u16 tile) {
-		return (Map::currentMap->isTile(position.x + 6, position.y + 11, tile) 
-			&&  Map::currentMap->isTile(position.x + 7, position.y + 11, tile) 
-			&&  Map::currentMap->isTile(position.x + 6, position.y + 12, tile) 
-			&&  Map::currentMap->isTile(position.x + 7, position.y + 12, tile));
+		return (Map::currentMap->isTile({(u16)position.x + 6, (u16)position.y + 11}, tile) 
+			&&  Map::currentMap->isTile({(u16)position.x + 7, (u16)position.y + 11}, tile) 
+			&&  Map::currentMap->isTile({(u16)position.x + 6, (u16)position.y + 12}, tile) 
+			&&  Map::currentMap->isTile({(u16)position.x + 7, (u16)position.y + 12}, tile));
 	};
 	
 	if(onTile(TilesInfos::TileType::SlowingTile)) {
-		movement.vx /= 2;
-		movement.vy /= 2;
+		movement.v /= 2;
 	}
 	
 	if(onTile(TilesInfos::TileType::LowGrassTile)) {
-		movement.vx /= 4;
-		movement.vx *= 3;
-		
-		movement.vy /= 4;
-		movement.vy *= 3;
+		movement.v /= 4;
+		movement.v *= 3;
 	}
 	
 	if(position.x < -3) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingLeft);
 	}
-	else if(position.x + 13 > Map::currentMap->width() * 16) {
+	else if(position.x + 13 > Map::currentMap->rect().width * 16) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingRight);
 	}
@@ -195,7 +191,7 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingUp);
 	}
-	else if(position.y + 15 > Map::currentMap->height() * 16) {
+	else if(position.y + 15 > Map::currentMap->rect().height * 16) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingDown);
 	}

@@ -34,13 +34,11 @@ void MovementSystem::process(SceneObject &object) {
 		auto &position = object.get<PositionComponent>();
 		auto &movement = object.get<MovementComponent>();
 		
-		movement.isMoving = (movement.vx || movement.vy) ? true : false;
+		movement.isMoving = (movement.v.x || movement.v.y) ? true : false;
 		
-		position.move(movement.vx * movement.speed,
-		              movement.vy * movement.speed);
+		position.move(movement.v * movement.speed);
 		
-		movement.vx = 0;
-		movement.vy = 0;
+		movement.v = 0;
 	}
 }
 

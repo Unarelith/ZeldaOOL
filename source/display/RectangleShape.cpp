@@ -15,17 +15,17 @@
 #include "RectangleShape.hpp"
 #include "Shader.hpp"
 
-RectangleShape::RectangleShape(float x, float y, u16 width, u16 height) {
-	move(x, y);
+RectangleShape::RectangleShape(Vector2f position, u16 width, u16 height) {
+	move(position);
 	resize(width, height);
 }
 
 void RectangleShape::draw(Color color, bool wireframe) {
 	GLfloat vertices[] = {
-		m_x,			m_y,
-		m_x + m_width,	m_y,
-		m_x + m_width,	m_y + m_height,
-		m_x,			m_y + m_height
+		m_position.x,           m_position.y,
+		m_position.x + m_width, m_position.y,
+		m_position.x + m_width, m_position.y + m_height,
+		m_position.x,           m_position.y + m_height
 	};
 	
 	GLfloat colors[] = {

@@ -16,6 +16,7 @@
 
 #include "Color.hpp"
 #include "Sprite.hpp"
+#include "Vector2.hpp"
 
 class Font {
 	public:
@@ -24,8 +25,8 @@ class Font {
 		
 		void load(const std::string &filename, u16 charWidth, u16 charHeight);
 		
-		void drawChar(float x, float y, u8 c, Color color = Color::white);
-		void drawString(float x, float y, const std::string &str, Color color = Color::white);
+		void drawChar(Vector2f position, u8 c, Color color = Color::white);
+		void drawString(Vector2f position, const std::string &str, Color color = Color::white);
 		
 		u16 charWidth() const { return m_sprite.frameWidth(); }
 		u16 charHeight() const { return m_sprite.frameHeight(); }

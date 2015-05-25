@@ -35,12 +35,12 @@ void MessageBox::update() {
 void MessageBox::draw() {
 	m_rectangle.draw();
 	
-	m_textBox.draw(m_rectangle.x(), m_rectangle.y(), m_rectangle.width(), m_rectangle.height());
+	m_textBox.draw({m_rectangle.position(), m_rectangle.width(), m_rectangle.height()});
 	
 	if(m_textBox.textDisplayFinished() && !m_textBox.isAtLastPage()
 	&& m_textBox.charTimerTime() % 540 > 269) {
-		m_dialogArrow.draw(m_rectangle.x() + m_rectangle.width()  - 8,
-		                   m_rectangle.y() + m_rectangle.height() - 7);
+		m_dialogArrow.draw({m_rectangle.position().x + m_rectangle.width()  - 8,
+		                   m_rectangle.position().y + m_rectangle.height() - 7});
 	}
 }
 

@@ -15,10 +15,11 @@
 #define BUTTONFACTORY_HPP_
 
 #include "SceneObject.hpp"
+#include "Vector2.hpp"
 
 class ButtonFactory {
 	public:
-		static SceneObject create(u16 tileX, u16 tileY);
+		static SceneObject create(Vector2u16);
 };
 
 #endif // BUTTONFACTORY_HPP_

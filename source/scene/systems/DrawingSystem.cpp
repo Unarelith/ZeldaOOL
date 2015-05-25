@@ -23,7 +23,7 @@
 
 void DrawingSystem::draw(SceneObject &object) {
 	if(object.has<PositionComponent>()) {
-		auto &position = object.get<PositionComponent>();
+		auto &positionComponent = object.get<PositionComponent>();
 		
 		if(object.has<LifetimeComponent>()) {
 			auto &lifetime = object.get<LifetimeComponent>();
@@ -31,15 +31,15 @@ void DrawingSystem::draw(SceneObject &object) {
 		}
 		
 		if(object.has<Image>()) {
-			object.get<Image>().draw(position.x, position.y);
+			object.get<Image>().draw(positionComponent.position());
 		}
 		
 		if(object.has<Sprite>()) {
-			drawSprite(object, position.x, position.y);
+			drawSprite(object, positionComponent.position());
 		}
 		
 		if(object.has<SpriteComponent>()) {
-			drawSpriteComponent(object, position.x, position.y);
+			drawSpriteComponent(object, positionComponent.position());
 		}
 		
 		if(object.has<HitboxesComponent>()) {
@@ -48,13 +48,12 @@ void DrawingSystem::draw(SceneObject &object) {
 			
 			for(auto& hitbox : hitboxes) {
 				if(hitbox.isEnabled) {
-					rect.setPosition(position.x + hitbox.rect.x, position.y + hitbox.rect.y);
+					rect.setPosition(positionComponent.position() + hitbox.rect.position());
 					rect.resize(hitbox.rect.width, hitbox.rect.height);
 					
 					if(object.has<SpriteComponent>()) {
 						u16 animID = object.get<SpriteComponent>().animID;
-						rect.move(object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition().first,
-						          object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition().second);
+						rect.move(object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition());
 					}
 					
 					if(object.has<std::string>() && object.get<std::string>() == "Sword") {
@@ -68,7 +67,7 @@ void DrawingSystem::draw(SceneObject &object) {
 	}
 }
 
-void DrawingSystem::drawSprite(SceneObject &object, float x, float y) {
+void DrawingSystem::drawSprite(SceneObject &object, Vector2f position) {
 	bool animated = false;
 	u16 animID = 0;
 	
@@ -81,20 +80,21 @@ void DrawingSystem::drawSprite(SceneObject &object, float x, float y) {
 	}
 	
 	if(animated) {
-		object.get<Sprite>().playAnimation(x, y, animID);
+		object.get<Sprite>().playAnimation(position, animID);
 	} else {
-		object.get<Sprite>().drawFrame(x, y, animID);
+		object.get<Sprite>().drawFrame(position, animID);
 	}
 }
 
-void DrawingSystem::drawSpriteComponent(SceneObject &object, float x, float y) {
+void DrawingSystem::drawSpriteComponent(SceneObject &object, Vector2f position) {
 	auto &sprite = object.get<SpriteComponent>();
 	
 	if(!sprite.isDisabled) {
 		if(sprite.isAnimated) {
-			sprite.sprite.playAnimation(x, y, sprite.animID);
+			sprite.sprite.playAnimation(position, sprite.animID);
 		} else {
-			sprite.sprite.drawAnimationFrame(x, y, sprite.animID, sprite.frameID);
+			sprite.sprite.currentAnimation().stop();
+			sprite.sprite.drawAnimationFrame(position, sprite.animID, sprite.frameID);
 		}
 	}
 }

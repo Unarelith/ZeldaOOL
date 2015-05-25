@@ -14,6 +14,8 @@
 #ifndef COLLISIONSYSTEM_HPP_
 #define COLLISIONSYSTEM_HPP_
 
+#include "Vector2.hpp"
+
 #include "SceneObject.hpp"
 #include "HitboxesComponent.hpp"
 

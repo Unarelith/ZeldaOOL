@@ -15,10 +15,11 @@
 #define GRASSFACTORY_HPP_
 
 #include "SceneObject.hpp"
+#include "Vector2.hpp"
 
 class GrassFactory {
 	public:
-		static SceneObject create(u16 tileX, u16 tileY, bool lowGrass = false);
+		static SceneObject create(Vector2u16 tile, bool lowGrass = false);
 };
 
 #endif // GRASSFACTORY_HPP_

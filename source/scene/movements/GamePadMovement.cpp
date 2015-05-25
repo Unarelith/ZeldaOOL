@@ -22,7 +22,7 @@ void GamePadMovement::process(SceneObject &object) {
 	auto &positionComponent = object.get<PositionComponent>();
 	
 	if(GamePad::isKeyPressed(GameKey::Left)) {
-		movementComponent.vx = -1;
+		movementComponent.v.x = -1;
 		
 		if(!GamePad::isKeyPressed(GameKey::Right)
 		&& !GamePad::isKeyPressed(GameKey::Up)
@@ -32,7 +32,7 @@ void GamePadMovement::process(SceneObject &object) {
 		}
 	}
 	else if(GamePad::isKeyPressed(GameKey::Right)) {
-		movementComponent.vx = 1;
+		movementComponent.v.x = 1;
 		
 		if(!GamePad::isKeyPressed(GameKey::Left)
 		&& !GamePad::isKeyPressed(GameKey::Up)
@@ -43,7 +43,7 @@ void GamePadMovement::process(SceneObject &object) {
 	}
 	
 	if(GamePad::isKeyPressed(GameKey::Up)) {
-		movementComponent.vy = -1;
+		movementComponent.v.y = -1;
 		
 		if(!GamePad::isKeyPressed(GameKey::Left)
 		&& !GamePad::isKeyPressed(GameKey::Right)
@@ -53,7 +53,7 @@ void GamePadMovement::process(SceneObject &object) {
 		}
 	}
 	else if(GamePad::isKeyPressed(GameKey::Down)) {
-		movementComponent.vy = 1;
+		movementComponent.v.y = 1;
 		
 		if(!GamePad::isKeyPressed(GameKey::Left)
 		&& !GamePad::isKeyPressed(GameKey::Right)
@@ -65,8 +65,7 @@ void GamePadMovement::process(SceneObject &object) {
 	
 	if((GamePad::isKeyPressed(GameKey::Left) || GamePad::isKeyPressed(GameKey::Right))
 	&& (GamePad::isKeyPressed(GameKey::Up)   || GamePad::isKeyPressed(GameKey::Down))) {
-		movementComponent.vx /= 1.4;
-		movementComponent.vy /= 1.4;
+		movementComponent.v /= 1.4;
 	}
 }
 

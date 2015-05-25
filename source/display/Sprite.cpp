@@ -31,44 +31,41 @@ void Sprite::addAnimation(std::vector<u16> frames, u16 delay) {
 	m_animations.emplace_back(frames, delay);
 }
 
-void Sprite::addAnimation(std::vector<u16> frames, std::vector<std::pair<s16, s16>> positions, u16 delay) {
+void Sprite::addAnimation(std::vector<u16> frames, std::vector<Vector2s16> positions, u16 delay) {
 	m_animations.emplace_back(frames, positions, delay);
 }
 
-void Sprite::drawFrame(float x, float y, u16 frame) {
+void Sprite::drawFrame(Vector2f position, u16 frame) {
 	u16 frameX = frame % (width() / m_frameWidth);
 	u16 frameY = frame / (width() / m_frameWidth);
 	
-	setClipRect(frameX * m_frameWidth, frameY * m_frameHeight, m_frameWidth, m_frameHeight);
+	setClipRect(FloatRect{frameX * m_frameWidth, frameY * m_frameHeight, m_frameWidth, m_frameHeight});
 	
-	draw(x, y, m_frameWidth, m_frameHeight);
+	draw(position, m_frameWidth, m_frameHeight);
 }
 
-void Sprite::drawAnimationFrame(float x, float y, u16 anim, s16 frame) {
-	u16 frameID;
-	if(frame == -1) {
-		frameID = m_animations[anim].currentFrameID();
+void Sprite::drawAnimationFrame(Vector2f position, u16 animID, s16 frameID) {
+	u16 frame;
+	if(frameID == -1) {
+		frame = m_animations[animID].currentFrame();
 	} else {
-		frameID = m_animations[anim].getFrameID(frame);
+		frame = m_animations[animID].getFrame(frameID);
 	}
 	
-	x += m_animations[anim].currentPosition().first;
-	y += m_animations[anim].currentPosition().second;
+	position += m_animations[animID].currentPosition();
 	
-	m_lastDrawedFrameID = frameID; // TODO try to fix the function "currentAnimation()" and erase this line.
+	m_currentAnimation = animID;
 	
-	drawFrame(x, y, frameID);
+	drawFrame(position, frame);
 }
 
-void Sprite::playAnimation(float x, float y, u16 anim) {
-	if(anim > m_animations.size()) {
-		throw EXCEPTION("Trying to play inexistant animation:", anim, "| Animations:", m_animations.size());
+void Sprite::playAnimation(Vector2f position, u16 animID) {
+	if(animID > m_animations.size()) {
+		throw EXCEPTION("Trying to play inexistant animation:", animID, "| Animations:", m_animations.size());
 	}
 	
-	m_currentAnimation = anim;
+	m_animations[animID].play();
 	
-	m_animations[anim].play();
-	
-	drawAnimationFrame(x, y, anim);
+	drawAnimationFrame(position, animID);
 }
 
