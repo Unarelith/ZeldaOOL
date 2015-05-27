@@ -17,15 +17,12 @@
 void HurtMovement::process(SceneObject &object) {
 	auto &movement = object.get<MovementComponent>();
 	
-	m_oldSpeed = movement.speed;
-	movement.speed = m_speed;
-	
 	if(m_movementCounter < 16) {
-		movement.v = m_v;
+		movement.v = {m_vx, m_vy};
 		
-		m_movementCounter += m_speed;
+		m_movementCounter += movement.speed;
 	} else {
-		movement.speed = m_oldSpeed;
+		m_isFinished = true;
 	}
 }
 

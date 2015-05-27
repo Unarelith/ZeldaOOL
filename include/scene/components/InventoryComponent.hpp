@@ -14,7 +14,7 @@
 #ifndef INVENTORYCOMPONENT_HPP_
 #define INVENTORYCOMPONENT_HPP_
 
-#include <map>
+#include <array>
 #include <string>
 
 #include "GameKey.hpp"

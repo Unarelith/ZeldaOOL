@@ -40,9 +40,9 @@ SceneObject TeleporterFactory::create(float tileX, float tileY) {
 }
 
 void teleporterAction(SceneObject &teleporter, SceneObject &object, CollisionInformations &collisionInformations) {
-	static bool playerOnDoor = false;
-	
 	auto &teleporterComponent = teleporter.get<TeleporterComponent>();
+	
+	static bool playerOnDoor = false;
 	
 	if(Scene::isPlayer(object)) {
 		if(!collisionInformations.empty()) {

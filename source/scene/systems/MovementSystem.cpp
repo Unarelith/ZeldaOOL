@@ -21,7 +21,9 @@ void MovementSystem::process(SceneObject &object) {
 	if(object.has<MovementComponent>()) {
 		auto &movement = object.get<MovementComponent>();
 		
-		if(movement.movement) movement.movement->process(object);
+		if(!movement.movements.empty() && movement.movements.top()) {
+			movement.movements.top()->process(object);
+		}
 		
 		movement.isBlocked = false;
 	}

@@ -19,6 +19,8 @@
 
 #include "CollisionComponent.hpp"
 #include "EffectsComponent.hpp"
+#include "HealthComponent.hpp"
+#include "HitboxesComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 
@@ -28,15 +30,18 @@ SceneObject OctorokFactory::create(float x, float y) {
 	SceneObject object;
 	object.set<PositionComponent>(x, y, 16, 16);
 	object.set<MovementComponent>(new OctorokMovement);
+	object.set<HealthComponent>(2);
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
-	
 	collisionComponent.addChecker(&PlayerFactory::mapCollisions);
 	collisionComponent.addChecker([](SceneObject &object) {
 		Map::currentMap->scene().checkCollisionsFor(object);
 	});
 	
 	collisionComponent.addAction(&octorokAction);
+	
+	auto &hitboxesComponent = object.set<HitboxesComponent>();
+	hitboxesComponent.addHitbox(IntRect(0, 0, 16, 16));
 	
 	auto &effectsComponent = object.set<EffectsComponent>();
 	effectsComponent.addEffect("grass", "animations-grassEffect");
@@ -51,17 +56,18 @@ SceneObject OctorokFactory::create(float x, float y) {
 	return object;
 }
 
+#include "BattleSystem.hpp"
+#include "WeaponComponent.hpp"
+
 void octorokAction(SceneObject &octorok, SceneObject &object, CollisionInformations &collisionInformations) {
 	if(Scene::isPlayer(object) && !collisionInformations.empty()) {
-		auto &playerPosition = object.get<PositionComponent>();
-		auto &octorokPosition = octorok.get<PositionComponent>();
-		
-		Vector2f v = playerPosition.position() - octorokPosition.position();
-		
-		if(v.x != 0) v.x /= abs(v.x);
-		if(v.y != 0) v.y /= abs(v.y);
-		
-		// Player::player.hurt(1, vx, vy);
+		BattleSystem::hurt(octorok, object);
+	}
+	else if(object.has<WeaponComponent>()) {
+		// auto &weaponComponent = object.get<WeaponComponent>();
+		// if(weaponComponent.weaponInfos.strength()) {
+			BattleSystem::hurt(object, octorok);
+		// }
 	}
 }
 

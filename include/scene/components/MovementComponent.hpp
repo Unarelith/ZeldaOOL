@@ -15,13 +15,16 @@
 #define MOVEMENTCOMPONENT_HPP_
 
 #include <memory>
+#include <stack>
 
 #include "Movement.hpp"
 #include "Vector2.hpp"
 
 class MovementComponent {
 	public:
-		MovementComponent(Movement *_movement) : movement(_movement) {}
+		MovementComponent(Movement *_movement) {
+			movements.emplace(_movement);
+		}
 		
 		Vector2f v{0, 0};
 		
@@ -31,7 +34,7 @@ class MovementComponent {
 		
 		bool isBlocked = false;
 		
-		std::unique_ptr<Movement> movement;
+		std::stack<std::unique_ptr<Movement>> movements;
 };
 
 #endif // MOVEMENTCOMPONENT_HPP_

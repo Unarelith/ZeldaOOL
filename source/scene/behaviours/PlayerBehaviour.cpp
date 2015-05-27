@@ -45,18 +45,20 @@ void PlayerBehaviour::action(SceneObject &player) {
 		weaponAction(player);
 	}
 	else if(m_state == "Sword") {
+		// FIXME: movement.reset is called EVERY FRAME
+		// Plus, use the stack instead of reset
 		std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
 		if(swordState == "Swinging" || swordState == "SpinAttack") {
-			movement.movement.reset(nullptr);
+			movement.movements.top().reset(nullptr);
 		}
 		else if(swordState == "Loading") {
-			movement.movement.reset(new GamePadMovement(true));
+			movement.movements.top().reset(new GamePadMovement(true));
 		}
 		else if(swordState == "Finished") {
 			m_weapon->get<LifetimeComponent>().kill();
 			m_weapon = nullptr;
 			
-			movement.movement.reset(new GamePadMovement);
+			movement.movements.top().reset(new GamePadMovement);
 			
 			m_state = "Standing";
 		}

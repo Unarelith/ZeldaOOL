@@ -41,7 +41,7 @@ void ChestOpeningState::update() {
 		MovementSystem::process(*m_item);
 		
 		auto &movementComponent = m_item->get<MovementComponent>();
-		if(movementComponent.movement->isFinished()) {
+		if(movementComponent.movements.top()->isFinished()) {
 			m_state = State::Opened;
 		}
 	}

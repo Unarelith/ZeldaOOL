@@ -27,7 +27,7 @@ SceneObject ButtonFactory::create(u16 tileX, u16 tileY) {
 	object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 	
 	auto &hitboxesComponent = object.set<HitboxesComponent>();
-	hitboxesComponent.addHitbox(Hitbox(IntRect(4, 4, 8, 8)));
+	hitboxesComponent.addHitbox(IntRect(4, 4, 8, 8));
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addAction(&buttonAction);

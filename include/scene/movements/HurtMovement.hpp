@@ -20,16 +20,14 @@
 
 class HurtMovement : public Movement {
 	public:
-		HurtMovement(Vector2f v, float speed)
-			: m_v(v), m_speed(speed) {}
+		HurtMovement(float vx, float vy)
+			: m_vx(vx), m_vy(vy) {}
 		
 		void process(SceneObject &object) override;
 		
 	private:
-		Vector2f m_v;
-		
-		float m_speed;
-		float m_oldSpeed;
+		float m_vx;
+		float m_vy;
 		
 		float m_movementCounter = 0;
 };

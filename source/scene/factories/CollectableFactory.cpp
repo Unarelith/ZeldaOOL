@@ -20,6 +20,7 @@
 #include "Image.hpp"
 #include "CollectableComponent.hpp"
 #include "CollisionComponent.hpp"
+#include "HealthComponent.hpp"
 #include "InventoryComponent.hpp"
 #include "LifetimeComponent.hpp"
 #include "MovementComponent.hpp"
@@ -41,15 +42,15 @@ SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, co
 	collisionComponent.addAction(&collectableAction);
 	
 	auto &hitboxesComponent = object.set<HitboxesComponent>();
-	hitboxesComponent.addHitbox(Hitbox(IntRect(0, 0, image.width(), image.height())));
+	hitboxesComponent.addHitbox(IntRect(0, 0, image.width(), image.height()));
 	
 	return object;
 }
 
 SceneObject CollectableFactory::createHeart(u16 x, u16 y, CollectableMovement::Type movementType) {
 	SceneObject object = create(x, y, "heart", "getHeart", movementType);
-	object.get<CollectableComponent>().setAction([](SceneObject &) {
-		// Player::player.addHearts(1);
+	object.get<CollectableComponent>().setAction([](SceneObject &player) {
+		player.get<HealthComponent>().life++;
 	});
 	
 	return object;

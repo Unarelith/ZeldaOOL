@@ -24,6 +24,7 @@
 #include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
 #include "EffectsComponent.hpp"
+#include "HealthComponent.hpp"
 #include "InventoryComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
@@ -33,6 +34,7 @@
 SceneObject PlayerFactory::create(float x, float y) {
 	SceneObject player;
 	player.set<BehaviourComponent>(new PlayerBehaviour);
+	player.set<HealthComponent>(13 * 4, 11 * 4);
 	player.set<MovementComponent>(new GamePadMovement);
 	player.set<SceneObjectList>();
 	
@@ -40,7 +42,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 	positionComponent.direction = Direction::Down;
 	
 	auto &hitboxesComponent = player.set<HitboxesComponent>();
-	hitboxesComponent.addHitbox(Hitbox(IntRect(4, 5, 8, 10)));
+	hitboxesComponent.addHitbox(IntRect(4, 5, 8, 10));
 	
 	auto &collisionComponent = player.set<CollisionComponent>();
 	collisionComponent.addChecker(&PlayerFactory::mapCollisions);

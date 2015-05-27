@@ -11,16 +11,17 @@
  *
  * =====================================================================================
  */
+#include "GameClock.hpp"
 #include "DrawingSystem.hpp"
+#include "RectangleShape.hpp"
 
 #include "EffectsComponent.hpp"
+#include "HealthComponent.hpp"
 #include "HitboxesComponent.hpp"
 #include "LifetimeComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
-
-#include "RectangleShape.hpp"
 
 void DrawingSystem::draw(SceneObject &object) {
 	if(object.has<PositionComponent>()) {
@@ -103,10 +104,23 @@ void DrawingSystem::drawSprite(SceneObject &object, float x, float y) {
 		animID += static_cast<s8>(object.get<PositionComponent>().direction);
 	}
 	
+	auto &sprite = object.get<Sprite>();
+	
+	if(object.has<HealthComponent>()
+	&& object.get<HealthComponent>().isHurt
+	&& GameClock::getTicks() % 150 < 75) {
+		sprite.setPaletteID(1);
+	}
+	
 	if(animated) {
-		object.get<Sprite>().playAnimation(x, y, animID);
+		sprite.playAnimation(x, y, animID);
 	} else {
-		object.get<Sprite>().drawFrame(x, y, animID);
+		sprite.drawFrame(x, y, animID);
+	}
+	
+	if(object.has<HealthComponent>()
+	&& object.get<HealthComponent>().isHurt) {
+		sprite.setPaletteID(0);
 	}
 }
 
@@ -114,10 +128,21 @@ void DrawingSystem::drawSpriteComponent(SceneObject &object, float x, float y) {
 	auto &sprite = object.get<SpriteComponent>();
 	
 	if(!sprite.isDisabled) {
+		if(object.has<HealthComponent>()
+		&& object.get<HealthComponent>().isHurt
+		&& GameClock::getTicks() % 150 < 75) {
+			sprite.sprite.setPaletteID(1);
+		}
+		
 		if(sprite.isAnimated) {
 			sprite.sprite.playAnimation(x, y, sprite.animID);
 		} else {
 			sprite.sprite.drawAnimationFrame(x, y, sprite.animID, sprite.frameID);
+		}
+		
+		if(object.has<HealthComponent>()
+		&& object.get<HealthComponent>().isHurt) {
+			sprite.sprite.setPaletteID(0);
 		}
 	}
 }
