@@ -45,23 +45,35 @@ void PlayerBehaviour::action(SceneObject &player) {
 		weaponAction(player);
 	}
 	else if(m_state == "Sword") {
-		// FIXME: movement.reset is called EVERY FRAME
-		// Plus, use the stack instead of reset
+		// FIXME: When sword is used and player is hurt at the same time
+		// the player stays hurt, because it has not the right movement
+		static std::string oldSwordState;
 		std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
-		if(swordState == "Swinging" || swordState == "SpinAttack") {
-			movement.movements.top().reset(nullptr);
+		if(swordState != oldSwordState) {
+			if(swordState == "Swinging") {
+				movement.movements.emplace(nullptr);
+			}
+			else if(swordState == "Loading") {
+				movement.movements.top().reset(new GamePadMovement);
+				
+				movement.isDirectionLocked = true;
+			}
+			else if(swordState == "SpinAttack") {
+				movement.movements.top().reset(nullptr);
+				
+				movement.isDirectionLocked = false;
+			}
+			else if(swordState == "Finished") {
+				m_weapon->get<LifetimeComponent>().kill();
+				m_weapon = nullptr;
+				
+				movement.movements.pop();
+				
+				m_state = "Standing";
+			}
 		}
-		else if(swordState == "Loading") {
-			movement.movements.top().reset(new GamePadMovement(true));
-		}
-		else if(swordState == "Finished") {
-			m_weapon->get<LifetimeComponent>().kill();
-			m_weapon = nullptr;
-			
-			movement.movements.top().reset(new GamePadMovement);
-			
-			m_state = "Standing";
-		}
+		
+		oldSwordState = swordState;
 	} else {
 		throw EXCEPTION("Unknown player state:", m_state);
 	}

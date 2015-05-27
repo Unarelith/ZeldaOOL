@@ -28,9 +28,9 @@ void octorokAction(SceneObject &octorok, SceneObject &object, CollisionInformati
 
 SceneObject OctorokFactory::create(float x, float y) {
 	SceneObject object;
+	object.set<HealthComponent>(2);
 	object.set<PositionComponent>(x, y, 16, 16);
 	object.set<MovementComponent>(new OctorokMovement);
-	object.set<HealthComponent>(2);
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addChecker(&PlayerFactory::mapCollisions);
@@ -60,14 +60,16 @@ SceneObject OctorokFactory::create(float x, float y) {
 #include "WeaponComponent.hpp"
 
 void octorokAction(SceneObject &octorok, SceneObject &object, CollisionInformations &collisionInformations) {
-	if(Scene::isPlayer(object) && !collisionInformations.empty()) {
-		BattleSystem::hurt(octorok, object);
-	}
-	else if(object.has<WeaponComponent>()) {
-		// auto &weaponComponent = object.get<WeaponComponent>();
-		// if(weaponComponent.weaponInfos.strength()) {
-			BattleSystem::hurt(object, octorok);
-		// }
+	if(!collisionInformations.empty()) {
+		if(Scene::isPlayer(object)) {
+			BattleSystem::hurt(octorok, object);
+		}
+		else if(object.has<WeaponComponent>()) {
+			// auto &weaponComponent = object.get<WeaponComponent>();
+			// if(weaponComponent.weaponInfos.strength()) {
+				BattleSystem::hurt(object, octorok);
+			// }
+		}
 	}
 }
 

@@ -31,8 +31,8 @@ class MovementComponent {
 		float speed = 0.4f;
 		
 		bool isMoving = false;
-		
 		bool isBlocked = false;
+		bool isDirectionLocked = false;
 		
 		std::stack<std::unique_ptr<Movement>> movements;
 };

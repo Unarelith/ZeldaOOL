@@ -18,13 +18,7 @@
 
 class GamePadMovement : public Movement {
 	public:
-		GamePadMovement(bool directionLocked = false)
-			: m_directionLocked(directionLocked) {}
-		
 		void process(SceneObject &object) override;
-		
-	private:
-		bool m_directionLocked;
 };
 
 #endif // GAMEPADMOVEMENT_HPP_
