@@ -25,6 +25,7 @@ class HealthComponent {
 		u8 life = 0;
 		
 		bool isHurt = false;
+		bool isDead = false;
 };
 
 #endif // HEALTHCOMPONENT_HPP_

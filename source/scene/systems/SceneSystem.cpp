@@ -18,6 +18,8 @@
 #include "MovementSystem.hpp"
 #include "SceneSystem.hpp"
 
+#include "HealthComponent.hpp"
+
 void SceneSystem::reset(SceneObjectList &objectList) {
 	for(auto &object : objectList) resetObject(object);
 }
@@ -37,14 +39,16 @@ void SceneSystem::resetObject(SceneObject &object) {
 }
 
 void SceneSystem::updateObject(SceneObject &object) {
-	MovementSystem::process(object);
-	
-	BattleSystem::update(object);
-	
-	BehaviourSystem::process(object);
-	
-	if(object.has<SceneObjectList>()) {
-		update(object.get<SceneObjectList>());
+	if(!object.has<HealthComponent>() || !object.get<HealthComponent>().isDead) {
+		MovementSystem::process(object);
+		
+		BattleSystem::update(object);
+		
+		BehaviourSystem::process(object);
+		
+		if(object.has<SceneObjectList>()) {
+			update(object.get<SceneObjectList>());
+		}
 	}
 }
 

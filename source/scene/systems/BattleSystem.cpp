@@ -13,6 +13,7 @@
  */
 #include <cmath>
 
+#include "AudioPlayer.hpp"
 #include "BattleSystem.hpp"
 #include "HurtMovement.hpp"
 
@@ -25,10 +26,17 @@ void BattleSystem::update(SceneObject &object) {
 		auto &health = object.get<HealthComponent>();
 		auto &movements = object.get<MovementComponent>().movements;
 		
-		if(!movements.empty() && movements.top() && movements.top()->isFinished()) {
-			movements.pop();
-			
+		if(health.isHurt && !movements.empty() && movements.top() && movements.top()->isFinished()) {
 			health.isHurt = false;
+			
+			if(health.life > 0) {
+				movements.pop();
+			}
+			else if(object.type() == "Monster") {
+				health.isDead = true;
+				
+				AudioPlayer::playEffect("enemyDie");
+			}
 		}
 	}
 }
@@ -37,7 +45,7 @@ void BattleSystem::hurt(SceneObject &attacker, SceneObject &receiver) {
 	if(receiver.has<HealthComponent>()) {
 		auto &receiverHealth = receiver.get<HealthComponent>();
 		
-		if(!receiverHealth.isHurt) {
+		if(!receiverHealth.isHurt && !receiverHealth.isDead) {
 			if(receiver.has<MovementComponent>()) {
 				auto &attackerPosition = attacker.get<PositionComponent>();
 				auto &receiverPosition = receiver.get<PositionComponent>();

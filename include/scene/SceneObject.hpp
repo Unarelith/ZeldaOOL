@@ -24,7 +24,9 @@
 
 class SceneObject {
 	public:
-		SceneObject() = default;
+		SceneObject(const std::string &name = "null", const std::string &type = "null")
+			: m_name(name), m_type(type) {}
+		
 		SceneObject(const SceneObject &) = delete;
 		SceneObject(SceneObject &&) = default;
 		
@@ -65,7 +67,13 @@ class SceneObject {
 			DEBUG("=== End of list. ===");
 		}
 		
+		const std::string &name() const { return m_name; }
+		const std::string &type() const { return m_type; }
+		
 	private:
+		std::string m_name;
+		std::string m_type;
+		
 		std::map<std::type_index, std::shared_ptr<void>> m_components;
 };
 

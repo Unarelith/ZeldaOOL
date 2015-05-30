@@ -27,33 +27,33 @@
 void octorokAction(SceneObject &octorok, SceneObject &object, CollisionInformations& collisionInformations);
 
 SceneObject OctorokFactory::create(float x, float y) {
-	SceneObject object;
-	object.set<HealthComponent>(2);
-	object.set<PositionComponent>(x, y, 16, 16);
-	object.set<MovementComponent>(new OctorokMovement);
+	SceneObject octorok("Octorok", "Monster");
+	octorok.set<HealthComponent>(2);
+	octorok.set<PositionComponent>(x, y, 16, 16);
+	octorok.set<MovementComponent>(new OctorokMovement);
 	
-	auto &collisionComponent = object.set<CollisionComponent>();
+	auto &collisionComponent = octorok.set<CollisionComponent>();
 	collisionComponent.addChecker(&PlayerFactory::mapCollisions);
-	collisionComponent.addChecker([](SceneObject &object) {
-		Map::currentMap->scene().checkCollisionsFor(object);
+	collisionComponent.addChecker([](SceneObject &octorok) {
+		Map::currentMap->scene().checkCollisionsFor(octorok);
 	});
 	
 	collisionComponent.addAction(&octorokAction);
 	
-	auto &hitboxesComponent = object.set<HitboxesComponent>();
+	auto &hitboxesComponent = octorok.set<HitboxesComponent>();
 	hitboxesComponent.addHitbox(IntRect(0, 0, 16, 16));
 	
-	auto &effectsComponent = object.set<EffectsComponent>();
+	auto &effectsComponent = octorok.set<EffectsComponent>();
 	effectsComponent.addEffect("grass", "animations-grassEffect");
 	effectsComponent.addEffect("lowWater", "animations-lowWaterEffect");
 	
-	auto &spriteComponent = object.set<Sprite>("enemies-octorok", 16, 16);
+	auto &spriteComponent = octorok.set<Sprite>("enemies-octorok", 16, 16);
 	spriteComponent.addAnimation({4, 0}, 150);
 	spriteComponent.addAnimation({5, 1}, 150);
 	spriteComponent.addAnimation({6, 2}, 150);
 	spriteComponent.addAnimation({7, 3}, 150);
 	
-	return object;
+	return octorok;
 }
 
 #include "BattleSystem.hpp"

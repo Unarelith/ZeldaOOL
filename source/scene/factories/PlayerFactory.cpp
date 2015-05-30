@@ -32,7 +32,7 @@
 #include "HitboxesComponent.hpp"
 
 SceneObject PlayerFactory::create(float x, float y) {
-	SceneObject player;
+	SceneObject player("Player");
 	player.set<BehaviourComponent>(new PlayerBehaviour);
 	player.set<HealthComponent>(13 * 4, 11 * 4);
 	player.set<MovementComponent>(new GamePadMovement);
