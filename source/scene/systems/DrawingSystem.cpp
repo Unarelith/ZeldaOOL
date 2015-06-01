@@ -93,34 +93,36 @@ void DrawingSystem::drawHitboxes(SceneObject &object, float x, float y) {
 }
 
 void DrawingSystem::drawSprite(SceneObject &object, float x, float y) {
-	bool animated = false;
-	u16 animID = 0;
-	
-	if(object.has<MovementComponent>()) {
-		animated = object.get<MovementComponent>().isMoving;
-	}
-	
-	if(object.get<PositionComponent>().direction != Direction::None) {
-		animID += static_cast<s8>(object.get<PositionComponent>().direction);
-	}
-	
-	auto &sprite = object.get<Sprite>();
-	
-	if(object.has<HealthComponent>()
-	&& object.get<HealthComponent>().isHurt
-	&& GameClock::getTicks() % 150 < 75) {
-		sprite.setPaletteID(1);
-	}
-	
-	if(animated) {
-		sprite.playAnimation(x, y, animID);
-	} else {
-		sprite.drawFrame(x, y, animID);
-	}
-	
-	if(object.has<HealthComponent>()
-	&& object.get<HealthComponent>().isHurt) {
-		sprite.setPaletteID(0);
+	if(!object.has<HealthComponent>() || !object.get<HealthComponent>().isDead) {
+		bool animated = false;
+		u16 animID = 0;
+		
+		if(object.has<MovementComponent>()) {
+			animated = object.get<MovementComponent>().isMoving;
+		}
+		
+		if(object.get<PositionComponent>().direction != Direction::None) {
+			animID += static_cast<s8>(object.get<PositionComponent>().direction);
+		}
+		
+		auto &sprite = object.get<Sprite>();
+		
+		if(object.has<HealthComponent>()
+		&& object.get<HealthComponent>().isHurt
+		&& GameClock::getTicks() % 150 < 75) {
+			sprite.setPaletteID(1);
+		}
+		
+		if(animated) {
+			sprite.playAnimation(x, y, animID);
+		} else {
+			sprite.drawFrame(x, y, animID);
+		}
+		
+		if(object.has<HealthComponent>()
+		&& object.get<HealthComponent>().isHurt) {
+			sprite.setPaletteID(0);
+		}
 	}
 }
 

@@ -32,8 +32,8 @@ void octorokAction(SceneObject &octorok, SceneObject &object, CollisionInformati
 SceneObject OctorokFactory::create(float x, float y) {
 	SceneObject octorok("Octorok", "Monster");
 	octorok.set<HealthComponent>(2);
-	octorok.set<PositionComponent>(x, y, 16, 16, Direction::Down);
 	octorok.set<MovementComponent>(new OctorokMovement);
+	octorok.set<PositionComponent>(x, y, 16, 16, Direction::Down);
 	
 	auto &collisionComponent = octorok.set<CollisionComponent>();
 	collisionComponent.addChecker(&PlayerFactory::mapCollisions);
@@ -54,27 +54,19 @@ SceneObject OctorokFactory::create(float x, float y) {
 	destroyEffect.addAnimation({0, 1, 0, 1, 0, 2, 3, 3, 2, 2, 3, 3, 2, 4, 4, 5, 5, 4, 6, 7}, 10, false);
 	
 	octorok.set<BehaviourComponent>(new EasyBehaviour([](SceneObject &octorok) {
-		auto &spriteComponent = octorok.get<SpriteComponent>();
+		// auto &spriteComponent = octorok.get<SpriteComponent>();
 		
-		spriteComponent.animID = static_cast<s8>(octorok.get<PositionComponent>().direction);
+		// spriteComponent.animID = static_cast<s8>(octorok.get<PositionComponent>().direction);
 	},
-	[](SceneObject &octorok) {
-		auto &destroySprite = octorok.get<EffectsComponent>().effects().at("destroy");
-		destroySprite.getAnimation(0).reset();
-		
-		auto &healthComponent = octorok.get<HealthComponent>();
-		healthComponent.isDead = false;
-		healthComponent.life = healthComponent.maxLife;
-		
-		octorok.get<HitboxesComponent>().enableHitboxes();
+	[x, y](SceneObject &octorok) {
+		octorok = create(x, y);
 	}));
 	
-	auto &spriteComponent = octorok.set<SpriteComponent>("enemies-octorok", 16, 16);
-	spriteComponent.sprite.addAnimation({4, 0}, 150);
-	spriteComponent.sprite.addAnimation({5, 1}, 150);
-	spriteComponent.sprite.addAnimation({6, 2}, 150);
-	spriteComponent.sprite.addAnimation({7, 3}, 150);
-	spriteComponent.isAnimated = true;
+	auto &spriteComponent = octorok.set<Sprite>("enemies-octorok", 16, 16);
+	spriteComponent.addAnimation({4, 0}, 150);
+	spriteComponent.addAnimation({5, 1}, 150);
+	spriteComponent.addAnimation({6, 2}, 150);
+	spriteComponent.addAnimation({7, 3}, 150);
 	
 	return octorok;
 }

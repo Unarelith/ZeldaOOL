@@ -42,7 +42,9 @@ void BattleSystem::update(SceneObject &object) {
 					object.get<HitboxesComponent>().disableHitboxes();
 				}
 				
-				object.get<SpriteComponent>().isEnabled = false;
+				if(object.has<SpriteComponent>()) {
+					object.get<SpriteComponent>().isEnabled = false;
+				}
 				
 				object.get<EffectsComponent>().enable("destroy");
 				
