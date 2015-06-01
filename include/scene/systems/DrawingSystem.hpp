@@ -21,7 +21,7 @@ class DrawingSystem {
 		static void draw(SceneObject &object);
 		
 		static void drawEffects(SceneObject &object, float x, float y);
-		static void drawHitboxes(SceneObject &object, float x, float y);
+		static void drawHitbox(SceneObject &object, float x, float y);
 		static void drawSprite(SceneObject &object, float x, float y);
 		static void drawSpriteComponent(SceneObject &object, float x, float y);
 };

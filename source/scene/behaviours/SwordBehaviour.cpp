@@ -15,7 +15,7 @@
 #include "GamePad.hpp"
 #include "SwordBehaviour.hpp"
 
-#include "HitboxesComponent.hpp"
+#include "HitboxComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 #include "WeaponComponent.hpp"
@@ -143,15 +143,17 @@ void SwordBehaviour::action(SceneObject &sword) {
 
 void SwordBehaviour::updateHitboxes(SceneObject &sword) {
 	auto &spriteComponent = sword.get<SpriteComponent>();
-	auto &hitboxesComponent = sword.get<HitboxesComponent>();
+	auto &hitboxComponent = sword.get<HitboxComponent>();
 	
-	hitboxesComponent.disableHitboxes();
+	// TODO: Replace hitboxesComponent[...].isEnabled by something else
 	u16 frame = spriteComponent.sprite.getAnimation(spriteComponent.animID).currentFrame();
 	if(frame < 12) {
-		hitboxesComponent[frame].isEnabled = true;
+		hitboxComponent.setCurrentHitbox(frame);
+		// hitboxesComponent[frame].isEnabled = true;
 	}
 	else if(frame < 16) {
-		hitboxesComponent[frame - 4].isEnabled = true;
+		hitboxComponent.setCurrentHitbox(frame - 4);
+		// hitboxesComponent[frame - 4].isEnabled = true;
 	}
 }
 

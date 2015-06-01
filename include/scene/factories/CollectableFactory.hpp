@@ -15,7 +15,6 @@
 #define COLLECTABLEFACTORY_HPP_
 
 #include "CollectableMovement.hpp"
-#include "IntTypes.hpp"
 #include "SceneObject.hpp"
 
 enum RupeesAmount : u8 {

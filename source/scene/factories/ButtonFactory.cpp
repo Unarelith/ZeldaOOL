@@ -16,18 +16,18 @@
 
 #include "ButtonComponent.hpp"
 #include "CollisionComponent.hpp"
-#include "HitboxesComponent.hpp"
+#include "HitboxComponent.hpp"
 #include "PositionComponent.hpp"
 
-void buttonAction(SceneObject &button, SceneObject &object, CollisionInformations &collisionInformations);
+void buttonAction(SceneObject &button, SceneObject &object, bool inCollision);
 
 SceneObject ButtonFactory::create(u16 tileX, u16 tileY) {
 	SceneObject object;
 	object.set<ButtonComponent>();
 	object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 	
-	auto &hitboxesComponent = object.set<HitboxesComponent>();
-	hitboxesComponent.addHitbox(IntRect(4, 4, 8, 8));
+	auto &hitboxComponent = object.set<HitboxComponent>();
+	hitboxComponent.addHitbox(4, 4, 8, 8);
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addAction(&buttonAction);
@@ -35,12 +35,12 @@ SceneObject ButtonFactory::create(u16 tileX, u16 tileY) {
 	return object;
 }
 
-void buttonAction(SceneObject &button, SceneObject &object, CollisionInformations &collisionInformations) {
+void buttonAction(SceneObject &button, SceneObject &object, bool inCollision) {
 	auto &positionComponent = button.get<PositionComponent>();
 	auto &buttonComponent = button.get<ButtonComponent>();
 	
 	if(Scene::isPlayer(object)) {
-		if(!collisionInformations.empty()) {
+		if(inCollision) {
 			buttonComponent.pressedAction(positionComponent.x / 16,
 			                              positionComponent.y / 16);
 		} else {

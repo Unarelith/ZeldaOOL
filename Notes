@@ -1,10 +1,11 @@
 ===== REFACTORING =====
 - Improve movement system
 	=> Impossible to add a movement until the last one is not finished
-	=> HurtMovement can stop if player is stopped (check is moving)
+	=> HurtMovement can stop if player is stopped (check isMoving flag)
 - Improve hitbox system
 	=> Only one hitbox can be active
 - Rewrite BattleSystem
+- Fix Sprite::pause (make stop() work)
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?
@@ -54,4 +55,7 @@
 
 ===== NEW ISSUES =====
 - Player is not hurt when using sword?
+- Sometimes, when sword is swinging, the player seems to play the swing
+  animation too quickly
+- Sword up hitbox when loading isn't correct
 

@@ -17,18 +17,18 @@
 
 #include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
+#include "HitboxComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
-#include "HitboxesComponent.hpp"
 
-void grassAction(SceneObject &grass, SceneObject &object, CollisionInformations &collisionInformations);
+void grassAction(SceneObject &grass, SceneObject &object, bool inCollision);
 
 SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	SceneObject object;
 	object.set<PositionComponent>(tileX * 16 - 8, tileY * 16 - 8, 16, 16);
 	
-	auto &hitboxesComponent = object.set<HitboxesComponent>();
-	hitboxesComponent.addHitbox(IntRect(14, 14, 4, 4));
+	auto &hitboxComponent = object.set<HitboxComponent>();
+	hitboxComponent.addHitbox(14, 14, 4, 4);
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addAction(&grassAction);
@@ -51,8 +51,7 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 		}
 	},
 	[](SceneObject &object) {
-		auto &hitboxesComponent = object.get<HitboxesComponent>();
-		hitboxesComponent.enableHitboxes();
+		object.get<HitboxComponent>().setCurrentHitbox(0);
 	}));
 	
 	return object;
@@ -63,17 +62,17 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 
 #include "WeaponComponent.hpp"
 
-void grassAction(SceneObject &grass, SceneObject &object, CollisionInformations &collisionInformations) {
-	if(!collisionInformations.empty() && object.has<WeaponComponent>()) {
+void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
+	if(inCollision && object.has<WeaponComponent>()) {
+		auto &grassHitboxComponent = grass.get<HitboxComponent>();
 		auto &grassSpriteComponent = grass.get<SpriteComponent>();
-		auto &grassHitboxesComponent = grass.get<HitboxesComponent>();
 		
-		auto &weaponComponent = object.get<WeaponComponent>();
+		auto &weaponOwner = object.get<WeaponComponent>().owner;
 		
-		if(Scene::isPlayer(weaponComponent.owner)
-		&& !grassSpriteComponent.isEnabled && grassHitboxesComponent.isAnyHitboxEnabled()) {
+		if(Scene::isPlayer(weaponOwner)
+		&& !grassSpriteComponent.isEnabled && grassHitboxComponent.currentHitbox()) {
 			auto &grassPosition = grass.get<PositionComponent>();
-			auto &playerDirection = weaponComponent.owner.get<PositionComponent>().direction;
+			auto &playerDirection = weaponOwner.get<PositionComponent>().direction;
 			auto &swordSprite = object.get<SpriteComponent>().sprite;
 			
 			if((object.get<BehaviourComponent>().behaviour->state() == "Swinging"
@@ -99,7 +98,7 @@ void grassAction(SceneObject &grass, SceneObject &object, CollisionInformations 
 				                         (grassPosition.y + 8) / 16, 36);
 				
 				grassSpriteComponent.isEnabled = true;
-				grassHitboxesComponent.disableHitboxes();
+				grassHitboxComponent.resetCurrentHitbox();
 			}
 		}
 	}

@@ -17,7 +17,7 @@
 
 #include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
-#include "HitboxesComponent.hpp"
+#include "HitboxComponent.hpp"
 #include "LifetimeComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
@@ -28,24 +28,23 @@ SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &own
 	object.set<BehaviourComponent>(new SwordBehaviour);
 	object.set<LifetimeComponent>();
 	object.set<WeaponComponent>(owner, weaponInfos, key, "Sword");
-	//object.set<std::string>("Sword");
 	
 	auto &positionComponent = object.set<PositionComponent>(x, y, 16, 16);
 	positionComponent.direction = owner.get<PositionComponent>().direction;
 	
-	auto &hitboxesComponent = object.set<HitboxesComponent>();
-	hitboxesComponent.addHitbox(IntRect( 0,  7, 15,  6), "swordLeftLHand",      false);
-	hitboxesComponent.addHitbox(IntRect(10,  0,  6, 15), "swordUpRhand",        false);
-	hitboxesComponent.addHitbox(IntRect( 1,  0,  6, 15), "swordUpLHand",        false);
-	hitboxesComponent.addHitbox(IntRect( 1,  1, 15,  6), "swordRightLHand",     false);
-	hitboxesComponent.addHitbox(IntRect( 1,  0, 15, 15), "swordSwingRightDown", false);
-	hitboxesComponent.addHitbox(IntRect( 0,  0, 15, 15), "swordSwingLeftUp",    false);
-	hitboxesComponent.addHitbox(IntRect( 1,  0, 15, 15), "swordSwingRightUp",   false);
-	hitboxesComponent.addHitbox(IntRect( 1,  0, 15, 15), "swordSwingLeftDown",  false);
-	hitboxesComponent.addHitbox(IntRect( 9,  0,  6, 15), "swordDownLHand",      false);
-	hitboxesComponent.addHitbox(IntRect( 0,  8, 15,  6), "swordRightRHand",     false);
-	hitboxesComponent.addHitbox(IntRect( 1,  8, 15,  6), "swordLeftRHand",      false);
-	hitboxesComponent.addHitbox(IntRect( 1,  1,  6, 15), "swordDownRHand",      false);
+	auto &hitboxComponent = object.set<HitboxComponent>();
+	hitboxComponent.addHitbox( 0,  7, 15,  6); // swordLeftLHand
+	hitboxComponent.addHitbox(10,  0,  6, 15); // swordUpRhand
+	hitboxComponent.addHitbox( 1,  0,  6, 15); // swordUpLHand
+	hitboxComponent.addHitbox( 1,  1, 15,  6); // swordRightLHand
+	hitboxComponent.addHitbox( 1,  0, 15, 15); // swordSwingRightDown
+	hitboxComponent.addHitbox( 0,  0, 15, 15); // swordSwingLeftUp
+	hitboxComponent.addHitbox( 1,  0, 15, 15); // swordSwingRightUp
+	hitboxComponent.addHitbox( 1,  0, 15, 15); // swordSwingLeftDown
+	hitboxComponent.addHitbox( 9,  0,  6, 15); // swordDownLHand
+	hitboxComponent.addHitbox( 0,  8, 15,  6); // swordRightRHand
+	hitboxComponent.addHitbox( 1,  8, 15,  6); // swordLeftRHand
+	hitboxComponent.addHitbox( 1,  1,  6, 15); // swordDownRHand
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addChecker([](SceneObject &sword) {

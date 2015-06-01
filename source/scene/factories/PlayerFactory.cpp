@@ -25,11 +25,11 @@
 #include "CollisionComponent.hpp"
 #include "EffectsComponent.hpp"
 #include "HealthComponent.hpp"
+#include "HitboxComponent.hpp"
 #include "InventoryComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
-#include "HitboxesComponent.hpp"
 
 SceneObject PlayerFactory::create(float x, float y) {
 	SceneObject player("Player");
@@ -41,8 +41,8 @@ SceneObject PlayerFactory::create(float x, float y) {
 	auto &positionComponent = player.set<PositionComponent>(x, y, 16, 16);
 	positionComponent.direction = Direction::Down;
 	
-	auto &hitboxesComponent = player.set<HitboxesComponent>();
-	hitboxesComponent.addHitbox(IntRect(4, 5, 8, 10));
+	auto &hitboxComponent = player.set<HitboxComponent>();
+	hitboxComponent.addHitbox(4, 5, 8, 10);
 	
 	auto &collisionComponent = player.set<CollisionComponent>();
 	collisionComponent.addChecker(&PlayerFactory::mapCollisions);

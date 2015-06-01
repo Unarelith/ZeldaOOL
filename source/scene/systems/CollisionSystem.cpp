@@ -15,65 +15,63 @@
 #include "Sprite.hpp"
 
 #include "CollisionComponent.hpp"
+#include "HitboxComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
 void CollisionSystem::checkCollision(SceneObject &object1, SceneObject &object2) {
-	CollisionInformations collisionInformations;
-	
-	inCollision(object1, object2, collisionInformations);
+	bool inCollision = CollisionSystem::inCollision(object1, object2);
 	
 	if(object1.has<CollisionComponent>()) {
-		object1.get<CollisionComponent>().collisionActions(object1, object2, collisionInformations);
+		object1.get<CollisionComponent>().collisionActions(object1, object2, inCollision);
 	}
 	
 	if(object2.has<CollisionComponent>()) {
-		object2.get<CollisionComponent>().collisionActions(object2, object1, collisionInformations);
+		object2.get<CollisionComponent>().collisionActions(object2, object1, inCollision);
 	}
 }
 
-void CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2, CollisionInformations &collisionInformations) {
-	if(object1.has<PositionComponent>() && object1.has<HitboxesComponent>()
-	&& object2.has<PositionComponent>() && object2.has<HitboxesComponent>()) {
-		auto &position1 = object1.get<PositionComponent>();
-		auto &hitboxes1 = object1.get<HitboxesComponent>();
+bool CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2) {
+	if(object1.has<PositionComponent>() && object1.has<HitboxComponent>()
+	&& object2.has<PositionComponent>() && object2.has<HitboxComponent>()) {
+		auto &hitbox1 = object1.get<HitboxComponent>();
+		auto &hitbox2 = object2.get<HitboxComponent>();
 		
-		auto &position2 = object2.get<PositionComponent>();
-		auto &hitboxes2 = object2.get<HitboxesComponent>();
-		
-		Vector2f offset1 = position1.position();
-		Vector2f offset2 = position2.position();
-		
-		if(object1.has<MovementComponent>()) {
-			offset1 += object1.get<MovementComponent>().v;
-		}
-		
-		if(object2.has<MovementComponent>()) {
-			offset2 += object2.get<MovementComponent>().v;
-		}
-		
-		if(object1.has<SpriteComponent>()) {
-			u16 animID = object1.get<SpriteComponent>().animID;
-			offset1 += object1.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
-		}
-		
-		if(object2.has<SpriteComponent>()) {
-			u16 animID = object2.get<SpriteComponent>().animID;
-			offset2 += object2.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
-		}
-		
-		for(size_t i = 0; i < hitboxes1.size(); i++)
-			for(size_t j = 0; j < hitboxes2.size(); j++){
-				if(hitboxes1[i].isEnabled && hitboxes2[j].isEnabled) {
-					FloatRect rect1(hitboxes1[i].rect + offset1);
-					FloatRect rect2(hitboxes2[j].rect + offset2);
-					
-					if(rect1.intersects(rect2)) {
-						collisionInformations.addInformation(hitboxes1[i], hitboxes2[j]);
-					}
-				}
+		if(hitbox1.currentHitbox() && hitbox2.currentHitbox()) {
+			auto &position1 = object1.get<PositionComponent>();
+			auto &position2 = object2.get<PositionComponent>();
+			
+			FloatRect rect1 = *hitbox1.currentHitbox();
+			FloatRect rect2 = *hitbox2.currentHitbox();
+			
+			rect1 += position1.position();
+			rect2 += position2.position();
+			
+			if(object1.has<MovementComponent>()) {
+				rect1 += object1.get<MovementComponent>().v;
 			}
+			
+			if(object2.has<MovementComponent>()) {
+				rect2 += object2.get<MovementComponent>().v;
+			}
+			
+			if(object1.has<SpriteComponent>()) {
+				u16 animID = object1.get<SpriteComponent>().animID;
+				rect1 += object1.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
+			}
+			
+			if(object2.has<SpriteComponent>()) {
+				u16 animID = object2.get<SpriteComponent>().animID;
+				rect2 += object2.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
+			}
+			
+			if(rect1.intersects(rect2)) {
+				return true;
+			}
+		}
 	}
+	
+	return false;
 }
 

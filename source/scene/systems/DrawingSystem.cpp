@@ -17,7 +17,7 @@
 
 #include "EffectsComponent.hpp"
 #include "HealthComponent.hpp"
-#include "HitboxesComponent.hpp"
+#include "HitboxComponent.hpp"
 #include "LifetimeComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
@@ -48,8 +48,8 @@ void DrawingSystem::draw(SceneObject &object) {
 			drawEffects(object, position.x, position.y);
 		}
 		
-		if(object.has<HitboxesComponent>()) {
-			drawHitboxes(object, position.x, position.y);
+		if(object.has<HitboxComponent>()) {
+			drawHitbox(object, position.x, position.y);
 		}
 	}
 }
@@ -68,26 +68,26 @@ void DrawingSystem::drawEffects(SceneObject &object, float x, float y) {
 	}
 }
 
-void DrawingSystem::drawHitboxes(SceneObject &object, float x, float y) {
-	auto &hitboxes = object.get<HitboxesComponent>();
+void DrawingSystem::drawHitbox(SceneObject &object, float x, float y) {
+	auto &hitboxComponent = object.get<HitboxComponent>();
+	
 	static RectangleShape rect;
 	
-	for(auto &hitbox : hitboxes) {
-		if(hitbox.isEnabled) {
-			rect.setPosition(x + hitbox.rect.x, y + hitbox.rect.y);
-			rect.resize(hitbox.rect.width, hitbox.rect.height);
-			
-			if(object.has<SpriteComponent>()) {
-				u16 animID = object.get<SpriteComponent>().animID;
-					rect.move(object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition().x,
-					          object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition().y);
-			}
-			
-			if(object.has<std::string>() && object.get<std::string>() == "Sword") {
-				rect.draw(Color::red, true);
-			} else {
-				rect.draw(Color::white, true);
-			}
+	const IntRect *hitbox = hitboxComponent.currentHitbox();
+	if(hitbox) {
+		rect.setPosition(x + hitbox->x, y + hitbox->y);
+		rect.resize(hitbox->width, hitbox->height);
+		
+		if(object.has<SpriteComponent>()) {
+			u16 animID = object.get<SpriteComponent>().animID;
+				rect.move(object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition().x,
+						  object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition().y);
+		}
+		
+		if(object.has<std::string>() && object.get<std::string>() == "Sword") {
+			rect.draw(Color::red, true);
+		} else {
+			rect.draw(Color::white, true);
 		}
 	}
 }

@@ -17,11 +17,10 @@
 #include <vector>
 
 #include "SceneObject.hpp"
-#include "CollisionSystem.hpp"
 
 class CollisionComponent {
 	using CollisionChecker = std::function<void(SceneObject&)>;
-	using CollisionAction  = std::function<void(SceneObject&, SceneObject&, CollisionInformations&)>;
+	using CollisionAction  = std::function<void(SceneObject&, SceneObject&, bool)>;
 	
 	public:
 		void checkCollisions(SceneObject &object) {
@@ -30,9 +29,9 @@ class CollisionComponent {
 			}
 		}
 		
-		void collisionActions(SceneObject &object1, SceneObject &object2, CollisionInformations &collisionInformations) {
+		void collisionActions(SceneObject &object1, SceneObject &object2, bool inCollision) {
 			for(auto &it : m_actions) {
-				it(object1, object2, collisionInformations);
+				it(object1, object2, inCollision);
 			}
 		}
 		

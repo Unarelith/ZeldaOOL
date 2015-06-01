@@ -21,9 +21,10 @@
 
 #include "ChestComponent.hpp"
 #include "CollisionComponent.hpp"
+#include "HitboxComponent.hpp"
 #include "PositionComponent.hpp"
 
-void chestAction(SceneObject &chest, SceneObject &object, CollisionInformations &collisionInformations);
+void chestAction(SceneObject &chest, SceneObject &object, bool inCollision);
 
 SceneObject ChestFactory::create(u16 tileX, u16 tileY) {
 	SceneObject object;
@@ -33,16 +34,16 @@ SceneObject ChestFactory::create(u16 tileX, u16 tileY) {
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addAction(&chestAction);
 	
-	auto &hitboxesComponent = object.set<HitboxesComponent>();
-	hitboxesComponent.addHitbox(IntRect(0, 0, 16, 16));
+	auto &hitboxComponent = object.set<HitboxComponent>();
+	hitboxComponent.addHitbox(0, 0, 16, 16);
 	
 	return object;
 }
 
-void chestAction(SceneObject &chest, SceneObject &object, CollisionInformations &collisionInformations) {
+void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 	auto &chestPosition = chest.get<PositionComponent>();
 	
-	if(Scene::isPlayer(object) && !collisionInformations.empty()) {
+	if(inCollision && Scene::isPlayer(object)) {
 		auto &playerPosition = object.get<PositionComponent>();
 		
 		// FIXME: Find a better way to find if the player is facing the chest

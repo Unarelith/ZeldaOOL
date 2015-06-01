@@ -19,7 +19,7 @@
 
 #include "EffectsComponent.hpp"
 #include "HealthComponent.hpp"
-#include "HitboxesComponent.hpp"
+#include "HitboxComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
@@ -38,8 +38,8 @@ void BattleSystem::update(SceneObject &object) {
 			else if(object.type() == "Monster") {
 				health.isDead = true;
 				
-				if(object.has<HitboxesComponent>()) {
-					object.get<HitboxesComponent>().disableHitboxes();
+				if(object.has<HitboxComponent>()) {
+					object.get<HitboxComponent>().resetCurrentHitbox();
 				}
 				
 				if(object.has<SpriteComponent>()) {

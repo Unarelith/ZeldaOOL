@@ -48,6 +48,7 @@ void PlayerBehaviour::action(SceneObject &player) {
 		// FIXME: When sword is used and player is hurt at the same time
 		// the player stays hurt, because it has not the right movement
 		static std::string oldSwordState;
+		
 		std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
 		if(swordState != oldSwordState) {
 			if(swordState == "Swinging") {
@@ -68,6 +69,8 @@ void PlayerBehaviour::action(SceneObject &player) {
 				m_weapon = nullptr;
 				
 				movement.movements.pop();
+				
+				movement.isDirectionLocked = false;
 				
 				m_state = "Standing";
 			}

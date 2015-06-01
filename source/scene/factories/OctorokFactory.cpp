@@ -22,12 +22,12 @@
 #include "CollisionComponent.hpp"
 #include "EffectsComponent.hpp"
 #include "HealthComponent.hpp"
-#include "HitboxesComponent.hpp"
+#include "HitboxComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
-void octorokAction(SceneObject &octorok, SceneObject &object, CollisionInformations& collisionInformations);
+void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision);
 
 SceneObject OctorokFactory::create(float x, float y) {
 	SceneObject octorok("Octorok", "Monster");
@@ -43,8 +43,8 @@ SceneObject OctorokFactory::create(float x, float y) {
 	
 	collisionComponent.addAction(&octorokAction);
 	
-	auto &hitboxesComponent = octorok.set<HitboxesComponent>();
-	hitboxesComponent.addHitbox(IntRect(0, 0, 16, 16));
+	auto &hitboxComponent = octorok.set<HitboxComponent>();
+	hitboxComponent.addHitbox(0, 0, 16, 16);
 	
 	auto &effectsComponent = octorok.set<EffectsComponent>();
 	effectsComponent.addEffect("grass", "animations-grassEffect");
@@ -53,11 +53,7 @@ SceneObject OctorokFactory::create(float x, float y) {
 	auto &destroyEffect = effectsComponent.addEffect("destroy", "animations-monsterDestroy", 32, 32, {-8, -8});
 	destroyEffect.addAnimation({0, 1, 0, 1, 0, 2, 3, 3, 2, 2, 3, 3, 2, 4, 4, 5, 5, 4, 6, 7}, 10, false);
 	
-	octorok.set<BehaviourComponent>(new EasyBehaviour([](SceneObject &octorok) {
-		// auto &spriteComponent = octorok.get<SpriteComponent>();
-		
-		// spriteComponent.animID = static_cast<s8>(octorok.get<PositionComponent>().direction);
-	},
+	octorok.set<BehaviourComponent>(new EasyBehaviour([](SceneObject &) {},
 	[x, y](SceneObject &octorok) {
 		octorok = create(x, y);
 	}));
@@ -74,8 +70,8 @@ SceneObject OctorokFactory::create(float x, float y) {
 #include "BattleSystem.hpp"
 #include "WeaponComponent.hpp"
 
-void octorokAction(SceneObject &octorok, SceneObject &object, CollisionInformations &collisionInformations) {
-	if(!collisionInformations.empty()) {
+void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision) {
+	if(inCollision) {
 		if(Scene::isPlayer(object)) {
 			BattleSystem::hurt(octorok, object);
 		}
