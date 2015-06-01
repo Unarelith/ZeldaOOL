@@ -58,11 +58,11 @@ void DrawingSystem::drawEffects(SceneObject &object, float x, float y) {
 	auto &effects = object.get<EffectsComponent>().effects();
 	
 	for(auto &it : effects) {
-		if(it.second.second) {
-			if(it.second.first.hasAnimations()) {
-				it.second.first.playAnimation(x, y, 0);
+		if(it.second.isEnabled) {
+			if(it.second.hasAnimations()) {
+				it.second.playAnimation(x + it.second.offset.x, y + it.second.offset.y, 0);
 			} else {
-				it.second.first.drawFrame(x, y, 0);
+				it.second.drawFrame(x + it.second.offset.x, y + it.second.offset.y, 0);
 			}
 		}
 	}
@@ -125,24 +125,26 @@ void DrawingSystem::drawSprite(SceneObject &object, float x, float y) {
 }
 
 void DrawingSystem::drawSpriteComponent(SceneObject &object, float x, float y) {
-	auto &sprite = object.get<SpriteComponent>();
+	auto &spriteComponent = object.get<SpriteComponent>();
 	
-	if(!sprite.isDisabled) {
+	if(spriteComponent.isEnabled) {
 		if(object.has<HealthComponent>()
 		&& object.get<HealthComponent>().isHurt
 		&& GameClock::getTicks() % 150 < 75) {
-			sprite.sprite.setPaletteID(1);
+			spriteComponent.sprite.setPaletteID(1);
 		}
 		
-		if(sprite.isAnimated) {
-			sprite.sprite.playAnimation(x, y, sprite.animID);
+		if(spriteComponent.isAnimated) {
+			spriteComponent.sprite.playAnimation(x, y, spriteComponent.animID);
 		} else {
-			sprite.sprite.drawAnimationFrame(x, y, sprite.animID, sprite.frameID);
+			spriteComponent.sprite.currentAnimation().stop();
+			
+			spriteComponent.sprite.drawAnimationFrame(x, y, spriteComponent.animID, spriteComponent.frameID);
 		}
 		
 		if(object.has<HealthComponent>()
 		&& object.get<HealthComponent>().isHurt) {
-			sprite.sprite.setPaletteID(0);
+			spriteComponent.sprite.setPaletteID(0);
 		}
 	}
 }

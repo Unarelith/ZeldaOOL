@@ -175,7 +175,7 @@ void SwordBehaviour::updateSprite(SceneObject &sword) {
 		spriteComponent.animID = 8;
 		spriteComponent.frameID = -1;
 	} else {
-		spriteComponent.isDisabled = true;
+		spriteComponent.isEnabled = false;
 	}
 }
 

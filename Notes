@@ -1,5 +1,10 @@
 ===== REFACTORING =====
-- Implement Battler + HurtState equivalent for Scene::player and octoroks (HealthComponent)
+- Improve movement system
+	=> Impossible to add a movement until the last one is not finished
+	=> HurtMovement can stop if player is stopped (check is moving)
+- Improve hitbox system
+	=> Only one hitbox can be active
+- Rewrite BattleSystem
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?
@@ -49,5 +54,4 @@
 
 ===== NEW ISSUES =====
 - Player is not hurt when using sword?
-- It's possible to see an extra frame when using spin attack
 

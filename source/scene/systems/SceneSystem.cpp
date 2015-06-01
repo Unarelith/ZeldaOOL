@@ -39,16 +39,14 @@ void SceneSystem::resetObject(SceneObject &object) {
 }
 
 void SceneSystem::updateObject(SceneObject &object) {
-	if(!object.has<HealthComponent>() || !object.get<HealthComponent>().isDead) {
-		MovementSystem::process(object);
-		
-		BattleSystem::update(object);
-		
-		BehaviourSystem::process(object);
-		
-		if(object.has<SceneObjectList>()) {
-			update(object.get<SceneObjectList>());
-		}
+	MovementSystem::process(object);
+	
+	BattleSystem::update(object);
+	
+	BehaviourSystem::process(object);
+	
+	if(object.has<SceneObjectList>()) {
+		update(object.get<SceneObjectList>());
 	}
 }
 

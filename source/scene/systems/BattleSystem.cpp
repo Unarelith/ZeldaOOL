@@ -17,9 +17,12 @@
 #include "BattleSystem.hpp"
 #include "HurtMovement.hpp"
 
+#include "EffectsComponent.hpp"
 #include "HealthComponent.hpp"
+#include "HitboxesComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
+#include "SpriteComponent.hpp"
 
 void BattleSystem::update(SceneObject &object) {
 	if(object.has<HealthComponent>() && object.has<MovementComponent>()) {
@@ -35,6 +38,14 @@ void BattleSystem::update(SceneObject &object) {
 			else if(object.type() == "Monster") {
 				health.isDead = true;
 				
+				if(object.has<HitboxesComponent>()) {
+					object.get<HitboxesComponent>().disableHitboxes();
+				}
+				
+				object.get<SpriteComponent>().isEnabled = false;
+				
+				object.get<EffectsComponent>().enable("destroy");
+				
 				AudioPlayer::playEffect("enemyDie");
 			}
 		}
@@ -42,24 +53,26 @@ void BattleSystem::update(SceneObject &object) {
 }
 
 void BattleSystem::hurt(SceneObject &attacker, SceneObject &receiver) {
-	if(receiver.has<HealthComponent>()) {
-		auto &receiverHealth = receiver.get<HealthComponent>();
-		
-		if(!receiverHealth.isHurt && !receiverHealth.isDead) {
-			if(receiver.has<MovementComponent>()) {
-				auto &attackerPosition = attacker.get<PositionComponent>();
-				auto &receiverPosition = receiver.get<PositionComponent>();
-				
-				Vector2f v = receiverPosition.position() - attackerPosition.position();
-				
-				if(v.x != 0) v.x /= fabs(v.x);
-				if(v.y != 0) v.y /= fabs(v.y);
-				
-				receiver.get<MovementComponent>().movements.emplace(new HurtMovement(v.x, v.y));
-			}
+	if(!attacker.has<HealthComponent>() || !attacker.get<HealthComponent>().isDead) {
+		if(receiver.has<HealthComponent>()) {
+			auto &receiverHealth = receiver.get<HealthComponent>();
 			
-			receiverHealth.isHurt = true;
-			receiverHealth.life--;
+			if(!receiverHealth.isHurt && !receiverHealth.isDead) {
+				if(receiver.has<MovementComponent>()) {
+					auto &attackerPosition = attacker.get<PositionComponent>();
+					auto &receiverPosition = receiver.get<PositionComponent>();
+					
+					Vector2f v = receiverPosition.position() - attackerPosition.position();
+					
+					if(v.x != 0) v.x /= fabs(v.x);
+					if(v.y != 0) v.y /= fabs(v.y);
+					
+					receiver.get<MovementComponent>().movements.emplace(new HurtMovement(v.x, v.y));
+				}
+				
+				receiverHealth.isHurt = true;
+				receiverHealth.life--;
+			}
 		}
 	}
 }

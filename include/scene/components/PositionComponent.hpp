@@ -22,8 +22,8 @@ class PositionComponent : public FloatRect {
 	public:
 		PositionComponent() = default;
 		
-		PositionComponent(float x, float y, float width, float height)
-			: FloatRect(x, y, width, height) {
+		PositionComponent(float x, float y, float width, float height, Direction _direction = Direction::None)
+			: FloatRect(x, y, width, height), direction(_direction) {
 		}
 		
 		PositionComponent(const Vector2f &position, const Vector2f &size)

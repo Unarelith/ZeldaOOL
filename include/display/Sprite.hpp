@@ -24,8 +24,8 @@ class Sprite : public Image {
 		
 		void load(const std::string &textureName, s16 frameWidth = -1, s16 frameHeight = -1);
 		
-		void addAnimation(std::vector<u16> frames, u16 delay);
-		void addAnimation(std::vector<u16> frames, std::vector<Vector2i> positions, u16 delay);
+		void addAnimation(std::vector<u16> frames, u16 delay, bool isRepeated = true);
+		void addAnimation(std::vector<u16> frames, std::vector<Vector2i> positions, u16 delay, bool isRepeated = true);
 		
 		void drawFrame(float x, float y, u16 frame);
 		

@@ -22,7 +22,7 @@ class SpriteComponent {
 			: sprite(textureName, frameWidth, frameHeight) {}
 		
 		bool isAnimated = false;
-		bool isDisabled = false;
+		bool isEnabled = true;
 		
 		u16 animID = 0;
 		u16 frameID = 0;

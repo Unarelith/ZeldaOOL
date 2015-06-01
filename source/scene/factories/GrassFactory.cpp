@@ -34,10 +34,9 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	collisionComponent.addAction(&grassAction);
 	
 	auto &spriteComponent = object.set<SpriteComponent>("animations-grassDestroy", 32, 32);
-	spriteComponent.isAnimated = true;
-	spriteComponent.isDisabled = true;
-	
 	spriteComponent.sprite.addAnimation({0, 1, 2, 3, 4, 5}, 50);
+	spriteComponent.isAnimated = true;
+	spriteComponent.isEnabled = false;
 	
 	if(lowGrass) {
 		spriteComponent.sprite.setColorMod(Color(255, 255, 255, 127));
@@ -48,7 +47,7 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 		
 		if(spriteComponent.sprite.currentAnimation().isFinished()) {
 			spriteComponent.sprite.currentAnimation().reset();
-			spriteComponent.isDisabled = true;
+			spriteComponent.isEnabled = false;
 		}
 	},
 	[](SceneObject &object) {
@@ -65,7 +64,6 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 #include "WeaponComponent.hpp"
 
 void grassAction(SceneObject &grass, SceneObject &object, CollisionInformations &collisionInformations) {
-	
 	if(!collisionInformations.empty() && object.has<WeaponComponent>()) {
 		auto &grassSpriteComponent = grass.get<SpriteComponent>();
 		auto &grassHitboxesComponent = grass.get<HitboxesComponent>();
@@ -73,7 +71,7 @@ void grassAction(SceneObject &grass, SceneObject &object, CollisionInformations 
 		auto &weaponComponent = object.get<WeaponComponent>();
 		
 		if(Scene::isPlayer(weaponComponent.owner)
-		&& grassSpriteComponent.isDisabled && grassHitboxesComponent.isHitboxesEnabled()) {
+		&& !grassSpriteComponent.isEnabled && grassHitboxesComponent.isAnyHitboxEnabled()) {
 			auto &grassPosition = grass.get<PositionComponent>();
 			auto &playerDirection = weaponComponent.owner.get<PositionComponent>().direction;
 			auto &swordSprite = object.get<SpriteComponent>().sprite;
@@ -100,7 +98,7 @@ void grassAction(SceneObject &grass, SceneObject &object, CollisionInformations 
 				Map::currentMap->setTile((grassPosition.x + 8) / 16,
 				                         (grassPosition.y + 8) / 16, 36);
 				
-				grassSpriteComponent.isDisabled = false;
+				grassSpriteComponent.isEnabled = true;
 				grassHitboxesComponent.disableHitboxes();
 			}
 		}

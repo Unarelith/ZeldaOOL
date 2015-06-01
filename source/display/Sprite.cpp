@@ -27,12 +27,12 @@ void Sprite::load(const std::string &textureName, s16 frameWidth, s16 frameHeigh
 	m_frameHeight = (frameHeight < 0) ? height() : frameHeight;
 }
 
-void Sprite::addAnimation(std::vector<u16> frames, u16 delay) {
-	m_animations.emplace_back(frames, delay);
+void Sprite::addAnimation(std::vector<u16> frames, u16 delay, bool isRepeated) {
+	m_animations.emplace_back(frames, delay, isRepeated);
 }
 
-void Sprite::addAnimation(std::vector<u16> frames, std::vector<Vector2i> positions, u16 delay) {
-	m_animations.emplace_back(frames, positions, delay);
+void Sprite::addAnimation(std::vector<u16> frames, std::vector<Vector2i> positions, u16 delay, bool isRepeated) {
+	m_animations.emplace_back(frames, positions, delay, isRepeated);
 }
 
 void Sprite::drawFrame(float x, float y, u16 frame) {
@@ -67,6 +67,8 @@ void Sprite::playAnimation(float x, float y, u16 animID) {
 	
 	m_animations[animID].play();
 	
-	drawAnimationFrame(x, y, animID);
+	if(!m_animations[animID].isFinished()) {
+		drawAnimationFrame(x, y, animID);
+	}
 }
 

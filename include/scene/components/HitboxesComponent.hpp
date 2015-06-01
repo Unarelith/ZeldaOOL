@@ -56,7 +56,7 @@ class HitboxesComponent {
 			}
 		}
 		
-		bool isHitboxesEnabled() {
+		bool isAnyHitboxEnabled() {
 			for(auto &hitbox : m_hitboxes) {
 				if(hitbox.isEnabled) return true;
 			}

@@ -27,15 +27,19 @@ void SpriteAnimation::stop() {
 }
 
 void SpriteAnimation::play() {
-	if(isFinished()) {
-		reset();
-		start();
-	}
-	
 	if(Sprite::pause) {
 		stop();
 	} else {
 		start();
+	}
+	
+	if(isFinished()) {
+		if(m_isRepeated) {
+			reset();
+			start();
+		} else {
+			stop();
+		}
 	}
 }
 

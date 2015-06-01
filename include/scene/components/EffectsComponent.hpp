@@ -19,22 +19,34 @@
 
 #include "Sprite.hpp"
 
-class EffectsComponent {
-	using EffectList = std::map<std::string, std::pair<Sprite, bool>>;
-	
+class Effect : public Sprite {
 	public:
-		void addEffect(const std::string &name, const std::string &textureName) {
-			m_effects.emplace(name, std::make_pair<Sprite, bool>(textureName, false));
+		Effect(const std::string &textureName, s16 frameWidth = -1, s16 frameHeight = -1, Vector2f _offset = {0, 0})
+			: Sprite(textureName, frameWidth, frameHeight), offset(_offset) {}
+		
+		Vector2i offset;
+		bool isEnabled = false;
+};
+
+class EffectsComponent {
+	public:
+		Effect &addEffect(const std::string &name, const std::string &textureName, s16 frameWidth = -1, s16 frameHeight = -1, Vector2f offset = {0, 0}) {
+			m_effects.emplace(name, Effect{textureName, frameWidth, frameHeight, offset});
+			return m_effects.at(name);
 		}
 		
 		void enableIf(const std::string &name, bool condition) {
-			m_effects.at(name).second = condition;
+			m_effects.at(name).isEnabled = condition;
 		}
 		
-		EffectList &effects() { return m_effects; }
+		void enable(const std::string &name) {
+			m_effects.at(name).isEnabled = true;
+		}
+		
+		std::map<std::string, Effect> &effects() { return m_effects; }
 		
 	private:
-		EffectList m_effects;
+		std::map<std::string, Effect> m_effects;
 };
 
 #endif // EFFECTSCOMPONENT_HPP_

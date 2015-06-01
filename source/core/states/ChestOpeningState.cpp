@@ -30,7 +30,7 @@ ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *paren
 	auto &chestPosition = chest.get<PositionComponent>();
 	auto &itemPosition = m_item->get<PositionComponent>();
 	
-	itemPosition.x = chestPosition.x + 7 - itemPosition.width / 2;
+	itemPosition.x = chestPosition.x + 8 - itemPosition.width / 2;
 	itemPosition.y = chestPosition.y - 8;
 	
 	Sprite::pause = true;

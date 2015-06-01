@@ -21,10 +21,10 @@
 
 class SpriteAnimation {
 	public:
-		SpriteAnimation(std::vector<u16> frames, u16 delay)
-			: m_frames(frames), m_positions(frames.size(), {0, 0}), m_delay(delay) {}
-		SpriteAnimation(std::vector<u16> frames, std::vector<Vector2i> positions, u16 delay)
-			: m_frames(frames), m_positions(positions), m_delay(delay) {}
+		SpriteAnimation(std::vector<u16> frames, u16 delay, bool isRepeated = true)
+			: m_frames(frames), m_positions(frames.size(), {0, 0}), m_delay(delay), m_isRepeated(isRepeated) {}
+		SpriteAnimation(std::vector<u16> frames, std::vector<Vector2i> positions, u16 delay, bool isRepeated = true)
+			: m_frames(frames), m_positions(positions), m_delay(delay), m_isRepeated(isRepeated) {}
 		
 		void reset(u16 frameID = 0);
 		
@@ -46,6 +46,8 @@ class SpriteAnimation {
 		
 		u16 delay() const { return m_delay; }
 		
+		void setRepeated(bool isRepeated) { m_isRepeated = isRepeated; }
+		
 	private:
 		std::vector<u16> m_frames;
 		std::vector<Vector2i> m_positions;
@@ -53,6 +55,8 @@ class SpriteAnimation {
 		Timer m_timer;
 		
 		u16 m_delay = 0;
+		
+		bool m_isRepeated = true;
 };
 
 #endif // SPRITEANIMATION_HPP_
