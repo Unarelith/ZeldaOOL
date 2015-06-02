@@ -44,7 +44,7 @@ SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &own
 	hitboxComponent.addHitbox( 9,  0,  6, 15); // swordDownLHand
 	hitboxComponent.addHitbox( 0,  8, 15,  6); // swordRightRHand
 	hitboxComponent.addHitbox( 1,  8, 15,  6); // swordLeftRHand
-	hitboxComponent.addHitbox( 1,  1,  6, 15); // swordDownRHand
+	hitboxComponent.addHitbox( 1,  0,  6, 15); // swordUpLHand
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addChecker([](SceneObject &sword) {
@@ -54,10 +54,10 @@ SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &own
 	auto &spriteComponent = object.set<SpriteComponent>("animations-sword", 16, 16);
 	
 	std::vector<std::vector<Vector2i>> swordPosition = {
-		{{-15,   0}, {-13,  15}, {-13,  15}, { -1,  16}, { -1,  16}, { -1,  16}, { -1,  14}},
-		{{ -5, -15}, { 12, -12}, { 12, -12}, { 15,   1}, { 15,   1}, { 15,   1}, { 12,   1}},
-		{{  5, -15}, {-12, -12}, {-12, -12}, {-15,   1}, {-15,   1}, {-15,   1}, {-12,   1}},
-		{{ 14,   4}, { 12, -12}, { 12, -12}, {  0, -15}, {  0, -15}, {  0, -15}, {  0, -11}}
+		{{-15,   0}, {-13,  15}, {-13,  15}, { -1,  19}, { -1,  19}, { -1,  19}, { -1,  14}},
+		{{ -5, -15}, {  8, -12}, {  8, -12}, { 19,   1}, { 19,   1}, { 19,   1}, { 12,   1}},
+		{{  5, -15}, { -8, -12}, { -8, -12}, {-19,   1}, {-19,   1}, {-19,   1}, {-12,   1}},
+		{{ 14,   4}, { 12, -12}, { 12, -12}, {  0, -18}, {  0, -18}, {  0, -18}, {  0, -11}}
 	};
 	
 	std::vector<Vector2i> spinAttackPosition = {
@@ -66,10 +66,10 @@ SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &own
 	};
 	
 	// Swinging
-	spriteComponent.sprite.addAnimation({0, 4, 4,  8,  8,  8,  8}, swordPosition[0], 40);
-	spriteComponent.sprite.addAnimation({1, 5, 5,  9,  9,  9,  9}, swordPosition[1], 40);
-	spriteComponent.sprite.addAnimation({2, 6, 6, 10, 10, 10, 10}, swordPosition[2], 40);
-	spriteComponent.sprite.addAnimation({3, 5, 5, 11, 11, 11, 11}, swordPosition[3], 40);
+	spriteComponent.sprite.addAnimation({0, 4, 4,  8,  8,  8}, swordPosition[0], 45);
+	spriteComponent.sprite.addAnimation({1, 5, 5,  9,  9,  9}, swordPosition[1], 45);
+	spriteComponent.sprite.addAnimation({2, 6, 6, 10, 10, 10}, swordPosition[2], 45);
+	spriteComponent.sprite.addAnimation({3, 5, 5, 11, 11, 11}, swordPosition[3], 45);
 	
 	// Loading
 	spriteComponent.sprite.addAnimation({12,  8}, {swordPosition[0][6], swordPosition[0][6]}, 60);

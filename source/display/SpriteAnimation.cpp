@@ -20,14 +20,18 @@ void SpriteAnimation::reset(u16 frameID) {
 
 void SpriteAnimation::start() {
 	m_timer.start();
+	
+	if(!Sprite::pause) m_isPaused = false;
 }
 
 void SpriteAnimation::stop() {
 	m_timer.stop();
+	
+	if(!Sprite::pause) m_isPaused = true;
 }
 
 void SpriteAnimation::play() {
-	if(Sprite::pause) {
+	if(Sprite::pause || m_isPaused) {
 		stop();
 	} else {
 		start();

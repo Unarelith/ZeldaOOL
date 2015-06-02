@@ -39,7 +39,7 @@ class SpriteAnimation {
 		
 		const Vector2i &currentPosition() const;
 		
-		bool isPlaying() const { return m_timer.isStarted(); }
+		bool isPlaying() const { return m_timer.isStarted() && !m_isPaused; }
 		bool isFinished() const { return displayedFramesAmount() >= m_frames.size(); }
 		
 		u32 size() const { return m_frames.size(); }
@@ -56,6 +56,7 @@ class SpriteAnimation {
 		
 		u16 m_delay = 0;
 		
+		bool m_isPaused = false;
 		bool m_isRepeated = true;
 };
 

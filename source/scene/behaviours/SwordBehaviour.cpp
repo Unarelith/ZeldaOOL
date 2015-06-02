@@ -50,7 +50,6 @@ void SwordBehaviour::action(SceneObject &sword) {
 			}
 		}
 		
-		//if(!keyPressed()) {
 		if(!GamePad::isKeyPressed(weaponComponent.key)) {
 			m_keyReleased = true;
 		}
@@ -126,12 +125,13 @@ void SwordBehaviour::action(SceneObject &sword) {
 				m_spinFrameCounter++;
 			}
 		} else {
-			spriteComponent.isAnimated = false;
-			
 			ownerSpriteComponent.animID = (s8)ownerPosition.direction;
 			m_spinTimer.start();
 			
-			if(m_spinTimer.time() >= sprite.getAnimation(8).delay()) {
+			spriteComponent.isAnimated = false;
+			sprite.getAnimation(8).stop();
+			
+			if(m_spinTimer.time() >= sprite.getAnimation(8).delay() + 10) {
 				m_state = "Finished";
 			}
 		}
@@ -145,15 +145,12 @@ void SwordBehaviour::updateHitboxes(SceneObject &sword) {
 	auto &spriteComponent = sword.get<SpriteComponent>();
 	auto &hitboxComponent = sword.get<HitboxComponent>();
 	
-	// TODO: Replace hitboxesComponent[...].isEnabled by something else
 	u16 frame = spriteComponent.sprite.getAnimation(spriteComponent.animID).currentFrame();
 	if(frame < 12) {
 		hitboxComponent.setCurrentHitbox(frame);
-		// hitboxesComponent[frame].isEnabled = true;
 	}
 	else if(frame < 16) {
 		hitboxComponent.setCurrentHitbox(frame - 4);
-		// hitboxesComponent[frame - 4].isEnabled = true;
 	}
 }
 

@@ -40,6 +40,8 @@ class Sprite : public Image {
 		SpriteAnimation &getAnimation(u16 animID) { return m_animations[animID]; }
 		SpriteAnimation &currentAnimation() { return m_animations[m_currentAnimation]; }
 		
+		u16 currentAnimationID() const { return m_currentAnimation; }
+		
 		static bool pause;
 		
 	private:

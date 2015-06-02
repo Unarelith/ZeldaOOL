@@ -51,10 +51,10 @@ void SceneSystem::updateObject(SceneObject &object) {
 }
 
 void SceneSystem::drawObject(SceneObject &object) {
-	DrawingSystem::draw(object);
-	
 	if(object.has<SceneObjectList>()) {
 		draw(object.get<SceneObjectList>());
 	}
+	
+	DrawingSystem::draw(object);
 }
 

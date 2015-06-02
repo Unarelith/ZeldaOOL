@@ -2,16 +2,19 @@
 - Improve movement system
 	=> Impossible to add a movement until the last one is not finished
 	=> HurtMovement can stop if player is stopped (check isMoving flag)
-- Improve hitbox system
-	=> Only one hitbox can be active
-- Rewrite BattleSystem
-- Fix Sprite::pause (make stop() work)
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?
 	=> Write a class VertexArray, and use it in 'Image' and 'Rectangle'
 - Add more debug tools, like a Logger class
 - Add more unit tests
+
+===== NEW ISSUES =====
+- Fix grass objects hitbox
+- When using a teleporter with a loading sword, it's displayed at the previous place
+- Player can be stuck in hurt state
+- When the player is pushing, if we release and press again the directional key,
+  it will not be pushing anymore
 
 ===== TODO =====
 - Finish 'Octorok'
@@ -52,10 +55,4 @@
 - Fix grassDestroy animation
 	=> Find a way to rip it
 - Fix 'moonwalk' bug
-
-===== NEW ISSUES =====
-- Player is not hurt when using sword?
-- Sometimes, when sword is swinging, the player seems to play the swing
-  animation too quickly
-- Sword up hitbox when loading isn't correct
 

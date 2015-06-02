@@ -83,10 +83,10 @@ SceneObject PlayerFactory::create(float x, float y) {
 	spriteComponent.sprite.addAnimation({11, 15}, 90);
 	
 	// Using sword
-	spriteComponent.sprite.addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, usingSwordPosition[0], 40);
-	spriteComponent.sprite.addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, usingSwordPosition[1], 40);
-	spriteComponent.sprite.addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, usingSwordPosition[2], 40);
-	spriteComponent.sprite.addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, usingSwordPosition[3], 40);
+	spriteComponent.sprite.addAnimation({16, 20, 20, 20, 20, 20, 20, 20}, usingSwordPosition[0], 45);
+	spriteComponent.sprite.addAnimation({17, 21, 21, 21, 21, 21, 21, 21}, usingSwordPosition[1], 45);
+	spriteComponent.sprite.addAnimation({18, 22, 22, 22, 22, 22, 22, 22}, usingSwordPosition[2], 45);
+	spriteComponent.sprite.addAnimation({19, 23, 23, 23, 23, 23, 23, 23}, usingSwordPosition[3], 45);
 	
 	// Spin attack
 	spriteComponent.sprite.addAnimation({20, 20, 22, 22, 23, 23, 21, 21}, swordSpinAttackPosition, 50);

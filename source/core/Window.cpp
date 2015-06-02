@@ -27,7 +27,7 @@ Window::Window() {
 	m_width = Application::screenWidth * 3;
 	m_height = Application::screenHeight * 3;
 	
-	auto caption = "The Legend of Zelda: Oracle of Time";
+	auto caption = "The Legend of Zelda: Oracle of Light";
 	m_window.reset(SDL_CreateWindow(caption, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN));
 	if(!m_window) {
 		throw EXCEPTION("Error while initializing window:", SDL_GetError());

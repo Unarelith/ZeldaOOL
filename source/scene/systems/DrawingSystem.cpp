@@ -49,7 +49,7 @@ void DrawingSystem::draw(SceneObject &object) {
 		}
 		
 		if(object.has<HitboxComponent>()) {
-			drawHitbox(object, position.x, position.y);
+			// drawHitbox(object, position.x, position.y);
 		}
 	}
 }
@@ -109,7 +109,7 @@ void DrawingSystem::drawSprite(SceneObject &object, float x, float y) {
 		
 		if(object.has<HealthComponent>()
 		&& object.get<HealthComponent>().isHurt
-		&& GameClock::getTicks() % 150 < 75) {
+		&& GameClock::getTicks() % 100 < 50) {
 			sprite.setPaletteID(1);
 		}
 		
@@ -132,15 +132,13 @@ void DrawingSystem::drawSpriteComponent(SceneObject &object, float x, float y) {
 	if(spriteComponent.isEnabled) {
 		if(object.has<HealthComponent>()
 		&& object.get<HealthComponent>().isHurt
-		&& GameClock::getTicks() % 150 < 75) {
+		&& GameClock::getTicks() % 100 < 50) {
 			spriteComponent.sprite.setPaletteID(1);
 		}
 		
 		if(spriteComponent.isAnimated) {
 			spriteComponent.sprite.playAnimation(x, y, spriteComponent.animID);
 		} else {
-			spriteComponent.sprite.currentAnimation().stop();
-			
 			spriteComponent.sprite.drawAnimationFrame(x, y, spriteComponent.animID, spriteComponent.frameID);
 		}
 		
