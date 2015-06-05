@@ -16,7 +16,7 @@
 
 #include "Behaviour.hpp"
 
-class PlayerBehaviour : public Behaviour{
+class PlayerBehaviour : public Behaviour {
 	public:
 		PlayerBehaviour() : Behaviour("Standing") {}
 		

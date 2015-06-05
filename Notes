@@ -13,8 +13,8 @@
 - Fix grass objects hitbox
 - When using a teleporter with a loading sword, it's displayed at the previous place
 - Player can be stuck in hurt state
-- When the player is pushing, if we release and press again the directional key,
-  it will not be pushing anymore
+
+-------- Old engine ---------
 
 ===== TODO =====
 - Finish 'Octorok'
@@ -24,22 +24,19 @@
 	=> Improve palette system
 - Implement 'Translator'
 	=> Like Asylia LanguageManager
-- Add 'MovableObject', then 'PotObject' and 'BlockObject'
+- Add 'PotFactory' and 'BlockFactory'
 	=> Movable contains the object movement thing
 	=> Pot is a Movable in all ways
-	=> Block can be moved once only, or not at all, and requires the way it can be move
-- Add 'PowerBracelet'
+	=> Block can be moved once only, or not at all, and requires the way it can be moved
+- Add power bracelet
 	=> Pots and grass are liftable
-	=> Add State::Lifting for player
+	=> Add state "Lifting" for player
 - Add NPCs
 - Improve sword positions
+
+===== TODO AFTER ENGINE IS FINISHED =====
 - Improve game for OpenGL ES and try on Android
-- Write a little game editor with Qt
-	=> Add maps
-		~> Add objects
-		~> Add collectables
-		~> Add enemies
-		~> Add NPCs
+- Write a little game editor with Qt if needed
 
 ===== ISSUES =====
 - Player can go through enemies sometimes

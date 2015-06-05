@@ -19,6 +19,7 @@
 #include "WeaponFactory.hpp"
 
 #include "BehaviourComponent.hpp"
+#include "HealthComponent.hpp"
 #include "LifetimeComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
@@ -30,6 +31,7 @@ void PlayerBehaviour::action(SceneObject &player) {
 	
 	if(m_state == "Standing") {
 		if(movement.isMoving) m_state = "Moving";
+		if(movement.isBlocked) m_state = "Pushing";
 		
 		weaponAction(player);
 	}
@@ -78,30 +80,34 @@ void PlayerBehaviour::action(SceneObject &player) {
 		
 		oldSwordState = swordState;
 	} else {
-		throw EXCEPTION("Unknown player state:", m_state);
+	 	throw EXCEPTION("Unknown player state:", m_state);
 	}
 	
 	updateSprite(player);
 }
 
 void PlayerBehaviour::weaponAction(SceneObject &player) {
-	auto &position = player.get<PositionComponent>();
-	auto &objects = player.get<SceneObjectList>();
+	auto &health = player.get<HealthComponent>();
 	
-	Weapon *weapon = nullptr;
-	GameKey key;
-	if(GamePad::isKeyPressedOnce(GameKey::A)) {
-		weapon = player.get<InventoryComponent>().getWeaponA();
-		key = GameKey::A;
-	}
-	else if(GamePad::isKeyPressedOnce(GameKey::B)) {
-		weapon = player.get<InventoryComponent>().getWeaponB();
-		key = GameKey::B;
-	}
-	
-	if(weapon) {
-		m_weapon = &objects.addObject(WeaponFactory::create(*weapon, position.x, position.y, key, player));
-		m_state = m_weapon->get<WeaponComponent>().playerState;
+	if(!health.isHurt) {
+		auto &position = player.get<PositionComponent>();
+		auto &objects = player.get<SceneObjectList>();
+		
+		Weapon *weapon = nullptr;
+		GameKey key;
+		if(GamePad::isKeyPressedOnce(GameKey::A)) {
+			weapon = player.get<InventoryComponent>().getWeaponA();
+			key = GameKey::A;
+		}
+		else if(GamePad::isKeyPressedOnce(GameKey::B)) {
+			weapon = player.get<InventoryComponent>().getWeaponB();
+			key = GameKey::B;
+		}
+		
+		if(weapon) {
+			m_weapon = &objects.addObject(WeaponFactory::create(*weapon, position.x, position.y, key, player));
+			m_state = m_weapon->get<WeaponComponent>().playerState;
+		}
 	}
 }
 
