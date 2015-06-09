@@ -13,23 +13,26 @@
  */
 #include "Application.hpp"
 #include "AudioPlayer.hpp"
-#include "TeleporterTransition.hpp"
+#include "BehaviourSystem.hpp"
 #include "Map.hpp"
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
 #include "Sprite.hpp"
+#include "TeleporterTransition.hpp"
 
-TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection, bool movePlayer) {
+TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection) {
 	m_nextMap = &Map::getMap(area, mapX, mapY);
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
 	
-	m_playerX = playerX;
-	m_playerY = playerY;
-	
-	m_playerDirection = playerDirection;
-	
-	m_movePlayer = movePlayer;
+	if(Scene::player && Scene::player->has<PositionComponent>()) {
+		auto &positionComponent = Scene::player->get<PositionComponent>();
+		
+		positionComponent.x = playerX;
+		positionComponent.y = playerY;
+		
+		positionComponent.direction = static_cast<Direction>(playerDirection);
+	}
 	
 	m_timer.start();
 	
@@ -51,7 +54,7 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 		AudioPlayer::playMusic("underground");
 	}
 	
-	// Player::player.setNextState<StandingState>();
+	BehaviourSystem::reset(*Scene::player);
 	
 	m_drawStatsBar = false;
 	
@@ -73,15 +76,6 @@ void TeleporterTransition::update() {
 		glClearColor(Color::text.r / 255.0f, Color::text.g / 255.0f, Color::text.b / 255.0f, 1.0f);
 		
 		m_drawStatsBar = true;
-		
-		if(Scene::player && Scene::player->has<PositionComponent>()) {
-			auto &positionComponent = Scene::player->get<PositionComponent>();
-			
-			positionComponent.x = m_playerX;
-			positionComponent.y = m_playerY;
-			
-			positionComponent.direction = (Direction)m_playerDirection;
-		}
 		
 		m_rect1.move(-1.5, 0);
 		m_rect2.move(1.5, 0);

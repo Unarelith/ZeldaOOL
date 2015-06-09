@@ -30,7 +30,7 @@
 void collectableAction(SceneObject &collectable, SceneObject &object, bool inCollision);
 
 SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType) {
-	SceneObject object;
+	SceneObject object("Collectable");
 	object.set<MovementComponent>(new CollectableMovement(movementType));
 	object.set<CollectableComponent>(soundEffectName);
 	object.set<LifetimeComponent>(6000);
@@ -51,7 +51,7 @@ SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, co
 SceneObject CollectableFactory::createHeart(u16 x, u16 y, CollectableMovement::Type movementType) {
 	SceneObject object = create(x, y, "heart", "getHeart", movementType);
 	object.get<CollectableComponent>().setAction([](SceneObject &player) {
-		player.get<HealthComponent>().life++;
+		player.get<HealthComponent>().life += 4;
 	});
 	
 	return object;
@@ -72,7 +72,7 @@ void collectableAction(SceneObject &collectable, SceneObject &object, bool inCol
 	auto &collectableComponent = collectable.get<CollectableComponent>();
 	auto &lifetimeComponent = collectable.get<LifetimeComponent>();
 	
-	if(Scene::isPlayer(object) && !inCollision) {
+	if(Scene::isPlayer(object) && inCollision) {
 		AudioPlayer::playEffect(collectableComponent.soundEffectName());
 		
 		collectableComponent.action(object);

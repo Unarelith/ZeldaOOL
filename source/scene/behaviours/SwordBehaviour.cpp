@@ -131,7 +131,7 @@ void SwordBehaviour::action(SceneObject &sword) {
 			spriteComponent.isAnimated = false;
 			sprite.getAnimation(8).stop();
 			
-			if(m_spinTimer.time() >= sprite.getAnimation(8).delay() + 10) {
+			if(m_spinTimer.time() >= sprite.getAnimation(8).delay()) {
 				m_state = "Finished";
 			}
 		}

@@ -26,6 +26,17 @@
 #include "SpriteComponent.hpp"
 #include "WeaponComponent.hpp"
 
+void PlayerBehaviour::reset(SceneObject &player) {
+	m_state = "Standing";
+	
+	if(m_weapon) {
+		m_weapon->get<LifetimeComponent>().kill();
+		m_weapon = nullptr;
+	}
+	
+	player.get<MovementComponent>().isDirectionLocked = false;
+}
+
 void PlayerBehaviour::action(SceneObject &player) {
 	auto &movement = player.get<MovementComponent>();
 	

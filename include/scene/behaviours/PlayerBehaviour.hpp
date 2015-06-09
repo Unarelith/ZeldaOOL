@@ -20,6 +20,8 @@ class PlayerBehaviour : public Behaviour {
 	public:
 		PlayerBehaviour() : Behaviour("Standing") {}
 		
+		void reset(SceneObject &player) override;
+		
 		void action(SceneObject &player) override;
 		void weaponAction(SceneObject &player);
 		

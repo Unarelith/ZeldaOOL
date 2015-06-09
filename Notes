@@ -1,7 +1,19 @@
-===== REFACTORING =====
+===== TODO =====
 - Improve movement system
-	=> Impossible to add a movement until the last one is not finished
+	=> Impossible to add a movement until the last one is not finished (may fix issue #3)
 	=> HurtMovement can stop if player is stopped (check isMoving flag)
+- Implement projectiles for Octoroks
+- Remove sword loading animation, and replace it by palette switch
+- Add 'PotFactory' and 'BlockFactory'
+	-> A Pot is movable in all ways
+	-> Block can be moved once only, or not at all, and requires the way it can be moved
+- Add power bracelet
+	-> Pots and grass are liftable
+	=> Add state "Lifting" for player
+- Implement 'Translator'
+	=> Look at Asylia's LanguageManager
+- Add NPCs
+- Improve sword positions
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
 		-> Base class Transformable?
@@ -9,47 +21,40 @@
 - Add more debug tools, like a Logger class
 - Add more unit tests
 
-===== NEW ISSUES =====
-- Fix grass objects hitbox
-- When using a teleporter with a loading sword, it's displayed at the previous place
-- Player can be stuck in hurt state
+===== REFACTORING ISSUES =====
+1- Fix grass objects hitbox
+3- Player can be stuck in hurt state when hitting with sword at the same time he's hurt
+4- When using a teleporter, player appears with the bad frame
 
--------- Old engine ---------
-
-===== TODO =====
-- Finish 'Octorok'
-	=> Player can go through enemies sometimes
-	=> Implement projectiles for octorok
-- Remove sword loading animation, and replace it by palette switch
-	=> Improve palette system
-- Implement 'Translator'
-	=> Like Asylia LanguageManager
-- Add 'PotFactory' and 'BlockFactory'
-	=> Movable contains the object movement thing
-	=> Pot is a Movable in all ways
-	=> Block can be moved once only, or not at all, and requires the way it can be moved
-- Add power bracelet
-	=> Pots and grass are liftable
-	=> Add state "Lifting" for player
-- Add NPCs
-- Improve sword positions
+===== OTHER ISSUES ======
+5- Player and Octoroks can be pushed out of the map during HurtMovement
+	#=> Add a collision handler which is enabled only if player is hurt
+	=> Check in PlayerFactory::mapCollisions, if hurt so go to ScrollingTransition, else
+	   block him
+6- Octorok's HurtMovement speed too slow?
+	=> Check the original game, and adapt the speed
+7- Improve palette system
+	=> Look at KubKraft and improve Shader class
+	=> Move palette system into other files
+8- Rupees are added one by one to the counter in the original game
+	- There's also a sound effect
+9- Check sound effect channels in real game
+	- For example, is it possible to hear sword loading sound anymore when link releases spin attack?
+	- It's not possible to hear text 'clicks' during 'tadaaaaaaa' (new item)
+	=> Define channel in constructor (and 'load'), so from Sound.cpp
+10- Fix grassDestroy animation
+	=> Rip the original
+11- Fix 'moonwalk' bug
+	=> Up and Down can't be pressed at the same time
+	=> Left and Right can't be pressed at the same time
+	=> Look at the original game and look at link's behaviour when it's the case
+12- The tile under link should be destroyed by his spin attack
+13- Player can be teleported when hurt
+	=> Check if player is hurt before teleportation
 
 ===== TODO AFTER ENGINE IS FINISHED =====
 - Improve game for OpenGL ES and try on Android
-- Write a little game editor with Qt if needed
-
-===== ISSUES =====
-- Player can go through enemies sometimes
-- Player can be pushed out of the map during HurtMovement
-- Octorok's HurtMovement speed too slow?
-- Improve palette system
-- Rupees are added one by one to the counter in the original game
-	=> There's also a sound effect
-- Check sound effect channels in real game
-	=> For example, is it possible to hear sword loading sound anymore when link releases spin attack?
-	=> It's not possible to hear text 'clicks' during 'tadaaaaaaa' (new item)
-	=> Define channel in constructor (and 'load'), so from Sound.cpp
-- Fix grassDestroy animation
-	=> Find a way to rip it
-- Fix 'moonwalk' bug
+- Write a little game editor with Qt to add content if needed, it needs:
+	- A Map editor
+	- A SceneObject editor
 

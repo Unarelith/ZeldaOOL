@@ -24,7 +24,7 @@
 
 class SceneObject {
 	public:
-		SceneObject(const std::string &name = "null", const std::string &type = "null")
+		SceneObject(const std::string &type = "null", const std::string &name = "null")
 			: m_name(name), m_type(type) {}
 		
 		SceneObject(const SceneObject &) = delete;
