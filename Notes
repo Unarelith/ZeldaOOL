@@ -1,8 +1,4 @@
 ===== TODO =====
-- HurtMovement can stop if player is stopped?
-	=> Check isMoving flag
-- Fix refactoring issues
-- Merge with 'master'
 - Implement projectiles for Octoroks
 - Remove sword loading animation and replace it by palette switch
 - Add 'PotFactory' and 'BlockFactory'
@@ -23,35 +19,38 @@
 - Add more unit tests
 
 ===== REFACTORING ISSUES =====
-1- Fix grass objects hitbox
-2- Fix player/button collision when using sword
-3- Sword position when player is hurt at the same time he use it is weird
-4- When using a teleporter, player appears with the bad frame
+- Fix grass objects hitbox
+- Fix player/button collision when using sword
+- Sword position when player is hurt at the same time he uses it is weird
+	=> Slow down game to see what actually happens
+- HurtMovement can stop if player is stopped?
+	-> Check the behaviour in the original game
+	=> Check isMoving flag
 
 ===== OTHER ISSUES ======
-5- Player and Octoroks can be pushed out of the map during HurtMovement
+- Player and Octoroks can be pushed out of the map during HurtMovement
 	#=> Add a collision handler which is enabled only if player is hurt
 	=> Check in PlayerFactory::mapCollisions, if hurt so go to ScrollingTransition, else
 	   block him
-6- Octorok's HurtMovement speed too slow?
+- Octorok's HurtMovement speed too slow?
 	=> Check the original game, and adapt the speed
-7- Improve palette system
+- Improve palette system
 	=> Look at KubKraft and improve Shader class
 	=> Move palette system into other files
-8- Rupees are added one by one to the counter in the original game
+- Rupees are added one by one to the counter in the original game
 	- There's also a sound effect
-9- Check sound effect channels in real game
+- Check sound effect channels in real game
 	- For example, is it possible to hear sword loading sound anymore when link releases spin attack?
 	- It's not possible to hear text 'clicks' during 'tadaaaaaaa' (new item)
 	=> Define channel in constructor (and 'load'), so from Sound.cpp
-10- Fix grassDestroy animation
+- Fix grassDestroy animation
 	=> Rip the original
-11- Fix 'moonwalk' bug
+- Fix 'moonwalk' bug
 	=> Up and Down can't be pressed at the same time
 	=> Left and Right can't be pressed at the same time
 	=> Look at the original game and look at link's behaviour when it's the case
-12- The tile under link should be destroyed by his spin attack
-13- Player can be teleported when hurt
+- The tile under link should be destroyed by his spin attack
+- Player can be teleported when hurt
 	=> Check if player is hurt before teleportation
 
 ===== TODO AFTER ENGINE IS FINISHED =====

@@ -17,7 +17,7 @@
 #include "Map.hpp"
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
-#include "Sprite.hpp"
+#include "SpriteComponent.hpp"
 #include "TeleporterTransition.hpp"
 
 TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection) {
@@ -25,13 +25,13 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
 	
-	if(Scene::player && Scene::player->has<PositionComponent>()) {
+	if(Scene::player) {
 		auto &positionComponent = Scene::player->get<PositionComponent>();
 		
 		positionComponent.x = playerX;
 		positionComponent.y = playerY;
 		
-		positionComponent.direction = static_cast<Direction>(playerDirection);
+		positionComponent.direction = playerDirection;
 	}
 	
 	m_timer.start();
@@ -44,7 +44,7 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 	m_rect1.setPosition(0, 16);
 	m_rect2.setPosition(Application::screenWidth / 2, 16);
 	
-	// FIXME: TEMPORARY
+	// FIXME: Each map should have a string member with it's bgm name
 	if(m_nextMap->area() == 0) {
 		AudioPlayer::playMusic("plain");
 	}

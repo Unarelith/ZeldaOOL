@@ -34,7 +34,9 @@ void PlayerBehaviour::reset(SceneObject &player) {
 		m_weapon = nullptr;
 	}
 	
-	player.get<MovementComponent>().isDirectionLocked = false;
+	auto &movementComponent = player.get<MovementComponent>();
+	movementComponent.isDirectionLocked = false;
+	movementComponent.v = 0;
 }
 
 void PlayerBehaviour::action(SceneObject &player) {

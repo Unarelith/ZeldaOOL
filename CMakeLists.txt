@@ -60,17 +60,17 @@ endif()
 # - OpenGL
 #------------------------------------------------------------------------------
 find_package(OpenGL REQUIRED)
-# find_package(GLM REQUIRED)
+find_package(GLM QUIET)
 
 if(NOT OPENGL_FOUND)
 	message(FATAL_ERROR "OpenGL not found!")
 endif(NOT OPENGL_FOUND)
 
-# if(NOT GLM_FOUND)
-# 	message(FATAL_ERROR "glm not found!")
-# endif(NOT GLM_FOUND)
-#
-# include_directories(${GLM_INCLUDE_DIRS})
+if(NOT GLM_FOUND)
+	message(WARNING "glm not found!")
+endif(NOT GLM_FOUND)
+
+include_directories(${GLM_INCLUDE_DIRS})
 
 #------------------------------------------------------------------------------
 # - SDL2, SDL2_image, SDL2_mixer
