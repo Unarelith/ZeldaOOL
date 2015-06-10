@@ -1,9 +1,10 @@
 ===== TODO =====
-- Improve movement system
-	=> Impossible to add a movement until the last one is not finished (may fix issue #3)
-	=> HurtMovement can stop if player is stopped (check isMoving flag)
+- HurtMovement can stop if player is stopped?
+	=> Check isMoving flag
+- Fix refactoring issues
+- Merge with 'master'
 - Implement projectiles for Octoroks
-- Remove sword loading animation, and replace it by palette switch
+- Remove sword loading animation and replace it by palette switch
 - Add 'PotFactory' and 'BlockFactory'
 	-> A Pot is movable in all ways
 	-> Block can be moved once only, or not at all, and requires the way it can be moved
@@ -23,7 +24,8 @@
 
 ===== REFACTORING ISSUES =====
 1- Fix grass objects hitbox
-3- Player can be stuck in hurt state when hitting with sword at the same time he's hurt
+2- Fix player/button collision when using sword
+3- Sword position when player is hurt at the same time he use it is weird
 4- When using a teleporter, player appears with the bad frame
 
 ===== OTHER ISSUES ======

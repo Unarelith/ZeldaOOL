@@ -67,5 +67,7 @@ void GamePadMovement::process(SceneObject &object) {
 	&& (GamePad::isKeyPressed(GameKey::Up)   || GamePad::isKeyPressed(GameKey::Down))) {
 		movementComponent.v /= 1.4;
 	}
+	
+	m_isFinished = true;
 }
 

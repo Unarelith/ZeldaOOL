@@ -70,7 +70,9 @@ void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
 		auto &weaponOwner = object.get<WeaponComponent>().owner;
 		
 		if(Scene::isPlayer(weaponOwner)
-		&& !grassSpriteComponent.isEnabled && grassHitboxComponent.currentHitbox()) {
+		&& object.name() == "Sword"
+		&& !grassSpriteComponent.isEnabled
+		&& grassHitboxComponent.currentHitbox()) {
 			auto &grassPosition = grass.get<PositionComponent>();
 			auto &playerDirection = weaponOwner.get<PositionComponent>().direction;
 			auto &swordSprite = object.get<SpriteComponent>().sprite;

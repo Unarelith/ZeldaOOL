@@ -39,6 +39,9 @@ void PlayerBehaviour::reset(SceneObject &player) {
 
 void PlayerBehaviour::action(SceneObject &player) {
 	auto &movement = player.get<MovementComponent>();
+	auto &health = player.get<HealthComponent>();
+	
+	if(health.isHurt) m_state = "Standing";
 	
 	if(m_state == "Standing") {
 		if(movement.isMoving) m_state = "Moving";
@@ -58,14 +61,14 @@ void PlayerBehaviour::action(SceneObject &player) {
 		weaponAction(player);
 	}
 	else if(m_state == "Sword") {
-		// FIXME: When sword is used and player is hurt at the same time
-		// the player stays hurt, because it has not the right movement
 		static std::string oldSwordState;
 		
 		std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
 		if(swordState != oldSwordState) {
 			if(swordState == "Swinging") {
-				movement.movements.emplace(nullptr);
+				if(!movement.movements.push(nullptr)) {
+					m_state = "Standing";
+				}
 			}
 			else if(swordState == "Loading") {
 				movement.movements.top().reset(new GamePadMovement);
@@ -127,7 +130,7 @@ void PlayerBehaviour::updateSprite(SceneObject &player) {
 	auto &position = player.get<PositionComponent>();
 	auto &sprite = player.get<SpriteComponent>();
 	
-	if(m_state == "Hurt" || m_state == "Standing") {
+	if(m_state == "Standing") {
 		sprite.isAnimated = false;
 		sprite.animID = static_cast<s8>(position.direction);
 		sprite.frameID = 1;

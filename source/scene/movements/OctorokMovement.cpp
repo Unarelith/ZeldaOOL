@@ -84,5 +84,7 @@ void OctorokMovement::process(SceneObject &object) {
 			reset(object);
 		}
 	}
+	
+	m_isFinished = true;
 }
 

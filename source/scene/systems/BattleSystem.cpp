@@ -29,7 +29,7 @@ void BattleSystem::update(SceneObject &object) {
 		auto &health = object.get<HealthComponent>();
 		auto &movements = object.get<MovementComponent>().movements;
 		
-		if(health.isHurt && !movements.empty() && movements.top() && movements.top()->isFinished()) {
+		if(health.isHurt && movements.size() != 0 && movements.top() && movements.top()->isFinished()) {
 			health.isHurt = false;
 			
 			if(health.life > 0) {
@@ -69,7 +69,7 @@ void BattleSystem::hurt(SceneObject &attacker, SceneObject &receiver) {
 					if(v.x != 0) v.x /= fabs(v.x);
 					if(v.y != 0) v.y /= fabs(v.y);
 					
-					receiver.get<MovementComponent>().movements.emplace(new HurtMovement(v.x, v.y));
+					receiver.get<MovementComponent>().movements.push(new HurtMovement(v.x, v.y));
 				}
 				
 				receiverHealth.isHurt = true;

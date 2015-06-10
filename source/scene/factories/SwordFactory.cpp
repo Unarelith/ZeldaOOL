@@ -24,7 +24,7 @@
 #include "WeaponComponent.hpp"
 
 SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &owner, Weapon &weaponInfos) {
-	SceneObject object;
+	SceneObject object("Weapon", "Sword");
 	object.set<BehaviourComponent>(new SwordBehaviour);
 	object.set<LifetimeComponent>();
 	object.set<WeaponComponent>(owner, weaponInfos, key, "Sword");
@@ -41,10 +41,14 @@ SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &own
 	hitboxComponent.addHitbox( 0,  0, 15, 15); // swordSwingLeftUp
 	hitboxComponent.addHitbox( 1,  0, 15, 15); // swordSwingRightUp
 	hitboxComponent.addHitbox( 1,  0, 15, 15); // swordSwingLeftDown
-	hitboxComponent.addHitbox( 9,  0,  6, 15); // swordDownLHand
-	hitboxComponent.addHitbox( 0,  8, 15,  6); // swordRightRHand
-	hitboxComponent.addHitbox( 1,  8, 15,  6); // swordLeftRHand
-	hitboxComponent.addHitbox( 1,  0,  6, 15); // swordUpLHand
+	// hitboxComponent.addHitbox( 9,  0,  6, 15); // swordDownLHand
+	// hitboxComponent.addHitbox( 0,  8, 15,  6); // swordRightRHand
+	// hitboxComponent.addHitbox( 1,  8, 15,  6); // swordLeftRHand
+	// hitboxComponent.addHitbox( 1,  0,  6, 15); // swordUpLHand
+	hitboxComponent.addHitbox(10,  1,  4, 13); // swordDownLHand
+	hitboxComponent.addHitbox( 1,  9, 13,  4); // swordRightRHand
+	hitboxComponent.addHitbox( 2,  9, 13,  4); // swordLeftRHand
+	hitboxComponent.addHitbox( 2,  1,  4, 13); // swordUpLHand
 	
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addChecker([](SceneObject &sword) {
