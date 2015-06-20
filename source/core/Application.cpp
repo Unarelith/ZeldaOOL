@@ -19,8 +19,11 @@
 #include "AudioLoader.hpp"
 #include "ItemLoader.hpp"
 #include "TextureLoader.hpp"
+#include "Translator.hpp"
 
 Application::Application() : m_stateStack(ApplicationStateStack::getInstance()) {
+	Translator::setLocale("fr_FR");
+	
 	ResourceHandler::getInstance().loadConfigFile<AudioLoader>("data/config/audio.xml");
 	ResourceHandler::getInstance().loadConfigFile<TextureLoader>("data/config/textures.xml");
 	ResourceHandler::getInstance().loadConfigFile<ItemLoader>("data/config/items.xml");

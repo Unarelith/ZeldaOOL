@@ -29,7 +29,7 @@ void SDLLoader::load() {
 	}
 	
 	int imgFlags = IMG_INIT_PNG;
-	if(!IMG_Init(imgFlags) & imgFlags) {
+	if((!IMG_Init(imgFlags)) & imgFlags) {
 		throw EXCEPTION("SDL image init error:", IMG_GetError());
 	} else {
 		m_imgInitialized = true;
@@ -42,6 +42,7 @@ void SDLLoader::load() {
 	}
 	
 	Mix_AllocateChannels(32);
+	
 	Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
 	Mix_Volume(-1, MIX_MAX_VOLUME);
 }

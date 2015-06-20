@@ -1,4 +1,12 @@
 ===== TODO =====
+- Add NPCs
+	=> Create a class 'Message' or 'NPCMessage' which could contain actions,
+	   conditions, etc.
+	   -> Improve 'MessageBox' to handle choices
+	=> Create a 'NPCFactory'
+	=> Check the real hitbox of Link thanks to NPCs which don't have rounded
+	   corners.
+		-> Write a 'MapCollisionHandler'
 - Implement projectiles for Octoroks
 - Remove sword loading animation and replace it by palette switch
 - Add 'PotFactory' and 'BlockFactory'
@@ -7,9 +15,6 @@
 - Add power bracelet
 	-> Pots and grass are liftable
 	=> Add state "Lifting" for player
-- Implement 'Translator'
-	=> Look at Asylia's LanguageManager
-- Add NPCs
 - Improve sword positions
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions

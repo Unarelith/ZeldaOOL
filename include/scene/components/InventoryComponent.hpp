@@ -20,11 +20,12 @@
 #include "GameKey.hpp"
 #include "Image.hpp"
 #include "ResourceHandler.hpp"
+#include "Translator.hpp"
 
 class Item {
 	public:
 		Item(const std::string &name)
-			: m_icon("icons-" + name), m_name(name), m_description(name + "_description") {}
+			: m_icon("icons-" + name), m_name(_t(name)), m_description(_t(name + "_description")) {}
 		
 		Image &icon() { return m_icon; }
 		
