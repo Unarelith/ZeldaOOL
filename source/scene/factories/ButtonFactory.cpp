@@ -22,24 +22,24 @@
 void buttonAction(SceneObject &button, SceneObject &object, bool inCollision);
 
 SceneObject ButtonFactory::create(u16 tileX, u16 tileY) {
-	SceneObject object;
-	object.set<ButtonComponent>();
-	object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
+	SceneObject button;
+	button.set<ButtonComponent>();
+	button.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 	
-	auto &hitboxComponent = object.set<HitboxComponent>();
+	auto &hitboxComponent = button.set<HitboxComponent>();
 	hitboxComponent.addHitbox(4, 4, 8, 8);
 	
-	auto &collisionComponent = object.set<CollisionComponent>();
+	auto &collisionComponent = button.set<CollisionComponent>();
 	collisionComponent.addAction(&buttonAction);
 	
-	return object;
+	return button;
 }
 
 void buttonAction(SceneObject &button, SceneObject &object, bool inCollision) {
-	auto &positionComponent = button.get<PositionComponent>();
-	auto &buttonComponent = button.get<ButtonComponent>();
-	
 	if(Scene::isPlayer(object)) {
+		auto &positionComponent = button.get<PositionComponent>();
+		auto &buttonComponent = button.get<ButtonComponent>();
+		
 		if(inCollision) {
 			buttonComponent.pressedAction(positionComponent.x / 16,
 			                              positionComponent.y / 16);

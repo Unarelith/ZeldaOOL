@@ -17,6 +17,7 @@
 
 #include "ButtonLoader.hpp"
 #include "ChestLoader.hpp"
+#include "NPCLoader.hpp"
 #include "OctorokLoader.hpp"
 #include "TeleporterLoader.hpp"
 
@@ -31,8 +32,11 @@ void SceneObjectLoader::load(const std::string &mapName, Scene &scene) {
 			if(objectName == "button") {
 				ButtonLoader::load(objectElement, scene);
 			}
-			if(objectName == "chest") {
+			else if(objectName == "chest") {
 				ChestLoader::load(objectElement, scene);
+			}
+			else if(objectName == "npc") {
+				NPCLoader::load(objectElement, scene);
 			}
 			else if(objectName == "octorok") {
 				OctorokLoader::load(objectElement, scene);

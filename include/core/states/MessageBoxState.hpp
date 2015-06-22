@@ -19,7 +19,7 @@
 
 class MessageBoxState : public ApplicationState {
 	public:
-		MessageBoxState(const std::string &text, ApplicationState *parent, MessageBox::Position position = MessageBox::Position::Top);
+		MessageBoxState(const std::string &text, ApplicationState *parent);
 		
 		void update();
 		

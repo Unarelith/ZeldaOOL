@@ -1,25 +1,24 @@
 /*
  * =====================================================================================
  *
- *       Filename:  ButtonLoader.hpp
+ *       Filename:  NPCFactory.hpp
  *
  *    Description:  
  *
- *        Created:  22/02/2015 17:14:19
+ *        Created:  22/06/2015 12:52:50
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef BUTTONLOADER_HPP_
-#define BUTTONLOADER_HPP_
+#ifndef NPCFACTORY_HPP_
+#define NPCFACTORY_HPP_
 
-#include "Scene.hpp"
-#include "XMLFile.hpp"
+#include "SceneObject.hpp"
 
-class ButtonLoader {
+class NPCFactory {
 	public:
-		static void load(XMLElement *buttonElement, Scene &scene);
+		static SceneObject create(u16 tileX, u16 tileY);
 };
 
-#endif // BUTTONLOADER_HPP_
+#endif // NPCFACTORY_HPP_

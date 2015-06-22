@@ -1,9 +1,9 @@
 ===== TODO =====
 - Add NPCs
+	=> Create a 'NPCFactory'
 	=> Create a class 'Message' or 'NPCMessage' which could contain actions,
 	   conditions, etc.
 	   -> Improve 'MessageBox' to handle choices
-	=> Create a 'NPCFactory'
 	=> Check the real hitbox of Link thanks to NPCs which don't have rounded
 	   corners.
 		-> Write a 'MapCollisionHandler'

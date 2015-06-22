@@ -12,3 +12,4 @@ doxygen/html
 doxygen/latex
 .color_coded
 .ycm_extra_conf*
+draft
