@@ -21,19 +21,19 @@ void CollectableMovement::process(SceneObject &object) {
 	
 	if(m_type == Type::Dropped) {
 		if(m_movementCounter < 24) {
-			if(m_movementCounter > 4 && m_speed == -m_baseSpeed) {
+			if(m_movementCounter > 4 && m_movementCounter <= 6) {
 				m_speed = -m_baseSpeed / 2;
 			}
-			if(m_movementCounter > 6 && m_speed == -m_baseSpeed / 2) {
+			else if(m_movementCounter <= 8) {
 				m_speed = -m_baseSpeed / 3;
 			}
-			if(m_movementCounter > 8 && m_speed == -m_baseSpeed / 3) {
+			else if(m_movementCounter <= 16) {
 				m_speed = m_baseSpeed / 2;
 			}
-			if(m_movementCounter > 16 && m_speed == m_baseSpeed / 2) {
+			else if(m_movementCounter <= 20) {
 				m_speed = -m_baseSpeed / 2;
 			}
-			if(m_movementCounter > 20 && m_speed == -m_baseSpeed / 2) {
+			else {
 				m_speed = m_baseSpeed / 2;
 			}
 			
