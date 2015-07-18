@@ -28,15 +28,15 @@ int main(int, char *[]) {
 		app.run();
 	}
 	catch(const Exception &e) {
-		std::cerr << "Fatal error " << e.what() << std::endl;
+		std::cerr << "[" << __TIME__ << "] " << "Fatal error " << e.what() << std::endl;
 		return 1;
 	}
 	catch(const std::exception &e) {
-		std::cerr << "Exception caught: " << e.what() << std::endl;
+		std::cerr << "[" << __TIME__ << "] " << "Exception caught: " << e.what() << std::endl;
 		return 1;
 	}
 	catch(...) {
-		std::cerr << "Fatal error: Unknown error." << std::endl;
+		std::cerr << "[" << __TIME__ << "] " << "Fatal error: Unknown error." << std::endl;
 		return 1;
 	}
 	
