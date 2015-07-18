@@ -33,7 +33,7 @@ void CollectableMovement::process(SceneObject &object) {
 			else if(m_movementCounter <= 20) {
 				m_speed = -m_baseSpeed / 2;
 			}
-			else {
+			else if(m_movementCounter > 4) {
 				m_speed = m_baseSpeed / 2;
 			}
 			
