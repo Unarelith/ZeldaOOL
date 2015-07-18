@@ -7,6 +7,7 @@
 	=> Check the real hitbox of Link thanks to NPCs which don't have rounded
 	   corners.
 		-> Write a 'MapCollisionHandler'
+- Add a config file for keys mapping
 - Implement projectiles for Octoroks
 - Octorok should drop collectables
 - Remove sword loading animation and replace it by palette switch

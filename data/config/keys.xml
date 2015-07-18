@@ -1,0 +1,12 @@
+<keys>
+	<Left  key="Left"/>
+	<Right key="Right"/>
+	<Up    key="Up"/>
+	<Down  key="Down"/>
+	
+	<A key="X"/>
+	<B key="W"/>
+
+	<Start  key="Return"/>
+	<Select key="Backspace"/>
+</keys>
