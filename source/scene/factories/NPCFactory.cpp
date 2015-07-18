@@ -47,10 +47,28 @@ SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
 
 #include "MovementComponent.hpp"
 
-void npcAction(SceneObject &, SceneObject &object, bool inCollision) {
+void npcAction(SceneObject &npc, SceneObject &object, bool inCollision) {
 	if(Scene::isPlayer(object) && inCollision) {
-		// FIXME: Improve collisions
-		object.get<MovementComponent>().v = 0;
+		// FIXME: Fix collisions
+		auto &playerPosition = object.get<PositionComponent>();
+		auto &playerMovement = object.get<MovementComponent>();
+		
+		auto &npcPosition = npc.get<PositionComponent>();
+		
+		Vector2i v = playerPosition.position() - npcPosition.position();
+		
+		if(v.x != 0) v.x /= abs(v.x);
+		if(v.y != 0) v.y /= abs(v.y);
+		
+		PositionComponent temp;
+		temp.updateDirection(v);
+		
+		if(v.x != 0) playerMovement.v.x = 0;
+		if(v.y != 0) playerMovement.v.y = 0;
+		
+		if(playerPosition.direction == temp.direction) {
+			object.get<MovementComponent>().isBlocked = true;
+		}
 		
 		if(GamePad::isKeyPressedOnce(GameKey::A)) {
 			ApplicationStateStack::getInstance().push<MessageBoxState>("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", ApplicationStateStack::getInstance().top());

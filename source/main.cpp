@@ -14,7 +14,6 @@
 #include <iostream>
 
 #include "Application.hpp"
-#include "Debug.hpp"
 #include "Exception.hpp"
 #include "SDLLoader.hpp"
 

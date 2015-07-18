@@ -1,13 +1,14 @@
 ===== TODO =====
 - Add NPCs
-	=> Create a 'NPCFactory'
+	=> Improve collisions
 	=> Create a class 'Message' or 'NPCMessage' which could contain actions,
 	   conditions, etc.
-	   -> Improve 'MessageBox' to handle choices
+		-> Improve 'MessageBox' to handle choices
 	=> Check the real hitbox of Link thanks to NPCs which don't have rounded
 	   corners.
 		-> Write a 'MapCollisionHandler'
 - Implement projectiles for Octoroks
+- Octorok should drop collectables
 - Remove sword loading animation and replace it by palette switch
 - Add 'PotFactory' and 'BlockFactory'
 	-> A Pot is movable in all ways
