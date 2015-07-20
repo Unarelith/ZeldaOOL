@@ -91,7 +91,7 @@ void Shader::compileShader(GLenum type, GLuint &shader, const std::string &filen
 	
 	const GLchar *sourceCodeString = sourceCode.c_str();
 	
-	glShaderSource(shader, 1, &sourceCodeString, NULL);
+	glShaderSource(shader, 1, &sourceCodeString, nullptr);
 	
 	glCompileShader(shader);
 	

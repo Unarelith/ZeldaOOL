@@ -49,25 +49,16 @@ SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
 
 void npcAction(SceneObject &npc, SceneObject &object, bool inCollision) {
 	if(Scene::isPlayer(object) && inCollision) {
-		// FIXME: Fix collisions
+		// FIXME: Improve collisions
 		auto &playerPosition = object.get<PositionComponent>();
 		auto &playerMovement = object.get<MovementComponent>();
 		
 		auto &npcPosition = npc.get<PositionComponent>();
 		
-		Vector2i v = playerPosition.position() - npcPosition.position();
-		
-		if(v.x != 0) v.x /= abs(v.x);
-		if(v.y != 0) v.y /= abs(v.y);
-		
-		PositionComponent temp;
-		temp.updateDirection(v);
-		
-		if(v.x != 0) playerMovement.v.x = 0;
-		if(v.y != 0) playerMovement.v.y = 0;
-		
-		if(playerPosition.direction == temp.direction) {
-			object.get<MovementComponent>().isBlocked = true;
+		if(playerPosition.intersectionDirection(npcPosition) == 1) {
+			playerMovement.v.x = 0;
+		} else {
+			playerMovement.v.y = 0;
 		}
 		
 		if(GamePad::isKeyPressedOnce(GameKey::A)) {

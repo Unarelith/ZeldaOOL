@@ -7,7 +7,6 @@
 	=> Check the real hitbox of Link thanks to NPCs which don't have rounded
 	   corners.
 		-> Write a 'MapCollisionHandler'
-- Add a config file for keys mapping
 - Implement projectiles for Octoroks
 - Octorok should drop collectables
 - Remove sword loading animation and replace it by palette switch
@@ -33,6 +32,7 @@
 - HurtMovement can stop if player is stopped?
 	-> Check the behaviour in the original game
 	=> Check isMoving flag
+- The tile under link should be destroyed by his spin attack
 
 ===== OTHER ISSUES ======
 - Player and Octoroks can be pushed out of the map during HurtMovement
@@ -56,7 +56,6 @@
 	=> Up and Down can't be pressed at the same time
 	=> Left and Right can't be pressed at the same time
 	=> Look at the original game and look at link's behaviour when it's the case
-- The tile under link should be destroyed by his spin attack
 - Player can be teleported when hurt
 	=> Check if player is hurt before teleportation
 
