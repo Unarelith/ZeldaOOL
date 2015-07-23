@@ -33,6 +33,10 @@ class GamePad {
 		
 		static std::map<GameKey, bool> keysPressed;
 		static std::map<GameKey, u32> lastTimePressed;
+
+		// Lock to avoid bugs when opposite keys are pressed
+		static bool m_verticalLock, m_horizontalLock;
+		static GameKey m_verticalValue, m_horizontalValue;
 };
 
 #endif // GAMEPAD_HPP_

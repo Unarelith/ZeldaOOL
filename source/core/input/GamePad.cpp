@@ -42,8 +42,64 @@ std::map<GameKey, u32> GamePad::lastTimePressed = {
 	{GameKey::Select,   0}
 };
 
+bool GamePad::m_verticalLock = false;
+bool GamePad::m_horizontalLock = false;
+
+GameKey GamePad::m_verticalValue = GameKey::Down;
+GameKey GamePad::m_horizontalValue = GameKey::Left;
+
 bool GamePad::isKeyPressed(GameKey key) {
-	return (inputHandler) ? inputHandler->isKeyPressed(key) : false;
+
+	if(!inputHandler)
+		return false;
+
+	if(key == GameKey::Up) { // First vertical key pressed disable the other one
+		if (m_verticalLock && m_verticalValue == GameKey::Down) {
+			return false;
+		} else if (inputHandler->isKeyPressed(key)) {
+			m_verticalLock = true;
+			m_verticalValue = GameKey::Up;
+			return true;
+		} else {
+			m_verticalLock = false;
+			return false;
+		}
+	} else if(key == GameKey::Down) {
+		if (m_verticalLock && m_verticalValue == GameKey::Up) {
+			return false;
+		} else if (inputHandler->isKeyPressed(key)) {
+			m_verticalLock = true;
+			m_verticalValue = GameKey::Down;
+			return true;
+		} else {
+			m_verticalLock = false;
+			return false;
+		}
+	} else if(key == GameKey::Left) { // First horizontal key pressed disable the other one
+		if (m_horizontalLock && m_horizontalValue == GameKey::Right) {
+			return false;
+		} else if (inputHandler->isKeyPressed(key)) {
+			m_horizontalLock = true;
+			m_horizontalValue = GameKey::Left;
+			return true;
+		} else {
+			m_horizontalLock = false;
+			return false;
+		}
+	} else if(key == GameKey::Right) {
+		if (m_horizontalLock && m_horizontalValue == GameKey::Left) {
+			return false;
+		} else if (inputHandler->isKeyPressed(key)) {
+			m_horizontalLock = true;
+			m_horizontalValue = GameKey::Right;
+			return true;
+		} else {
+			m_horizontalLock = false;
+			return false;
+		}
+	} else {
+		return inputHandler->isKeyPressed(key);
+	}
 }
 
 bool GamePad::isKeyPressedOnce(GameKey key) {
