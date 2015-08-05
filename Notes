@@ -1,12 +1,17 @@
 ===== TODO =====
 - Add NPCs
-	=> Improve collisions
 	=> Create a class 'Message' or 'NPCMessage' which could contain actions,
 	   conditions, etc.
 		-> Improve 'MessageBox' to handle choices
 	=> Check the real hitbox of Link thanks to NPCs which don't have rounded
-	   corners.
+	   corners
 		-> Write a 'MapCollisionHandler'
+	=> Fix remaining issues
+		-> Fix the conflict between button A's action and NPC's dialog
+		-> Link can be displayed behind and in front of a NPC in the original game
+			=> BIG ISSUE: I think I'll need two sets of SceneObjects, the ones in front of the player, the others behind
+		-> NPC animation should be stopped when his message is displayed
+			=> I think using Sprite::pause could be a good idea
 - Implement projectiles for Octoroks
 - Octorok should drop collectables
 - Remove sword loading animation and replace it by palette switch
@@ -33,10 +38,10 @@
 	-> Check the behaviour in the original game
 	=> Check isMoving flag
 - The tile under link should be destroyed by his spin attack
+- Find a better way to check if the player is facing a chest
 
 ===== OTHER ISSUES ======
 - Player and Octoroks can be pushed out of the map during HurtMovement
-	#=> Add a collision handler which is enabled only if player is hurt
 	=> Check in PlayerFactory::mapCollisions, if hurt so go to ScrollingTransition, else
 	   block him
 - Octorok's HurtMovement speed too slow?

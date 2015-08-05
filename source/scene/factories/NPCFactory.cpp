@@ -29,7 +29,8 @@ SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
 	npc.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 	
 	auto &hitboxComponent = npc.set<HitboxComponent>();
-	hitboxComponent.addHitbox(4, 4, 8, 8);
+	//hitboxComponent.addHitbox(0, 6, 16, 10);
+	hitboxComponent.addHitbox(0, 0, 16, 16);
 	
 	auto &collisionComponent = npc.set<CollisionComponent>();
 	collisionComponent.addAction(&npcAction);
@@ -37,10 +38,10 @@ SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
 	auto &spriteComponent = npc.set<SpriteComponent>("characters-blueBoy", 16, 16);
 	spriteComponent.isAnimated = true;
 	
-	spriteComponent.sprite.addAnimation({0, 4}, 150);
-	spriteComponent.sprite.addAnimation({1, 5}, 150);
-	spriteComponent.sprite.addAnimation({2, 6}, 150);
-	spriteComponent.sprite.addAnimation({3, 7}, 150);
+	spriteComponent.sprite.addAnimation({0, 4}, 250);
+	spriteComponent.sprite.addAnimation({1, 5}, 250);
+	spriteComponent.sprite.addAnimation({2, 6}, 250);
+	spriteComponent.sprite.addAnimation({3, 7}, 250);
 	
 	return npc;
 }
@@ -49,7 +50,6 @@ SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
 
 void npcAction(SceneObject &npc, SceneObject &object, bool inCollision) {
 	if(Scene::isPlayer(object) && inCollision) {
-		// FIXME: Improve collisions
 		auto &playerPosition = object.get<PositionComponent>();
 		auto &playerMovement = object.get<MovementComponent>();
 		
@@ -61,6 +61,7 @@ void npcAction(SceneObject &npc, SceneObject &object, bool inCollision) {
 			playerMovement.v.y = 0;
 		}
 		
+		// FIXME: Fix priorities with weaponA
 		if(GamePad::isKeyPressedOnce(GameKey::A)) {
 			ApplicationStateStack::getInstance().push<MessageBoxState>("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", ApplicationStateStack::getInstance().top());
 		}

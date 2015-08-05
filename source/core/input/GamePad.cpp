@@ -49,14 +49,12 @@ GameKey GamePad::m_verticalValue = GameKey::Down;
 GameKey GamePad::m_horizontalValue = GameKey::Left;
 
 bool GamePad::isKeyPressed(GameKey key) {
-
-	if(!inputHandler)
-		return false;
-
+	if(!inputHandler) return false;
+	
 	if(key == GameKey::Up) { // First vertical key pressed disable the other one
 		if (m_verticalLock && m_verticalValue == GameKey::Down) {
 			return false;
-		} else if (inputHandler->isKeyPressed(key)) {
+		} else if(inputHandler->isKeyPressed(key)) {
 			m_verticalLock = true;
 			m_verticalValue = GameKey::Up;
 			return true;
@@ -67,7 +65,7 @@ bool GamePad::isKeyPressed(GameKey key) {
 	} else if(key == GameKey::Down) {
 		if (m_verticalLock && m_verticalValue == GameKey::Up) {
 			return false;
-		} else if (inputHandler->isKeyPressed(key)) {
+		} else if(inputHandler->isKeyPressed(key)) {
 			m_verticalLock = true;
 			m_verticalValue = GameKey::Down;
 			return true;
@@ -76,9 +74,9 @@ bool GamePad::isKeyPressed(GameKey key) {
 			return false;
 		}
 	} else if(key == GameKey::Left) { // First horizontal key pressed disable the other one
-		if (m_horizontalLock && m_horizontalValue == GameKey::Right) {
+		if(m_horizontalLock && m_horizontalValue == GameKey::Right) {
 			return false;
-		} else if (inputHandler->isKeyPressed(key)) {
+		} else if(inputHandler->isKeyPressed(key)) {
 			m_horizontalLock = true;
 			m_horizontalValue = GameKey::Left;
 			return true;
@@ -87,9 +85,9 @@ bool GamePad::isKeyPressed(GameKey key) {
 			return false;
 		}
 	} else if(key == GameKey::Right) {
-		if (m_horizontalLock && m_horizontalValue == GameKey::Left) {
+		if(m_horizontalLock && m_horizontalValue == GameKey::Left) {
 			return false;
-		} else if (inputHandler->isKeyPressed(key)) {
+		} else if(inputHandler->isKeyPressed(key)) {
 			m_horizontalLock = true;
 			m_horizontalValue = GameKey::Right;
 			return true;
