@@ -32,7 +32,7 @@ void BattleSystem::update(SceneObject &object) {
 		if(health.isHurt && movements.size() != 0 && movements.top() && movements.top()->isFinished()) {
 			health.isHurt = false;
 			
-			if(health.life > 0) {
+			if(health.getLife() > 0) {
 				movements.pop();
 			}
 			else if(object.type() == "Monster") {
@@ -73,7 +73,7 @@ void BattleSystem::hurt(SceneObject &attacker, SceneObject &receiver) {
 				}
 				
 				receiverHealth.isHurt = true;
-				receiverHealth.life--;
+				receiverHealth.removeLife(1);
 			}
 		}
 	}
