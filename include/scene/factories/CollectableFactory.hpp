@@ -23,6 +23,12 @@ enum RupeesAmount : u8 {
 	Thirty = 30,
 };
 
+enum CollectableType {
+	Heart,
+	Rupees,
+	Other // Akromha: Must not list every item (?)
+};
+
 class CollectableFactory {
 	public:
 		static SceneObject create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType);

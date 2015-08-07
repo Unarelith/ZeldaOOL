@@ -20,6 +20,7 @@
 #include "HitboxComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
+#include "LootComponent.hpp"
 
 void grassAction(SceneObject &grass, SceneObject &object, bool inCollision);
 
@@ -54,11 +55,16 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 		object.get<HitboxComponent>().setCurrentHitbox(0);
 	}));
 	
+	auto &lootComponent = object.set<LootComponent>();
+	lootComponent.addItem(0.2, CollectableType::Rupees, RupeesAmount::One);
+	lootComponent.addItem(0.067, CollectableType::Heart);
+	lootComponent.addItem(0.04, CollectableType::Rupees, RupeesAmount::Five);
+	lootComponent.addItem(0.004, CollectableType::Rupees, RupeesAmount::Thirty);
+	
 	return object;
 }
 
 #include "AudioPlayer.hpp"
-#include "CollectableFactory.hpp"
 
 #include "WeaponComponent.hpp"
 
@@ -83,18 +89,7 @@ void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
 			|| object.get<BehaviourComponent>().behaviour->state() == "SpinAttack") {
 				AudioPlayer::playEffect("grassDestroy");
 				
-				if(rand() % 5 == 0) {
-					Map::currentMap->scene().addObject(CollectableFactory::createRupees(grassPosition.x + 8, grassPosition.y + 8, RupeesAmount::One, CollectableMovement::Type::Dropped));
-				}
-				else if(rand() % 15 == 7) {
-					Map::currentMap->scene().addObject(CollectableFactory::createHeart(grassPosition.x + 8, grassPosition.y + 8, CollectableMovement::Type::Dropped));
-				}
-				else if(rand() % 25 == 11) {
-					Map::currentMap->scene().addObject(CollectableFactory::createRupees(grassPosition.x + 8, grassPosition.y + 8, RupeesAmount::Five, CollectableMovement::Type::Dropped));
-				}
-				else if(rand() % 250 == 176) {
-					Map::currentMap->scene().addObject(CollectableFactory::createRupees(grassPosition.x + 8, grassPosition.y + 8, RupeesAmount::Thirty, CollectableMovement::Type::Dropped));
-				}
+				grass.get<LootComponent>().dropItem(grassPosition.x + 8, grassPosition.y + 8);
 				
 				Map::currentMap->setTile((grassPosition.x + 8) / 16,
 				                         (grassPosition.y + 8) / 16, 36);
