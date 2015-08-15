@@ -86,8 +86,8 @@ void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision) 
 				
 				auto &positionComponent = octorok.get<PositionComponent>();
 				
-				//Akromha, FIXME: item drops too soon.
-				if(octorok.get<HealthComponent>().getLife() == 0)
+				// FIXME: Items drop too soon
+				if(octorok.get<HealthComponent>().life() == 0)
 					octorok.get<LootComponent>().dropItem(positionComponent.x, positionComponent.y);
 			// }
 		}

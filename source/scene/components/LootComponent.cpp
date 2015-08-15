@@ -11,42 +11,37 @@
  *
  * =====================================================================================
  */
-
 #include "LootComponent.hpp"
 
 void LootComponent::addItem(float dropChances, CollectableType item, RupeesAmount amount) {
+	m_totalLootChances += dropChances;
 	
-	totalLootChances += dropChances;
-	
-	LootChance newLootChance = {totalLootChances, item, amount};
-	
-	lootList.push_back(newLootChance);
+	m_lootList.emplace_back(LootChance{m_totalLootChances, item, amount});
 }
 
 void LootComponent::dropItem(float x, float y) {
-	
-	if(itemDropped)
-		return;
+	if(m_itemDropped) return;
 	
 	float random = (float)(rand() % 10000) / 10000;
 	
-	u8 itr = 0;
+	u8 i = 0;
 	bool lootFound = false;
-	
-	while(itr < lootList.size() and not lootFound) {
-		
-		if(lootList[itr].dropRange >= random)
+	while(i < m_lootList.size() && !lootFound) {
+		if(m_lootList[i].dropRange >= random) {
 			lootFound = true;
-		else
-			itr++;
+		} else {
+			i++;
+		}
 	}
 	
 	if(lootFound) {
-		if(lootList[itr].itemType == Rupees)
-			Map::currentMap->scene().addObject(CollectableFactory::createRupees(x, y, lootList[itr].amount, CollectableMovement::Type::Dropped));
-		else if(lootList[itr].itemType == Heart)
+		if(m_lootList[i].itemType == Rupees) {
+			Map::currentMap->scene().addObject(CollectableFactory::createRupees(x, y, m_lootList[i].amount, CollectableMovement::Type::Dropped));
+		}
+		else if(m_lootList[i].itemType == Heart) {
 			Map::currentMap->scene().addObject(CollectableFactory::createHeart(x, y, CollectableMovement::Type::Dropped));
+		}
 	}
 	
-	itemDropped = true;
+	m_itemDropped = true;
 }

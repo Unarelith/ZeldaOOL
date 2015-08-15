@@ -18,9 +18,9 @@
 #include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
 #include "HitboxComponent.hpp"
+#include "LootComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
-#include "LootComponent.hpp"
 
 void grassAction(SceneObject &grass, SceneObject &object, bool inCollision);
 
@@ -56,16 +56,15 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	}));
 	
 	auto &lootComponent = object.set<LootComponent>();
-	lootComponent.addItem(0.2, CollectableType::Rupees, RupeesAmount::One);
+	lootComponent.addItem(0.2,   CollectableType::Rupees, RupeesAmount::One);
 	lootComponent.addItem(0.067, CollectableType::Heart);
-	lootComponent.addItem(0.04, CollectableType::Rupees, RupeesAmount::Five);
+	lootComponent.addItem(0.04,  CollectableType::Rupees, RupeesAmount::Five);
 	lootComponent.addItem(0.004, CollectableType::Rupees, RupeesAmount::Thirty);
 	
 	return object;
 }
 
 #include "AudioPlayer.hpp"
-
 #include "WeaponComponent.hpp"
 
 void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {

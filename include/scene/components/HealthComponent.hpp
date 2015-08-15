@@ -18,23 +18,23 @@
 
 class HealthComponent {
 	public:
-		HealthComponent(u8 _maxLife, u8 _life = 0)
-			: maxLife(_maxLife), life(_life ? _life : _maxLife) {}
+		HealthComponent(u8 maxLife, u8 life = 0)
+			: m_maxLife(maxLife), m_life(life ? life : maxLife) {}
 		
-		void setLife(u8 newLife) { life = newLife > maxLife ? maxLife : newLife;}
-		void addLife(u8 lifeAdded) { setLife(life + lifeAdded);}
-		void removeLife(u8 lifeRemoved) { lifeRemoved > life ? setLife(0) : setLife(life - lifeRemoved);}
+		void setLife(u8 newLife) { m_life = (newLife > m_maxLife) ? m_maxLife : newLife; }
+		void addLife(u8 lifeAdded) { setLife(m_life + lifeAdded); }
+		void removeLife(u8 lifeRemoved) { (lifeRemoved > m_life) ? setLife(0) : setLife(m_life - lifeRemoved); }
 		
-		u8 getLife() {return life;}
-		u8 getMaxLife() {return maxLife;}
+		u8 life() const { return m_life; }
+		u8 maxLife() const { return m_maxLife; }
 		
 		bool isHurt = false;
 		bool isDead = false;
 		
 	private:
+		u8 m_maxLife = 0;
+		u8 m_life = 0;
 		
-		u8 maxLife = 0;
-		u8 life = 0;
 };
 
 #endif // HEALTHCOMPONENT_HPP_

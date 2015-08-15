@@ -19,24 +19,23 @@
 
 #include <vector>
 
-typedef struct {
+struct LootChance {
 	float dropRange;
 	CollectableType itemType;
-	RupeesAmount amount; //Used only for rupees
-} LootChance;
+	RupeesAmount amount; // Only used for rupees
+};
 
 class LootComponent {
 	public:
-		LootComponent() {}
-		
 		void addItem(float dropChances, CollectableType item, RupeesAmount amount = One);
 		void dropItem(float x, float y);
 		
 	private:
-		bool itemDropped = false;
-		float totalLootChances = 0;
+		bool m_itemDropped = false;
 		
-		std::vector<LootChance> lootList;
+		float m_totalLootChances = 0;
+		
+		std::vector<LootChance> m_lootList;
 };
 
 #endif // LOOTCOMPONENT_HPP_

@@ -25,8 +25,7 @@ enum RupeesAmount : u8 {
 
 enum CollectableType {
 	Heart,
-	Rupees,
-	Other // Akromha: Must not list every item (?)
+	Rupees
 };
 
 class CollectableFactory {

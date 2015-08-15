@@ -1,4 +1,11 @@
 ===== TODO =====
+- Link has not two hitboxes, the collision matrix contains the movement vector (vx;vy)
+	=> That's why we need to test his direction
+	=> That's why the two hitboxes had close values
+- Compare CubeLand and Zelda code, find what has been improved in CubeLand and what could be improved in Zelda
+- Try to reduce code of GamePad::isKeyPressed
+- Find why collectables don't drop correctly on my eeePC
+- Improve code performance
 - Add NPCs
 	=> Create a class 'Message' or 'NPCMessage' which could contain actions,
 	   conditions, etc.
