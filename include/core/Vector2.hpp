@@ -3,7 +3,7 @@
  *
  *       Filename:  Vector2.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  12/05/2015 18:45:17
  *
@@ -23,16 +23,16 @@ template<typename T>
 class Vector2 {
 	public:
 		Vector2() = default;
-		
+
 		Vector2(T _x, T _y) : x(_x), y(_y) {}
-		
+
 		template<typename U>
 		Vector2(const Vector2<U> &vector2) : x(vector2.x), y(vector2.y) {}
-		
+
 		Vector2 operator+(const Vector2<T> &vector2) const { return Vector2{x + vector2.x, y + vector2.y}; }
 		Vector2 operator-(const Vector2<T> &vector2) const { return Vector2{x - vector2.x, y - vector2.y}; }
 		Vector2 operator*(T n)                       const { return Vector2{x * n, y * n}; }
-		
+
 		Vector2 operator/(T n) const {
 			if(n != 0) {
 				return Vector2{x / n, y / n};
@@ -40,20 +40,20 @@ class Vector2 {
 				throw std::overflow_error("Divide by zero exception");
 			}
 		}
-		
+
 		Vector2& operator=(T n)                     { x = n; y = n; return *this; }
 		Vector2 &operator+=(const Vector2 &vector2) { *this = operator+(vector2); return *this; }
 		Vector2 &operator-=(const Vector2 &vector2) { *this = operator-(vector2); return *this; }
 		Vector2 &operator*=(T n)                    { *this = operator*(n); return *this; }
 		Vector2 &operator/=(T n)                    { *this = operator/(n); return *this; }
-		
+
 		bool operator==(const Vector2<T> &vector2) const { return x == vector2.x && y == vector2.y; }
 		bool operator!=(const Vector2<T> &vector2) const { return !operator==(vector2); }
-		
+
 		// Needed if Vector2 is used as a key in a std::map
 		bool operator<(const Vector2<T> &vector2) const { return x < vector2.x && y <= vector2.y; }
 		bool operator>(const Vector2<T> &vector2) const { return x > vector2.x && y >= vector2.y; }
-		
+
 		T x;
 		T y;
 };

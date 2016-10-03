@@ -3,7 +3,7 @@
  *
  *       Filename:  LifetimeSystem.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  01/05/2015 23:45:07
  *

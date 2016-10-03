@@ -3,7 +3,7 @@
  *
  *       Filename:  IntTypes.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  14/09/2014 23:47:28
  *

@@ -3,7 +3,7 @@
  *
  *       Filename:  VertexAttribute.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  20/09/2014 15:35:06
  *

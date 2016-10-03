@@ -3,7 +3,7 @@
  *
  *       Filename:  GamePadMovement.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  18/01/2015 02:00:33
  *

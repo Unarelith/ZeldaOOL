@@ -3,7 +3,7 @@
  *
  *       Filename:  main.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  14/09/2014 23:45:15
  *
@@ -20,12 +20,12 @@
 
 int main(int, char *[]) {
 	SDLLoader sdlLoader;
-	
+
 	try {
 		sdlLoader.load();
-		
+
 		Application app;
-		
+
 		app.run();
 	}
 	catch(const Exception &e) {
@@ -40,7 +40,7 @@ int main(int, char *[]) {
 		std::cerr << "Fatal error: Unknown error." << std::endl;
 		return 1;
 	}
-	
+
 	return 0;
 }
 

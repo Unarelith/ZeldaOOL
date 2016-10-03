@@ -3,7 +3,7 @@
  *
  *       Filename:  AudioLoader.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  14/01/2015 00:34:16
  *

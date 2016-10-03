@@ -3,7 +3,7 @@
  *
  *       Filename:  InventoryComponent.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  15/05/2015 19:15:32
  *
@@ -25,15 +25,15 @@ class Item {
 	public:
 		Item(const std::string &name)
 			: m_icon("icons-" + name), m_name(name), m_description(name + "_description") {}
-		
+
 		Image &icon() { return m_icon; }
-		
+
 		std::string name() const { return m_name; }
 		std::string description() const { return m_description; }
-		
+
 	private:
 		Image m_icon;
-		
+
 		std::string m_name;
 		std::string m_description;
 };
@@ -42,9 +42,9 @@ class Weapon : public Item {
 	public:
 		Weapon(const std::string &name, u8 strength = 0)
 			: Item(name), m_strength(strength) {}
-		
+
 		u8 strength() const { return m_strength; }
-		
+
 	private:
 		u8 m_strength = 0;
 };
@@ -54,24 +54,24 @@ class InventoryComponent {
 		Weapon *addWeapon(const std::string &name);
 		Weapon *getWeapon(u8 x, u8 y) { return m_weapons[x][y]; }
 		void removeWeapon(u8 x, u8 y) { m_weapons[x][y] = nullptr; }
-		
+
 		void equipWeapon(u8 x, u8 y, GameKey key);
-		
+
 		Weapon *getWeaponA() { return m_weaponA; }
 		Weapon *getWeaponB() { return m_weaponB; }
-		
+
 		void addRupees(u16 rupees) { m_rupees = (m_rupees + rupees > 999) ? 999 : m_rupees + rupees; }
 		void removeRupees(u16 rupees) { m_rupees = (m_rupees - rupees < 0) ? 0 : m_rupees - rupees; }
-		
+
 		u16 rupees() const { return m_rupees; }
-		
+
 	private:
 		// NOTE: The '{}' are here to value-initialize the pointers (extra braces are needed until C++14)
 		std::array<std::array<Weapon*, 4>, 4> m_weapons{{{{}}, {{}}, {{}}, {{}}}};
-		
+
 		Weapon *m_weaponA = nullptr;
 		Weapon *m_weaponB = nullptr;
-		
+
 		u16 m_rupees = 197;
 };
 

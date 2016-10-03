@@ -3,7 +3,7 @@
  *
  *       Filename:  BackgroundMusic.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  15/09/2014 23:03:43
  *
@@ -23,14 +23,14 @@ class BackgroundMusic {
 	public:
 		BackgroundMusic() = default;
 		BackgroundMusic(const std::string &filename);
-		
+
 		void load(const std::string &filename);
-		
+
 		void play();
-		
+
 	private:
 		using Mix_MusicPtr = std::unique_ptr<Mix_Music, decltype(&Mix_FreeMusic)>;
-		
+
 		Mix_MusicPtr m_music{nullptr, Mix_FreeMusic};
 };
 

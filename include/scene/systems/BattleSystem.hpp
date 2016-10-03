@@ -3,7 +3,7 @@
  *
  *       Filename:  BattleSystem.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  26/05/2015 12:42:11
  *
@@ -19,7 +19,7 @@
 class BattleSystem {
 	public:
 		static void update(SceneObject &object);
-		
+
 		static void hurt(SceneObject &attacker, SceneObject &receiver);
 };
 

@@ -3,7 +3,7 @@
  *
  *       Filename:  HealthComponent.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  26/05/2015 12:22:17
  *
@@ -20,10 +20,10 @@ class HealthComponent {
 	public:
 		HealthComponent(u8 _maxLife, u8 _life = 0)
 			: maxLife(_maxLife), life(_life ? _life : _maxLife) {}
-		
+
 		u8 maxLife = 0;
 		u8 life = 0;
-		
+
 		bool isHurt = false;
 		bool isDead = false;
 };

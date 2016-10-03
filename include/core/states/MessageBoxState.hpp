@@ -3,7 +3,7 @@
  *
  *       Filename:  MessageBoxState.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  23/02/2015 16:52:36
  *
@@ -20,11 +20,11 @@
 class MessageBoxState : public ApplicationState {
 	public:
 		MessageBoxState(const std::string &text, ApplicationState *parent, MessageBox::Position position = MessageBox::Position::Top);
-		
+
 		void update();
-		
+
 		void draw();
-		
+
 	private:
 		MessageBox m_messageBox;
 };

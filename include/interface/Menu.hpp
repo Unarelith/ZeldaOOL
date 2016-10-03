@@ -3,7 +3,7 @@
  *
  *       Filename:  Menu.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/10/2014 14:33:21
  *
@@ -19,13 +19,13 @@
 class Menu {
 	public:
 		void update();
-		
+
 		void draw();
-		
+
 	private:
 		Image m_background{"interface-menuBackground"};
 		Image m_cursor{"interface-menuCursor"};
-		
+
 		s8 m_cursorX = 0;
 		s8 m_cursorY = 0;
 };

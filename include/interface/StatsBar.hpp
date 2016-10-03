@@ -3,7 +3,7 @@
  *
  *       Filename:  StatsBar.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  15/09/2014 23:34:47
  *
@@ -19,10 +19,10 @@
 class StatsBar {
 	public:
 		void draw();
-		
+
 	private:
 		Image m_background{"interface-stats"};
-		
+
 		Sprite m_hearts{"interface-hearts", 7, 7};
 		Sprite m_numbers{"interface-numbers", 7, 6};
 };

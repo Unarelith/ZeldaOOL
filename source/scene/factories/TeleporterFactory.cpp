@@ -3,7 +3,7 @@
  *
  *       Filename:  TeleporterFactory.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/02/2015 17:51:46
  *
@@ -29,26 +29,26 @@ SceneObject TeleporterFactory::create(float tileX, float tileY) {
 	SceneObject object;
 	object.set<TeleporterComponent>();
 	object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
-	
+
 	auto &hitboxComponent = object.set<HitboxComponent>();
 	hitboxComponent.addHitbox(4, 4, 8, 6);
-	
+
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addAction(&teleporterAction);
-	
+
 	return object;
 }
 
 void teleporterAction(SceneObject &teleporter, SceneObject &object, bool inCollision) {
 	auto &teleporterComponent = teleporter.get<TeleporterComponent>();
-	
+
 	static bool playerOnDoor = false;
-	
+
 	if(Scene::isPlayer(object)) {
 		if(inCollision) {
 			if(!playerOnDoor) {
 				AudioPlayer::playEffect("mapStairs");
-				
+
 				auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
 				state.setTransition<TeleporterTransition>(teleporterComponent.area(),
 				                                          teleporterComponent.mapX(),
@@ -56,7 +56,7 @@ void teleporterAction(SceneObject &teleporter, SceneObject &object, bool inColli
 				                                          teleporterComponent.playerX(),
 				                                          teleporterComponent.playerY(),
 				                                          teleporterComponent.playerDirection());
-				
+
 				playerOnDoor = true;
 			}
 		} else {

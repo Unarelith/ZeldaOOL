@@ -3,7 +3,7 @@
  *
  *       Filename:  Debug.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  14/09/2014 23:50:22
  *
@@ -38,15 +38,15 @@ namespace Debug {
 		Red = 31,
 		Blue = 36
 	};
-	
+
 	template<typename... Args>
 	std::string makeString(Args &&...args) {
 		std::ostringstream stream;
 		std::vector<int> tmp{0, ((void)(stream << args << " "), 0)...};
-		
+
 		return stream.str();
 	}
-	
+
 	template<typename... Args>
 	void print(Args &&...args) {
 		std::cout << makeString(std::forward<Args>(args)...) << std::endl;

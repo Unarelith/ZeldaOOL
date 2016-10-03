@@ -3,7 +3,7 @@
  *
  *       Filename:  SceneSystem.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  07/05/2015 17:07:43
  *
@@ -26,7 +26,7 @@ void SceneSystem::reset(SceneObjectList &objectList) {
 
 void SceneSystem::update(SceneObjectList &objectList) {
 	LifetimeSystem::process(objectList);
-	
+
 	for(auto &object : objectList) updateObject(object);
 }
 
@@ -40,11 +40,11 @@ void SceneSystem::resetObject(SceneObject &object) {
 
 void SceneSystem::updateObject(SceneObject &object) {
 	MovementSystem::process(object);
-	
+
 	BattleSystem::update(object);
-	
+
 	BehaviourSystem::process(object);
-	
+
 	if(object.has<SceneObjectList>()) {
 		update(object.get<SceneObjectList>());
 	}
@@ -54,7 +54,7 @@ void SceneSystem::drawObject(SceneObject &object) {
 	if(object.has<SceneObjectList>()) {
 		draw(object.get<SceneObjectList>());
 	}
-	
+
 	DrawingSystem::draw(object);
 }
 

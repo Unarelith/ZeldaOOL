@@ -3,7 +3,7 @@
  *
  *       Filename:  MapLoader.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  12/01/2015 15:04:54
  *
@@ -20,9 +20,9 @@
 class MapLoader : public ResourceLoader {
 	public:
 		void load(const std::string &xmlFilename, ResourceHandler &handler);
-		
+
 		void loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset &tileset, ResourceHandler &handler);
-		
+
 		static std::string makeName(u16 area, u16 x, u16 y) {
 			return std::to_string(area) + "-" + std::to_string(x) + "-" + std::to_string(y);
 		}

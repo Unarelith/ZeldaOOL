@@ -3,7 +3,7 @@
  *
  *       Filename:  MovementComponent.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  01/05/2015 23:23:42
  *
@@ -31,13 +31,13 @@ class MovementStack {
 				return true;
 			}
 		}
-		
+
 		void pop() { m_movements.pop(); }
-		
+
 		std::unique_ptr<Movement> &top() { return m_movements.top(); }
-		
+
 		size_t size() const { return m_movements.size(); }
-		
+
 	private:
 		std::stack<std::unique_ptr<Movement>> m_movements;
 };
@@ -47,15 +47,15 @@ class MovementComponent {
 		MovementComponent(Movement *_movement) {
 			movements.push(_movement);
 		}
-		
+
 		Vector2f v{0, 0};
-		
+
 		float speed = 0.4f;
-		
+
 		bool isMoving = false;
 		bool isBlocked = false;
 		bool isDirectionLocked = false;
-		
+
 		MovementStack movements;
 };
 

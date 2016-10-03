@@ -3,7 +3,7 @@
  *
  *       Filename:  HurtMovement.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  18/01/2015 18:55:11
  *
@@ -22,13 +22,13 @@ class HurtMovement : public Movement {
 	public:
 		HurtMovement(float vx, float vy)
 			: m_vx(vx), m_vy(vy) {}
-		
+
 		void process(SceneObject &object) override;
-		
+
 	private:
 		float m_vx;
 		float m_vy;
-		
+
 		float m_movementCounter = 0;
 };
 

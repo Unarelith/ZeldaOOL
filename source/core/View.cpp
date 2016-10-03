@@ -3,7 +3,7 @@
  *
  *       Filename:  View.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  09/10/2014 14:17:30
  *
@@ -25,7 +25,7 @@ void View::load(float x, float y, u16 width, u16 height) {
 void View::reset(float x, float y, u16 width, u16 height) {
 	m_x = x;
 	m_y = y;
-	
+
 	m_width = width;
 	m_height = height;
 }
@@ -33,14 +33,14 @@ void View::reset(float x, float y, u16 width, u16 height) {
 void View::move(float offsetX, float offsetY) {
 	m_x += offsetX;
 	m_y += offsetY;
-	
+
 	Shader::currentShader->setUniform("u_viewPosition", m_x, m_y);
 }
 
 void View::setPosition(float x, float y) {
 	m_x = x;
 	m_y = y;
-	
+
 	Shader::currentShader->setUniform("u_viewPosition", m_x, m_y);
 }
 

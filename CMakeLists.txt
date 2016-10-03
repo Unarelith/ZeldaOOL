@@ -6,6 +6,8 @@ cmake_minimum_required(VERSION 2.8)
 
 project(ZeldaOOL)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 #------------------------------------------------------------------------------
 # Get source files
 #------------------------------------------------------------------------------
@@ -25,9 +27,9 @@ find_package(CxxTest QUIET)
 if(CXXTEST_FOUND)
 	include_directories(${CXXTEST_INCLUDE_DIRS})
 	enable_testing()
-	
+
 	file(GLOB_RECURSE TEST_FILES tests/*.hpp)
-	
+
 	CXXTEST_ADD_TEST(${CMAKE_PROJECT_NAME}_tests tests/unit-test.cpp ${TEST_FILES})
 else(CXXTEST_FOUND)
 	message(WARNING "CxxTest not found!")

@@ -3,7 +3,7 @@
  *
  *       Filename:  TilesetLoader.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  12/01/2015 16:32:10
  *

@@ -3,7 +3,7 @@
  *
  *       Filename:  TilesInfos.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  15/09/2014 22:21:37
  *
@@ -20,13 +20,13 @@
 
 namespace TilesInfos {
 	extern u16 infos[TILE_NB][4];
-	
+
 	enum SubTileType {
 		Passable		= 0,
 		NonPassable		= 1,
 		ChangeMap		= 2
 	};
-	
+
 	enum TileType {
 		SlowingTile		= 11,
 		LowGrassTile	= 12,

@@ -3,7 +3,7 @@
  *
  *       Filename:  Movement.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  13/10/2014 00:48:24
  *
@@ -19,11 +19,11 @@
 class Movement {
 	public:
 		virtual ~Movement() = default;
-		
+
 		bool isFinished() const { return m_isFinished; }
-		
+
 		virtual void process(SceneObject &object) = 0;
-		
+
 	protected:
 		bool m_isFinished = false;
 };

@@ -3,7 +3,7 @@
  *
  *       Filename:  SwordFactory.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 17:29:14
  *

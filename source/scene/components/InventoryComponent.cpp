@@ -3,7 +3,7 @@
  *
  *       Filename:  InventoryComponent.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  18/05/2015 16:17:04
  *
@@ -22,13 +22,13 @@ Weapon *InventoryComponent::addWeapon(const std::string &name) {
 			}
 		}
 	}
-	
+
 	return nullptr;
 }
 
 void InventoryComponent::equipWeapon(u8 x, u8 y, GameKey key) {
 	Weapon *temp = m_weapons[x][y];
-	
+
 	if(key == GameKey::A) {
 		m_weapons[x][y] = m_weaponA;
 		m_weaponA = temp;

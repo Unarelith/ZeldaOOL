@@ -3,7 +3,7 @@
  *
  *       Filename:  MapRenderer.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  30/04/2015 19:47:12
  *
@@ -22,11 +22,11 @@ class Map;
 class MapRenderer {
 	public:
 		void init(u16 mapWidth, u16 mapHeight);
-		
+
 		void updateTile(u16 tileX, u16 tileY, u16 id, Map &map);
-		
+
 		void draw(Map &map);
-		
+
 	private:
 		VertexBuffer m_vbo;
 };

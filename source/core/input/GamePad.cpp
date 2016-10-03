@@ -3,7 +3,7 @@
  *
  *       Filename:  GamePad.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  01/05/2015 13:46:38
  *
@@ -21,10 +21,10 @@ std::map<GameKey, bool> GamePad::keysPressed = {
 	{GameKey::Right,  false},
 	{GameKey::Up,     false},
 	{GameKey::Down,   false},
-	
+
 	{GameKey::A,      false},
 	{GameKey::B,      false},
-	
+
 	{GameKey::Start,  false},
 	{GameKey::Select, false}
 };
@@ -34,10 +34,10 @@ std::map<GameKey, u32> GamePad::lastTimePressed = {
 	{GameKey::Right,    0},
 	{GameKey::Up,       0},
 	{GameKey::Down,     0},
-	
+
 	{GameKey::A,        0},
 	{GameKey::B,        0},
-	
+
 	{GameKey::Start,    0},
 	{GameKey::Select,   0}
 };

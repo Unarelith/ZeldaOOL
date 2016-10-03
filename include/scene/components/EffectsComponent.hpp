@@ -3,7 +3,7 @@
  *
  *       Filename:  EffectsComponent.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  24/05/2015 20:50:01
  *
@@ -23,7 +23,7 @@ class Effect : public Sprite {
 	public:
 		Effect(const std::string &textureName, s16 frameWidth = -1, s16 frameHeight = -1, Vector2f _offset = {0, 0})
 			: Sprite(textureName, frameWidth, frameHeight), offset(_offset) {}
-		
+
 		Vector2i offset;
 		bool isEnabled = false;
 };
@@ -34,17 +34,17 @@ class EffectsComponent {
 			m_effects.emplace(name, Effect{textureName, frameWidth, frameHeight, offset});
 			return m_effects.at(name);
 		}
-		
+
 		void enableIf(const std::string &name, bool condition) {
 			m_effects.at(name).isEnabled = condition;
 		}
-		
+
 		void enable(const std::string &name) {
 			m_effects.at(name).isEnabled = true;
 		}
-		
+
 		std::map<std::string, Effect> &effects() { return m_effects; }
-		
+
 	private:
 		std::map<std::string, Effect> m_effects;
 };

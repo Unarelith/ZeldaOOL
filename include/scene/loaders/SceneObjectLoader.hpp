@@ -3,7 +3,7 @@
  *
  *       Filename:  SceneObjectLoader.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 01:15:29
  *

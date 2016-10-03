@@ -3,7 +3,7 @@
  *
  *       Filename:  TeleporterTransition.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  05/10/2014 21:52:55
  *
@@ -24,26 +24,26 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 	m_nextMap = &Map::getMap(area, mapX, mapY);
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
-	
+
 	if(Scene::player) {
 		auto &positionComponent = Scene::player->get<PositionComponent>();
-		
+
 		positionComponent.x = playerX;
 		positionComponent.y = playerY;
-		
+
 		positionComponent.direction = playerDirection;
 	}
-	
+
 	m_timer.start();
-	
+
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	
+
 	m_rect1.resize(Application::screenWidth / 2, Application::screenHeight - 16);
 	m_rect2.resize(Application::screenWidth / 2, Application::screenHeight - 16);
-	
+
 	m_rect1.setPosition(0, 16);
 	m_rect2.setPosition(Application::screenWidth / 2, 16);
-	
+
 	// FIXME: Each map should have a string member with it's bgm name
 	if(m_nextMap->area() == 0) {
 		AudioPlayer::playMusic("plain");
@@ -53,30 +53,30 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 	} else {
 		AudioPlayer::playMusic("underground");
 	}
-	
+
 	BehaviourSystem::reset(*Scene::player);
-	
+
 	m_drawStatsBar = false;
-	
+
 	Sprite::pause = true;
 }
 
 void TeleporterTransition::update() {
 	if(m_rect1.x() + m_rect1.width() < 0) {
 		Map::currentMap = m_nextMap;
-		
+
 		m_atEnd = true;
-		
+
 		Sprite::pause = false;
-		
+
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	}
-	
+
 	if(m_timer.time() > 250) {
 		glClearColor(Color::text.r / 255.0f, Color::text.g / 255.0f, Color::text.b / 255.0f, 1.0f);
-		
+
 		m_drawStatsBar = true;
-		
+
 		m_rect1.move(-1.5, 0);
 		m_rect2.move(1.5, 0);
 	}
@@ -85,7 +85,7 @@ void TeleporterTransition::update() {
 void TeleporterTransition::draw() {
 	if(m_timer.time() > 250) {
 		m_nextMap->draw();
-		
+
 		m_rect1.draw(Color::text);
 		m_rect2.draw(Color::text);
 	}

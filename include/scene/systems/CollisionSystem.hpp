@@ -3,7 +3,7 @@
  *
  *       Filename:  CollisionSystem.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 00:09:00
  *
@@ -19,7 +19,7 @@
 class CollisionSystem {
 	public:
 		static void checkCollision(SceneObject &object1, SceneObject &object2);
-		
+
 		static bool inCollision(SceneObject &object1, SceneObject &object2);
 };
 

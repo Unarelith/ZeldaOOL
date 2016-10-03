@@ -3,7 +3,7 @@
  *
  *       Filename:  TeleporterTransition.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  05/10/2014 21:52:46
  *
@@ -22,16 +22,16 @@
 class TeleporterTransition : public Transition {
 	public:
 		TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection);
-		
+
 		void update();
-		
+
 		void draw();
-		
+
 	private:
 		Map *m_nextMap;
-		
+
 		Timer m_timer;
-		
+
 		RectangleShape m_rect1;
 		RectangleShape m_rect2;
 };

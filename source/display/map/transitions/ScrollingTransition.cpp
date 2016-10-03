@@ -3,7 +3,7 @@
  *
  *       Filename:  ScrollingTransition.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  05/10/2014 17:45:59
  *
@@ -20,7 +20,7 @@
 
 ScrollingTransition::ScrollingTransition(Mode mode) {
 	m_mode = mode;
-	
+
 	if(m_mode == Mode::ScrollingLeft) {
 		m_vx = -1;
 	}
@@ -33,34 +33,34 @@ ScrollingTransition::ScrollingTransition(Mode mode) {
 	else if(m_mode == Mode::ScrollingDown) {
 		m_vy = 1;
 	}
-	
+
 	m_nextMap = &Map::getMap(Map::currentMap->area(),
 	                         Map::currentMap->x() + m_vx,
 	                         Map::currentMap->y() + m_vy);
-	
+
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
-	
+
 	m_nextMap->view().setPosition(Map::currentMap->width() * 16 * m_vx,
 	                              Map::currentMap->height() * 16 * m_vy + 16);
-	
+
 	Sprite::pause = true;
 }
 
 void ScrollingTransition::update() {
 	PositionComponent *positionComponent = nullptr;
-	
+
 	if(Scene::player) {
 		positionComponent = &Scene::player->get<PositionComponent>();
 		positionComponent->move(m_vx * 0.15f, m_vy * 0.21f);
 	}
-	
+
 	Map::currentMap->view().move(-m_vx * 1.6f, -m_vy * 1.5f);
 	m_nextMap->view().move(-m_vx * 1.6f, -m_vy * 1.5f);
-	
+
 	if(m_vx != 0) m_scrolled += 1.6f;
 	if(m_vy != 0) m_scrolled += 1.5f;
-	
+
 	if((m_scrolled >= Application::screenWidth       && m_vx != 0)
 	|| (m_scrolled >= Application::screenHeight - 16 && m_vy != 0)) {
 		if(positionComponent) {
@@ -69,17 +69,17 @@ void ScrollingTransition::update() {
 			else if(m_vy < 0) positionComponent->move(0, m_nextMap->height() * 16);
 			else if(m_vy > 0) positionComponent->move(0, -Map::currentMap->height() * 16);
 		}
-		
+
 		Map::currentMap = m_nextMap;
 		Map::currentMap->view().setPosition(0, 16);
-		
+
 		m_scrolled = 0;
-		
+
 		Sprite::pause = false;
-		
+
 		m_atEnd = true;
 	}
-	
+
 	if(Scene::player && positionComponent) {
 		auto &objectList = Scene::player->get<SceneObjectList>();
 		for(auto &object : objectList) {
@@ -92,7 +92,7 @@ void ScrollingTransition::update() {
 
 void ScrollingTransition::draw() {
 	m_nextMap->draw();
-	
+
 	Map::currentMap->draw();
 }
 

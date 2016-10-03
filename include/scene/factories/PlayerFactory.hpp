@@ -3,7 +3,7 @@
  *
  *       Filename:  PlayerFactory.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 00:24:33
  *
@@ -19,7 +19,7 @@
 class PlayerFactory {
 	public:
 		static SceneObject create(float x, float y);
-		
+
 		static void mapCollisions(SceneObject &player);
 };
 

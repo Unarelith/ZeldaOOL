@@ -3,7 +3,7 @@
  *
  *       Filename:  XMLFile.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  15/09/2014 22:38:51
  *
@@ -20,10 +20,10 @@ XMLFile::XMLFile(const std::string &filename) {
 
 void XMLFile::load(const std::string &filename) {
 	int code = m_xml.LoadFile(filename.c_str());
-	
+
 	if(code != 0) {
 		std::string errorString;
-		
+
 		switch(code) {
 			case XML_ERROR_FILE_NOT_FOUND:
 				errorString = "File not found.";
@@ -74,7 +74,7 @@ void XMLFile::load(const std::string &filename) {
 				errorString = "Unknown error.";
 				break;
 		}
-		
+
 		throw EXCEPTION("Failed to load", filename, "\nError", code, ":", errorString);
 	}
 }

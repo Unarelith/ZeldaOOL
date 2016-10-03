@@ -3,7 +3,7 @@
  *
  *       Filename:  TextureLoader.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  14/01/2015 20:27:14
  *

@@ -3,7 +3,7 @@
  *
  *       Filename:  SceneObjectLoader.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 01:15:39
  *
@@ -23,11 +23,11 @@
 void SceneObjectLoader::load(const std::string &mapName, Scene &scene) {
 	if(Filesystem::fileExists("data/config/maps/" + mapName + ".xml")) {
 		XMLFile doc("data/config/maps/" + mapName + ".xml");
-		
+
 		XMLElement *objectElement = doc.FirstChildElement("map").FirstChildElement().ToElement();
 		while(objectElement) {
 			std::string objectName = objectElement->Name();
-			
+
 			if(objectName == "button") {
 				ButtonLoader::load(objectElement, scene);
 			}
@@ -40,7 +40,7 @@ void SceneObjectLoader::load(const std::string &mapName, Scene &scene) {
 			else if(objectName == "teleporter") {
 				TeleporterLoader::load(objectElement, scene);
 			}
-			
+
 			objectElement = objectElement->NextSiblingElement();
 		}
 	}

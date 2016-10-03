@@ -3,7 +3,7 @@
  *
  *       Filename:  Font.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  26/09/2014 20:41:45
  *
@@ -24,7 +24,7 @@ void Font::load(const std::string &filename, u16 charWidth, u16 charHeight) {
 
 void Font::drawChar(float x, float y, u8 c, Color color) {
 	m_sprite.setColorMod(color);
-	
+
 	if(c > 128 && c < 195) {
 		m_sprite.drawFrame(x, y, c + 35);
 	}

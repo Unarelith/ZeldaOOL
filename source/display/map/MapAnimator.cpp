@@ -3,7 +3,7 @@
  *
  *       Filename:  MapAnimator.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  30/04/2015 19:46:41
  *
@@ -29,12 +29,12 @@ void MapAnimator::animateTiles(Map &map) {
 		if(!it.timer.isStarted()) {
 			it.timer.start();
 		}
-		
+
 		if(it.timer.time() >= it.anim.delay) {
 			map.setTile(it.tileX, it.tileY, it.anim.frames[it.nextFrame % it.anim.frames.size()]);
-			
+
 			it.nextFrame++;
-			
+
 			it.timer.reset();
 			it.timer.start();
 		}

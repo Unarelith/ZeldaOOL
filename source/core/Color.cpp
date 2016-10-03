@@ -3,7 +3,7 @@
  *
  *       Filename:  Color.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  27/09/2014 22:35:45
  *

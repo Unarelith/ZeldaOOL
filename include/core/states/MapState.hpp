@@ -3,7 +3,7 @@
  *
  *       Filename:  MapState.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  15/09/2014 00:21:30
  *
@@ -21,14 +21,14 @@
 class MapState : public ApplicationState {
 	public:
 		MapState();
-		
+
 		void update();
-		
+
 		void draw();
-		
+
 	protected:
 		SceneObject m_player;
-		
+
 		StatsBar m_statsBar;
 };
 

@@ -3,7 +3,7 @@
  *
  *       Filename:  Direction.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 00:26:13
  *
@@ -18,7 +18,7 @@
 
 enum class Direction : s8 {
 	None  = -1,
-	
+
 	Down  = 0,
 	Right = 1,
 	Left  = 2,

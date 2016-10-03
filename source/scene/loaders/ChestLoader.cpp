@@ -3,7 +3,7 @@
  *
  *       Filename:  ChestLoader.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 01:16:24
  *
@@ -17,7 +17,7 @@
 void ChestLoader::load(XMLElement *chestElement, Scene &scene) {
 	u16 tileX = chestElement->IntAttribute("tileX");
 	u16 tileY = chestElement->IntAttribute("tileY");
-	
+
 	scene.addObject(ChestFactory::create(tileX, tileY));
 }
 

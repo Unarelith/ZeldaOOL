@@ -3,7 +3,7 @@
  *
  *       Filename:  TeleporterLoader.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  22/02/2015 15:55:02
  *

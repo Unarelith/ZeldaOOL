@@ -3,7 +3,7 @@
  *
  *       Filename:  GameKey.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  12/02/2015 17:53:44
  *
@@ -19,10 +19,10 @@ enum class GameKey {
 	Right,
 	Up,
 	Down,
-	
+
 	A,
 	B,
-	
+
 	Start,
 	Select
 };

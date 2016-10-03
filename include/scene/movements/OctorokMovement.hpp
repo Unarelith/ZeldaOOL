@@ -3,7 +3,7 @@
  *
  *       Filename:  OctorokMovement.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  18/01/2015 20:12:01
  *
@@ -24,20 +24,20 @@ class OctorokMovement : public Movement {
 			Standing,
 			Moving
 		};
-		
+
 		void reset(SceneObject &object);
-		
+
 		void process(SceneObject &object) override;
-		
+
 	private:
 		State m_state = State::Standing;
-		
+
 		Timer m_timer;
-		
+
 		Vector2f m_v = {0.0f, 0.0f};
-		
+
 		float m_movementCounter = 0;
-		
+
 		u16 m_randomMinTimeToWait = 1000;
 		u16 m_randomMaxMovement = 48;
 };

@@ -3,7 +3,7 @@
  *
  *       Filename:  SpriteComponent.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 12:46:29
  *
@@ -20,13 +20,13 @@ class SpriteComponent {
 	public:
 		SpriteComponent(const std::string &textureName, u16 frameWidth, u16 frameHeight)
 			: sprite(textureName, frameWidth, frameHeight) {}
-		
+
 		bool isAnimated = false;
 		bool isEnabled = true;
-		
+
 		u16 animID = 0;
 		u16 frameID = 0;
-		
+
 		Sprite sprite;
 };
 

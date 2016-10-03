@@ -3,7 +3,7 @@
  *
  *       Filename:  TeleporterFactory.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/02/2015 17:50:48
  *

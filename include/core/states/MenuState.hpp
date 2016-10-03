@@ -3,7 +3,7 @@
  *
  *       Filename:  MenuState.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/10/2014 14:30:21
  *
@@ -21,12 +21,12 @@
 class MenuState : public ApplicationState {
 	public:
 		void update();
-		
+
 		void draw();
-		
+
 	private:
 		StatsBar m_statsBar;
-		
+
 		Menu m_menu;
 };
 

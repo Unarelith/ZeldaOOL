@@ -10,3 +10,4 @@ unit-test.cpp
 *.a
 doxygen/html
 doxygen/latex
+compile_commands.json

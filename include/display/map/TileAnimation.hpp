@@ -3,7 +3,7 @@
  *
  *       Filename:  TileAnimation.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Version:  1.0
  *        Created:  15/09/2014 22:37:54
@@ -11,7 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Quentin BAZIN, <quent42340@gmail.com>
- *        Company:  
+ *        Company:
  *
  * =====================================================================================
  */
@@ -24,9 +24,9 @@
 
 struct TileAnimation {
 	TileAnimation(u16 _delay) : delay(_delay) {}
-	
+
 	std::vector<u16> frames;
-	
+
 	u16 delay;
 };
 

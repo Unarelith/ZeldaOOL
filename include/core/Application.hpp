@@ -3,7 +3,7 @@
  *
  *       Filename:  Application.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/09/2014 19:37:36
  *
@@ -22,21 +22,21 @@
 class Application {
 	public:
 		Application();
-		
+
 		void handleEvents();
-		
+
 		void run();
-		
+
 		static const u16 screenWidth = 160;
 		static const u16 screenHeight = 144;
-		
+
 	private:
 		ApplicationStateStack &m_stateStack;
-		
+
 		GameClock m_clock;
-		
+
 		KeyboardHandler m_keyboardHandler;
-		
+
 		Window m_window;
 };
 

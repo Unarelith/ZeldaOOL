@@ -3,7 +3,7 @@
  *
  *       Filename:  ButtonLoader.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  22/02/2015 17:14:19
  *

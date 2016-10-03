@@ -3,7 +3,7 @@
  *
  *       Filename:  BehaviourComponent.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 12:39:09
  *
@@ -19,7 +19,7 @@
 class BehaviourComponent {
 	public:
 		BehaviourComponent(Behaviour *_behaviour) : behaviour(_behaviour) {}
-		
+
 		std::unique_ptr<Behaviour> behaviour;
 };
 

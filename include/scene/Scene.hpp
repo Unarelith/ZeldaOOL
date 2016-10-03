@@ -3,7 +3,7 @@
  *
  *       Filename:  Scene.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  01/05/2015 22:49:45
  *
@@ -20,19 +20,19 @@
 class Scene {
 	public:
 		void reset();
-		
+
 		void update();
-		
+
 		void draw();
-		
+
 		SceneObject &addObject(SceneObject &&object);
-		
+
 		void checkCollisionsFor(SceneObject &object);
-		
+
 		static bool isPlayer(const SceneObject &object) { return player == &object; }
-		
+
 		static SceneObject *player;
-		
+
 	private:
 		SceneObjectList m_objects;
 };

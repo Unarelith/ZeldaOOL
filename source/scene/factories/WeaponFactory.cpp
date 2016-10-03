@@ -3,7 +3,7 @@
  *
  *       Filename:  WeaponFactory.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/05/2015 23:57:09
  *

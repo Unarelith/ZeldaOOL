@@ -3,7 +3,7 @@
  *
  *       Filename:  MapAnimator.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  30/04/2015 19:45:10
  *
@@ -22,9 +22,9 @@ class Map;
 class MapAnimator {
 	public:
 		void updateTile(u16 tileX, u16 tileY, u16 tileID, const Tileset &tileset);
-		
+
 		void animateTiles(Map &map);
-		
+
 	private:
 		std::vector<AnimatedTile> m_animatedTiles;
 };

@@ -3,7 +3,7 @@
  *
  *       Filename:  BehaviourSystem.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 15:26:32
  *
@@ -19,7 +19,7 @@
 class BehaviourSystem {
 	public:
 		static void process(SceneObject &object);
-		
+
 		static void reset(SceneObject &object);
 };
 

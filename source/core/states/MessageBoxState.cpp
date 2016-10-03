@@ -3,7 +3,7 @@
  *
  *       Filename:  MessageBoxState.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  23/02/2015 16:53:33
  *
@@ -27,7 +27,7 @@ MessageBoxState::MessageBoxState(const std::string &text, ApplicationState *pare
 
 void MessageBoxState::update() {
 	m_messageBox.update();
-	
+
 	if(m_messageBox.finished()) {
 		ApplicationStateStack::getInstance().pop();
 	}
@@ -35,7 +35,7 @@ void MessageBoxState::update() {
 
 void MessageBoxState::draw() {
 	m_parent->draw();
-	
+
 	m_messageBox.draw();
 }
 

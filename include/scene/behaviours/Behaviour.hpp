@@ -3,7 +3,7 @@
  *
  *       Filename:  Behaviour.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 15:20:00
  *
@@ -20,13 +20,13 @@ class Behaviour {
 	public:
 		Behaviour(const std::string &state = "") : m_state(state) {}
 		virtual ~Behaviour() = default;
-		
+
 		virtual void reset(SceneObject &) {}
-		
+
 		virtual void action(SceneObject &object) = 0;
-		
+
 		const std::string &state() const { return m_state; }
-		
+
 	protected:
 		std::string m_state;
 };

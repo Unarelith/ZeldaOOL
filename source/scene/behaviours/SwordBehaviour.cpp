@@ -3,7 +3,7 @@
  *
  *       Filename:  SwordBehaviour.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 17:44:54
  *
@@ -29,27 +29,27 @@ void SwordBehaviour::action(SceneObject &sword) {
 	auto &weaponComponent = sword.get<WeaponComponent>();
 	auto &spriteComponent = sword.get<SpriteComponent>();
 	Sprite &sprite = spriteComponent.sprite;
-	
+
 	SceneObject &owner = weaponComponent.owner;
 	auto &ownerPosition = owner.get<PositionComponent>();
-	
+
 	auto &ownerSpriteComponent = owner.get<SpriteComponent>();
 	auto &ownerSprite = ownerSpriteComponent.sprite;
-	
+
 	swordPosition = ownerPosition;
-	
+
 	if(m_state == "Swinging") {
 		if(sprite.currentAnimation().isFinished()) {
 			if(!m_keyReleased) {
 				m_state = "Loading";
-				
+
 				m_loadingTimer.reset();
 				m_loadingTimer.start();
 			} else {
 				m_state = "Finished";
 			}
 		}
-		
+
 		if(!GamePad::isKeyPressed(weaponComponent.key)) {
 			m_keyReleased = true;
 		}
@@ -57,23 +57,23 @@ void SwordBehaviour::action(SceneObject &sword) {
 			if(GamePad::isKeyPressed(GameKey::Left)) {
 				ownerPosition.direction = Direction::Left;
 			}
-			
+
 			if(GamePad::isKeyPressed(GameKey::Right)) {
 				ownerPosition.direction = Direction::Right;
 			}
-			
+
 			if(GamePad::isKeyPressed(GameKey::Up)) {
 				ownerPosition.direction = Direction::Up;
 			}
-			
+
 			if(GamePad::isKeyPressed(GameKey::Down)) {
 				ownerPosition.direction = Direction::Down;
 			}
-			
+
 			m_keyReleased = false;
-			
+
 			AudioPlayer::playEffect("swordSlash1");
-			
+
 			ownerSprite.getAnimation((s8)ownerPosition.direction + 8).reset();
 			sprite.getAnimation((s8)ownerPosition.direction).reset();
 		}
@@ -81,19 +81,19 @@ void SwordBehaviour::action(SceneObject &sword) {
 	else if(m_state == "Loading") {
 		if(m_loadingTimer.time() > 650 && !m_isLoaded) {
 			m_isLoaded = true;
-			
+
 			AudioPlayer::playEffect("swordCharge");
 		}
-		
+
 		//if(!keyPressed()) {
 		if(!GamePad::isKeyPressed(weaponComponent.key)) {
 			if(m_loadingTimer.time() > 650) {
 				AudioPlayer::playEffect("swordSpin");
-				
+
 				m_isLoaded = false;
-				
+
 				m_state = "SpinAttack";
-				
+
 				if(ownerPosition.direction == Direction::Left) {
 					m_spinCurrentFrame = 2;
 				}
@@ -106,10 +106,10 @@ void SwordBehaviour::action(SceneObject &sword) {
 				else if(ownerPosition.direction == Direction::Down) {
 					m_spinCurrentFrame = 0;
 				}
-				
+
 				sprite.getAnimation(8).reset(m_spinCurrentFrame);
 				sprite.getAnimation(8).start();
-				
+
 				ownerSprite.getAnimation(12).reset(m_spinCurrentFrame);
 				ownerSprite.getAnimation(12).start();
 			} else {
@@ -121,22 +121,22 @@ void SwordBehaviour::action(SceneObject &sword) {
 		if(m_spinFrameCounter < 9) {
 			if(m_spinCurrentFrame != sprite.getAnimation(8).displayedFramesAmount()) {
 				m_spinCurrentFrame = sprite.getAnimation(8).displayedFramesAmount();
-				
+
 				m_spinFrameCounter++;
 			}
 		} else {
 			ownerSpriteComponent.animID = (s8)ownerPosition.direction;
 			m_spinTimer.start();
-			
+
 			spriteComponent.isAnimated = false;
 			sprite.getAnimation(8).stop();
-			
+
 			if(m_spinTimer.time() >= sprite.getAnimation(8).delay()) {
 				m_state = "Finished";
 			}
 		}
 	}
-	
+
 	updateSprite(sword);
 	updateHitboxes(sword);
 }
@@ -144,7 +144,7 @@ void SwordBehaviour::action(SceneObject &sword) {
 void SwordBehaviour::updateHitboxes(SceneObject &sword) {
 	auto &spriteComponent = sword.get<SpriteComponent>();
 	auto &hitboxComponent = sword.get<HitboxComponent>();
-	
+
 	u16 frame = spriteComponent.sprite.getAnimation(spriteComponent.animID).currentFrame();
 	if(frame < 12) {
 		hitboxComponent.setCurrentHitbox(frame);
@@ -157,7 +157,7 @@ void SwordBehaviour::updateHitboxes(SceneObject &sword) {
 void SwordBehaviour::updateSprite(SceneObject &sword) {
 	auto &spriteComponent = sword.get<SpriteComponent>();
 	auto &ownerPosition = sword.get<WeaponComponent>().owner.get<PositionComponent>();
-	
+
 	if(m_state == "Swinging") {
 		spriteComponent.isAnimated = true;
 		spriteComponent.animID = static_cast<s8>(ownerPosition.direction);

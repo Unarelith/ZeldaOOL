@@ -3,7 +3,7 @@
  *
  *       Filename:  SpriteAnimation.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  27/04/2015 15:30:50
  *
@@ -20,13 +20,13 @@ void SpriteAnimation::reset(u16 frameID) {
 
 void SpriteAnimation::start() {
 	m_timer.start();
-	
+
 	if(!Sprite::pause) m_isPaused = false;
 }
 
 void SpriteAnimation::stop() {
 	m_timer.stop();
-	
+
 	if(!Sprite::pause) m_isPaused = true;
 }
 
@@ -36,7 +36,7 @@ void SpriteAnimation::play() {
 	} else {
 		start();
 	}
-	
+
 	if(isFinished()) {
 		if(m_isRepeated) {
 			reset();

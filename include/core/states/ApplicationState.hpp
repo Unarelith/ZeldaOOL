@@ -3,7 +3,7 @@
  *
  *       Filename:  ApplicationState.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  15/09/2014 00:16:41
  *
@@ -22,16 +22,16 @@ class ApplicationState {
 		ApplicationState(const ApplicationState &) = delete;
 		ApplicationState(ApplicationState &&) = default;
 		virtual ~ApplicationState() = default;
-		
+
 		virtual void update() = 0;
-		
+
 		virtual void draw() = 0;
-		
+
 		void setStateStack(ApplicationStateStack *stateStack) { m_stateStack = stateStack; }
-		
+
 	protected:
 		ApplicationState *m_parent = nullptr;
-		
+
 		ApplicationStateStack *m_stateStack = nullptr;
 };
 

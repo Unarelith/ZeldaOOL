@@ -3,7 +3,7 @@
  *
  *       Filename:  Exception.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  26/12/2014 01:26:16
  *
@@ -27,18 +27,18 @@ class Exception : public std::exception {
 		Exception(u16 line, std::string filename, Args &&...args) noexcept {
 			m_line = line;
 			m_filename = filename;
-			
+
 			m_errorMsg = Debug::makeString(std::forward<Args>(args)...);
 		}
-		
+
 		virtual const char *what() const noexcept {
 			return ("at " + m_filename + ":" + std::to_string(m_line) + ": " + m_errorMsg.c_str()).c_str();
 		}
-		
+
 	private:
 		u16 m_line;
 		std::string m_filename;
-		
+
 		std::string m_errorMsg;
 };
 

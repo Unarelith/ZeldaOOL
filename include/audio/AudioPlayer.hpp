@@ -3,7 +3,7 @@
  *
  *       Filename:  AudioPlayer.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  28/04/2015 21:51:27
  *
@@ -21,13 +21,13 @@
 class AudioPlayer {
 	public:
 		static void playMusic(const std::string &resourceName);
-		
+
 		static void playEffect(const std::string &resourceName, s8 channel = -1);
 		static void repeatEffect(const std::string &resourceName, u8 delay = 0);
-		
+
 		static void pauseMusic();
 		static void resumeMusic();
-		
+
 		static bool isMusicPaused();
 		static bool isMusicPlaying();
 };

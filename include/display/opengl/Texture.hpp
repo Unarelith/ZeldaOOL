@@ -3,7 +3,7 @@
  *
  *       Filename:  Texture.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/09/2014 21:16:31
  *
@@ -27,20 +27,20 @@ class Texture {
 		Texture(Texture &&texture);
 		Texture(const std::string &filename);
 		~Texture();
-		
+
 		Texture &operator=(const Texture &) = default;
 		Texture &operator=(Texture &&) = default;
-		
+
 		void load(const std::string &filename);
-		
+
 		static void bind(const Texture *texture);
-		
+
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
-		
+
 	protected:
 		GLuint m_texture = 0;
-		
+
 		u16 m_width = 0;
 		u16 m_height = 0;
 };

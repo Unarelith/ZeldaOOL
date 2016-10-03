@@ -3,7 +3,7 @@
  *
  *       Filename:  WeaponFactory.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/05/2015 23:53:19
  *

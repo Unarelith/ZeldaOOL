@@ -3,7 +3,7 @@
  *
  *       Filename:  ResourceLoader.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  12/01/2015 15:04:23
  *

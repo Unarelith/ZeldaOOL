@@ -3,7 +3,7 @@
  *
  *       Filename:  ChestOpeningState.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  07/10/2014 00:58:51
  *
@@ -26,20 +26,20 @@
 ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *parent) : ApplicationState(parent) {
 	m_item = &Map::currentMap->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
 	m_item->set<LifetimeComponent>();
-	
+
 	auto &chestPosition = chest.get<PositionComponent>();
 	auto &itemPosition = m_item->get<PositionComponent>();
-	
+
 	itemPosition.x = chestPosition.x + 8 - itemPosition.width / 2;
 	itemPosition.y = chestPosition.y - 8;
-	
+
 	Sprite::pause = true;
 }
 
 void ChestOpeningState::update() {
 	if(m_state == State::Opening) {
 		MovementSystem::process(*m_item);
-		
+
 		auto &movementComponent = m_item->get<MovementComponent>();
 		if(movementComponent.movements.top()->isFinished()) {
 			m_state = State::Opened;
@@ -47,16 +47,16 @@ void ChestOpeningState::update() {
 	}
 	else if(m_state == State::Opened) {
 		AudioPlayer::playEffect("itemNew");
-		
+
 		ApplicationStateStack::getInstance().push<MessageBoxState>("Vous obtenez [2]30 Rubis[0]!\nC'est bien.", this);
-		
+
 		m_state = State::Finished;
 	}
 	else if(m_state == State::Finished) {
 		Sprite::pause = false;
-		
+
 		m_item->get<LifetimeComponent>().kill();
-		
+
 		ApplicationStateStack::getInstance().pop();
 	}
 }

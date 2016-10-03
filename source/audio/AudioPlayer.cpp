@@ -3,7 +3,7 @@
  *
  *       Filename:  AudioPlayer.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  28/04/2015 21:52:17
  *

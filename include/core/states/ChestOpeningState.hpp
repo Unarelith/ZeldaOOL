@@ -3,7 +3,7 @@
  *
  *       Filename:  ChestOpeningState.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  07/10/2014 00:58:17
  *
@@ -20,20 +20,20 @@
 class ChestOpeningState : public ApplicationState {
 	public:
 		ChestOpeningState(SceneObject &chest, ApplicationState *parent);
-		
+
 		void update() override;
-		
+
 		void draw() override;
-		
+
 		enum class State {
 			Opening,
 			Opened,
 			Finished
 		};
-		
+
 	private:
 		State m_state = State::Opening;
-		
+
 		SceneObject *m_item = nullptr;
 };
 

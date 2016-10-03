@@ -3,7 +3,7 @@
  *
  *       Filename:  XMLFile.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  15/09/2014 22:38:45
  *
@@ -26,11 +26,11 @@ class XMLFile {
 		XMLFile(const std::string &filename);
 		XMLFile(const XMLFile &) = default;
 		XMLFile(XMLFile &&) = default;
-		
+
 		void load(const std::string &filename);
-		
+
 		XMLHandle FirstChildElement(const char *element) { return m_doc.FirstChildElement(element); }
-		
+
 	private:
 		XMLDocument m_xml;
 		XMLHandle m_doc{m_xml};

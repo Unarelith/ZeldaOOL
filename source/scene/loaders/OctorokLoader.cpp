@@ -3,7 +3,7 @@
  *
  *       Filename:  OctorokLoader.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 02:29:58
  *
@@ -17,7 +17,7 @@
 void OctorokLoader::load(XMLElement *octorokElement, Scene &scene) {
 	u16 tileX = octorokElement->IntAttribute("tileX");
 	u16 tileY = octorokElement->IntAttribute("tileY");
-	
+
 	scene.addObject(OctorokFactory::create(tileX * 16, tileY * 16));
 }
 

@@ -3,7 +3,7 @@
  *
  *       Filename:  WeaponComponent.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 17:58:41
  *
@@ -22,12 +22,12 @@ class WeaponComponent {
 	public:
 		WeaponComponent(SceneObject &_owner, Weapon &_weaponInfos, GameKey _key, const std::string &_playerState)
 			: owner(_owner), weaponInfos(_weaponInfos), key(_key), playerState(_playerState) {}
-		
+
 		SceneObject &owner;
 		Weapon &weaponInfos;
-		
+
 		GameKey key;
-		
+
 		std::string playerState;
 };
 

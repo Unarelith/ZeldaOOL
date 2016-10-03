@@ -3,7 +3,7 @@
  *
  *       Filename:  DrawingSystem.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  01/05/2015 23:57:52
  *
@@ -19,7 +19,7 @@
 class DrawingSystem {
 	public:
 		static void draw(SceneObject &object);
-		
+
 		static void drawEffects(SceneObject &object, float x, float y);
 		static void drawHitbox(SceneObject &object, float x, float y);
 		static void drawSprite(SceneObject &object, float x, float y);

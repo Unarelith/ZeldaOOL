@@ -3,7 +3,7 @@
  *
  *       Filename:  OpenGL.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/09/2014 18:15:12
  *

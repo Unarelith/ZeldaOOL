@@ -3,7 +3,7 @@
  *
  *       Filename:  Filesystem.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  22/02/2015 16:27:02
  *
@@ -18,7 +18,7 @@
 
 bool Filesystem::fileExists(const std::string &filename) {
 	struct stat info;
-	
+
 	return !stat(filename.c_str(), &info);
 }
 

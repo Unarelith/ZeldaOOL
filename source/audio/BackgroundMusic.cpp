@@ -3,7 +3,7 @@
  *
  *       Filename:  BackgroundMusic.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  15/09/2014 23:03:51
  *

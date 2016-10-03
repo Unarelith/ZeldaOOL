@@ -3,7 +3,7 @@
  *
  *       Filename:  OctorokFactory.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 02:23:36
  *

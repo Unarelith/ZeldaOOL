@@ -3,7 +3,7 @@
  *
  *       Filename:  CollectableComponent.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  01/05/2015 23:47:25
  *
@@ -21,20 +21,20 @@
 
 class CollectableComponent {
 		using CollectableAction = std::function<void(SceneObject&)>;
-		
+
 	public:
 		CollectableComponent(const std::string &soundEffectName)
 			: m_soundEffectName(soundEffectName) {}
-		
+
 		void action(SceneObject &player) { if(m_action) m_action(player); }
-		
+
 		void setAction(CollectableAction action) { m_action = action; }
-		
+
 		const std::string &soundEffectName() const { return m_soundEffectName; }
-		
+
 	private:
 		CollectableAction m_action;
-		
+
 		std::string m_soundEffectName;
 };
 

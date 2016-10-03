@@ -3,7 +3,7 @@
  *
  *       Filename:  ApplicationStateStack.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  16/01/2015 00:49:39
  *
@@ -27,24 +27,24 @@ class ApplicationStateStack {
 			m_states.top()->setStateStack(this);
 			return *static_cast<T*>(top());
 		}
-		
+
 		// WARNING: When you use this function, make sure that you're
 		// not reading/writing anything from/to the deleted objects
 		void pop() { m_states.pop(); }
-		
+
 		ApplicationState *top() const { return m_states.top().get(); }
-		
+
 		std::size_t size() const { return m_states.size(); }
-		
+
 		// FIXME: To remove. Used in NPC (DialogState), ChestObject (ChestOpenedState) and DoorObject (TransitionState).
 		static ApplicationStateStack &getInstance() {
 			static ApplicationStateStack instance;
 			return instance;
 		}
-		
+
 	private:
 		ApplicationStateStack() = default;
-		
+
 		std::stack<std::shared_ptr<ApplicationState>> m_states;
 };
 

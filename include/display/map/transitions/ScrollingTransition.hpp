@@ -3,7 +3,7 @@
  *
  *       Filename:  ScrollingTransition.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  05/10/2014 17:45:49
  *
@@ -25,21 +25,21 @@ class ScrollingTransition : public Transition {
 			ScrollingUp,
 			ScrollingDown
 		};
-		
+
 		ScrollingTransition(Mode mode);
-		
+
 		void update();
-		
+
 		void draw();
-		
+
 	private:
 		Mode m_mode;
-		
+
 		float m_vx = 0;
 		float m_vy = 0;
-		
+
 		Map *m_nextMap = nullptr;
-		
+
 		float m_scrolled = 0;
 };
 

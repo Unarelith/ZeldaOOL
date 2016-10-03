@@ -3,7 +3,7 @@
  *
  *       Filename:  SoundEffect.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  15/09/2014 23:03:35
  *
@@ -23,7 +23,7 @@ void SoundEffect::load(const std::string &filename) {
 	if(!m_sfx) {
 		throw EXCEPTION("Unable to load sound effect:", filename, ":", Mix_GetError());
 	}
-	
+
 	m_timer.start();
 }
 
@@ -34,7 +34,7 @@ void SoundEffect::play(s8 channel) {
 void SoundEffect::repeat(u16 delay, s8 channel) {
 	if(m_timer.time() > delay) {
 		play(channel);
-		
+
 		m_timer.reset();
 		m_timer.start();
 	}

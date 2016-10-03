@@ -3,7 +3,7 @@
  *
  *       Filename:  VertexBuffer.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  26/12/2014 13:57:09
  *

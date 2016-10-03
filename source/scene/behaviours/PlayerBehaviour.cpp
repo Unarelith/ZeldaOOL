@@ -3,7 +3,7 @@
  *
  *       Filename:  PlayerBehaviour.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/05/2015 12:42:03
  *
@@ -28,12 +28,12 @@
 
 void PlayerBehaviour::reset(SceneObject &player) {
 	m_state = "Standing";
-	
+
 	if(m_weapon) {
 		m_weapon->get<LifetimeComponent>().kill();
 		m_weapon = nullptr;
 	}
-	
+
 	auto &movementComponent = player.get<MovementComponent>();
 	movementComponent.isDirectionLocked = false;
 	movementComponent.v = 0;
@@ -42,29 +42,29 @@ void PlayerBehaviour::reset(SceneObject &player) {
 void PlayerBehaviour::action(SceneObject &player) {
 	auto &movement = player.get<MovementComponent>();
 	auto &health = player.get<HealthComponent>();
-	
+
 	if(health.isHurt) m_state = "Standing";
-	
+
 	if(m_state == "Standing") {
 		if(movement.isMoving) m_state = "Moving";
 		if(movement.isBlocked) m_state = "Pushing";
-		
+
 		weaponAction(player);
 	}
 	else if(m_state == "Moving") {
 		if(!movement.isMoving) m_state = "Standing";
 		if(movement.isBlocked) m_state = "Pushing";
-		
+
 		weaponAction(player);
 	}
 	else if(m_state == "Pushing") {
 		if(!movement.isBlocked) m_state = "Standing";
-		
+
 		weaponAction(player);
 	}
 	else if(m_state == "Sword") {
 		static std::string oldSwordState;
-		
+
 		std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
 		if(swordState != oldSwordState) {
 			if(swordState == "Swinging") {
@@ -74,41 +74,41 @@ void PlayerBehaviour::action(SceneObject &player) {
 			}
 			else if(swordState == "Loading") {
 				movement.movements.top().reset(new GamePadMovement);
-				
+
 				movement.isDirectionLocked = true;
 			}
 			else if(swordState == "SpinAttack") {
 				movement.movements.top().reset(nullptr);
-				
+
 				movement.isDirectionLocked = false;
 			}
 			else if(swordState == "Finished") {
 				m_weapon->get<LifetimeComponent>().kill();
 				m_weapon = nullptr;
-				
+
 				movement.movements.pop();
-				
+
 				movement.isDirectionLocked = false;
-				
+
 				m_state = "Standing";
 			}
 		}
-		
+
 		oldSwordState = swordState;
 	} else {
 	 	throw EXCEPTION("Unknown player state:", m_state);
 	}
-	
+
 	updateSprite(player);
 }
 
 void PlayerBehaviour::weaponAction(SceneObject &player) {
 	auto &health = player.get<HealthComponent>();
-	
+
 	if(!health.isHurt) {
 		auto &position = player.get<PositionComponent>();
 		auto &objects = player.get<SceneObjectList>();
-		
+
 		Weapon *weapon = nullptr;
 		GameKey key;
 		if(GamePad::isKeyPressedOnce(GameKey::A)) {
@@ -119,7 +119,7 @@ void PlayerBehaviour::weaponAction(SceneObject &player) {
 			weapon = player.get<InventoryComponent>().getWeaponB();
 			key = GameKey::B;
 		}
-		
+
 		if(weapon) {
 			m_weapon = &objects.addObject(WeaponFactory::create(*weapon, position.x, position.y, key, player));
 			m_state = m_weapon->get<WeaponComponent>().playerState;
@@ -131,7 +131,7 @@ void PlayerBehaviour::updateSprite(SceneObject &player) {
 	auto &movement = player.get<MovementComponent>();
 	auto &position = player.get<PositionComponent>();
 	auto &sprite = player.get<SpriteComponent>();
-	
+
 	if(m_state == "Standing") {
 		sprite.isAnimated = false;
 		sprite.animID = static_cast<s8>(position.direction);
@@ -147,7 +147,7 @@ void PlayerBehaviour::updateSprite(SceneObject &player) {
 	}
 	else if(m_state == "Sword") {
 		std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
-		
+
 		if(swordState == "Swinging") {
 			sprite.isAnimated = true;
 			sprite.animID = static_cast<s8>(position.direction) + 8;

@@ -3,7 +3,7 @@
  *
  *       Filename:  Scene.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  01/05/2015 22:49:56
  *
@@ -25,25 +25,25 @@ void Scene::reset() {
 
 void Scene::update() {
 	SceneSystem::update(m_objects);
-	
+
 	if(player) SceneSystem::updateObject(*player);
 }
 
 void Scene::draw() {
 	SceneSystem::draw(m_objects);
-	
+
 	if(player) SceneSystem::drawObject(*player);
 }
 
 SceneObject &Scene::addObject(SceneObject &&object) {
 	SceneObject &obj = m_objects.addObject(std::move(object));
-	
+
 	if(obj.has<CollisionComponent>()) {
 		obj.get<CollisionComponent>().addChecker([&](SceneObject &object) {
 			checkCollisionsFor(object);
 		});
 	}
-	
+
 	return obj;
 }
 

@@ -3,7 +3,7 @@
  *
  *       Filename:  LifetimeSystem.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  01/05/2015 23:44:57
  *

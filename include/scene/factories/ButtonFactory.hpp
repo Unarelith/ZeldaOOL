@@ -3,7 +3,7 @@
  *
  *       Filename:  ButtonFactory.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/02/2015 01:49:19
  *

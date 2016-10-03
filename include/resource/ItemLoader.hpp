@@ -3,7 +3,7 @@
  *
  *       Filename:  ItemLoader.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  16/05/2015 17:07:28
  *

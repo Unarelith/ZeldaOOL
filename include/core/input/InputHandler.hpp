@@ -3,7 +3,7 @@
  *
  *       Filename:  InputHandler.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  12/02/2015 17:16:57
  *
