@@ -1,5 +1,26 @@
 ===== TODO =====
+- Link has not two hitboxes, the collision matrix contains the movement vector (vx;vy)
+	=> That's why we need to test his direction
+	=> That's why the two hitboxes had close values
+- Compare CubeLand and Zelda code, find what has been improved in CubeLand and what could be improved in Zelda
+- Try to reduce code of GamePad::isKeyPressed
+- Find why collectables don't drop correctly on my eeePC
+- Improve code performance
+- Add NPCs
+	=> Create a class 'Message' or 'NPCMessage' which could contain actions,
+	   conditions, etc.
+		-> Improve 'MessageBox' to handle choices
+	=> Check the real hitbox of Link thanks to NPCs which don't have rounded
+	   corners
+		-> Write a 'MapCollisionHandler'
+	=> Fix remaining issues
+		-> Fix the conflict between button A's action and NPC's dialog
+		-> Link can be displayed behind and in front of a NPC in the original game
+			=> BIG ISSUE: I think I'll need two sets of SceneObjects, the ones in front of the player, the others behind
+		-> NPC animation should be stopped when his message is displayed
+			=> I think using Sprite::pause could be a good idea
 - Implement projectiles for Octoroks
+- Octorok should drop collectables
 - Remove sword loading animation and replace it by palette switch
 - Add 'PotFactory' and 'BlockFactory'
 	-> A Pot is movable in all ways
@@ -7,9 +28,6 @@
 - Add power bracelet
 	-> Pots and grass are liftable
 	=> Add state "Lifting" for player
-- Implement 'Translator'
-	=> Look at Asylia's LanguageManager
-- Add NPCs
 - Improve sword positions
 - Improve OpenGL code
 	=> Use model matrix instead of raw positions
@@ -26,10 +44,11 @@
 - HurtMovement can stop if player is stopped?
 	-> Check the behaviour in the original game
 	=> Check isMoving flag
+- The tile under link should be destroyed by his spin attack
+- Find a better way to check if the player is facing a chest
 
 ===== OTHER ISSUES ======
 - Player and Octoroks can be pushed out of the map during HurtMovement
-	#=> Add a collision handler which is enabled only if player is hurt
 	=> Check in PlayerFactory::mapCollisions, if hurt so go to ScrollingTransition, else
 	   block him
 - Octorok's HurtMovement speed too slow?
@@ -49,7 +68,6 @@
 	=> Up and Down can't be pressed at the same time
 	=> Left and Right can't be pressed at the same time
 	=> Look at the original game and look at link's behaviour when it's the case
-- The tile under link should be destroyed by his spin attack
 - Player can be teleported when hurt
 	=> Check if player is hurt before teleportation
 

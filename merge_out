@@ -1,0 +1,46 @@
+Fusion automatique de tests/SceneObjectTests.hpp
+Fusion automatique de source/scene/systems/MovementSystem.cpp
+CONFLIT (contenu) : Conflit de fusion dans source/scene/systems/MovementSystem.cpp
+Fusion automatique de source/scene/systems/BattleSystem.cpp
+CONFLIT (contenu) : Conflit de fusion dans source/scene/systems/BattleSystem.cpp
+Fusion automatique de source/scene/movements/GamePadMovement.cpp
+CONFLIT (contenu) : Conflit de fusion dans source/scene/movements/GamePadMovement.cpp
+Fusion automatique de source/scene/movements/CollectableMovement.cpp
+Fusion automatique de source/scene/loaders/SceneObjectLoader.cpp
+Fusion automatique de source/scene/factories/OctorokFactory.cpp
+CONFLIT (contenu) : Conflit de fusion dans source/scene/factories/OctorokFactory.cpp
+Fusion automatique de source/scene/factories/GrassFactory.cpp
+CONFLIT (contenu) : Conflit de fusion dans source/scene/factories/GrassFactory.cpp
+Fusion automatique de source/scene/factories/CollectableFactory.cpp
+Fusion automatique de source/scene/factories/ButtonFactory.cpp
+CONFLIT (contenu) : Conflit de fusion dans source/scene/factories/ButtonFactory.cpp
+Fusion automatique de source/main.cpp
+Fusion automatique de source/interface/StatsBar.cpp
+CONFLIT (contenu) : Conflit de fusion dans source/interface/StatsBar.cpp
+Fusion automatique de source/display/opengl/Shader.cpp
+CONFLIT (contenu) : Conflit de fusion dans source/display/opengl/Shader.cpp
+Fusion automatique de source/core/states/MessageBoxState.cpp
+Fusion automatique de source/core/input/KeyboardHandler.cpp
+Fusion automatique de source/core/input/GamePad.cpp
+Fusion automatique de source/core/SDLLoader.cpp
+CONFLIT (contenu) : Conflit de fusion dans source/core/SDLLoader.cpp
+Fusion automatique de source/core/Application.cpp
+Fusion automatique de include/system/GameClock.hpp
+CONFLIT (contenu) : Conflit de fusion dans include/system/GameClock.hpp
+Fusion automatique de include/scene/loaders/ButtonLoader.hpp
+Fusion automatique de include/scene/factories/CollectableFactory.hpp
+Fusion automatique de include/scene/components/InventoryComponent.hpp
+CONFLIT (contenu) : Conflit de fusion dans include/scene/components/InventoryComponent.hpp
+Fusion automatique de include/scene/components/HealthComponent.hpp
+CONFLIT (contenu) : Conflit de fusion dans include/scene/components/HealthComponent.hpp
+Fusion automatique de include/core/states/MessageBoxState.hpp
+CONFLIT (contenu) : Conflit de fusion dans include/core/states/MessageBoxState.hpp
+Fusion automatique de include/core/input/KeyboardHandler.hpp
+CONFLIT (contenu) : Conflit de fusion dans include/core/input/KeyboardHandler.hpp
+Fusion automatique de include/core/input/GamePad.hpp
+Fusion automatique de include/core/Rect.hpp
+CONFLIT (contenu) : Conflit de fusion dans include/core/Rect.hpp
+Fusion automatique de CMakeLists.txt
+Fusion automatique de .gitignore
+CONFLIT (contenu) : Conflit de fusion dans .gitignore
+La fusion automatique a échoué ; réglez les conflits et validez le résultat.

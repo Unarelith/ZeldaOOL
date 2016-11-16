@@ -23,10 +23,10 @@ void StatsBar::draw() {
 
 	auto &playerHealth = Scene::player->get<HealthComponent>();
 
-	u8 maxLife = playerHealth.maxLife;
+	u8 maxLife = playerHealth.maxLife();
 	for(u8 j = 0 ; j <= maxLife / 28 ; j++) {
 		for(u8 i = 0 ; i < maxLife / 4 - j * 7 && i < 7 ; i++) {
-			s16 life = playerHealth.life - j * 28;
+			s16 life = playerHealth.life() - j * 28;
 
 			if(life > (i + 1) * 4) {
 				m_hearts.drawFrame(104 + i * 8, j * 8, 4);

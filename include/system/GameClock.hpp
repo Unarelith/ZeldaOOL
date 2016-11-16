@@ -34,7 +34,6 @@ class GameClock {
 		u32 m_lastFrameDate = 0;
 		u32 m_lag = 0;
 		u32 m_timeDropped = 0;
-		u32 m_lastFrameDuration = 0;
 
 		u8 m_timestep = 6;
 		u8 m_numUpdates = 0;

@@ -11,3 +11,4 @@ unit-test.cpp
 doxygen/html
 doxygen/latex
 compile_commands.json
+.ycm_extra_conf*

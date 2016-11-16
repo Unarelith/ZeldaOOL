@@ -29,6 +29,7 @@ class SceneObjectTests : public CxxTest::TestSuite  {
 
 		void testSet() {
 			SceneObject object;
+			
 			object.set<int>(5);
 
 			TS_ASSERT(object.has<int>());
@@ -41,6 +42,7 @@ class SceneObjectTests : public CxxTest::TestSuite  {
 
 		void testRemove() {
 			SceneObject object;
+			
 			object.set<int>(5);
 			object.remove<int>();
 

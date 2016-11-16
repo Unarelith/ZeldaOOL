@@ -26,6 +26,7 @@
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
+#include "LootComponent.hpp"
 
 void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision);
 
@@ -64,6 +65,9 @@ SceneObject OctorokFactory::create(float x, float y) {
 	spriteComponent.addAnimation({6, 2}, 150);
 	spriteComponent.addAnimation({7, 3}, 150);
 
+	auto &lootComponent = octorok.set<LootComponent>();
+	lootComponent.addItem(1, CollectableType::Rupees);
+
 	return octorok;
 }
 
@@ -79,6 +83,12 @@ void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision) 
 			// auto &weaponComponent = object.get<WeaponComponent>();
 			// if(weaponComponent.weaponInfos.strength()) {
 				BattleSystem::hurt(object, octorok);
+
+				auto &positionComponent = octorok.get<PositionComponent>();
+
+				// FIXME: Items drop too soon
+				if(octorok.get<HealthComponent>().life() == 0)
+					octorok.get<LootComponent>().dropItem(positionComponent.x, positionComponent.y);
 			// }
 		}
 	}

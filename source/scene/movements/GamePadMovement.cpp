@@ -24,9 +24,8 @@ void GamePadMovement::process(SceneObject &object) {
 	if(GamePad::isKeyPressed(GameKey::Left)) {
 		movementComponent.v.x = -1;
 
-		if(!GamePad::isKeyPressed(GameKey::Right)
-		&& !GamePad::isKeyPressed(GameKey::Up)
-		&& !GamePad::isKeyPressed(GameKey::Down)
+		if(((!GamePad::isKeyPressed(GameKey::Up) && !GamePad::isKeyPressed(GameKey::Down))
+		 || positionComponent.direction == Direction::Right)
 		&& !movementComponent.isDirectionLocked) {
 			positionComponent.direction = Direction::Left;
 		}
@@ -34,9 +33,8 @@ void GamePadMovement::process(SceneObject &object) {
 	else if(GamePad::isKeyPressed(GameKey::Right)) {
 		movementComponent.v.x = 1;
 
-		if(!GamePad::isKeyPressed(GameKey::Left)
-		&& !GamePad::isKeyPressed(GameKey::Up)
-		&& !GamePad::isKeyPressed(GameKey::Down)
+		if(((!GamePad::isKeyPressed(GameKey::Up) && !GamePad::isKeyPressed(GameKey::Down))
+		 || positionComponent.direction == Direction::Left)
 		&& !movementComponent.isDirectionLocked) {
 			positionComponent.direction = Direction::Right;
 		}
@@ -45,9 +43,8 @@ void GamePadMovement::process(SceneObject &object) {
 	if(GamePad::isKeyPressed(GameKey::Up)) {
 		movementComponent.v.y = -1;
 
-		if(!GamePad::isKeyPressed(GameKey::Left)
-		&& !GamePad::isKeyPressed(GameKey::Right)
-		&& !GamePad::isKeyPressed(GameKey::Down)
+		if(((!GamePad::isKeyPressed(GameKey::Left) && !GamePad::isKeyPressed(GameKey::Right))
+		 || positionComponent.direction == Direction::Down)
 		&& !movementComponent.isDirectionLocked) {
 			positionComponent.direction = Direction::Up;
 		}
@@ -55,9 +52,8 @@ void GamePadMovement::process(SceneObject &object) {
 	else if(GamePad::isKeyPressed(GameKey::Down)) {
 		movementComponent.v.y = 1;
 
-		if(!GamePad::isKeyPressed(GameKey::Left)
-		&& !GamePad::isKeyPressed(GameKey::Right)
-		&& !GamePad::isKeyPressed(GameKey::Up)
+		if(((!GamePad::isKeyPressed(GameKey::Left) && !GamePad::isKeyPressed(GameKey::Right))
+		 || positionComponent.direction == Direction::Up)
 		&& !movementComponent.isDirectionLocked) {
 			positionComponent.direction = Direction::Down;
 		}

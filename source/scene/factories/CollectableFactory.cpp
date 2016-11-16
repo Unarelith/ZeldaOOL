@@ -51,7 +51,7 @@ SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, co
 SceneObject CollectableFactory::createHeart(u16 x, u16 y, CollectableMovement::Type movementType) {
 	SceneObject object = create(x, y, "heart", "getHeart", movementType);
 	object.get<CollectableComponent>().setAction([](SceneObject &player) {
-		player.get<HealthComponent>().life += 4;
+		player.get<HealthComponent>().addLife(4);
 	});
 
 	return object;

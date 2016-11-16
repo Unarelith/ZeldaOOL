@@ -21,7 +21,7 @@ void MovementSystem::process(SceneObject &object) {
 	if(object.has<MovementComponent>()) {
 		auto &movement = object.get<MovementComponent>();
 
-		if(!movement.movements.size() == 0 && movement.movements.top()) {
+		if(movement.movements.size() != 0 && movement.movements.top()) {
 			movement.movements.top()->process(object);
 		}
 

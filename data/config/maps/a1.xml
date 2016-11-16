@@ -8,4 +8,6 @@
 		<tileChange tileX="7" tileY="6" newID="36"/>
 		<tileChange tileX="8" tileY="6" newID="36"/>
 	</button>
+
+	<npc tileX="5" tileY="2"/>
 </map>

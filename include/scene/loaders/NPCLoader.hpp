@@ -1,25 +1,25 @@
 /*
  * =====================================================================================
  *
- *       Filename:  ButtonLoader.hpp
+ *       Filename:  NPCLoader.hpp
  *
- *    Description:
+ *    Description:  
  *
- *        Created:  22/02/2015 17:14:19
+ *        Created:  22/06/2015 13:09:57
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef BUTTONLOADER_HPP_
-#define BUTTONLOADER_HPP_
+#ifndef NPCLOADER_HPP_
+#define NPCLOADER_HPP_
 
 #include "Scene.hpp"
 #include "XMLFile.hpp"
 
-class ButtonLoader {
+class NPCLoader {
 	public:
-		static void load(XMLElement *buttonElement, Scene &scene);
+		static void load(XMLElement *npcElement, Scene &scene);
 };
 
-#endif // BUTTONLOADER_HPP_
+#endif // NPCLOADER_HPP_
