@@ -78,7 +78,6 @@ class Map {
 		u16 m_height = 0;
 
 		MapAnimator m_animator;
-
 		MapRenderer m_renderer;
 
 		Scene m_scene;

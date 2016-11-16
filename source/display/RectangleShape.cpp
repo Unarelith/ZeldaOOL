@@ -22,10 +22,10 @@ RectangleShape::RectangleShape(float x, float y, u16 width, u16 height) {
 
 void RectangleShape::draw(Color color, bool wireframe) {
 	GLfloat vertices[] = {
-		m_x,			m_y,
-		m_x + m_width,	m_y,
-		m_x + m_width,	m_y + m_height,
-		m_x,			m_y + m_height
+		m_x,            m_y,
+		m_x + m_width,  m_y,
+		m_x + m_width,  m_y + m_height,
+		m_x,            m_y + m_height
 	};
 
 	GLfloat colors[] = {
@@ -45,7 +45,6 @@ void RectangleShape::draw(Color color, bool wireframe) {
 
 	glVertexAttribPointer(Shader::currentShader->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
 	glVertexAttribPointer(Shader::currentShader->attrib("color"), 3, GL_FLOAT, GL_FALSE, 0, colors);
-
 
 	if(wireframe) glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 

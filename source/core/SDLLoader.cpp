@@ -29,7 +29,7 @@ void SDLLoader::load() {
 	}
 
 	int imgFlags = IMG_INIT_PNG;
-	if(~IMG_Init(imgFlags) & imgFlags) {
+	if((IMG_Init(imgFlags) & imgFlags) != imgFlags) {
 		throw EXCEPTION("SDL image init error:", IMG_GetError());
 	} else {
 		m_imgInitialized = true;
