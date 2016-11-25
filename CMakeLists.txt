@@ -8,6 +8,8 @@ project(ZeldaOOL)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
 #------------------------------------------------------------------------------
 # Get source files
 #------------------------------------------------------------------------------
@@ -61,14 +63,14 @@ endif()
 # - OpenGL
 #------------------------------------------------------------------------------
 find_package(OpenGL REQUIRED)
-find_package(GLM QUIET)
+find_package(GLM REQUIRED)
 
 if(NOT OPENGL_FOUND)
 	message(FATAL_ERROR "OpenGL not found!")
 endif(NOT OPENGL_FOUND)
 
 if(NOT GLM_FOUND)
-	message(WARNING "glm not found!")
+	message(FATAL_ERROR "glm not found!")
 endif(NOT GLM_FOUND)
 
 include_directories(${GLM_INCLUDE_DIRS})

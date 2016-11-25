@@ -25,20 +25,15 @@ class Exception : public std::exception {
 	public:
 		template<typename... Args>
 		Exception(u16 line, std::string filename, Args &&...args) noexcept {
-			m_line = line;
-			m_filename = filename;
-
-			m_errorMsg = Debug::makeString(std::forward<Args>(args)...);
+			m_errorMsg = "at " + filename + ":" + std::to_string(line) + ": ";
+			m_errorMsg += Debug::makeString(std::forward<Args>(args)...);
 		}
 
 		virtual const char *what() const noexcept {
-			return ("at " + m_filename + ":" + std::to_string(m_line) + ": " + m_errorMsg.c_str()).c_str();
+			return m_errorMsg.c_str();
 		}
 
 	private:
-		u16 m_line;
-		std::string m_filename;
-
 		std::string m_errorMsg;
 };
 

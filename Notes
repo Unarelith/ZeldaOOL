@@ -1,14 +1,12 @@
-===== TODO =====
+Notes
 
-# TODOLIST
+# Todo list
 
-• Link has not two hitboxes, the collision matrix contains the movement vector (vx;vy)
+## Important
+
+• Link hasn’t two hitboxes, the collision matrix contains the movement vector (vx;vy)
    → That's why we need to test his direction
    → That's why the two hitboxes had close values
-• Compare `CubeLand` and `Zelda` code, find what has been improved in `CubeLand` and what could be improved in `Zelda`
-• Try to reduce code of `GamePad::isKeyPressed`
-• Find why collectables don't drop correctly on my eeePC
-• Improve code performance
 • WIP: Add `NPC`s
    → Create a class `Message` or `NPCMessage` which could contain actions,
      conditions, etc.
@@ -22,25 +20,36 @@
          → FIXME: I think I'll need two sets of `SceneObjects`, the ones in front of the player, the others behind
       ▸ `NPC` animation should be stopped when his message is displayed
          → I think using `Sprite::pause` could be a good idea
+• DONE: `Octorok` should drop collectables
+   → FIXME: Drop after the end of the death animation
+• Use `clang-format` and `clang-tidy` and write pre-commit hooks
 • Implement projectiles for `Octoroks`
-• `Octorok` should drop collectables
-• Remove sword loading animation and replace it by palette switch
-• Add `PotFactory` and `BlockFactory`
-   ▸ A `Pot` is movable in all ways
+• Add `JarFactory` and `BlockFactory`
+   ▸ A `Jar` is movable in all ways
    ▸ A `Block` can be moved once only, or not at all, and requires the way it can be moved
 • Add power bracelet
    ▸ Pots and grass are liftable
    → Add state “Lifting” for player
+
+## Improvements
+
+• Compare `CubeLand` and `Zelda` code, find what has been improved in `CubeLand` and what could be improved in `Zelda`
+• Try to reduce code of `GamePad::isKeyPressed`
+• Improve code performance
 • Improve sword positions
+• Remove sword loading animation and replace it by palette switch
 • Improve `OpenGL` code
    → Use model matrix instead of raw positions
       ▸ Base class `Transformable`?
    → Write a class `VertexArray`, and use it in `Image` and `Rectangle`
-• Add more debug tools, like a `Logger` class
+• Add more debug tools, like a `Logger` class/namespace
 • Add more unit tests
 • Check valgrind
+• Check that GameClock is fully accurate
+• Reduce compile time
+   ▸ Forward declare stuff
 
-# REFACTORING ISSUES
+# Refactoring issues
 
 • Fix grass objects hitbox
 • Fix player/button collision when using sword
@@ -52,8 +61,11 @@
 • The tile under link should be destroyed by his spin attack
 • Find a better way to check if the player is facing a chest
 
-# OTHER ISSUES
+# Other issues
 
+• When `Octorok` goes out of the map it throws an exception
+   → “Fatal error at ResourceHandler.hpp:43: Unable to find resource with name: 2-0-1”
+   → Why the `ScrollingTransition` is triggered with an `Octorok`
 • `Player` and `Octoroks` can be pushed out of the map during `HurtMovement`
    → Check in `PlayerFactory::mapCollisions`, if hurt so go to `ScrollingTransition`, else
      block him
@@ -69,15 +81,16 @@
    ▪ It's not possible to hear text ‘clicks’ during ‘tadaaaaaaa’ (new item)
    → Define channel in constructor (and ‘load’), so from `Sound.cpp`
 • Fix `grassDestroy` animation
-   → Rip the original
+   → Find the *Oracle of* version
 • `Player` can be teleported when hurt
    → Check if player is hurt before teleportation
+• Find why collectables don't drop correctly on my eeePC
 • DONE: Fix ‘moonwalk’ bug
    → `Up` and `Down` can't be pressed at the same time
    → `Left` and `Right` can't be pressed at the same time
    → Look at the original game and look at link's behaviour when it's the case
 
-# TODO AFTER ENGINE IS FINISHED
+# Todo after engine is finished
 
 • Improve game for `OpenGL ES` and try on Android
 • Write a little game editor with `Qt` to add content if needed, it needs:
