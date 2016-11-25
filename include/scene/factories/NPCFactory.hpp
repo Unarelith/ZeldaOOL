@@ -3,7 +3,7 @@
  *
  *       Filename:  NPCFactory.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  22/06/2015 12:52:50
  *

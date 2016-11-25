@@ -36,6 +36,7 @@ Notes
 • Compare `CubeLand` and `Zelda` code, find what has been improved in `CubeLand` and what could be improved in `Zelda`
 • Try to reduce code of `GamePad::isKeyPressed`
 • Improve code performance
+• Improve `Collectable` drop movement and add shadow
 • Improve sword positions
 • Remove sword loading animation and replace it by palette switch
 • Improve `OpenGL` code
@@ -53,6 +54,7 @@ Notes
 
 • Fix grass objects hitbox
 • Fix player/button collision when using sword
+   → Link shouldn’t move, the `Sprite` should (check the original game)
 • `Sword` position when player is hurt at the same time he uses it is weird
    → Slow down game to see what actually happens
 • `HurtMovement` can stop if player is stopped?

@@ -105,8 +105,8 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 
 	// Pixel-perfect link hitbox for each 4 directions
 	// Two hitboxes:
-	// H: (4, 8, 8, 5)
-	// V: (5, 5, 5, 10)
+	// H: (4, 8, 8, 5)  | (4;8) -> (12;13)
+	// V: (5, 5, 5, 10) | (5;5) -> (10;15)
 	u8 collisionMatrix[4][4] = {
 		{ 4, 8, 4,13},
 		{12, 8,12,13},

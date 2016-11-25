@@ -50,7 +50,7 @@ GameKey GamePad::m_horizontalValue = GameKey::Left;
 
 bool GamePad::isKeyPressed(GameKey key) {
 	if(!inputHandler) return false;
-	
+
 	if(key == GameKey::Up) { // First vertical key pressed disable the other one
 		if (m_verticalLock && m_verticalValue == GameKey::Down) {
 			return false;

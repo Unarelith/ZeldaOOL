@@ -18,27 +18,27 @@
 
 KeyboardHandler::KeyboardHandler() {
 	XMLFile doc("data/config/keys.xml");
-	
+
 	XMLElement *keys = doc.FirstChildElement("keys").ToElement();
-	
+
 	// Reading keys from names as defined here: https://wiki.libsdl.org/SDL_Keycode
 	auto addKey = [&](GameKey key, const char *name) {
 		XMLElement *keyElement = keys->FirstChildElement(name);
 		m_keys[key] = SDL_GetKeyFromName(keyElement->Attribute("key"));
-		
+
 		if(m_keys[key] == SDLK_UNKNOWN) {
 			DEBUG("Key '", keyElement->Attribute("key"), "' not recognized");
 		}
 	};
-	
+
 	addKey(GameKey::Left,  "Left");
 	addKey(GameKey::Right, "Right");
 	addKey(GameKey::Up,    "Up");
 	addKey(GameKey::Down,  "Down");
-	
+
 	addKey(GameKey::A, "A");
 	addKey(GameKey::B, "B");
-	
+
 	addKey(GameKey::Start,  "Start");
 	addKey(GameKey::Select, "Select");
 }

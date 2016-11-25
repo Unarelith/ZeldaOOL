@@ -3,7 +3,7 @@
  *
  *       Filename:  TranslatorTests.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/06/2015 00:50:47
  *
@@ -23,13 +23,13 @@ class TranslatorTests : public CxxTest::TestSuite  {
 		TranslatorTests() {
 			Translator::setLocale("fr_FR");
 		}
-		
+
 		void testTranslate() {
 			TS_ASSERT_EQUALS(_t("id"), "text");
-			
+
 			TS_ASSERT(_t("id") != "foo");
 			TS_ASSERT(_t("id") != "");
-			
+
 			TS_ASSERT_EQUALS(_t("foo"), "foo");
 		}
 };

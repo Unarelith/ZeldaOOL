@@ -3,7 +3,7 @@
  *
  *       Filename:  Translator.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/06/2015 00:33:31
  *
@@ -16,17 +16,17 @@
 
 void Translator::setLocale(const std::string &name) {
 	dictionary().clear();
-	
+
 	XMLFile doc("data/locale/" + name + ".xml");
-	
+
 	/* INTERFACE */
 	XMLElement *textElement = doc.FirstChildElement("language").FirstChildElement("text").ToElement();
 	while(textElement) {
 		std::string id = textElement->Attribute("id");
 		std::string text = textElement->Attribute("text");
-		
+
 		dictionary().emplace(id, text);
-		
+
 		textElement = textElement->NextSiblingElement("text");
 	}
 }

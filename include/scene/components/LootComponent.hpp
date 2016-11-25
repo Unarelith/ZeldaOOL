@@ -29,12 +29,12 @@ class LootComponent {
 	public:
 		void addItem(float dropChances, CollectableType item, RupeesAmount amount = One);
 		void dropItem(float x, float y);
-		
+
 	private:
 		bool m_itemDropped = false;
-		
+
 		float m_totalLootChances = 0;
-		
+
 		std::vector<LootChance> m_lootList;
 };
 
