@@ -60,6 +60,17 @@ endif()
 #------------------------------------------------------------------------------
 # Packages
 #------------------------------------------------------------------------------
+# - tinyxml2
+#------------------------------------------------------------------------------
+find_package(TinyXml2 REQUIRED)
+if(NOT TINYXML2_FOUND)
+	message(FATAL_ERROR "tinyxml2 is needed to build the project. Please install it correctly.")
+endif()
+
+include_directories(${TINYXML2_INCLUDE_DIRS})
+link_directories(${TINYXML2_LIBRARY_DIRS})
+
+#------------------------------------------------------------------------------
 # - OpenGL
 #------------------------------------------------------------------------------
 find_package(OpenGL REQUIRED)
@@ -106,6 +117,7 @@ include_directories(${SDL2_INCLUDE_DIRS}
 if(CXXTEST_FOUND)
 	target_link_libraries(${CMAKE_PROJECT_NAME}_tests
 	                      ${CMAKE_PROJECT_NAME}_lib
+	                      ${TINYXML2_LIBRARIES}
 	                      ${OPENGL_LIBRARIES}
 	                      ${SDL2_LIBRARIES}
 	                      ${SDL2IMAGE_LIBRARIES}
@@ -114,6 +126,7 @@ endif(CXXTEST_FOUND)
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
                       ${CMAKE_PROJECT_NAME}_lib
+                      ${TINYXML2_LIBRARIES}
                       ${OPENGL_LIBRARIES}
                       ${SDL2_LIBRARIES}
                       ${SDL2IMAGE_LIBRARIES}

@@ -19,7 +19,7 @@
 #include "Exception.hpp"
 #include "SceneObject.hpp"
 
-class SceneObjectTests : public CxxTest::TestSuite  {
+class SceneObjectTests : public CxxTest::TestSuite {
 	public:
 		void testGet() {
 			SceneObject object;

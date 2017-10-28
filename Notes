@@ -46,7 +46,7 @@ Notes
 • Add more debug tools, like a `Logger` class/namespace
 • Add more unit tests
 • Check valgrind
-• Check that GameClock is fully accurate
+• Check if GameClock is fully accurate
 • Reduce compile time
    ▸ Forward declare stuff
 

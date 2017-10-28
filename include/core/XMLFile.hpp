@@ -16,7 +16,7 @@
 
 #include <string>
 
-#include "tinyxml2.hpp"
+#include <tinyxml2.h>
 
 using namespace tinyxml2;
 

@@ -14,9 +14,10 @@ uniform vec2 u_viewPosition;
 
 void main() {
 	gl_Position = u_projectionMatrix * vec4(coord2d + u_viewPosition, 0.0, 1.0);
-	
+
 	v_texCoord = texCoord;
 	v_colorMod = colorMod;
 	v_color = vec4(color, 1.0);
 }
 
+// vim:ft=glsl

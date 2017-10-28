@@ -25,49 +25,43 @@ void XMLFile::load(const std::string &filename) {
 		std::string errorString;
 
 		switch(code) {
-			case XML_ERROR_FILE_NOT_FOUND:
+			case tinyxml2::XML_ERROR_FILE_NOT_FOUND:
 				errorString = "File not found.";
 				break;
-			case XML_ERROR_FILE_COULD_NOT_BE_OPENED:
+			case tinyxml2::XML_ERROR_FILE_COULD_NOT_BE_OPENED:
 				errorString = "File couldn't be opened.";
 				break;
-			case XML_ERROR_FILE_READ_ERROR:
+			case tinyxml2::XML_ERROR_FILE_READ_ERROR:
 				errorString = "File read error.";
 				break;
-			case XML_ERROR_ELEMENT_MISMATCH:
-				errorString = "Element mismatch.";
-				break;
-			case XML_ERROR_PARSING_ELEMENT:
+			case tinyxml2::XML_ERROR_PARSING_ELEMENT:
 				errorString = "Error while parsing element.";
 				break;
-			case XML_ERROR_PARSING_ATTRIBUTE:
+			case tinyxml2::XML_ERROR_PARSING_ATTRIBUTE:
 				errorString = "Error while parsing attribute.";
 				break;
-			case XML_ERROR_IDENTIFYING_TAG:
-				errorString = "Error while identifying tag.";
-				break;
-			case XML_ERROR_PARSING_TEXT:
+			case tinyxml2::XML_ERROR_PARSING_TEXT:
 				errorString = "Error while parsing text.";
 				break;
-			case XML_ERROR_PARSING_CDATA:
+			case tinyxml2::XML_ERROR_PARSING_CDATA:
 				errorString = "Error while parsing cdata.";
 				break;
-			case XML_ERROR_PARSING_COMMENT:
+			case tinyxml2::XML_ERROR_PARSING_COMMENT:
 				errorString = "Error while parsing comment.";
 				break;
-			case XML_ERROR_PARSING_DECLARATION:
+			case tinyxml2::XML_ERROR_PARSING_DECLARATION:
 				errorString = "Error while parsing declaration.";
 				break;
-			case XML_ERROR_PARSING_UNKNOWN:
+			case tinyxml2::XML_ERROR_PARSING_UNKNOWN:
 				errorString = "Parsing error: Unknown object.";
 				break;
-			case XML_ERROR_EMPTY_DOCUMENT:
+			case tinyxml2::XML_ERROR_EMPTY_DOCUMENT:
 				errorString = "Empty document.";
 				break;
-			case XML_ERROR_MISMATCHED_ELEMENT:
+			case tinyxml2::XML_ERROR_MISMATCHED_ELEMENT:
 				errorString = "Element mismatched.";
 				break;
-			case XML_ERROR_PARSING:
+			case tinyxml2::XML_ERROR_PARSING:
 				errorString = "Parsing error.";
 				break;
 			default:

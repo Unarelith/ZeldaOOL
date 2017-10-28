@@ -14,6 +14,7 @@
 #ifndef COLLISIONCOMPONENT_HPP_
 #define COLLISIONCOMPONENT_HPP_
 
+#include <functional>
 #include <vector>
 
 #include "SceneObject.hpp"
