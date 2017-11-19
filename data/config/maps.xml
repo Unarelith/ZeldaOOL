@@ -4,12 +4,13 @@
 		<map name="a2" tileset="plain" x="1" y="0" zoneID="0"/>
 		<map name="b1" tileset="plain" x="0" y="1" zoneID="0"/>
 		<map name="b2" tileset="plain" x="1" y="1" zoneID="0"/>
+		<map name="c1" tileset="plain" x="0" y="2" zoneID="0"/>
 	</area>
-	
+
 	<area id="1">
 		<map name="in1" tileset="indoor" x="0" y="0" zoneID="0"/>
 	</area>
-	
+
 	<area id="2">
 		<map name="ca1a1" tileset="underground" x="0" y="0" zoneID="0"/>
 	</area>

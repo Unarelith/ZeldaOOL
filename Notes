@@ -18,6 +18,7 @@ Notes
       ▸ Fix the conflict between button A's action and `NPC`'s dialog
       ▸ Link can be displayed behind and in front of a `NPC` in the original game
          → FIXME: I think I'll need two sets of `SceneObjects`, the ones in front of the player, the others behind
+         → Or maybe just using z-buffer...? T.T
       ▸ `NPC` animation should be stopped when his message is displayed
          → I think using `Sprite::pause` could be a good idea
 • DONE: `Octorok` should drop collectables
@@ -33,6 +34,7 @@ Notes
 
 ## Improvements
 
+• Improve the way singleton works
 • Compare `CubeLand` and `Zelda` code, find what has been improved in `CubeLand` and what could be improved in `Zelda`
 • Try to reduce code of `GamePad::isKeyPressed`
 • Improve code performance
