@@ -1,3 +1,4 @@
 <items>
 	<weapon name="swordL1" strength="1"/>
+	<weapon name="strengthL1" strength="0"/>
 </items>

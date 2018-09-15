@@ -4,19 +4,20 @@
 	<texture folder="animations" name="lowWaterEffect"/>
 	<texture folder="animations" name="monsterDestroy"/>
 	<texture folder="animations" name="sword"/>
-	
+
 	<texture folder="characters" name="link"/>
 	<texture folder="characters" name="blueBoy"/>
-	
+
 	<texture folder="collectables" name="heart"/>
 	<texture folder="collectables" name="rupees1"/>
 	<texture folder="collectables" name="rupees5"/>
 	<texture folder="collectables" name="rupees30"/>
-	
+
 	<texture folder="enemies" name="octorok"/>
-	
+
 	<texture folder="icons" name="swordL1"/>
-	
+	<texture folder="icons" name="strengthL1"/>
+
 	<texture folder="interface" name="dialogArrow"/>
 	<texture folder="interface" name="font"/>
 	<texture folder="interface" name="hearts"/>

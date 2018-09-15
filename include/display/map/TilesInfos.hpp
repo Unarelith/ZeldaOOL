@@ -16,7 +16,7 @@
 
 #include "IntTypes.hpp"
 
-#define TILE_NB 18
+#define TILE_NB 19
 
 namespace TilesInfos {
 	extern u16 infos[TILE_NB][4];
@@ -34,7 +34,8 @@ namespace TilesInfos {
 		GrassTile		= 14,
 		Button			= 15,
 		ClosedChest		= 16,
-		OpenedChest		= 17
+		OpenedChest		= 17,
+		Stone			= 18,
 	};
 }
 

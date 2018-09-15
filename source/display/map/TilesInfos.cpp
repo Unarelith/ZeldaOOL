@@ -84,6 +84,10 @@ u16 TilesInfos::infos[TILE_NB][4] = {
 
 	// Tile 17: Opened chest
 	{1, 1,
+	 1, 1},
+
+	// Tile 18: Stone
+	{1, 1,
 	 1, 1}
 };
 

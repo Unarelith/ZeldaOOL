@@ -37,6 +37,21 @@ class PositionComponent : public FloatRect {
 			if(v.y > 0) direction = Direction::Down;
 		}
 
+		Vector2i getMovementFromDirection() {
+			Vector2i v;
+			v.x = (direction == Direction::Left ? -1 : (direction == Direction::Right ? 1 : 0));
+			v.y = (direction == Direction::Up ? -1 : (direction == Direction::Down ? 1 : 0));
+			return v;
+		}
+
+		Vector2i getFrontTile() {
+			Vector2i v;
+			v.x = (x + width / 2) / 16;
+			v.y = (y + height / 2) / 16;
+			v += getMovementFromDirection();
+			return v;
+		}
+
 		Direction direction = Direction::None;
 };
 

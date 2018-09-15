@@ -12,12 +12,19 @@
  * =====================================================================================
  */
 #include "SwordFactory.hpp"
+#include "WeaponComponent.hpp"
 #include "WeaponFactory.hpp"
 
 SceneObject WeaponFactory::create(Weapon &weaponInfos, float x, float y, GameKey key, SceneObject &owner) {
 	if(weaponInfos.name() == "swordL1") {
 		return SwordFactory::create(x, y, key, owner, weaponInfos);
-	} else {
+	}
+	else if(weaponInfos.name() == "strengthL1") {
+		SceneObject object;
+		object.set<WeaponComponent>(owner, weaponInfos, key, "Lift");
+		return object;
+	}
+	else {
 		return SceneObject();
 	}
 }

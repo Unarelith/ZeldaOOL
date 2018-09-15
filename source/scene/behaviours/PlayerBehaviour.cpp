@@ -16,6 +16,7 @@
 #include "Map.hpp"
 #include "PlayerBehaviour.hpp"
 #include "SceneObjectList.hpp"
+#include "TilesInfos.hpp"
 #include "WeaponFactory.hpp"
 
 #include "BehaviourComponent.hpp"
@@ -61,6 +62,11 @@ void PlayerBehaviour::action(SceneObject &player) {
 		if(!movement.isBlocked) m_state = "Standing";
 
 		weaponAction(player);
+
+		if (m_state == "Lift") {
+			movement.isDirectionLocked = true;
+			movement.speed = 0;
+		}
 	}
 	else if(m_state == "Sword") {
 		static std::string oldSwordState;
@@ -95,7 +101,28 @@ void PlayerBehaviour::action(SceneObject &player) {
 		}
 
 		oldSwordState = swordState;
-	} else {
+	}
+	else if(m_state == "Lift") {
+		if (movement.speed != 0 || !GamePad::isKeyPressed(m_weapon->get<WeaponComponent>().key)) {
+			movement.isDirectionLocked = false;
+			movement.speed = 0.4f;
+			m_state = "Standing";
+		}
+
+		auto &positionComponent = player.get<PositionComponent>();
+		if (Map::currentMap->isTile(positionComponent.getFrontTile().x * 16,
+		                            positionComponent.getFrontTile().y * 16,
+		                            TilesInfos::Stone) && movement.isMoving)
+		{
+			movement.isDirectionLocked = false;
+			movement.speed = 0.4f;
+			m_state = "Standing";
+
+			Map::currentMap->setTile(positionComponent.getFrontTile().x,
+			                         positionComponent.getFrontTile().y, 36);
+		}
+	}
+	else {
 	 	throw EXCEPTION("Unknown player state:", m_state);
 	}
 
@@ -164,6 +191,11 @@ void PlayerBehaviour::updateSprite(SceneObject &player) {
 			sprite.animID = static_cast<s8>(position.direction);
 			sprite.frameID = 1;
 		}
+	}
+	else if(m_state == "Lift") {
+		sprite.isAnimated = movement.isMoving;
+		sprite.animID = 13 + static_cast<s8>(position.direction);
+		sprite.frameID = 1;
 	}
 }
 

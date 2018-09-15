@@ -83,9 +83,11 @@ void ScrollingTransition::update() {
 	if(Scene::player && positionComponent) {
 		auto &objectList = Scene::player->get<SceneObjectList>();
 		for(auto &object : objectList) {
-			auto &position = object.get<PositionComponent>();
-			position.x = positionComponent->x;
-			position.y = positionComponent->y;
+			if (object.has<PositionComponent>()) {
+				auto &position = object.get<PositionComponent>();
+				position.x = positionComponent->x;
+				position.y = positionComponent->y;
+			}
 		}
 	}
 }
