@@ -5,9 +5,9 @@
  *
  *    Description:
  *
- *        Created:  20/09/2014 14:42:35
+ *        Created:  15/12/2014 16:30:20
  *
- *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
+ *         Author:  Quentin Bazin, <quent42340@gmail.com>
  *
  * =====================================================================================
  */
@@ -15,6 +15,7 @@
 #define SHADER_HPP_
 
 #include <string>
+#include <vector>
 
 #include <glm/glm.hpp>
 
@@ -23,34 +24,36 @@
 class Shader {
 	public:
 		Shader() = default;
-		Shader(const Shader &shader) = default;
-		Shader(Shader &&shader);
 		Shader(const std::string &vertexFilename, const std::string &fragementFilename);
 		~Shader();
 
-		Shader &operator=(const Shader &shader) = default;
-
 		void loadFromFile(const std::string &vertexFilename, const std::string &fragementFilename);
 
-		void compileShader(GLenum type, GLuint &shader, const std::string &filename);
+		void createProgram();
+		void linkProgram();
 
-		GLint attrib(const std::string &name);
-		GLint uniform(const std::string &name);
+		void addShader(GLenum type, const std::string &filename);
 
-		void enableVertexAttribArray(const std::string &name);
-		void disableVertexAttribArray(const std::string &name);
+		GLint attrib(const std::string &name) const;
+		GLint uniform(const std::string &name) const;
 
-		void setUniform(const std::string &name, int n);
-		void setUniform(const std::string &name, float d, float e);
-		void setUniform(const std::string &name, const glm::mat4 &matrix);
+		void enableVertexAttribArray(const std::string &name) const;
+		void disableVertexAttribArray(const std::string &name) const;
+
+		void setUniform(const std::string &name, int n) const;
+		void setUniform(const std::string &name, float x, float y);
+		void setUniform(const std::string &name, const glm::mat4 &matrix) const;
 
 		static void bind(const Shader *shader);
 		static Shader *currentShader;
 
+		GLint program() const { return m_program; }
+
 	private:
-		GLuint m_vertexShader = 0;
-		GLuint m_fragmentShader = 0;
-		GLuint m_program = 0;
+		std::vector<GLuint> m_vertexShaders;
+		std::vector<GLuint> m_fragmentShaders;
+
+		GLuint m_program;
 };
 
 #endif // SHADER_HPP_

@@ -114,7 +114,7 @@ void CoreApplication::mainLoop() {
 			if(!m_stateStack.empty())
 				m_stateStack.top().draw();
 
-			m_window.update();
+			m_window.display();
 		});
 	}
 }

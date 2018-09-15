@@ -5,7 +5,7 @@
  *
  *    Description:
  *
- *        Created:  19/09/2014 19:50:56
+ *        Created:  19/09/2014 19:50:28
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
@@ -15,21 +15,29 @@
 #define WINDOW_HPP_
 
 #include <memory>
+#include <string>
 
 #include "IntTypes.hpp"
+#include "RenderTarget.hpp"
 #include "SDLHeaders.hpp"
-#include "Shader.hpp"
 
-class Window {
+class Window : public RenderTarget {
 	public:
 		void open();
-		void initGL();
+		void open(const std::string &caption, u16 width, u16 height);
 
 		void clear();
-		void update();
+		void display();
 
-		bool isOpen() const { return m_isOpen; }
+		void setVerticalSyncEnabled(bool enabled);
+
+		u16 width() const { return m_width; }
+		u16 height() const { return m_height; }
+
 		void close() { m_isOpen = false; }
+		bool isOpen() const { return m_isOpen; }
+
+		SDL_Window *window() const { return m_window.get(); }
 
 	private:
 		using SDL_WindowPtr = std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)>;
@@ -38,12 +46,10 @@ class Window {
 		SDL_WindowPtr m_window{nullptr, SDL_DestroyWindow};
 		SDL_GLContextPtr m_context{nullptr, SDL_GL_DeleteContext};
 
-		Shader m_shader;
+		u16 m_width;
+		u16 m_height;
 
-		bool m_isOpen = false;
-
-		u16 m_width = 0;
-		u16 m_height = 0;
+		bool m_isOpen;
 };
 
 #endif // WINDOW_HPP_

@@ -15,12 +15,18 @@
 #define APPLICATION_HPP_
 
 #include "CoreApplication.hpp"
+#include "Shader.hpp"
 
 class Application : public CoreApplication {
 	public:
 		Application(int argc, char **argv) : CoreApplication(argc, argv) {}
 
 		void init() override;
+
+		void initOpenGL();
+
+	private:
+		Shader m_shader;
 };
 
 #endif // APPLICATION_HPP_
