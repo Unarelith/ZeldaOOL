@@ -20,7 +20,7 @@
 #include "OpenGL.hpp"
 #include "Window.hpp"
 
-Window::Window() {
+void Window::open() {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 

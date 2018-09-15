@@ -14,30 +14,13 @@
 #ifndef APPLICATION_HPP_
 #define APPLICATION_HPP_
 
-#include "ApplicationStateStack.hpp"
-#include "GameClock.hpp"
-#include "KeyboardHandler.hpp"
-#include "Window.hpp"
+#include "CoreApplication.hpp"
 
-class Application {
+class Application : public CoreApplication {
 	public:
-		Application();
+		Application(int argc, char **argv) : CoreApplication(argc, argv) {}
 
-		void handleEvents();
-
-		void run();
-
-		static const u16 screenWidth = 160;
-		static const u16 screenHeight = 144;
-
-	private:
-		ApplicationStateStack &m_stateStack;
-
-		GameClock m_clock;
-
-		KeyboardHandler m_keyboardHandler;
-
-		Window m_window;
+		void init() override;
 };
 
 #endif // APPLICATION_HPP_

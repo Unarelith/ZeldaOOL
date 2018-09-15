@@ -28,37 +28,37 @@ class ResourceHandler {
 				throw EXCEPTION("A resource of type", typeid(T).name(), "already exists with name:", name);
 			}
 
-			m_resources[name] = std::make_shared<T>(std::forward<Args>(args)...);
+			m_resources.emplace(name, std::make_shared<T>(std::forward<Args>(args)...));
 
 			return get<T>(name);
 		}
 
 		bool has(const std::string &name) {
-			return m_resources.find(name) != m_resources.end();
+			return m_resources.count(name) == 1;
 		}
 
 		template<typename T>
 		T &get(const std::string &name) {
-			if(!has(name)) {
-				throw EXCEPTION("Unable to find resource with name:", name);
+			auto it = m_resources.find(name);
+			if(it == m_resources.end()) {
+			 	throw EXCEPTION("Unable to find resource with name:", name);
 			}
 
-			return *std::static_pointer_cast<T>(m_resources[name]);
+			return *std::static_pointer_cast<T>(it->second);
 		}
 
 		template<typename ResourceLoader>
-		static void loadConfigFile(const std::string &xmlFilename) {
+		static void loadConfigFile(const char *xmlFilename) {
 			ResourceLoader loader;
 			loader.load(xmlFilename, getInstance());
 		}
 
-		static ResourceHandler &getInstance() {
-			static ResourceHandler instance;
-			return instance;
-		}
+		static ResourceHandler &getInstance();
+
+		static void setInstance(ResourceHandler &handler);
 
 	private:
-		ResourceHandler() = default;
+		static ResourceHandler *instance;
 
 		std::map<std::string, std::shared_ptr<void>> m_resources;
 };

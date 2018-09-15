@@ -63,7 +63,7 @@ void npcAction(SceneObject &npc, SceneObject &object, bool inCollision) {
 
 		// FIXME: Fix priorities with weaponA
 		if(GamePad::isKeyPressedOnce(GameKey::A)) {
-			ApplicationStateStack::getInstance().push<MessageBoxState>("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", ApplicationStateStack::getInstance().top());
+			ApplicationStateStack::getInstance().push<MessageBoxState>("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", &ApplicationStateStack::getInstance().top());
 		}
 	}
 }

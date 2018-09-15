@@ -203,19 +203,19 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 	effects.enableIf("grass", onTile(TilesInfos::TileType::LowGrassTile));
 
 	if(position.x < -3) {
-		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingLeft);
 	}
 	else if(position.x + 13 > Map::currentMap->width() * 16) {
-		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingRight);
 	}
 	else if(position.y < -1) {
-		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingUp);
 	}
 	else if(position.y + 15 > Map::currentMap->height() * 16) {
-		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingDown);
 	}
 }

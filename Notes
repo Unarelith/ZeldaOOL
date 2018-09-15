@@ -29,7 +29,7 @@ Notes
    ▸ A `Jar` is movable in all ways
    ▸ A `Block` can be moved once only, or not at all, and requires the way it can be moved
 • Add power bracelet
-   ▸ Pots and grass are liftable
+   ▸ Pots, rocks and grass are liftable
    → Add state “Lifting” for player
 
 ## Improvements

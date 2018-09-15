@@ -11,6 +11,7 @@
  *
  * =====================================================================================
  */
+#include "ApplicationStateStack.hpp"
 #include "AudioPlayer.hpp"
 #include "GamePad.hpp"
 #include "MenuState.hpp"

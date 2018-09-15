@@ -49,7 +49,7 @@ void teleporterAction(SceneObject &teleporter, SceneObject &object, bool inColli
 			if(!playerOnDoor) {
 				AudioPlayer::playEffect("mapStairs");
 
-				auto &state = ApplicationStateStack::getInstance().push<TransitionState>(ApplicationStateStack::getInstance().top());
+				auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
 				state.setTransition<TeleporterTransition>(teleporterComponent.area(),
 				                                          teleporterComponent.mapX(),
 				                                          teleporterComponent.mapY(),

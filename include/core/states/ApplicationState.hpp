@@ -14,6 +14,8 @@
 #ifndef APPLICATIONSTATE_HPP_
 #define APPLICATIONSTATE_HPP_
 
+#include "SDLHeaders.hpp"
+
 class ApplicationStateStack;
 
 class ApplicationState {
@@ -23,8 +25,12 @@ class ApplicationState {
 		ApplicationState(ApplicationState &&) = default;
 		virtual ~ApplicationState() = default;
 
-		virtual void update() = 0;
+		ApplicationState &operator=(const ApplicationState &) = delete;
+		ApplicationState &operator=(ApplicationState &&) = default;
 
+		virtual void onEvent(SDL_Event &) {}
+
+		virtual void update() = 0;
 		virtual void draw() = 0;
 
 		void setStateStack(ApplicationStateStack *stateStack) { m_stateStack = stateStack; }
@@ -34,7 +40,5 @@ class ApplicationState {
 
 		ApplicationStateStack *m_stateStack = nullptr;
 };
-
-#include "ApplicationStateStack.hpp"
 
 #endif // APPLICATIONSTATE_HPP_

@@ -55,7 +55,7 @@ void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 			Map::currentMap->setTile(chestPosition.x / 16,
 			                         chestPosition.y / 16, 240, true);
 
-			ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, ApplicationStateStack::getInstance().top());
+			ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, &ApplicationStateStack::getInstance().top());
 
 			chest.get<ChestComponent>().opened = true;
 		}
