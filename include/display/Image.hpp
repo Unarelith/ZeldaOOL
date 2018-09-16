@@ -52,7 +52,7 @@ class Image : public IDrawable, public Transformable {
 
 		VertexBuffer m_vbo;
 
-		Color m_color = Color::black;
+		Color m_color = Color::white;
 };
 
 #endif // IMAGE_HPP_

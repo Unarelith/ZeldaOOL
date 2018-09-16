@@ -1,7 +1,6 @@
 #version 120
 
 varying vec2 v_texCoord;
-varying vec4 v_colorMod;
 varying vec4 v_color;
 
 uniform sampler2D u_tex;
@@ -11,13 +10,13 @@ vec4 colorInPalette(int paletteID, vec4 color);
 
 void main() {
 	vec4 textureColor = texture2D(u_tex, v_texCoord);
-	vec4 colorMod = vec4(1.0, 1.0, 1.0, 1.0) - v_colorMod;
+	vec4 colorMod = vec4(1.0, 1.0, 1.0, 1.0) - v_color;
 
 	vec4 finalColor;
-	if(v_color == vec4(0, 0, 0, 1)) {
-		finalColor = textureColor; // - colorMod; // FIXME
-	} else {
+	if(v_texCoord.x == -1 && v_texCoord.y == -1) {
 		finalColor = v_color;
+	} else {
+		finalColor = textureColor - colorMod;
 	}
 
 	if(u_paletteID > 0) {

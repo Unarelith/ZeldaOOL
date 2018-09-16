@@ -39,10 +39,9 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	spriteComponent.isAnimated = true;
 	spriteComponent.isEnabled = false;
 
-	// FIXME
-	// if(lowGrass) {
-	// 	spriteComponent.sprite.setColor(Color(255, 255, 255, 127));
-	// }
+	if(lowGrass) {
+		spriteComponent.sprite.setColor(Color{255, 255, 255, 127});
+	}
 
 	object.set<BehaviourComponent>(new EasyBehaviour([](SceneObject &object) {
 		auto &spriteComponent = object.get<SpriteComponent>();

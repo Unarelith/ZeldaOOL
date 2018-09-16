@@ -100,7 +100,7 @@ void TextBox::updateTextSprites() {
 		else if((u8)m_string[i] >= 32)
 			sprite.setCurrentFrame((u8)m_string[i] - 29);
 		sprite.setPosition(charX, charY);
-		// sprite.setColor(m_currentColor); // FIXME: Fix colorMod
+		sprite.setColor(m_currentColor);
 		m_textSprites.emplace_back(std::move(sprite));
 
 		charX += charWidth;

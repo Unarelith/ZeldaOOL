@@ -40,12 +40,12 @@ void MapRenderer::updateTile(u16 tileX, u16 tileY, u16 id, Map &map) {
 	float texTileHeight = tileHeight / map.tileset().height();
 
 	Vertex vertices[] = {
-		{{x            , y             , 0, 1}, {texTileX               , texTileY                }, {0.0f, 0.0f, 0.0f, 1.0f}},
-		{{x + tileWidth, y             , 0, 1}, {texTileX + texTileWidth, texTileY                }, {0.0f, 0.0f, 0.0f, 1.0f}},
-		{{x + tileWidth, y + tileHeight, 0, 1}, {texTileX + texTileWidth, texTileY + texTileHeight}, {0.0f, 0.0f, 0.0f, 1.0f}},
-		{{x            , y             , 0, 1}, {texTileX               , texTileY                }, {0.0f, 0.0f, 0.0f, 1.0f}},
-		{{x + tileWidth, y + tileHeight, 0, 1}, {texTileX + texTileWidth, texTileY + texTileHeight}, {0.0f, 0.0f, 0.0f, 1.0f}},
-		{{x            , y + tileHeight, 0, 1}, {texTileX               , texTileY + texTileHeight}, {0.0f, 0.0f, 0.0f, 1.0f}}
+		{{x            , y             , 0, 1}, {texTileX               , texTileY                }, {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x + tileWidth, y             , 0, 1}, {texTileX + texTileWidth, texTileY                }, {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x + tileWidth, y + tileHeight, 0, 1}, {texTileX + texTileWidth, texTileY + texTileHeight}, {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x            , y             , 0, 1}, {texTileX               , texTileY                }, {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x + tileWidth, y + tileHeight, 0, 1}, {texTileX + texTileWidth, texTileY + texTileHeight}, {1.0f, 1.0f, 1.0f, 1.0f}},
+		{{x            , y + tileHeight, 0, 1}, {texTileX               , texTileY + texTileHeight}, {1.0f, 1.0f, 1.0f, 1.0f}}
 	};
 
 	m_vbo.updateData(sizeof(vertices) * (tileX + tileY * map.width()), sizeof(vertices), vertices);

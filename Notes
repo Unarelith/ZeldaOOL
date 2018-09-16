@@ -10,12 +10,13 @@ Notes
 • DONE: Add HitboxView
 • DONE: Fix sword → grass collision
 • DONE: Fix grass destroy animation
-• TODO: Fix sprite color modifier and low grass color
+• DONE: Fix text display
+• DONE: Fix sprite color modifier and low grass color
 • TODO: Fix hurt effect
 • TODO: Fix scene blink after transitions
-• TODO: Fix text display
 • TODO: Fix sword display + sword in ScrollingTransition
 • TODO: Add EffectView
+• TODO: Fix transition bug with force bracelet
 
 ## After rework
 
