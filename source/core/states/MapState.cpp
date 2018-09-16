@@ -11,10 +11,6 @@
  *
  * =====================================================================================
  */
-#define GLM_FORCE_RADIANS
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 #include "ApplicationStateStack.hpp"
 #include "AudioPlayer.hpp"
 #include "BattleController.hpp"
@@ -44,9 +40,6 @@ MapState::MapState() {
 	Scene::player = &m_player;
 
 	AudioPlayer::playMusic("plain");
-
-	m_shader.loadFromFile("shaders/game.v.glsl", "shaders/game.f.glsl");
-	m_projectionMatrix = glm::ortho(0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f);
 }
 
 void MapState::update() {
@@ -66,9 +59,6 @@ void MapState::update() {
 }
 
 void MapState::draw(RenderTarget &target, RenderStates states) const {
-	states.shader = &m_shader;
-	states.projectionMatrix = &m_projectionMatrix;
-
 	if (Map::currentMap)
 		target.draw(*Map::currentMap, states);
 

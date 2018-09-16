@@ -13,6 +13,8 @@
  */
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "GameClock.hpp"
+#include "HealthComponent.hpp"
 #include "Image.hpp"
 #include "LifetimeComponent.hpp"
 #include "PositionComponent.hpp"
@@ -25,7 +27,7 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 
 	glm::mat4 modelMatrix;
 	if (object.has<PositionComponent>()) {
-		modelMatrix = glm::translate(glm::mat4{1}, glm::vec3{object.get<PositionComponent>().x, object.get<PositionComponent>().y, 0});
+		modelMatrix = glm::translate((states.modelMatrix) ? *states.modelMatrix : glm::mat4{1}, glm::vec3{object.get<PositionComponent>().x, object.get<PositionComponent>().y, 0});
 		states.modelMatrix = &modelMatrix;
 	}
 
@@ -40,9 +42,32 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 	}
 
 	if(object.has<SpriteComponent>()) {
-		auto &spriteComponent = object.get<SpriteComponent>();
+		// auto &spriteComponent = object.get<SpriteComponent>();
 		// spriteComponent.updateAnimations(); // FIXME
-		target.draw(spriteComponent.sprite, states);
+		// target.draw(spriteComponent.sprite, states);
+
+		auto &spriteComponent = object.get<SpriteComponent>();
+		if(spriteComponent.isEnabled) {
+			// if(object.has<HealthComponent>()
+			// && object.get<HealthComponent>().isHurt
+			// && GameClock::getTicks() % 100 < 50) {
+			// 	spriteComponent.sprite.setPaletteID(1);
+			// }
+
+			spriteComponent.sprite.setAnimated(spriteComponent.isAnimated);
+			spriteComponent.sprite.setCurrentAnimation(spriteComponent.animID);
+			// if(!spriteComponent.isAnimated) {
+			// 	spriteComponent.sprite.setCurrentFrame(spriteComponent.frameID);
+			// }
+
+			spriteComponent.sprite.updateAnimations();
+			target.draw(spriteComponent.sprite, states);
+
+			// if(object.has<HealthComponent>()
+			// && object.get<HealthComponent>().isHurt) {
+			// 	spriteComponent.sprite.setPaletteID(0);
+			// }
+		}
 	}
 }
 

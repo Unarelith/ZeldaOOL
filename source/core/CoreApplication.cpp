@@ -99,7 +99,18 @@ void CoreApplication::handleEvents() {
 // 	}
 // }
 
+#include <glm/gtc/matrix_transform.hpp>
+#include "Shader.hpp"
+
 void CoreApplication::mainLoop() {
+	RenderStates states = RenderStates::Default;
+
+	Shader shader{"shaders/game.v.glsl", "shaders/game.f.glsl"};
+	states.shader = &shader;
+
+	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f);
+	states.projectionMatrix = &projectionMatrix;
+
 	while(m_window.isOpen() && m_stateStack.size()) {
 		handleEvents();
 
@@ -114,7 +125,7 @@ void CoreApplication::mainLoop() {
 			m_window.clear();
 
 			if(!m_stateStack.empty())
-				m_window.draw(m_stateStack.top());
+				m_window.draw(m_stateStack.top(), states);
 
 			m_window.display();
 		});

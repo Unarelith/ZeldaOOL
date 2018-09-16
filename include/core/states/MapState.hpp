@@ -30,9 +30,6 @@ class MapState : public ApplicationState {
 
 		SceneObject m_player;
 
-		Shader m_shader;
-		glm::mat4 m_projectionMatrix;
-
 		StatsBar m_statsBar;
 };
 
