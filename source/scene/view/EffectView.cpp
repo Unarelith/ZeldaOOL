@@ -29,6 +29,9 @@ void EffectView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 		for(auto &it : effects) {
 			if(it.second.isEnabled) {
 				if(it.second.hasAnimations()) {
+					if (it.second.currentAnimation().isFinished())
+						it.second.isEnabled = false;
+
 					it.second.setAnimated(true);
 					it.second.setPosition(it.second.offset.x, it.second.offset.y);
 					it.second.setCurrentAnimation(0);
