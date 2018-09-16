@@ -26,72 +26,85 @@ TextBox::TextBox(const std::string &text) {
 void TextBox::setSize(u16 width, u16 height) {
 	m_width = width;
 	m_height = height;
+
+	updateTextSprites();
 }
 
-void TextBox::draw(RenderTarget &target, RenderStates states) const {
-	// FIXME
-	// u16 charX = getPosition().x + 8;
-	// u16 charY = getPosition().y;
-    //
-	// m_charPerLine = (m_width - 16) / m_text.charWidth();
-    //
-	// m_charsToDisplay = m_charPerLine * 2;
-    //
-	// m_currentColor = Color::text;
-    //
-	// for(u16 i = 0 ; i < m_string.length() ; i++) {
-	// 	// Change color if a color tag is found
-	// 	if(m_colorChanges.find(i) != m_colorChanges.end()) {
-	// 		m_currentColor = m_colorChanges[i];
-	// 	}
-    //
-	// 	// If the text is out of the box, don't display it
-	// 	if(i < m_page * m_charPerLine) continue;
-    //
-	// 	// If the text is out of the box, don't display it
-	// 	if(charY + m_text.charHeight() > y + height) {
-	// 		break;
-	// 	}
-    //
-	// 	// Letter by letter text display
-	// 	if(isTimeToDisplayLetter(i)) {
-	// 		AudioPlayer::repeatEffect("textLetter", m_delay);
-	// 		break;
-	// 	}
-    //
-	// 	// Jump to next line if a newline character is encountered
-	// 	if(m_string[i] == '\n') {
-	// 		m_charsToDisplay -= m_charPerLine - (charX - x - 8) / m_text.charWidth();
-    //
-	// 		charX = x + 8;
-	// 		charY += m_text.charHeight();
-    //
-	// 		continue;
-	// 	}
-    //
-	// 	if(m_string[i] == ' ') {
-	// 		// If a space is the first character of a line, don't display it
-	// 		if(charX == x + 8) continue;
-    //
-	// 		size_t nextSpace = m_string.find_first_of(' ', i + 1);
-    //
-	// 		u8 wordLength = ((nextSpace != std::string::npos) ? nextSpace : m_string.length()) - i - 1;
-    //
-	// 		// Check if the word is out of the box, if it is, jump to next line
-	// 		if(charX + wordLength * m_text.charWidth() > x + width - 16) {
-	// 			m_charsToDisplay -= m_charPerLine - (charX - x - 8) / m_text.charWidth();
-    //
-	// 			charX = x + 8;
-	// 			charY += m_text.charHeight();
-    //
-	// 			continue;
-	// 		}
-	// 	}
-    //
-	// 	m_text.drawChar(charX, charY, m_string[i], m_currentColor);
-    //
-	// 	charX += m_text.charWidth();
-	// }
+void TextBox::updateTextSprites() {
+	u16 charX = 8;
+	u16 charY = 0;
+
+	const u16 charWidth = 8;
+	const u16 charHeight = 16;
+
+	m_charPerLine = (m_width - 16) / charWidth;
+
+	m_charsToDisplay = m_charPerLine * 2;
+
+	m_currentColor = Color::text;
+
+	m_textSprites.clear();
+
+	for(u16 i = 0 ; i < m_string.length() ; i++) {
+		// Change color if a color tag is found
+		if(m_colorChanges.find(i) != m_colorChanges.end()) {
+			m_currentColor = m_colorChanges[i];
+		}
+
+		// If the text is out of the box, don't display it
+		if(i < m_page * m_charPerLine) continue;
+
+		// If the text is out of the box, don't display it
+		if(charY + charHeight > m_height) {
+			break;
+		}
+
+		// Letter by letter text display
+		if(isTimeToDisplayLetter(i)) {
+			AudioPlayer::repeatEffect("textLetter", m_delay);
+			break;
+		}
+
+		// Jump to next line if a newline character is encountered
+		if(m_string[i] == '\n') {
+			m_charsToDisplay -= m_charPerLine - (charX - 8) / charWidth;
+
+			charX = 8;
+			charY += charHeight;
+
+			continue;
+		}
+
+		if(m_string[i] == ' ') {
+			// If a space is the first character of a line, don't display it
+			if(charX == 8) continue;
+
+			size_t nextSpace = m_string.find_first_of(' ', i + 1);
+
+			u8 wordLength = ((nextSpace != std::string::npos) ? nextSpace : m_string.length()) - i - 1;
+
+			// Check if the word is out of the box, if it is, jump to next line
+			if(charX + wordLength * charWidth > m_width - 16) {
+				m_charsToDisplay -= m_charPerLine - (charX - 8) / charWidth;
+
+				charX = 8;
+				charY += charHeight;
+
+				continue;
+			}
+		}
+
+		Sprite sprite{"interface-font", 8, 16};
+		if((u8)m_string[i] > 128 && (u8)m_string[i] < 195)
+			sprite.setCurrentFrame((u8)m_string[i] + 35);
+		else if((u8)m_string[i] >= 32)
+			sprite.setCurrentFrame((u8)m_string[i] - 29);
+		sprite.setPosition(charX, charY);
+		// sprite.setColor(m_currentColor); // FIXME: Fix colorMod
+		m_textSprites.emplace_back(std::move(sprite));
+
+		charX += charWidth;
+	}
 }
 
 void TextBox::setText(const std::string &text) {
@@ -126,8 +139,17 @@ void TextBox::setText(const std::string &text) {
 
 		nextColorTag = m_string.find_first_of('[', nextColorTag);
 	}
+
+	updateTextSprites();
 }
 
+void TextBox::draw(RenderTarget &target, RenderStates states) const {
+	applyTransform(states);
+
+	for(const Sprite &sprite : m_textSprites) {
+		target.draw(sprite, states);
+	}
+}
 
 bool TextBox::scrollDown() {
 	// Don't animate again the first line's drawing

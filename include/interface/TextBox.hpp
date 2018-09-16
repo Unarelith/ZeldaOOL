@@ -15,10 +15,9 @@
 #define TEXTBOX_HPP_
 
 #include <map>
+#include <vector>
 
-#include "IDrawable.hpp"
-#include "Text.hpp"
-#include "Transformable.hpp"
+#include "Sprite.hpp"
 
 class TextBox : public IDrawable, public Transformable {
 	public:
@@ -26,6 +25,8 @@ class TextBox : public IDrawable, public Transformable {
 
 		void setText(const std::string &text);
 		void setSize(u16 width, u16 height);
+
+		void updateTextSprites();
 
 		bool scrollDown();
 		void stopTextAnimation();
@@ -50,7 +51,7 @@ class TextBox : public IDrawable, public Transformable {
 
 		std::string m_string;
 
-		Text m_text;
+		std::vector<Sprite> m_textSprites;
 
 		Timer m_charTimer;
 
