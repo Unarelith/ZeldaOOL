@@ -108,20 +108,6 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 	}
 }
 
-// void DrawingSystem::drawEffects(SceneObject &object, float x, float y) {
-// 	auto &effects = object.get<EffectsComponent>().effects();
-//
-// 	for(auto &it : effects) {
-// 		if(it.second.isEnabled) {
-// 			if(it.second.hasAnimations()) {
-// 				it.second.playAnimation(x + it.second.offset.x, y + it.second.offset.y, 0);
-// 			} else {
-// 				it.second.drawFrame(x + it.second.offset.x, y + it.second.offset.y, 0);
-// 			}
-// 		}
-// 	}
-// }
-//
 // void DrawingSystem::drawHitbox(SceneObject &object, float x, float y) {
 // 	auto &hitboxComponent = object.get<HitboxComponent>();
 //

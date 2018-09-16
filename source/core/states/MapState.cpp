@@ -16,6 +16,7 @@
 #include "BattleController.hpp"
 #include "BehaviourController.hpp"
 #include "Config.hpp"
+#include "EffectView.hpp"
 #include "GamePad.hpp"
 #include "HitboxView.hpp"
 #include "LifetimeController.hpp"
@@ -46,6 +47,7 @@ void MapState::update() {
 		Map::currentMap->scene().addController<BehaviourController>();
 		Map::currentMap->scene().addController<LifetimeController>();
 		Map::currentMap->scene().addView<SpriteView>();
+		Map::currentMap->scene().addView<EffectView>();
 		// Map::currentMap->scene().addView<HitboxView>();
 	}
 
