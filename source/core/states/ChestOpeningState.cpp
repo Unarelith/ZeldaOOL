@@ -38,7 +38,6 @@ ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *paren
 
 void ChestOpeningState::update() {
 	if(m_state == State::Opening) {
-		// FIXME
 		MovementController movementController;
 		movementController.update(*m_item);
 

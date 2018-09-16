@@ -65,18 +65,14 @@ void Scene::update() {
 	}
 }
 
-#include <glm/gtc/matrix_transform.hpp>
-#include "PositionComponent.hpp"
-
 void Scene::draw(RenderTarget &target, RenderStates states) const {
 	for (auto &view : m_viewList) {
 		view->draw(m_objects, target, states);
 
 		// FIXME: Fix player handling
 		view->draw(*Scene::player, target, states);
-		if (Scene::player->has<SceneObjectList>()) {
+		if (Scene::player->has<SceneObjectList>())
 			view->draw(Scene::player->get<SceneObjectList>(), target, states);
-		}
 	}
 }
 

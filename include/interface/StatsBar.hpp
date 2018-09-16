@@ -26,9 +26,6 @@ class StatsBar : public IDrawable {
 		void drawRupees(RenderTarget &target, RenderStates states) const;
 
 		Image m_background{"interface-stats"};
-
-		Sprite m_hearts{"interface-hearts", 7, 7};
-		Sprite m_numbers{"interface-numbers", 7, 6};
 };
 
 #endif // STATSBAR_HPP_
