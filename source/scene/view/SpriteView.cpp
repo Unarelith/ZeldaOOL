@@ -62,19 +62,19 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 			sprite.setCurrentAnimation(animID);
 			sprite.setAnimated(animated);
 
-			// if(object.has<HealthComponent>()
-			// && object.get<HealthComponent>().isHurt
-			// && GameClock::getTicks() % 100 < 50) {
-			// 	sprite.setPaletteID(1);
-			// }
+			if(object.has<HealthComponent>()
+			&& object.get<HealthComponent>().isHurt
+			&& GameClock::getTicks() % 100 < 50) {
+				sprite.setPaletteID(1);
+			}
 
 			sprite.updateAnimations();
 			target.draw(sprite, states);
 
-			// if(object.has<HealthComponent>()
-			// && object.get<HealthComponent>().isHurt) {
-			// 	sprite.setPaletteID(0);
-			// }
+			if(object.has<HealthComponent>()
+			&& object.get<HealthComponent>().isHurt) {
+				sprite.setPaletteID(0);
+			}
 		}
 	}
 
@@ -85,11 +85,11 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 
 		auto &spriteComponent = object.get<SpriteComponent>();
 		if(spriteComponent.isEnabled) {
-			// if(object.has<HealthComponent>()
-			// && object.get<HealthComponent>().isHurt
-			// && GameClock::getTicks() % 100 < 50) {
-			// 	spriteComponent.sprite.setPaletteID(1);
-			// }
+			if(object.has<HealthComponent>()
+			&& object.get<HealthComponent>().isHurt
+			&& GameClock::getTicks() % 100 < 50) {
+				spriteComponent.sprite.setPaletteID(1);
+			}
 
 			spriteComponent.sprite.setAnimated(spriteComponent.isAnimated);
 			spriteComponent.sprite.setCurrentAnimation(spriteComponent.animID);
@@ -100,10 +100,10 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 			spriteComponent.sprite.updateAnimations();
 			target.draw(spriteComponent.sprite, states);
 
-			// if(object.has<HealthComponent>()
-			// && object.get<HealthComponent>().isHurt) {
-			// 	spriteComponent.sprite.setPaletteID(0);
-			// }
+			if(object.has<HealthComponent>()
+			&& object.get<HealthComponent>().isHurt) {
+				spriteComponent.sprite.setPaletteID(0);
+			}
 		}
 	}
 }

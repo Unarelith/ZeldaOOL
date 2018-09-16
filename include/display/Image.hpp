@@ -37,6 +37,7 @@ class Image : public IDrawable, public Transformable {
 		u16 height() const { return m_height; }
 
 		void setColor(const Color &color) { m_color = color; updateVertexBuffer(); }
+		void setPaletteID(u8 paletteID) { m_paletteID = paletteID; }
 
 	private:
 		void updateVertexBuffer() const;
@@ -53,6 +54,7 @@ class Image : public IDrawable, public Transformable {
 		VertexBuffer m_vbo;
 
 		Color m_color = Color::white;
+		u8 m_paletteID = 0;
 };
 
 #endif // IMAGE_HPP_

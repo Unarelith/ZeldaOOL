@@ -17,6 +17,7 @@
 #include "Config.hpp"
 #include "Image.hpp"
 #include "ResourceHandler.hpp"
+#include "Shader.hpp"
 #include "Vertex.hpp"
 
 Image::Image(const std::string &textureName) {
@@ -96,6 +97,11 @@ void Image::draw(RenderTarget &target, RenderStates states) const {
 	// states.projectionMatrix = &projectionMatrix;
 
 	states.texture = m_texture;
+
+	if (states.shader) {
+		Shader::bind(states.shader);
+		states.shader->setUniform("u_paletteID", m_paletteID);
+	}
 
 	// glDisable(GL_BLEND);
 	// glDisable(GL_CULL_FACE);
