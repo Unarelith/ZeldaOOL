@@ -55,7 +55,6 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 		AudioPlayer::playMusic("underground");
 	}
 
-	// FIXME
 	BehaviourController controller;
 	controller.reset(*Scene::player);
 
