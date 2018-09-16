@@ -41,6 +41,8 @@ void Sprite::setCurrentFrame(u16 currentFrame) {
 	u16 frameX = (currentFrame % (Image::width() / m_frameWidth)) * m_frameWidth;
 	u16 frameY = (currentFrame / (Image::width() / m_frameWidth)) * m_frameHeight;
 
+	if (!m_animations.empty())
+		setPosition(m_animations[m_currentAnimation].currentPosition().x, m_animations[m_currentAnimation].currentPosition().y);
 	setClipRect(frameX, frameY, m_frameWidth, m_frameHeight);
 
 	m_currentFrame = currentFrame;

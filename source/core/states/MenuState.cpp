@@ -17,6 +17,8 @@
 #include "MenuState.hpp"
 
 void MenuState::update() {
+	m_statsBar.update();
+
 	m_menu.update();
 
 	if(GamePad::isKeyPressedOnce(GameKey::Start)) {

@@ -4,9 +4,9 @@ Notes
 
 ## Rework
 
-• TODO: Fix sprite frame positions
+• DONE: Fix stats bar update within menu
+• DONE: Fix sprite frame positions
 • TODO: Fix scene blink after transitions
-• TODO: Fix stats bar update within menu
 • TODO: Fix text, hearts and rupees display
 • TODO: Add EffectView, HitboxView
 
