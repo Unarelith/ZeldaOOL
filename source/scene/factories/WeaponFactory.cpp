@@ -11,6 +11,7 @@
  *
  * =====================================================================================
  */
+#include "LifetimeComponent.hpp"
 #include "SwordFactory.hpp"
 #include "WeaponComponent.hpp"
 #include "WeaponFactory.hpp"
@@ -21,6 +22,7 @@ SceneObject WeaponFactory::create(Weapon &weaponInfos, float x, float y, GameKey
 	}
 	else if(weaponInfos.name() == "strengthL1") {
 		SceneObject object;
+		object.set<LifetimeComponent>();
 		object.set<WeaponComponent>(owner, weaponInfos, key, "Lift");
 		return object;
 	}

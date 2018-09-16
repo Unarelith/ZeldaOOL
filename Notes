@@ -16,8 +16,8 @@ Notes
 • DONE: Add EffectView
 • DONE: Fix sword display + sword in ScrollingTransition
 • DONE: Fix Octorok dead animation
+• DONE: Fix transition bug with force bracelet
 • TODO: Fix scene blink after transitions
-• TODO: Fix transition bug with force bracelet
 
 ## After rework
 
