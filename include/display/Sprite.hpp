@@ -33,6 +33,9 @@ class Sprite : public Image {
 		bool hasAnimations() { return m_animations.size() != 0; }
 		const SpriteAnimation &currentAnimation() const { return m_animations[m_currentAnimation]; }
 
+		// FIXME: To remove
+		SpriteAnimation &getAnimation(u16 i) { return m_animations[i]; }
+
 		void setCurrentFrame(u16 currentFrame);
 		void setCurrentAnimation(u16 currentAnimation);
 

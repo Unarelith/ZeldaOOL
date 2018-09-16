@@ -26,6 +26,11 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 	if (object.has<LifetimeComponent>() && object.get<LifetimeComponent>().dead(object))
 		return;
 
+	// 	if(object.has<LifetimeComponent>()) {
+	// 		auto &lifetime = object.get<LifetimeComponent>();
+	// 		if(lifetime.almostDead() && (lifetime.dead(object) || lifetime.aliveTime() % 120 <= 59)) return;
+	// 	}
+
 	glm::mat4 modelMatrix;
 	if (object.has<PositionComponent>()) {
 		modelMatrix = glm::translate((states.modelMatrix) ? *states.modelMatrix : glm::mat4{1}, glm::vec3{object.get<PositionComponent>().x, object.get<PositionComponent>().y, 0});
@@ -75,7 +80,7 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 
 	if(object.has<SpriteComponent>()) {
 		// auto &spriteComponent = object.get<SpriteComponent>();
-		// spriteComponent.updateAnimations(); // FIXME
+		// spriteComponent.updateAnimations();
 		// target.draw(spriteComponent.sprite, states);
 
 		auto &spriteComponent = object.get<SpriteComponent>();
@@ -88,9 +93,9 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 
 			spriteComponent.sprite.setAnimated(spriteComponent.isAnimated);
 			spriteComponent.sprite.setCurrentAnimation(spriteComponent.animID);
-			// if(!spriteComponent.isAnimated) {
-			// 	spriteComponent.sprite.setCurrentFrame(spriteComponent.frameID);
-			// }
+			if(!spriteComponent.isAnimated) {
+				spriteComponent.sprite.setCurrentFrame(spriteComponent.sprite.currentAnimation().getFrame(spriteComponent.frameID));
+			}
 
 			spriteComponent.sprite.updateAnimations();
 			target.draw(spriteComponent.sprite, states);
@@ -102,4 +107,42 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 		}
 	}
 }
+
+// void DrawingSystem::drawEffects(SceneObject &object, float x, float y) {
+// 	auto &effects = object.get<EffectsComponent>().effects();
+//
+// 	for(auto &it : effects) {
+// 		if(it.second.isEnabled) {
+// 			if(it.second.hasAnimations()) {
+// 				it.second.playAnimation(x + it.second.offset.x, y + it.second.offset.y, 0);
+// 			} else {
+// 				it.second.drawFrame(x + it.second.offset.x, y + it.second.offset.y, 0);
+// 			}
+// 		}
+// 	}
+// }
+//
+// void DrawingSystem::drawHitbox(SceneObject &object, float x, float y) {
+// 	auto &hitboxComponent = object.get<HitboxComponent>();
+//
+// 	static RectangleShape rect;
+//
+// 	const IntRect *hitbox = hitboxComponent.currentHitbox();
+// 	if(hitbox) {
+// 		rect.setPosition(x + hitbox->x, y + hitbox->y);
+// 		rect.resize(hitbox->width, hitbox->height);
+//
+// 		if(object.has<SpriteComponent>()) {
+// 			u16 animID = object.get<SpriteComponent>().animID;
+// 				rect.move(object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition().x,
+// 						  object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition().y);
+// 		}
+//
+// 		if(object.has<std::string>() && object.get<std::string>() == "Sword") {
+// 			rect.draw(Color::red, true);
+// 		} else {
+// 			rect.draw(Color::white, true);
+// 		}
+// 	}
+// }
 

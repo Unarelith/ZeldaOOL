@@ -2,6 +2,21 @@ Notes
 
 # Todo list
 
+## Rework
+
+• TODO: Fix sprite frame positions
+• TODO: Fix scene blink after transitions
+• TODO: Fix stats bar update within menu
+• TODO: Fix text, hearts and rupees display
+• TODO: Add EffectView, HitboxView
+
+## After rework
+
+• TODO: Add MapView and remove MapRenderer
+• TODO: Use a single scene for all the maps and remove `Scene::player`
+• TODO: Improve `game.f.glsl`
+• TODO: Check other improvements in Lidonia and KubKraft
+
 ## Important
 
 • Link hasn’t two hitboxes, the collision matrix contains the movement vector (vx;vy)

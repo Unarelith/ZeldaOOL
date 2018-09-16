@@ -53,31 +53,30 @@ void SwordBehaviour::action(SceneObject &sword) {
 		if(!GamePad::isKeyPressed(weaponComponent.key)) {
 			m_keyReleased = true;
 		}
-		// FIXME
-		// else if(m_keyReleased && sprite.getAnimation((s8)ownerPosition.direction).displayedFramesAmount() >= 4) {
-		// 	if(GamePad::isKeyPressed(GameKey::Left)) {
-		// 		ownerPosition.direction = Direction::Left;
-		// 	}
-        //
-		// 	if(GamePad::isKeyPressed(GameKey::Right)) {
-		// 		ownerPosition.direction = Direction::Right;
-		// 	}
-        //
-		// 	if(GamePad::isKeyPressed(GameKey::Up)) {
-		// 		ownerPosition.direction = Direction::Up;
-		// 	}
-        //
-		// 	if(GamePad::isKeyPressed(GameKey::Down)) {
-		// 		ownerPosition.direction = Direction::Down;
-		// 	}
-        //
-		// 	m_keyReleased = false;
-        //
-		// 	AudioPlayer::playEffect("swordSlash1");
-        //
-		// 	ownerSprite.getAnimation((s8)ownerPosition.direction + 8).reset();
-		// 	sprite.getAnimation((s8)ownerPosition.direction).reset();
-		// }
+		else if(m_keyReleased && sprite.getAnimation((s8)ownerPosition.direction).displayedFramesAmount() >= 4) {
+			if(GamePad::isKeyPressed(GameKey::Left)) {
+				ownerPosition.direction = Direction::Left;
+			}
+
+			if(GamePad::isKeyPressed(GameKey::Right)) {
+				ownerPosition.direction = Direction::Right;
+			}
+
+			if(GamePad::isKeyPressed(GameKey::Up)) {
+				ownerPosition.direction = Direction::Up;
+			}
+
+			if(GamePad::isKeyPressed(GameKey::Down)) {
+				ownerPosition.direction = Direction::Down;
+			}
+
+			m_keyReleased = false;
+
+			AudioPlayer::playEffect("swordSlash1");
+
+			ownerSprite.getAnimation((s8)ownerPosition.direction + 8).reset();
+			sprite.getAnimation((s8)ownerPosition.direction).reset();
+		}
 	}
 	else if(m_state == "Loading") {
 		if(m_loadingTimer.time() > 650 && !m_isLoaded) {
@@ -108,13 +107,11 @@ void SwordBehaviour::action(SceneObject &sword) {
 					m_spinCurrentFrame = 0;
 				}
 
-				// FIXME
-				// sprite.getAnimation(8).reset(m_spinCurrentFrame);
-				// sprite.getAnimation(8).start();
+				sprite.getAnimation(8).reset(m_spinCurrentFrame);
+				sprite.getAnimation(8).start();
 
-				// FIXME
-				// ownerSprite.getAnimation(12).reset(m_spinCurrentFrame);
-				// ownerSprite.getAnimation(12).start();
+				ownerSprite.getAnimation(12).reset(m_spinCurrentFrame);
+				ownerSprite.getAnimation(12).start();
 			} else {
 				m_state = "Finished";
 			}
@@ -122,23 +119,21 @@ void SwordBehaviour::action(SceneObject &sword) {
 	}
 	else if(m_state == "SpinAttack") {
 		if(m_spinFrameCounter < 9) {
-			// FIXME
-			// if(m_spinCurrentFrame != sprite.getAnimation(8).displayedFramesAmount()) {
-			// 	m_spinCurrentFrame = sprite.getAnimation(8).displayedFramesAmount();
-            //
-			// 	m_spinFrameCounter++;
-			// }
+			if(m_spinCurrentFrame != sprite.getAnimation(8).displayedFramesAmount()) {
+				m_spinCurrentFrame = sprite.getAnimation(8).displayedFramesAmount();
+
+				m_spinFrameCounter++;
+			}
 		} else {
 			ownerSpriteComponent.animID = (s8)ownerPosition.direction;
 			m_spinTimer.start();
 
 			spriteComponent.isAnimated = false;
-			// FIXME
-			// sprite.getAnimation(8).stop();
-			//
-			// if(m_spinTimer.time() >= sprite.getAnimation(8).delay()) {
-			// 	m_state = "Finished";
-			// }
+			sprite.getAnimation(8).stop();
+
+			if(m_spinTimer.time() >= sprite.getAnimation(8).delay()) {
+				m_state = "Finished";
+			}
 		}
 	}
 
@@ -147,17 +142,16 @@ void SwordBehaviour::action(SceneObject &sword) {
 }
 
 void SwordBehaviour::updateHitboxes(SceneObject &sword) {
-	// FIXME
-	// auto &spriteComponent = sword.get<SpriteComponent>();
-	// auto &hitboxComponent = sword.get<HitboxComponent>();
-    //
-	// u16 frame = spriteComponent.sprite.getAnimation(spriteComponent.animID).currentFrame();
-	// if(frame < 12) {
-	// 	hitboxComponent.setCurrentHitbox(frame);
-	// }
-	// else if(frame < 16) {
-	// 	hitboxComponent.setCurrentHitbox(frame - 4);
-	// }
+	auto &spriteComponent = sword.get<SpriteComponent>();
+	auto &hitboxComponent = sword.get<HitboxComponent>();
+
+	u16 frame = spriteComponent.sprite.getAnimation(spriteComponent.animID).currentFrame();
+	if(frame < 12) {
+		hitboxComponent.setCurrentHitbox(frame);
+	}
+	else if(frame < 16) {
+		hitboxComponent.setCurrentHitbox(frame - 4);
+	}
 }
 
 void SwordBehaviour::updateSprite(SceneObject &sword) {

@@ -61,6 +61,9 @@ u16 SpriteAnimation::currentFrame() const {
 }
 
 u16 SpriteAnimation::displayedFramesAmount() const {
+	if (m_delay == 0)
+		return 0;
+
 	return m_timer.time() / m_delay;
 }
 
