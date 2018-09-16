@@ -14,8 +14,9 @@ Notes
 • DONE: Fix sprite color modifier and low grass color
 • DONE: Fix hurt effect
 • DONE: Add EffectView
+• DONE: Fix sword display + sword in ScrollingTransition
+• TODO: Fix dead animation Octorok
 • TODO: Fix scene blink after transitions
-• TODO: Fix sword display + sword in ScrollingTransition
 • TODO: Fix transition bug with force bracelet
 
 ## After rework

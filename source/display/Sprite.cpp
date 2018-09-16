@@ -49,8 +49,9 @@ void Sprite::setCurrentFrame(u16 currentFrame) {
 }
 
 void Sprite::setCurrentAnimation(u16 currentAnimation) {
-	if (m_previousAnimation != currentAnimation)
-		m_animations[m_currentAnimation].reset();
+	// FIXME: Commenting this fixes sword spin animation
+	// if (m_previousAnimation != currentAnimation)
+	// 	m_animations[m_currentAnimation].reset();
 
 	m_previousAnimation = m_currentAnimation;
 	m_currentAnimation = currentAnimation;

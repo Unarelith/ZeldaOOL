@@ -25,9 +25,9 @@ void Scene::reset() {
 			controller->reset(m_objects);
 
 		// FIXME: Fix player handling
-		controller->reset(*Scene::player);
-		if (Scene::player->has<SceneObjectList>())
-			controller->reset(Scene::player->get<SceneObjectList>());
+		// controller->reset(*Scene::player);
+		// if (Scene::player->has<SceneObjectList>())
+		// 	controller->reset(Scene::player->get<SceneObjectList>());
 	}
 
 	for (SceneObject &object : m_objects) {

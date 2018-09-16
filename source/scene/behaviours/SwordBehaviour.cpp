@@ -168,11 +168,9 @@ void SwordBehaviour::updateSprite(SceneObject &sword) {
 		spriteComponent.frameID = 1;
 	}
 	else if(m_state == "SpinAttack") {
-		if(m_spinFrameCounter < 9) {
-			spriteComponent.isAnimated = true;
-		}
+		spriteComponent.isAnimated = m_spinFrameCounter < 9;
 		spriteComponent.animID = 8;
-		spriteComponent.frameID = -1;
+		spriteComponent.frameID = m_spinCurrentFrame;
 	} else {
 		spriteComponent.isEnabled = false;
 	}
