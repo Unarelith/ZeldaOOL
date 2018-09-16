@@ -31,7 +31,7 @@
 void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision);
 
 SceneObject OctorokFactory::create(float x, float y) {
-	SceneObject octorok("Monster", "Octorok");
+	SceneObject octorok("Octorok", "Monster");
 	octorok.set<HealthComponent>(2);
 	octorok.set<MovementComponent>(new OctorokMovement);
 	octorok.set<PositionComponent>(x, y, 16, 16, Direction::Down);

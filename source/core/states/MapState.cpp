@@ -30,11 +30,6 @@
 
 MapState::MapState() {
 	Map::currentMap = &Map::getMap(0, 0, 0);
-	Map::currentMap->scene().addController<MovementController>();
-	Map::currentMap->scene().addController<BattleController>();
-	Map::currentMap->scene().addController<BehaviourController>();
-	Map::currentMap->scene().addController<LifetimeController>();
-	Map::currentMap->scene().addView<SpriteView>();
 
 	m_player = PlayerFactory::create(64, 48);
 	Scene::player = &m_player;
@@ -43,6 +38,15 @@ MapState::MapState() {
 }
 
 void MapState::update() {
+	// FIXME
+	if (Map::currentMap->scene().isInactive()) {
+		Map::currentMap->scene().addController<MovementController>();
+		Map::currentMap->scene().addController<BattleController>();
+		Map::currentMap->scene().addController<BehaviourController>();
+		Map::currentMap->scene().addController<LifetimeController>();
+		Map::currentMap->scene().addView<SpriteView>();
+	}
+
 	Map::currentMap->update();
 
 	m_statsBar.update();

@@ -25,7 +25,7 @@
 void npcAction(SceneObject &npc, SceneObject &object, bool inCollision);
 
 SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
-	SceneObject npc;
+	SceneObject npc{"NPC", "NPC"};
 	npc.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 
 	auto &hitboxComponent = npc.set<HitboxComponent>();

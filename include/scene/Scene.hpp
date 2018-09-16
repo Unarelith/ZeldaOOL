@@ -48,6 +48,8 @@ class Scene : public IDrawable {
 			return *dynamic_cast<T*>(m_viewList.back().get());
 		}
 
+		bool isInactive() { return m_controllerList.empty() && m_viewList.empty(); }
+
 		static SceneObject *player;
 
 		static bool isPlayer(SceneObject &object) { return player == &object; }

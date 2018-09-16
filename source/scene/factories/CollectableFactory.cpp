@@ -30,7 +30,7 @@
 void collectableAction(SceneObject &collectable, SceneObject &object, bool inCollision);
 
 SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType) {
-	SceneObject object("Collectable");
+	SceneObject object(name, "Collectable");
 	object.set<MovementComponent>(new CollectableMovement(movementType));
 	object.set<CollectableComponent>(soundEffectName);
 	object.set<LifetimeComponent>(6000);

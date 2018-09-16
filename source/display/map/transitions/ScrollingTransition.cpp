@@ -42,8 +42,8 @@ ScrollingTransition::ScrollingTransition(Mode mode) {
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
 
-	m_nextMap->view().setPosition(Map::currentMap->width() * 16 * m_vx,
-	                              Map::currentMap->height() * 16 * m_vy + 16);
+	m_nextMap->setPosition(Map::currentMap->width() * 16 * m_vx,
+	                       Map::currentMap->height() * 16 * m_vy + 16);
 
 	Sprite::pause = true;
 }
@@ -56,8 +56,8 @@ void ScrollingTransition::update() {
 		positionComponent->move(m_vx * 0.15f, m_vy * 0.21f);
 	}
 
-	Map::currentMap->view().move(-m_vx * 1.6f, -m_vy * 1.5f);
-	m_nextMap->view().move(-m_vx * 1.6f, -m_vy * 1.5f);
+	Map::currentMap->move(-m_vx * 1.6f, -m_vy * 1.5f);
+	m_nextMap->move(-m_vx * 1.6f, -m_vy * 1.5f);
 
 	if(m_vx != 0) m_scrolled += 1.6f;
 	if(m_vy != 0) m_scrolled += 1.5f;
@@ -72,7 +72,7 @@ void ScrollingTransition::update() {
 		}
 
 		Map::currentMap = m_nextMap;
-		Map::currentMap->view().setPosition(0, 16);
+		Map::currentMap->setPosition(0, 16);
 
 		m_scrolled = 0;
 

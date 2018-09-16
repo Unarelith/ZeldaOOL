@@ -27,7 +27,7 @@
 void chestAction(SceneObject &chest, SceneObject &object, bool inCollision);
 
 SceneObject ChestFactory::create(u16 tileX, u16 tileY) {
-	SceneObject object;
+	SceneObject object{"Chest", "Tile"};
 	object.set<ChestComponent>();
 	object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 

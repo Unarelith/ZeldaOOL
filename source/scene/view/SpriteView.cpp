@@ -17,6 +17,7 @@
 #include "HealthComponent.hpp"
 #include "Image.hpp"
 #include "LifetimeComponent.hpp"
+#include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 #include "SpriteView.hpp"
@@ -36,9 +37,40 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 	}
 
 	if(object.has<Sprite>()) {
-		auto &sprite = object.get<Sprite>();
-		sprite.updateAnimations();
-		target.draw(sprite, states);
+		// auto &sprite = object.get<Sprite>();
+		// sprite.updateAnimations();
+		// target.draw(sprite, states);
+
+		if(!object.has<HealthComponent>() || !object.get<HealthComponent>().isDead) {
+			bool animated = false;
+			u16 animID = 0;
+
+			if(object.has<MovementComponent>()) {
+				animated = object.get<MovementComponent>().isMoving;
+			}
+
+			if(object.get<PositionComponent>().direction != Direction::None) {
+				animID += static_cast<s8>(object.get<PositionComponent>().direction);
+			}
+
+			auto &sprite = object.get<Sprite>();
+			sprite.setCurrentAnimation(animID);
+			sprite.setAnimated(animated);
+
+			// if(object.has<HealthComponent>()
+			// && object.get<HealthComponent>().isHurt
+			// && GameClock::getTicks() % 100 < 50) {
+			// 	sprite.setPaletteID(1);
+			// }
+
+			sprite.updateAnimations();
+			target.draw(sprite, states);
+
+			// if(object.has<HealthComponent>()
+			// && object.get<HealthComponent>().isHurt) {
+			// 	sprite.setPaletteID(0);
+			// }
+		}
 	}
 
 	if(object.has<SpriteComponent>()) {

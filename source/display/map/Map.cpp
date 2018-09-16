@@ -29,9 +29,7 @@ Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const 
 	m_baseData = data;
 	m_data = m_baseData;
 
-	m_view.reset(0, 16, m_width * tileset.tileWidth(), m_height * tileset.tileHeight());
-
-	setPosition(0, 16); // FIXME
+	setPosition(0, 16);
 
 	m_renderer.init(this, m_width, m_height);
 
@@ -53,13 +51,9 @@ void Map::update() {
 void Map::draw(RenderTarget &target, RenderStates states) const {
 	applyTransform(states);
 
-	View::bind(&m_view, states.shader);
-
 	target.draw(m_renderer, states);
 
 	target.draw(m_scene, states);
-
-	View::bind(nullptr, states.shader);
 }
 
 void Map::updateTiles() {

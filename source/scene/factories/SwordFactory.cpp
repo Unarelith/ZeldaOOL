@@ -24,7 +24,7 @@
 #include "WeaponComponent.hpp"
 
 SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &owner, Weapon &weaponInfos) {
-	SceneObject object("Weapon", "Sword");
+	SceneObject object("Sword", "Weapon");
 	object.set<BehaviourComponent>(new SwordBehaviour);
 	object.set<LifetimeComponent>();
 	object.set<WeaponComponent>(owner, weaponInfos, key, "Sword");

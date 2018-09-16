@@ -26,7 +26,7 @@
 void teleporterAction(SceneObject &teleporter, SceneObject &object, bool inCollision);
 
 SceneObject TeleporterFactory::create(float tileX, float tileY) {
-	SceneObject object;
+	SceneObject object{"Teleporter", "Tile"};
 	object.set<TeleporterComponent>();
 	object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 

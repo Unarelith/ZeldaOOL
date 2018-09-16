@@ -25,7 +25,7 @@
 void grassAction(SceneObject &grass, SceneObject &object, bool inCollision);
 
 SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
-	SceneObject object;
+	SceneObject object{"Grass", "Tile"};
 	object.set<PositionComponent>(tileX * 16 - 8, tileY * 16 - 8, 16, 16);
 
 	auto &hitboxComponent = object.set<HitboxComponent>();

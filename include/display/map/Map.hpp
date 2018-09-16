@@ -19,7 +19,6 @@
 #include "Scene.hpp"
 #include "Tileset.hpp"
 #include "Transformable.hpp"
-#include "View.hpp"
 
 class Map : public IDrawable, public Transformable {
 	public:
@@ -48,8 +47,6 @@ class Map : public IDrawable, public Transformable {
 		Scene &scene() { return m_scene; }
 
 		Tileset &tileset() { return m_tileset; }
-
-		View &view() { return m_view; }
 
 		static Map &getMap(u16 area, u16 mapX, u16 mapY);
 		static bool mapExists(u16 area, u16 mapX, u16 mapY);
@@ -87,8 +84,6 @@ class Map : public IDrawable, public Transformable {
 
 		std::vector<u16> m_baseData;
 		std::vector<u16> m_data;
-
-		View m_view;
 };
 
 #endif // TILEMAP_HPP_

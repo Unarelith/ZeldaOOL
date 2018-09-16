@@ -22,7 +22,7 @@
 void buttonAction(SceneObject &button, SceneObject &object, bool inCollision);
 
 SceneObject ButtonFactory::create(u16 tileX, u16 tileY) {
-	SceneObject button;
+	SceneObject button{"Button", "Tile"};
 	button.set<ButtonComponent>();
 	button.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 

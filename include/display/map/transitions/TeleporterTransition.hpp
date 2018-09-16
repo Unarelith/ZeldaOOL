@@ -23,7 +23,7 @@ class TeleporterTransition : public Transition {
 	public:
 		TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection);
 
-		void update();
+		void update() override;
 
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;

@@ -3,7 +3,7 @@
 		<destination area="0" mapX="0" mapY="0"/>
 		<player tileX="2" tileY="5" direction="down"/>
 	</teleporter>
-	
+
 	<chest tileX="5" tileY="2">
 		<item name="rupees30"/>
 	</chest>

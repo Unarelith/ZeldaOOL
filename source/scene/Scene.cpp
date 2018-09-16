@@ -59,8 +59,8 @@ void Scene::update() {
 
 void Scene::draw(RenderTarget &target, RenderStates states) const {
 	for (auto &view : m_viewList) {
-		view->draw(*Scene::player, target, states);
 		view->draw(m_objects, target, states);
+		view->draw(*Scene::player, target, states);
 	}
 }
 
