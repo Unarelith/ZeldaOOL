@@ -21,11 +21,11 @@ class MessageBoxState : public ApplicationState {
 	public:
 		MessageBoxState(const std::string &text, ApplicationState *parent);
 
-		void update();
-
-		void draw();
+		void update() override;
 
 	private:
+		void draw(RenderTarget &target, RenderStates states) const override;
+
 		MessageBox m_messageBox;
 };
 

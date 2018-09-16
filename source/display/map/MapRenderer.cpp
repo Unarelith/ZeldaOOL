@@ -14,13 +14,13 @@
 #include "Map.hpp"
 #include "MapRenderer.hpp"
 #include "Shader.hpp"
-#include "VertexAttribute.hpp"
+#include "Vertex.hpp"
 
-void MapRenderer::init(u16 mapWidth, u16 mapHeight) {
+void MapRenderer::init(Map *map, u16 mapWidth, u16 mapHeight) {
+	m_map = map;
+
 	VertexBuffer::bind(&m_vbo);
-
-	m_vbo.setData(sizeof(VertexAttribute) * mapWidth * mapHeight * 6, nullptr, GL_DYNAMIC_DRAW);
-
+	m_vbo.setData(sizeof(Vertex) * mapWidth * mapHeight * 6, nullptr, GL_DYNAMIC_DRAW);
 	VertexBuffer::bind(nullptr);
 }
 
@@ -39,41 +39,25 @@ void MapRenderer::updateTile(u16 tileX, u16 tileY, u16 id, Map &map) {
 	float texTileWidth  = tileWidth  / map.tileset().width();
 	float texTileHeight = tileHeight / map.tileset().height();
 
-	VertexAttribute attributes[] = {
-		{{x            , y             },    {texTileX               , texTileY                },    {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x + tileWidth, y             },    {texTileX + texTileWidth, texTileY                },    {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x + tileWidth, y + tileHeight},    {texTileX + texTileWidth, texTileY + texTileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x            , y             },    {texTileX               , texTileY                },    {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x + tileWidth, y + tileHeight},    {texTileX + texTileWidth, texTileY + texTileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x            , y + tileHeight},    {texTileX               , texTileY + texTileHeight},    {1.0f, 1.0f, 1.0f, 1.0f}}
+	Vertex vertices[] = {
+		{{x            , y             , 0, 1}, {texTileX               , texTileY                }, {0.0f, 0.0f, 0.0f, 1.0f}},
+		{{x + tileWidth, y             , 0, 1}, {texTileX + texTileWidth, texTileY                }, {0.0f, 0.0f, 0.0f, 1.0f}},
+		{{x + tileWidth, y + tileHeight, 0, 1}, {texTileX + texTileWidth, texTileY + texTileHeight}, {0.0f, 0.0f, 0.0f, 1.0f}},
+		{{x            , y             , 0, 1}, {texTileX               , texTileY                }, {0.0f, 0.0f, 0.0f, 1.0f}},
+		{{x + tileWidth, y + tileHeight, 0, 1}, {texTileX + texTileWidth, texTileY + texTileHeight}, {0.0f, 0.0f, 0.0f, 1.0f}},
+		{{x            , y + tileHeight, 0, 1}, {texTileX               , texTileY + texTileHeight}, {0.0f, 0.0f, 0.0f, 1.0f}}
 	};
 
-	m_vbo.updateData(sizeof(attributes) * (tileX + tileY * map.width()), sizeof(attributes), attributes);
+	m_vbo.updateData(sizeof(vertices) * (tileX + tileY * map.width()), sizeof(vertices), vertices);
 
 	VertexBuffer::bind(nullptr);
 }
 
-void MapRenderer::draw(Map &map) {
-	Shader::currentShader->enableVertexAttribArray("coord2d");
-	Shader::currentShader->enableVertexAttribArray("texCoord");
-	Shader::currentShader->enableVertexAttribArray("colorMod");
+void MapRenderer::draw(RenderTarget &target, RenderStates states) const {
+	if (!m_map) return;
 
-	VertexBuffer::bind(&m_vbo);
+	states.texture = &m_map->tileset();
 
-	glVertexAttribPointer(Shader::currentShader->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), 0);
-	glVertexAttribPointer(Shader::currentShader->attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*)offsetof(VertexAttribute, texCoord));
-	glVertexAttribPointer(Shader::currentShader->attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, sizeof(VertexAttribute), (GLvoid*)offsetof(VertexAttribute, colorMod));
-
-	Texture::bind(&map.tileset());
-
-	glDrawArrays(GL_TRIANGLES, 0, 6 * map.width() * map.height());
-
-	Texture::bind(nullptr);
-
-	VertexBuffer::bind(nullptr);
-
-	Shader::currentShader->disableVertexAttribArray("colorMod");
-	Shader::currentShader->disableVertexAttribArray("texCoord");
-	Shader::currentShader->disableVertexAttribArray("coord2d");
+	target.draw(m_vbo, GL_TRIANGLES, 0, 6 * m_map->width() * m_map->height(), states);
 }
 

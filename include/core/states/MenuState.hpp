@@ -20,11 +20,11 @@
 
 class MenuState : public ApplicationState {
 	public:
-		void update();
-
-		void draw();
+		void update() override;
 
 	private:
+		void draw(RenderTarget &target, RenderStates states) const override;
+
 		StatsBar m_statsBar;
 
 		Menu m_menu;

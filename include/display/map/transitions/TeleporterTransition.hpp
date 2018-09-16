@@ -25,9 +25,9 @@ class TeleporterTransition : public Transition {
 
 		void update();
 
-		void draw();
-
 	private:
+		void draw(RenderTarget &target, RenderStates states) const override;
+
 		Map *m_nextMap;
 
 		Timer m_timer;

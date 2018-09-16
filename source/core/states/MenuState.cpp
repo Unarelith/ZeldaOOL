@@ -26,9 +26,9 @@ void MenuState::update() {
 	}
 }
 
-void MenuState::draw() {
-	m_statsBar.draw();
+void MenuState::draw(RenderTarget &target, RenderStates states) const {
+	target.draw(m_statsBar, states);
 
-	m_menu.draw();
+	target.draw(m_menu, states);
 }
 

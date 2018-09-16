@@ -30,9 +30,9 @@ void MessageBoxState::update() {
 	}
 }
 
-void MessageBoxState::draw() {
-	m_parent->draw();
+void MessageBoxState::draw(RenderTarget &target, RenderStates states) const {
+	target.draw(*m_parent, states);
 
-	m_messageBox.draw();
+	target.draw(m_messageBox, states);
 }
 

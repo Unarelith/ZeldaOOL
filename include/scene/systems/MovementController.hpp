@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MovementSystem.hpp
+ *       Filename:  MovementController.hpp
  *
  *    Description:
  *
@@ -11,14 +11,15 @@
  *
  * =====================================================================================
  */
-#ifndef MOVEMENTSYSTEM_HPP_
-#define MOVEMENTSYSTEM_HPP_
+#ifndef MOVEMENTCONTROLLER_HPP_
+#define MOVEMENTCONTROLLER_HPP_
 
+#include "AbstractController.hpp"
 #include "SceneObject.hpp"
 
-class MovementSystem {
+class MovementController : public AbstractController {
 	public:
-		static void process(SceneObject &object);
+		void update(SceneObject &object) override;
 };
 
-#endif // MOVEMENTSYSTEM_HPP_
+#endif // MOVEMENTCONTROLLER_HPP_

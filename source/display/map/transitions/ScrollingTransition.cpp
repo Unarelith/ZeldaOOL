@@ -12,6 +12,7 @@
  * =====================================================================================
  */
 #include "Application.hpp"
+#include "Config.hpp"
 #include "Map.hpp"
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
@@ -61,8 +62,8 @@ void ScrollingTransition::update() {
 	if(m_vx != 0) m_scrolled += 1.6f;
 	if(m_vy != 0) m_scrolled += 1.5f;
 
-	if((m_scrolled >= Application::screenWidth       && m_vx != 0)
-	|| (m_scrolled >= Application::screenHeight - 16 && m_vy != 0)) {
+	if((m_scrolled >= SCREEN_WIDTH       && m_vx != 0)
+	|| (m_scrolled >= SCREEN_HEIGHT - 16 && m_vy != 0)) {
 		if(positionComponent) {
 			if(m_vx < 0)      positionComponent->move(m_nextMap->width() * 16, 0);
 			else if(m_vx > 0) positionComponent->move(-Map::currentMap->width() * 16, 0);
@@ -92,9 +93,9 @@ void ScrollingTransition::update() {
 	}
 }
 
-void ScrollingTransition::draw() {
-	m_nextMap->draw();
+void ScrollingTransition::draw(RenderTarget &target, RenderStates states) const {
+	target.draw(*m_nextMap, states);
 
-	Map::currentMap->draw();
+	target.draw(*Map::currentMap, states);
 }
 

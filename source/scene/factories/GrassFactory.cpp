@@ -35,19 +35,20 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	collisionComponent.addAction(&grassAction);
 
 	auto &spriteComponent = object.set<SpriteComponent>("animations-grassDestroy", 32, 32);
-	spriteComponent.sprite.addAnimation({0, 1, 2, 3, 4, 5}, 50);
+	spriteComponent.sprite.addAnimation({{0, 1, 2, 3, 4, 5}, 50});
 	spriteComponent.isAnimated = true;
 	spriteComponent.isEnabled = false;
 
 	if(lowGrass) {
-		spriteComponent.sprite.setColorMod(Color(255, 255, 255, 127));
+		spriteComponent.sprite.setColor(Color(255, 255, 255, 127));
 	}
 
 	object.set<BehaviourComponent>(new EasyBehaviour([](SceneObject &object) {
 		auto &spriteComponent = object.get<SpriteComponent>();
 
 		if(spriteComponent.sprite.currentAnimation().isFinished()) {
-			spriteComponent.sprite.currentAnimation().reset();
+			// FIXME
+			// spriteComponent.sprite.currentAnimation().reset();
 			spriteComponent.isEnabled = false;
 		}
 	},
@@ -82,20 +83,21 @@ void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
 			auto &playerDirection = weaponOwner.get<PositionComponent>().direction;
 			auto &swordSprite = object.get<SpriteComponent>().sprite;
 
-			if((object.get<BehaviourComponent>().behaviour->state() == "Swinging"
-			 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() > 2
-			 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() < swordSprite.getAnimation((s8)playerDirection).size())
-			|| object.get<BehaviourComponent>().behaviour->state() == "SpinAttack") {
-				AudioPlayer::playEffect("grassDestroy");
-
-				grass.get<LootComponent>().dropItem(grassPosition.x + 8, grassPosition.y + 8);
-
-				Map::currentMap->setTile((grassPosition.x + 8) / 16,
-				                         (grassPosition.y + 8) / 16, 36);
-
-				grassSpriteComponent.isEnabled = true;
-				grassHitboxComponent.resetCurrentHitbox();
-			}
+			// FIXME
+			// if((object.get<BehaviourComponent>().behaviour->state() == "Swinging"
+			//  && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() > 2
+			//  && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() < swordSprite.getAnimation((s8)playerDirection).size())
+			// || object.get<BehaviourComponent>().behaviour->state() == "SpinAttack") {
+			// 	AudioPlayer::playEffect("grassDestroy");
+            //
+			// 	grass.get<LootComponent>().dropItem(grassPosition.x + 8, grassPosition.y + 8);
+            //
+			// 	Map::currentMap->setTile((grassPosition.x + 8) / 16,
+			// 	                         (grassPosition.y + 8) / 16, 36);
+            //
+			// 	grassSpriteComponent.isEnabled = true;
+			// 	grassHitboxComponent.resetCurrentHitbox();
+			// }
 		}
 	}
 }

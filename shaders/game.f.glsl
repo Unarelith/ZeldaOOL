@@ -15,7 +15,7 @@ void main() {
 
 	vec4 finalColor;
 	if(v_color == vec4(0, 0, 0, 1)) {
-		finalColor = textureColor - colorMod;
+		finalColor = textureColor; // - colorMod; // FIXME
 	} else {
 		finalColor = v_color;
 	}

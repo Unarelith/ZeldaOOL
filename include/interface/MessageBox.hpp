@@ -22,7 +22,7 @@
 #include "RectangleShape.hpp"
 #include "TextBox.hpp"
 
-class MessageBox {
+class MessageBox : public IDrawable {
 	public:
 		enum Position : u8 {
 			Top    = 24,
@@ -33,16 +33,16 @@ class MessageBox {
 
 		void update();
 
-		void draw();
-
 		void setPosition(Position position) { m_rectangle.setPosition(8, position); }
 
 		bool finished() const { return m_finished; }
 
 	private:
+		void draw(RenderTarget &target, RenderStates states) const override;
+
 		Image m_dialogArrow{"interface-dialogArrow"};
 
-		RectangleShape m_rectangle{8, Position::Top, 144, 40};
+		RectangleShape m_rectangle{144, 40};
 
 		TextBox m_textBox;
 

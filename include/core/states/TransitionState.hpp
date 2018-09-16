@@ -26,8 +26,6 @@ class TransitionState : public ApplicationState {
 
 		void update() override;
 
-		void draw() override;
-
 		template<typename T, typename... Args>
 		T &setTransition(Args &&...args) {
 			m_transition.reset(new T(std::forward<Args>(args)...));
@@ -35,6 +33,8 @@ class TransitionState : public ApplicationState {
 		}
 
 	private:
+		void draw(RenderTarget &target, RenderStates states) const override;
+
 		StatsBar m_statsBar;
 
 		std::unique_ptr<Transition> m_transition;

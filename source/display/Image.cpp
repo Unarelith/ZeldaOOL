@@ -11,50 +11,47 @@
  *
  * =====================================================================================
  */
-#include "Application.hpp"
+#define GLM_FORCE_RADIANS
+#include <glm/gtc/matrix_transform.hpp>
+
+#include "Config.hpp"
 #include "Image.hpp"
 #include "ResourceHandler.hpp"
-#include "Shader.hpp"
+#include "Vertex.hpp"
 
 Image::Image(const std::string &textureName) {
-	load(textureName);
+	load(ResourceHandler::getInstance().get<Texture>(textureName));
+}
+
+Image::Image(const Texture &texture) {
+	load(texture);
 }
 
 void Image::load(const std::string &textureName) {
-	m_texture = &ResourceHandler::getInstance().get<Texture>(textureName);
+	load(ResourceHandler::getInstance().get<Texture>(textureName));
+}
+
+void Image::load(const Texture &texture) {
+	m_texture = &texture;
 
 	m_width = m_texture->width();
 	m_height = m_texture->height();
 
-	m_posRect = FloatRect(0, 0, m_width, m_height);
-	m_clipRect = FloatRect(0, 0, m_width, m_height);
-
-	m_colorMod = Color(255, 255, 255);
+	setClipRect(0, 0, m_width, m_height);
 }
 
 void Image::setClipRect(float x, float y, u16 width, u16 height) {
 	m_clipRect.reset(x, y, width, height);
+
+	updateVertexBuffer();
 }
 
-void Image::setPosRect(float x, float y, u16 width, u16 height) {
-	m_posRect.reset(x, y, width, height);
-}
-
-void Image::draw(float x, float y, s16 width, s16 height) {
-	if(width == -1) width = m_width;
-	if(height == -1) height = m_height;
-
-	setPosRect(x, y, width, height);
-
-	draw();
-}
-
-void Image::draw() {
-	GLfloat vertices[] = {
-		m_posRect.x,                   m_posRect.y,
-		m_posRect.x + m_posRect.width, m_posRect.y,
-		m_posRect.x + m_posRect.width, m_posRect.y + m_posRect.height,
-		m_posRect.x,                   m_posRect.y + m_posRect.height
+void Image::updateVertexBuffer() const {
+	Vertex vertices[4] = {
+		{{m_clipRect.width, 0,                 0, -1}},
+		{{0,                0,                 0, -1}},
+		{{0,                m_clipRect.height, 0, -1}},
+		{{m_clipRect.width, m_clipRect.height, 0, -1}},
 	};
 
 	FloatRect texRect = FloatRect(
@@ -64,45 +61,51 @@ void Image::draw() {
 		m_clipRect.height / float(m_height)
 	);
 
-	GLfloat texCoords[] = {
-		texRect.x,                 texRect.y,
-		texRect.x + texRect.width, texRect.y,
-		texRect.x + texRect.width, texRect.y + texRect.height,
-		texRect.x,                 texRect.y + texRect.height
-	};
+	vertices[0].texCoord[0] = texRect.x + texRect.width;
+	vertices[0].texCoord[1] = texRect.y;
+	vertices[1].texCoord[0] = texRect.x;
+	vertices[1].texCoord[1] = texRect.y;
+	vertices[2].texCoord[0] = texRect.x;
+	vertices[2].texCoord[1] = texRect.y + texRect.height;
+	vertices[3].texCoord[0] = texRect.x + texRect.width;
+	vertices[3].texCoord[1] = texRect.y + texRect.height;
 
-	GLfloat colorMod[] = {
-		m_colorMod.r, m_colorMod.g, m_colorMod.b, m_colorMod.a,
-		m_colorMod.r, m_colorMod.g, m_colorMod.b, m_colorMod.a,
-		m_colorMod.r, m_colorMod.g, m_colorMod.b, m_colorMod.a,
-		m_colorMod.r, m_colorMod.g, m_colorMod.b, m_colorMod.a
-	};
+	for (u8 i = 0 ; i < 4 ; ++i) {
+		vertices[i].color[0] = m_color.r;
+		vertices[i].color[1] = m_color.g;
+		vertices[i].color[2] = m_color.b;
+		vertices[i].color[3] = m_color.a;
+	}
 
-	GLubyte indices[] = {
-		0, 1, 3,
-		3, 1, 2
-	};
+	// GLubyte indices[] = {
+	// 	0, 1, 3,
+	// 	3, 1, 2
+	// };
 
-	Shader::currentShader->setUniform("u_paletteID", m_paletteID);
+	VertexBuffer::bind(&m_vbo);
+	m_vbo.setData(sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
+	VertexBuffer::bind(nullptr);
+}
 
-	Shader::currentShader->enableVertexAttribArray("coord2d");
-	Shader::currentShader->enableVertexAttribArray("texCoord");
-	Shader::currentShader->enableVertexAttribArray("colorMod");
+void Image::draw(RenderTarget &target, RenderStates states) const {
+	applyTransform(states);
 
-	glVertexAttribPointer(Shader::currentShader->attrib("coord2d"), 2, GL_FLOAT, GL_FALSE, 0, vertices);
-	glVertexAttribPointer(Shader::currentShader->attrib("texCoord"), 2, GL_FLOAT, GL_FALSE, 0, texCoords);
-	glVertexAttribPointer(Shader::currentShader->attrib("colorMod"), 4, GL_FLOAT, GL_FALSE, 0, colorMod);
+	// states.viewMatrix = nullptr;
+    //
+	// static glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f);
+	// states.projectionMatrix = &projectionMatrix;
 
-	Texture::bind(m_texture);
+	states.texture = m_texture;
 
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
+	// glDisable(GL_BLEND);
+	// glDisable(GL_CULL_FACE);
+	// glDisable(GL_DEPTH_TEST);
 
-	Texture::bind(nullptr);
+	// glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
+	target.draw(m_vbo, GL_QUADS, 0, 4, states);
 
-	Shader::currentShader->disableVertexAttribArray("colorMod");
-	Shader::currentShader->disableVertexAttribArray("texCoord");
-	Shader::currentShader->disableVertexAttribArray("coord2d");
-
-	Shader::currentShader->setUniform("u_paletteID", 0);
+	// glEnable(GL_DEPTH_TEST);
+	// glEnable(GL_CULL_FACE);
+	// glEnable(GL_BLEND);
 }
 

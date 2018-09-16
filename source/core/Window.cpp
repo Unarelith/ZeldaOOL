@@ -16,11 +16,6 @@
 #include "Exception.hpp"
 #include "Window.hpp"
 
-void Window::open() {
-	const char *caption = "The Legend of Zelda: Oracle of Light";
-	open(caption, Application::screenWidth * 3, Application::screenHeight * 3);
-}
-
 void Window::open(const std::string &caption, u16 width, u16 height) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);

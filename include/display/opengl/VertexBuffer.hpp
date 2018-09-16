@@ -5,33 +5,32 @@
  *
  *    Description:
  *
- *        Created:  26/12/2014 13:56:58
+ *        Created:  15/12/2014 17:09:58
  *
- *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
+ *         Author:  Quentin Bazin, <quent42340@gmail.com>
  *
  * =====================================================================================
  */
 #ifndef VERTEXBUFFER_HPP_
 #define VERTEXBUFFER_HPP_
 
+#include "NonCopyable.hpp"
 #include "OpenGL.hpp"
 
-class VertexBuffer {
+class VertexBuffer : public NonCopyable {
 	public:
 		VertexBuffer();
-		VertexBuffer(const VertexBuffer &) = delete;
-		VertexBuffer(VertexBuffer &&vertexBuffer);
-		~VertexBuffer();
+		VertexBuffer(VertexBuffer &&);
+		~VertexBuffer() noexcept;
 
-		VertexBuffer &operator=(const VertexBuffer &) = delete;
-		VertexBuffer &operator=(VertexBuffer &&vertexBuffer);
+		VertexBuffer &operator=(VertexBuffer &&) = default;
 
-		void setData(GLsizeiptr size, const GLvoid *data, GLenum usage);
-		void updateData(GLintptr offset, GLsizeiptr size, const GLvoid *data);
+		void setData(GLsizeiptr size, const GLvoid *data, GLenum usage) const;
+		void updateData(GLintptr offset, GLsizeiptr size, const GLvoid *data) const;
+
+		void setAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer) const;
 
 		static void bind(const VertexBuffer *vertexBuffer);
-
-		GLuint id() const { return m_id; }
 
 	private:
 		GLuint m_id = 0;

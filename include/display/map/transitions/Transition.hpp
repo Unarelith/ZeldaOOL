@@ -14,13 +14,13 @@
 #ifndef TRANSITION_HPP_
 #define TRANSITION_HPP_
 
-class Transition {
+#include "IDrawable.hpp"
+
+class Transition : public IDrawable {
 	public:
 		virtual ~Transition() = default;
 
 		virtual void update() = 0;
-
-		virtual void draw() = 0;
 
 		bool atEnd() const { return m_atEnd; }
 

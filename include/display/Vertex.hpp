@@ -18,8 +18,8 @@
 
 struct Vertex {
 	GLfloat coord2d[4]    = {0, 0, 0, 1};
-	GLfloat color[4]      = {0, 0, 0, 1};
 	GLfloat texCoord[2]   = {-1, -1};
+	GLfloat color[4]      = {0, 0, 0, 1};
 };
 
 #endif // VERTEX_HPP_

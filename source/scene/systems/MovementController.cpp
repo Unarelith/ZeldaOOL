@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MovementSystem.cpp
+ *       Filename:  MovementController.cpp
  *
  *    Description:
  *
@@ -11,13 +11,13 @@
  *
  * =====================================================================================
  */
-#include "MovementSystem.hpp"
+#include "MovementController.hpp"
 
 #include "CollisionComponent.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 
-void MovementSystem::process(SceneObject &object) {
+void MovementController::update(SceneObject &object) {
 	if(object.has<MovementComponent>()) {
 		auto &movement = object.get<MovementComponent>();
 

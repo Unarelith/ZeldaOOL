@@ -15,7 +15,6 @@
 #include "BehaviourSystem.hpp"
 #include "DrawingSystem.hpp"
 #include "LifetimeSystem.hpp"
-#include "MovementSystem.hpp"
 #include "SceneSystem.hpp"
 
 #include "HealthComponent.hpp"
@@ -39,7 +38,7 @@ void SceneSystem::resetObject(SceneObject &object) {
 }
 
 void SceneSystem::updateObject(SceneObject &object) {
-	MovementSystem::process(object);
+	// MovementSystem::process(object);
 
 	BattleSystem::update(object);
 

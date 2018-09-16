@@ -17,6 +17,10 @@
 #include "Menu.hpp"
 #include "Scene.hpp"
 
+Menu::Menu() {
+	m_background.setPosition(0, 16);
+}
+
 void Menu::update() {
 	if(GamePad::isKeyPressedWithDelay(GameKey::Left, 250)) {
 		AudioPlayer::playEffect("menuCursor");
@@ -68,12 +72,22 @@ void Menu::update() {
 
 		playerInventory.equipWeapon(m_cursorX, m_cursorY, GameKey::B);
 	}
+
+	m_cursor.setPosition(22 + m_cursorX * 32, 25 + m_cursorY * 24);
+
+	for(u8 x = 0 ; x < 4 ; x++) {
+		for(u8 y = 0 ; y < 4 ; y++) {
+			auto *weapon = playerInventory.getWeapon(x, y);
+
+			if(weapon) weapon->icon().setPosition(22 + x * 32, 23 + y * 24);
+		}
+	}
 }
 
-void Menu::draw() {
-	m_background.draw(0, 16);
+void Menu::draw(RenderTarget &target, RenderStates states) const {
+	target.draw(m_background, states);
 
-	m_cursor.draw(22 + m_cursorX * 32, 25 + m_cursorY * 24);
+	target.draw(m_cursor, states);
 
 	auto &playerInventory = Scene::player->get<InventoryComponent>();
 
@@ -81,7 +95,7 @@ void Menu::draw() {
 		for(u8 y = 0 ; y < 4 ; y++) {
 			auto *weapon = playerInventory.getWeapon(x, y);
 
-			if(weapon) weapon->icon().draw(22 + x * 32, 23 + y * 24);
+			if(weapon) target.draw(weapon->icon(), states);
 		}
 	}
 }

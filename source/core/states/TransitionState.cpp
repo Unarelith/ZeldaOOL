@@ -25,11 +25,12 @@ void TransitionState::update() {
 	}
 }
 
-void TransitionState::draw() {
-	m_transition->draw();
+void TransitionState::draw(RenderTarget &target, RenderStates states) const {
+	if (m_transition)
+		target.draw(*m_transition, states);
 
 	if(m_transition->drawStatsBar()) {
-		m_statsBar.draw();
+		target.draw(m_statsBar, states);
 	}
 }
 

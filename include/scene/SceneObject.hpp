@@ -5,65 +5,60 @@
  *
  *    Description:
  *
- *        Created:  01/05/2015 23:09:38
+ *        Created:  17/01/2018 19:34:42
  *
- *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
+ *         Author:  Quentin Bazin, <quent42340@gmail.com>
  *
  * =====================================================================================
  */
 #ifndef SCENEOBJECT_HPP_
 #define SCENEOBJECT_HPP_
 
-#include <map>
 #include <memory>
 #include <typeindex>
+#include <unordered_map>
 
 #include "Exception.hpp"
 
-#include "Debug.hpp"
-
 class SceneObject {
 	public:
-		SceneObject(const std::string &type = "null", const std::string &name = "null")
+		SceneObject(const std::string &name = "null", const std::string &type = "null")
 			: m_name(name), m_type(type) {}
-
-		SceneObject(const SceneObject &) = delete;
-		SceneObject(SceneObject &&) = default;
-
-		SceneObject &operator=(const SceneObject &) = delete;
-		SceneObject &operator=(SceneObject &&) = default;
 
 		template<typename T, typename... Args>
 		T &set(Args &&...args) {
-			m_components[typeid(T)] = std::make_shared<T>(std::forward<Args>(args)...);
+			m_components[typeid(T).hash_code()] = std::make_shared<T>(std::forward<Args>(args)...);
 			return get<T>();
 		}
 
 		template<typename T>
-		bool has() {
-			return m_components.find(typeid(T)) != m_components.end();
+		bool has() const {
+			return m_components.count(typeid(T).hash_code()) == 1;
 		}
 
 		template<typename T>
-		T &get() {
-			if(has<T>()) {
-				return *std::static_pointer_cast<T>(m_components[typeid(T)]).get();
-			} else {
-				throw EXCEPTION("SceneObject", (void*)this, "doesn't have a component of type:", typeid(T).name());
+		T &get() const {
+			auto it = m_components.find(typeid(T).hash_code());
+			if(it == m_components.end()) {
+				throw EXCEPTION("SceneObject", (void*)this, "(\"" + m_name + "\", \"" + m_type + "\") doesn't have a component of type:", typeid(T).name());
 			}
+
+			return *std::static_pointer_cast<T>(it->second);
 		}
 
 		template<typename T>
 		void remove() {
-			m_components.erase(typeid(T));
+			m_components.erase(typeid(T).hash_code());
 		}
 
-		void debug() {
-			DEBUG("=== Component list of object:", (void*)this, " ===");
+		void debug() const {
+			DEBUG("=== Component list of object:", (void*)this, "===");
 			DEBUG("=== List address:", (void*)&m_components);
+
 			for(auto &it : m_components) {
-				DEBUG(it.first.name(), ":", (void*)it.second.get());
+				DEBUG(it.first, ":", (void*)it.second.get());
 			}
+
 			DEBUG("=== End of list. ===");
 		}
 
@@ -74,7 +69,7 @@ class SceneObject {
 		std::string m_name;
 		std::string m_type;
 
-		std::map<std::type_index, std::shared_ptr<void>> m_components;
+		std::unordered_map<size_t, std::shared_ptr<void>> m_components;
 };
 
 #endif // SCENEOBJECT_HPP_

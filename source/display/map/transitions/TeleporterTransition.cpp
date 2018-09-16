@@ -14,6 +14,7 @@
 #include "Application.hpp"
 #include "AudioPlayer.hpp"
 #include "BehaviourSystem.hpp"
+#include "Config.hpp"
 #include "Map.hpp"
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
@@ -38,11 +39,11 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-	m_rect1.resize(Application::screenWidth / 2, Application::screenHeight - 16);
-	m_rect2.resize(Application::screenWidth / 2, Application::screenHeight - 16);
+	m_rect1.setSize(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 16);
+	m_rect2.setSize(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 16);
 
 	m_rect1.setPosition(0, 16);
-	m_rect2.setPosition(Application::screenWidth / 2, 16);
+	m_rect2.setPosition(SCREEN_WIDTH / 2, 16);
 
 	// FIXME: Each map should have a string member with it's bgm name
 	if(m_nextMap->area() == 0) {
@@ -58,11 +59,14 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 
 	m_drawStatsBar = false;
 
+	m_rect1.setColor(Color::text);
+	m_rect2.setColor(Color::text);
+
 	Sprite::pause = true;
 }
 
 void TeleporterTransition::update() {
-	if(m_rect1.x() + m_rect1.width() < 0) {
+	if(m_rect1.getPosition().x + m_rect1.width() < 0) {
 		Map::currentMap = m_nextMap;
 
 		m_atEnd = true;
@@ -82,12 +86,12 @@ void TeleporterTransition::update() {
 	}
 }
 
-void TeleporterTransition::draw() {
+void TeleporterTransition::draw(RenderTarget &target, RenderStates states) const {
 	if(m_timer.time() > 250) {
-		m_nextMap->draw();
+		target.draw(*m_nextMap, states);
 
-		m_rect1.draw(Color::text);
-		m_rect2.draw(Color::text);
+		target.draw(m_rect1, states);
+		target.draw(m_rect2, states);
 	}
 }
 

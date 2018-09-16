@@ -2,9 +2,9 @@
 # CMakeLists.txt
 # By gnidmoo <gnidmoo@gmail.com>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
 
-project(ZeldaOOL)
+project(ZeldaOOL VERSION 0.0.1 LANGUAGES CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -49,9 +49,9 @@ add_executable(${CMAKE_PROJECT_NAME}
 #------------------------------------------------------------------------------
 # Compiler flags
 #------------------------------------------------------------------------------
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++11")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wfatal-errors")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-variadic-macros")
+# target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -O3 -ffast-math -g -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
+target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -g -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
+target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_17)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++ -static-libgcc")
@@ -73,6 +73,8 @@ link_directories(${TINYXML2_LIBRARY_DIRS})
 #------------------------------------------------------------------------------
 # - OpenGL
 #------------------------------------------------------------------------------
+set(OpenGL_GL_PREFERENCE "LEGACY")
+
 find_package(OpenGL REQUIRED)
 find_package(GLM REQUIRED)
 

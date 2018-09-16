@@ -14,6 +14,7 @@
 #include <iostream>
 #include <ctime>
 
+#include "Config.hpp"
 #include "CoreApplication.hpp"
 #include "Exception.hpp"
 #include "GamePad.hpp"
@@ -26,31 +27,32 @@ void CoreApplication::init() {
 
 	m_sdlLoader.load();
 
-	m_window.open();
+	m_window.open(APP_NAME, SCREEN_WIDTH * 3, SCREEN_HEIGHT * 3);
 
 	GamePad::init(m_keyboardHandler);
 
 	ApplicationStateStack::setInstance(m_stateStack);
+
 	ResourceHandler::setInstance(m_resourceHandler);
 }
 
 int CoreApplication::run() {
-	// try {
+	try {
 		init();
 		mainLoop();
-	// }
-	// catch(const Exception &e) {
-	// 	std::cerr << "Fatal error " << e.what() << std::endl;
-	// 	return 1;
-	// }
-	// catch(const std::exception &e) {
-	// 	std::cerr << "Exception caught: " << e.what() << std::endl;
-	// 	return 1;
-	// }
-	// catch(...) {
-	// 	std::cerr << "Fatal error: Unknown error." << std::endl;
-	// 	return 1;
-	// }
+	}
+	catch(const Exception &e) {
+		std::cerr << "Fatal error " << e.what() << std::endl;
+		return 1;
+	}
+	catch(const std::exception &e) {
+		std::cerr << "Exception caught: " << e.what() << std::endl;
+		return 1;
+	}
+	catch(...) {
+		std::cerr << "Fatal error: Unknown error." << std::endl;
+		return 1;
+	}
 
 	return 0;
 }
@@ -112,7 +114,7 @@ void CoreApplication::mainLoop() {
 			m_window.clear();
 
 			if(!m_stateStack.empty())
-				m_stateStack.top().draw();
+				m_window.draw(m_stateStack.top());
 
 			m_window.display();
 		});

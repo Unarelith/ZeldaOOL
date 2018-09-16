@@ -20,7 +20,7 @@
 #include "Timer.hpp"
 
 class LifetimeComponent {
-	using DeathChecker = std::function<bool(SceneObject&)>;
+	using DeathChecker = std::function<bool(const SceneObject &)>;
 
 	public:
 		LifetimeComponent() = default;
@@ -31,7 +31,7 @@ class LifetimeComponent {
 
 		bool almostDead() { return m_lifetime != 0 && m_timer.time() > m_lifetime / 4 * 3; }
 
-		bool dead(SceneObject &object) {
+		bool dead(const SceneObject &object) {
 			return m_dead
 				|| (m_lifetime != 0 && m_timer.time() > m_lifetime)
 				|| (m_deathChecker && m_deathChecker(object));

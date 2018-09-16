@@ -34,21 +34,25 @@ void View::move(float offsetX, float offsetY) {
 	m_x += offsetX;
 	m_y += offsetY;
 
-	Shader::currentShader->setUniform("u_viewPosition", m_x, m_y);
+	if (Shader::currentShader)
+		Shader::currentShader->setUniform("u_viewPosition", m_x, m_y);
 }
 
 void View::setPosition(float x, float y) {
 	m_x = x;
 	m_y = y;
 
-	Shader::currentShader->setUniform("u_viewPosition", m_x, m_y);
+	if (Shader::currentShader)
+		Shader::currentShader->setUniform("u_viewPosition", m_x, m_y);
 }
 
-void View::bind(const View *view) {
-	if(view) {
-		Shader::currentShader->setUniform("u_viewPosition", view->m_x, view->m_y);
-	} else {
-		Shader::currentShader->setUniform("u_viewPosition", 0, 0);
+void View::bind(const View *view, const Shader *shader) {
+	if (shader) {
+		if (view) {
+			shader->setUniform("u_viewPosition", view->m_x, view->m_y);
+		} else {
+			shader->setUniform("u_viewPosition", 0, 0);
+		}
 	}
 }
 

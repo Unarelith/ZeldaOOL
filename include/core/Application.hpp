@@ -15,7 +15,6 @@
 #define APPLICATION_HPP_
 
 #include "CoreApplication.hpp"
-#include "Shader.hpp"
 
 class Application : public CoreApplication {
 	public:
@@ -24,9 +23,6 @@ class Application : public CoreApplication {
 		void init() override;
 
 		void initOpenGL();
-
-	private:
-		Shader m_shader;
 };
 
 #endif // APPLICATION_HPP_

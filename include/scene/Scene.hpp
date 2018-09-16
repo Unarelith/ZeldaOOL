@@ -5,36 +5,60 @@
  *
  *    Description:
  *
- *        Created:  01/05/2015 22:49:45
+ *        Created:  17/01/2018 19:34:20
  *
- *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
+ *         Author:  Quentin Bazin, <quent42340@gmail.com>
  *
  * =====================================================================================
  */
 #ifndef SCENE_HPP_
 #define SCENE_HPP_
 
+#include <functional>
+#include <list>
+
+#include "AbstractController.hpp"
+#include "AbstractView.hpp"
+#include "IDrawable.hpp"
 #include "SceneObject.hpp"
 #include "SceneObjectList.hpp"
 
-class Scene {
+class Scene : public IDrawable {
 	public:
 		void reset();
-
 		void update();
-
-		void draw();
 
 		SceneObject &addObject(SceneObject &&object);
 
+		void addCollisionChecker(std::function<void(SceneObject &)> checker);
 		void checkCollisionsFor(SceneObject &object);
 
-		static bool isPlayer(const SceneObject &object) { return player == &object; }
+		SceneObjectList &objects() { return m_objects; }
+		const SceneObjectList &objects() const { return m_objects; }
+
+		template<typename T, typename... Args>
+		auto addController(Args &&...args) -> typename std::enable_if<std::is_base_of<AbstractController, T>::value, T&>::type {
+			m_controllerList.emplace_back(new T(std::forward<Args>(args)...));
+			return *dynamic_cast<T*>(m_controllerList.back().get());
+		}
+
+		template<typename T, typename... Args>
+		auto addView(Args &&...args) -> typename std::enable_if<std::is_base_of<AbstractView, T>::value, T&>::type {
+			m_viewList.emplace_back(new T(std::forward<Args>(args)...));
+			return *dynamic_cast<T*>(m_viewList.back().get());
+		}
 
 		static SceneObject *player;
 
+		static bool isPlayer(SceneObject &object) { return player == &object; }
+
 	private:
+		void draw(RenderTarget &target, RenderStates states) const override;
+
 		SceneObjectList m_objects;
+
+		std::list<std::unique_ptr<AbstractController>> m_controllerList;
+		std::list<std::unique_ptr<AbstractView>> m_viewList;
 };
 
 #endif // SCENE_HPP_

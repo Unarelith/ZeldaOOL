@@ -16,18 +16,22 @@
 
 #include "ApplicationState.hpp"
 #include "SceneObject.hpp"
+#include "Shader.hpp"
 #include "StatsBar.hpp"
 
 class MapState : public ApplicationState {
 	public:
 		MapState();
 
-		void update();
+		void update() override;
 
-		void draw();
+	private:
+		void draw(RenderTarget &target, RenderStates states) const override;
 
-	protected:
 		SceneObject m_player;
+
+		Shader m_shader;
+		glm::mat4 m_projectionMatrix;
 
 		StatsBar m_statsBar;
 };

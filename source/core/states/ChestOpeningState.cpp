@@ -18,7 +18,6 @@
 #include "LifetimeComponent.hpp"
 #include "Map.hpp"
 #include "MessageBoxState.hpp"
-#include "MovementSystem.hpp"
 #include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "Sprite.hpp"
@@ -38,7 +37,7 @@ ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *paren
 
 void ChestOpeningState::update() {
 	if(m_state == State::Opening) {
-		MovementSystem::process(*m_item);
+		// MovementSystem::process(*m_item);
 
 		auto &movementComponent = m_item->get<MovementComponent>();
 		if(movementComponent.movements.top()->isFinished()) {
@@ -61,7 +60,7 @@ void ChestOpeningState::update() {
 	}
 }
 
-void ChestOpeningState::draw() {
-	m_parent->draw();
+void ChestOpeningState::draw(RenderTarget &target, RenderStates states) const {
+	target.draw(*m_parent, states);
 }
 

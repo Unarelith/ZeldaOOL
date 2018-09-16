@@ -18,17 +18,16 @@
 #include "MapRenderer.hpp"
 #include "Scene.hpp"
 #include "Tileset.hpp"
+#include "Transformable.hpp"
 #include "View.hpp"
 
-class Map {
+class Map : public IDrawable, public Transformable {
 	public:
 		Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data);
 
 		void reset();
 
 		void update();
-
-		void draw();
 
 		void updateTiles();
 
@@ -68,6 +67,8 @@ class Map {
 		};
 
 	private:
+		void draw(RenderTarget &target, RenderStates states) const override;
+
 		u16 m_area = 0;
 		u16 m_x = 0;
 		u16 m_y = 0;

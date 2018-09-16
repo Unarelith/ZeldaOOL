@@ -14,25 +14,26 @@
 #ifndef TEXTBOX_HPP_
 #define TEXTBOX_HPP_
 
-#include "Font.hpp"
-
 #include <map>
 
-class TextBox {
+#include "IDrawable.hpp"
+#include "Text.hpp"
+#include "Transformable.hpp"
+
+class TextBox : public IDrawable, public Transformable {
 	public:
 		TextBox(const std::string &text);
 
-		void draw(u16 x, u16 y, u16 width, u16 height);
-
 		void setText(const std::string &text);
+		void setSize(u16 width, u16 height);
 
 		bool scrollDown();
 		void stopTextAnimation();
 
-		bool isAtLastPage();
-		bool textDisplayFinished();
+		bool isAtLastPage() const;
+		bool textDisplayFinished() const;
 
-		size_t textLength() const { return m_text.length(); }
+		size_t textLength() const { return m_string.length(); }
 
 		u32 charTimerTime() const { return m_charTimer.time(); }
 
@@ -41,13 +42,15 @@ class TextBox {
 		u8 page() const { return m_page; }
 
 	private:
-		bool isTimeToDisplayLetter(u16 letterIndex);
+		void draw(RenderTarget &target, RenderStates states) const override;
+
+		bool isTimeToDisplayLetter(u16 letterIndex) const;
 
 		const u8 m_delay = 50;
 
-		std::string m_text;
+		std::string m_string;
 
-		Font m_font{"interface-font", 8, 16};
+		Text m_text;
 
 		Timer m_charTimer;
 
@@ -59,6 +62,9 @@ class TextBox {
 
 		Color m_currentColor = Color::text;
 		std::map<u16, Color> m_colorChanges;
+
+		u16 m_width;
+		u16 m_height;
 };
 
 #endif // TEXTBOX_HPP_

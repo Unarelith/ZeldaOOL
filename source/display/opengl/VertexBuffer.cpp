@@ -5,9 +5,9 @@
  *
  *    Description:
  *
- *        Created:  26/12/2014 13:57:09
+ *        Created:  15/12/2014 17:10:16
  *
- *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
+ *         Author:  Quentin Bazin, <quent42340@gmail.com>
  *
  * =====================================================================================
  */
@@ -22,22 +22,20 @@ VertexBuffer::VertexBuffer(VertexBuffer &&vertexBuffer) {
 	vertexBuffer.m_id = 0;
 }
 
-VertexBuffer::~VertexBuffer() {
+VertexBuffer::~VertexBuffer() noexcept {
 	glDeleteBuffers(1, &m_id);
 }
 
-VertexBuffer &VertexBuffer::operator=(VertexBuffer &&vertexBuffer) {
-	m_id = vertexBuffer.m_id;
-	vertexBuffer.m_id = 0;
-	return *this;
-}
-
-void VertexBuffer::setData(GLsizeiptr size, const GLvoid *data, GLenum usage) {
+void VertexBuffer::setData(GLsizeiptr size, const GLvoid *data, GLenum usage) const {
 	glBufferData(GL_ARRAY_BUFFER, size, data, usage);
 }
 
-void VertexBuffer::updateData(GLintptr offset, GLsizeiptr size, const GLvoid *data) {
+void VertexBuffer::updateData(GLintptr offset, GLsizeiptr size, const GLvoid *data) const {
 	glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);
+}
+
+void VertexBuffer::setAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer) const {
+	glVertexAttribPointer(index, size, type, normalized, stride, pointer);
 }
 
 void VertexBuffer::bind(const VertexBuffer *vertexBuffer) {

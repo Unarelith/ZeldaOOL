@@ -23,7 +23,6 @@
 
 class Window : public RenderTarget {
 	public:
-		void open();
 		void open(const std::string &caption, u16 width, u16 height);
 
 		void clear();

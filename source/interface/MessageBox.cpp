@@ -17,6 +17,8 @@
 
 MessageBox::MessageBox(const std::string &text, Position position) : m_textBox(text) {
 	setPosition(position);
+
+	m_rectangle.setPosition(8, position);
 }
 
 void MessageBox::update() {
@@ -30,17 +32,22 @@ void MessageBox::update() {
 			m_textBox.stopTextAnimation();
 		}
 	}
+
+	m_textBox.setPosition(m_rectangle.getPosition().x, m_rectangle.getPosition().y);
+	m_textBox.setSize(m_rectangle.width(), m_rectangle.height());
+
+	m_dialogArrow.setPosition(m_rectangle.getPosition().x + m_rectangle.width()  - 8,
+	                          m_rectangle.getPosition().y + m_rectangle.height() - 7);
 }
 
-void MessageBox::draw() {
-	m_rectangle.draw();
+void MessageBox::draw(RenderTarget &target, RenderStates states) const {
+	target.draw(m_rectangle, states);
 
-	m_textBox.draw(m_rectangle.x(), m_rectangle.y(), m_rectangle.width(), m_rectangle.height());
+	target.draw(m_textBox, states);
 
 	if(m_textBox.textDisplayFinished() && !m_textBox.isAtLastPage()
 	&& m_textBox.charTimerTime() % 540 > 269) {
-		m_dialogArrow.draw(m_rectangle.x() + m_rectangle.width()  - 8,
-		                   m_rectangle.y() + m_rectangle.height() - 7);
+		target.draw(m_dialogArrow, states);
 	}
 }
 

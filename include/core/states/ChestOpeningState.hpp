@@ -23,8 +23,6 @@ class ChestOpeningState : public ApplicationState {
 
 		void update() override;
 
-		void draw() override;
-
 		enum class State {
 			Opening,
 			Opened,
@@ -32,6 +30,8 @@ class ChestOpeningState : public ApplicationState {
 		};
 
 	private:
+		void draw(RenderTarget &target, RenderStates states) const override;
+
 		State m_state = State::Opening;
 
 		SceneObject *m_item = nullptr;

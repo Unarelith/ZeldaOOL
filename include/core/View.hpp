@@ -15,6 +15,7 @@
 #define VIEW_HPP_
 
 #include "IntTypes.hpp"
+#include "Shader.hpp"
 
 class View {
 	public:
@@ -28,7 +29,7 @@ class View {
 		void move(float offsetX, float offsetY);
 		void setPosition(float x, float y);
 
-		static void bind(const View *view);
+		static void bind(const View *view, const Shader *shader);
 
 	private:
 		float m_x = 0;

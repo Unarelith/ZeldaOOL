@@ -15,32 +15,39 @@
 #define RECTANGLESHAPE_HPP_
 
 #include "Color.hpp"
+#include "IDrawable.hpp"
 #include "Rect.hpp"
+#include "Transformable.hpp"
+#include "VertexBuffer.hpp"
 
-class RectangleShape {
+class RectangleShape : public IDrawable, public Transformable {
 	public:
 		RectangleShape() = default;
-		RectangleShape(float x, float y, u16 width, u16 height);
+		RectangleShape(float width, float height, const Color &color = Color::black);
 
-		void draw(Color color = Color::black, bool wireframe = false);
+		const Color &color() const { return m_color; }
+		void setColor(const Color &color) { m_color = color; updateVertexBuffer(); }
 
-		void setPosition(float x, float y) { m_x = x; m_y = y; }
-		void move(float dx, float dy) { m_x += dx; m_y += dy; }
+		void setWireframeMode(bool wireframeMode) { m_wireframeMode = wireframeMode; }
 
-		void resize(u16 width, u16 height) { m_width = width; m_height = height; }
+		float width() const { return m_width; }
+		float height() const { return m_height; }
 
-		float x() const { return m_x; }
-		float y() const { return m_y; }
-
-		u16 width() const { return m_width; }
-		u16 height() const { return m_height; }
+		void setSize(float width, float height) { m_width = width; m_height = height; updateVertexBuffer(); }
 
 	private:
-		float m_x;
-		float m_y;
+		void updateVertexBuffer() const;
 
-		u16 m_width;
-		u16 m_height;
+		void draw(RenderTarget &target, RenderStates states) const override;
+
+		Color m_color = Color::black;
+
+		bool m_wireframeMode = false;
+
+		float m_width = 0;
+		float m_height = 0;
+
+		VertexBuffer m_vbo;
 };
 
 #endif // RECTANGLESHAPE_HPP_

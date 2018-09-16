@@ -48,11 +48,11 @@ SceneObject OctorokFactory::create(float x, float y) {
 	hitboxComponent.addHitbox(0, 0, 16, 16);
 
 	auto &effectsComponent = octorok.set<EffectsComponent>();
-	effectsComponent.addEffect("grass", "animations-grassEffect");
-	effectsComponent.addEffect("lowWater", "animations-lowWaterEffect");
+	effectsComponent.addEffect("grass", "animations-grassEffect", 16, 16);
+	effectsComponent.addEffect("lowWater", "animations-lowWaterEffect", 16, 16);
 
 	auto &destroyEffect = effectsComponent.addEffect("destroy", "animations-monsterDestroy", 32, 32, {-8, -8});
-	destroyEffect.addAnimation({0, 1, 0, 1, 0, 2, 3, 3, 2, 2, 3, 3, 2, 4, 4, 5, 5, 4, 6, 7}, 10, false);
+	destroyEffect.addAnimation({{0, 1, 0, 1, 0, 2, 3, 3, 2, 2, 3, 3, 2, 4, 4, 5, 5, 4, 6, 7}, 10, false});
 
 	octorok.set<BehaviourComponent>(new EasyBehaviour([](SceneObject &) {},
 	[x, y](SceneObject &octorok) {
@@ -60,10 +60,10 @@ SceneObject OctorokFactory::create(float x, float y) {
 	}));
 
 	auto &spriteComponent = octorok.set<Sprite>("enemies-octorok", 16, 16);
-	spriteComponent.addAnimation({4, 0}, 150);
-	spriteComponent.addAnimation({5, 1}, 150);
-	spriteComponent.addAnimation({6, 2}, 150);
-	spriteComponent.addAnimation({7, 3}, 150);
+	spriteComponent.addAnimation({{4, 0}, 150});
+	spriteComponent.addAnimation({{5, 1}, 150});
+	spriteComponent.addAnimation({{6, 2}, 150});
+	spriteComponent.addAnimation({{7, 3}, 150});
 
 	auto &lootComponent = octorok.set<LootComponent>();
 	lootComponent.addItem(1, CollectableType::Rupees);

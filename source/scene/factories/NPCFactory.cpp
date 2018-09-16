@@ -38,10 +38,10 @@ SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
 	auto &spriteComponent = npc.set<SpriteComponent>("characters-blueBoy", 16, 16);
 	spriteComponent.isAnimated = true;
 
-	spriteComponent.sprite.addAnimation({0, 4}, 250);
-	spriteComponent.sprite.addAnimation({1, 5}, 250);
-	spriteComponent.sprite.addAnimation({2, 6}, 250);
-	spriteComponent.sprite.addAnimation({3, 7}, 250);
+	spriteComponent.sprite.addAnimation({{0, 4}, 250});
+	spriteComponent.sprite.addAnimation({{1, 5}, 250});
+	spriteComponent.sprite.addAnimation({{2, 6}, 250});
+	spriteComponent.sprite.addAnimation({{3, 7}, 250});
 
 	return npc;
 }

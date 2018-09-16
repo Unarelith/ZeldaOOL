@@ -28,11 +28,11 @@ class ScrollingTransition : public Transition {
 
 		ScrollingTransition(Mode mode);
 
-		void update();
-
-		void draw();
+		void update() override;
 
 	private:
+		void draw(RenderTarget &target, RenderStates states) const override;
+
 		Mode m_mode;
 
 		float m_vx = 0;

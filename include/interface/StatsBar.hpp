@@ -16,11 +16,13 @@
 
 #include "Sprite.hpp"
 
-class StatsBar {
+class StatsBar : public IDrawable {
 	public:
-		void draw();
+		void update();
 
 	private:
+		void draw(RenderTarget &target, RenderStates states) const override;
+
 		Image m_background{"interface-stats"};
 
 		Sprite m_hearts{"interface-hearts", 7, 7};

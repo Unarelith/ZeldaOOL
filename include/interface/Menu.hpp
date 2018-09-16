@@ -16,13 +16,15 @@
 
 #include "Image.hpp"
 
-class Menu {
+class Menu : public IDrawable {
 	public:
+		Menu();
+
 		void update();
 
-		void draw();
-
 	private:
+		void draw(RenderTarget &target, RenderStates states) const override;
+
 		Image m_background{"interface-menuBackground"};
 		Image m_cursor{"interface-menuCursor"};
 

@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  CollisionSystem.cpp
+ *       Filename:  CollisionHelper.cpp
  *
  *    Description:
  *
@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include "CollisionSystem.hpp"
+#include "CollisionHelper.hpp"
 #include "Sprite.hpp"
 
 #include "CollisionComponent.hpp"
@@ -20,8 +20,8 @@
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
-void CollisionSystem::checkCollision(SceneObject &object1, SceneObject &object2) {
-	bool inCollision = CollisionSystem::inCollision(object1, object2);
+void CollisionHelper::checkCollision(SceneObject &object1, SceneObject &object2) {
+	bool inCollision = CollisionHelper::inCollision(object1, object2);
 
 	if(object1.has<CollisionComponent>()) {
 		object1.get<CollisionComponent>().collisionActions(object1, object2, inCollision);
@@ -32,7 +32,7 @@ void CollisionSystem::checkCollision(SceneObject &object1, SceneObject &object2)
 	}
 }
 
-bool CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2) {
+bool CollisionHelper::inCollision(SceneObject &object1, SceneObject &object2) {
 	if(object1.has<PositionComponent>() && object1.has<HitboxComponent>()
 	&& object2.has<PositionComponent>() && object2.has<HitboxComponent>()) {
 		auto &hitbox1 = object1.get<HitboxComponent>();
@@ -56,15 +56,16 @@ bool CollisionSystem::inCollision(SceneObject &object1, SceneObject &object2) {
 				rect2 += object2.get<MovementComponent>().v;
 			}
 
-			if(object1.has<SpriteComponent>()) {
-				u16 animID = object1.get<SpriteComponent>().animID;
-				rect1 += object1.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
-			}
-
-			if(object2.has<SpriteComponent>()) {
-				u16 animID = object2.get<SpriteComponent>().animID;
-				rect2 += object2.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
-			}
+			// FIXME
+			// if(object1.has<SpriteComponent>()) {
+			// 	u16 animID = object1.get<SpriteComponent>().animID;
+			// 	rect1 += object1.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
+			// }
+            //
+			// if(object2.has<SpriteComponent>()) {
+			// 	u16 animID = object2.get<SpriteComponent>().animID;
+			// 	rect2 += object2.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
+			// }
 
 			if(rect1.intersects(rect2)) {
 				return true;

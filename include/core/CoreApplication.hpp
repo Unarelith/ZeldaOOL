@@ -29,9 +29,6 @@ class CoreApplication {
 
 		int run();
 
-		static const u16 screenWidth = 160;
-		static const u16 screenHeight = 144;
-
 	protected:
 		ApplicationStateStack m_stateStack;
 

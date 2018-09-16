@@ -15,41 +15,44 @@
 #define IMAGE_HPP_
 
 #include "Color.hpp"
+#include "IDrawable.hpp"
 #include "Rect.hpp"
 #include "Texture.hpp"
+#include "Transformable.hpp"
+#include "VertexBuffer.hpp"
 
-class Image {
+class Image : public IDrawable, public Transformable {
 	public:
 		Image() = default;
 		Image(const std::string &textureName);
+		Image(const Texture &texture);
 
 		void load(const std::string &textureName);
+		void load(const Texture &texture);
 
+		const FloatRect &clipRect() const { return m_clipRect; }
 		void setClipRect(float x, float y, u16 width, u16 height);
-		void setPosRect(float x, float y, u16 width, u16 height);
-
-		void draw(float x, float y, s16 width = -1, s16 height = -1);
-		void draw();
 
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 
-		void setPaletteID(u8 id) { m_paletteID = id; }
-
-		void setColorMod(Color colorMod) { m_colorMod = colorMod; }
+		void setColor(const Color &color) { m_color = color; updateVertexBuffer(); }
 
 	private:
-		Texture *m_texture = nullptr;
+		void updateVertexBuffer() const;
+
+		void draw(RenderTarget &target, RenderStates states) const override;
+
+		const Texture *m_texture = nullptr;
 
 		u16 m_width = 0;
 		u16 m_height = 0;
 
 		FloatRect m_clipRect;
-		FloatRect m_posRect;
 
-		Color m_colorMod;
+		VertexBuffer m_vbo;
 
-		u8 m_paletteID = 0;
+		Color m_color = Color::black;
 };
 
 #endif // IMAGE_HPP_

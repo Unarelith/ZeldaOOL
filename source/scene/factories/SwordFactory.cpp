@@ -70,19 +70,19 @@ SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &own
 	};
 
 	// Swinging
-	spriteComponent.sprite.addAnimation({0, 4, 4,  8,  8,  8}, swordPosition[0], 45);
-	spriteComponent.sprite.addAnimation({1, 5, 5,  9,  9,  9}, swordPosition[1], 45);
-	spriteComponent.sprite.addAnimation({2, 6, 6, 10, 10, 10}, swordPosition[2], 45);
-	spriteComponent.sprite.addAnimation({3, 5, 5, 11, 11, 11}, swordPosition[3], 45);
+	spriteComponent.sprite.addAnimation({{0, 4, 4,  8,  8,  8}, swordPosition[0], 45});
+	spriteComponent.sprite.addAnimation({{1, 5, 5,  9,  9,  9}, swordPosition[1], 45});
+	spriteComponent.sprite.addAnimation({{2, 6, 6, 10, 10, 10}, swordPosition[2], 45});
+	spriteComponent.sprite.addAnimation({{3, 5, 5, 11, 11, 11}, swordPosition[3], 45});
 
 	// Loading
-	spriteComponent.sprite.addAnimation({12,  8}, {swordPosition[0][6], swordPosition[0][6]}, 60);
-	spriteComponent.sprite.addAnimation({13,  9}, {swordPosition[1][6], swordPosition[1][6]}, 60);
-	spriteComponent.sprite.addAnimation({14, 10}, {swordPosition[2][6], swordPosition[2][6]}, 60);
-	spriteComponent.sprite.addAnimation({15, 11}, {swordPosition[3][6], swordPosition[3][6]}, 60);
+	spriteComponent.sprite.addAnimation({{12,  8}, {swordPosition[0][6], swordPosition[0][6]}, 60});
+	spriteComponent.sprite.addAnimation({{13,  9}, {swordPosition[1][6], swordPosition[1][6]}, 60});
+	spriteComponent.sprite.addAnimation({{14, 10}, {swordPosition[2][6], swordPosition[2][6]}, 60});
+	spriteComponent.sprite.addAnimation({{15, 11}, {swordPosition[3][6], swordPosition[3][6]}, 60});
 
 	// SpinAttack
-	spriteComponent.sprite.addAnimation({8, 4, 10, 6, 11, 5, 9, 7}, spinAttackPosition, 50);
+	spriteComponent.sprite.addAnimation({{8, 4, 10, 6, 11, 5, 9, 7}, spinAttackPosition, 50});
 
 	return object;
 }
