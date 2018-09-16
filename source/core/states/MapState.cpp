@@ -38,7 +38,7 @@ MapState::MapState() {
 }
 
 void MapState::update() {
-	// FIXME
+	// FIXME: Probably the cause of scene blink after transitions
 	if (Map::currentMap->scene().isInactive()) {
 		Map::currentMap->scene().addController<MovementController>();
 		Map::currentMap->scene().addController<BattleController>();

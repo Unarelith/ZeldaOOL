@@ -22,6 +22,8 @@ class StatsBar : public IDrawable {
 
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;
+		void drawHearts(RenderTarget &target, RenderStates states) const;
+		void drawRupees(RenderTarget &target, RenderStates states) const;
 
 		Image m_background{"interface-stats"};
 

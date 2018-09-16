@@ -19,6 +19,7 @@
 #include "Map.hpp"
 #include "MessageBoxState.hpp"
 #include "MovementComponent.hpp"
+#include "MovementController.hpp"
 #include "PositionComponent.hpp"
 #include "Sprite.hpp"
 
@@ -37,7 +38,9 @@ ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *paren
 
 void ChestOpeningState::update() {
 	if(m_state == State::Opening) {
-		// MovementSystem::process(*m_item);
+		// FIXME
+		MovementController movementController;
+		movementController.update(*m_item);
 
 		auto &movementComponent = m_item->get<MovementComponent>();
 		if(movementComponent.movements.top()->isFinished()) {

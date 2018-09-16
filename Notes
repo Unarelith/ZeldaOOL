@@ -6,8 +6,10 @@ Notes
 
 • DONE: Fix stats bar update within menu
 • DONE: Fix sprite frame positions
+• DONE: Fix hearts and rupees display
 • TODO: Fix scene blink after transitions
-• TODO: Fix text, hearts and rupees display
+• TODO: Fix text display
+• TODO: Fix sword display + sword in ScrollingTransition
 • TODO: Add EffectView, HitboxView
 
 ## After rework
