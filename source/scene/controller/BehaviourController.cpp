@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  BehaviourSystem.cpp
+ *       Filename:  BehaviourController.cpp
  *
  *    Description:
  *
@@ -11,19 +11,18 @@
  *
  * =====================================================================================
  */
-#include "BehaviourSystem.hpp"
-
 #include "BehaviourComponent.hpp"
+#include "BehaviourController.hpp"
 
-void BehaviourSystem::process(SceneObject &object) {
+void BehaviourController::reset(SceneObject &object) {
 	if(object.has<BehaviourComponent>()) {
-		object.get<BehaviourComponent>().behaviour->action(object);
+		object.get<BehaviourComponent>().behaviour->reset(object);
 	}
 }
 
-void BehaviourSystem::reset(SceneObject &object) {
+void BehaviourController::update(SceneObject &object) {
 	if(object.has<BehaviourComponent>()) {
-		object.get<BehaviourComponent>().behaviour->reset(object);
+		object.get<BehaviourComponent>().behaviour->action(object);
 	}
 }
 

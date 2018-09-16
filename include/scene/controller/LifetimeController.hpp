@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  LifetimeSystem.hpp
+ *       Filename:  LifetimeController.hpp
  *
  *    Description:
  *
@@ -11,15 +11,19 @@
  *
  * =====================================================================================
  */
-#ifndef LIFETIMESYSTEM_HPP_
-#define LIFETIMESYSTEM_HPP_
+#ifndef LIFETIMECONTROLLER_HPP_
+#define LIFETIMECONTROLLER_HPP_
 
+#include "AbstractController.hpp"
 #include "SceneObject.hpp"
 #include "SceneObjectList.hpp"
 
-class LifetimeSystem {
+class LifetimeController : public AbstractController {
 	public:
-		static void process(SceneObjectList &objects);
+		void update(SceneObject &) override {}
+		void update(SceneObjectList &objects) override;
+
+		bool isGlobal() const override { return true; }
 };
 
-#endif // LIFETIMESYSTEM_HPP_
+#endif // LIFETIMECONTROLLER_HPP_

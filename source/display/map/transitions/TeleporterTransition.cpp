@@ -13,7 +13,7 @@
  */
 #include "Application.hpp"
 #include "AudioPlayer.hpp"
-#include "BehaviourSystem.hpp"
+#include "BehaviourController.hpp"
 #include "Config.hpp"
 #include "Map.hpp"
 #include "PositionComponent.hpp"
@@ -55,7 +55,9 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 		AudioPlayer::playMusic("underground");
 	}
 
-	BehaviourSystem::reset(*Scene::player);
+	// FIXME
+	BehaviourController controller;
+	controller.reset(*Scene::player);
 
 	m_drawStatsBar = false;
 

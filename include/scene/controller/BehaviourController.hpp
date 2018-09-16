@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  BehaviourSystem.hpp
+ *       Filename:  BehaviourController.hpp
  *
  *    Description:
  *
@@ -11,16 +11,17 @@
  *
  * =====================================================================================
  */
-#ifndef BEHAVIOURSYSTEM_HPP_
-#define BEHAVIOURSYSTEM_HPP_
+#ifndef BEHAVIOURCONTROLLER_HPP_
+#define BEHAVIOURCONTROLLER_HPP_
 
+#include "AbstractController.hpp"
 #include "SceneObject.hpp"
 
-class BehaviourSystem {
+class BehaviourController : public AbstractController {
 	public:
-		static void process(SceneObject &object);
+		void reset(SceneObject &object) override;
 
-		static void reset(SceneObject &object);
+		void update(SceneObject &object) override;
 };
 
-#endif // BEHAVIOURSYSTEM_HPP_
+#endif // BEHAVIOURCONTROLLER_HPP_

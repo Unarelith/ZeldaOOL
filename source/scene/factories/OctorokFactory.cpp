@@ -71,18 +71,18 @@ SceneObject OctorokFactory::create(float x, float y) {
 	return octorok;
 }
 
-#include "BattleSystem.hpp"
+#include "BattleController.hpp"
 #include "WeaponComponent.hpp"
 
 void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision) {
 	if(inCollision) {
 		if(Scene::isPlayer(object)) {
-			BattleSystem::hurt(octorok, object);
+			BattleController::hurt(octorok, object);
 		}
 		else if(object.has<WeaponComponent>()) {
 			// auto &weaponComponent = object.get<WeaponComponent>();
 			// if(weaponComponent.weaponInfos.strength()) {
-				BattleSystem::hurt(object, octorok);
+				BattleController::hurt(object, octorok);
 
 				auto &positionComponent = octorok.get<PositionComponent>();
 

@@ -17,8 +17,11 @@
 
 #include "ApplicationStateStack.hpp"
 #include "AudioPlayer.hpp"
+#include "BattleController.hpp"
+#include "BehaviourController.hpp"
 #include "Config.hpp"
 #include "GamePad.hpp"
+#include "LifetimeController.hpp"
 #include "Map.hpp"
 #include "MapState.hpp"
 #include "MenuState.hpp"
@@ -32,6 +35,9 @@
 MapState::MapState() {
 	Map::currentMap = &Map::getMap(0, 0, 0);
 	Map::currentMap->scene().addController<MovementController>();
+	Map::currentMap->scene().addController<BattleController>();
+	Map::currentMap->scene().addController<BehaviourController>();
+	Map::currentMap->scene().addController<LifetimeController>();
 	Map::currentMap->scene().addView<SpriteView>();
 
 	m_player = PlayerFactory::create(64, 48);

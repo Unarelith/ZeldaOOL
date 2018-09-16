@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  BattleSystem.hpp
+ *       Filename:  BattleController.hpp
  *
  *    Description:
  *
@@ -11,16 +11,17 @@
  *
  * =====================================================================================
  */
-#ifndef BATTLESYSTEM_HPP_
-#define BATTLESYSTEM_HPP_
+#ifndef BATTLECONTROLLER_HPP_
+#define BATTLECONTROLLER_HPP_
 
+#include "AbstractController.hpp"
 #include "SceneObject.hpp"
 
-class BattleSystem {
+class BattleController : public AbstractController {
 	public:
-		static void update(SceneObject &object);
+		void update(SceneObject &object) override;
 
 		static void hurt(SceneObject &attacker, SceneObject &receiver);
 };
 
-#endif // BATTLESYSTEM_HPP_
+#endif // BATTLECONTROLLER_HPP_

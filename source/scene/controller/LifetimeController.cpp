@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  LifetimeSystem.cpp
+ *       Filename:  LifetimeController.cpp
  *
  *    Description:
  *
@@ -12,9 +12,9 @@
  * =====================================================================================
  */
 #include "LifetimeComponent.hpp"
-#include "LifetimeSystem.hpp"
+#include "LifetimeController.hpp"
 
-void LifetimeSystem::process(SceneObjectList &objects) {
+void LifetimeController::update(SceneObjectList &objects) {
 	for(u16 i = 0 ; i < objects.size() ; i++) {
 		if(objects[i].has<LifetimeComponent>()
 		&& objects[i].get<LifetimeComponent>().dead(objects[i])) {

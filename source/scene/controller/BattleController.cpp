@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  BattleSystem.cpp
+ *       Filename:  BattleController.cpp
  *
  *    Description:
  *
@@ -14,7 +14,7 @@
 #include <cmath>
 
 #include "AudioPlayer.hpp"
-#include "BattleSystem.hpp"
+#include "BattleController.hpp"
 #include "HurtMovement.hpp"
 
 #include "EffectsComponent.hpp"
@@ -24,7 +24,7 @@
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
-void BattleSystem::update(SceneObject &object) {
+void BattleController::update(SceneObject &object) {
 	if(object.has<HealthComponent>() && object.has<MovementComponent>()) {
 		auto &health = object.get<HealthComponent>();
 		auto &movements = object.get<MovementComponent>().movements;
@@ -54,7 +54,7 @@ void BattleSystem::update(SceneObject &object) {
 	}
 }
 
-void BattleSystem::hurt(SceneObject &attacker, SceneObject &receiver) {
+void BattleController::hurt(SceneObject &attacker, SceneObject &receiver) {
 	if(!attacker.has<HealthComponent>() || !attacker.get<HealthComponent>().isDead) {
 		if(receiver.has<HealthComponent>()) {
 			auto &receiverHealth = receiver.get<HealthComponent>();
