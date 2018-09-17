@@ -15,7 +15,13 @@
 #include "Debug.hpp"
 #include "TransitionState.hpp"
 
+TransitionState::TransitionState(ApplicationState *parent) : ApplicationState(parent) {
+	m_statsBar.update();
+}
+
 void TransitionState::update() {
+	m_statsBar.update();
+
 	if(!m_transition || m_transition->atEnd()) {
 		if(!m_transition) DEBUG("Empty TransitionState created, I'll pop it");
 

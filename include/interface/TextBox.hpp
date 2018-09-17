@@ -26,8 +26,6 @@ class TextBox : public IDrawable, public Transformable {
 		void setText(const std::string &text);
 		void setSize(u16 width, u16 height);
 
-		void updateTextSprites();
-
 		bool scrollDown();
 		void stopTextAnimation();
 
@@ -44,6 +42,8 @@ class TextBox : public IDrawable, public Transformable {
 
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;
+
+		void updateTextSprites();
 
 		bool isTimeToDisplayLetter(u16 letterIndex) const;
 

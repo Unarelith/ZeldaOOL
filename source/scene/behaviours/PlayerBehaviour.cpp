@@ -63,7 +63,7 @@ void PlayerBehaviour::action(SceneObject &player) {
 
 		weaponAction(player);
 
-		if (m_state == "Lift") {
+		if (m_state == "Grab") {
 			movement.isDirectionLocked = true;
 			movement.speed = 0;
 		}
@@ -102,7 +102,20 @@ void PlayerBehaviour::action(SceneObject &player) {
 
 		oldSwordState = swordState;
 	}
+	else if(m_state == "Grab") {
+		if (movement.isMoving)
+			m_state = "Lift";
+
+		if (movement.speed != 0 || !GamePad::isKeyPressed(m_weapon->get<WeaponComponent>().key)) {
+			movement.isDirectionLocked = false;
+			movement.speed = 0.4f;
+			m_state = "Standing";
+		}
+	}
 	else if(m_state == "Lift") {
+		if (!movement.isMoving)
+			m_state = "Grab";
+
 		if (movement.speed != 0 || !GamePad::isKeyPressed(m_weapon->get<WeaponComponent>().key)) {
 			movement.isDirectionLocked = false;
 			movement.speed = 0.4f;
@@ -156,46 +169,19 @@ void PlayerBehaviour::weaponAction(SceneObject &player) {
 
 void PlayerBehaviour::updateSprite(SceneObject &player) {
 	auto &movement = player.get<MovementComponent>();
-	auto &position = player.get<PositionComponent>();
 	auto &sprite = player.get<SpriteComponent>();
 
-	if(m_state == "Standing") {
-		sprite.isAnimated = false;
-		sprite.animID = static_cast<s8>(position.direction);
-		sprite.frameID = 1;
-	}
-	else if(m_state == "Moving") {
-		sprite.isAnimated = true;
-		sprite.animID = static_cast<s8>(position.direction);
-	}
-	else if(m_state == "Pushing") {
-		sprite.isAnimated = true;
-		sprite.animID = static_cast<s8>(position.direction) + 4;
-	}
-	else if(m_state == "Sword") {
-		std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
+	if (m_state == "Sword") {
+	 	std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
+		if (swordState == "Loading" || swordState == "Loaded")
+			sprite.setAnimated(movement.isMoving);
+		else
+			sprite.setAnimated(true);
 
-		if(swordState == "Swinging") {
-			sprite.isAnimated = true;
-			sprite.animID = static_cast<s8>(position.direction) + 8;
-		}
-		else if(swordState == "Loading" && movement.isMoving) {
-			sprite.isAnimated = true;
-			sprite.animID = static_cast<s8>(position.direction);
-		}
-		else if(swordState == "SpinAttack") {
-			sprite.isAnimated = true;
-			sprite.animID = 12;
-		} else {
-			sprite.isAnimated = false;
-			sprite.animID = static_cast<s8>(position.direction);
-			sprite.frameID = 1;
-		}
+		sprite.setState(m_state + swordState, player);
 	}
-	else if(m_state == "Lift") {
-		sprite.isAnimated = movement.isMoving;
-		sprite.animID = 13 + static_cast<s8>(position.direction);
-		sprite.frameID = 1;
+	else {
+		sprite.setState(m_state, player);
 	}
 }
 

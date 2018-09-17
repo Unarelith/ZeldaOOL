@@ -18,22 +18,67 @@
 #include "Scene.hpp"
 #include "StatsBar.hpp"
 
+StatsBar::StatsBar() {
+	m_rupees.setPosition(81, 9);
+	m_hearts.setPosition(104, 0);
+}
+
 void StatsBar::update() {
 	auto &playerInventory = Scene::player->get<InventoryComponent>();
 
 	Weapon *weaponA = playerInventory.getWeaponA();
 	Weapon *weaponB = playerInventory.getWeaponB();
 
+	// FIXME: Use a single Sprite for multiple icons, reuse it by changing its texture
 	if(weaponA) weaponA->icon().setPosition(46, -1);
 	if(weaponB) weaponB->icon().setPosition(6, -1);
+
+	updateRupees();
+	updateHearts();
+}
+
+void StatsBar::updateRupees() {
+	auto &playerInventory = Scene::player->get<InventoryComponent>();
+	u16 rupees = playerInventory.rupees();
+
+	std::string text;
+	for(u8 i = 0 ; i <= log10(rupees) ; i++) {
+		text.push_back((rupees % (u16)pow(10, floor(log10(rupees) - i + 1))) / pow(10, floor(log10(rupees) - i)));
+	}
+
+	m_rupees.setText(text);
+}
+
+void StatsBar::updateHearts() {
+	auto &playerHealth = Scene::player->get<HealthComponent>();
+	u8 maxLife = playerHealth.maxLife();
+
+	std::string text;
+	for(u8 j = 0 ; j <= maxLife / 28 ; j++) {
+		for(u8 i = 0 ; i < maxLife / 4 - j * 7 && i < 7 ; i++) {
+			s16 life = playerHealth.life() - j * 28;
+
+			if(life > (i + 1) * 4) {
+				text.push_back(4);
+			}
+			else if(i * 4 <= life) {
+				text.push_back(life - (i * 4));
+			} else {
+				text.push_back(0);
+			}
+		}
+
+		text.push_back('\n');
+	}
+
+	m_hearts.setText(text);
 }
 
 void StatsBar::draw(RenderTarget &target, RenderStates states) const {
 	target.draw(m_background, states);
 
-	// FIXME: Do not create temporary objects each frame (obviously)
-	drawHearts(target, states);
-	drawRupees(target, states);
+	target.draw(m_hearts, states);
+	target.draw(m_rupees, states);
 
 	auto &playerInventory = Scene::player->get<InventoryComponent>();
 
@@ -42,41 +87,5 @@ void StatsBar::draw(RenderTarget &target, RenderStates states) const {
 
 	if(weaponA) target.draw(weaponA->icon(), states);
 	if(weaponB) target.draw(weaponB->icon(), states);
-}
-
-void StatsBar::drawHearts(RenderTarget &target, RenderStates states) const {
-	auto &playerHealth = Scene::player->get<HealthComponent>();
-
-	u8 maxLife = playerHealth.maxLife();
-	for(u8 j = 0 ; j <= maxLife / 28 ; j++) {
-		for(u8 i = 0 ; i < maxLife / 4 - j * 7 && i < 7 ; i++) {
-			s16 life = playerHealth.life() - j * 28;
-
-			Sprite hearts{"interface-hearts", 7, 7};
-
-			hearts.setPosition(104 + i * 8, j * 8);
-			if(life > (i + 1) * 4) {
-				hearts.setCurrentFrame(4);
-			}
-			else if(i * 4 <= life) {
-				hearts.setCurrentFrame(life - (i * 4));
-			} else {
-				hearts.setCurrentFrame(0);
-			}
-
-			target.draw(hearts, states);
-		}
-	}
-}
-
-void StatsBar::drawRupees(RenderTarget &target, RenderStates states) const {
-	auto &playerInventory = Scene::player->get<InventoryComponent>();
-	u16 rupees = playerInventory.rupees();
-	for(u8 i = 0 ; i <= log10(rupees) ; i++) {
-		Sprite numbers{"interface-numbers", 7, 6};
-		numbers.setPosition(81 + 8 * i, 9);
-		numbers.setCurrentFrame((rupees % (u16)pow(10, floor(log10(rupees) - i + 1))) / pow(10, floor(log10(rupees) - i)));
-		target.draw(numbers, states);
-	}
 }
 

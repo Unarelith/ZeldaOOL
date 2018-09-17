@@ -42,6 +42,7 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 		target.draw(object.get<Image>(), states);
 	}
 
+	// FIXME: Remove this (only used for Octorok)
 	if(object.has<Sprite>()) {
 		// auto &sprite = object.get<Sprite>();
 		// sprite.updateAnimations();
@@ -80,30 +81,20 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 	}
 
 	if(object.has<SpriteComponent>()) {
-		// auto &spriteComponent = object.get<SpriteComponent>();
-		// spriteComponent.updateAnimations();
-		// target.draw(spriteComponent.sprite, states);
-
 		auto &spriteComponent = object.get<SpriteComponent>();
-		if(spriteComponent.isEnabled) {
+		if (spriteComponent.isEnabled()) {
 			if(object.has<HealthComponent>()
 			&& object.get<HealthComponent>().isHurt
 			&& GameClock::getTicks() % 100 < 50) {
-				spriteComponent.sprite.setPaletteID(1);
+				spriteComponent.sprite().setPaletteID(1);
 			}
 
-			spriteComponent.sprite.setAnimated(spriteComponent.isAnimated);
-			spriteComponent.sprite.setCurrentAnimation(spriteComponent.animID);
-			if(!spriteComponent.isAnimated) {
-				spriteComponent.sprite.setCurrentFrame(spriteComponent.sprite.currentAnimation().getFrame(spriteComponent.frameID));
-			}
-
-			spriteComponent.sprite.updateAnimations();
-			target.draw(spriteComponent.sprite, states);
+			spriteComponent.updateAnimations();
+			target.draw(spriteComponent.sprite(), states);
 
 			if(object.has<HealthComponent>()
 			&& object.get<HealthComponent>().isHurt) {
-				spriteComponent.sprite.setPaletteID(0);
+				spriteComponent.sprite().setPaletteID(0);
 			}
 		}
 	}

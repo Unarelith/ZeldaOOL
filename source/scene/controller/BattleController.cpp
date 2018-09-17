@@ -43,7 +43,7 @@ void BattleController::update(SceneObject &object) {
 				}
 
 				if(object.has<SpriteComponent>()) {
-					object.get<SpriteComponent>().isEnabled = false;
+					object.get<SpriteComponent>().setEnabled(false);
 				}
 
 				object.get<EffectsComponent>().enable("destroy");

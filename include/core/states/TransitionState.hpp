@@ -22,7 +22,7 @@
 
 class TransitionState : public ApplicationState {
 	public:
-		TransitionState(ApplicationState *parent) : ApplicationState(parent) {}
+		TransitionState(ApplicationState *parent);
 
 		void update() override;
 

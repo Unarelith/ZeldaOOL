@@ -35,20 +35,21 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	collisionComponent.addAction(&grassAction);
 
 	auto &spriteComponent = object.set<SpriteComponent>("animations-grassDestroy", 32, 32);
-	spriteComponent.sprite.addAnimation({{0, 1, 2, 3, 4, 5}, 50});
-	spriteComponent.isAnimated = true;
-	spriteComponent.isEnabled = false;
+	spriteComponent.sprite().addAnimation({{0, 1, 2, 3, 4, 5}, 50});
+	spriteComponent.addState("Default", false, true, 0, 0);
+	spriteComponent.setState("Default", object);
+	spriteComponent.setEnabled(false);
 
 	if(lowGrass) {
-		spriteComponent.sprite.setColor(Color{255, 255, 255, 127});
+		spriteComponent.sprite().setColor(Color{255, 255, 255, 127});
 	}
 
 	object.set<BehaviourComponent>(new EasyBehaviour([](SceneObject &object) {
 		auto &spriteComponent = object.get<SpriteComponent>();
 
-		if(spriteComponent.sprite.currentAnimation().isFinished()) {
-			spriteComponent.sprite.currentAnimation().reset();
-			spriteComponent.isEnabled = false;
+		if(spriteComponent.sprite().currentAnimation().isFinished()) {
+			spriteComponent.sprite().currentAnimation().reset();
+			spriteComponent.setEnabled(false);
 		}
 	},
 	[](SceneObject &object) {
@@ -76,11 +77,11 @@ void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
 
 		if(Scene::isPlayer(weaponOwner)
 		&& object.name() == "Sword"
-		&& !grassSpriteComponent.isEnabled
+		&& !grassSpriteComponent.isEnabled()
 		&& grassHitboxComponent.currentHitbox()) {
 			auto &grassPosition = grass.get<PositionComponent>();
 			auto &playerDirection = weaponOwner.get<PositionComponent>().direction;
-			auto &swordSprite = object.get<SpriteComponent>().sprite;
+			auto &swordSprite = object.get<SpriteComponent>().sprite();
 
 			if((object.get<BehaviourComponent>().behaviour->state() == "Swinging"
 			 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() > 2
@@ -93,7 +94,7 @@ void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
 				Map::currentMap->setTile((grassPosition.x + 8) / 16,
 				                         (grassPosition.y + 8) / 16, 36);
 
-				grassSpriteComponent.isEnabled = true;
+				grassSpriteComponent.setEnabled(true);
 				grassHitboxComponent.resetCurrentHitbox();
 			}
 		}

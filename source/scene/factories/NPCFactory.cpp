@@ -26,7 +26,7 @@ void npcAction(SceneObject &npc, SceneObject &object, bool inCollision);
 
 SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
 	SceneObject npc{"NPC", "NPC"};
-	npc.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
+	npc.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16).direction = Direction::Down;
 
 	auto &hitboxComponent = npc.set<HitboxComponent>();
 	//hitboxComponent.addHitbox(0, 6, 16, 10);
@@ -36,12 +36,13 @@ SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
 	collisionComponent.addAction(&npcAction);
 
 	auto &spriteComponent = npc.set<SpriteComponent>("characters-blueBoy", 16, 16);
-	spriteComponent.isAnimated = true;
+	spriteComponent.sprite().addAnimation({{0, 4}, 250});
+	spriteComponent.sprite().addAnimation({{1, 5}, 250});
+	spriteComponent.sprite().addAnimation({{2, 6}, 250});
+	spriteComponent.sprite().addAnimation({{3, 7}, 250});
 
-	spriteComponent.sprite.addAnimation({{0, 4}, 250});
-	spriteComponent.sprite.addAnimation({{1, 5}, 250});
-	spriteComponent.sprite.addAnimation({{2, 6}, 250});
-	spriteComponent.sprite.addAnimation({{3, 7}, 250});
+	spriteComponent.addState("Standing", true, true, 0, 0);
+	spriteComponent.setState("Standing", npc);
 
 	return npc;
 }

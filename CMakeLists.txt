@@ -49,8 +49,9 @@ add_executable(${CMAKE_PROJECT_NAME}
 #------------------------------------------------------------------------------
 # Compiler flags
 #------------------------------------------------------------------------------
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 # target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -O3 -ffast-math -g -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
-target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -g -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
+target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
 target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_17)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")

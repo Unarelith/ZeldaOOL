@@ -30,7 +30,6 @@ class SwordBehaviour : public Behaviour {
 		bool m_keyReleased = false;
 
 		Timer m_loadingTimer;
-		bool m_isLoaded = false;
 
 		Timer m_spinTimer;
 		u16 m_spinCurrentFrame = 0;

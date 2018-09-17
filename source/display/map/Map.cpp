@@ -44,7 +44,7 @@ Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const 
 
 	updateTiles();
 
-	// FIXME
+	// FIXME: Move this to MapState
 	if (m_scene.isInactive()) {
 		m_scene.addController<MovementController>();
 		m_scene.addController<BattleController>();

@@ -28,13 +28,13 @@ void SwordBehaviour::action(SceneObject &sword) {
 	auto &swordPosition = sword.get<PositionComponent>();
 	auto &weaponComponent = sword.get<WeaponComponent>();
 	auto &spriteComponent = sword.get<SpriteComponent>();
-	Sprite &sprite = spriteComponent.sprite;
+	Sprite &sprite = spriteComponent.sprite();
 
 	SceneObject &owner = weaponComponent.owner;
 	auto &ownerPosition = owner.get<PositionComponent>();
 
 	auto &ownerSpriteComponent = owner.get<SpriteComponent>();
-	auto &ownerSprite = ownerSpriteComponent.sprite;
+	auto &ownerSprite = ownerSpriteComponent.sprite();
 
 	swordPosition = ownerPosition;
 
@@ -79,42 +79,40 @@ void SwordBehaviour::action(SceneObject &sword) {
 		}
 	}
 	else if(m_state == "Loading") {
-		if(m_loadingTimer.time() > 650 && !m_isLoaded) {
-			m_isLoaded = true;
+		if(m_loadingTimer.time() > 650) {
+			m_state = "Loaded";
 
 			AudioPlayer::playEffect("swordCharge");
 		}
 
-		//if(!keyPressed()) {
 		if(!GamePad::isKeyPressed(weaponComponent.key)) {
-			if(m_loadingTimer.time() > 650) {
-				AudioPlayer::playEffect("swordSpin");
+			m_state = "Finished";
+		}
+	}
+	else if(m_state == "Loaded") {
+		if(!GamePad::isKeyPressed(weaponComponent.key)) {
+			AudioPlayer::playEffect("swordSpin");
 
-				m_isLoaded = false;
+			m_state = "SpinAttack";
 
-				m_state = "SpinAttack";
-
-				if(ownerPosition.direction == Direction::Left) {
-					m_spinCurrentFrame = 2;
-				}
-				else if(ownerPosition.direction == Direction::Right) {
-					m_spinCurrentFrame = 6;
-				}
-				else if(ownerPosition.direction == Direction::Up) {
-					m_spinCurrentFrame = 4;
-				}
-				else if(ownerPosition.direction == Direction::Down) {
-					m_spinCurrentFrame = 0;
-				}
-
-				sprite.getAnimation(8).reset(m_spinCurrentFrame);
-				sprite.getAnimation(8).start();
-
-				ownerSprite.getAnimation(12).reset(m_spinCurrentFrame);
-				ownerSprite.getAnimation(12).start();
-			} else {
-				m_state = "Finished";
+			if(ownerPosition.direction == Direction::Left) {
+				m_spinCurrentFrame = 2;
 			}
+			else if(ownerPosition.direction == Direction::Right) {
+				m_spinCurrentFrame = 6;
+			}
+			else if(ownerPosition.direction == Direction::Up) {
+				m_spinCurrentFrame = 4;
+			}
+			else if(ownerPosition.direction == Direction::Down) {
+				m_spinCurrentFrame = 0;
+			}
+
+			sprite.getAnimation(8).reset(m_spinCurrentFrame);
+			sprite.getAnimation(8).start();
+
+			ownerSprite.getAnimation(12).reset(m_spinCurrentFrame);
+			ownerSprite.getAnimation(12).start();
 		}
 	}
 	else if(m_state == "SpinAttack") {
@@ -125,10 +123,8 @@ void SwordBehaviour::action(SceneObject &sword) {
 				m_spinFrameCounter++;
 			}
 		} else {
-			ownerSpriteComponent.animID = (s8)ownerPosition.direction;
 			m_spinTimer.start();
 
-			spriteComponent.isAnimated = false;
 			sprite.getAnimation(8).stop();
 
 			if(m_spinTimer.time() >= sprite.getAnimation(8).delay()) {
@@ -145,7 +141,7 @@ void SwordBehaviour::updateHitboxes(SceneObject &sword) {
 	auto &spriteComponent = sword.get<SpriteComponent>();
 	auto &hitboxComponent = sword.get<HitboxComponent>();
 
-	u16 frame = spriteComponent.sprite.getAnimation(spriteComponent.animID).currentFrame();
+	u16 frame = spriteComponent.sprite().currentAnimation().currentFrame();
 	if(frame < 12) {
 		hitboxComponent.setCurrentHitbox(frame);
 	}
@@ -155,24 +151,13 @@ void SwordBehaviour::updateHitboxes(SceneObject &sword) {
 }
 
 void SwordBehaviour::updateSprite(SceneObject &sword) {
-	auto &spriteComponent = sword.get<SpriteComponent>();
-	auto &ownerPosition = sword.get<WeaponComponent>().owner.get<PositionComponent>();
+	auto &sprite = sword.get<SpriteComponent>();
 
-	if(m_state == "Swinging") {
-		spriteComponent.isAnimated = true;
-		spriteComponent.animID = static_cast<s8>(ownerPosition.direction);
+	if (m_state == "Finished") {
+		sprite.setEnabled(false);
 	}
-	else if(m_state == "Loading") {
-		spriteComponent.isAnimated = m_isLoaded;
-		spriteComponent.animID = static_cast<s8>(ownerPosition.direction) + 4;
-		spriteComponent.frameID = 1;
-	}
-	else if(m_state == "SpinAttack") {
-		spriteComponent.isAnimated = m_spinFrameCounter < 9;
-		spriteComponent.animID = 8;
-		spriteComponent.frameID = m_spinCurrentFrame;
-	} else {
-		spriteComponent.isEnabled = false;
+	else {
+		sprite.setState(m_state, sword);
 	}
 }
 

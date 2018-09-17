@@ -57,13 +57,11 @@ bool CollisionHelper::inCollision(SceneObject &object1, SceneObject &object2) {
 			}
 
 			if(object1.has<SpriteComponent>()) {
-				u16 animID = object1.get<SpriteComponent>().animID;
-				rect1 += object1.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
+				rect1 += object1.get<SpriteComponent>().sprite().currentAnimation().currentPosition();
 			}
 
 			if(object2.has<SpriteComponent>()) {
-				u16 animID = object2.get<SpriteComponent>().animID;
-				rect2 += object2.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
+				rect2 += object2.get<SpriteComponent>().sprite().currentAnimation().currentPosition();
 			}
 
 			if(rect1.intersects(rect2)) {

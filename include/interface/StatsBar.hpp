@@ -15,17 +15,23 @@
 #define STATSBAR_HPP_
 
 #include "Sprite.hpp"
+#include "Text.hpp"
 
 class StatsBar : public IDrawable {
 	public:
+		StatsBar();
+
 		void update();
+		void updateRupees();
+		void updateHearts();
 
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;
-		void drawHearts(RenderTarget &target, RenderStates states) const;
-		void drawRupees(RenderTarget &target, RenderStates states) const;
 
 		Image m_background{"interface-stats"};
+
+		Text m_rupees{"interface-numbers", 7, 6};
+		Text m_hearts{"interface-hearts", 7, 7};
 };
 
 #endif // STATSBAR_HPP_

@@ -23,7 +23,7 @@ SceneObject WeaponFactory::create(Weapon &weaponInfos, float x, float y, GameKey
 	else if(weaponInfos.name() == "strengthL1") {
 		SceneObject object;
 		object.set<LifetimeComponent>();
-		object.set<WeaponComponent>(owner, weaponInfos, key, "Lift");
+		object.set<WeaponComponent>(owner, weaponInfos, key, "Grab");
 		return object;
 	}
 	else {

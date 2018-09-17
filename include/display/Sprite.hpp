@@ -31,9 +31,10 @@ class Sprite : public Image {
 		u16 frameHeight() const { return m_frameHeight; }
 
 		bool hasAnimations() { return m_animations.size() != 0; }
+		u16 currentAnimationID() { return m_currentAnimation; }
 		const SpriteAnimation &currentAnimation() const { return m_animations[m_currentAnimation]; }
 
-		// FIXME: To remove
+		// FIXME: To remove (used in GrassFactory)
 		SpriteAnimation &currentAnimation() { return m_animations[m_currentAnimation]; }
 		SpriteAnimation &getAnimation(u16 i) { return m_animations[i]; }
 

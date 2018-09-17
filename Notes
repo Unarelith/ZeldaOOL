@@ -2,24 +2,32 @@ Notes
 
 # Engine
 
-## Global
-
-• TODO: Check improvements in Lidonia and KubKraft
-• TODO: Use `clang-format` and `clang-tidy` and write pre-commit hooks
-• TODO: Check if GameClock is fully accurate
-• TODO: Add more debug tools, like a `Logger` class/namespace
-• TODO: Add more unit tests
-
 ## Map
 
 • TODO: Add MapView and remove MapRenderer
+• TODO: Create a SceneObject to hold the maps and its subobjects
 • TODO: Use a single scene for all the maps and remove `Scene::player`
 • TODO: Use real Tiled tileset + animations
 
 ## Sprites
 
-• TODO: Update `SpriteComponent` with sprite states
+• DONE: Update `SpriteComponent` with sprite states
 • TODO: Improve palette handling
+• TODO: Sort sprites before rendering
+
+## Interface
+
+• DONE: Add a new class `Text` and use it for hearts and rupees
+• TODO: Merge `Text` and `TextBox`
+• TODO: In `Text`, replace `Sprite` instances by a `VertexBuffer`
+
+## Global
+
+• TODO: Check improvements in Lidonia and KubKraft
+• TODO: Check if GameClock is fully accurate
+• TODO: Add more debug tools, like a `Logger` class/namespace
+• TODO: Add more unit tests
+• TODO: Use `clang-format` and `clang-tidy` and write pre-commit hooks
 
                                      * * *
 

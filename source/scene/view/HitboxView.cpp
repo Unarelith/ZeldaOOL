@@ -40,9 +40,8 @@ void HitboxView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 			rect.setWireframeMode(true);
 			rect.setColor(Color::white);
 
-			if(object.has<SpriteComponent>()) {
-				u16 animID = object.get<SpriteComponent>().animID;
-				auto pos = object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition();
+			if(object.has<SpriteComponent>() && object.get<SpriteComponent>().hasCurrentState()) {
+				auto pos = object.get<SpriteComponent>().sprite().currentAnimation().currentPosition();
 				rect.move(pos.x, pos.y);
 			}
 
