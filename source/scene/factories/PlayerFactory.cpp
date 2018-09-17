@@ -59,7 +59,8 @@ SceneObject PlayerFactory::create(float x, float y) {
 	spriteComponent.addState("Moving",          true,  true,   0, 1);
 	spriteComponent.addState("Pushing",         true,  true,   4, 0);
 	spriteComponent.addState("Grab",            true,  false, 13, 1);
-	spriteComponent.addState("Lift",            true,  true,  13, 1);
+	spriteComponent.addState("Pull",            true,  true,  13, 1);
+	spriteComponent.addState("Lift",            true,  true,  17, 1);
 	spriteComponent.addState("SwordSwinging",   true,  true,   8, 0);
 	spriteComponent.addState("SwordLoading",    true,  true,   0, 1);
 	spriteComponent.addState("SwordLoaded",     true,  true,   0, 1);
@@ -100,16 +101,17 @@ SceneObject PlayerFactory::create(float x, float y) {
 	// Spin attack
 	spriteComponent.sprite().addAnimation({{20, 20, 22, 22, 23, 23, 21, 21}, swordSpinAttackPosition, 50});
 
-	// Lift action
+	// Pull
 	spriteComponent.sprite().addAnimation({{24, 28}, 150});
 	spriteComponent.sprite().addAnimation({{25, 29}, 150});
 	spriteComponent.sprite().addAnimation({{26, 30}, 150});
 	spriteComponent.sprite().addAnimation({{27, 31}, 150});
 
-	spriteComponent.sprite().addAnimation({{32, 28}, 90});
-	spriteComponent.sprite().addAnimation({{33, 29}, 90});
-	spriteComponent.sprite().addAnimation({{34, 30}, 90});
-	spriteComponent.sprite().addAnimation({{35, 31}, 90});
+	// Lift
+	spriteComponent.sprite().addAnimation({{32, 36}, 90});
+	spriteComponent.sprite().addAnimation({{33, 37}, 90});
+	spriteComponent.sprite().addAnimation({{34, 38}, 90});
+	spriteComponent.sprite().addAnimation({{35, 39}, 90});
 
 	auto &inventoryComponent = player.set<InventoryComponent>();
 	inventoryComponent.addWeapon("swordL1");

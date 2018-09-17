@@ -25,4 +25,6 @@
 	<texture folder="interface" name="menuCursor"/>
 	<texture folder="interface" name="numbers"/>
 	<texture folder="interface" name="stats"/>
+
+	<texture folder="tilesets" name="plain"/>
 </textures>

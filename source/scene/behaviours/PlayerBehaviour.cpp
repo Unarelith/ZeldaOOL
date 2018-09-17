@@ -104,7 +104,7 @@ void PlayerBehaviour::action(SceneObject &player) {
 	}
 	else if(m_state == "Grab") {
 		if (movement.isMoving)
-			m_state = "Lift";
+			m_state = "Pull";
 
 		if (movement.speed != 0 || !GamePad::isKeyPressed(m_weapon->get<WeaponComponent>().key)) {
 			movement.isDirectionLocked = false;
@@ -112,7 +112,7 @@ void PlayerBehaviour::action(SceneObject &player) {
 			m_state = "Standing";
 		}
 	}
-	else if(m_state == "Lift") {
+	else if(m_state == "Pull") {
 		if (!movement.isMoving)
 			m_state = "Grab";
 
@@ -129,10 +129,24 @@ void PlayerBehaviour::action(SceneObject &player) {
 		{
 			movement.isDirectionLocked = false;
 			movement.speed = 0.4f;
-			m_state = "Standing";
+			m_state = "Lift";
+
+			SceneObject object("Tile");
+			object.set<PositionComponent>();
+			object.set<Sprite>("tilesets-plain", 16, 16).setCurrentFrame(Map::currentMap->getTile(
+				positionComponent.getFrontTile().x,
+				positionComponent.getFrontTile().y
+			));
+			player.get<SceneObjectList>().addObject(std::move(object));
 
 			Map::currentMap->setTile(positionComponent.getFrontTile().x,
 			                         positionComponent.getFrontTile().y, 36);
+		}
+	}
+	else if(m_state == "Lift") {
+		if (GamePad::isKeyPressedOnce(m_weapon->get<WeaponComponent>().key)) {
+			player.get<SceneObjectList>().removeByName("Tile");
+			m_state = "Standing";
 		}
 	}
 	else {
@@ -170,6 +184,10 @@ void PlayerBehaviour::weaponAction(SceneObject &player) {
 void PlayerBehaviour::updateSprite(SceneObject &player) {
 	auto &movement = player.get<MovementComponent>();
 	auto &sprite = player.get<SpriteComponent>();
+
+	if (m_state == "Lift") {
+		sprite.setAnimated(movement.isMoving);
+	}
 
 	if (m_state == "Sword") {
 	 	std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
