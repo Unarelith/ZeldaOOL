@@ -14,12 +14,15 @@
 #include <iostream>
 #include <ctime>
 
+#include "AudioPlayer.hpp"
 #include "Config.hpp"
 #include "CoreApplication.hpp"
 #include "Exception.hpp"
 #include "GamePad.hpp"
 
-CoreApplication::CoreApplication(int, char **) {
+CoreApplication::CoreApplication(int argc, char **argv) {
+	if (argc > 1 && argv[1] == std::string("--no-sound"))
+		AudioPlayer::setMuteState(true);
 }
 
 void CoreApplication::init() {

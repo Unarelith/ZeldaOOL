@@ -17,16 +17,21 @@
 #include "SoundEffect.hpp"
 #include "Timer.hpp"
 
+bool AudioPlayer::s_muteState = false;
+
 void AudioPlayer::playMusic(const std::string &resourceName) {
-	// ResourceHandler::getInstance().get<BackgroundMusic>(std::string("bgm-") + resourceName).play();
+	if (!s_muteState)
+		ResourceHandler::getInstance().get<BackgroundMusic>(std::string("bgm-") + resourceName).play();
 }
 
 void AudioPlayer::playEffect(const std::string &resourceName, s8 channel) {
-	// ResourceHandler::getInstance().get<SoundEffect>(std::string("sfx-") + resourceName).play(channel);
+	if (!s_muteState)
+		ResourceHandler::getInstance().get<SoundEffect>(std::string("sfx-") + resourceName).play(channel);
 }
 
 void AudioPlayer::repeatEffect(const std::string &resourceName, u8 delay) {
-	// ResourceHandler::getInstance().get<SoundEffect>(std::string("sfx-") + resourceName).repeat(delay);
+	if (!s_muteState)
+		ResourceHandler::getInstance().get<SoundEffect>(std::string("sfx-") + resourceName).repeat(delay);
 }
 
 void AudioPlayer::pauseMusic() {

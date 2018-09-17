@@ -18,6 +18,15 @@
 
 Map *Map::currentMap = nullptr;
 
+#include "BattleController.hpp"
+#include "BehaviourController.hpp"
+#include "LifetimeController.hpp"
+#include "MovementController.hpp"
+
+#include "EffectView.hpp"
+#include "HitboxView.hpp"
+#include "SpriteView.hpp"
+
 Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data) : m_tileset(tileset) {
 	m_area = area;
 	m_x = x;
@@ -34,6 +43,18 @@ Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const 
 	m_renderer.init(this, m_width, m_height);
 
 	updateTiles();
+
+	// FIXME
+	if (m_scene.isInactive()) {
+		m_scene.addController<MovementController>();
+		m_scene.addController<BattleController>();
+		m_scene.addController<BehaviourController>();
+		m_scene.addController<LifetimeController>();
+		m_scene.addView<SpriteView>();
+		m_scene.addView<EffectView>();
+		// m_scene.addView<HitboxView>();
+	}
+
 }
 
 void Map::reset() {

@@ -30,6 +30,11 @@ class AudioPlayer {
 
 		static bool isMusicPaused();
 		static bool isMusicPlaying();
+
+		static void setMuteState(bool muteState) { s_muteState = muteState; }
+
+	private:
+		static bool s_muteState;
 };
 
 #endif // AUDIOPLAYER_HPP_

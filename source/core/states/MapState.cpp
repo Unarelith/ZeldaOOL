@@ -13,22 +13,15 @@
  */
 #include "ApplicationStateStack.hpp"
 #include "AudioPlayer.hpp"
-#include "BattleController.hpp"
-#include "BehaviourController.hpp"
 #include "Config.hpp"
-#include "EffectView.hpp"
 #include "GamePad.hpp"
-#include "HitboxView.hpp"
-#include "LifetimeController.hpp"
 #include "Map.hpp"
 #include "MapState.hpp"
 #include "MenuState.hpp"
 #include "MessageBoxState.hpp"
-#include "MovementController.hpp"
 #include "PlayerFactory.hpp"
 #include "ResourceHandler.hpp"
 #include "Scene.hpp"
-#include "SpriteView.hpp"
 
 MapState::MapState() {
 	Map::currentMap = &Map::getMap(0, 0, 0);
@@ -40,17 +33,6 @@ MapState::MapState() {
 }
 
 void MapState::update() {
-	// FIXME: Probably the cause of scene blink after transitions
-	if (Map::currentMap->scene().isInactive()) {
-		Map::currentMap->scene().addController<MovementController>();
-		Map::currentMap->scene().addController<BattleController>();
-		Map::currentMap->scene().addController<BehaviourController>();
-		Map::currentMap->scene().addController<LifetimeController>();
-		Map::currentMap->scene().addView<SpriteView>();
-		Map::currentMap->scene().addView<EffectView>();
-		// Map::currentMap->scene().addView<HitboxView>();
-	}
-
 	Map::currentMap->update();
 
 	m_statsBar.update();
