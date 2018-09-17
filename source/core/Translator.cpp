@@ -17,7 +17,7 @@
 void Translator::setLocale(const std::string &name) {
 	dictionary().clear();
 
-	XMLFile doc("data/locale/" + name + ".xml");
+	XMLFile doc("resources/locale/" + name + ".xml");
 
 	/* INTERFACE */
 	XMLElement *textElement = doc.FirstChildElement("language").FirstChildElement("text").ToElement();

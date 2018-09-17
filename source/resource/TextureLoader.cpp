@@ -23,7 +23,7 @@ void TextureLoader::load(const std::string &xmlFilename, ResourceHandler &handle
 		std::string folder = textureElement->Attribute("folder");
 		std::string name = textureElement->Attribute("name");
 
-		std::string filename = "graphics/" + folder + "/" + name + ".png";
+		std::string filename = "resources/graphics/" + folder + "/" + name + ".png";
 
 		handler.add<Texture>(folder + "-" + name, filename);
 

@@ -22,8 +22,8 @@
 #include "TeleporterLoader.hpp"
 
 void SceneObjectLoader::load(const std::string &mapName, Scene &scene) {
-	if(Filesystem::fileExists("data/config/maps/" + mapName + ".xml")) {
-		XMLFile doc("data/config/maps/" + mapName + ".xml");
+	if(Filesystem::fileExists("resources/config/maps/" + mapName + ".xml")) {
+		XMLFile doc("resources/config/maps/" + mapName + ".xml");
 
 		XMLElement *objectElement = doc.FirstChildElement("map").FirstChildElement().ToElement();
 		while(objectElement) {

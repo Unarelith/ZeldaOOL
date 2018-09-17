@@ -45,7 +45,7 @@ void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 #include "TilesInfos.hpp"
 
 void MapLoader::loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset &tileset, ResourceHandler &handler) {
-	XMLFile doc("data/maps/" + name + ".tmx");
+	XMLFile doc("resources/maps/" + name + ".tmx");
 
 	XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
 

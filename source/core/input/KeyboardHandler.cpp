@@ -17,7 +17,7 @@
 #include "XMLFile.hpp"
 
 KeyboardHandler::KeyboardHandler() {
-	XMLFile doc("data/config/keys.xml");
+	XMLFile doc("resources/config/keys.xml");
 
 	XMLElement *keys = doc.FirstChildElement("keys").ToElement();
 

@@ -109,7 +109,7 @@ void CoreApplication::handleEvents() {
 void CoreApplication::mainLoop() {
 	RenderStates states = RenderStates::Default;
 
-	Shader shader{"shaders/game.v.glsl", "shaders/game.f.glsl"};
+	Shader shader{"resources/shaders/game.v.glsl", "resources/shaders/game.f.glsl"};
 	states.shader = &shader;
 
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f);

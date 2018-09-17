@@ -30,11 +30,11 @@ void Application::init() {
 
 	initOpenGL();
 
-	m_resourceHandler.loadConfigFile<AudioLoader>("data/config/audio.xml");
-	m_resourceHandler.loadConfigFile<TextureLoader>("data/config/textures.xml");
-	m_resourceHandler.loadConfigFile<ItemLoader>("data/config/items.xml");
-	m_resourceHandler.loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
-	m_resourceHandler.loadConfigFile<MapLoader>("data/config/maps.xml");
+	m_resourceHandler.loadConfigFile<AudioLoader>("resources/config/audio.xml");
+	m_resourceHandler.loadConfigFile<TextureLoader>("resources/config/textures.xml");
+	m_resourceHandler.loadConfigFile<ItemLoader>("resources/config/items.xml");
+	m_resourceHandler.loadConfigFile<TilesetLoader>("resources/config/tilesets.xml");
+	m_resourceHandler.loadConfigFile<MapLoader>("resources/config/maps.xml");
 
 	m_stateStack.push<MapState>();
 }
