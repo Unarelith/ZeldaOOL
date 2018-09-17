@@ -1,0 +1,151 @@
+<sprite name="link" texture="characters-link" width="16" height="16">
+	<states>
+		<state name="Standing"         directional="1" animated="0" anim=" 0" frame="1"/>
+		<state name="Moving"           directional="1" animated="1" anim=" 0" frame="1"/>
+		<state name="Pushing"          directional="1" animated="1" anim=" 4" frame="0"/>
+		<state name="Grab"             directional="1" animated="0" anim="13" frame="1"/>
+		<state name="Pull"             directional="1" animated="1" anim="13" frame="1"/>
+		<state name="Lift"             directional="1" animated="1" anim="17" frame="1"/>
+		<state name="SwordSwinging"    directional="1" animated="1" anim=" 8" frame="0"/>
+		<state name="SwordLoading"     directional="1" animated="1" anim=" 0" frame="1"/>
+		<state name="SwordLoaded"      directional="1" animated="1" anim=" 0" frame="1"/>
+		<state name="SwordSpinAttack"  directional="0" animated="1" anim="12" frame="0"/>
+	</states>
+
+	<animations>
+		<animation delay="110" loop="1">
+			<frame id="4"/>
+			<frame id="0"/>
+		</animation>
+
+		<animation delay="110" loop="1">
+			<frame id="5"/>
+			<frame id="1"/>
+		</animation>
+
+		<animation delay="110" loop="1">
+			<frame id="6"/>
+			<frame id="2"/>
+		</animation>
+
+		<animation delay="110" loop="1">
+			<frame id="7"/>
+			<frame id="3"/>
+		</animation>
+
+		<animation delay="90" loop="1">
+			<frame id="8"/>
+			<frame id="12"/>
+		</animation>
+
+		<animation delay="90" loop="1">
+			<frame id="9"/>
+			<frame id="13"/>
+		</animation>
+
+		<animation delay="90" loop="1">
+			<frame id="10"/>
+			<frame id="14"/>
+		</animation>
+
+		<animation delay="90" loop="1">
+			<frame id="11"/>
+			<frame id="15"/>
+		</animation>
+
+		<animation delay="45" loop="1">
+			<frame id="16" x="0"  y="0"/>
+			<frame id="20" x="0"  y="0"/>
+			<frame id="20" x="0"  y="3"/>
+			<frame id="20" x="0"  y="3"/>
+			<frame id="20" x="0"  y="3"/>
+			<frame id="20" x="0"  y="3"/>
+			<frame id="20" x="0"  y="0"/>
+			<frame id="20" x="0"  y="0"/>
+		</animation>
+
+		<animation delay="45" loop="1">
+			<frame id="17" x="0"  y="0"/>
+			<frame id="21" x="0"  y="0"/>
+			<frame id="21" x="4"  y="0"/>
+			<frame id="21" x="4"  y="0"/>
+			<frame id="21" x="4"  y="0"/>
+			<frame id="21" x="4"  y="0"/>
+			<frame id="21" x="0"  y="0"/>
+			<frame id="21" x="0"  y="0"/>
+		</animation>
+
+		<animation delay="45" loop="1">
+			<frame id="18" x="0"  y="0"/>
+			<frame id="22" x="0"  y="0"/>
+			<frame id="22" x="-4" y="0"/>
+			<frame id="22" x="-4" y="0"/>
+			<frame id="22" x="-4" y="0"/>
+			<frame id="22" x="-4" y="0"/>
+			<frame id="22" x="0"  y="0"/>
+			<frame id="22" x="0"  y="0"/>
+		</animation>
+
+		<animation delay="45" loop="1">
+			<frame id="19" x="0"  y="0"/>
+			<frame id="23" x="0"  y="0"/>
+			<frame id="23" x="0"  y="-3"/>
+			<frame id="23" x="0"  y="-3"/>
+			<frame id="23" x="0"  y="-3"/>
+			<frame id="23" x="0"  y="-3"/>
+			<frame id="23" x="0"  y="0"/>
+			<frame id="23" x="0"  y="0"/>
+		</animation>
+
+		<animation delay="50" loop="1">
+			<frame id="20" x="0"  y="3"/>
+			<frame id="20" x="0"  y="3"/>
+			<frame id="22" x="-4" y="0"/>
+			<frame id="22" x="-4" y="0"/>
+			<frame id="23" x="0"  y="-3"/>
+			<frame id="23" x="0"  y="-3"/>
+			<frame id="21" x="4"  y="0"/>
+			<frame id="21" x="4"  y="0"/>
+		</animation>
+
+		<animation delay="150" loop="1">
+			<frame id="24"/>
+			<frame id="28"/>
+		</animation>
+
+		<animation delay="150" loop="1">
+			<frame id="25"/>
+			<frame id="29"/>
+		</animation>
+
+		<animation delay="150" loop="1">
+			<frame id="26"/>
+			<frame id="30"/>
+		</animation>
+
+		<animation delay="150" loop="1">
+			<frame id="27"/>
+			<frame id="31"/>
+		</animation>
+
+		<animation delay="90" loop="1">
+			<frame id="32"/>
+			<frame id="36"/>
+		</animation>
+
+		<animation delay="90" loop="1">
+			<frame id="33"/>
+			<frame id="37"/>
+		</animation>
+
+		<animation delay="90" loop="1">
+			<frame id="34"/>
+			<frame id="38"/>
+		</animation>
+
+		<animation delay="90" loop="1">
+			<frame id="35"/>
+			<frame id="39"/>
+		</animation>
+	</animations>
+</sprite>

@@ -33,6 +33,7 @@
 
 SceneObject PlayerFactory::create(float x, float y) {
 	SceneObject player{"Link", "Player"};
+	player.set<SpriteComponent>("characters-link", 16, 16);
 	player.set<BehaviourComponent>(new PlayerBehaviour);
 	player.set<HealthComponent>(13 * 4, 11 * 4);
 	player.set<MovementComponent>(new GamePadMovement);
@@ -53,65 +54,6 @@ SceneObject PlayerFactory::create(float x, float y) {
 	auto &effectsComponent = player.set<EffectsComponent>();
 	effectsComponent.addEffect("grass", "animations-grassEffect", 16, 16);
 	effectsComponent.addEffect("lowWater", "animations-lowWaterEffect", 16, 16);
-
-	auto &spriteComponent = player.set<SpriteComponent>("characters-link", 16, 16);
-	spriteComponent.addState("Standing",        true,  false,  0, 1);
-	spriteComponent.addState("Moving",          true,  true,   0, 1);
-	spriteComponent.addState("Pushing",         true,  true,   4, 0);
-	spriteComponent.addState("Grab",            true,  false, 13, 1);
-	spriteComponent.addState("Pull",            true,  true,  13, 1);
-	spriteComponent.addState("Lift",            true,  true,  17, 1);
-	spriteComponent.addState("SwordSwinging",   true,  true,   8, 0);
-	spriteComponent.addState("SwordLoading",    true,  true,   0, 1);
-	spriteComponent.addState("SwordLoaded",     true,  true,   0, 1);
-	spriteComponent.addState("SwordSpinAttack", false, true,  12, 0);
-
-	std::vector<std::vector<Vector2i>> usingSwordPosition = {
-		{{ 0,  0}, { 0,  0}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  3}, { 0,  0}, { 0,  0}},
-		{{ 0,  0}, { 0,  0}, { 4,  0}, { 4,  0}, { 4,  0}, { 4,  0}, { 0,  0}, { 0,  0}},
-		{{ 0,  0}, { 0,  0}, {-4,  0}, {-4,  0}, {-4,  0}, {-4,  0}, { 0,  0}, { 0,  0}},
-		{{ 0,  0}, { 0,  0}, { 0, -3}, { 0, -3}, { 0, -3}, { 0, -3}, { 0,  0}, { 0,  0}}
-	};
-
-	std::vector<Vector2i> swordSpinAttackPosition = {
-		{ 0,  3}, { 0,  3},
-		{-4,  0}, {-4,  0},
-		{ 0, -3}, { 0, -3},
-		{ 4,  0}, { 4,  0}
-	};
-
-	// Walking
-	spriteComponent.sprite().addAnimation({{4, 0}, 110});
-	spriteComponent.sprite().addAnimation({{5, 1}, 110});
-	spriteComponent.sprite().addAnimation({{6, 2}, 110});
-	spriteComponent.sprite().addAnimation({{7, 3}, 110});
-
-	// Pushing
-	spriteComponent.sprite().addAnimation({{ 8, 12}, 90});
-	spriteComponent.sprite().addAnimation({{ 9, 13}, 90});
-	spriteComponent.sprite().addAnimation({{10, 14}, 90});
-	spriteComponent.sprite().addAnimation({{11, 15}, 90});
-
-	// Using sword
-	spriteComponent.sprite().addAnimation({{16, 20, 20, 20, 20, 20, 20, 20}, usingSwordPosition[0], 45});
-	spriteComponent.sprite().addAnimation({{17, 21, 21, 21, 21, 21, 21, 21}, usingSwordPosition[1], 45});
-	spriteComponent.sprite().addAnimation({{18, 22, 22, 22, 22, 22, 22, 22}, usingSwordPosition[2], 45});
-	spriteComponent.sprite().addAnimation({{19, 23, 23, 23, 23, 23, 23, 23}, usingSwordPosition[3], 45});
-
-	// Spin attack
-	spriteComponent.sprite().addAnimation({{20, 20, 22, 22, 23, 23, 21, 21}, swordSpinAttackPosition, 50});
-
-	// Pull
-	spriteComponent.sprite().addAnimation({{24, 28}, 150});
-	spriteComponent.sprite().addAnimation({{25, 29}, 150});
-	spriteComponent.sprite().addAnimation({{26, 30}, 150});
-	spriteComponent.sprite().addAnimation({{27, 31}, 150});
-
-	// Lift
-	spriteComponent.sprite().addAnimation({{32, 36}, 90});
-	spriteComponent.sprite().addAnimation({{33, 37}, 90});
-	spriteComponent.sprite().addAnimation({{34, 38}, 90});
-	spriteComponent.sprite().addAnimation({{35, 39}, 90});
 
 	auto &inventoryComponent = player.set<InventoryComponent>();
 	inventoryComponent.addWeapon("swordL1");

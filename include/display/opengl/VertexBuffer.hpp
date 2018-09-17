@@ -14,15 +14,16 @@
 #ifndef VERTEXBUFFER_HPP_
 #define VERTEXBUFFER_HPP_
 
-#include "NonCopyable.hpp"
 #include "OpenGL.hpp"
 
-class VertexBuffer : public NonCopyable {
+class VertexBuffer {
 	public:
 		VertexBuffer();
+		VertexBuffer(const VertexBuffer &);
 		VertexBuffer(VertexBuffer &&);
 		~VertexBuffer() noexcept;
 
+		VertexBuffer &operator=(const VertexBuffer &);
 		VertexBuffer &operator=(VertexBuffer &&) = default;
 
 		void setData(GLsizeiptr size, const GLvoid *data, GLenum usage) const;
@@ -34,6 +35,8 @@ class VertexBuffer : public NonCopyable {
 
 	private:
 		GLuint m_id = 0;
+
+		bool m_isCopy = false;
 };
 
 #endif // VERTEXBUFFER_HPP_

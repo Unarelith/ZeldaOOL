@@ -34,8 +34,7 @@ struct SpriteState {
 
 class SpriteComponent {
 	public:
-		SpriteComponent(const std::string &textureName, u16 frameWidth, u16 frameHeight)
-			: m_sprite(textureName, frameWidth, frameHeight) {}
+		SpriteComponent(const std::string &textureName, u16 frameWidth, u16 frameHeight);
 
 		void addState(const std::string &name, bool handleDirection, bool isAnimated, u16 animationID, u16 frameID = 0);
 		void setState(const std::string &name, SceneObject &object, u16 frameOffset = 0);

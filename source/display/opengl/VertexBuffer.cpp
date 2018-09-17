@@ -17,13 +17,27 @@ VertexBuffer::VertexBuffer() {
 	glGenBuffers(1, &m_id);
 }
 
+VertexBuffer::VertexBuffer(const VertexBuffer &vertexBuffer) {
+	m_id = vertexBuffer.m_id;
+	m_isCopy = true;
+}
+
 VertexBuffer::VertexBuffer(VertexBuffer &&vertexBuffer) {
 	m_id = vertexBuffer.m_id;
 	vertexBuffer.m_id = 0;
+
+	m_isCopy = vertexBuffer.m_isCopy;
 }
 
 VertexBuffer::~VertexBuffer() noexcept {
-	glDeleteBuffers(1, &m_id);
+	if (!m_isCopy)
+		glDeleteBuffers(1, &m_id);
+}
+
+VertexBuffer &VertexBuffer::operator=(const VertexBuffer &vertexBuffer) {
+	m_id = vertexBuffer.m_id;
+	m_isCopy = true;
+	return *this;
 }
 
 void VertexBuffer::setData(GLsizeiptr size, const GLvoid *data, GLenum usage) const {

@@ -21,6 +21,9 @@
 
 class SpriteAnimation {
 	public:
+		SpriteAnimation(u16 delay, bool isRepeated = true)
+			: m_delay(delay), m_isRepeated(isRepeated) {}
+		// FIXME: To remove
 		SpriteAnimation(std::vector<u16> frames, u16 delay, bool isRepeated = true)
 			: m_frames(frames), m_positions(frames.size(), {0, 0}), m_delay(delay), m_isRepeated(isRepeated) {}
 		SpriteAnimation(std::vector<u16> frames, std::vector<Vector2i> positions, u16 delay, bool isRepeated = true)
@@ -33,6 +36,7 @@ class SpriteAnimation {
 
 		void play();
 
+		void addFrame(u16 frameID, Vector2i position = {0, 0}) { m_frames.emplace_back(frameID); m_positions.emplace_back(position); }
 		u16 getFrame(u16 frameID) const;
 		u16 currentFrame() const;
 		u16 displayedFramesAmount() const;
