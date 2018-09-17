@@ -31,9 +31,6 @@ void XMLFile::load(const std::string &filename) {
 			case tinyxml2::XML_ERROR_FILE_COULD_NOT_BE_OPENED:
 				errorString = "File couldn't be opened.";
 				break;
-			case tinyxml2::XML_ERROR_FILE_READ_ERROR:
-				errorString = "File read error.";
-				break;
 			case tinyxml2::XML_ERROR_PARSING_ELEMENT:
 				errorString = "Error while parsing element.";
 				break;

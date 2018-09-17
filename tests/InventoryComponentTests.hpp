@@ -22,10 +22,14 @@
 #include "TextureLoader.hpp"
 
 class InventoryComponentTests : public CxxTest::TestSuite  {
+	private:
+		ResourceHandler m_resources;
+
 	public:
 		InventoryComponentTests() {
-			ResourceHandler::getInstance().loadConfigFile<TextureLoader>("data/config/textures.xml");
-			ResourceHandler::getInstance().loadConfigFile<ItemLoader>("data/config/items.xml");
+			ResourceHandler::setInstance(m_resources);
+			m_resources.loadConfigFile<TextureLoader>("data/config/textures.xml");
+			m_resources.loadConfigFile<ItemLoader>("data/config/items.xml");
 		}
 
 		void testAdd() {
