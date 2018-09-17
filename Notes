@@ -1,36 +1,38 @@
 Notes
 
-# Todo list
+# Engine
 
-## Rework
+## Global
 
-• DONE: Fix stats bar update within menu
-• DONE: Fix sprite frame positions
-• DONE: Fix hearts and rupees display
-• DONE: Add HitboxView
-• DONE: Fix sword → grass collision
-• DONE: Fix grass destroy animation
-• DONE: Fix text display
-• DONE: Fix sprite color modifier and low grass color
-• DONE: Fix hurt effect
-• DONE: Add EffectView
-• DONE: Fix sword display + sword in ScrollingTransition
-• DONE: Fix Octorok dead animation
-• DONE: Fix transition bug with force bracelet
-• DONE: Fix scene blink after transitions
+• TODO: Check improvements in Lidonia and KubKraft
+• TODO: Use `clang-format` and `clang-tidy` and write pre-commit hooks
+• TODO: Check if GameClock is fully accurate
+• TODO: Add more debug tools, like a `Logger` class/namespace
+• TODO: Add more unit tests
 
-## After rework
+## Map
 
 • TODO: Add MapView and remove MapRenderer
 • TODO: Use a single scene for all the maps and remove `Scene::player`
-• TODO: Improve `game.f.glsl`
-• TODO: Check other improvements in Lidonia and KubKraft
+• TODO: Use real Tiled tileset + animations
 
-## Important
+## Sprites
 
-• Link hasn’t two hitboxes, the collision matrix contains the movement vector (vx;vy)
+• TODO: Update `SpriteComponent` with sprite states
+• TODO: Improve palette handling
+
+                                     * * *
+
+# Gameplay
+
+## Player
+
+• FIXME: Link hasn’t two hitboxes, the collision matrix contains the movement vector (vx;vy)
    → That's why we need to test his direction
    → That's why the two hitboxes had close values
+
+## NPCs
+
 • WIP: Add `NPC`s
    → Create a class `Message` or `NPCMessage` which could contain actions,
      conditions, etc.
@@ -45,85 +47,78 @@ Notes
          → Or maybe just using z-buffer...? T.T
       ▸ `NPC` animation should be stopped when his message is displayed
          → I think using `Sprite::pause` could be a good idea
-• DONE: `Octorok` should drop collectables
+
+## Weapons
+
+• WIP: Add power bracelet
+   ◦ TODO: Pots, rocks and grass are liftable
+   ◦ TODO: Add state “Lifting” for player
+• TODO: Improve sword positions
+• TODO: Remove sword loading animation and replace it by palette switch
+
+## Monsters
+
+• WIP: `Octorok` should drop collectables
    → FIXME: Drop after the end of the death animation
-• Use `clang-format` and `clang-tidy` and write pre-commit hooks
-• Implement projectiles for `Octoroks`
-• Add `JarFactory` and `BlockFactory`
-   ▸ A `Jar` is movable in all ways
-   ▸ A `Block` can be moved once only, or not at all, and requires the way it can be moved
-• Add power bracelet
-   ▸ Pots, rocks and grass are liftable
-   → Add state “Lifting” for player
+• TODO: Implement projectiles for `Octoroks`
 
-## Improvements
+## Tiles
 
-• Improve the way singleton works
-• Compare `CubeLand` and `Zelda` code, find what has been improved in `CubeLand` and what could be improved in `Zelda`
-• Try to reduce code of `GamePad::isKeyPressed`
-• Improve code performance
-• Improve `Collectable` drop movement and add shadow
-• Improve sword positions
-• Remove sword loading animation and replace it by palette switch
-• Improve `OpenGL` code
-   → Use model matrix instead of raw positions
-      ▸ Base class `Transformable`?
-   → Write a class `VertexArray`, and use it in `Image` and `Rectangle`
-• Add more debug tools, like a `Logger` class/namespace
-• Add more unit tests
-• Check valgrind
-• Check if GameClock is fully accurate
-• Reduce compile time
-   ▸ Forward declare stuff
+• TODO: Add `JarFactory` and `BlockFactory`
+   → A `Jar` is movable in all ways
+   → A `Block` can be moved once only, or not at all, and requires the way it can be moved
 
-# Refactoring issues
+## Collectables
 
-• Fix grass objects hitbox
-• Fix player/button collision when using sword
+• TODO: Improve `Collectable` drop movement and add shadow
+
+                                     * * *
+
+# Old todo
+
+## Refactoring issues
+
+• FIXME: Fix grass objects hitbox
+• FIXME: Fix player/button collision when using sword
    → Link shouldn’t move, the `Sprite` should (check the original game)
-• `Sword` position when player is hurt at the same time he uses it is weird
+• FIXME: `Sword` position when player is hurt at the same time he uses it is weird
    → Slow down game to see what actually happens
-• `HurtMovement` can stop if player is stopped?
+• FIXME: `HurtMovement` can stop if player is stopped?
    ▸ Check the behaviour in the original game
    → Check `isMoving` flag
-• The tile under link should be destroyed by his spin attack
-• Find a better way to check if the player is facing a chest
+• FIXME: The tile under link should be destroyed by his spin attack
+• FIXME: Find a better way to check if the player is facing a chest
 
-# Other issues
+## Other issues
 
-• When `Octorok` goes out of the map it throws an exception
+• FIXME: When `Octorok` goes out of the map it throws an exception
    → “Fatal error at ResourceHandler.hpp:43: Unable to find resource with name: 2-0-1”
    → Why the `ScrollingTransition` is triggered with an `Octorok`
-• `Player` and `Octoroks` can be pushed out of the map during `HurtMovement`
+• FIXME: `Player` and `Octoroks` can be pushed out of the map during `HurtMovement`
    → Check in `PlayerFactory::mapCollisions`, if hurt so go to `ScrollingTransition`, else
      block him
-• Octorok's `HurtMovement` speed too slow?
+• FIXME: Octorok's `HurtMovement` speed too slow?
    → Check the original game, and adapt the speed
-• Improve palette system
+• FIXME: Improve palette system
    → Look at `KubKraft` and improve `Shader` class
    → Move palette system into other files
-• `Rupees` are added one by one to the counter in the original game
+• FIXME: `Rupees` are added one by one to the counter in the original game
    ▪ There's also a sound effect
-• Check sound effect channels in real game
+• FIXME: Check sound effect channels in real game
    ▪ For example, is it possible to hear sword loading sound anymore when link releases spin attack?
    ▪ It's not possible to hear text ‘clicks’ during ‘tadaaaaaaa’ (new item)
    → Define channel in constructor (and ‘load’), so from `Sound.cpp`
-• Fix `grassDestroy` animation
+• FIXME: Fix `grassDestroy` animation
    → Find the *Oracle of* version
-• `Player` can be teleported when hurt
+• FIXME: `Player` can be teleported when hurt
    → Check if player is hurt before teleportation
-• Find why collectables don't drop correctly on my eeePC
-• DONE: Fix ‘moonwalk’ bug
-   → `Up` and `Down` can't be pressed at the same time
-   → `Left` and `Right` can't be pressed at the same time
-   → Look at the original game and look at link's behaviour when it's the case
+• FIXME: Find why collectables don't drop correctly on my eeePC
 
-# Todo after engine is finished
+## Todo after engine is finished
 
-• Improve game for `OpenGL ES` and try on Android
-• Write a little game editor with `Qt` to add content if needed, it needs:
-   ▪ A `Map` editor
-   ▪ A `SceneObject` editor
+• TODO: Improve game for `OpenGL ES` and try on Android
+• TODO: Write a little game editor with `Qt` to add content if needed, it needs:
+   ▪ TODO: `Map` editor
+   ▪ TODO: `SceneObject` editor
 
 > vim:ft=notes
-
