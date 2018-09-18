@@ -12,6 +12,7 @@
 	<texture folder="collectables" name="rupees1"/>
 	<texture folder="collectables" name="rupees5"/>
 	<texture folder="collectables" name="rupees30"/>
+	<texture folder="collectables" name="rupees100"/>
 
 	<texture folder="enemies" name="octorok"/>
 

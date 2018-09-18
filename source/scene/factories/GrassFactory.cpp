@@ -57,10 +57,11 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	}));
 
 	auto &lootComponent = object.set<LootComponent>();
-	lootComponent.addItem(0.2,   CollectableType::Rupees, RupeesAmount::One);
-	lootComponent.addItem(0.067, CollectableType::Heart);
-	lootComponent.addItem(0.04,  CollectableType::Rupees, RupeesAmount::Five);
-	lootComponent.addItem(0.004, CollectableType::Rupees, RupeesAmount::Thirty);
+	lootComponent.addItem(0.2,    CollectableType::Rupees, RupeesAmount::One);
+	lootComponent.addItem(0.067,  CollectableType::Heart);
+	lootComponent.addItem(0.04,   CollectableType::Rupees, RupeesAmount::Five);
+	lootComponent.addItem(0.004,  CollectableType::Rupees, RupeesAmount::Thirty);
+	lootComponent.addItem(0.0001, CollectableType::Rupees, RupeesAmount::Hundred);
 
 	return object;
 }

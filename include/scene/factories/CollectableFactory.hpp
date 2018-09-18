@@ -18,9 +18,10 @@
 #include "SceneObject.hpp"
 
 enum RupeesAmount : u8 {
-	One    = 1,
-	Five   = 5,
-	Thirty = 30,
+	One     = 1,
+	Five    = 5,
+	Thirty  = 30,
+	Hundred = 100
 };
 
 enum CollectableType {
