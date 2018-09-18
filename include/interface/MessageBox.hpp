@@ -22,7 +22,7 @@
 #include "RectangleShape.hpp"
 #include "TextBox.hpp"
 
-class MessageBox : public IDrawable {
+class MessageBox : public IDrawable, public Transformable {
 	public:
 		enum Position : u8 {
 			Top    = 24,
@@ -32,8 +32,6 @@ class MessageBox : public IDrawable {
 		MessageBox(const std::string &text = "", Position position = Position::Top);
 
 		void update();
-
-		void setPosition(Position position) { m_rectangle.setPosition(8, position); }
 
 		bool finished() const { return m_finished; }
 

@@ -21,10 +21,10 @@
 
 class TextBox : public IDrawable, public Transformable {
 	public:
-		TextBox(const std::string &text);
+		TextBox(const std::string &text, u16 width, u16 height);
 
+		void updateTextSprites();
 		void setText(const std::string &text);
-		void setSize(u16 width, u16 height);
 
 		bool scrollDown();
 		void stopTextAnimation();
@@ -42,8 +42,6 @@ class TextBox : public IDrawable, public Transformable {
 
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;
-
-		void updateTextSprites();
 
 		bool isTimeToDisplayLetter(u16 letterIndex) const;
 
@@ -64,8 +62,8 @@ class TextBox : public IDrawable, public Transformable {
 		Color m_currentColor = Color::text;
 		std::map<u16, Color> m_colorChanges;
 
-		u16 m_width;
-		u16 m_height;
+		u16 m_width = 0;
+		u16 m_height = 0;
 };
 
 #endif // TEXTBOX_HPP_

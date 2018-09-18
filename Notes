@@ -24,6 +24,7 @@ Notes
 • DONE: Add a new class `Text` and use it for hearts and rupees
 • TODO: Merge `Text` and `TextBox`
 • TODO: In `Text`, replace `Sprite` instances by a `VertexBuffer`
+• TODO: Fix text blinking when opening a chest
 
 ## Global
 

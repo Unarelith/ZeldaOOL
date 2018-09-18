@@ -15,10 +15,10 @@
 #include "GamePad.hpp"
 #include "MessageBox.hpp"
 
-MessageBox::MessageBox(const std::string &text, Position position) : m_textBox(text) {
-	setPosition(position);
+MessageBox::MessageBox(const std::string &text, Position position) : m_textBox(text, 144, 40) {
+	Transformable::setPosition(8, position);
 
-	m_rectangle.setPosition(8, position);
+	m_dialogArrow.setPosition(m_rectangle.width() - 8, m_rectangle.height() - 7);
 }
 
 void MessageBox::update() {
@@ -33,14 +33,12 @@ void MessageBox::update() {
 		}
 	}
 
-	m_textBox.setPosition(m_rectangle.getPosition().x, m_rectangle.getPosition().y);
-	m_textBox.setSize(m_rectangle.width(), m_rectangle.height());
-
-	m_dialogArrow.setPosition(m_rectangle.getPosition().x + m_rectangle.width()  - 8,
-	                          m_rectangle.getPosition().y + m_rectangle.height() - 7);
+	m_textBox.updateTextSprites();
 }
 
 void MessageBox::draw(RenderTarget &target, RenderStates states) const {
+	applyTransform(states);
+
 	target.draw(m_rectangle, states);
 
 	target.draw(m_textBox, states);

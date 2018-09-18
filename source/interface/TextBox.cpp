@@ -17,17 +17,13 @@
 #include "Exception.hpp"
 #include "TextBox.hpp"
 
-TextBox::TextBox(const std::string &text) {
+TextBox::TextBox(const std::string &text, u16 width, u16 height) {
 	m_charTimer.start();
 
-	setText(text);
-}
-
-void TextBox::setSize(u16 width, u16 height) {
 	m_width = width;
 	m_height = height;
 
-	updateTextSprites();
+	setText(text);
 }
 
 void TextBox::updateTextSprites() {
