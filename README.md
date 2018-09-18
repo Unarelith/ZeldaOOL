@@ -8,8 +8,8 @@
 
 ## Keys
 
-- A : <kbd>W</kbd> (or <kbd>Z</kbd> on QWERTY keyboards)
-- B : <kbd>X</kbd>
+- A : <kbd>X</kbd>
+- B : <kbd>W</kbd>
 - Start : <kbd>Enter</kbd>
 - Select : <kbd>Backspace</kbd>
 - Directional keys: <kbd>&larr;</kbd> <kbd>&uarr;</kbd> <kbd>&darr;</kbd> <kbd>&rarr;</kbd>

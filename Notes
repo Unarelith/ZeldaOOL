@@ -1,5 +1,9 @@
 Notes
 
+# Bugs
+
+• FIXME: When the player release the sword key before loading begins, his animations gets frozen
+
 # Engine
 
 ## Map
@@ -63,9 +67,11 @@ Notes
 
 ## Weapons
 
-• WIP: Add power bracelet
-   ◦ TODO: Pots, rocks and grass are liftable
-   ◦ TODO: Add state “Lifting” for player
+• TODO: Power bracelet
+   ◦ TODO: Pull state is not animated
+   ◦ TODO: Can grab without pushing state
+   ◦ TODO: Pulling is only possible from the opposite direction
+   ◦ TODO: If link pulls too hard, he’ll be exhausted for a bit
 • TODO: Improve sword positions
 • TODO: Remove sword loading animation and replace it by palette switch
 

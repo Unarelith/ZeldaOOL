@@ -13,7 +13,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 #------------------------------------------------------------------------------
 # Get source files
 #------------------------------------------------------------------------------
-file(GLOB_RECURSE SOURCE_FILES source/*/*.cpp external/*.cpp)
+file(GLOB_RECURSE SOURCE_FILES source/*.cpp external/*.cpp)
 file(GLOB_RECURSE HEADER_FILES include/*.hpp external/*.hpp)
 
 foreach(HEADER_FILE ${HEADER_FILES})
@@ -22,38 +22,16 @@ foreach(HEADER_FILE ${HEADER_FILES})
 endforeach(HEADER_FILE)
 
 #------------------------------------------------------------------------------
-# Unit testing
-#------------------------------------------------------------------------------
-find_package(CxxTest QUIET)
-
-if(CXXTEST_FOUND)
-	include_directories(${CXXTEST_INCLUDE_DIRS})
-	enable_testing()
-
-	file(GLOB_RECURSE TEST_FILES tests/*.hpp)
-
-	CXXTEST_ADD_TEST(${CMAKE_PROJECT_NAME}_tests tests/unit-test.cpp ${TEST_FILES})
-else(CXXTEST_FOUND)
-	message(WARNING "CxxTest not found!")
-endif(CXXTEST_FOUND)
-
-#------------------------------------------------------------------------------
 # Add executables
 #------------------------------------------------------------------------------
-add_library(${CMAKE_PROJECT_NAME}_lib STATIC
-            ${SOURCE_FILES})
-
 add_executable(${CMAKE_PROJECT_NAME}
-               source/main.cpp)
+               ${SOURCE_FILES})
 
 #------------------------------------------------------------------------------
 # Compiler flags
 #------------------------------------------------------------------------------
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -ffast-math")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wfatal-errors")
-# target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -O3 -ffast-math -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
-# target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
+# target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -g -O3 -ffast-math -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
+target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -g -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
 target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_17)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -119,18 +97,7 @@ include_directories(${SDL2_INCLUDE_DIRS}
 #------------------------------------------------------------------------------
 # Link options
 #------------------------------------------------------------------------------
-if(CXXTEST_FOUND)
-	target_link_libraries(${CMAKE_PROJECT_NAME}_tests
-	                      ${CMAKE_PROJECT_NAME}_lib
-	                      ${TINYXML2_LIBRARIES}
-	                      ${OPENGL_LIBRARIES}
-	                      ${SDL2_LIBRARIES}
-	                      ${SDL2IMAGE_LIBRARIES}
-	                      ${SDL2MIXER_LIBRARIES})
-endif(CXXTEST_FOUND)
-
 target_link_libraries(${CMAKE_PROJECT_NAME}
-                      ${CMAKE_PROJECT_NAME}_lib
                       ${TINYXML2_LIBRARIES}
                       ${OPENGL_LIBRARIES}
                       ${SDL2_LIBRARIES}

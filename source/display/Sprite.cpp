@@ -26,14 +26,17 @@ Sprite::Sprite(const std::string &textureName, u16 frameWidth, u16 frameHeight, 
 }
 
 void Sprite::updateAnimations() {
-	if (m_animations.size() > 0 && m_isAnimated) {
+	if (!m_animations.empty() && m_isAnimated) {
 		if(m_currentAnimation >= m_animations.size()) {
 			throw EXCEPTION("Trying to play inexistant animation:", m_currentAnimation, "| Animations:", m_animations.size());
 		}
 
-		m_animations[m_currentAnimation].play();
+		m_animations.at(m_currentAnimation).play();
 
-		setCurrentFrame(m_animations[m_currentAnimation].currentFrame());
+		setPosition(m_animations.at(m_currentAnimation).currentPosition().x,
+		            m_animations.at(m_currentAnimation).currentPosition().y);
+
+		setCurrentFrame(m_animations.at(m_currentAnimation).currentFrame());
 	}
 }
 
@@ -41,11 +44,16 @@ void Sprite::setCurrentFrame(u16 currentFrame) {
 	u16 frameX = (currentFrame % (Image::width() / m_frameWidth)) * m_frameWidth;
 	u16 frameY = (currentFrame / (Image::width() / m_frameWidth)) * m_frameHeight;
 
-	if (!m_animations.empty())
-		setPosition(m_animations[m_currentAnimation].currentPosition().x, m_animations[m_currentAnimation].currentPosition().y);
 	setClipRect(frameX, frameY, m_frameWidth, m_frameHeight);
 
 	m_currentFrame = currentFrame;
+}
+
+void Sprite::setCurrentFrame(u16 animID, u16 frameID) {
+	setPosition(m_animations.at(animID).getFramePosition(frameID).x,
+	            m_animations.at(animID).getFramePosition(frameID).y);
+
+	setCurrentFrame(m_animations.at(animID).getFrame(frameID));
 }
 
 void Sprite::setCurrentAnimation(u16 currentAnimation) {

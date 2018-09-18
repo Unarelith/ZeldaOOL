@@ -41,6 +41,7 @@ class SpriteAnimation {
 		u16 currentFrame() const;
 		u16 displayedFramesAmount() const;
 
+		const Vector2i &getFramePosition(u16 frameID) const;
 		const Vector2i &currentPosition() const;
 
 		bool isPlaying() const { return m_timer.isStarted() && !m_isPaused; }

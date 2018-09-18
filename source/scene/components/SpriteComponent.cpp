@@ -84,7 +84,7 @@ void SpriteComponent::setState(const std::string &name, SceneObject &object, u16
 		m_sprite.setCurrentAnimation(it->second.animationID);
 	}
 
-	m_sprite.setCurrentFrame(m_sprite.currentAnimation().getFrame(it->second.frameID + frameOffset));
+	m_sprite.setCurrentFrame(m_sprite.currentAnimationID(), it->second.frameID + frameOffset);
 	m_sprite.setAnimated(m_isAnimated && it->second.isAnimated);
 
 	m_currentState = name;

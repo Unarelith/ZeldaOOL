@@ -23,6 +23,10 @@ class Sprite : public Image {
 
 		void updateAnimations();
 
+		void setCurrentFrame(u16 currentFrame);
+		void setCurrentFrame(u16 animID, u16 frameID);
+		void setCurrentAnimation(u16 currentAnimation);
+
 		void addAnimation(const SpriteAnimation &animation) { m_animations.emplace_back(animation); }
 
 		u16 currentFrame() const { return m_currentFrame; }
@@ -35,11 +39,8 @@ class Sprite : public Image {
 		const SpriteAnimation &currentAnimation() const { return m_animations[m_currentAnimation]; }
 
 		// FIXME: To remove (used in GrassFactory)
-		SpriteAnimation &currentAnimation() { return m_animations[m_currentAnimation]; }
-		SpriteAnimation &getAnimation(u16 i) { return m_animations[i]; }
-
-		void setCurrentFrame(u16 currentFrame);
-		void setCurrentAnimation(u16 currentAnimation);
+		SpriteAnimation &currentAnimation() { return m_animations.at(m_currentAnimation); }
+		SpriteAnimation &getAnimation(u16 i) { return m_animations.at(i); }
 
 		void setAnimated(bool isAnimated) { m_isAnimated = isAnimated; }
 

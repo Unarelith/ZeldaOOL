@@ -4,7 +4,7 @@
 		<state name="Moving"           directional="1" animated="1" anim=" 0" frame="1"/>
 		<state name="Pushing"          directional="1" animated="1" anim=" 4" frame="0"/>
 		<state name="Grab"             directional="1" animated="0" anim="13" frame="1"/>
-		<state name="Pull"             directional="1" animated="1" anim="13" frame="1"/>
+		<state name="Pull"             directional="1" animated="0" anim="13" frame="0"/>
 		<state name="Lift"             directional="1" animated="1" anim="17" frame="0"/>
 		<state name="SwordSwinging"    directional="1" animated="1" anim=" 8" frame="0"/>
 		<state name="SwordLoading"     directional="1" animated="1" anim=" 0" frame="1"/>
@@ -109,23 +109,23 @@
 		</animation>
 
 		<animation delay="150" loop="1">
-			<frame id="24"/>
-			<frame id="28"/>
+			<frame id="24" x="0" y="-1"/>
+			<frame id="28" x="0" y="0"/>
 		</animation>
 
 		<animation delay="150" loop="1">
-			<frame id="25"/>
-			<frame id="29"/>
+			<frame id="25" x="-4" y="0"/>
+			<frame id="29" x="0" y="0"/>
 		</animation>
 
 		<animation delay="150" loop="1">
-			<frame id="26"/>
-			<frame id="30"/>
+			<frame id="26" x="4" y="0"/>
+			<frame id="30" x="0" y="0"/>
 		</animation>
 
 		<animation delay="150" loop="1">
-			<frame id="27"/>
-			<frame id="31"/>
+			<frame id="27" x="0" y="2"/>
+			<frame id="31" x="0" y="0" />
 		</animation>
 
 		<animation delay="90" loop="1">

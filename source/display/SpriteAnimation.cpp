@@ -48,7 +48,7 @@ void SpriteAnimation::play() {
 }
 
 u16 SpriteAnimation::getFrame(u16 frameID) const {
-	return m_frames[frameID];
+	return m_frames.at(frameID);
 }
 
 u16 SpriteAnimation::currentFrame() const {
@@ -67,10 +67,15 @@ u16 SpriteAnimation::displayedFramesAmount() const {
 	return m_timer.time() / m_delay;
 }
 
+const Vector2i &SpriteAnimation::getFramePosition(u16 frameID) const {
+	return m_positions.at(frameID);
+}
+
 const Vector2i &SpriteAnimation::currentPosition() const {
 	if(!isFinished()) {
-		return m_positions.at(displayedFramesAmount());
+		return getFramePosition(displayedFramesAmount());
 	} else {
-		return m_positions.at(m_frames.size() - 1);
+		return getFramePosition(m_frames.size() - 1);
 	}
 }
+
