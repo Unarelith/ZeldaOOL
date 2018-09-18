@@ -53,7 +53,8 @@ SceneObject PlayerFactory::create(float x, float y) {
 
 	auto &effectsComponent = player.set<EffectsComponent>();
 	effectsComponent.addEffect("grass", "animations-grassEffect", 16, 16);
-	effectsComponent.addEffect("lowWater", "animations-lowWaterEffect", 16, 16);
+	Sprite &effect = effectsComponent.addEffect("lowWater", "animations-lowWaterEffect", 16, 16, {0, 8});
+	effect.addAnimation({{0, 1, 2}, 150});
 
 	auto &inventoryComponent = player.set<InventoryComponent>();
 	inventoryComponent.addWeapon("swordL1");
@@ -154,6 +155,7 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 	}
 
 	effects.enableIf("grass", onTile(TilesInfos::TileType::LowGrassTile));
+	effects.enableIf("lowWater", onTile(TilesInfos::TileType::LowWaterTile));
 
 	if(position.x < -3) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());

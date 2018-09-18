@@ -34,15 +34,14 @@ void EffectView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 						it.second.isEnabled = false;
 
 					it.second.setAnimated(true);
-					it.second.setPosition(it.second.offset.x, it.second.offset.y);
 					it.second.setCurrentAnimation(0);
 				} else {
 					it.second.setAnimated(false);
-					it.second.setPosition(it.second.offset.x, it.second.offset.y);
 					it.second.setCurrentFrame(0);
 				}
 
 				it.second.updateAnimations();
+				it.second.setPosition(it.second.offset.x, it.second.offset.y);
 				target.draw(it.second, states);
 			}
 		}

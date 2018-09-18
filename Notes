@@ -3,6 +3,7 @@ Notes
 # Bugs
 
 • FIXME: When the player release the sword key before loading begins, his animations gets frozen
+• FIXME: When the player tries to grab the NPC, he just goes through him (wtf?)
 
 # Engine
 
