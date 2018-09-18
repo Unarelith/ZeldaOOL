@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="10" height="8" tilewidth="16" tileheight="16" infinite="0" nextobjectid="1">
  <tileset firstgid="1" name="plain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
-  <image source="../../graphics/tilesets/plain.png" trans="ff00ff" width="256" height="256"/>
+  <image source="../graphics/tilesets/plain.png" trans="ff00ff" width="256" height="256"/>
  </tileset>
  <layer name="Calque de Tile 1" width="10" height="8">
   <data>
@@ -11,20 +11,20 @@
    <tile gid="47"/>
    <tile gid="63"/>
    <tile gid="64"/>
-   <tile gid="48"/>
-   <tile gid="245"/>
-   <tile gid="245"/>
-   <tile gid="47"/>
+   <tile gid="63"/>
+   <tile gid="64"/>
+   <tile gid="63"/>
+   <tile gid="64"/>
    <tile gid="64"/>
    <tile gid="48"/>
    <tile gid="190"/>
    <tile gid="191"/>
    <tile gid="192"/>
    <tile gid="48"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="4"/>
-   <tile gid="31"/>
+   <tile gid="47"/>
+   <tile gid="48"/>
+   <tile gid="47"/>
+   <tile gid="63"/>
    <tile gid="48"/>
    <tile gid="254"/>
    <tile gid="47"/>
@@ -40,49 +40,49 @@
    <tile gid="37"/>
    <tile gid="42"/>
    <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="17"/>
-   <tile gid="18"/>
-   <tile gid="19"/>
-   <tile gid="31"/>
-   <tile gid="48"/>
-   <tile gid="17"/>
-   <tile gid="18"/>
-   <tile gid="35"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="33"/>
-   <tile gid="50"/>
-   <tile gid="51"/>
-   <tile gid="47"/>
-   <tile gid="32"/>
-   <tile gid="33"/>
-   <tile gid="65"/>
-   <tile gid="2"/>
-   <tile gid="18"/>
-   <tile gid="18"/>
-   <tile gid="51"/>
+   <tile gid="58"/>
    <tile gid="53"/>
-   <tile gid="37"/>
+   <tile gid="53"/>
+   <tile gid="59"/>
    <tile gid="31"/>
    <tile gid="48"/>
-   <tile gid="49"/>
-   <tile gid="50"/>
-   <tile gid="50"/>
-   <tile gid="50"/>
-   <tile gid="35"/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="34"/>
+   <tile gid="19"/>
    <tile gid="38"/>
+   <tile gid="234"/>
    <tile gid="234"/>
    <tile gid="36"/>
    <tile gid="47"/>
+   <tile gid="18"/>
+   <tile gid="34"/>
+   <tile gid="65"/>
+   <tile gid="2"/>
+   <tile gid="35"/>
+   <tile gid="38"/>
+   <tile gid="234"/>
+   <tile gid="234"/>
+   <tile gid="36"/>
+   <tile gid="31"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="34"/>
+   <tile gid="35"/>
+   <tile gid="37"/>
+   <tile gid="21"/>
+   <tile gid="21"/>
+   <tile gid="37"/>
+   <tile gid="47"/>
    <tile gid="32"/>
    <tile gid="37"/>
    <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
    <tile gid="33"/>
+   <tile gid="34"/>
+   <tile gid="18"/>
    <tile gid="19"/>
-   <tile gid="21"/>
+   <tile gid="37"/>
    <tile gid="37"/>
    <tile gid="31"/>
   </data>

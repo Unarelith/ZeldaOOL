@@ -51,6 +51,7 @@ SceneObject OctorokFactory::create(float x, float y) {
 	effectsComponent.addEffect("grass", "animations-grassEffect", 16, 16);
 	effectsComponent.addEffect("lowWater", "animations-lowWaterEffect", 16, 16);
 
+	// FIXME: Fix effect system
 	auto &destroyEffect = effectsComponent.addEffect("destroy", "animations-monsterDestroy", 32, 32, {-8, -8});
 	destroyEffect.addAnimation({{0, 1, 0, 1, 0, 2, 3, 3, 2, 2, 3, 3, 2, 4, 4, 5, 5, 4, 6, 7}, 10, false});
 

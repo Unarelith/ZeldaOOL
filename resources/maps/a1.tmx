@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="8" tilewidth="16" tileheight="16">
- <tileset firstgid="1" name="plain" tilewidth="16" tileheight="16">
-  <image source="../../graphics/tilesets/plain.png" width="256" height="256"/>
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="10" height="8" tilewidth="16" tileheight="16" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" name="plain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
+  <image source="../graphics/tilesets/plain.png" width="256" height="256"/>
  </tileset>
  <layer name="Calque de Tile 1" width="10" height="8">
   <data>
@@ -53,7 +53,7 @@
    <tile gid="65"/>
    <tile gid="34"/>
    <tile gid="65"/>
-   <tile gid="51"/>
+   <tile gid="35"/>
    <tile gid="47"/>
    <tile gid="148"/>
    <tile gid="149"/>
@@ -62,19 +62,19 @@
    <tile gid="37"/>
    <tile gid="33"/>
    <tile gid="34"/>
-   <tile gid="51"/>
-   <tile gid="37"/>
-   <tile gid="31"/>
+   <tile gid="34"/>
+   <tile gid="34"/>
+   <tile gid="18"/>
    <tile gid="148"/>
    <tile gid="37"/>
    <tile gid="42"/>
    <tile gid="37"/>
    <tile gid="17"/>
    <tile gid="50"/>
-   <tile gid="51"/>
-   <tile gid="248"/>
-   <tile gid="248"/>
-   <tile gid="47"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
    <tile gid="148"/>
    <tile gid="37"/>
    <tile gid="33"/>
@@ -82,8 +82,8 @@
    <tile gid="51"/>
    <tile gid="31"/>
    <tile gid="32"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
+   <tile gid="248"/>
+   <tile gid="248"/>
    <tile gid="31"/>
   </data>
  </layer>

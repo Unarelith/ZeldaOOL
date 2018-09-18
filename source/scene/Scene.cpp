@@ -68,9 +68,9 @@ void Scene::draw(RenderTarget &target, RenderStates states) const {
 		view->draw(m_objects, target, states);
 
 		// FIXME: Fix player handling
-		view->draw(*Scene::player, target, states);
 		if (Scene::player->has<SceneObjectList>())
 			view->draw(Scene::player->get<SceneObjectList>(), target, states);
+		view->draw(*Scene::player, target, states);
 	}
 }
 

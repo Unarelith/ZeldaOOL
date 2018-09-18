@@ -12,6 +12,10 @@ Notes
 ## Sprites
 
 • DONE: Update `SpriteComponent` with sprite states
+• TODO: Move `Sprite` loading from `SpriteComponent` to `SpriteLoader`
+• TODO: Rewrite effect system
+• TODO: Use a config file for all the sprites
+• TODO: Octoroks should use a `SpriteComponent`
 • TODO: Improve palette handling
 • TODO: Sort sprites before rendering
 
