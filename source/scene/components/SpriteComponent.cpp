@@ -11,62 +11,7 @@
  *
  * =====================================================================================
  */
-#include "Filesystem.hpp"
 #include "SpriteComponent.hpp"
-#include "XMLFile.hpp"
-
-SpriteComponent::SpriteComponent(const std::string &textureName, u16 frameWidth, u16 frameHeight)
-: m_sprite(textureName, frameWidth, frameHeight)
-{
-	if (Filesystem::fileExists("resources/config/sprites/" + textureName + ".xml")) {
-		XMLFile doc("resources/config/sprites/" + textureName + ".xml");
-
-		tinyxml2::XMLElement *spriteElement = doc.FirstChildElement("sprite").ToElement();
-		std::string name = spriteElement->Attribute("name");
-		std::string texture = spriteElement->Attribute("texture");
-		u16 frameWidth = spriteElement->IntAttribute("width");
-		u16 frameHeight = spriteElement->IntAttribute("height");
-
-		// FIXME: Load sprite here from texture and frameWidth/Height
-
-		tinyxml2::XMLElement *stateElement = spriteElement->FirstChildElement("states")->FirstChildElement("state");
-		while (stateElement) {
-			std::string name = stateElement->Attribute("name");
-			bool handleDirection = stateElement->BoolAttribute("directional");
-			bool isAnimated = stateElement->BoolAttribute("animated");
-			u16 animID = stateElement->UnsignedAttribute("anim");
-			u16 frameID = stateElement->UnsignedAttribute("frame");
-
-			addState(name, handleDirection, isAnimated, animID, frameID);
-
-			stateElement = stateElement->NextSiblingElement("state");
-		}
-
-		tinyxml2::XMLElement *animationElement = spriteElement->FirstChildElement("animations")->FirstChildElement("animation");
-		while (animationElement) {
-			u32 delay = animationElement->IntAttribute("delay");
-			bool isLoop = animationElement->IntAttribute("loop");
-
-			SpriteAnimation animation(delay, isLoop);
-
-			tinyxml2::XMLElement *frameElement = animationElement->FirstChildElement("frame");
-			while (frameElement) {
-				u8 frameId = frameElement->IntAttribute("id");
-
-				int x = frameElement->IntAttribute("x");
-				int y = frameElement->IntAttribute("y");
-
-				animation.addFrame(frameId, {x, y});
-
-				frameElement = frameElement->NextSiblingElement("frame");
-			}
-
-			m_sprite.addAnimation(animation);
-
-			animationElement = animationElement->NextSiblingElement("animation");
-		}
-	}
-}
 
 void SpriteComponent::addState(const std::string &name, bool handleDirection, bool isAnimated, u16 animationID, u16 frameID) {
 	m_states.emplace(name, SpriteState{handleDirection, isAnimated, animationID, frameID});

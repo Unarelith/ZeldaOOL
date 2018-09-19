@@ -16,6 +16,7 @@
 #include "Map.hpp"
 #include "PlayerBehaviour.hpp"
 #include "PlayerFactory.hpp"
+#include "ResourceHandler.hpp"
 #include "SceneObjectList.hpp"
 #include "ScrollingTransition.hpp"
 #include "TilesInfos.hpp"
@@ -33,7 +34,7 @@
 
 SceneObject PlayerFactory::create(float x, float y) {
 	SceneObject player{"Link", "Player"};
-	player.set<SpriteComponent>("characters-link", 16, 16);
+	player.set<SpriteComponent>(ResourceHandler::getInstance().get<SpriteComponent>("sprite-characters-link"));
 	player.set<BehaviourComponent>(new PlayerBehaviour);
 	player.set<HealthComponent>(13 * 4, 11 * 4);
 	player.set<MovementComponent>(new GamePadMovement);

@@ -10,19 +10,20 @@ Notes
 ## Map
 
 • TODO: Add MapView and remove MapRenderer
-• TODO: Create a SceneObject to hold the maps and its subobjects
+• TODO: Create a SceneObject to hold the map and its subobjects
 • TODO: Use a single scene for all the maps and remove `Scene::player`
 • TODO: Use real Tiled tileset + animations
 
 ## Sprites
 
 • DONE: Update `SpriteComponent` with sprite states
-• TODO: Move `Sprite` loading from `SpriteComponent` to `SpriteLoader`
+• DONE: Move `Sprite` loading from `SpriteComponent` to `SpriteLoader`
 • TODO: Rewrite effect system
 • TODO: Use a config file for all the sprites
 • TODO: Octoroks should use a `SpriteComponent`
 • TODO: Improve palette handling
 • TODO: Sort sprites before rendering
+• TODO: Remove `Sprite::pause`
 
 ## Interface
 
@@ -33,8 +34,10 @@ Notes
 
 ## Global
 
+• TODO: Views and controllers should hold a list of SceneObjects
 • TODO: Check improvements in Lidonia and KubKraft
-• TODO: Check if GameClock is fully accurate
+• TODO: Check if GameClock is really accurate (use `cpulimit`)
+   ◦ TODO: Maybe use a delta time instead
 • TODO: Add more debug tools, like a `Logger` class/namespace
 • TODO: Add more unit tests
 • TODO: Use `clang-format` and `clang-tidy` and write pre-commit hooks
@@ -69,7 +72,7 @@ Notes
 ## Weapons
 
 • TODO: Power bracelet
-   ◦ TODO: Pull state is not animated
+   ◦ DONE: Pull state is not animated
    ◦ TODO: Can grab without pushing state
    ◦ TODO: Pulling is only possible from the opposite direction
    ◦ TODO: If link pulls too hard, he’ll be exhausted for a bit
@@ -81,12 +84,7 @@ Notes
 • WIP: `Octorok` should drop collectables
    → FIXME: Drop after the end of the death animation
 • TODO: Implement projectiles for `Octoroks`
-
-## Tiles
-
-• TODO: Add `JarFactory` and `BlockFactory`
-   → A `Jar` is movable in all ways
-   → A `Block` can be moved once only, or not at all, and requires the way it can be moved
+   ◦ TODO: Player can cancel them with a simple sword slash
 
 ## Collectables
 
