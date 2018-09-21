@@ -24,8 +24,9 @@ StatsBar::StatsBar() {
 }
 
 void StatsBar::update(const SceneObject &player) {
-	auto &playerInventory = player.get<InventoryComponent>();
+	m_player = &player;
 
+	auto &playerInventory = player.get<InventoryComponent>();
 	Weapon *weaponA = playerInventory.getWeaponA();
 	Weapon *weaponB = playerInventory.getWeaponB();
 
@@ -81,13 +82,12 @@ void StatsBar::draw(RenderTarget &target, RenderStates states) const {
 	target.draw(m_hearts, states);
 	target.draw(m_rupees, states);
 
-	// FIXME: Map rework
-	// auto &playerInventory = Scene::player->get<InventoryComponent>();
-    //
-	// Weapon *weaponA = playerInventory.getWeaponA();
-	// Weapon *weaponB = playerInventory.getWeaponB();
-    //
-	// if(weaponA) target.draw(weaponA->icon(), states);
-	// if(weaponB) target.draw(weaponB->icon(), states);
+	auto &playerInventory = m_player->get<InventoryComponent>();
+
+	Weapon *weaponA = playerInventory.getWeaponA();
+	Weapon *weaponB = playerInventory.getWeaponB();
+
+	if(weaponA) target.draw(weaponA->icon(), states);
+	if(weaponB) target.draw(weaponB->icon(), states);
 }
 

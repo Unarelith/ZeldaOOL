@@ -36,18 +36,17 @@ SceneObject ButtonFactory::create(u16 tileX, u16 tileY) {
 }
 
 void buttonAction(SceneObject &button, SceneObject &object, bool inCollision) {
-	// FIXME: Map rework
-	// if(Scene::isPlayer(object)) {
-	// 	auto &positionComponent = button.get<PositionComponent>();
-	// 	auto &buttonComponent = button.get<ButtonComponent>();
-    //
-	// 	if(inCollision) {
-	// 		buttonComponent.pressedAction(positionComponent.x / 16,
-	// 		                              positionComponent.y / 16);
-	// 	} else {
-	// 		buttonComponent.releasedAction(positionComponent.x / 16,
-	// 		                               positionComponent.y / 16);
-	// 	}
-	// }
+	if(object.type() == "Player") {
+		auto &positionComponent = button.get<PositionComponent>();
+		auto &buttonComponent = button.get<ButtonComponent>();
+
+		if(inCollision) {
+			buttonComponent.pressedAction(positionComponent.x / 16,
+			                              positionComponent.y / 16);
+		} else {
+			buttonComponent.releasedAction(positionComponent.x / 16,
+			                               positionComponent.y / 16);
+		}
+	}
 }
 

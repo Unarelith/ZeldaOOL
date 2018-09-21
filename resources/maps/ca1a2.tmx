@@ -4,87 +4,15 @@
   <image source="../graphics/tilesets/underground.png" trans="ff00ff" width="256" height="256"/>
  </tileset>
  <layer name="Calque de Tile 1" width="10" height="8">
-  <data>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="185"/>
-   <tile gid="177"/>
-   <tile gid="177"/>
-   <tile gid="177"/>
-   <tile gid="177"/>
-   <tile gid="177"/>
-   <tile gid="186"/>
-   <tile gid="168"/>
-   <tile gid="177"/>
-   <tile gid="177"/>
-   <tile gid="184"/>
-   <tile gid="161"/>
-   <tile gid="163"/>
-   <tile gid="242"/>
-   <tile gid="163"/>
-   <tile gid="24"/>
-   <tile gid="178"/>
-   <tile gid="168"/>
-   <tile gid="163"/>
-   <tile gid="67"/>
-   <tile gid="24"/>
-   <tile gid="67"/>
-   <tile gid="67"/>
-   <tile gid="162"/>
-   <tile gid="67"/>
-   <tile gid="162"/>
-   <tile gid="178"/>
-   <tile gid="168"/>
-   <tile gid="67"/>
-   <tile gid="163"/>
-   <tile gid="67"/>
-   <tile gid="24"/>
-   <tile gid="67"/>
-   <tile gid="67"/>
-   <tile gid="163"/>
-   <tile gid="67"/>
-   <tile gid="178"/>
-   <tile gid="168"/>
-   <tile gid="67"/>
-   <tile gid="67"/>
-   <tile gid="161"/>
-   <tile gid="67"/>
-   <tile gid="162"/>
-   <tile gid="67"/>
-   <tile gid="24"/>
-   <tile gid="67"/>
-   <tile gid="178"/>
-   <tile gid="168"/>
-   <tile gid="179"/>
-   <tile gid="182"/>
-   <tile gid="67"/>
-   <tile gid="163"/>
-   <tile gid="67"/>
-   <tile gid="67"/>
-   <tile gid="162"/>
-   <tile gid="67"/>
-   <tile gid="178"/>
-   <tile gid="168"/>
-   <tile gid="168"/>
-   <tile gid="187"/>
-   <tile gid="179"/>
-   <tile gid="179"/>
-   <tile gid="229"/>
-   <tile gid="230"/>
-   <tile gid="179"/>
-   <tile gid="179"/>
-   <tile gid="188"/>
-   <tile gid="168"/>
-  </data>
+  <data encoding="csv">
+168,168,168,168,168,168,168,168,168,168,
+168,168,185,177,177,177,177,177,186,168,
+177,177,184,161,163,242,163,24,178,168,
+163,67,24,67,67,162,67,162,178,168,
+67,163,67,24,67,67,163,67,178,168,
+67,67,161,67,162,67,24,67,178,168,
+179,182,67,163,67,67,162,67,178,168,
+168,187,179,179,229,230,179,179,188,168
+</data>
  </layer>
 </map>

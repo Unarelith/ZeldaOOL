@@ -21,7 +21,9 @@ Menu::Menu() {
 	m_background.setPosition(0, 16);
 }
 
-void Menu::update() {
+void Menu::update(SceneObject &player) {
+	m_player = &player;
+
 	if(GamePad::isKeyPressedWithDelay(GameKey::Left, 250)) {
 		AudioPlayer::playEffect("menuCursor");
 
@@ -59,30 +61,29 @@ void Menu::update() {
 	if(m_cursorY < 0) m_cursorY = 3;
 	if(m_cursorY > 3) m_cursorY = 0;
 
-	// FIXME: Map rework
-	// auto &playerInventory = Scene::player->get<InventoryComponent>();
-    //
-	// if(GamePad::isKeyPressedOnce(GameKey::A)) {
-	// 	AudioPlayer::playEffect("menuSelect");
-    //
-	// 	playerInventory.equipWeapon(m_cursorX, m_cursorY, GameKey::A);
-	// }
-    //
-	// if(GamePad::isKeyPressedOnce(GameKey::B)) {
-	// 	AudioPlayer::playEffect("menuSelect");
-    //
-	// 	playerInventory.equipWeapon(m_cursorX, m_cursorY, GameKey::B);
-	// }
-    //
-	// m_cursor.setPosition(22 + m_cursorX * 32, 25 + m_cursorY * 24);
-    //
-	// for(u8 x = 0 ; x < 4 ; x++) {
-	// 	for(u8 y = 0 ; y < 4 ; y++) {
-	// 		auto *weapon = playerInventory.getWeapon(x, y);
-    //
-	// 		if(weapon) weapon->icon().setPosition(22 + x * 32, 23 + y * 24);
-	// 	}
-	// }
+	auto &playerInventory = player.get<InventoryComponent>();
+
+	if(GamePad::isKeyPressedOnce(GameKey::A)) {
+		AudioPlayer::playEffect("menuSelect");
+
+		playerInventory.equipWeapon(m_cursorX, m_cursorY, GameKey::A);
+	}
+
+	if(GamePad::isKeyPressedOnce(GameKey::B)) {
+		AudioPlayer::playEffect("menuSelect");
+
+		playerInventory.equipWeapon(m_cursorX, m_cursorY, GameKey::B);
+	}
+
+	m_cursor.setPosition(22 + m_cursorX * 32, 25 + m_cursorY * 24);
+
+	for(u8 x = 0 ; x < 4 ; x++) {
+		for(u8 y = 0 ; y < 4 ; y++) {
+			auto *weapon = playerInventory.getWeapon(x, y);
+
+			if(weapon) weapon->icon().setPosition(22 + x * 32, 23 + y * 24);
+		}
+	}
 }
 
 void Menu::draw(RenderTarget &target, RenderStates states) const {
@@ -90,15 +91,16 @@ void Menu::draw(RenderTarget &target, RenderStates states) const {
 
 	target.draw(m_cursor, states);
 
-	// FIXME: Map rework
-	// auto &playerInventory = Scene::player->get<InventoryComponent>();
-    //
-	// for(u8 x = 0 ; x < 4 ; x++) {
-	// 	for(u8 y = 0 ; y < 4 ; y++) {
-	// 		auto *weapon = playerInventory.getWeapon(x, y);
-    //
-	// 		if(weapon) target.draw(weapon->icon(), states);
-	// 	}
-	// }
+	if (m_player) {
+		auto &playerInventory = m_player->get<InventoryComponent>();
+
+		for(u8 x = 0 ; x < 4 ; x++) {
+			for(u8 y = 0 ; y < 4 ; y++) {
+				auto *weapon = playerInventory.getWeapon(x, y);
+
+				if(weapon) target.draw(weapon->icon(), states);
+			}
+		}
+	}
 }
 

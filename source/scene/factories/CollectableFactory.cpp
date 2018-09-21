@@ -72,13 +72,12 @@ void collectableAction(SceneObject &collectable, SceneObject &object, bool inCol
 	auto &collectableComponent = collectable.get<CollectableComponent>();
 	auto &lifetimeComponent = collectable.get<LifetimeComponent>();
 
-	// FIXME: Map rework
-	// if(Scene::isPlayer(object) && inCollision) {
-	// 	AudioPlayer::playEffect(collectableComponent.soundEffectName());
-    //
-	// 	collectableComponent.action(object);
-    //
-	// 	lifetimeComponent.kill();
-	// }
+	if(object.type() == "Player" && inCollision) {
+		AudioPlayer::playEffect(collectableComponent.soundEffectName());
+
+		collectableComponent.action(object);
+
+		lifetimeComponent.kill();
+	}
 }
 

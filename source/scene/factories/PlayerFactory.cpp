@@ -15,6 +15,7 @@
 #include "GamePadMovement.hpp"
 #include "PlayerBehaviour.hpp"
 #include "PlayerFactory.hpp"
+#include "PlayerMapCollisionAction.hpp"
 #include "ResourceHandler.hpp"
 #include "SceneObjectList.hpp"
 #include "ScrollingTransition.hpp"
@@ -37,6 +38,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 	player.set<BehaviourComponent>(new PlayerBehaviour);
 	player.set<HealthComponent>(13 * 4, 11 * 4);
 	player.set<MovementComponent>(new GamePadMovement);
+	player.set<CollisionComponent>().addAction(PlayerMapCollisionAction());
 	player.set<SceneObjectList>();
 
 	auto &positionComponent = player.set<PositionComponent>(x, y, 16, 16);
@@ -44,13 +46,6 @@ SceneObject PlayerFactory::create(float x, float y) {
 
 	auto &hitboxComponent = player.set<HitboxComponent>();
 	hitboxComponent.addHitbox(4, 5, 8, 10);
-
-	// FIXME: Map rework
-	// auto &collisionComponent = player.set<CollisionComponent>();
-	// collisionComponent.addChecker(&PlayerFactory::mapCollisions);
-	// collisionComponent.addChecker([](SceneObject &player) {
-	// 	Map::currentMap->scene().checkCollisionsFor(player);
-	// });
 
 	auto &effectsComponent = player.set<EffectsComponent>();
 	effectsComponent.addEffect("grass", "animations-grassEffect", 16, 16);
@@ -64,117 +59,5 @@ SceneObject PlayerFactory::create(float x, float y) {
 	inventoryComponent.equipWeapon(0, 1, GameKey::B);
 
 	return player;
-}
-
-void PlayerFactory::mapCollisions(SceneObject &player) {
-	auto &movement = player.get<MovementComponent>();
-	auto &position = player.get<PositionComponent>();
-	auto &effects = player.get<EffectsComponent>();
-
-	// Pixel-perfect link hitbox for each 4 directions
-	// Two hitboxes:
-	// H: (4, 8, 8, 5)  | (4;8) -> (12;13)
-	// V: (5, 5, 5, 10) | (5;5) -> (10;15)
-	u8 collisionMatrix[4][4] = {
-		{ 4, 8, 4,13},
-		{12, 8,12,13},
-		{ 5, 5,10, 5},
-		{ 5,15,10,15}
-	};
-
-	// Iterate through directions
-	for(u8 i = 0 ; i < 4 ; i++) {
-		bool velocityTest = false;
-		bool directionTest = false;
-
-		if(i == 0) {
-			velocityTest = movement.v.x < 0;
-			directionTest = position.direction == Direction::Left;
-		}
-		else if(i == 1) {
-			velocityTest = movement.v.x > 0;
-			directionTest = position.direction == Direction::Right;;
-		}
-		else if(i == 2) {
-			velocityTest = movement.v.y < 0;
-			directionTest = position.direction == Direction::Up;
-		}
-		else if(i == 3) {
-			velocityTest = movement.v.y > 0;
-			directionTest = position.direction == Direction::Down;
-		}
-
-		// FIXME: Map rework
-		// bool firstPosPassable  = Map::currentMap->passable(position.x + collisionMatrix[i][0], position.y + collisionMatrix[i][1]);
-		// bool secondPosPassable = Map::currentMap->passable(position.x + collisionMatrix[i][2], position.y + collisionMatrix[i][3]);
-        //
-		// if(velocityTest && (!firstPosPassable || !secondPosPassable)) {
-		// 	if(i < 2)	movement.v.x = 0;
-		// 	else		movement.v.y = 0;
-        //
-		// 	// If the player is looking at the wall, block it
-		// 	if(directionTest) movement.isBlocked = true;
-        //
-		// 	// Test collisions with tile borders in order to shift the player
-		// 	if(!firstPosPassable && secondPosPassable) {
-		// 		if(i < 2 && movement.v.y == 0) {
-		// 			movement.v.y = 1;
-		// 		}
-		// 		else if(movement.v.x == 0) {
-		// 			movement.v.x = 1;
-		// 		}
-        //
-		// 		movement.isBlocked = false;
-		// 	}
-        //
-		// 	if(firstPosPassable && !secondPosPassable) {
-		// 		if(i < 2 && movement.v.y == 0) {
-		// 			movement.v.y = -1;
-		// 		}
-		// 		else if(movement.v.x == 0) {
-		// 			movement.v.x = -1;
-		// 		}
-        //
-		// 		movement.isBlocked = false;
-		// 	}
-		// }
-	}
-
-	// FIXME: Map rework
-	// auto onTile = [position](u16 tile) {
-	// 	return (Map::currentMap->isTile(position.x + 6, position.y + 11, tile)
-	// 		&&  Map::currentMap->isTile(position.x + 7, position.y + 11, tile)
-	// 		&&  Map::currentMap->isTile(position.x + 6, position.y + 12, tile)
-	// 		&&  Map::currentMap->isTile(position.x + 7, position.y + 12, tile));
-	// };
-    //
-	// if(onTile(TilesInfos::TileType::SlowingTile)) {
-	// 	movement.v /= 2;
-	// }
-    //
-	// if(onTile(TilesInfos::TileType::LowGrassTile)) {
-	// 	movement.v /= 4;
-	// 	movement.v *= 3;
-	// }
-    //
-	// effects.enableIf("grass", onTile(TilesInfos::TileType::LowGrassTile));
-	// effects.enableIf("lowWater", onTile(TilesInfos::TileType::LowWaterTile));
-    //
-	// if(position.x < -3) {
-	// 	auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
-	// 	state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingLeft);
-	// }
-	// else if(position.x + 13 > Map::currentMap->width() * 16) {
-	// 	auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
-	// 	state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingRight);
-	// }
-	// else if(position.y < -1) {
-	// 	auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
-	// 	state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingUp);
-	// }
-	// else if(position.y + 15 > Map::currentMap->height() * 16) {
-	// 	auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
-	// 	state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingDown);
-	// }
 }
 

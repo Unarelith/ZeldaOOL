@@ -65,6 +65,8 @@ class SceneObject {
 		const std::string &name() const { return m_name; }
 		const std::string &type() const { return m_type; }
 
+		void rename(const std::string &name) { m_name = name; }
+
 	private:
 		std::string m_name;
 		std::string m_type;

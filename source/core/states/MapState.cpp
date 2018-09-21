@@ -58,13 +58,13 @@ void MapState::update() {
 	m_statsBar.update(*m_player);
 
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
-		m_stateStack->push<MessageBoxState>("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", this);
+		m_stateStack->push<MessageBoxState>(*m_player, "L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", this);
 	}
 
 	if(GamePad::isKeyPressedOnce(GameKey::Start)) {
 		AudioPlayer::playEffect("menuOpen");
 
-		m_stateStack->push<MenuState>();
+		m_stateStack->push<MenuState>(*m_player);
 	}
 }
 

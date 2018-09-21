@@ -50,23 +50,22 @@ SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
 #include "MovementComponent.hpp"
 
 void npcAction(SceneObject &npc, SceneObject &object, bool inCollision) {
-	// FIXME: Map rework
-	// if(Scene::isPlayer(object) && inCollision) {
-	// 	auto &playerPosition = object.get<PositionComponent>();
-	// 	auto &playerMovement = object.get<MovementComponent>();
-    //
-	// 	auto &npcPosition = npc.get<PositionComponent>();
-    //
-	// 	if(playerPosition.intersectionDirection(npcPosition) == 1) {
-	// 		playerMovement.v.x = 0;
-	// 	} else {
-	// 		playerMovement.v.y = 0;
-	// 	}
-    //
-	// 	// FIXME: Fix priorities with weaponA
-	// 	if(GamePad::isKeyPressedOnce(GameKey::A)) {
-	// 		ApplicationStateStack::getInstance().push<MessageBoxState>("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", &ApplicationStateStack::getInstance().top());
-	// 	}
-	// }
+	if(object.type() == "Player" && inCollision) {
+		auto &playerPosition = object.get<PositionComponent>();
+		auto &playerMovement = object.get<MovementComponent>();
+
+		auto &npcPosition = npc.get<PositionComponent>();
+
+		if(playerPosition.intersectionDirection(npcPosition) == 1) {
+			playerMovement.v.x = 0;
+		} else {
+			playerMovement.v.y = 0;
+		}
+
+		// FIXME: Fix priorities with weaponA
+		if(GamePad::isKeyPressedOnce(GameKey::A)) {
+			ApplicationStateStack::getInstance().push<MessageBoxState>(object, "L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", &ApplicationStateStack::getInstance().top());
+		}
+	}
 }
 

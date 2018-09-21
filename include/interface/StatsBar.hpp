@@ -33,6 +33,8 @@ class StatsBar : public IDrawable {
 
 		Text m_rupees{"interface-numbers", 7, 6};
 		Text m_hearts{"interface-hearts", 7, 7};
+
+		const SceneObject *m_player = nullptr;
 };
 
 #endif // STATSBAR_HPP_

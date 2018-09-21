@@ -17,10 +17,9 @@
 #include "MenuState.hpp"
 
 void MenuState::update() {
-	// FIXME: Map rework
-	// m_statsBar.update();
+	m_statsBar.update(m_player);
 
-	m_menu.update();
+	m_menu.update(m_player);
 
 	if(GamePad::isKeyPressedOnce(GameKey::Start)) {
 		AudioPlayer::playEffect("menuClose");

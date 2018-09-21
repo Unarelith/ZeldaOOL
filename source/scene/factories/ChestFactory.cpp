@@ -42,23 +42,23 @@ SceneObject ChestFactory::create(u16 tileX, u16 tileY) {
 void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 	auto &chestPosition = chest.get<PositionComponent>();
 
-	// FIXME: Map rework
-	// if(inCollision && Scene::isPlayer(object) && !chest.get<ChestComponent>().opened) {
-	// 	auto &playerPosition = object.get<PositionComponent>();
-    //
-	// 	// FIXME: Find a better way to find if the player is facing the chest
-	// 	if(playerPosition.direction == Direction::Up
-	// 	&& playerPosition.y > chestPosition.y
-	// 	&& GamePad::isKeyPressedOnce(GameKey::A)) {
-	// 		AudioPlayer::playEffect("chest");
-	//
-	// 		Map::currentMap->setTile(chestPosition.x / 16,
-	// 		                         chestPosition.y / 16, 240, true);
-    //
-	// 		ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, &ApplicationStateStack::getInstance().top());
-    //
-	// 		chest.get<ChestComponent>().opened = true;
-	// 	}
-	// }
+	if(inCollision && object.type() == "Player" && !chest.get<ChestComponent>().opened) {
+		auto &playerPosition = object.get<PositionComponent>();
+
+		// FIXME: Find a better way to find if the player is facing the chest
+		if(playerPosition.direction == Direction::Up
+		&& playerPosition.y > chestPosition.y
+		&& GamePad::isKeyPressedOnce(GameKey::A)) {
+			AudioPlayer::playEffect("chest");
+
+			// FIXME: Map rework
+			// Map::currentMap->setTile(chestPosition.x / 16,
+			//                          chestPosition.y / 16, 240, true);
+            //
+			// ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, &ApplicationStateStack::getInstance().top());
+
+			chest.get<ChestComponent>().opened = true;
+		}
+	}
 }
 

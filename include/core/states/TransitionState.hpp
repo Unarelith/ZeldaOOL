@@ -22,7 +22,7 @@
 
 class TransitionState : public ApplicationState {
 	public:
-		TransitionState(ApplicationState *parent);
+		TransitionState(SceneObject &player, ApplicationState *parent);
 
 		void update() override;
 
@@ -38,6 +38,8 @@ class TransitionState : public ApplicationState {
 		StatsBar m_statsBar;
 
 		std::unique_ptr<Transition> m_transition;
+
+		SceneObject &m_player;
 };
 
 #endif // TRANSITIONSTATE_HPP_

@@ -19,7 +19,7 @@
 
 class ChestOpeningState : public ApplicationState {
 	public:
-		ChestOpeningState(SceneObject &chest, ApplicationState *parent);
+		ChestOpeningState(SceneObject &player, SceneObject &chest, ApplicationState *parent);
 
 		void update() override;
 
@@ -35,6 +35,8 @@ class ChestOpeningState : public ApplicationState {
 		State m_state = State::Opening;
 
 		SceneObject *m_item = nullptr;
+
+		SceneObject &m_player;
 };
 
 #endif // CHESTOPENINGSTATE_HPP_

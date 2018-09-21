@@ -15,8 +15,10 @@
 #define TRANSITION_HPP_
 
 #include "IDrawable.hpp"
+#include "SceneObject.hpp"
+#include "Transformable.hpp"
 
-class Transition : public IDrawable {
+class Transition : public IDrawable, public Transformable {
 	public:
 		virtual ~Transition() = default;
 

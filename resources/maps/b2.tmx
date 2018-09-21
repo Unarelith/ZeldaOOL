@@ -5,87 +5,15 @@
  </tileset>
  <tileset firstgid="257" source="../../../Lidonia/resources/data/tilesets/plain_test.tsx"/>
  <layer name="Calque de Tile 1" width="10" height="8">
-  <data>
-   <tile gid="48"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="33"/>
-   <tile gid="34"/>
-   <tile gid="2"/>
-   <tile gid="35"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="47"/>
-   <tile gid="248"/>
-   <tile gid="17"/>
-   <tile gid="18"/>
-   <tile gid="34"/>
-   <tile gid="34"/>
-   <tile gid="34"/>
-   <tile gid="34"/>
-   <tile gid="19"/>
-   <tile gid="37"/>
-   <tile gid="31"/>
-   <tile gid="248"/>
-   <tile gid="49"/>
-   <tile gid="65"/>
-   <tile gid="5"/>
-   <tile gid="5"/>
-   <tile gid="5"/>
-   <tile gid="5"/>
-   <tile gid="35"/>
-   <tile gid="37"/>
-   <tile gid="47"/>
-   <tile gid="32"/>
-   <tile gid="37"/>
-   <tile gid="33"/>
-   <tile gid="5"/>
-   <tile gid="5"/>
-   <tile gid="5"/>
-   <tile gid="5"/>
-   <tile gid="65"/>
-   <tile gid="19"/>
-   <tile gid="31"/>
-   <tile gid="48"/>
-   <tile gid="37"/>
-   <tile gid="33"/>
-   <tile gid="5"/>
-   <tile gid="5"/>
-   <tile gid="5"/>
-   <tile gid="5"/>
-   <tile gid="2"/>
-   <tile gid="51"/>
-   <tile gid="47"/>
-   <tile gid="18"/>
-   <tile gid="18"/>
-   <tile gid="2"/>
-   <tile gid="65"/>
-   <tile gid="50"/>
-   <tile gid="50"/>
-   <tile gid="50"/>
-   <tile gid="51"/>
-   <tile gid="37"/>
-   <tile gid="31"/>
-   <tile gid="50"/>
-   <tile gid="50"/>
-   <tile gid="50"/>
-   <tile gid="51"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="37"/>
-   <tile gid="31"/>
-   <tile gid="64"/>
-   <tile gid="32"/>
-   <tile gid="31"/>
-   <tile gid="32"/>
-   <tile gid="31"/>
-   <tile gid="32"/>
-   <tile gid="31"/>
-   <tile gid="32"/>
-   <tile gid="31"/>
-   <tile gid="64"/>
-   <tile gid="48"/>
-  </data>
+  <data encoding="csv">
+48,37,37,33,34,2,35,37,37,47,
+248,17,18,34,34,34,34,19,37,31,
+248,49,65,5,5,5,5,35,37,47,
+32,37,33,5,5,5,5,65,19,31,
+48,37,33,5,5,5,5,2,51,47,
+18,18,2,65,50,50,50,51,37,31,
+50,50,50,51,37,37,37,37,31,64,
+32,31,32,31,32,31,32,31,64,48
+</data>
  </layer>
 </map>

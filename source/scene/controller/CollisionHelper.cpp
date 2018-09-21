@@ -23,13 +23,15 @@
 void CollisionHelper::checkCollision(SceneObject &object1, SceneObject &object2) {
 	bool inCollision = CollisionHelper::inCollision(object1, object2);
 
+	// DEBUG(object1.name(), object2.name());
+
 	if(object1.has<CollisionComponent>()) {
 		object1.get<CollisionComponent>().collisionActions(object1, object2, inCollision);
 	}
 
-	if(object2.has<CollisionComponent>()) {
-		object2.get<CollisionComponent>().collisionActions(object2, object1, inCollision);
-	}
+	// if(object2.has<CollisionComponent>()) {
+	// 	object2.get<CollisionComponent>().collisionActions(object2, object1, inCollision);
+	// }
 }
 
 bool CollisionHelper::inCollision(SceneObject &object1, SceneObject &object2) {

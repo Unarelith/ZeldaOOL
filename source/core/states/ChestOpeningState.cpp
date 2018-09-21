@@ -22,7 +22,7 @@
 #include "PositionComponent.hpp"
 #include "Sprite.hpp"
 
-ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *parent) : ApplicationState(parent) {
+ChestOpeningState::ChestOpeningState(SceneObject &player, SceneObject &chest, ApplicationState *parent) : ApplicationState(parent), m_player(player) {
 	// FIXME: Map rework
 	// m_item = &Map::currentMap->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
 	// m_item->set<LifetimeComponent>();
@@ -49,7 +49,7 @@ void ChestOpeningState::update() {
 	else if(m_state == State::Opened) {
 		AudioPlayer::playEffect("itemNew");
 
-		ApplicationStateStack::getInstance().push<MessageBoxState>("Vous obtenez [2]30 Rubis[0]!\nC'est bien.", this);
+		ApplicationStateStack::getInstance().push<MessageBoxState>(m_player, "Vous obtenez [2]30 Rubis[0]!\nC'est bien.", this);
 
 		m_state = State::Finished;
 	}

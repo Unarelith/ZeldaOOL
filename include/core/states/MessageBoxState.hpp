@@ -16,10 +16,11 @@
 
 #include "ApplicationState.hpp"
 #include "MessageBox.hpp"
+#include "SceneObject.hpp"
 
 class MessageBoxState : public ApplicationState {
 	public:
-		MessageBoxState(const std::string &text, ApplicationState *parent);
+		MessageBoxState(SceneObject &player, const std::string &text, ApplicationState *parent);
 
 		void update() override;
 
