@@ -27,10 +27,9 @@ void CollisionHelper::checkCollision(SceneObject &object1, SceneObject &object2)
 		object1.get<CollisionComponent>().collisionActions(object1, object2, inCollision);
 	}
 
-	// FIXME: Actions will be repeated twice for map collisions if I don't comment this
-	// if(object2.has<CollisionComponent>()) {
-	// 	object2.get<CollisionComponent>().collisionActions(object2, object1, inCollision);
-	// }
+	if(object2.has<CollisionComponent>()) {
+		object2.get<CollisionComponent>().collisionActions(object2, object1, inCollision);
+	}
 }
 
 bool CollisionHelper::inCollision(SceneObject &object1, SceneObject &object2) {

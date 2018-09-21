@@ -21,9 +21,7 @@ Menu::Menu() {
 	m_background.setPosition(0, 16);
 }
 
-void Menu::update(SceneObject &player) {
-	m_player = &player;
-
+void Menu::update() {
 	if(GamePad::isKeyPressedWithDelay(GameKey::Left, 250)) {
 		AudioPlayer::playEffect("menuCursor");
 
@@ -61,7 +59,7 @@ void Menu::update(SceneObject &player) {
 	if(m_cursorY < 0) m_cursorY = 3;
 	if(m_cursorY > 3) m_cursorY = 0;
 
-	auto &playerInventory = player.get<InventoryComponent>();
+	auto &playerInventory = Scene::player->get<InventoryComponent>();
 
 	if(GamePad::isKeyPressedOnce(GameKey::A)) {
 		AudioPlayer::playEffect("menuSelect");
@@ -91,15 +89,13 @@ void Menu::draw(RenderTarget &target, RenderStates states) const {
 
 	target.draw(m_cursor, states);
 
-	if (m_player) {
-		auto &playerInventory = m_player->get<InventoryComponent>();
+	auto &playerInventory = Scene::player->get<InventoryComponent>();
 
-		for(u8 x = 0 ; x < 4 ; x++) {
-			for(u8 y = 0 ; y < 4 ; y++) {
-				auto *weapon = playerInventory.getWeapon(x, y);
+	for(u8 x = 0 ; x < 4 ; x++) {
+		for(u8 y = 0 ; y < 4 ; y++) {
+			auto *weapon = playerInventory.getWeapon(x, y);
 
-				if(weapon) target.draw(weapon->icon(), states);
-			}
+			if(weapon) target.draw(weapon->icon(), states);
 		}
 	}
 }

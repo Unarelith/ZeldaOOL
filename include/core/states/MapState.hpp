@@ -15,7 +15,7 @@
 #define MAPSTATE_HPP_
 
 #include "ApplicationState.hpp"
-#include "Scene.hpp"
+#include "SceneObject.hpp"
 #include "Shader.hpp"
 #include "StatsBar.hpp"
 
@@ -28,11 +28,9 @@ class MapState : public ApplicationState {
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;
 
+		SceneObject m_player;
+
 		StatsBar m_statsBar;
-
-		Scene m_scene;
-
-		SceneObject *m_player = nullptr;
 };
 
 #endif // MAPSTATE_HPP_

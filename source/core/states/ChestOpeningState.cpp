@@ -16,14 +16,15 @@
 #include "CollectableFactory.hpp"
 #include "ChestOpeningState.hpp"
 #include "LifetimeComponent.hpp"
+#include "Map.hpp"
 #include "MessageBoxState.hpp"
 #include "MovementComponent.hpp"
 #include "MovementController.hpp"
 #include "PositionComponent.hpp"
 #include "Sprite.hpp"
 
-ChestOpeningState::ChestOpeningState(SceneObject &player, SceneObject &chest, ApplicationState *parent) : ApplicationState(parent), m_player(player) {
-	m_item = &chest.set<SceneObjectList>().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
+ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *parent) : ApplicationState(parent) {
+	m_item = &Map::currentMap->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
 	m_item->set<LifetimeComponent>();
 
 	auto &chestPosition = chest.get<PositionComponent>();
@@ -48,7 +49,7 @@ void ChestOpeningState::update() {
 	else if(m_state == State::Opened) {
 		AudioPlayer::playEffect("itemNew");
 
-		ApplicationStateStack::getInstance().push<MessageBoxState>(m_player, "Vous obtenez [2]30 Rubis[0]!\nC'est bien.", this);
+		ApplicationStateStack::getInstance().push<MessageBoxState>("Vous obtenez [2]30 Rubis[0]!\nC'est bien.", this);
 
 		m_state = State::Finished;
 	}

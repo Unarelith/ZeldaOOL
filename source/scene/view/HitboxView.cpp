@@ -21,7 +21,7 @@
 #include "RectangleShape.hpp"
 #include "SpriteComponent.hpp"
 
-void HitboxView::draw(const SceneObject &object, RenderTarget &target, RenderStates states) const {
+void HitboxView::draw(const SceneObject &object, RenderTarget &target, RenderStates states) {
 	if (object.has<LifetimeComponent>() && object.get<LifetimeComponent>().dead(object))
 		return;
 

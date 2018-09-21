@@ -36,7 +36,7 @@ SceneObject ButtonFactory::create(u16 tileX, u16 tileY) {
 }
 
 void buttonAction(SceneObject &button, SceneObject &object, bool inCollision) {
-	if(object.type() == "Player") {
+	if(Scene::isPlayer(object)) {
 		auto &positionComponent = button.get<PositionComponent>();
 		auto &buttonComponent = button.get<ButtonComponent>();
 

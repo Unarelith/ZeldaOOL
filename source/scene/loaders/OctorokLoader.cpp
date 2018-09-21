@@ -14,10 +14,10 @@
 #include "OctorokFactory.hpp"
 #include "OctorokLoader.hpp"
 
-void OctorokLoader::load(XMLElement *octorokElement, SceneObjectList &objectList) {
+void OctorokLoader::load(XMLElement *octorokElement, Scene &scene) {
 	u16 tileX = octorokElement->IntAttribute("tileX");
 	u16 tileY = octorokElement->IntAttribute("tileY");
 
-	objectList.addObject(OctorokFactory::create(tileX * 16, tileY * 16));
+	scene.addObject(OctorokFactory::create(tileX * 16, tileY * 16));
 }
 

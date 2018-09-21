@@ -17,9 +17,9 @@
 #include "MenuState.hpp"
 
 void MenuState::update() {
-	m_statsBar.update(m_player);
+	m_statsBar.update();
 
-	m_menu.update(m_player);
+	m_menu.update();
 
 	if(GamePad::isKeyPressedOnce(GameKey::Start)) {
 		AudioPlayer::playEffect("menuClose");

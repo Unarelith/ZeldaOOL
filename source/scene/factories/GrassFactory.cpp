@@ -13,6 +13,7 @@
  */
 #include "EasyBehaviour.hpp"
 #include "GrassFactory.hpp"
+#include "Map.hpp"
 
 #include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
@@ -66,7 +67,6 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 }
 
 #include "AudioPlayer.hpp"
-#include "TileMap.hpp"
 #include "WeaponComponent.hpp"
 
 void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
@@ -76,7 +76,7 @@ void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
 
 		auto &weaponOwner = object.get<WeaponComponent>().owner;
 
-		if(weaponOwner.type() == "Player"
+		if(Scene::isPlayer(weaponOwner)
 		&& object.name() == "Sword"
 		&& !grassSpriteComponent.isEnabled()
 		&& grassHitboxComponent.currentHitbox()) {
@@ -90,10 +90,10 @@ void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
 			|| object.get<BehaviourComponent>().behaviour->state() == "SpinAttack") {
 				AudioPlayer::playEffect("grassDestroy");
 
-				grass.get<LootComponent>().dropItem(*grass.get<Scene*>(), grassPosition.x + 8, grassPosition.y + 8);
+				grass.get<LootComponent>().dropItem(grassPosition.x + 8, grassPosition.y + 8);
 
-				TileMap::currentMap->setTile((grassPosition.x + 8) / 16,
-				                             (grassPosition.y + 8) / 16, 36);
+				Map::currentMap->setTile((grassPosition.x + 8) / 16,
+				                         (grassPosition.y + 8) / 16, 36);
 
 				grassSpriteComponent.setEnabled(true);
 				grassHitboxComponent.resetCurrentHitbox();

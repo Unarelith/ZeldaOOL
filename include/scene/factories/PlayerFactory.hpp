@@ -19,6 +19,8 @@
 class PlayerFactory {
 	public:
 		static SceneObject create(float x, float y);
+
+		static void mapCollisions(SceneObject &player);
 };
 
 #endif // PLAYERFACTORY_HPP_

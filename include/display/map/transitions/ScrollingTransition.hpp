@@ -14,7 +14,7 @@
 #ifndef SCROLLINGTRANSITION_HPP_
 #define SCROLLINGTRANSITION_HPP_
 
-#include "TileMap.hpp"
+#include "Map.hpp"
 #include "Transition.hpp"
 
 class ScrollingTransition : public Transition {
@@ -26,7 +26,7 @@ class ScrollingTransition : public Transition {
 			ScrollingDown
 		};
 
-		ScrollingTransition(SceneObject &player, SceneObject &tilemap, Mode mode);
+		ScrollingTransition(Mode mode);
 
 		void update() override;
 
@@ -38,11 +38,9 @@ class ScrollingTransition : public Transition {
 		float m_vx = 0;
 		float m_vy = 0;
 
-		float m_scrolled = 0;
+		Map *m_nextMap = nullptr;
 
-		SceneObject &m_player;
-		SceneObject &m_tilemap;
-		SceneObject m_nextMap;
+		float m_scrolled = 0;
 };
 
 #endif // SCROLLINGTRANSITION_HPP_

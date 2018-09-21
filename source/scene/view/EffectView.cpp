@@ -18,7 +18,7 @@
 #include "EffectView.hpp"
 #include "PositionComponent.hpp"
 
-void EffectView::draw(const SceneObject &object, RenderTarget &target, RenderStates states) const {
+void EffectView::draw(const SceneObject &object, RenderTarget &target, RenderStates states) {
 	if (object.has<EffectsComponent>()) {
 		glm::mat4 modelMatrix;
 		if (object.has<PositionComponent>()) {

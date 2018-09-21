@@ -50,7 +50,7 @@ SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
 #include "MovementComponent.hpp"
 
 void npcAction(SceneObject &npc, SceneObject &object, bool inCollision) {
-	if(object.type() == "Player" && inCollision) {
+	if(Scene::isPlayer(object) && inCollision) {
 		auto &playerPosition = object.get<PositionComponent>();
 		auto &playerMovement = object.get<MovementComponent>();
 
@@ -64,7 +64,7 @@ void npcAction(SceneObject &npc, SceneObject &object, bool inCollision) {
 
 		// FIXME: Fix priorities with weaponA
 		if(GamePad::isKeyPressedOnce(GameKey::A)) {
-			ApplicationStateStack::getInstance().push<MessageBoxState>(object, "L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", &ApplicationStateStack::getInstance().top());
+			ApplicationStateStack::getInstance().push<MessageBoxState>("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", &ApplicationStateStack::getInstance().top());
 		}
 	}
 }

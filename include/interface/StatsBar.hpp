@@ -14,7 +14,6 @@
 #ifndef STATSBAR_HPP_
 #define STATSBAR_HPP_
 
-#include "SceneObject.hpp"
 #include "Sprite.hpp"
 #include "Text.hpp"
 
@@ -22,9 +21,9 @@ class StatsBar : public IDrawable {
 	public:
 		StatsBar();
 
-		void update(const SceneObject &player);
-		void updateRupees(const SceneObject &player);
-		void updateHearts(const SceneObject &player);
+		void update();
+		void updateRupees();
+		void updateHearts();
 
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;
@@ -33,8 +32,6 @@ class StatsBar : public IDrawable {
 
 		Text m_rupees{"interface-numbers", 7, 6};
 		Text m_hearts{"interface-hearts", 7, 7};
-
-		const SceneObject *m_player = nullptr;
 };
 
 #endif // STATSBAR_HPP_

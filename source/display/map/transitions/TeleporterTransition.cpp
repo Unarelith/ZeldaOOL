@@ -15,25 +15,25 @@
 #include "AudioPlayer.hpp"
 #include "BehaviourController.hpp"
 #include "Config.hpp"
+#include "Map.hpp"
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
 #include "SpriteComponent.hpp"
 #include "TeleporterTransition.hpp"
 
 TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection) {
-	// FIXME: Map rework
-	// m_nextMap = &Map::getMap(area, mapX, mapY);
-	// m_nextMap->reset();
-	// m_nextMap->updateTiles();
-	//
-	// if(Scene::player) {
-	// 	auto &positionComponent = Scene::player->get<PositionComponent>();
-    //
-	// 	positionComponent.x = playerX;
-	// 	positionComponent.y = playerY;
-    //
-	// 	positionComponent.direction = playerDirection;
-	// }
+	m_nextMap = &Map::getMap(area, mapX, mapY);
+	m_nextMap->reset();
+	m_nextMap->updateTiles();
+
+	if(Scene::player) {
+		auto &positionComponent = Scene::player->get<PositionComponent>();
+
+		positionComponent.x = playerX;
+		positionComponent.y = playerY;
+
+		positionComponent.direction = playerDirection;
+	}
 
 	m_timer.start();
 
@@ -46,18 +46,17 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 	m_rect2.setPosition(SCREEN_WIDTH / 2, 16);
 
 	// FIXME: Each map should have a string member with it's bgm name
-	// FIXME: Map rework
-	// if(m_nextMap->area() == 0) {
-	// 	AudioPlayer::playMusic("plain");
-	// }
-	// else if(m_nextMap->area() == 1) {
-	// 	AudioPlayer::playMusic("indoor");
-	// } else {
-	// 	AudioPlayer::playMusic("underground");
-	// }
-	//
-	// BehaviourController controller;
-	// controller.reset(*Scene::player);
+	if(m_nextMap->area() == 0) {
+		AudioPlayer::playMusic("plain");
+	}
+	else if(m_nextMap->area() == 1) {
+		AudioPlayer::playMusic("indoor");
+	} else {
+		AudioPlayer::playMusic("underground");
+	}
+
+	BehaviourController controller;
+	controller.reset(*Scene::player);
 
 	m_drawStatsBar = false;
 
@@ -69,8 +68,7 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 
 void TeleporterTransition::update() {
 	if(m_rect1.getPosition().x + m_rect1.width() < 0) {
-		// FIXME: Map rework
-		// Map::currentMap = m_nextMap;
+		Map::currentMap = m_nextMap;
 
 		m_atEnd = true;
 
@@ -91,8 +89,7 @@ void TeleporterTransition::update() {
 
 void TeleporterTransition::draw(RenderTarget &target, RenderStates states) const {
 	if(m_timer.time() > 250) {
-		// FIXME: Map rework
-		// target.draw(*m_nextMap, states);
+		target.draw(*m_nextMap, states);
 
 		target.draw(m_rect1, states);
 		target.draw(m_rect2, states);

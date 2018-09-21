@@ -14,10 +14,10 @@
 #include "NPCFactory.hpp"
 #include "NPCLoader.hpp"
 
-void NPCLoader::load(XMLElement *npcElement, SceneObjectList &objectList) {
+void NPCLoader::load(XMLElement *npcElement, Scene &scene) {
 	u16 tileX = npcElement->IntAttribute("tileX");
 	u16 tileY = npcElement->IntAttribute("tileY");
 
-	objectList.addObject(NPCFactory::create(tileX, tileY));
+	scene.addObject(NPCFactory::create(tileX, tileY));
 }
 

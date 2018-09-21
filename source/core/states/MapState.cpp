@@ -15,62 +15,42 @@
 #include "AudioPlayer.hpp"
 #include "Config.hpp"
 #include "GamePad.hpp"
+#include "Map.hpp"
 #include "MapState.hpp"
 #include "MenuState.hpp"
 #include "MessageBoxState.hpp"
 #include "PlayerFactory.hpp"
 #include "ResourceHandler.hpp"
 #include "Scene.hpp"
-#include "TileMap.hpp"
-#include "TileMapFactory.hpp"
-
-#include "BattleController.hpp"
-#include "BehaviourController.hpp"
-#include "LifetimeController.hpp"
-#include "MovementController.hpp"
-
-#include "EffectView.hpp"
-#include "HitboxView.hpp"
-#include "SpriteView.hpp"
-#include "TileMapView.hpp"
 
 MapState::MapState() {
-	m_scene.setPosition(0, 16);
+	Map::currentMap = &Map::getMap(0, 0, 0);
 
-	m_scene.addController<MovementController>();
-	m_scene.addController<BattleController>();
-	m_scene.addController<BehaviourController>();
-	m_scene.addController<LifetimeController>();
-
-	m_scene.addView<TileMapView>();
-	m_scene.addView<SpriteView>();
-	m_scene.addView<EffectView>();
-	// m_scene.addView<HitboxView>();
-
-	TileMap::currentMap = &m_scene.addObject(TileMapFactory::create("a1")).get<TileMap>();
-	m_player = &m_scene.addObject(PlayerFactory::create(64, 48));
+	m_player = PlayerFactory::create(64, 48);
+	Scene::player = &m_player;
 
 	AudioPlayer::playMusic("plain");
 }
 
 void MapState::update() {
-	m_scene.update();
+	Map::currentMap->update();
 
-	m_statsBar.update(*m_player);
+	m_statsBar.update();
 
 	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
-		m_stateStack->push<MessageBoxState>(*m_player, "L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", this);
+		m_stateStack->push<MessageBoxState>("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", this);
 	}
 
 	if(GamePad::isKeyPressedOnce(GameKey::Start)) {
 		AudioPlayer::playEffect("menuOpen");
 
-		m_stateStack->push<MenuState>(*m_player);
+		m_stateStack->push<MenuState>();
 	}
 }
 
 void MapState::draw(RenderTarget &target, RenderStates states) const {
-	target.draw(m_scene, states);
+	if (Map::currentMap)
+		target.draw(*Map::currentMap, states);
 
 	target.draw(m_statsBar, states);
 }

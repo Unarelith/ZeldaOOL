@@ -15,10 +15,17 @@
 #include "CollisionHelper.hpp"
 #include "Scene.hpp"
 
+SceneObject *Scene::player = nullptr;
+
 void Scene::reset() {
 	for (auto &controller : m_controllerList) {
 		if (controller->isGlobal())
 			controller->reset(m_objects);
+
+		// FIXME: Fix player handling
+		// controller->reset(*Scene::player);
+		// if (Scene::player->has<SceneObjectList>())
+		// 	controller->reset(Scene::player->get<SceneObjectList>());
 	}
 
 	for (SceneObject &object : m_objects) {
@@ -37,6 +44,11 @@ void Scene::update() {
 	for (auto &controller : m_controllerList) {
 		if (controller->isGlobal())
 			controller->update(m_objects);
+
+		// FIXME: Fix player handling
+		controller->update(*Scene::player);
+		if (Scene::player->has<SceneObjectList>())
+			controller->update(Scene::player->get<SceneObjectList>());
 	}
 
 	for (SceneObject &object : m_objects) {
@@ -52,16 +64,18 @@ void Scene::update() {
 }
 
 void Scene::draw(RenderTarget &target, RenderStates states) const {
-	applyTransform(states);
-
 	for (auto &view : m_viewList) {
 		view->draw(m_objects, target, states);
+
+		// FIXME: Fix player handling
+		if (Scene::player->has<SceneObjectList>())
+			view->draw(Scene::player->get<SceneObjectList>(), target, states);
+		view->draw(*Scene::player, target, states);
 	}
 }
 
 SceneObject &Scene::addObject(SceneObject &&object) {
 	SceneObject &obj = m_objects.addObject(std::move(object));
-	obj.set<Scene*>(this);
 
 	if(obj.has<CollisionComponent>()) {
 		obj.get<CollisionComponent>().addChecker([&](SceneObject &object) {

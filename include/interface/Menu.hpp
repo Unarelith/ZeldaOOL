@@ -15,13 +15,12 @@
 #define MENU_HPP_
 
 #include "Image.hpp"
-#include "SceneObject.hpp"
 
 class Menu : public IDrawable {
 	public:
 		Menu();
 
-		void update(SceneObject &player);
+		void update();
 
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;
@@ -31,8 +30,6 @@ class Menu : public IDrawable {
 
 		s8 m_cursorX = 0;
 		s8 m_cursorY = 0;
-
-		const SceneObject *m_player = nullptr;
 };
 
 #endif // MENU_HPP_

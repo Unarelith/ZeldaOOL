@@ -16,7 +16,7 @@
 #include "TeleporterFactory.hpp"
 #include "TeleporterLoader.hpp"
 
-void TeleporterLoader::load(XMLElement *teleporterElement, SceneObjectList &objectList) {
+void TeleporterLoader::load(XMLElement *teleporterElement, Scene &scene) {
 	float tileX = teleporterElement->FloatAttribute("tileX");
 	float tileY = teleporterElement->FloatAttribute("tileY");
 
@@ -46,7 +46,7 @@ void TeleporterLoader::load(XMLElement *teleporterElement, SceneObjectList &obje
 		playerDirection = Direction::Down;
 	}
 
-	SceneObject &teleporter = objectList.addObject(TeleporterFactory::create(tileX, tileY));
+	SceneObject &teleporter = scene.addObject(TeleporterFactory::create(tileX, tileY));
 
 	auto &teleporterComponent = teleporter.get<TeleporterComponent>();
 	teleporterComponent.setDestination(area, mapX, mapY, playerX, playerY, playerDirection);

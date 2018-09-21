@@ -1,18 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="10" height="8" tilewidth="16" tileheight="16" infinite="0" nextobjectid="1">
- <tileset firstgid="1" name="indoor" tilewidth="16" tileheight="16" tilecount="256" columns="16">
-  <image source="../graphics/tilesets/indoor.png" trans="ff00ff" width="256" height="256"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="8" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="indoor" tilewidth="16" tileheight="16">
+ <image source="../../resources/graphics/tilesets/indoor.png" trans="ff00ff" width="256" height="256"/>
  </tileset>
  <layer name="Calque de Tile 1" width="10" height="8">
-  <data encoding="csv">
-113,113,113,81,132,133,134,65,161,82,
-113,113,113,66,148,149,150,7,137,49,
-81,65,168,34,170,3,3,7,153,49,
-66,3,145,3,3,3,3,7,7,49,
-66,146,3,3,3,3,3,132,134,49,
-66,3,3,3,3,3,3,148,150,49,
-66,3,3,3,3,3,3,3,3,49,
-97,50,50,50,76,77,50,50,50,98
-</data>
+  <data>
+   <tile gid="113"/>
+   <tile gid="113"/>
+   <tile gid="113"/>
+   <tile gid="81"/>
+   <tile gid="132"/>
+   <tile gid="133"/>
+   <tile gid="134"/>
+   <tile gid="65"/>
+   <tile gid="161"/>
+   <tile gid="82"/>
+   <tile gid="113"/>
+   <tile gid="113"/>
+   <tile gid="113"/>
+   <tile gid="66"/>
+   <tile gid="148"/>
+   <tile gid="149"/>
+   <tile gid="150"/>
+   <tile gid="7"/>
+   <tile gid="137"/>
+   <tile gid="49"/>
+   <tile gid="81"/>
+   <tile gid="65"/>
+   <tile gid="168"/>
+   <tile gid="34"/>
+   <tile gid="170"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="7"/>
+   <tile gid="153"/>
+   <tile gid="49"/>
+   <tile gid="66"/>
+   <tile gid="3"/>
+   <tile gid="145"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="7"/>
+   <tile gid="7"/>
+   <tile gid="49"/>
+   <tile gid="66"/>
+   <tile gid="146"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="132"/>
+   <tile gid="134"/>
+   <tile gid="49"/>
+   <tile gid="66"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="148"/>
+   <tile gid="150"/>
+   <tile gid="49"/>
+   <tile gid="66"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="3"/>
+   <tile gid="49"/>
+   <tile gid="97"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="76"/>
+   <tile gid="77"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="98"/>
+  </data>
  </layer>
 </map>

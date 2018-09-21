@@ -14,12 +14,12 @@
 #ifndef OCTOROKLOADER_HPP_
 #define OCTOROKLOADER_HPP_
 
-#include "SceneObjectList.hpp"
+#include "Scene.hpp"
 #include "XMLFile.hpp"
 
 class OctorokLoader {
 	public:
-		static void load(XMLElement *octorokElement, SceneObjectList &objectList);
+		static void load(XMLElement *octorokElement, Scene &scene);
 };
 
 #endif // OCTOROKLOADER_HPP_

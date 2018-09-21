@@ -20,8 +20,6 @@
 
 class MenuState : public ApplicationState {
 	public:
-		MenuState(SceneObject &player) : m_player(player) {}
-
 		void update() override;
 
 	private:
@@ -30,8 +28,6 @@ class MenuState : public ApplicationState {
 		StatsBar m_statsBar;
 
 		Menu m_menu;
-
-		SceneObject &m_player;
 };
 
 #endif // MENUSTATE_HPP_

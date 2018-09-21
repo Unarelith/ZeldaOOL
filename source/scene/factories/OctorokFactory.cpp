@@ -12,10 +12,10 @@
  * =====================================================================================
  */
 #include "EasyBehaviour.hpp"
+#include "Map.hpp"
 #include "OctorokFactory.hpp"
 #include "OctorokMovement.hpp"
 #include "PlayerFactory.hpp"
-#include "PlayerMapCollisionAction.hpp"
 #include "Sprite.hpp"
 
 #include "BehaviourComponent.hpp"
@@ -37,7 +37,11 @@ SceneObject OctorokFactory::create(float x, float y) {
 	octorok.set<PositionComponent>(x, y, 16, 16, Direction::Down);
 
 	auto &collisionComponent = octorok.set<CollisionComponent>();
-	collisionComponent.addAction(PlayerMapCollisionAction());
+	collisionComponent.addChecker(&PlayerFactory::mapCollisions);
+	collisionComponent.addChecker([](SceneObject &octorok) {
+		Map::currentMap->scene().checkCollisionsFor(octorok);
+	});
+
 	collisionComponent.addAction(&octorokAction);
 
 	auto &hitboxComponent = octorok.set<HitboxComponent>();
@@ -74,7 +78,7 @@ SceneObject OctorokFactory::create(float x, float y) {
 
 void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision) {
 	if(inCollision) {
-		if(object.type() == "Player") {
+		if(Scene::isPlayer(object)) {
 			AudioPlayer::playEffect("linkHurt", 0);
 			BattleController::hurt(octorok, object);
 		}
@@ -88,7 +92,7 @@ void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision) 
 
 				// FIXME: Items drop too soon
 				if(octorok.get<HealthComponent>().life() == 0)
-					octorok.get<LootComponent>().dropItem(*octorok.get<Scene*>(), positionComponent.x, positionComponent.y);
+					octorok.get<LootComponent>().dropItem(positionComponent.x, positionComponent.y);
 			// }
 		}
 	}

@@ -5,9 +5,9 @@
  *
  *    Description:
  *
- *        Created:  08/04/2018 20:40:53
+ *        Created:  12/01/2015 16:32:10
  *
- *         Author:  Quentin Bazin, <quent42340@gmail.com>
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
@@ -18,9 +18,7 @@
 
 class TilesetLoader : public ResourceLoader {
 	public:
-		void load(const std::string &xmlFilename, ResourceHandler &handler) override;
-
-		void loadTileset(const std::string &xmlFilename, ResourceHandler &handler);
+		void load(const std::string &xmlFilename, ResourceHandler &handler);
 };
 
 #endif // TILESETLOADER_HPP_

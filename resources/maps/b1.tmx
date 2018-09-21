@@ -4,15 +4,87 @@
   <image source="../graphics/tilesets/plain.png" trans="ff00ff" width="256" height="256"/>
  </tileset>
  <layer name="Calque de Tile 1" width="10" height="8">
-  <data encoding="csv">
-148,37,33,35,37,47,48,37,37,47,
-164,37,33,35,37,31,32,37,17,18,
-146,37,49,65,19,47,63,32,49,50,
-32,31,32,33,35,4,47,63,32,31,
-48,47,48,33,65,19,4,47,48,47,
-248,242,37,33,34,2,18,18,18,18,
-248,37,37,49,50,50,50,50,50,50,
-31,32,37,37,37,31,32,31,32,31
-</data>
+  <data>
+   <tile gid="148"/>
+   <tile gid="37"/>
+   <tile gid="33"/>
+   <tile gid="35"/>
+   <tile gid="37"/>
+   <tile gid="47"/>
+   <tile gid="48"/>
+   <tile gid="37"/>
+   <tile gid="37"/>
+   <tile gid="47"/>
+   <tile gid="164"/>
+   <tile gid="37"/>
+   <tile gid="33"/>
+   <tile gid="35"/>
+   <tile gid="37"/>
+   <tile gid="31"/>
+   <tile gid="32"/>
+   <tile gid="37"/>
+   <tile gid="17"/>
+   <tile gid="18"/>
+   <tile gid="146"/>
+   <tile gid="37"/>
+   <tile gid="49"/>
+   <tile gid="65"/>
+   <tile gid="19"/>
+   <tile gid="47"/>
+   <tile gid="63"/>
+   <tile gid="32"/>
+   <tile gid="49"/>
+   <tile gid="50"/>
+   <tile gid="32"/>
+   <tile gid="31"/>
+   <tile gid="32"/>
+   <tile gid="33"/>
+   <tile gid="35"/>
+   <tile gid="4"/>
+   <tile gid="47"/>
+   <tile gid="63"/>
+   <tile gid="32"/>
+   <tile gid="31"/>
+   <tile gid="48"/>
+   <tile gid="47"/>
+   <tile gid="48"/>
+   <tile gid="33"/>
+   <tile gid="65"/>
+   <tile gid="19"/>
+   <tile gid="4"/>
+   <tile gid="47"/>
+   <tile gid="48"/>
+   <tile gid="47"/>
+   <tile gid="248"/>
+   <tile gid="242"/>
+   <tile gid="37"/>
+   <tile gid="33"/>
+   <tile gid="34"/>
+   <tile gid="2"/>
+   <tile gid="18"/>
+   <tile gid="18"/>
+   <tile gid="18"/>
+   <tile gid="18"/>
+   <tile gid="248"/>
+   <tile gid="37"/>
+   <tile gid="37"/>
+   <tile gid="49"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="50"/>
+   <tile gid="31"/>
+   <tile gid="32"/>
+   <tile gid="37"/>
+   <tile gid="37"/>
+   <tile gid="37"/>
+   <tile gid="31"/>
+   <tile gid="32"/>
+   <tile gid="31"/>
+   <tile gid="32"/>
+   <tile gid="31"/>
+  </data>
  </layer>
 </map>

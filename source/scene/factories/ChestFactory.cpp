@@ -16,6 +16,7 @@
 #include "ChestFactory.hpp"
 #include "ChestOpeningState.hpp"
 #include "GamePad.hpp"
+#include "Map.hpp"
 #include "Scene.hpp"
 
 #include "ChestComponent.hpp"
@@ -39,12 +40,10 @@ SceneObject ChestFactory::create(u16 tileX, u16 tileY) {
 	return object;
 }
 
-#include "TileMap.hpp"
-
 void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 	auto &chestPosition = chest.get<PositionComponent>();
 
-	if(inCollision && object.type() == "Player" && !chest.get<ChestComponent>().opened) {
+	if(inCollision && Scene::isPlayer(object) && !chest.get<ChestComponent>().opened) {
 		auto &playerPosition = object.get<PositionComponent>();
 
 		// FIXME: Find a better way to find if the player is facing the chest
@@ -53,10 +52,10 @@ void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 		&& GamePad::isKeyPressedOnce(GameKey::A)) {
 			AudioPlayer::playEffect("chest");
 
-			TileMap::currentMap->setTile(chestPosition.x / 16,
-			                             chestPosition.y / 16, 240);
+			Map::currentMap->setTile(chestPosition.x / 16,
+			                         chestPosition.y / 16, 240, true);
 
-			ApplicationStateStack::getInstance().push<ChestOpeningState>(object, chest, &ApplicationStateStack::getInstance().top());
+			ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, &ApplicationStateStack::getInstance().top());
 
 			chest.get<ChestComponent>().opened = true;
 		}
