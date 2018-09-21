@@ -64,10 +64,21 @@ void Map::reset() {
 	m_scene.reset();
 }
 
+#include <algorithm>
+
+#include "Config.hpp"
+#include "PositionComponent.hpp"
+
 void Map::update() {
 	m_animator.animateTiles(*this);
 
 	m_scene.update();
+
+	auto &positionComponent = Scene::player->get<PositionComponent>();
+
+	int x = SCREEN_WIDTH / 2 - positionComponent.x + 8;
+	int y = SCREEN_HEIGHT / 2 - positionComponent.y + 8;
+	setPosition(std::clamp<int>(x, SCREEN_WIDTH - m_width * 16, 0), std::clamp<int>(y, SCREEN_HEIGHT - m_height * 16, 16));
 }
 
 void Map::draw(RenderTarget &target, RenderStates states) const {

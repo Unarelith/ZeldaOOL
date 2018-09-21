@@ -1,6 +1,26 @@
 {
     "maps": [
         {
+            "fileName": "in1.tmx",
+            "x": 160,
+            "y": -128
+        },
+        {
+            "fileName": "ca1a1.tmx",
+            "x": -480,
+            "y": 0
+        },
+        {
+            "fileName": "ca1a2.tmx",
+            "x": -160,
+            "y": 0
+        },
+        {
+            "fileName": "ca1b1.tmx",
+            "x": -480,
+            "y": 256
+        },
+        {
             "fileName": "a1.tmx",
             "x": 0,
             "y": 0

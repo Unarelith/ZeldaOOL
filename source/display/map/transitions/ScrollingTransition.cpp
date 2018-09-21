@@ -42,8 +42,8 @@ ScrollingTransition::ScrollingTransition(Mode mode) {
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
 
-	m_nextMap->setPosition(Map::currentMap->width() * 16 * m_vx,
-	                       Map::currentMap->height() * 16 * m_vy + 16);
+	m_nextMap->setPosition(m_nextMap->width() * 16 * m_vx,
+	                       m_nextMap->height() * 16 * m_vy + 16);
 
 	Sprite::pause = true;
 }

@@ -14,5 +14,6 @@
 	<area id="2">
 		<map name="ca1a1" tileset="underground" x="0" y="0" zoneID="0"/>
 		<map name="ca1a2" tileset="underground" x="1" y="0" zoneID="0"/>
+		<map name="ca1b1" tileset="underground" x="0" y="1" zoneID="0"/>
 	</area>
 </maps>

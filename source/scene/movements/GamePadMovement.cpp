@@ -11,6 +11,8 @@
  *
  * =====================================================================================
  */
+#include <cmath>
+
 #include "GamePad.hpp"
 #include "GamePadMovement.hpp"
 
@@ -61,7 +63,8 @@ void GamePadMovement::process(SceneObject &object) {
 
 	if((GamePad::isKeyPressed(GameKey::Left) || GamePad::isKeyPressed(GameKey::Right))
 	&& (GamePad::isKeyPressed(GameKey::Up)   || GamePad::isKeyPressed(GameKey::Down))) {
-		movementComponent.v /= 1.4;
+		static const float sqrt2 = sqrt(2);
+		movementComponent.v /= sqrt2;
 	}
 
 	m_isFinished = true;

@@ -17,7 +17,6 @@
 #include "Map.hpp"
 #include "MapState.hpp"
 #include "MenuState.hpp"
-#include "MessageBoxState.hpp"
 #include "PlayerFactory.hpp"
 #include "Scene.hpp"
 
@@ -34,10 +33,6 @@ void MapState::update() {
 	Map::currentMap->update();
 
 	m_statsBar.update();
-
-	if(GamePad::isKeyPressedOnce(GameKey::Select)) {
-		m_stateStack->push<MessageBoxState>("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", this);
-	}
 
 	if(GamePad::isKeyPressedOnce(GameKey::Start)) {
 		AudioPlayer::playEffect("menuOpen");

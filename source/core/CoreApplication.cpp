@@ -113,6 +113,7 @@ void CoreApplication::mainLoop() {
 	states.shader = &shader;
 
 	glm::mat4 projectionMatrix = glm::ortho(0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f);
+	// glm::mat4 projectionMatrix = glm::ortho((float)-SCREEN_WIDTH, (float)SCREEN_WIDTH * 2, (float)SCREEN_HEIGHT * 2, (float)-SCREEN_HEIGHT);
 	states.projectionMatrix = &projectionMatrix;
 
 	while(m_window.isOpen() && m_stateStack.size()) {
