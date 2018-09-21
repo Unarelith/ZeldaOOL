@@ -34,14 +34,15 @@ void LootComponent::dropItem(float x, float y) {
 		}
 	}
 
-	if(lootFound) {
-		if(m_lootList[i].itemType == Rupees) {
-			Map::currentMap->scene().addObject(CollectableFactory::createRupees(x, y, m_lootList[i].amount, CollectableMovement::Type::Dropped));
-		}
-		else if(m_lootList[i].itemType == Heart) {
-			Map::currentMap->scene().addObject(CollectableFactory::createHeart(x, y, CollectableMovement::Type::Dropped));
-		}
-	}
+	// FIXME: Map rework
+	// if(lootFound) {
+	// 	if(m_lootList[i].itemType == Rupees) {
+	// 		Map::currentMap->scene().addObject(CollectableFactory::createRupees(x, y, m_lootList[i].amount, CollectableMovement::Type::Dropped));
+	// 	}
+	// 	else if(m_lootList[i].itemType == Heart) {
+	// 		Map::currentMap->scene().addObject(CollectableFactory::createHeart(x, y, CollectableMovement::Type::Dropped));
+	// 	}
+	// }
 
 	m_itemDropped = true;
 }

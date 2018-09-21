@@ -18,7 +18,7 @@
 
 #include "AudioLoader.hpp"
 #include "ItemLoader.hpp"
-#include "MapLoader.hpp"
+#include "TileMapLoader.hpp"
 #include "SpriteLoader.hpp"
 #include "TextureLoader.hpp"
 #include "TilesetLoader.hpp"
@@ -36,7 +36,7 @@ void Application::init() {
 	m_resourceHandler.loadConfigFile<SpriteLoader>("resources/config/sprites.xml");
 	m_resourceHandler.loadConfigFile<ItemLoader>("resources/config/items.xml");
 	m_resourceHandler.loadConfigFile<TilesetLoader>("resources/config/tilesets.xml");
-	m_resourceHandler.loadConfigFile<MapLoader>("resources/config/maps.xml");
+	m_resourceHandler.loadConfigFile<TileMapLoader>("resources/config/tilemaps.xml");
 
 	m_stateStack.push<MapState>();
 }

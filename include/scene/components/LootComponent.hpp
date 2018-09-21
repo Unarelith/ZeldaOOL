@@ -14,7 +14,6 @@
 #ifndef LOOTCOMPONENT_HPP_
 #define LOOTCOMPONENT_HPP_
 
-#include "Map.hpp"
 #include "CollectableFactory.hpp"
 
 #include <vector>

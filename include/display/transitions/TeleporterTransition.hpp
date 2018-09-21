@@ -15,8 +15,8 @@
 #define TELEPORTERTRANSITION_HPP_
 
 #include "Direction.hpp"
-#include "Map.hpp"
 #include "RectangleShape.hpp"
+#include "Timer.hpp"
 #include "Transition.hpp"
 
 class TeleporterTransition : public Transition {
@@ -27,8 +27,6 @@ class TeleporterTransition : public Transition {
 
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;
-
-		Map *m_nextMap;
 
 		Timer m_timer;
 

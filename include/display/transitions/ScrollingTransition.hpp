@@ -14,7 +14,6 @@
 #ifndef SCROLLINGTRANSITION_HPP_
 #define SCROLLINGTRANSITION_HPP_
 
-#include "Map.hpp"
 #include "Transition.hpp"
 
 class ScrollingTransition : public Transition {
@@ -37,8 +36,6 @@ class ScrollingTransition : public Transition {
 
 		float m_vx = 0;
 		float m_vy = 0;
-
-		Map *m_nextMap = nullptr;
 
 		float m_scrolled = 0;
 };

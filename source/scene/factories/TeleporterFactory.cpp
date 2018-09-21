@@ -44,24 +44,25 @@ void teleporterAction(SceneObject &teleporter, SceneObject &object, bool inColli
 
 	static bool playerOnDoor = false;
 
-	if(Scene::isPlayer(object)) {
-		if(inCollision) {
-			if(!playerOnDoor) {
-				AudioPlayer::playEffect("mapStairs");
-
-				auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
-				state.setTransition<TeleporterTransition>(teleporterComponent.area(),
-				                                          teleporterComponent.mapX(),
-				                                          teleporterComponent.mapY(),
-				                                          teleporterComponent.playerX(),
-				                                          teleporterComponent.playerY(),
-				                                          teleporterComponent.playerDirection());
-
-				playerOnDoor = true;
-			}
-		} else {
-			playerOnDoor = false;
-		}
-	}
+	// FIXME: Map rework
+	// if(Scene::isPlayer(object)) {
+	// 	if(inCollision) {
+	// 		if(!playerOnDoor) {
+	// 			AudioPlayer::playEffect("mapStairs");
+    //
+	// 			auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
+	// 			state.setTransition<TeleporterTransition>(teleporterComponent.area(),
+	// 			                                          teleporterComponent.mapX(),
+	// 			                                          teleporterComponent.mapY(),
+	// 			                                          teleporterComponent.playerX(),
+	// 			                                          teleporterComponent.playerY(),
+	// 			                                          teleporterComponent.playerDirection());
+    //
+	// 			playerOnDoor = true;
+	// 		}
+	// 	} else {
+	// 		playerOnDoor = false;
+	// 	}
+	// }
 }
 

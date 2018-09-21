@@ -4,87 +4,15 @@
   <image source="../graphics/tilesets/plain.png" width="256" height="256"/>
  </tileset>
  <layer name="Calque de Tile 1" width="10" height="8">
-  <data>
-   <tile gid="148"/>
-   <tile gid="47"/>
-   <tile gid="48"/>
-   <tile gid="47"/>
-   <tile gid="48"/>
-   <tile gid="47"/>
-   <tile gid="48"/>
-   <tile gid="47"/>
-   <tile gid="48"/>
-   <tile gid="47"/>
-   <tile gid="116"/>
-   <tile gid="113"/>
-   <tile gid="113"/>
-   <tile gid="169"/>
-   <tile gid="17"/>
-   <tile gid="18"/>
-   <tile gid="18"/>
-   <tile gid="18"/>
-   <tile gid="19"/>
-   <tile gid="31"/>
-   <tile gid="40"/>
-   <tile gid="40"/>
-   <tile gid="40"/>
-   <tile gid="121"/>
-   <tile gid="33"/>
-   <tile gid="65"/>
-   <tile gid="34"/>
-   <tile gid="8"/>
-   <tile gid="35"/>
-   <tile gid="47"/>
-   <tile gid="40"/>
-   <tile gid="40"/>
-   <tile gid="40"/>
-   <tile gid="128"/>
-   <tile gid="33"/>
-   <tile gid="34"/>
-   <tile gid="65"/>
-   <tile gid="34"/>
-   <tile gid="35"/>
-   <tile gid="31"/>
-   <tile gid="132"/>
-   <tile gid="129"/>
-   <tile gid="129"/>
-   <tile gid="139"/>
-   <tile gid="49"/>
-   <tile gid="65"/>
-   <tile gid="34"/>
-   <tile gid="65"/>
-   <tile gid="35"/>
-   <tile gid="47"/>
-   <tile gid="148"/>
-   <tile gid="149"/>
-   <tile gid="159"/>
-   <tile gid="146"/>
-   <tile gid="37"/>
-   <tile gid="33"/>
-   <tile gid="34"/>
-   <tile gid="34"/>
-   <tile gid="34"/>
-   <tile gid="18"/>
-   <tile gid="148"/>
-   <tile gid="37"/>
-   <tile gid="42"/>
-   <tile gid="37"/>
-   <tile gid="17"/>
-   <tile gid="50"/>
-   <tile gid="50"/>
-   <tile gid="50"/>
-   <tile gid="50"/>
-   <tile gid="50"/>
-   <tile gid="148"/>
-   <tile gid="37"/>
-   <tile gid="33"/>
-   <tile gid="18"/>
-   <tile gid="51"/>
-   <tile gid="31"/>
-   <tile gid="32"/>
-   <tile gid="248"/>
-   <tile gid="248"/>
-   <tile gid="31"/>
-  </data>
+  <data encoding="csv">
+148,47,48,47,48,47,48,47,48,47,
+116,113,113,169,17,18,18,18,19,31,
+40,40,40,121,33,65,34,8,35,47,
+40,40,40,128,33,34,65,34,35,31,
+132,129,129,139,49,65,34,65,35,47,
+148,149,159,146,37,33,34,34,34,18,
+148,37,42,37,17,50,50,50,50,50,
+148,37,33,18,51,31,32,248,248,31
+</data>
  </layer>
 </map>

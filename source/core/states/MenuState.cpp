@@ -17,7 +17,8 @@
 #include "MenuState.hpp"
 
 void MenuState::update() {
-	m_statsBar.update();
+	// FIXME: Map rework
+	// m_statsBar.update();
 
 	m_menu.update();
 

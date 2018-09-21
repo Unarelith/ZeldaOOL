@@ -1,5 +1,5 @@
 <tilesets>
 	<tileset name="plain"/>
-	<tileset name="indoor"/>
-	<tileset name="underground"/>
+	<!-- <tileset name="indoor"/> -->
+	<!-- <tileset name="underground"/> -->
 </tilesets>

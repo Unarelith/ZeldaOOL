@@ -11,7 +11,6 @@
  *
  * =====================================================================================
  */
-#include "Map.hpp"
 #include "SwordBehaviour.hpp"
 #include "SwordFactory.hpp"
 
@@ -50,10 +49,11 @@ SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &own
 	hitboxComponent.addHitbox( 2,  9, 13,  4); // swordLeftRHand
 	hitboxComponent.addHitbox( 2,  1,  4, 13); // swordUpLHand
 
-	auto &collisionComponent = object.set<CollisionComponent>();
-	collisionComponent.addChecker([](SceneObject &sword) {
-		Map::currentMap->scene().checkCollisionsFor(sword);
-	});
+	// FIXME: Map rework
+	// auto &collisionComponent = object.set<CollisionComponent>();
+	// collisionComponent.addChecker([](SceneObject &sword) {
+	// 	Map::currentMap->scene().checkCollisionsFor(sword);
+	// });
 
 	auto &spriteComponent = object.set<SpriteComponent>("animations-sword", 16, 16);
 	spriteComponent.addState("Swinging",    true,  true,  0, 0);

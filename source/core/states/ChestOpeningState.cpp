@@ -16,7 +16,6 @@
 #include "CollectableFactory.hpp"
 #include "ChestOpeningState.hpp"
 #include "LifetimeComponent.hpp"
-#include "Map.hpp"
 #include "MessageBoxState.hpp"
 #include "MovementComponent.hpp"
 #include "MovementController.hpp"
@@ -24,14 +23,15 @@
 #include "Sprite.hpp"
 
 ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *parent) : ApplicationState(parent) {
-	m_item = &Map::currentMap->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
-	m_item->set<LifetimeComponent>();
-
-	auto &chestPosition = chest.get<PositionComponent>();
-	auto &itemPosition = m_item->get<PositionComponent>();
-
-	itemPosition.x = chestPosition.x + 8 - itemPosition.width / 2;
-	itemPosition.y = chestPosition.y - 8;
+	// FIXME: Map rework
+	// m_item = &Map::currentMap->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
+	// m_item->set<LifetimeComponent>();
+    //
+	// auto &chestPosition = chest.get<PositionComponent>();
+	// auto &itemPosition = m_item->get<PositionComponent>();
+    //
+	// itemPosition.x = chestPosition.x + 8 - itemPosition.width / 2;
+	// itemPosition.y = chestPosition.y - 8;
 
 	Sprite::pause = true;
 }

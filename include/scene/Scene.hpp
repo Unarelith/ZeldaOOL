@@ -22,8 +22,9 @@
 #include "IDrawable.hpp"
 #include "SceneObject.hpp"
 #include "SceneObjectList.hpp"
+#include "Transformable.hpp"
 
-class Scene : public IDrawable {
+class Scene : public IDrawable, public Transformable {
 	public:
 		void reset();
 		void update();
@@ -49,10 +50,6 @@ class Scene : public IDrawable {
 		}
 
 		bool isInactive() { return m_controllerList.empty() && m_viewList.empty(); }
-
-		static SceneObject *player;
-
-		static bool isPlayer(SceneObject &object) { return player == &object; }
 
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;

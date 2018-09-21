@@ -13,7 +13,6 @@
  */
 #include "EasyBehaviour.hpp"
 #include "GrassFactory.hpp"
-#include "Map.hpp"
 
 #include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
@@ -76,29 +75,30 @@ void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
 
 		auto &weaponOwner = object.get<WeaponComponent>().owner;
 
-		if(Scene::isPlayer(weaponOwner)
-		&& object.name() == "Sword"
-		&& !grassSpriteComponent.isEnabled()
-		&& grassHitboxComponent.currentHitbox()) {
-			auto &grassPosition = grass.get<PositionComponent>();
-			auto &playerDirection = weaponOwner.get<PositionComponent>().direction;
-			auto &swordSprite = object.get<SpriteComponent>().sprite();
-
-			if((object.get<BehaviourComponent>().behaviour->state() == "Swinging"
-			 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() > 2
-			 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() < swordSprite.getAnimation((s8)playerDirection).size())
-			|| object.get<BehaviourComponent>().behaviour->state() == "SpinAttack") {
-				AudioPlayer::playEffect("grassDestroy");
-
-				grass.get<LootComponent>().dropItem(grassPosition.x + 8, grassPosition.y + 8);
-
-				Map::currentMap->setTile((grassPosition.x + 8) / 16,
-				                         (grassPosition.y + 8) / 16, 36);
-
-				grassSpriteComponent.setEnabled(true);
-				grassHitboxComponent.resetCurrentHitbox();
-			}
-		}
+		// FIXME: Map rework
+		// if(Scene::isPlayer(weaponOwner)
+		// && object.name() == "Sword"
+		// && !grassSpriteComponent.isEnabled()
+		// && grassHitboxComponent.currentHitbox()) {
+		// 	auto &grassPosition = grass.get<PositionComponent>();
+		// 	auto &playerDirection = weaponOwner.get<PositionComponent>().direction;
+		// 	auto &swordSprite = object.get<SpriteComponent>().sprite();
+        //
+		// 	if((object.get<BehaviourComponent>().behaviour->state() == "Swinging"
+		// 	 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() > 2
+		// 	 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() < swordSprite.getAnimation((s8)playerDirection).size())
+		// 	|| object.get<BehaviourComponent>().behaviour->state() == "SpinAttack") {
+		// 		AudioPlayer::playEffect("grassDestroy");
+        //
+		// 		grass.get<LootComponent>().dropItem(grassPosition.x + 8, grassPosition.y + 8);
+        //
+		// 		Map::currentMap->setTile((grassPosition.x + 8) / 16,
+		// 		                         (grassPosition.y + 8) / 16, 36);
+        //
+		// 		grassSpriteComponent.setEnabled(true);
+		// 		grassHitboxComponent.resetCurrentHitbox();
+		// 	}
+		// }
 	}
 }
 

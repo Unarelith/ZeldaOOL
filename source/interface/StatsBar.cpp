@@ -23,8 +23,8 @@ StatsBar::StatsBar() {
 	m_hearts.setPosition(104, 0);
 }
 
-void StatsBar::update() {
-	auto &playerInventory = Scene::player->get<InventoryComponent>();
+void StatsBar::update(const SceneObject &player) {
+	auto &playerInventory = player.get<InventoryComponent>();
 
 	Weapon *weaponA = playerInventory.getWeaponA();
 	Weapon *weaponB = playerInventory.getWeaponB();
@@ -33,12 +33,13 @@ void StatsBar::update() {
 	if(weaponA) weaponA->icon().setPosition(46, -1);
 	if(weaponB) weaponB->icon().setPosition(6, -1);
 
-	updateRupees();
-	updateHearts();
+	updateRupees(player);
+	updateHearts(player);
 }
 
-void StatsBar::updateRupees() {
-	auto &playerInventory = Scene::player->get<InventoryComponent>();
+void StatsBar::updateRupees(const SceneObject &player) {
+	// FIXME: Map rework
+	auto &playerInventory = player.get<InventoryComponent>();
 	u16 rupees = playerInventory.rupees();
 
 	std::string text;
@@ -49,8 +50,8 @@ void StatsBar::updateRupees() {
 	m_rupees.setText(text);
 }
 
-void StatsBar::updateHearts() {
-	auto &playerHealth = Scene::player->get<HealthComponent>();
+void StatsBar::updateHearts(const SceneObject &player) {
+	auto &playerHealth = player.get<HealthComponent>();
 	u8 maxLife = playerHealth.maxLife();
 
 	std::string text;
@@ -80,12 +81,13 @@ void StatsBar::draw(RenderTarget &target, RenderStates states) const {
 	target.draw(m_hearts, states);
 	target.draw(m_rupees, states);
 
-	auto &playerInventory = Scene::player->get<InventoryComponent>();
-
-	Weapon *weaponA = playerInventory.getWeaponA();
-	Weapon *weaponB = playerInventory.getWeaponB();
-
-	if(weaponA) target.draw(weaponA->icon(), states);
-	if(weaponB) target.draw(weaponB->icon(), states);
+	// FIXME: Map rework
+	// auto &playerInventory = Scene::player->get<InventoryComponent>();
+    //
+	// Weapon *weaponA = playerInventory.getWeaponA();
+	// Weapon *weaponB = playerInventory.getWeaponB();
+    //
+	// if(weaponA) target.draw(weaponA->icon(), states);
+	// if(weaponB) target.draw(weaponB->icon(), states);
 }
 

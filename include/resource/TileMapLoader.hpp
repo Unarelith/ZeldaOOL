@@ -1,26 +1,27 @@
 /*
  * =====================================================================================
  *
- *       Filename:  TilesetLoader.hpp
+ *       Filename:  TileMapLoader.hpp
  *
  *    Description:
  *
- *        Created:  08/04/2018 20:40:53
+ *        Created:  09/04/2018 01:09:24
  *
  *         Author:  Quentin Bazin, <quent42340@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef TILESETLOADER_HPP_
-#define TILESETLOADER_HPP_
+#ifndef TILEMAPLOADER_HPP_
+#define TILEMAPLOADER_HPP_
 
 #include "ResourceLoader.hpp"
+#include "Tileset.hpp"
 
-class TilesetLoader : public ResourceLoader {
+class TileMapLoader : public ResourceLoader {
 	public:
 		void load(const std::string &xmlFilename, ResourceHandler &handler) override;
 
-		void loadTileset(const std::string &xmlFilename, ResourceHandler &handler);
+		void loadMap(const std::string &name, const std::string &path, Tileset &tileset, ResourceHandler &handler);
 };
 
-#endif // TILESETLOADER_HPP_
+#endif // TILEMAPLOADER_HPP_

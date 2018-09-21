@@ -14,6 +14,7 @@
 #ifndef STATSBAR_HPP_
 #define STATSBAR_HPP_
 
+#include "SceneObject.hpp"
 #include "Sprite.hpp"
 #include "Text.hpp"
 
@@ -21,9 +22,9 @@ class StatsBar : public IDrawable {
 	public:
 		StatsBar();
 
-		void update();
-		void updateRupees();
-		void updateHearts();
+		void update(const SceneObject &player);
+		void updateRupees(const SceneObject &player);
+		void updateHearts(const SceneObject &player);
 
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;
