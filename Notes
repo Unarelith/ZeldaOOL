@@ -9,10 +9,10 @@ Notes
 
 ## Map
 
-• TODO: Add MapView and remove MapRenderer
-• TODO: Create a SceneObject to hold the map and its subobjects
+• DONE: Use real Tiled tileset + animations
 • TODO: Use a single scene for all the maps and remove `Scene::player`
-• TODO: Use real Tiled tileset + animations
+• TODO: Create a SceneObject to hold the map and its subobjects
+• TODO: Add MapView and remove MapRenderer
 
 ## Sprites
 

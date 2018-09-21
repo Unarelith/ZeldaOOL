@@ -13,14 +13,12 @@
  */
 #include "ApplicationStateStack.hpp"
 #include "AudioPlayer.hpp"
-#include "Config.hpp"
 #include "GamePad.hpp"
 #include "Map.hpp"
 #include "MapState.hpp"
 #include "MenuState.hpp"
 #include "MessageBoxState.hpp"
 #include "PlayerFactory.hpp"
-#include "ResourceHandler.hpp"
 #include "Scene.hpp"
 
 MapState::MapState() {

@@ -40,6 +40,7 @@ Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const 
 
 	setPosition(0, 16);
 
+	m_animator.init(*this);
 	m_renderer.init(this, m_width, m_height);
 
 	updateTiles();
@@ -83,7 +84,6 @@ void Map::updateTiles() {
 			u16 tileID = getTile(tileX, tileY);
 
 			m_renderer.updateTile(tileX, tileY, tileID, *this);
-			m_animator.updateTile(tileX, tileY, tileID, m_tileset);
 		}
 	}
 }
@@ -96,11 +96,11 @@ u16 Map::getTile(u16 tileX, u16 tileY) {
 	}
 }
 
-void Map::setTile(u16 tileX, u16 tileY, u16 id, bool persistent) {
-	if(tileX + tileY * m_width < m_width * m_height) {
+void Map::setTile(u16 tileX, u16 tileY, u16 id, bool write, bool persistent) {
+	if(write && tileX + tileY * m_width < m_width * m_height) {
 		m_data[tileX + tileY * m_width] = id;
 
-		if(persistent) m_baseData[tileX + tileY * m_width] = id;
+		if (persistent) m_baseData[tileX + tileY * m_width] = id;
 	}
 
 	m_renderer.updateTile(tileX, tileY, id, *this);

@@ -16,7 +16,6 @@
 
 #include "ApplicationState.hpp"
 #include "SceneObject.hpp"
-#include "Shader.hpp"
 #include "StatsBar.hpp"
 
 class MapState : public ApplicationState {

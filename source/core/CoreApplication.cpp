@@ -30,7 +30,7 @@ void CoreApplication::init() {
 
 	m_sdlLoader.load();
 
-	m_window.open(APP_NAME, SCREEN_WIDTH * 3, SCREEN_HEIGHT * 3);
+	m_window.open(APP_NAME, SCREEN_WIDTH * 4, SCREEN_HEIGHT * 4);
 
 	GamePad::init(m_keyboardHandler);
 

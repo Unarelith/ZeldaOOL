@@ -13,42 +13,55 @@
  */
 #include <sstream>
 
+#include "Exception.hpp"
 #include "Tileset.hpp"
 #include "XMLFile.hpp"
 
-Tileset::Tileset(const std::string &filename, const std::string &configFile, u16 tileWidth, u16 tileHeight) {
-	load(filename, configFile, tileWidth, tileHeight);
+Tileset::Tileset(const std::string &filename, const std::string &configFile) {
+	load(filename, configFile);
 }
 
-void Tileset::load(const std::string &filename, const std::string &configFile, u16 tileWidth, u16 tileHeight) {
+void Tileset::load(const std::string &filename, const std::string &configFile) {
 	Texture::load(filename);
 
 	XMLFile doc(configFile);
 
-	XMLElement *animationElement = doc.FirstChildElement("tileset").FirstChildElement("animation").ToElement();
-	while(animationElement) {
-		m_anims.emplace_back(animationElement->IntAttribute("delay"));
+	tinyxml2::XMLElement *tilesetElement = doc.FirstChildElement("tileset").ToElement();
+	if (!tilesetElement)
+		throw EXCEPTION("Invalid tileset:", configFile);
 
-		std::istringstream frames(animationElement->Attribute("frames"));
+	std::string name = tilesetElement->Attribute("name");
 
-		std::string tile;
-		while(std::getline(frames, tile, ',')) {
-			m_anims.back().frames.push_back(std::stoi(tile));
+	m_tileWidth = tilesetElement->UnsignedAttribute("tilewidth");
+	m_tileHeight = tilesetElement->UnsignedAttribute("tileheight");
+
+	u16 tileCount = tilesetElement->UnsignedAttribute("tilecount");
+	m_tiles.resize(tileCount, Tile{0});
+
+	tinyxml2::XMLElement *tileElement = tilesetElement->FirstChildElement("tile");
+	while (tileElement) {
+		u16 tileID = tileElement->UnsignedAttribute("id");
+		u16 tileType = tileElement->UnsignedAttribute("type");
+
+		Tile tile{tileType};
+
+		tinyxml2::XMLElement *animationElement = tileElement->FirstChildElement("animation");
+		if (animationElement) {
+			tinyxml2::XMLElement *frameElement = animationElement->FirstChildElement("frame");
+			while (frameElement) {
+				u16 frameTileID = frameElement->UnsignedAttribute("tileid");
+				u16 frameDuration = frameElement->UnsignedAttribute("duration");
+
+				tile.addAnimationFrame(frameTileID, frameDuration);
+
+				frameElement = frameElement->NextSiblingElement("frame");
+			}
 		}
 
-		animationElement = animationElement->NextSiblingElement("animation");
+		m_info.push_back(tileType);
+		setTile(tileID, tile);
+
+		tileElement = tileElement->NextSiblingElement("tile");
 	}
-
-
-	XMLElement *infoElement = doc.FirstChildElement("tileset").FirstChildElement("info").ToElement();
-	std::istringstream info(infoElement->GetText());
-
-	std::string tile;
-	while(std::getline(info, tile, ',')) {
-		m_info.push_back(std::stoi(tile));
-	}
-
-	m_tileWidth  = tileWidth;
-	m_tileHeight = tileHeight;
 }
 

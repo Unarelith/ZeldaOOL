@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="right-down" width="10" height="8" tilewidth="16" tileheight="16" infinite="0" nextobjectid="1">
- <tileset firstgid="1" name="plain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
-  <image source="../graphics/tilesets/plain.png" trans="ff00ff" width="256" height="256"/>
- </tileset>
- <tileset firstgid="257" source="../../../Lidonia/resources/data/tilesets/plain_test.tsx"/>
+ <tileset firstgid="1" source="../config/tilesets/plain.tsx"/>
  <layer name="Calque de Tile 1" width="10" height="8">
   <data>
    <tile gid="48"/>

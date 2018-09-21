@@ -31,7 +31,7 @@ class Map : public IDrawable, public Transformable {
 		void updateTiles();
 
 		u16 getTile(u16 tileX, u16 tileY);
-		void setTile(u16 tileX, u16 tileY, u16 id, bool persistent = false);
+		void setTile(u16 tileX, u16 tileY, u16 id, bool write = true, bool persistent = false);
 
 		bool passable(float x, float y);
 		bool onDoor(float x, float y);
@@ -72,18 +72,18 @@ class Map : public IDrawable, public Transformable {
 
 		u16 m_zoneID = 0;
 
+		Tileset &m_tileset;
+
 		u16 m_width = 0;
 		u16 m_height = 0;
+
+		std::vector<u16> m_baseData;
+		std::vector<u16> m_data;
 
 		MapAnimator m_animator;
 		MapRenderer m_renderer;
 
 		Scene m_scene;
-
-		Tileset &m_tileset;
-
-		std::vector<u16> m_baseData;
-		std::vector<u16> m_data;
 };
 
 #endif // TILEMAP_HPP_

@@ -53,7 +53,7 @@ void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 			AudioPlayer::playEffect("chest");
 
 			Map::currentMap->setTile(chestPosition.x / 16,
-			                         chestPosition.y / 16, 240, true);
+			                         chestPosition.y / 16, 240, true, true);
 
 			ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, &ApplicationStateStack::getInstance().top());
 

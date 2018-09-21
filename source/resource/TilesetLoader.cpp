@@ -23,7 +23,7 @@ void TilesetLoader::load(const std::string &xmlFilename, ResourceHandler &handle
 		std::string name = tilesetElement->Attribute("name");
 		std::string filename = "resources/graphics/tilesets/" + name + ".png";
 
-		std::string configFile = "resources/config/tilesets/" + name + ".xml";
+		std::string configFile = "resources/config/tilesets/" + name + ".tsx";
 
 		handler.add<Tileset>(name, filename, configFile);
 

@@ -14,19 +14,24 @@
 #ifndef MAPANIMATOR_HPP_
 #define MAPANIMATOR_HPP_
 
-#include "AnimatedTile.hpp"
 #include "Tileset.hpp"
+#include "Timer.hpp"
 
 class Map;
 
 class MapAnimator {
 	public:
-		void updateTile(u16 tileX, u16 tileY, u16 tileID, const Tileset &tileset);
+		void init(Map &map);
 
 		void animateTiles(Map &map);
 
 	private:
-		std::vector<AnimatedTile> m_animatedTiles;
+		struct TileAnimation {
+			Timer timer;
+			u16 currentFrame = 0;
+		};
+
+		std::vector<TileAnimation> m_tileAnimations;
 };
 
 #endif // MAPANIMATOR_HPP_
