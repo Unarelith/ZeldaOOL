@@ -14,11 +14,14 @@
 #ifndef TILEMAPFACTORY_HPP_
 #define TILEMAPFACTORY_HPP_
 
-#include "SceneObject.hpp"
+#include "SceneObjectList.hpp"
 
 class TileMapFactory {
 	public:
 		static SceneObject create(const std::string &mapName);
+
+	private:
+		static void load(const std::string &mapName, SceneObjectList &objectList);
 };
 
 #endif // TILEMAPFACTORY_HPP_

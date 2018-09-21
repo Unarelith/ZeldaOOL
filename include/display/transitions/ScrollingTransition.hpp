@@ -40,10 +40,9 @@ class ScrollingTransition : public Transition {
 
 		float m_scrolled = 0;
 
-		TileMap *m_nextMap = nullptr;
-
 		SceneObject &m_player;
 		SceneObject &m_tilemap;
+		SceneObject m_nextMap;
 };
 
 #endif // SCROLLINGTRANSITION_HPP_

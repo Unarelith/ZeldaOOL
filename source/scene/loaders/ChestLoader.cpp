@@ -14,10 +14,10 @@
 #include "ChestFactory.hpp"
 #include "ChestLoader.hpp"
 
-void ChestLoader::load(XMLElement *chestElement, Scene &scene) {
+void ChestLoader::load(XMLElement *chestElement, SceneObjectList &objectList) {
 	u16 tileX = chestElement->IntAttribute("tileX");
 	u16 tileY = chestElement->IntAttribute("tileY");
 
-	scene.addObject(ChestFactory::create(tileX, tileY));
+	objectList.addObject(ChestFactory::create(tileX, tileY));
 }
 

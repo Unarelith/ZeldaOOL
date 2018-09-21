@@ -14,6 +14,8 @@
 #include "TileMap.hpp"
 #include "Vertex.hpp"
 
+TileMap *TileMap::currentMap = nullptr;
+
 TileMap::TileMap(u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data) : m_tileset(tileset) {
 	m_width = width;
 	m_height = height;
@@ -27,7 +29,7 @@ TileMap::TileMap(u16 width, u16 height, Tileset &tileset, const std::vector<u16>
 
 	for (u16 x = 0 ; x < m_width ; ++x) {
 		for (u16 y = 0 ; y < m_height ; ++y) {
-			updateTile(x, y, m_data.at(x + y * m_width));
+			setTile(x, y, m_data.at(x + y * m_width));
 		}
 	}
 }
@@ -44,7 +46,7 @@ void TileMap::updateAnimations() {
 				tileAnimation.currentFrame++;
 				tileAnimation.currentFrame %= tile.getFrameCount();
 
-				updateTile(i % m_width, i / m_width, tile.getFrame(tileAnimation.currentFrame).tileID);
+				setTile(i % m_width, i / m_width, tile.getFrame(tileAnimation.currentFrame).tileID);
 
 				tileAnimation.timer.reset();
 				tileAnimation.timer.start();
@@ -65,7 +67,7 @@ const Tile &TileMap::getTileInfo(float x, float y) const {
 	return m_tileset.getTile(getTile(x / m_tileset.tileWidth(), y / m_tileset.tileHeight()));
 }
 
-void TileMap::updateTile(u16 tileX, u16 tileY, u16 id) {
+void TileMap::setTile(u16 tileX, u16 tileY, u16 id) {
 	float tileWidth  = m_tileset.tileWidth();
 	float tileHeight = m_tileset.tileHeight();
 

@@ -18,7 +18,7 @@
 
 class TileMapView : public AbstractView {
 	public:
-		void draw(const SceneObject &object, RenderTarget &target, RenderStates states);
+		void draw(const SceneObject &object, RenderTarget &target, RenderStates states) const override;
 };
 
 #endif // TILEMAPVIEW_HPP_

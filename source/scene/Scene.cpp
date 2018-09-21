@@ -61,6 +61,7 @@ void Scene::draw(RenderTarget &target, RenderStates states) const {
 
 SceneObject &Scene::addObject(SceneObject &&object) {
 	SceneObject &obj = m_objects.addObject(std::move(object));
+	obj.set<Scene*>(this);
 
 	if(obj.has<CollisionComponent>()) {
 		obj.get<CollisionComponent>().addChecker([&](SceneObject &object) {

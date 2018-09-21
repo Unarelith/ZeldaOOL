@@ -39,6 +39,8 @@ SceneObject ChestFactory::create(u16 tileX, u16 tileY) {
 	return object;
 }
 
+#include "TileMap.hpp"
+
 void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 	auto &chestPosition = chest.get<PositionComponent>();
 
@@ -51,11 +53,10 @@ void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 		&& GamePad::isKeyPressedOnce(GameKey::A)) {
 			AudioPlayer::playEffect("chest");
 
-			// FIXME: Map rework
-			// Map::currentMap->setTile(chestPosition.x / 16,
-			//                          chestPosition.y / 16, 240, true);
-            //
-			// ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, &ApplicationStateStack::getInstance().top());
+			TileMap::currentMap->setTile(chestPosition.x / 16,
+			                             chestPosition.y / 16, 240);
+
+			ApplicationStateStack::getInstance().push<ChestOpeningState>(object, chest, &ApplicationStateStack::getInstance().top());
 
 			chest.get<ChestComponent>().opened = true;
 		}

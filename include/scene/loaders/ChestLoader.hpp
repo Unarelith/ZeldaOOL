@@ -14,12 +14,12 @@
 #ifndef CHESTLOADER_HPP_
 #define CHESTLOADER_HPP_
 
-#include "Scene.hpp"
+#include "SceneObjectList.hpp"
 #include "XMLFile.hpp"
 
 class ChestLoader {
 	public:
-		static void load(XMLElement *chestElement, Scene &scene);
+		static void load(XMLElement *chestElement, SceneObjectList &objectList);
 };
 
 #endif // CHESTLOADER_HPP_

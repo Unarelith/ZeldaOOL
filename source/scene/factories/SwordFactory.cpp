@@ -27,6 +27,7 @@ SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &own
 	object.set<BehaviourComponent>(new SwordBehaviour);
 	object.set<LifetimeComponent>();
 	object.set<WeaponComponent>(owner, weaponInfos, key, "Sword");
+	object.set<CollisionComponent>();
 
 	auto &positionComponent = object.set<PositionComponent>(x, y, 16, 16);
 	positionComponent.direction = owner.get<PositionComponent>().direction;
@@ -48,12 +49,6 @@ SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &own
 	hitboxComponent.addHitbox( 1,  9, 13,  4); // swordRightRHand
 	hitboxComponent.addHitbox( 2,  9, 13,  4); // swordLeftRHand
 	hitboxComponent.addHitbox( 2,  1,  4, 13); // swordUpLHand
-
-	// FIXME: Map rework
-	// auto &collisionComponent = object.set<CollisionComponent>();
-	// collisionComponent.addChecker([](SceneObject &sword) {
-	// 	Map::currentMap->scene().checkCollisionsFor(sword);
-	// });
 
 	auto &spriteComponent = object.set<SpriteComponent>("animations-sword", 16, 16);
 	spriteComponent.addState("Swinging",    true,  true,  0, 0);

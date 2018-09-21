@@ -23,15 +23,14 @@
 #include "Sprite.hpp"
 
 ChestOpeningState::ChestOpeningState(SceneObject &player, SceneObject &chest, ApplicationState *parent) : ApplicationState(parent), m_player(player) {
-	// FIXME: Map rework
-	// m_item = &Map::currentMap->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
-	// m_item->set<LifetimeComponent>();
-    //
-	// auto &chestPosition = chest.get<PositionComponent>();
-	// auto &itemPosition = m_item->get<PositionComponent>();
-    //
-	// itemPosition.x = chestPosition.x + 8 - itemPosition.width / 2;
-	// itemPosition.y = chestPosition.y - 8;
+	m_item = &chest.set<SceneObjectList>().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
+	m_item->set<LifetimeComponent>();
+
+	auto &chestPosition = chest.get<PositionComponent>();
+	auto &itemPosition = m_item->get<PositionComponent>();
+
+	itemPosition.x = chestPosition.x + 8 - itemPosition.width / 2;
+	itemPosition.y = chestPosition.y - 8;
 
 	Sprite::pause = true;
 }

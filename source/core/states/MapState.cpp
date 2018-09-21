@@ -21,6 +21,7 @@
 #include "PlayerFactory.hpp"
 #include "ResourceHandler.hpp"
 #include "Scene.hpp"
+#include "TileMap.hpp"
 #include "TileMapFactory.hpp"
 
 #include "BattleController.hpp"
@@ -46,7 +47,7 @@ MapState::MapState() {
 	m_scene.addView<EffectView>();
 	// m_scene.addView<HitboxView>();
 
-	m_scene.addObject(TileMapFactory::create("tilemap-a1"));
+	TileMap::currentMap = &m_scene.addObject(TileMapFactory::create("a1")).get<TileMap>();
 	m_player = &m_scene.addObject(PlayerFactory::create(64, 48));
 
 	AudioPlayer::playMusic("plain");

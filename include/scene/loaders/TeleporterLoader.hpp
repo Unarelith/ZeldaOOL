@@ -14,12 +14,12 @@
 #ifndef TELEPORTERLOADER_HPP_
 #define TELEPORTERLOADER_HPP_
 
-#include "Scene.hpp"
+#include "SceneObjectList.hpp"
 #include "XMLFile.hpp"
 
 class TeleporterLoader {
 	public:
-		static void load(XMLElement *teleporterElement, Scene &scene);
+		static void load(XMLElement *teleporterElement, SceneObjectList &objectList);
 };
 
 #endif // TELEPORTERLOADER_HPP_

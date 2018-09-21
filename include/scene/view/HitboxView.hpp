@@ -18,7 +18,7 @@
 
 class HitboxView : public AbstractView {
 	public:
-		void draw(const SceneObject &object, RenderTarget &target, RenderStates states);
+		void draw(const SceneObject &object, RenderTarget &target, RenderStates states) const override;
 };
 
 #endif // HITBOXVIEW_HPP_

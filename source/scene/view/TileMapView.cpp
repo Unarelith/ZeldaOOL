@@ -19,7 +19,7 @@
 #include "TileMap.hpp"
 #include "TileMapView.hpp"
 
-void TileMapView::draw(const SceneObject &object, RenderTarget &target, RenderStates states) {
+void TileMapView::draw(const SceneObject &object, RenderTarget &target, RenderStates states) const {
 	if (object.has<LifetimeComponent>() && object.get<LifetimeComponent>().dead(object))
 		return;
 

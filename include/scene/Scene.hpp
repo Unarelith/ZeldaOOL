@@ -49,8 +49,6 @@ class Scene : public IDrawable, public Transformable {
 			return *dynamic_cast<T*>(m_viewList.back().get());
 		}
 
-		bool isInactive() { return m_controllerList.empty() && m_viewList.empty(); }
-
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;
 

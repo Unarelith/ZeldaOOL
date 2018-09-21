@@ -15,6 +15,7 @@
 #include "OctorokFactory.hpp"
 #include "OctorokMovement.hpp"
 #include "PlayerFactory.hpp"
+#include "PlayerMapCollisionAction.hpp"
 #include "Sprite.hpp"
 
 #include "BehaviourComponent.hpp"
@@ -35,14 +36,9 @@ SceneObject OctorokFactory::create(float x, float y) {
 	octorok.set<MovementComponent>(new OctorokMovement);
 	octorok.set<PositionComponent>(x, y, 16, 16, Direction::Down);
 
-	// FIXME: Map rework
-	// auto &collisionComponent = octorok.set<CollisionComponent>();
-	// collisionComponent.addChecker(&PlayerFactory::mapCollisions);
-	// collisionComponent.addChecker([](SceneObject &octorok) {
-	// 	Map::currentMap->scene().checkCollisionsFor(octorok);
-	// });
-    //
-	// collisionComponent.addAction(&octorokAction);
+	auto &collisionComponent = octorok.set<CollisionComponent>();
+	collisionComponent.addAction(PlayerMapCollisionAction());
+	collisionComponent.addAction(&octorokAction);
 
 	auto &hitboxComponent = octorok.set<HitboxComponent>();
 	hitboxComponent.addHitbox(0, 0, 16, 16);
@@ -78,24 +74,23 @@ SceneObject OctorokFactory::create(float x, float y) {
 
 void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision) {
 	if(inCollision) {
-		// FIXME: Map rework
-		// if(Scene::isPlayer(object)) {
-		// 	AudioPlayer::playEffect("linkHurt", 0);
-		// 	BattleController::hurt(octorok, object);
-		// }
-		// else if(object.has<WeaponComponent>()) {
-		// 	// auto &weaponComponent = object.get<WeaponComponent>();
-		// 	// if(weaponComponent.weaponInfos.strength()) {
-		// 		AudioPlayer::playEffect("enemyHit", 0);
-		// 		BattleController::hurt(object, octorok);
-        //
-		// 		auto &positionComponent = octorok.get<PositionComponent>();
-        //
-		// 		// FIXME: Items drop too soon
-		// 		if(octorok.get<HealthComponent>().life() == 0)
-		// 			octorok.get<LootComponent>().dropItem(positionComponent.x, positionComponent.y);
-		// 	// }
-		// }
+		if(object.type() == "Player") {
+			AudioPlayer::playEffect("linkHurt", 0);
+			BattleController::hurt(octorok, object);
+		}
+		else if(object.has<WeaponComponent>()) {
+			// auto &weaponComponent = object.get<WeaponComponent>();
+			// if(weaponComponent.weaponInfos.strength()) {
+				AudioPlayer::playEffect("enemyHit", 0);
+				BattleController::hurt(object, octorok);
+
+				auto &positionComponent = octorok.get<PositionComponent>();
+
+				// FIXME: Items drop too soon
+				if(octorok.get<HealthComponent>().life() == 0)
+					octorok.get<LootComponent>().dropItem(*octorok.get<Scene*>(), positionComponent.x, positionComponent.y);
+			// }
+		}
 	}
 }
 

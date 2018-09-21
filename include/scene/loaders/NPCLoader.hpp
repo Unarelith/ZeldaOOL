@@ -14,12 +14,12 @@
 #ifndef NPCLOADER_HPP_
 #define NPCLOADER_HPP_
 
-#include "Scene.hpp"
+#include "SceneObjectList.hpp"
 #include "XMLFile.hpp"
 
 class NPCLoader {
 	public:
-		static void load(XMLElement *npcElement, Scene &scene);
+		static void load(XMLElement *npcElement, SceneObjectList &objectList);
 };
 
 #endif // NPCLOADER_HPP_

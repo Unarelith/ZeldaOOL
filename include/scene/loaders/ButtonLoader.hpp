@@ -14,12 +14,12 @@
 #ifndef BUTTONLOADER_HPP_
 #define BUTTONLOADER_HPP_
 
-#include "Scene.hpp"
+#include "SceneObjectList.hpp"
 #include "XMLFile.hpp"
 
 class ButtonLoader {
 	public:
-		static void load(XMLElement *buttonElement, Scene &scene);
+		static void load(XMLElement *buttonElement, SceneObjectList &objectList);
 };
 
 #endif // BUTTONLOADER_HPP_

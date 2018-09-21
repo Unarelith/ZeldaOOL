@@ -14,9 +14,10 @@
 #ifndef LOOTCOMPONENT_HPP_
 #define LOOTCOMPONENT_HPP_
 
-#include "CollectableFactory.hpp"
-
 #include <vector>
+
+#include "CollectableFactory.hpp"
+#include "Scene.hpp"
 
 struct LootChance {
 	float dropRange;
@@ -27,7 +28,7 @@ struct LootChance {
 class LootComponent {
 	public:
 		void addItem(float dropChances, CollectableType item, RupeesAmount amount = One);
-		void dropItem(float x, float y);
+		void dropItem(Scene &scene, float x, float y);
 
 	private:
 		bool m_itemDropped = false;

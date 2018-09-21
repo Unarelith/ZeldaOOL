@@ -27,6 +27,7 @@ class TileMap : public PropertyHolder, public IDrawable, public Transformable {
 		void updateAnimations();
 
 		u16 getTile(u16 tileX, u16 tileY) const;
+		void setTile(u16 tileX, u16 tileY, u16 id);
 
 		const Tile &getTileInfo(float x, float y) const;
 
@@ -35,13 +36,14 @@ class TileMap : public PropertyHolder, public IDrawable, public Transformable {
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 
+		// FIXME: TO REMOVE
+		static TileMap *currentMap;
+
 	private:
 		struct TileAnimation {
 			Timer timer;
 			u16 currentFrame = 0;
 		};
-
-		void updateTile(u16 tileX, u16 tileY, u16 id);
 
 		void draw(RenderTarget &target, RenderStates states) const override;
 

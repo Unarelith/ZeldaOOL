@@ -18,9 +18,7 @@
 
 class SpriteView : public AbstractView {
 	public:
-		void draw(const SceneObject &object, RenderTarget &target, RenderStates states);
-
-		void drawHitbox(const SceneObject &object, RenderTarget &target, RenderStates states);
+		void draw(const SceneObject &object, RenderTarget &target, RenderStates states) const override;
 };
 
 #endif // SPRITEVIEW_HPP_

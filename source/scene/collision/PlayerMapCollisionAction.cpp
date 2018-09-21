@@ -63,12 +63,14 @@ void PlayerMapCollisionAction::operator()(SceneObject &player, SceneObject &obje
 				directionTest = position.direction == Direction::Down;
 			}
 
-			const Tile &firstTile  = tileMap.getTileInfo(position.x + collisionMatrix[i][0], position.y + collisionMatrix[i][1]);
-			const Tile &secondTile = tileMap.getTileInfo(position.x + collisionMatrix[i][2], position.y + collisionMatrix[i][3]);
+			auto passable = [&](float x, float y) {
+				u16 tile = tileMap.getTileInfo(x, y).type();
+				return TilesInfos::infos[tile][(s16(x) & 0xF) / (tileMap.tileset().tileWidth()  / 2)
+				                             + (s16(y) & 0xF) / (tileMap.tileset().tileHeight() / 2) * 2] != TilesInfos::SubTileType::NonPassable;
+			};
 
-			// FIXME: Map rework: Use TilesInfos for accurate collisions
-			bool firstPosObstacle  = (firstTile.type() == 1);
-			bool secondPosObstacle = (secondTile.type() == 1);
+			bool firstPosObstacle  = !passable(position.x + collisionMatrix[i][0], position.y + collisionMatrix[i][1]);
+			bool secondPosObstacle = !passable(position.x + collisionMatrix[i][2], position.y + collisionMatrix[i][3]);
 
 			if(velocityTest && (firstPosObstacle || secondPosObstacle)) {
 				if(i < 2)   movement.v.x = 0;

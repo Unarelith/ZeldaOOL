@@ -36,7 +36,8 @@ void SwordBehaviour::action(SceneObject &sword) {
 	auto &ownerSpriteComponent = owner.get<SpriteComponent>();
 	auto &ownerSprite = ownerSpriteComponent.sprite();
 
-	swordPosition = ownerPosition;
+	// swordPosition = ownerPosition;
+	swordPosition.setPosition(Vector2{0, 0});
 
 	if(m_state == "Swinging") {
 		if(sprite.currentAnimation().isFinished()) {
