@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.cpp
+ *       Filename:  GameState.cpp
  *
  *    Description:
  *
@@ -14,23 +14,19 @@
 #include "ApplicationStateStack.hpp"
 #include "AudioPlayer.hpp"
 #include "GamePad.hpp"
+#include "GameState.hpp"
 #include "Map.hpp"
-#include "MapState.hpp"
 #include "MenuState.hpp"
-#include "PlayerFactory.hpp"
 #include "Scene.hpp"
 
-MapState::MapState() {
-	Map::currentMap = &Map::getMap(0, 0, 0);
-
-	m_player = PlayerFactory::create(64, 48);
-	Scene::player = &m_player;
+GameState::GameState() {
+	World::setInstance(&m_world);
 
 	AudioPlayer::playMusic("plain");
 }
 
-void MapState::update() {
-	Map::currentMap->update();
+void GameState::update() {
+	m_world.update();
 
 	m_statsBar.update();
 
@@ -41,10 +37,9 @@ void MapState::update() {
 	}
 }
 
-void MapState::draw(RenderTarget &target, RenderStates states) const {
-	if (Map::currentMap)
-		target.draw(*Map::currentMap, states);
-
+void GameState::draw(RenderTarget &target, RenderStates states) const {
 	target.draw(m_statsBar, states);
+
+	target.draw(m_world, states);
 }
 

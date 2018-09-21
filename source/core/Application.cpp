@@ -13,7 +13,7 @@
  */
 #include "Application.hpp"
 #include "GamePad.hpp"
-#include "MapState.hpp"
+#include "GameState.hpp"
 #include "ResourceHandler.hpp"
 
 #include "AudioLoader.hpp"
@@ -38,7 +38,7 @@ void Application::init() {
 	m_resourceHandler.loadConfigFile<TilesetLoader>("resources/config/tilesets.xml");
 	m_resourceHandler.loadConfigFile<MapLoader>("resources/config/maps.xml");
 
-	m_stateStack.push<MapState>();
+	m_stateStack.push<GameState>();
 }
 
 void Application::initOpenGL() {

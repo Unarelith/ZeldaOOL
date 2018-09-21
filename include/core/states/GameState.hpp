@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapState.hpp
+ *       Filename:  GameState.hpp
  *
  *    Description:
  *
@@ -11,25 +11,26 @@
  *
  * =====================================================================================
  */
-#ifndef MAPSTATE_HPP_
-#define MAPSTATE_HPP_
+#ifndef GAMESTATE_HPP_
+#define GAMESTATE_HPP_
 
 #include "ApplicationState.hpp"
 #include "SceneObject.hpp"
 #include "StatsBar.hpp"
+#include "World.hpp"
 
-class MapState : public ApplicationState {
+class GameState : public ApplicationState {
 	public:
-		MapState();
+		GameState();
 
 		void update() override;
 
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;
 
-		SceneObject m_player;
-
 		StatsBar m_statsBar;
+
+		World m_world;
 };
 
-#endif // MAPSTATE_HPP_
+#endif // GAMESTATE_HPP_
