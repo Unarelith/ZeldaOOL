@@ -5,7 +5,7 @@
  <tile id="1" type="0"/>
  <tile id="2" type="0"/>
  <tile id="3" type="0"/>
- <tile id="4" type="0"/>
+ <tile id="4" type="14"/>
  <tile id="5" type="0"/>
  <tile id="6" type="0"/>
  <tile id="7" type="0"/>
@@ -33,10 +33,10 @@
  <tile id="29" type="1"/>
  <tile id="30" type="0"/>
  <tile id="31" type="0"/>
- <tile id="32" type="0"/>
- <tile id="33" type="0"/>
- <tile id="34" type="0"/>
- <tile id="35" type="0"/>
+ <tile id="32" type="14"/>
+ <tile id="33" type="14"/>
+ <tile id="34" type="14"/>
+ <tile id="35" type="14"/>
  <tile id="36" type="1"/>
  <tile id="37" type="1"/>
  <tile id="38" type="1"/>

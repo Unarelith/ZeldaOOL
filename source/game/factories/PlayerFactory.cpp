@@ -13,7 +13,6 @@
  */
 #include "ApplicationStateStack.hpp"
 #include "GamePadMovement.hpp"
-#include "Map.hpp"
 #include "PlayerBehaviour.hpp"
 #include "PlayerFactory.hpp"
 #include "ResourceHandler.hpp"
@@ -21,6 +20,7 @@
 #include "ScrollingTransition.hpp"
 #include "TilesInfos.hpp"
 #include "TransitionState.hpp"
+#include "World.hpp"
 
 #include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
@@ -49,7 +49,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 	auto &collisionComponent = player.set<CollisionComponent>();
 	collisionComponent.addChecker(&PlayerFactory::mapCollisions);
 	collisionComponent.addChecker([](SceneObject &player) {
-		Map::currentMap->scene().checkCollisionsFor(player);
+		World::getInstance().currentMap()->scene().checkCollisionsFor(player);
 	});
 
 	auto &effectsComponent = player.set<EffectsComponent>();
@@ -104,8 +104,8 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 			directionTest = position.direction == Direction::Down;
 		}
 
-		bool firstPosPassable  = Map::currentMap->passable(position.x + collisionMatrix[i][0], position.y + collisionMatrix[i][1]);
-		bool secondPosPassable = Map::currentMap->passable(position.x + collisionMatrix[i][2], position.y + collisionMatrix[i][3]);
+		bool firstPosPassable  = World::getInstance().currentMap()->passable(position.x + collisionMatrix[i][0], position.y + collisionMatrix[i][1]);
+		bool secondPosPassable = World::getInstance().currentMap()->passable(position.x + collisionMatrix[i][2], position.y + collisionMatrix[i][3]);
 
 		if(velocityTest && (!firstPosPassable || !secondPosPassable)) {
 			if(i < 2)	movement.v.x = 0;
@@ -140,10 +140,10 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 	}
 
 	auto onTile = [position](u16 tile) {
-		return (Map::currentMap->isTile(position.x + 6, position.y + 11, tile)
-			&&  Map::currentMap->isTile(position.x + 7, position.y + 11, tile)
-			&&  Map::currentMap->isTile(position.x + 6, position.y + 12, tile)
-			&&  Map::currentMap->isTile(position.x + 7, position.y + 12, tile));
+		return (World::getInstance().currentMap()->isTile(position.x + 6, position.y + 11, tile)
+			&&  World::getInstance().currentMap()->isTile(position.x + 7, position.y + 11, tile)
+			&&  World::getInstance().currentMap()->isTile(position.x + 6, position.y + 12, tile)
+			&&  World::getInstance().currentMap()->isTile(position.x + 7, position.y + 12, tile));
 	};
 
 	if(onTile(TilesInfos::TileType::SlowingTile)) {
@@ -162,7 +162,7 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingLeft);
 	}
-	else if(position.x + 13 > Map::currentMap->width() * 16) {
+	else if(position.x + 13 > World::getInstance().currentMap()->width() * 16) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingRight);
 	}
@@ -170,7 +170,7 @@ void PlayerFactory::mapCollisions(SceneObject &player) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingUp);
 	}
-	else if(position.y + 15 > Map::currentMap->height() * 16) {
+	else if(position.y + 15 > World::getInstance().currentMap()->height() * 16) {
 		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingDown);
 	}

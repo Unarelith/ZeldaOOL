@@ -54,8 +54,6 @@ class Map : public IDrawable, public Transformable {
 		Map &getSideMap(s8 dx, s8 dy) { return getMap(m_area, m_x + dx, m_y + dy); }
 		bool hasSideMap(s8 dx, s8 dy) { return mapExists(m_area, m_x + dx, m_y + dy); }
 
-		static Map *currentMap;
-
 		enum EventType {
 			ButtonPressed,
 			ChangeMap,

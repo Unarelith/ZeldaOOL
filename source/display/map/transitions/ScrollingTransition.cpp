@@ -13,11 +13,11 @@
  */
 #include "Application.hpp"
 #include "Config.hpp"
-#include "Map.hpp"
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
 #include "ScrollingTransition.hpp"
 #include "Sprite.hpp"
+#include "World.hpp"
 
 ScrollingTransition::ScrollingTransition(Mode mode) {
 	m_mode = mode;
@@ -35,9 +35,9 @@ ScrollingTransition::ScrollingTransition(Mode mode) {
 		m_vy = 1;
 	}
 
-	m_nextMap = &Map::getMap(Map::currentMap->area(),
-	                         Map::currentMap->x() + m_vx,
-	                         Map::currentMap->y() + m_vy);
+	m_nextMap = &Map::getMap(World::getInstance().currentMap()->area(),
+	                         World::getInstance().currentMap()->x() + m_vx,
+	                         World::getInstance().currentMap()->y() + m_vy);
 
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
@@ -49,14 +49,10 @@ ScrollingTransition::ScrollingTransition(Mode mode) {
 }
 
 void ScrollingTransition::update() {
-	PositionComponent *positionComponent = nullptr;
+	PositionComponent &positionComponent = World::getInstance().player().get<PositionComponent>();
+	positionComponent.move(m_vx * 0.15f, m_vy * 0.21f);
 
-	if(Scene::player) {
-		positionComponent = &Scene::player->get<PositionComponent>();
-		positionComponent->move(m_vx * 0.15f, m_vy * 0.21f);
-	}
-
-	Map::currentMap->move(-m_vx * 1.6f, -m_vy * 1.5f);
+	World::getInstance().currentMap()->move(-m_vx * 1.6f, -m_vy * 1.5f);
 	m_nextMap->move(-m_vx * 1.6f, -m_vy * 1.5f);
 
 	if(m_vx != 0) m_scrolled += 1.6f;
@@ -64,15 +60,13 @@ void ScrollingTransition::update() {
 
 	if((m_scrolled >= SCREEN_WIDTH       && m_vx != 0)
 	|| (m_scrolled >= SCREEN_HEIGHT - 16 && m_vy != 0)) {
-		if(positionComponent) {
-			if(m_vx < 0)      positionComponent->move(m_nextMap->width() * 16, 0);
-			else if(m_vx > 0) positionComponent->move(-Map::currentMap->width() * 16, 0);
-			else if(m_vy < 0) positionComponent->move(0, m_nextMap->height() * 16);
-			else if(m_vy > 0) positionComponent->move(0, -Map::currentMap->height() * 16);
-		}
+		if(m_vx < 0)      positionComponent.move(m_nextMap->width() * 16, 0);
+		else if(m_vx > 0) positionComponent.move(-World::getInstance().currentMap()->width() * 16, 0);
+		else if(m_vy < 0) positionComponent.move(0, m_nextMap->height() * 16);
+		else if(m_vy > 0) positionComponent.move(0, -World::getInstance().currentMap()->height() * 16);
 
-		Map::currentMap = m_nextMap;
-		Map::currentMap->setPosition(0, 16);
+		World::getInstance().setCurrentMap(m_nextMap);
+		World::getInstance().currentMap()->setPosition(0, 16);
 
 		m_scrolled = 0;
 
@@ -81,14 +75,12 @@ void ScrollingTransition::update() {
 		m_atEnd = true;
 	}
 
-	if(Scene::player && positionComponent) {
-		auto &objectList = Scene::player->get<SceneObjectList>();
-		for(auto &object : objectList) {
-			if (object.has<PositionComponent>()) {
-				auto &position = object.get<PositionComponent>();
-				position.x = positionComponent->x;
-				position.y = positionComponent->y;
-			}
+	auto &objectList = World::getInstance().player().get<SceneObjectList>();
+	for(auto &object : objectList) {
+		if (object.has<PositionComponent>()) {
+			auto &position = object.get<PositionComponent>();
+			position.x = positionComponent.x;
+			position.y = positionComponent.y;
 		}
 	}
 }
@@ -96,6 +88,6 @@ void ScrollingTransition::update() {
 void ScrollingTransition::draw(RenderTarget &target, RenderStates states) const {
 	target.draw(*m_nextMap, states);
 
-	target.draw(*Map::currentMap, states);
+	target.draw(*World::getInstance().currentMap(), states);
 }
 

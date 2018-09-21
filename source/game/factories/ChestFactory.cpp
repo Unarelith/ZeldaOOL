@@ -16,8 +16,8 @@
 #include "ChestFactory.hpp"
 #include "ChestOpeningState.hpp"
 #include "GamePad.hpp"
-#include "Map.hpp"
 #include "Scene.hpp"
+#include "World.hpp"
 
 #include "ChestComponent.hpp"
 #include "CollisionComponent.hpp"
@@ -52,8 +52,8 @@ void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 		&& GamePad::isKeyPressedOnce(GameKey::A)) {
 			AudioPlayer::playEffect("chest");
 
-			Map::currentMap->setTile(chestPosition.x / 16,
-			                         chestPosition.y / 16, 240, true, true);
+			World::getInstance().currentMap()->setTile(chestPosition.x / 16,
+			                                           chestPosition.y / 16, 240, true, true);
 
 			ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, &ApplicationStateStack::getInstance().top());
 

@@ -15,7 +15,7 @@
 #include "GamePad.hpp"
 #include "InventoryComponent.hpp"
 #include "Menu.hpp"
-#include "Scene.hpp"
+#include "World.hpp"
 
 Menu::Menu() {
 	m_background.setPosition(0, 16);
@@ -59,7 +59,7 @@ void Menu::update() {
 	if(m_cursorY < 0) m_cursorY = 3;
 	if(m_cursorY > 3) m_cursorY = 0;
 
-	auto &playerInventory = Scene::player->get<InventoryComponent>();
+	auto &playerInventory = World::getInstance().player().get<InventoryComponent>();
 
 	if(GamePad::isKeyPressedOnce(GameKey::A)) {
 		AudioPlayer::playEffect("menuSelect");
@@ -89,7 +89,7 @@ void Menu::draw(RenderTarget &target, RenderStates states) const {
 
 	target.draw(m_cursor, states);
 
-	auto &playerInventory = Scene::player->get<InventoryComponent>();
+	auto &playerInventory = World::getInstance().player().get<InventoryComponent>();
 
 	for(u8 x = 0 ; x < 4 ; x++) {
 		for(u8 y = 0 ; y < 4 ; y++) {

@@ -15,8 +15,7 @@
 #include "MapLoader.hpp"
 #include "ResourceHandler.hpp"
 #include "TilesInfos.hpp"
-
-Map *Map::currentMap = nullptr;
+#include "World.hpp"
 
 #include "BattleController.hpp"
 #include "BehaviourController.hpp"
@@ -74,7 +73,7 @@ void Map::update() {
 
 	m_scene.update();
 
-	auto &positionComponent = Scene::player->get<PositionComponent>();
+	auto &positionComponent = World::getInstance().player().get<PositionComponent>();
 
 	int x = SCREEN_WIDTH / 2 - positionComponent.x + 8;
 	int y = SCREEN_HEIGHT / 2 - positionComponent.y + 8;

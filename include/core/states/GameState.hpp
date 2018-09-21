@@ -15,7 +15,6 @@
 #define GAMESTATE_HPP_
 
 #include "ApplicationState.hpp"
-#include "SceneObject.hpp"
 #include "StatsBar.hpp"
 #include "World.hpp"
 

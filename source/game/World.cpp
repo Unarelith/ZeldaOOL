@@ -18,23 +18,18 @@ World *World::s_instance = nullptr;
 
 World::World() {
 	m_currentMap = &Map::getMap(0, 0, 0);
-	Map::currentMap = m_currentMap;
 
 	m_player = PlayerFactory::create(64, 48);
-	Scene::player = &m_player;
 }
 
 void World::update() {
-	Map::currentMap->update();
-	// m_currentMap->update();
+	m_currentMap->update();
 }
 
 void World::draw(RenderTarget &target, RenderStates states) const {
 	applyTransform(states);
 
-	if (Map::currentMap)
-		target.draw(*Map::currentMap, states);
-	// if (m_currentMap)
-	// 	target.draw(*m_currentMap, states);
+	if (m_currentMap)
+		target.draw(*m_currentMap, states);
 }
 

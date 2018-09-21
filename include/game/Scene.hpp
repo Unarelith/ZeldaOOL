@@ -50,9 +50,7 @@ class Scene : public IDrawable {
 
 		bool isInactive() { return m_controllerList.empty() && m_viewList.empty(); }
 
-		static SceneObject *player;
-
-		static bool isPlayer(SceneObject &object) { return player == &object; }
+		static bool isPlayer(SceneObject &object) { return object.type() == "Player"; }
 
 	private:
 		void draw(RenderTarget &target, RenderStates states) const override;

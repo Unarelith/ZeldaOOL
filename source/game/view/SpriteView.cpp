@@ -24,13 +24,13 @@
 #include "SpriteView.hpp"
 
 void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderStates states) {
-	if (object.has<LifetimeComponent>() && object.get<LifetimeComponent>().dead(object))
-		return;
+	// if (object.has<LifetimeComponent>() && object.get<LifetimeComponent>().dead(object))
+	// 	return;
 
-	// 	if(object.has<LifetimeComponent>()) {
-	// 		auto &lifetime = object.get<LifetimeComponent>();
-	// 		if(lifetime.almostDead() && (lifetime.dead(object) || lifetime.aliveTime() % 120 <= 59)) return;
-	// 	}
+	if(object.has<LifetimeComponent>()) {
+		auto &lifetime = object.get<LifetimeComponent>();
+		if(lifetime.almostDead() && (lifetime.dead(object) || lifetime.aliveTime() % 120 <= 59)) return;
+	}
 
 	glm::mat4 modelMatrix;
 	if (object.has<PositionComponent>()) {

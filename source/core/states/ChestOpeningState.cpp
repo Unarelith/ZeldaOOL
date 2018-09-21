@@ -16,15 +16,15 @@
 #include "CollectableFactory.hpp"
 #include "ChestOpeningState.hpp"
 #include "LifetimeComponent.hpp"
-#include "Map.hpp"
 #include "MessageBoxState.hpp"
 #include "MovementComponent.hpp"
 #include "MovementController.hpp"
 #include "PositionComponent.hpp"
 #include "Sprite.hpp"
+#include "World.hpp"
 
 ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *parent) : ApplicationState(parent) {
-	m_item = &Map::currentMap->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
+	m_item = &World::getInstance().currentMap()->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
 	m_item->set<LifetimeComponent>();
 
 	auto &chestPosition = chest.get<PositionComponent>();

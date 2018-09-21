@@ -15,9 +15,7 @@
 #include "AudioPlayer.hpp"
 #include "GamePad.hpp"
 #include "GameState.hpp"
-#include "Map.hpp"
 #include "MenuState.hpp"
-#include "Scene.hpp"
 
 GameState::GameState() {
 	World::setInstance(&m_world);
@@ -38,8 +36,8 @@ void GameState::update() {
 }
 
 void GameState::draw(RenderTarget &target, RenderStates states) const {
-	target.draw(m_statsBar, states);
-
 	target.draw(m_world, states);
+
+	target.draw(m_statsBar, states);
 }
 

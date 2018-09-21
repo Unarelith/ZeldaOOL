@@ -11,9 +11,9 @@
  *
  * =====================================================================================
  */
-#include "Map.hpp"
 #include "SwordBehaviour.hpp"
 #include "SwordFactory.hpp"
+#include "World.hpp"
 
 #include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
@@ -52,7 +52,7 @@ SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &own
 
 	auto &collisionComponent = object.set<CollisionComponent>();
 	collisionComponent.addChecker([](SceneObject &sword) {
-		Map::currentMap->scene().checkCollisionsFor(sword);
+		World::getInstance().currentMap()->scene().checkCollisionsFor(sword);
 	});
 
 	auto &spriteComponent = object.set<SpriteComponent>("animations-sword", 16, 16);

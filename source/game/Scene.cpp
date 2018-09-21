@@ -14,18 +14,17 @@
 #include "CollisionComponent.hpp"
 #include "CollisionHelper.hpp"
 #include "Scene.hpp"
-
-SceneObject *Scene::player = nullptr;
+#include "World.hpp"
 
 void Scene::reset() {
 	for (auto &controller : m_controllerList) {
 		if (controller->isGlobal())
 			controller->reset(m_objects);
 
-		// FIXME: Fix player handling
-		// controller->reset(*Scene::player);
-		// if (Scene::player->has<SceneObjectList>())
-		// 	controller->reset(Scene::player->get<SceneObjectList>());
+		// FIXME
+		// controller->reset(*World::getInstance().player());
+		// if (World::getInstance().player()->has<SceneObjectList>())
+		// 	controller->reset(World::getInstance().player()->get<SceneObjectList>());
 	}
 
 	for (SceneObject &object : m_objects) {
@@ -45,10 +44,9 @@ void Scene::update() {
 		if (controller->isGlobal())
 			controller->update(m_objects);
 
-		// FIXME: Fix player handling
-		controller->update(*Scene::player);
-		if (Scene::player->has<SceneObjectList>())
-			controller->update(Scene::player->get<SceneObjectList>());
+		controller->update(World::getInstance().player());
+		if (World::getInstance().player().has<SceneObjectList>())
+			controller->update(World::getInstance().player().get<SceneObjectList>());
 	}
 
 	for (SceneObject &object : m_objects) {
@@ -67,10 +65,9 @@ void Scene::draw(RenderTarget &target, RenderStates states) const {
 	for (auto &view : m_viewList) {
 		view->draw(m_objects, target, states);
 
-		// FIXME: Fix player handling
-		if (Scene::player->has<SceneObjectList>())
-			view->draw(Scene::player->get<SceneObjectList>(), target, states);
-		view->draw(*Scene::player, target, states);
+		if (World::getInstance().player().has<SceneObjectList>())
+			view->draw(World::getInstance().player().get<SceneObjectList>(), target, states);
+		view->draw(World::getInstance().player(), target, states);
 	}
 }
 

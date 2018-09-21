@@ -13,7 +13,7 @@
  */
 #include "AudioPlayer.hpp"
 #include "ButtonComponent.hpp"
-#include "Map.hpp"
+#include "World.hpp"
 
 void ButtonComponent::addTileChange(u16 tileX, u16 tileY, u16 newID) {
 	m_tileChanges.emplace_back(tileX, tileY, -1, newID);
@@ -24,14 +24,14 @@ void ButtonComponent::pressedAction(u16 buttonTileX, u16 buttonTileY) {
 
 	AudioPlayer::playEffect("chest");
 
-	Map::currentMap->setTile(buttonTileX, buttonTileY, 8);
+	World::getInstance().currentMap()->setTile(buttonTileX, buttonTileY, 8);
 
 	for(auto &tileChange : m_tileChanges) {
 		if(tileChange.oldID == -1) {
-			tileChange.oldID = Map::currentMap->getTile(tileChange.tileX, tileChange.tileY);
+			tileChange.oldID = World::getInstance().currentMap()->getTile(tileChange.tileX, tileChange.tileY);
 		}
 
-		Map::currentMap->setTile(tileChange.tileX,
+		World::getInstance().currentMap()->setTile(tileChange.tileX,
 								 tileChange.tileY,
 								 tileChange.newID);
 	}
@@ -42,11 +42,11 @@ void ButtonComponent::pressedAction(u16 buttonTileX, u16 buttonTileY) {
 void ButtonComponent::releasedAction(u16 buttonTileX, u16 buttonTileY) {
 	if(!m_pressed) return;
 
-	Map::currentMap->setTile(buttonTileX, buttonTileY, 7);
+	World::getInstance().currentMap()->setTile(buttonTileX, buttonTileY, 7);
 
 	for(auto &tileChange : m_tileChanges) {
 		if(tileChange.oldID != -1) {
-			Map::currentMap->setTile(tileChange.tileX,
+			World::getInstance().currentMap()->setTile(tileChange.tileX,
 									 tileChange.tileY,
 									 tileChange.oldID);
 		}

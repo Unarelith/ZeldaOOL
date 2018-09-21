@@ -20,20 +20,17 @@
 #include "Scene.hpp"
 #include "SpriteComponent.hpp"
 #include "TeleporterTransition.hpp"
+#include "World.hpp"
 
 TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection) {
 	m_nextMap = &Map::getMap(area, mapX, mapY);
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
 
-	if(Scene::player) {
-		auto &positionComponent = Scene::player->get<PositionComponent>();
-
-		positionComponent.x = playerX;
-		positionComponent.y = playerY;
-
-		positionComponent.direction = playerDirection;
-	}
+	auto &positionComponent = World::getInstance().player().get<PositionComponent>();
+	positionComponent.direction = playerDirection;
+	positionComponent.x = playerX;
+	positionComponent.y = playerY;
 
 	m_timer.start();
 
@@ -56,7 +53,7 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 	}
 
 	BehaviourController controller;
-	controller.reset(*Scene::player);
+	controller.reset(World::getInstance().player());
 
 	m_drawStatsBar = false;
 
@@ -68,7 +65,7 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 
 void TeleporterTransition::update() {
 	if(m_rect1.getPosition().x + m_rect1.width() < 0) {
-		Map::currentMap = m_nextMap;
+		World::getInstance().setCurrentMap(m_nextMap);
 
 		m_atEnd = true;
 

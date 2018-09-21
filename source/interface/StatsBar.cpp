@@ -15,8 +15,8 @@
 
 #include "HealthComponent.hpp"
 #include "InventoryComponent.hpp"
-#include "Scene.hpp"
 #include "StatsBar.hpp"
+#include "World.hpp"
 
 StatsBar::StatsBar() {
 	m_rupees.setPosition(81, 9);
@@ -24,7 +24,7 @@ StatsBar::StatsBar() {
 }
 
 void StatsBar::update() {
-	auto &playerInventory = Scene::player->get<InventoryComponent>();
+	auto &playerInventory = World::getInstance().player().get<InventoryComponent>();
 
 	Weapon *weaponA = playerInventory.getWeaponA();
 	Weapon *weaponB = playerInventory.getWeaponB();
@@ -38,7 +38,7 @@ void StatsBar::update() {
 }
 
 void StatsBar::updateRupees() {
-	auto &playerInventory = Scene::player->get<InventoryComponent>();
+	auto &playerInventory = World::getInstance().player().get<InventoryComponent>();
 	u16 rupees = playerInventory.rupees();
 
 	std::string text;
@@ -50,7 +50,7 @@ void StatsBar::updateRupees() {
 }
 
 void StatsBar::updateHearts() {
-	auto &playerHealth = Scene::player->get<HealthComponent>();
+	auto &playerHealth = World::getInstance().player().get<HealthComponent>();
 	u8 maxLife = playerHealth.maxLife();
 
 	std::string text;
@@ -80,7 +80,7 @@ void StatsBar::draw(RenderTarget &target, RenderStates states) const {
 	target.draw(m_hearts, states);
 	target.draw(m_rupees, states);
 
-	auto &playerInventory = Scene::player->get<InventoryComponent>();
+	auto &playerInventory = World::getInstance().player().get<InventoryComponent>();
 
 	Weapon *weaponA = playerInventory.getWeaponA();
 	Weapon *weaponB = playerInventory.getWeaponB();

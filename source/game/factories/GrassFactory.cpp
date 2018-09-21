@@ -68,6 +68,7 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 
 #include "AudioPlayer.hpp"
 #include "WeaponComponent.hpp"
+#include "World.hpp"
 
 void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
 	if(inCollision && object.has<WeaponComponent>()) {
@@ -92,8 +93,8 @@ void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
 
 				grass.get<LootComponent>().dropItem(grassPosition.x + 8, grassPosition.y + 8);
 
-				Map::currentMap->setTile((grassPosition.x + 8) / 16,
-				                         (grassPosition.y + 8) / 16, 36);
+				World::getInstance().currentMap()->setTile((grassPosition.x + 8) / 16,
+				                                           (grassPosition.y + 8) / 16, 36);
 
 				grassSpriteComponent.setEnabled(true);
 				grassHitboxComponent.resetCurrentHitbox();

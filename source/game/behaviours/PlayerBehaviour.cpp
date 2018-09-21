@@ -13,11 +13,11 @@
  */
 #include "GamePad.hpp"
 #include "GamePadMovement.hpp"
-#include "Map.hpp"
 #include "PlayerBehaviour.hpp"
 #include "SceneObjectList.hpp"
 #include "TilesInfos.hpp"
 #include "WeaponFactory.hpp"
+#include "World.hpp"
 
 #include "BehaviourComponent.hpp"
 #include "HealthComponent.hpp"
@@ -123,9 +123,9 @@ void PlayerBehaviour::action(SceneObject &player) {
 		}
 
 		auto &positionComponent = player.get<PositionComponent>();
-		if (Map::currentMap->isTile(positionComponent.getFrontTile().x * 16,
-		                            positionComponent.getFrontTile().y * 16,
-		                            TilesInfos::Stone) && movement.isMoving)
+		if (World::getInstance().currentMap()->isTile(positionComponent.getFrontTile().x * 16,
+		                                              positionComponent.getFrontTile().y * 16,
+		                                              TilesInfos::Stone) && movement.isMoving)
 		{
 			movement.isDirectionLocked = false;
 			movement.speed = 0.4f;
@@ -133,13 +133,13 @@ void PlayerBehaviour::action(SceneObject &player) {
 
 			SceneObject object("Tile");
 			object.set<PositionComponent>();
-			object.set<Sprite>("tilesets-plain", 16, 16).setCurrentFrame(Map::currentMap->getTile(
+			object.set<Sprite>("tilesets-plain", 16, 16).setCurrentFrame(World::getInstance().currentMap()->getTile(
 				positionComponent.getFrontTile().x,
 				positionComponent.getFrontTile().y
 			));
 			player.get<SceneObjectList>().addObject(std::move(object));
 
-			Map::currentMap->setTile(positionComponent.getFrontTile().x,
+			World::getInstance().currentMap()->setTile(positionComponent.getFrontTile().x,
 			                         positionComponent.getFrontTile().y, 36);
 		}
 	}

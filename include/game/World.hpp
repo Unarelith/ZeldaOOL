@@ -22,9 +22,10 @@ class World : public IDrawable, public Transformable {
 
 		void update();
 
-		Map *currentMap() const { return m_currentMap; }
-
 		SceneObject &player() { return m_player; }
+
+		Map *currentMap() const { return m_currentMap; }
+		void setCurrentMap(Map *currentMap) { m_currentMap = currentMap; }
 
 		static void setInstance(World *instance) { s_instance = instance; }
 		static World &getInstance() { return *s_instance; }
@@ -34,9 +35,9 @@ class World : public IDrawable, public Transformable {
 
 		static World *s_instance;
 
-		Map *m_currentMap = nullptr;
-
 		SceneObject m_player;
+
+		Map *m_currentMap = nullptr;
 };
 
 #endif // WORLD_HPP_

@@ -17,6 +17,7 @@
 #include "OctorokMovement.hpp"
 #include "PlayerFactory.hpp"
 #include "Sprite.hpp"
+#include "World.hpp"
 
 #include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
@@ -39,7 +40,7 @@ SceneObject OctorokFactory::create(float x, float y) {
 	auto &collisionComponent = octorok.set<CollisionComponent>();
 	collisionComponent.addChecker(&PlayerFactory::mapCollisions);
 	collisionComponent.addChecker([](SceneObject &octorok) {
-		Map::currentMap->scene().checkCollisionsFor(octorok);
+		World::getInstance().currentMap()->scene().checkCollisionsFor(octorok);
 	});
 
 	collisionComponent.addAction(&octorokAction);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="plain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
+<tileset version="1.2" tiledversion="1.2.0" name="plain" tilewidth="16" tileheight="16" tilecount="256" columns="16">
  <image source="../../graphics/tilesets/plain.png" trans="ff00ff" width="256" height="256"/>
  <tile id="0" type="0"/>
  <tile id="1" type="0"/>
