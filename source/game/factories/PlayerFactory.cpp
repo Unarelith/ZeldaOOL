@@ -13,7 +13,6 @@
  */
 #include "ApplicationStateStack.hpp"
 #include "GamePadMovement.hpp"
-#include "PlayerBehaviour.hpp"
 #include "PlayerFactory.hpp"
 #include "ResourceHandler.hpp"
 #include "SceneObjectList.hpp"
@@ -32,13 +31,19 @@
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
+#include "PlayerStandingState.hpp"
+#include "StateComponent.hpp"
+
 SceneObject PlayerFactory::create(float x, float y) {
 	SceneObject player{"Link", "Player"};
 	player.set<SpriteComponent>(ResourceHandler::getInstance().get<SpriteComponent>("sprite-characters-link"));
-	player.set<BehaviourComponent>(new PlayerBehaviour);
 	player.set<HealthComponent>(13 * 4, 11 * 4);
 	player.set<MovementComponent>(new GamePadMovement);
 	player.set<SceneObjectList>();
+
+	// player.set<BehaviourComponent>(new PlayerBehaviour);
+	auto &stateComponent = player.set<StateComponent>();
+	stateComponent.setState(player, std::make_shared<PlayerStandingState>());
 
 	auto &positionComponent = player.set<PositionComponent>(x, y, 16, 16);
 	positionComponent.direction = Direction::Down;

@@ -2,7 +2,7 @@
 	<states>
 		<state name="Standing"         directional="1" animated="0" anim=" 0" frame="1"/>
 		<state name="Moving"           directional="1" animated="1" anim=" 0" frame="1"/>
-		<state name="Pushing"          directional="1" animated="1" anim=" 4" frame="0"/>
+		<state name="Push"             directional="1" animated="1" anim=" 4" frame="0"/>
 		<state name="Grab"             directional="1" animated="0" anim="13" frame="1"/>
 		<state name="Pull"             directional="1" animated="0" anim="13" frame="0"/>
 		<state name="Lift"             directional="1" animated="1" anim="17" frame="0"/>

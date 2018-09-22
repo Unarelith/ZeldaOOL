@@ -13,6 +13,7 @@
  */
 #include "BehaviourComponent.hpp"
 #include "BehaviourController.hpp"
+#include "StateComponent.hpp"
 
 void BehaviourController::reset(SceneObject &object) {
 	if(object.has<BehaviourComponent>()) {
@@ -23,6 +24,10 @@ void BehaviourController::reset(SceneObject &object) {
 void BehaviourController::update(SceneObject &object) {
 	if(object.has<BehaviourComponent>()) {
 		object.get<BehaviourComponent>().behaviour->action(object);
+	}
+
+	if(object.has<StateComponent>()) {
+		object.get<StateComponent>().update(object);
 	}
 }
 
