@@ -35,13 +35,9 @@ ScrollingTransition::ScrollingTransition(Mode mode) {
 		m_vy = 1;
 	}
 
-	m_nextMap = &Map::getMap(World::getInstance().currentMap()->area(),
-	                         World::getInstance().currentMap()->x() + m_vx,
-	                         World::getInstance().currentMap()->y() + m_vy);
-
+	m_nextMap = &World::getInstance().getSideMap(m_vx, m_vy);
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
-
 	m_nextMap->setPosition(m_nextMap->width() * 16 * m_vx,
 	                       m_nextMap->height() * 16 * m_vy + 16);
 

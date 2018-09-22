@@ -11,8 +11,12 @@
  *
  * =====================================================================================
  */
+#include <algorithm>
+
+#include "Config.hpp"
 #include "Map.hpp"
 #include "MapLoader.hpp"
+#include "PositionComponent.hpp"
 #include "ResourceHandler.hpp"
 #include "TilesInfos.hpp"
 #include "World.hpp"
@@ -62,11 +66,6 @@ void Map::reset() {
 
 	m_scene.reset();
 }
-
-#include <algorithm>
-
-#include "Config.hpp"
-#include "PositionComponent.hpp"
 
 void Map::update() {
 	m_animator.animateTiles(*this);
@@ -135,13 +134,5 @@ bool Map::onDoor(float x, float y) {
 bool Map::isTile(float x, float y, u16 tile) {
 	return m_tileset.info()[getTile(x / m_tileset.tileWidth(),
 	                                y / m_tileset.tileHeight())] == tile;
-}
-
-Map &Map::getMap(u16 area, u16 mapX, u16 mapY) {
-	return ResourceHandler::getInstance().get<Map>(MapLoader::makeName(area, mapX, mapY));
-}
-
-bool Map::mapExists(u16 area, u16 mapX, u16 mapY) {
-	return ResourceHandler::getInstance().has(MapLoader::makeName(area, mapX, mapY));
 }
 

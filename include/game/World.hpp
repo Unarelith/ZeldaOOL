@@ -27,6 +27,11 @@ class World : public IDrawable, public Transformable {
 		Map *currentMap() const { return m_currentMap; }
 		void setCurrentMap(Map *currentMap) { m_currentMap = currentMap; }
 
+		Map &getSideMap(s8 dx, s8 dy);
+
+		static Map &getMap(u16 area, u16 mapX, u16 mapY);
+		static bool mapExists(u16 area, u16 mapX, u16 mapY);
+
 		static void setInstance(World *instance) { s_instance = instance; }
 		static World &getInstance() { return *s_instance; }
 

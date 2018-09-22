@@ -23,7 +23,7 @@
 #include "World.hpp"
 
 TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection) {
-	m_nextMap = &Map::getMap(area, mapX, mapY);
+	m_nextMap = &World::getMap(area, mapX, mapY);
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
 
