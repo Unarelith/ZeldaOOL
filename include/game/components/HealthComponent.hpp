@@ -7,7 +7,7 @@
  *
  *        Created:  26/05/2015 12:22:17
  *
- *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
+ *         Author:  Quentin Bazin, <quent42340@gmail.com>
  *
  * =====================================================================================
  */

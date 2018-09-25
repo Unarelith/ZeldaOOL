@@ -111,7 +111,7 @@ void PlayerMapCollision::update(SceneObject &player) {
 		movement.v *= 3;
 	}
 
-	effects.enableIf("grass", onTile(TilesInfos::TileType::LowGrassTile));
+	effects.enableIf("grass",    onTile(TilesInfos::TileType::LowGrassTile));
 	effects.enableIf("lowWater", onTile(TilesInfos::TileType::LowWaterTile));
 
 	if(position.x < -3) {
@@ -131,5 +131,4 @@ void PlayerMapCollision::update(SceneObject &player) {
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingDown);
 	}
 }
-
 

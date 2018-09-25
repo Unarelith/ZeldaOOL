@@ -7,6 +7,11 @@ Notes
 
 # Engine
 
+## Entities
+
+• TODO: Add a new class `BasicState` to replace `EasyBehaviour`
+• TODO: Replace `BehavourComponent` by `StateComponent`
+
 ## Map
 
 • DONE: Use real Tiled tileset + animations

@@ -7,7 +7,7 @@
  *
  *        Created:  02/05/2015 00:24:59
  *
- *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
+ *         Author:  Quentin Bazin, <quent42340@gmail.com>
  *
  * =====================================================================================
  */
@@ -54,8 +54,7 @@ SceneObject PlayerFactory::create(float x, float y) {
 
 	auto &effectsComponent = player.set<EffectsComponent>();
 	effectsComponent.addEffect("grass", "animations-grassEffect", 16, 16);
-	Sprite &effect = effectsComponent.addEffect("lowWater", "animations-lowWaterEffect", 16, 16, {0, 8});
-	effect.addAnimation({{0, 1, 2}, 150});
+	effectsComponent.addEffect("lowWater", "animations-lowWaterEffect", 16, 16, {0, 8}).addAnimation({{0, 1, 2}, 150});
 
 	auto &inventoryComponent = player.set<InventoryComponent>();
 	inventoryComponent.addWeapon("swordL1");
