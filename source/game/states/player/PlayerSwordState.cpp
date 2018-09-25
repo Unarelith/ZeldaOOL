@@ -37,7 +37,7 @@ void PlayerSwordState::update(SceneObject &object) {
 	if(swordState != oldSwordState) {
 		if(swordState == "Swinging") {
 			if(!movement.movements.push(nullptr)) {
-				state.setState(object, std::make_shared<PlayerStandingState>());
+				state.setState<PlayerStandingState>(object);
 			}
 		}
 		else if(swordState == "Loading") {
@@ -58,7 +58,7 @@ void PlayerSwordState::update(SceneObject &object) {
 
 			movement.isDirectionLocked = false;
 
-			state.setState(object, std::make_shared<PlayerStandingState>());
+			state.setState<PlayerStandingState>(object);
 		}
 	}
 

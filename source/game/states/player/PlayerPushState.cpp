@@ -27,7 +27,7 @@ void PlayerPushState::update(SceneObject &object) {
 	auto &movement = object.get<MovementComponent>();
 	auto &state = object.get<StateComponent>();
 	if(!movement.isBlocked)
-		state.setState(object, std::make_shared<PlayerStandingState>());
+		state.setState<PlayerStandingState>(object);
 	else
 		PlayerState::update(object);
 }

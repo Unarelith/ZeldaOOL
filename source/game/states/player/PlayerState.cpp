@@ -60,10 +60,10 @@ void PlayerState::weaponAction(SceneObject &player) {
 			auto &stateComponent = player.get<StateComponent>();
 			std::string state = weaponObject->get<WeaponComponent>().playerState;
 			if (state == "Sword") {
-				stateComponent.setState(player, std::make_shared<PlayerSwordState>(weaponObject));
+				stateComponent.setState<PlayerSwordState>(player, weaponObject);
 			}
 			else if (state == "Grab" && m_state == "Push") {
-				stateComponent.setState(player, std::make_shared<PlayerGrabState>(weaponObject));
+				stateComponent.setState<PlayerGrabState>(player, weaponObject);
 			}
 		}
 	}

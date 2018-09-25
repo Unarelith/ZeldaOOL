@@ -47,7 +47,7 @@ void PlayerGrabState::update(SceneObject &object) {
 			m_state = "Pull";
 
 		if (movement.speed != 0 || !GamePad::isKeyPressed(m_weapon->get<WeaponComponent>().key)) {
-			state.setState(object, std::make_shared<PlayerStandingState>());
+			state.setState<PlayerStandingState>(object);
 		}
 	}
 	else if(m_state == "Pull") {
@@ -55,7 +55,7 @@ void PlayerGrabState::update(SceneObject &object) {
 			m_state = "Grab";
 
 		if (movement.speed != 0 || !GamePad::isKeyPressed(m_weapon->get<WeaponComponent>().key)) {
-			state.setState(object, std::make_shared<PlayerStandingState>());
+			state.setState<PlayerStandingState>(object);
 		}
 
 		auto &positionComponent = object.get<PositionComponent>();
@@ -83,7 +83,7 @@ void PlayerGrabState::update(SceneObject &object) {
 	else if(m_state == "Lift") {
 		if (GamePad::isKeyPressedOnce(m_weapon->get<WeaponComponent>().key)) {
 			object.get<SceneObjectList>().removeByName("Tile");
-			state.setState(object, std::make_shared<PlayerStandingState>());
+			state.setState<PlayerStandingState>(object);
 		}
 	}
 

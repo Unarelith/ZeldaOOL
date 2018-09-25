@@ -24,9 +24,14 @@ class StateComponent {
 	public:
 		void update(SceneObject &object);
 
-		void setState(SceneObject &object, StatePtr state);
+		template<typename T, typename... Args>
+		void setState(SceneObject &object, Args &&...args) {
+			setState(object, std::make_shared<T>(std::forward<Args>(args)...));
+		}
 
 	private:
+		void setState(SceneObject &object, StatePtr state);
+
 		StatePtr m_state;
 };
 

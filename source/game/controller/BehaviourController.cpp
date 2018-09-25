@@ -26,6 +26,7 @@ void BehaviourController::update(SceneObject &object) {
 		object.get<BehaviourComponent>().behaviour->action(object);
 	}
 
+	// FIXME
 	if(object.has<StateComponent>()) {
 		object.get<StateComponent>().update(object);
 	}
