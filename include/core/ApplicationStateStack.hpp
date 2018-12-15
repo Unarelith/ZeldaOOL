@@ -22,7 +22,7 @@
 class ApplicationStateStack {
 	public:
 		template<typename T, typename... Args>
-		T &push(Args &&...args) {
+		auto push(Args &&...args) -> typename std::enable_if<std::is_base_of<ApplicationState, T>::value, T&>::type {
 			m_states.emplace(std::make_shared<T>(std::forward<Args>(args)...));
 			m_states.top()->setStateStack(this);
 			return static_cast<T&>(top());

@@ -25,7 +25,7 @@ class StateComponent {
 		void update(SceneObject &object);
 
 		template<typename T, typename... Args>
-		void setState(SceneObject &object, Args &&...args) {
+		auto setState(SceneObject &object, Args &&...args) -> typename std::enable_if<std::is_base_of<IState, T>::value, void>::type {
 			setState(object, std::make_shared<T>(std::forward<Args>(args)...));
 		}
 
