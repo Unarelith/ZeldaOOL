@@ -66,7 +66,7 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	return object;
 }
 
-#include "AudioPlayer.hpp"
+#include <gk/audio/AudioPlayer.hpp>
 #include "WeaponComponent.hpp"
 #include "World.hpp"
 
@@ -89,7 +89,7 @@ void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
 			 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() > 2
 			 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() < swordSprite.getAnimation((s8)playerDirection).size())
 			|| object.get<BehaviourComponent>().behaviour->state() == "SpinAttack") {
-				AudioPlayer::playEffect("grassDestroy");
+				gk::AudioPlayer::playEffect("grassDestroy");
 
 				grass.get<LootComponent>().dropItem(grassPosition.x + 8, grassPosition.y + 8);
 

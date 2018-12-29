@@ -11,10 +11,10 @@
  *
  * =====================================================================================
  */
+#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/input/GamePad.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
 
-#include "AudioPlayer.hpp"
 #include "GameKey.hpp"
 #include "MenuState.hpp"
 
@@ -24,7 +24,7 @@ void MenuState::update() {
 	m_menu.update();
 
 	if(gk::GamePad::isKeyPressedOnce(GameKey::Start)) {
-		AudioPlayer::playEffect("menuClose");
+		gk::AudioPlayer::playEffect("menuClose");
 
 		m_stateStack->pop();
 	}

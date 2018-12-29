@@ -11,9 +11,9 @@
  *
  * =====================================================================================
  */
+#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
 
-#include "AudioPlayer.hpp"
 #include "CollectableFactory.hpp"
 #include "ChestOpeningState.hpp"
 #include "LifetimeComponent.hpp"
@@ -48,7 +48,7 @@ void ChestOpeningState::update() {
 		}
 	}
 	else if(m_state == State::Opened) {
-		AudioPlayer::playEffect("itemNew");
+		gk::AudioPlayer::playEffect("itemNew");
 
 		gk::ApplicationStateStack::getInstance().push<MessageBoxState>("Vous obtenez [2]30 Rubis[0]!\nC'est bien.", this);
 

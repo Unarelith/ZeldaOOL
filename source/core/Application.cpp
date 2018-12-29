@@ -17,7 +17,6 @@
 #include <gk/core/input/GamePad.hpp>
 
 #include "Application.hpp"
-#include "AudioPlayer.hpp"
 #include "Config.hpp"
 #include "GameState.hpp"
 
@@ -28,11 +27,6 @@
 #include "TextureLoader.hpp"
 #include "TilesetLoader.hpp"
 #include "Translator.hpp"
-
-Application::Application(int argc, char **argv) : CoreApplication(argc, argv) {
-	if (argc > 1 && argv[1] == std::string("--no-sound"))
-		AudioPlayer::setMuteState(true);
-}
 
 void Application::init() {
 	gk::CoreApplication::init();

@@ -11,7 +11,8 @@
  *
  * =====================================================================================
  */
-#include "AudioPlayer.hpp"
+#include <gk/audio/AudioPlayer.hpp>
+
 #include "ButtonComponent.hpp"
 #include "World.hpp"
 
@@ -22,7 +23,7 @@ void ButtonComponent::addTileChange(u16 tileX, u16 tileY, u16 newID) {
 void ButtonComponent::pressedAction(u16 buttonTileX, u16 buttonTileY) {
 	if(m_pressed) return;
 
-	AudioPlayer::playEffect("chest");
+	gk::AudioPlayer::playEffect("chest");
 
 	World::getInstance().currentMap()->setTile(buttonTileX, buttonTileY, 8);
 

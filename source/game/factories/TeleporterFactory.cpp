@@ -11,9 +11,9 @@
  *
  * =====================================================================================
  */
+#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
 
-#include "AudioPlayer.hpp"
 #include "TeleporterTransition.hpp"
 #include "Scene.hpp"
 #include "TeleporterFactory.hpp"
@@ -48,7 +48,7 @@ void teleporterAction(SceneObject &teleporter, SceneObject &object, bool inColli
 	if(Scene::isPlayer(object)) {
 		if(inCollision) {
 			if(!playerOnDoor) {
-				AudioPlayer::playEffect("mapStairs");
+				gk::AudioPlayer::playEffect("mapStairs");
 
 				auto &state = gk::ApplicationStateStack::getInstance().push<TransitionState>(&gk::ApplicationStateStack::getInstance().top());
 				state.setTransition<TeleporterTransition>(teleporterComponent.area(),

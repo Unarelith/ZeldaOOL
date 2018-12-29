@@ -13,8 +13,9 @@
  */
 #include <functional>
 
-#include "AudioPlayer.hpp"
+#include <gk/audio/AudioPlayer.hpp>
 #include <gk/system/Exception.hpp>
+
 #include "TextBox.hpp"
 
 TextBox::TextBox(const std::string &text, u16 width, u16 height) {
@@ -57,7 +58,7 @@ void TextBox::updateTextSprites() {
 
 		// Letter by letter text display
 		if(isTimeToDisplayLetter(i)) {
-			AudioPlayer::repeatEffect("textLetter", m_delay);
+			gk::AudioPlayer::repeatEffect("textLetter", m_delay);
 			break;
 		}
 

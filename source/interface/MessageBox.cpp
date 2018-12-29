@@ -11,9 +11,9 @@
  *
  * =====================================================================================
  */
+#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/input/GamePad.hpp>
 
-#include "AudioPlayer.hpp"
 #include "GameKey.hpp"
 #include "MessageBox.hpp"
 
@@ -27,7 +27,7 @@ void MessageBox::update() {
 	if(gk::GamePad::isKeyPressedOnce(GameKey::A)
 	|| gk::GamePad::isKeyPressedOnce(GameKey::B)) {
 		if(m_textBox.textDisplayFinished()) {
-			AudioPlayer::playEffect("dialogContinue");
+			gk::AudioPlayer::playEffect("dialogContinue");
 
 			m_finished = m_textBox.scrollDown();
 		} else {

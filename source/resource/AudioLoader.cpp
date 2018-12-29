@@ -11,12 +11,12 @@
  *
  * =====================================================================================
  */
+#include <gk/audio/BackgroundMusic.hpp>
+#include <gk/audio/SoundEffect.hpp>
 #include <gk/core/XMLFile.hpp>
 #include <gk/resource/ResourceHandler.hpp>
 
 #include "AudioLoader.hpp"
-#include "BackgroundMusic.hpp"
-#include "SoundEffect.hpp"
 
 void AudioLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
 	gk::XMLFile doc(xmlFilename);
@@ -26,7 +26,7 @@ void AudioLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
 		std::string name = musicElement->Attribute("name");
 		std::string filename = "resources/audio/music/" + name + ".ogg";
 
-		handler.add<BackgroundMusic>("bgm-" + name, filename);
+		handler.add<gk::BackgroundMusic>("bgm-" + name, filename);
 
 		musicElement = musicElement->NextSiblingElement("music");
 	}
@@ -36,7 +36,7 @@ void AudioLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
 		std::string name = soundEffectElement->Attribute("name");
 		std::string filename = "resources/audio/effects/" + name + ".wav";
 
-		handler.add<SoundEffect>("sfx-" + name, filename);
+		handler.add<gk::SoundEffect>("sfx-" + name, filename);
 
 		soundEffectElement = soundEffectElement->NextSiblingElement("soundeffect");
 	}

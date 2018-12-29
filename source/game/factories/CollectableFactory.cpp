@@ -11,10 +11,10 @@
  *
  * =====================================================================================
  */
+#include <gk/audio/AudioPlayer.hpp>
 #include <gk/gl/Texture.hpp>
 #include <gk/resource/ResourceHandler.hpp>
 
-#include "AudioPlayer.hpp"
 #include "CollectableFactory.hpp"
 #include "Scene.hpp"
 
@@ -74,7 +74,7 @@ void collectableAction(SceneObject &collectable, SceneObject &object, bool inCol
 	auto &lifetimeComponent = collectable.get<LifetimeComponent>();
 
 	if(Scene::isPlayer(object) && inCollision) {
-		AudioPlayer::playEffect(collectableComponent.soundEffectName());
+		gk::AudioPlayer::playEffect(collectableComponent.soundEffectName());
 
 		collectableComponent.action(object);
 

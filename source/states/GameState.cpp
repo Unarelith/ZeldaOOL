@@ -11,10 +11,10 @@
  *
  * =====================================================================================
  */
+#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/input/GamePad.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
 
-#include "AudioPlayer.hpp"
 #include "GameKey.hpp"
 #include "GameState.hpp"
 #include "MenuState.hpp"
@@ -22,7 +22,7 @@
 GameState::GameState() {
 	World::setInstance(&m_world);
 
-	AudioPlayer::playMusic("plain");
+	gk::AudioPlayer::playMusic("plain");
 }
 
 void GameState::update() {
@@ -31,7 +31,7 @@ void GameState::update() {
 	m_statsBar.update();
 
 	if(gk::GamePad::isKeyPressedOnce(GameKey::Start)) {
-		AudioPlayer::playEffect("menuOpen");
+		gk::AudioPlayer::playEffect("menuOpen");
 
 		m_stateStack->push<MenuState>();
 	}

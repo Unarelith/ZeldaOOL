@@ -11,10 +11,10 @@
  *
  * =====================================================================================
  */
+#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/input/GamePad.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
 
-#include "AudioPlayer.hpp"
 #include "ChestFactory.hpp"
 #include "ChestOpeningState.hpp"
 #include "GameKey.hpp"
@@ -52,7 +52,7 @@ void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 		if(playerPosition.direction == Direction::Up
 		&& playerPosition.y > chestPosition.y
 		&& gk::GamePad::isKeyPressedOnce(GameKey::A)) {
-			AudioPlayer::playEffect("chest");
+			gk::AudioPlayer::playEffect("chest");
 
 			World::getInstance().currentMap()->setTile(chestPosition.x / 16,
 			                                           chestPosition.y / 16, 240, true, true);

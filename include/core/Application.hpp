@@ -21,7 +21,7 @@
 
 class Application : public gk::CoreApplication {
 	public:
-		Application(int argc, char **argv);
+		Application(int argc, char **argv) : CoreApplication(argc, argv) {}
 
 		void init() override;
 

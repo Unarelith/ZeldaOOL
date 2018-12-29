@@ -13,7 +13,8 @@
  */
 #include <cmath>
 
-#include "AudioPlayer.hpp"
+#include <gk/audio/AudioPlayer.hpp>
+
 #include "BattleController.hpp"
 #include "HurtMovement.hpp"
 
@@ -48,7 +49,7 @@ void BattleController::update(SceneObject &object) {
 
 				object.get<EffectsComponent>().enable("destroy");
 
-				AudioPlayer::playEffect("enemyDie");
+				gk::AudioPlayer::playEffect("enemyDie");
 			}
 		}
 	}

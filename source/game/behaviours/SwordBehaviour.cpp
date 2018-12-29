@@ -11,9 +11,9 @@
  *
  * =====================================================================================
  */
+#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/input/GamePad.hpp>
 
-#include "AudioPlayer.hpp"
 #include "GameKey.hpp"
 #include "SwordBehaviour.hpp"
 
@@ -23,7 +23,7 @@
 #include "WeaponComponent.hpp"
 
 SwordBehaviour::SwordBehaviour() : Behaviour("Swinging") {
-	AudioPlayer::playEffect("swordSlash1");
+	gk::AudioPlayer::playEffect("swordSlash1");
 }
 
 void SwordBehaviour::action(SceneObject &sword) {
@@ -74,7 +74,7 @@ void SwordBehaviour::action(SceneObject &sword) {
 
 			m_keyReleased = false;
 
-			AudioPlayer::playEffect("swordSlash1");
+			gk::AudioPlayer::playEffect("swordSlash1");
 
 			ownerSprite.getAnimation((s8)ownerPosition.direction + 8).reset();
 			sprite.getAnimation((s8)ownerPosition.direction).reset();
@@ -84,7 +84,7 @@ void SwordBehaviour::action(SceneObject &sword) {
 		if(m_loadingTimer.time() > 650) {
 			m_state = "Loaded";
 
-			AudioPlayer::playEffect("swordCharge");
+			gk::AudioPlayer::playEffect("swordCharge");
 		}
 
 		if(!gk::GamePad::isKeyPressed(weaponComponent.key)) {
@@ -93,7 +93,7 @@ void SwordBehaviour::action(SceneObject &sword) {
 	}
 	else if(m_state == "Loaded") {
 		if(!gk::GamePad::isKeyPressed(weaponComponent.key)) {
-			AudioPlayer::playEffect("swordSpin");
+			gk::AudioPlayer::playEffect("swordSpin");
 
 			m_state = "SpinAttack";
 

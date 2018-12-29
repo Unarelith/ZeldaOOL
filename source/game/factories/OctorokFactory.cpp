@@ -73,20 +73,20 @@ SceneObject OctorokFactory::create(float x, float y) {
 	return octorok;
 }
 
-#include "AudioPlayer.hpp"
+#include <gk/audio/AudioPlayer.hpp>
 #include "BattleController.hpp"
 #include "WeaponComponent.hpp"
 
 void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision) {
 	if(inCollision) {
 		if(Scene::isPlayer(object)) {
-			AudioPlayer::playEffect("linkHurt", 0);
+			gk::AudioPlayer::playEffect("linkHurt", 0);
 			BattleController::hurt(octorok, object);
 		}
 		else if(object.has<WeaponComponent>()) {
 			// auto &weaponComponent = object.get<WeaponComponent>();
 			// if(weaponComponent.weaponInfos.strength()) {
-				AudioPlayer::playEffect("enemyHit", 0);
+				gk::AudioPlayer::playEffect("enemyHit", 0);
 				BattleController::hurt(object, octorok);
 
 				auto &positionComponent = octorok.get<PositionComponent>();

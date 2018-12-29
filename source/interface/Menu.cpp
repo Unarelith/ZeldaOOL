@@ -11,9 +11,9 @@
  *
  * =====================================================================================
  */
+#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/input/GamePad.hpp>
 
-#include "AudioPlayer.hpp"
 #include "GameKey.hpp"
 #include "InventoryComponent.hpp"
 #include "Menu.hpp"
@@ -25,25 +25,25 @@ Menu::Menu() {
 
 void Menu::update() {
 	if(gk::GamePad::isKeyPressedWithDelay(GameKey::Left, 250)) {
-		AudioPlayer::playEffect("menuCursor");
+		gk::AudioPlayer::playEffect("menuCursor");
 
 		m_cursorX--;
 	}
 
 	if(gk::GamePad::isKeyPressedWithDelay(GameKey::Right, 250)) {
-		AudioPlayer::playEffect("menuCursor");
+		gk::AudioPlayer::playEffect("menuCursor");
 
 		m_cursorX++;
 	}
 
 	if(gk::GamePad::isKeyPressedWithDelay(GameKey::Up, 250)) {
-		AudioPlayer::playEffect("menuCursor");
+		gk::AudioPlayer::playEffect("menuCursor");
 
 		m_cursorY--;
 	}
 
 	if(gk::GamePad::isKeyPressedWithDelay(GameKey::Down, 250)) {
-		AudioPlayer::playEffect("menuCursor");
+		gk::AudioPlayer::playEffect("menuCursor");
 
 		m_cursorY++;
 	}
@@ -64,13 +64,13 @@ void Menu::update() {
 	auto &playerInventory = World::getInstance().player().get<InventoryComponent>();
 
 	if(gk::GamePad::isKeyPressedOnce(GameKey::A)) {
-		AudioPlayer::playEffect("menuSelect");
+		gk::AudioPlayer::playEffect("menuSelect");
 
 		playerInventory.equipWeapon(m_cursorX, m_cursorY, GameKey::A);
 	}
 
 	if(gk::GamePad::isKeyPressedOnce(GameKey::B)) {
-		AudioPlayer::playEffect("menuSelect");
+		gk::AudioPlayer::playEffect("menuSelect");
 
 		playerInventory.equipWeapon(m_cursorX, m_cursorY, GameKey::B);
 	}
