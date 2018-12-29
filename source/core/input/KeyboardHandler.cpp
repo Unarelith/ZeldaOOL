@@ -15,6 +15,7 @@
 #include <gk/core/XMLFile.hpp>
 #include <gk/system/Debug.hpp>
 
+#include "GameKey.hpp"
 #include "KeyboardHandler.hpp"
 
 KeyboardHandler::KeyboardHandler() {
@@ -23,7 +24,7 @@ KeyboardHandler::KeyboardHandler() {
 	tinyxml2::XMLElement *keys = doc.FirstChildElement("keys").ToElement();
 
 	// Reading keys from names as defined here: https://wiki.libsdl.org/SDL_Keycode
-	auto addKey = [&](GameKey key, const char *name) {
+	auto addKey = [&](gk::GameKey key, const char *name) {
 		tinyxml2::XMLElement *keyElement = keys->FirstChildElement(name);
 		m_keys[key] = SDL_GetKeyFromName(keyElement->Attribute("key"));
 
@@ -44,7 +45,7 @@ KeyboardHandler::KeyboardHandler() {
 	addKey(GameKey::Select, "Select");
 }
 
-bool KeyboardHandler::isKeyPressed(GameKey key) {
+bool KeyboardHandler::isKeyPressed(gk::GameKey key) {
 	const u8 *keyboardState = SDL_GetKeyboardState(nullptr);
 	SDL_Scancode keyScancode = SDL_GetScancodeFromKey(m_keys[key]);
 

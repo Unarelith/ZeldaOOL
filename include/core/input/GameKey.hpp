@@ -14,17 +14,19 @@
 #ifndef GAMEKEY_HPP_
 #define GAMEKEY_HPP_
 
-enum class GameKey {
-	Left,
-	Right,
-	Up,
-	Down,
+namespace GameKey {
+	enum {
+		Left,
+		Right,
+		Up,
+		Down,
 
-	A,
-	B,
+		A,
+		B,
 
-	Start,
-	Select
-};
+		Start,
+		Select
+	};
+}
 
 #endif // GAMEKEY_HPP_

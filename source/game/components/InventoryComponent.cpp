@@ -13,6 +13,7 @@
  */
 #include <gk/resource/ResourceHandler.hpp>
 
+#include "GameKey.hpp"
 #include "InventoryComponent.hpp"
 
 Weapon *InventoryComponent::addWeapon(const std::string &name) {
@@ -28,7 +29,7 @@ Weapon *InventoryComponent::addWeapon(const std::string &name) {
 	return nullptr;
 }
 
-void InventoryComponent::equipWeapon(u8 x, u8 y, GameKey key) {
+void InventoryComponent::equipWeapon(u8 x, u8 y, gk::GameKey key) {
 	Weapon *temp = m_weapons[x][y];
 
 	if(key == GameKey::A) {

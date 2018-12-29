@@ -23,7 +23,7 @@
 #include "SpriteComponent.hpp"
 #include "WeaponComponent.hpp"
 
-SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &owner, Weapon &weaponInfos) {
+SceneObject SwordFactory::create(float x, float y, gk::GameKey key, SceneObject &owner, Weapon &weaponInfos) {
 	SceneObject object("Sword", "Weapon");
 	object.set<BehaviourComponent>(new SwordBehaviour);
 	object.set<LifetimeComponent>();

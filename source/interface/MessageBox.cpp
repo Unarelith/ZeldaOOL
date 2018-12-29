@@ -11,8 +11,10 @@
  *
  * =====================================================================================
  */
+#include <gk/core/input/GamePad.hpp>
+
 #include "AudioPlayer.hpp"
-#include "GamePad.hpp"
+#include "GameKey.hpp"
 #include "MessageBox.hpp"
 
 MessageBox::MessageBox(const std::string &text, Position position) : m_textBox(text, 144, 40) {
@@ -22,8 +24,8 @@ MessageBox::MessageBox(const std::string &text, Position position) : m_textBox(t
 }
 
 void MessageBox::update() {
-	if(GamePad::isKeyPressedOnce(GameKey::A)
-	|| GamePad::isKeyPressedOnce(GameKey::B)) {
+	if(gk::GamePad::isKeyPressedOnce(GameKey::A)
+	|| gk::GamePad::isKeyPressedOnce(GameKey::B)) {
 		if(m_textBox.textDisplayFinished()) {
 			AudioPlayer::playEffect("dialogContinue");
 

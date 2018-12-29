@@ -17,7 +17,8 @@
 #include <array>
 #include <string>
 
-#include "GameKey.hpp"
+#include <gk/core/input/InputHandler.hpp>
+
 #include "Image.hpp"
 #include "Translator.hpp"
 
@@ -55,7 +56,7 @@ class InventoryComponent {
 		Weapon *getWeapon(u8 x, u8 y) { return m_weapons[x][y]; }
 		void removeWeapon(u8 x, u8 y) { m_weapons[x][y] = nullptr; }
 
-		void equipWeapon(u8 x, u8 y, GameKey key);
+		void equipWeapon(u8 x, u8 y, gk::GameKey key);
 
 		Weapon *getWeaponA() { return m_weaponA; }
 		Weapon *getWeaponB() { return m_weaponB; }

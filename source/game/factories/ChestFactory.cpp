@@ -11,12 +11,13 @@
  *
  * =====================================================================================
  */
+#include <gk/core/input/GamePad.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
 
 #include "AudioPlayer.hpp"
 #include "ChestFactory.hpp"
 #include "ChestOpeningState.hpp"
-#include "GamePad.hpp"
+#include "GameKey.hpp"
 #include "Scene.hpp"
 #include "World.hpp"
 
@@ -50,7 +51,7 @@ void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 		// FIXME: Find a better way to find if the player is facing the chest
 		if(playerPosition.direction == Direction::Up
 		&& playerPosition.y > chestPosition.y
-		&& GamePad::isKeyPressedOnce(GameKey::A)) {
+		&& gk::GamePad::isKeyPressedOnce(GameKey::A)) {
 			AudioPlayer::playEffect("chest");
 
 			World::getInstance().currentMap()->setTile(chestPosition.x / 16,

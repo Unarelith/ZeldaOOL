@@ -14,10 +14,11 @@
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <gk/core/input/GamePad.hpp>
+
 #include "Application.hpp"
 #include "AudioPlayer.hpp"
 #include "Config.hpp"
-#include "GamePad.hpp"
 #include "GameState.hpp"
 
 #include "AudioLoader.hpp"
@@ -36,7 +37,7 @@ Application::Application(int argc, char **argv) : CoreApplication(argc, argv) {
 void Application::init() {
 	gk::CoreApplication::init();
 
-	GamePad::init(m_keyboardHandler);
+	gk::GamePad::init(m_keyboardHandler);
 
 	createWindow(SCREEN_WIDTH * 4, SCREEN_HEIGHT * 4, APP_NAME);
 

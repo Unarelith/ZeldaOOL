@@ -13,6 +13,7 @@
  */
 #include <gk/resource/ResourceHandler.hpp>
 
+#include "GameKey.hpp"
 #include "GamePadMovement.hpp"
 #include "PlayerFactory.hpp"
 #include "SceneObjectList.hpp"

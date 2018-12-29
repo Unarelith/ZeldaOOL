@@ -11,7 +11,9 @@
  *
  * =====================================================================================
  */
-#include "GamePad.hpp"
+#include <gk/core/input/GamePad.hpp>
+
+#include "GameKey.hpp"
 #include "GamePadMovement.hpp"
 #include "PlayerState.hpp"
 #include "PlayerGrabState.hpp"
@@ -44,12 +46,12 @@ void PlayerState::weaponAction(SceneObject &player) {
 		auto &objects = player.get<SceneObjectList>();
 
 		Weapon *weapon = nullptr;
-		GameKey key;
-		if(GamePad::isKeyPressedOnce(GameKey::A)) {
+		gk::GameKey key;
+		if(gk::GamePad::isKeyPressedOnce(GameKey::A)) {
 			weapon = player.get<InventoryComponent>().getWeaponA();
 			key = GameKey::A;
 		}
-		else if(GamePad::isKeyPressedOnce(GameKey::B)) {
+		else if(gk::GamePad::isKeyPressedOnce(GameKey::B)) {
 			weapon = player.get<InventoryComponent>().getWeaponB();
 			key = GameKey::B;
 		}

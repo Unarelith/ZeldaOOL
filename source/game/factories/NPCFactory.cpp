@@ -11,9 +11,10 @@
  *
  * =====================================================================================
  */
+#include <gk/core/input/GamePad.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
 
-#include "GamePad.hpp"
+#include "GameKey.hpp"
 #include "MessageBoxState.hpp"
 #include "NPCFactory.hpp"
 #include "Scene.hpp"
@@ -64,7 +65,7 @@ void npcAction(SceneObject &npc, SceneObject &object, bool inCollision) {
 		}
 
 		// FIXME: Fix priorities with weaponA
-		if(GamePad::isKeyPressedOnce(GameKey::A)) {
+		if(gk::GamePad::isKeyPressedOnce(GameKey::A)) {
 			gk::ApplicationStateStack::getInstance().push<MessageBoxState>("L'[1]Arbre Bojo[0] est tout à l'est de cette grotte.", &gk::ApplicationStateStack::getInstance().top());
 		}
 	}

@@ -16,7 +16,7 @@
 #include "WeaponComponent.hpp"
 #include "WeaponFactory.hpp"
 
-SceneObject WeaponFactory::create(Weapon &weaponInfos, float x, float y, GameKey key, SceneObject &owner) {
+SceneObject WeaponFactory::create(Weapon &weaponInfos, float x, float y, gk::GameKey key, SceneObject &owner) {
 	if(weaponInfos.name() == "swordL1") {
 		return SwordFactory::create(x, y, key, owner, weaponInfos);
 	}

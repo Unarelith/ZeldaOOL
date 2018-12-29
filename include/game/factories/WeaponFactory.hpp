@@ -14,13 +14,14 @@
 #ifndef WEAPONFACTORY_HPP_
 #define WEAPONFACTORY_HPP_
 
-#include "GameKey.hpp"
+#include <gk/core/input/InputHandler.hpp>
+
 #include "InventoryComponent.hpp"
 #include "SceneObject.hpp"
 
 class WeaponFactory {
 	public:
-		static SceneObject create(Weapon &weaponInfos, float x, float y, GameKey key, SceneObject &owner);
+		static SceneObject create(Weapon &weaponInfos, float x, float y, gk::GameKey key, SceneObject &owner);
 };
 
 #endif // WEAPONFACTORY_HPP_

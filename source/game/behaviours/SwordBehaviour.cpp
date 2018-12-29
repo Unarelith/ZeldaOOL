@@ -11,8 +11,10 @@
  *
  * =====================================================================================
  */
+#include <gk/core/input/GamePad.hpp>
+
 #include "AudioPlayer.hpp"
-#include "GamePad.hpp"
+#include "GameKey.hpp"
 #include "SwordBehaviour.hpp"
 
 #include "HitboxComponent.hpp"
@@ -50,23 +52,23 @@ void SwordBehaviour::action(SceneObject &sword) {
 			}
 		}
 
-		if(!GamePad::isKeyPressed(weaponComponent.key)) {
+		if(!gk::GamePad::isKeyPressed(weaponComponent.key)) {
 			m_keyReleased = true;
 		}
 		else if(m_keyReleased && sprite.getAnimation((s8)ownerPosition.direction).displayedFramesAmount() >= 4) {
-			if(GamePad::isKeyPressed(GameKey::Left)) {
+			if(gk::GamePad::isKeyPressed(GameKey::Left)) {
 				ownerPosition.direction = Direction::Left;
 			}
 
-			if(GamePad::isKeyPressed(GameKey::Right)) {
+			if(gk::GamePad::isKeyPressed(GameKey::Right)) {
 				ownerPosition.direction = Direction::Right;
 			}
 
-			if(GamePad::isKeyPressed(GameKey::Up)) {
+			if(gk::GamePad::isKeyPressed(GameKey::Up)) {
 				ownerPosition.direction = Direction::Up;
 			}
 
-			if(GamePad::isKeyPressed(GameKey::Down)) {
+			if(gk::GamePad::isKeyPressed(GameKey::Down)) {
 				ownerPosition.direction = Direction::Down;
 			}
 
@@ -85,12 +87,12 @@ void SwordBehaviour::action(SceneObject &sword) {
 			AudioPlayer::playEffect("swordCharge");
 		}
 
-		if(!GamePad::isKeyPressed(weaponComponent.key)) {
+		if(!gk::GamePad::isKeyPressed(weaponComponent.key)) {
 			m_state = "Finished";
 		}
 	}
 	else if(m_state == "Loaded") {
-		if(!GamePad::isKeyPressed(weaponComponent.key)) {
+		if(!gk::GamePad::isKeyPressed(weaponComponent.key)) {
 			AudioPlayer::playEffect("swordSpin");
 
 			m_state = "SpinAttack";

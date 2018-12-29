@@ -11,7 +11,8 @@
  *
  * =====================================================================================
  */
-#include "GamePad.hpp"
+#include <gk/core/input/GamePad.hpp>
+
 #include "MovementComponent.hpp"
 #include "SpriteComponent.hpp"
 #include "StateComponent.hpp"
@@ -46,7 +47,7 @@ void PlayerGrabState::update(SceneObject &object) {
 		if (movement.isMoving)
 			m_state = "Pull";
 
-		if (movement.speed != 0 || !GamePad::isKeyPressed(m_weapon->get<WeaponComponent>().key)) {
+		if (movement.speed != 0 || !gk::GamePad::isKeyPressed(m_weapon->get<WeaponComponent>().key)) {
 			state.setState<PlayerStandingState>(object);
 		}
 	}
@@ -54,7 +55,7 @@ void PlayerGrabState::update(SceneObject &object) {
 		if (!movement.isMoving)
 			m_state = "Grab";
 
-		if (movement.speed != 0 || !GamePad::isKeyPressed(m_weapon->get<WeaponComponent>().key)) {
+		if (movement.speed != 0 || !gk::GamePad::isKeyPressed(m_weapon->get<WeaponComponent>().key)) {
 			state.setState<PlayerStandingState>(object);
 		}
 
@@ -81,7 +82,7 @@ void PlayerGrabState::update(SceneObject &object) {
 		}
 	}
 	else if(m_state == "Lift") {
-		if (GamePad::isKeyPressedOnce(m_weapon->get<WeaponComponent>().key)) {
+		if (gk::GamePad::isKeyPressedOnce(m_weapon->get<WeaponComponent>().key)) {
 			object.get<SceneObjectList>().removeByName("Tile");
 			state.setState<PlayerStandingState>(object);
 		}

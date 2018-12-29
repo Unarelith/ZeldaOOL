@@ -14,19 +14,18 @@
 #ifndef WEAPONCOMPONENT_HPP_
 #define WEAPONCOMPONENT_HPP_
 
-#include "GameKey.hpp"
 #include "InventoryComponent.hpp"
 #include "SceneObject.hpp"
 
 class WeaponComponent {
 	public:
-		WeaponComponent(SceneObject &_owner, Weapon &_weaponInfos, GameKey _key, const std::string &_playerState)
+		WeaponComponent(SceneObject &_owner, Weapon &_weaponInfos, gk::GameKey _key, const std::string &_playerState)
 			: owner(_owner), weaponInfos(_weaponInfos), key(_key), playerState(_playerState) {}
 
 		SceneObject &owner;
 		Weapon &weaponInfos;
 
-		GameKey key;
+		gk::GameKey key;
 
 		std::string playerState;
 };

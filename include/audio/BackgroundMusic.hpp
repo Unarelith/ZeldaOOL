@@ -17,7 +17,7 @@
 #include <memory>
 #include <string>
 
-#include "SDLHeaders.hpp"
+#include <gk/core/SDLHeaders.hpp>
 
 class BackgroundMusic {
 	public:
