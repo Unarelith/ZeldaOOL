@@ -9,21 +9,28 @@ uniform int u_paletteID;
 vec4 colorInPalette(int paletteID, vec4 color);
 
 void main() {
-	vec4 textureColor = texture2D(u_tex, v_texCoord);
-	vec4 colorMod = vec4(1.0, 1.0, 1.0, 1.0) - v_color;
+	/* vec4 textureColor = texture2D(u_tex, v_texCoord); */
+	/* vec4 colorMod = vec4(1.0, 1.0, 1.0, 1.0) - v_color; */
+    /*  */
+	/* vec4 finalColor; */
+	/* if(v_texCoord.x == -1 && v_texCoord.y == -1) { */
+	/* 	finalColor = v_color; */
+	/* } else { */
+	/* 	/* finalColor = textureColor - colorMod; */
+	/* 	/* finalColor = textureColor; */
+	/* } */
 
-	vec4 finalColor;
-	if(v_texCoord.x == -1 && v_texCoord.y == -1) {
-		finalColor = v_color;
-	} else {
-		finalColor = textureColor - colorMod;
+	vec4 color = v_color;
+	if (v_texCoord.x != -1 && v_texCoord.y != -1) {
+		vec4 texColor = texture2D(u_tex, v_texCoord);
+		color = vec4(texColor.rgb - (1 - color.rgb), min(texColor.a, color.a));
 	}
 
 	if(u_paletteID > 0) {
-		finalColor = colorInPalette(u_paletteID, finalColor);
+		color = colorInPalette(u_paletteID, color);
 	}
 
-	gl_FragColor = finalColor;
+	gl_FragColor = color;
 }
 
 vec4 Color(int r, int g, int b) {

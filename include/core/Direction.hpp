@@ -14,7 +14,7 @@
 #ifndef DIRECTION_HPP_
 #define DIRECTION_HPP_
 
-#include "IntTypes.hpp"
+#include <gk/core/IntTypes.hpp>
 
 enum class Direction : s8 {
 	None  = -1,

@@ -14,17 +14,18 @@
 #ifndef MESSAGEBOXSTATE_HPP_
 #define MESSAGEBOXSTATE_HPP_
 
-#include "ApplicationState.hpp"
+#include <gk/core/ApplicationState.hpp>
+
 #include "MessageBox.hpp"
 
-class MessageBoxState : public ApplicationState {
+class MessageBoxState : public gk::ApplicationState {
 	public:
-		MessageBoxState(const std::string &text, ApplicationState *parent);
+		MessageBoxState(const std::string &text, gk::ApplicationState *parent);
 
 		void update() override;
 
 	private:
-		void draw(RenderTarget &target, RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		MessageBox m_messageBox;
 };

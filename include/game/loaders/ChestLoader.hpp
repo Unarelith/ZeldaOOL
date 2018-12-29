@@ -14,12 +14,13 @@
 #ifndef CHESTLOADER_HPP_
 #define CHESTLOADER_HPP_
 
+#include <gk/core/XMLFile.hpp>
+
 #include "Scene.hpp"
-#include "XMLFile.hpp"
 
 class ChestLoader {
 	public:
-		static void load(XMLElement *chestElement, Scene &scene);
+		static void load(tinyxml2::XMLElement *chestElement, Scene &scene);
 };
 
 #endif // CHESTLOADER_HPP_

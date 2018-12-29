@@ -17,7 +17,7 @@
 #include <tuple>
 #include <vector>
 
-#include "IntTypes.hpp"
+#include <gk/core/IntTypes.hpp>
 
 class TileChange {
 	public:

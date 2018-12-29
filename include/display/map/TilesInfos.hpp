@@ -14,7 +14,7 @@
 #ifndef TILESINFOS_HPP_
 #define TILESINFOS_HPP_
 
-#include "IntTypes.hpp"
+#include <gk/core/IntTypes.hpp>
 
 #define TILE_NB 19
 

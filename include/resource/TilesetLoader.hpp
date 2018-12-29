@@ -14,11 +14,11 @@
 #ifndef TILESETLOADER_HPP_
 #define TILESETLOADER_HPP_
 
-#include "ResourceLoader.hpp"
+#include <gk/resource/IResourceLoader.hpp>
 
-class TilesetLoader : public ResourceLoader {
+class TilesetLoader : public gk::IResourceLoader {
 	public:
-		void load(const std::string &xmlFilename, ResourceHandler &handler);
+		void load(const char *xmlFilename, gk::ResourceHandler &handler);
 };
 
 #endif // TILESETLOADER_HPP_

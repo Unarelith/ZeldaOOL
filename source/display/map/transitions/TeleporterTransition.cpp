@@ -20,12 +20,15 @@
 #include "Scene.hpp"
 #include "SpriteComponent.hpp"
 #include "TeleporterTransition.hpp"
+#include "TextBox.hpp"
 #include "World.hpp"
 
 TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection) {
 	m_nextMap = &World::getMap(area, mapX, mapY);
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
+
+	m_color = TextBox::getTextColor();
 
 	auto &positionComponent = World::getInstance().player().get<PositionComponent>();
 	positionComponent.direction = playerDirection;
@@ -57,8 +60,8 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 
 	m_drawStatsBar = false;
 
-	m_rect1.setColor(Color::text);
-	m_rect2.setColor(Color::text);
+	m_rect1.setColor(m_color);
+	m_rect2.setColor(m_color);
 
 	Sprite::pause = true;
 }
@@ -75,7 +78,7 @@ void TeleporterTransition::update() {
 	}
 
 	if(m_timer.time() > 250) {
-		glClearColor(Color::text.r / 255.0f, Color::text.g / 255.0f, Color::text.b / 255.0f, 1.0f);
+		glClearColor(m_color.r, m_color.g, m_color.b, m_color.a);
 
 		m_drawStatsBar = true;
 
@@ -84,7 +87,7 @@ void TeleporterTransition::update() {
 	}
 }
 
-void TeleporterTransition::draw(RenderTarget &target, RenderStates states) const {
+void TeleporterTransition::draw(gk::RenderTarget &target, gk::RenderStates states) const {
 	if(m_timer.time() > 250) {
 		target.draw(*m_nextMap, states);
 

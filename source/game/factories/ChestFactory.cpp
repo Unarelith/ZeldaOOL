@@ -11,7 +11,8 @@
  *
  * =====================================================================================
  */
-#include "ApplicationStateStack.hpp"
+#include <gk/core/ApplicationStateStack.hpp>
+
 #include "AudioPlayer.hpp"
 #include "ChestFactory.hpp"
 #include "ChestOpeningState.hpp"
@@ -55,7 +56,7 @@ void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 			World::getInstance().currentMap()->setTile(chestPosition.x / 16,
 			                                           chestPosition.y / 16, 240, true, true);
 
-			ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, &ApplicationStateStack::getInstance().top());
+			gk::ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, &gk::ApplicationStateStack::getInstance().top());
 
 			chest.get<ChestComponent>().opened = true;
 		}

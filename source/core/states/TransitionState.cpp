@@ -11,11 +11,12 @@
  *
  * =====================================================================================
  */
-#include "ApplicationStateStack.hpp"
-#include "Debug.hpp"
+#include <gk/core/ApplicationStateStack.hpp>
+#include <gk/system/Debug.hpp>
+
 #include "TransitionState.hpp"
 
-TransitionState::TransitionState(ApplicationState *parent) : ApplicationState(parent) {
+TransitionState::TransitionState(gk::ApplicationState *parent) : gk::ApplicationState(parent) {
 	m_statsBar.update();
 }
 
@@ -25,13 +26,13 @@ void TransitionState::update() {
 	if(!m_transition || m_transition->atEnd()) {
 		if(!m_transition) DEBUG("Empty TransitionState created, I'll pop it");
 
-		ApplicationStateStack::getInstance().pop();
+		m_stateStack->pop();
 	} else {
 		m_transition->update();
 	}
 }
 
-void TransitionState::draw(RenderTarget &target, RenderStates states) const {
+void TransitionState::draw(gk::RenderTarget &target, gk::RenderStates states) const {
 	if (m_transition)
 		target.draw(*m_transition, states);
 

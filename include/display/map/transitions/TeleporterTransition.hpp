@@ -14,9 +14,10 @@
 #ifndef TELEPORTERTRANSITION_HPP_
 #define TELEPORTERTRANSITION_HPP_
 
+#include <gk/gui/RectangleShape.hpp>
+
 #include "Direction.hpp"
 #include "Map.hpp"
-#include "RectangleShape.hpp"
 #include "Transition.hpp"
 
 class TeleporterTransition : public Transition {
@@ -26,14 +27,16 @@ class TeleporterTransition : public Transition {
 		void update() override;
 
 	private:
-		void draw(RenderTarget &target, RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		Map *m_nextMap;
 
-		Timer m_timer;
+		gk::Timer m_timer;
 
-		RectangleShape m_rect1;
-		RectangleShape m_rect2;
+		gk::RectangleShape m_rect1;
+		gk::RectangleShape m_rect2;
+
+		gk::Color m_color;
 };
 
 #endif // TELEPORTERTRANSITION_HPP_

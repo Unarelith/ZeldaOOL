@@ -64,7 +64,7 @@ void BattleController::hurt(SceneObject &attacker, SceneObject &receiver) {
 					auto &attackerPosition = attacker.get<PositionComponent>();
 					auto &receiverPosition = receiver.get<PositionComponent>();
 
-					Vector2f v = receiverPosition.position() - attackerPosition.position();
+					gk::Vector2f v = receiverPosition.position() - attackerPosition.position();
 
 					if(v.x != 0) v.x /= fabs(v.x);
 					if(v.y != 0) v.y /= fabs(v.y);

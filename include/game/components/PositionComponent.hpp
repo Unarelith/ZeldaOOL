@@ -14,38 +14,39 @@
 #ifndef POSITIONCOMPONENT_HPP_
 #define POSITIONCOMPONENT_HPP_
 
-#include "Direction.hpp"
-#include "Rect.hpp"
-#include "Vector2.hpp"
+#include <gk/core/Rect.hpp>
+#include <gk/core/Vector2.hpp>
 
-class PositionComponent : public FloatRect {
+#include "Direction.hpp"
+
+class PositionComponent : public gk::FloatRect {
 	public:
 		PositionComponent() = default;
 
 		PositionComponent(float x, float y, float width, float height, Direction _direction = Direction::None)
-			: FloatRect(x, y, width, height), direction(_direction) {
+			: gk::FloatRect(x, y, width, height), direction(_direction) {
 		}
 
-		PositionComponent(const Vector2f &position, const Vector2f &size)
-			: FloatRect(position, size) {
+		PositionComponent(const gk::Vector2f &position, const gk::Vector2f &size)
+			: gk::FloatRect(position, size) {
 		}
 
-		void updateDirection(const Vector2f &v) {
+		void updateDirection(const gk::Vector2f &v) {
 			if(v.x < 0) direction = Direction::Left;
 			if(v.x > 0) direction = Direction::Right;
 			if(v.y < 0) direction = Direction::Up;
 			if(v.y > 0) direction = Direction::Down;
 		}
 
-		Vector2i getMovementFromDirection() {
-			Vector2i v;
+		gk::Vector2i getMovementFromDirection() {
+			gk::Vector2i v;
 			v.x = (direction == Direction::Left ? -1 : (direction == Direction::Right ? 1 : 0));
 			v.y = (direction == Direction::Up ? -1 : (direction == Direction::Down ? 1 : 0));
 			return v;
 		}
 
-		Vector2i getFrontTile() {
-			Vector2i v;
+		gk::Vector2i getFrontTile() {
+			gk::Vector2i v;
 			v.x = (x + width / 2) / 16;
 			v.y = (y + height / 2) / 16;
 			v += getMovementFromDirection();

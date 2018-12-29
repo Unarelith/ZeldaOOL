@@ -18,7 +18,7 @@
 #include <typeindex>
 #include <unordered_map>
 
-#include "Exception.hpp"
+#include <gk/system/Exception.hpp>
 
 class SceneObject {
 	public:
@@ -52,6 +52,7 @@ class SceneObject {
 		}
 
 		void debug() const {
+#ifdef DEBUG_ENABLED
 			DEBUG("=== Component list of object:", (void*)this, "===");
 			DEBUG("=== List address:", (void*)&m_components);
 
@@ -60,6 +61,7 @@ class SceneObject {
 			}
 
 			DEBUG("=== End of list. ===");
+#endif
 		}
 
 		const std::string &name() const { return m_name; }

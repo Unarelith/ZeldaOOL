@@ -17,13 +17,14 @@
 #include <functional>
 #include <list>
 
+#include <gk/gl/IDrawable.hpp>
+
 #include "AbstractController.hpp"
 #include "AbstractView.hpp"
-#include "IDrawable.hpp"
 #include "SceneObject.hpp"
 #include "SceneObjectList.hpp"
 
-class Scene : public IDrawable {
+class Scene : public gk::IDrawable {
 	public:
 		void reset();
 		void update();
@@ -53,7 +54,7 @@ class Scene : public IDrawable {
 		static bool isPlayer(SceneObject &object) { return object.type() == "Player"; }
 
 	private:
-		void draw(RenderTarget &target, RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		SceneObjectList m_objects;
 

@@ -18,7 +18,7 @@
 
 class EffectView : public AbstractView {
 	public:
-		void draw(const SceneObject &object, RenderTarget &target, RenderStates states) override;
+		void draw(const SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) override;
 };
 
 #endif // EFFECTVIEW_HPP_

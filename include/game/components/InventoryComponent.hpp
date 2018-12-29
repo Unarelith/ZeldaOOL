@@ -19,7 +19,6 @@
 
 #include "GameKey.hpp"
 #include "Image.hpp"
-#include "ResourceHandler.hpp"
 #include "Translator.hpp"
 
 class Item {

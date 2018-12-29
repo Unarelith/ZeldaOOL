@@ -14,8 +14,9 @@
 #ifndef MAPANIMATOR_HPP_
 #define MAPANIMATOR_HPP_
 
+#include <gk/core/Timer.hpp>
+
 #include "Tileset.hpp"
-#include "Timer.hpp"
 
 class Map;
 
@@ -27,7 +28,7 @@ class MapAnimator {
 
 	private:
 		struct TileAnimation {
-			Timer timer;
+			gk::Timer timer;
 			u16 currentFrame = 0;
 		};
 

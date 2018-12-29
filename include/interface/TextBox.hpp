@@ -19,7 +19,7 @@
 
 #include "Sprite.hpp"
 
-class TextBox : public IDrawable, public Transformable {
+class TextBox : public gk::IDrawable, public gk::Transformable {
 	public:
 		TextBox(const std::string &text, u16 width, u16 height);
 
@@ -40,8 +40,10 @@ class TextBox : public IDrawable, public Transformable {
 
 		u8 page() const { return m_page; }
 
+		static gk::Color getTextColor() { return {248, 208, 136}; }
+
 	private:
-		void draw(RenderTarget &target, RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		bool isTimeToDisplayLetter(u16 letterIndex) const;
 
@@ -51,7 +53,7 @@ class TextBox : public IDrawable, public Transformable {
 
 		std::vector<Sprite> m_textSprites;
 
-		Timer m_charTimer;
+		gk::Timer m_charTimer;
 
 		u8 m_charPerLine = 16;
 
@@ -59,8 +61,8 @@ class TextBox : public IDrawable, public Transformable {
 
 		u8 m_page = 0;
 
-		Color m_currentColor = Color::text;
-		std::map<u16, Color> m_colorChanges;
+		gk::Color m_currentColor = getTextColor();
+		std::map<u16, gk::Color> m_colorChanges;
 
 		u16 m_width = 0;
 		u16 m_height = 0;

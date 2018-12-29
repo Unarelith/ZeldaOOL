@@ -84,7 +84,7 @@ void Menu::update() {
 	}
 }
 
-void Menu::draw(RenderTarget &target, RenderStates states) const {
+void Menu::draw(gk::RenderTarget &target, gk::RenderStates states) const {
 	target.draw(m_background, states);
 
 	target.draw(m_cursor, states);

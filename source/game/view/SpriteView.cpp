@@ -14,7 +14,8 @@
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "GameClock.hpp"
+#include <gk/system/GameClock.hpp>
+
 #include "HealthComponent.hpp"
 #include "Image.hpp"
 #include "LifetimeComponent.hpp"
@@ -23,7 +24,7 @@
 #include "SpriteComponent.hpp"
 #include "SpriteView.hpp"
 
-void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderStates states) {
+void SpriteView::draw(const SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) {
 	// if (object.has<LifetimeComponent>() && object.get<LifetimeComponent>().dead(object))
 	// 	return;
 
@@ -32,10 +33,8 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 		if(lifetime.almostDead() && (lifetime.dead(object) || lifetime.aliveTime() % 120 <= 59)) return;
 	}
 
-	glm::mat4 modelMatrix;
 	if (object.has<PositionComponent>()) {
-		modelMatrix = glm::translate((states.modelMatrix) ? *states.modelMatrix : glm::mat4{1}, glm::vec3{object.get<PositionComponent>().x, object.get<PositionComponent>().y, 0});
-		states.modelMatrix = &modelMatrix;
+		states.transform.translate(object.get<PositionComponent>().x, object.get<PositionComponent>().y);
 	}
 
 	if(object.has<Image>()) {
@@ -66,7 +65,7 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 
 			if(object.has<HealthComponent>()
 			&& object.get<HealthComponent>().isHurt
-			&& GameClock::getTicks() % 100 < 50) {
+			&& gk::GameClock::getTicks() % 100 < 50) {
 				sprite.setPaletteID(1);
 			}
 
@@ -85,7 +84,7 @@ void SpriteView::draw(const SceneObject &object, RenderTarget &target, RenderSta
 		if (spriteComponent.isEnabled()) {
 			if(object.has<HealthComponent>()
 			&& object.get<HealthComponent>().isHurt
-			&& GameClock::getTicks() % 100 < 50) {
+			&& gk::GameClock::getTicks() % 100 < 50) {
 				spriteComponent.sprite().setPaletteID(1);
 			}
 

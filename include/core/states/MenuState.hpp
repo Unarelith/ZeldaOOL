@@ -14,16 +14,17 @@
 #ifndef MENUSTATE_HPP_
 #define MENUSTATE_HPP_
 
-#include "ApplicationState.hpp"
+#include <gk/core/ApplicationState.hpp>
+
 #include "Menu.hpp"
 #include "StatsBar.hpp"
 
-class MenuState : public ApplicationState {
+class MenuState : public gk::ApplicationState {
 	public:
 		void update() override;
 
 	private:
-		void draw(RenderTarget &target, RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		StatsBar m_statsBar;
 

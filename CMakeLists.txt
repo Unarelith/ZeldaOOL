@@ -32,6 +32,7 @@ add_executable(${CMAKE_PROJECT_NAME}
 #------------------------------------------------------------------------------
 # target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -g -O3 -ffast-math -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
 target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -g -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
+target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -DDEBUG_ENABLED -DDEBUG_COLOR)
 target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_17)
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -40,6 +41,17 @@ endif()
 
 #------------------------------------------------------------------------------
 # Packages
+#------------------------------------------------------------------------------
+# - gamekit
+#------------------------------------------------------------------------------
+find_package(GameKit REQUIRED)
+if(NOT GAMEKIT_FOUND)
+	message(FATAL_ERROR "gamekit is needed to build the project. Please install it correctly.")
+endif()
+
+include_directories(${GAMEKIT_INCLUDE_DIRS})
+link_directories(${GAMEKIT_LIBRARY_DIRS})
+
 #------------------------------------------------------------------------------
 # - tinyxml2
 #------------------------------------------------------------------------------
@@ -98,6 +110,7 @@ include_directories(${SDL2_INCLUDE_DIRS}
 # Link options
 #------------------------------------------------------------------------------
 target_link_libraries(${CMAKE_PROJECT_NAME}
+                      ${GAMEKIT_LIBRARIES}
                       ${TINYXML2_LIBRARIES}
                       ${OPENGL_LIBRARIES}
                       ${SDL2_LIBRARIES}

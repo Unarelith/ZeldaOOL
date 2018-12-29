@@ -19,7 +19,10 @@
 
 class Sprite : public Image {
 	public:
+		Sprite() = default;
 		Sprite(const std::string &textureName, u16 frameWidth, u16 frameHeight, bool isAnimated = false);
+
+		void load(const std::string &textureName, u16 frameWidth, u16 frameHeight, bool isAnimated = false);
 
 		void updateAnimations();
 
@@ -34,15 +37,19 @@ class Sprite : public Image {
 		u16 frameWidth() const { return m_frameWidth; }
 		u16 frameHeight() const { return m_frameHeight; }
 
-		bool hasAnimations() { return m_animations.size() != 0; }
-		u16 currentAnimationID() { return m_currentAnimation; }
+		bool hasAnimations() const { return m_animations.size() != 0; }
+		u16 currentAnimationID() const { return m_currentAnimation; }
 		const SpriteAnimation &currentAnimation() const { return m_animations[m_currentAnimation]; }
 
 		// FIXME: To remove (used in GrassFactory)
 		SpriteAnimation &currentAnimation() { return m_animations.at(m_currentAnimation); }
 		SpriteAnimation &getAnimation(u16 i) { return m_animations.at(i); }
 
+		bool isAnimated() const { return m_isAnimated; }
 		void setAnimated(bool isAnimated) { m_isAnimated = isAnimated; }
+
+		const std::vector<SpriteAnimation> &animations() const { return m_animations; }
+		void setAnimations(const std::vector<SpriteAnimation> &animations) { m_animations = animations; }
 
 		static bool pause;
 

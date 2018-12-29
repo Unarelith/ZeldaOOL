@@ -14,12 +14,13 @@
 #ifndef TELEPORTERLOADER_HPP_
 #define TELEPORTERLOADER_HPP_
 
+#include <gk/core/XMLFile.hpp>
+
 #include "Scene.hpp"
-#include "XMLFile.hpp"
 
 class TeleporterLoader {
 	public:
-		static void load(XMLElement *teleporterElement, Scene &scene);
+		static void load(tinyxml2::XMLElement *teleporterElement, Scene &scene);
 };
 
 #endif // TELEPORTERLOADER_HPP_

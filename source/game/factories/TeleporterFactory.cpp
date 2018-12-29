@@ -11,7 +11,8 @@
  *
  * =====================================================================================
  */
-#include "ApplicationStateStack.hpp"
+#include <gk/core/ApplicationStateStack.hpp>
+
 #include "AudioPlayer.hpp"
 #include "TeleporterTransition.hpp"
 #include "Scene.hpp"
@@ -49,7 +50,7 @@ void teleporterAction(SceneObject &teleporter, SceneObject &object, bool inColli
 			if(!playerOnDoor) {
 				AudioPlayer::playEffect("mapStairs");
 
-				auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
+				auto &state = gk::ApplicationStateStack::getInstance().push<TransitionState>(&gk::ApplicationStateStack::getInstance().top());
 				state.setTransition<TeleporterTransition>(teleporterComponent.area(),
 				                                          teleporterComponent.mapX(),
 				                                          teleporterComponent.mapY(),

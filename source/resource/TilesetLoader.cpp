@@ -11,14 +11,16 @@
  *
  * =====================================================================================
  */
+#include <gk/core/XMLFile.hpp>
+#include <gk/resource/ResourceHandler.hpp>
+
 #include "Tileset.hpp"
 #include "TilesetLoader.hpp"
-#include "XMLFile.hpp"
 
-void TilesetLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
-	XMLFile doc(xmlFilename);
+void TilesetLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
+	gk::XMLFile doc(xmlFilename);
 
-	XMLElement *tilesetElement = doc.FirstChildElement("tilesets").FirstChildElement("tileset").ToElement();
+	tinyxml2::XMLElement *tilesetElement = doc.FirstChildElement("tilesets").FirstChildElement("tileset").ToElement();
 	while(tilesetElement) {
 		std::string name = tilesetElement->Attribute("name");
 		std::string filename = "resources/graphics/tilesets/" + name + ".png";

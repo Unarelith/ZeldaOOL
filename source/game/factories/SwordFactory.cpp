@@ -61,14 +61,14 @@ SceneObject SwordFactory::create(float x, float y, GameKey key, SceneObject &own
 	spriteComponent.addState("Loaded",      true,  true,  4, 1);
 	spriteComponent.addState("SpinAttack",  false, true,  8, 0);
 
-	std::vector<std::vector<Vector2i>> swordPosition = {
+	std::vector<std::vector<gk::Vector2i>> swordPosition = {
 		{{-15,   0}, {-13,  15}, {-13,  15}, { -1,  19}, { -1,  19}, { -1,  19}, { -1,  14}},
 		{{ -5, -15}, {  8, -12}, {  8, -12}, { 19,   1}, { 19,   1}, { 19,   1}, { 12,   1}},
 		{{  5, -15}, { -8, -12}, { -8, -12}, {-19,   1}, {-19,   1}, {-19,   1}, {-12,   1}},
 		{{ 14,   4}, { 12, -12}, { 12, -12}, {  0, -18}, {  0, -18}, {  0, -18}, {  0, -11}}
 	};
 
-	std::vector<Vector2i> spinAttackPosition = {
+	std::vector<gk::Vector2i> spinAttackPosition = {
 		{ -1,  16}, {-12,  12}, {-15,  1}, {-12, -12},
 		{  0, -15}, { 11, -12}, { 15,  2}, { 13,  13}
 	};

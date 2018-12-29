@@ -11,18 +11,21 @@
  *
  * =====================================================================================
  */
+#include <gk/core/XMLFile.hpp>
+#include <gk/resource/ResourceHandler.hpp>
+
 #include "Map.hpp"
 #include "MapLoader.hpp"
 #include "SceneObjectLoader.hpp"
 
-void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
-	XMLFile doc(xmlFilename);
+void MapLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
+	gk::XMLFile doc(xmlFilename);
 
-	XMLElement *areaElement = doc.FirstChildElement("maps").FirstChildElement("area").ToElement();
+	tinyxml2::XMLElement *areaElement = doc.FirstChildElement("maps").FirstChildElement("area").ToElement();
 	while(areaElement) {
 		u16 area = areaElement->IntAttribute("id");
 
-		XMLElement *mapElement = areaElement->FirstChildElement("map");
+		tinyxml2::XMLElement *mapElement = areaElement->FirstChildElement("map");
 		while(mapElement) {
 			std::string name = mapElement->Attribute("name");
 			std::string tilesetName = mapElement->Attribute("tileset");
@@ -44,16 +47,16 @@ void MapLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
 #include "GrassFactory.hpp"
 #include "TilesInfos.hpp"
 
-void MapLoader::loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset &tileset, ResourceHandler &handler) {
-	XMLFile doc("resources/maps/" + name + ".tmx");
+void MapLoader::loadMap(const std::string &name, u16 area, u16 x, u16 y, Tileset &tileset, gk::ResourceHandler &handler) {
+	gk::XMLFile doc("resources/maps/" + name + ".tmx");
 
-	XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
+	tinyxml2::XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
 
 	u16 width = mapElement->IntAttribute("width");
 	u16 height = mapElement->IntAttribute("height");
 
 	std::vector<u16> data;
-	XMLElement *tileElement = mapElement->FirstChildElement("layer")->FirstChildElement("data")->FirstChildElement("tile");
+	tinyxml2::XMLElement *tileElement = mapElement->FirstChildElement("layer")->FirstChildElement("data")->FirstChildElement("tile");
 	while(tileElement) {
 		s16 tileID = tileElement->IntAttribute("gid") - 1;
 

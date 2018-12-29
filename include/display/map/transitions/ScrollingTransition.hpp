@@ -31,7 +31,7 @@ class ScrollingTransition : public Transition {
 		void update() override;
 
 	private:
-		void draw(RenderTarget &target, RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		Mode m_mode;
 

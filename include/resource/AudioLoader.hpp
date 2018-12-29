@@ -14,11 +14,11 @@
 #ifndef AUDIOLOADER_HPP_
 #define AUDIOLOADER_HPP_
 
-#include "ResourceLoader.hpp"
+#include <gk/resource/IResourceLoader.hpp>
 
-class AudioLoader : public ResourceLoader {
+class AudioLoader : public gk::IResourceLoader {
 	public:
-		void load(const std::string &xmlFilename, ResourceHandler &handler);
+		void load(const char *xmlFilename, gk::ResourceHandler &handler) override;
 };
 
 #endif // AUDIOLOADER_HPP_

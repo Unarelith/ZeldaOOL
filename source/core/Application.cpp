@@ -11,10 +11,14 @@
  *
  * =====================================================================================
  */
+#define GLM_FORCE_RADIANS
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "Application.hpp"
+#include "AudioPlayer.hpp"
+#include "Config.hpp"
 #include "GamePad.hpp"
 #include "GameState.hpp"
-#include "ResourceHandler.hpp"
 
 #include "AudioLoader.hpp"
 #include "ItemLoader.hpp"
@@ -24,12 +28,28 @@
 #include "TilesetLoader.hpp"
 #include "Translator.hpp"
 
-void Application::init() {
-	CoreApplication::init();
+Application::Application(int argc, char **argv) : CoreApplication(argc, argv) {
+	if (argc > 1 && argv[1] == std::string("--no-sound"))
+		AudioPlayer::setMuteState(true);
+}
 
-	Translator::setLocale("fr_FR");
+void Application::init() {
+	gk::CoreApplication::init();
+
+	GamePad::init(m_keyboardHandler);
+
+	createWindow(SCREEN_WIDTH * 4, SCREEN_HEIGHT * 4, APP_NAME);
 
 	initOpenGL();
+
+	m_shader.loadFromFile("resources/shaders/game.v.glsl", "resources/shaders/game.f.glsl");
+	m_renderStates.shader = &m_shader;
+
+	m_renderStates.vertexAttributes = gk::VertexAttribute::Only2d;
+	m_renderStates.projectionMatrix = glm::ortho(0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f);
+	// m_renderStates.projectionMatrix = glm::ortho((float)-SCREEN_WIDTH, (float)SCREEN_WIDTH * 2, (float)SCREEN_HEIGHT * 2, (float)-SCREEN_HEIGHT);
+
+	Translator::setLocale("fr_FR");
 
 	m_resourceHandler.loadConfigFile<AudioLoader>("resources/config/audio.xml");
 	m_resourceHandler.loadConfigFile<TextureLoader>("resources/config/textures.xml");
@@ -42,15 +62,15 @@ void Application::init() {
 }
 
 void Application::initOpenGL() {
-#ifdef __MINGW32__
-	if(glewInit() != GLEW_OK) {
-		throw EXCEPTION("glew init failed");
-	}
-#endif
-
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glEnable(GL_TEXTURE_2D);
+}
+
+void Application::onEvent(const SDL_Event &event) {
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+		m_window.close();
+	}
 }
 

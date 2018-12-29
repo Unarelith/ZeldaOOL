@@ -14,7 +14,7 @@
 #ifndef HEALTHCOMPONENT_HPP_
 #define HEALTHCOMPONENT_HPP_
 
-#include "IntTypes.hpp"
+#include <gk/core/IntTypes.hpp>
 
 class HealthComponent {
 	public:

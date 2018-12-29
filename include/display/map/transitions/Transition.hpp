@@ -14,9 +14,9 @@
 #ifndef TRANSITION_HPP_
 #define TRANSITION_HPP_
 
-#include "IDrawable.hpp"
+#include <gk/gl/IDrawable.hpp>
 
-class Transition : public IDrawable {
+class Transition : public gk::IDrawable {
 	public:
 		virtual ~Transition() = default;
 

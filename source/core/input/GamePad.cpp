@@ -11,7 +11,8 @@
  *
  * =====================================================================================
  */
-#include "GameClock.hpp"
+#include <gk/system/GameClock.hpp>
+
 #include "GamePad.hpp"
 
 InputHandler *GamePad::inputHandler = nullptr;
@@ -115,8 +116,8 @@ bool GamePad::isKeyPressedOnce(GameKey key) {
 }
 
 bool GamePad::isKeyPressedWithDelay(GameKey key, u16 delay) {
-	if(GamePad::isKeyPressed(key) && GameClock::getTicks() - lastTimePressed[key] > delay) {
-		lastTimePressed[key] = GameClock::getTicks();
+	if(GamePad::isKeyPressed(key) && gk::GameClock::getTicks() - lastTimePressed[key] > delay) {
+		lastTimePressed[key] = gk::GameClock::getTicks();
 		return true;
 	} else {
 		if(!GamePad::isKeyPressed(key)) lastTimePressed[key] = 0;

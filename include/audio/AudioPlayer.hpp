@@ -16,7 +16,7 @@
 
 #include <string>
 
-#include "IntTypes.hpp"
+#include <gk/core/IntTypes.hpp>
 
 class AudioPlayer {
 	public:

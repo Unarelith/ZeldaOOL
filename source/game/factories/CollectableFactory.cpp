@@ -11,11 +11,12 @@
  *
  * =====================================================================================
  */
+#include <gk/gl/Texture.hpp>
+#include <gk/resource/ResourceHandler.hpp>
+
 #include "AudioPlayer.hpp"
 #include "CollectableFactory.hpp"
-#include "ResourceHandler.hpp"
 #include "Scene.hpp"
-#include "Texture.hpp"
 
 #include "Image.hpp"
 #include "CollectableComponent.hpp"

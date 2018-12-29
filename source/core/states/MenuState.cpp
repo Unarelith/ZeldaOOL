@@ -11,7 +11,8 @@
  *
  * =====================================================================================
  */
-#include "ApplicationStateStack.hpp"
+#include <gk/core/ApplicationStateStack.hpp>
+
 #include "AudioPlayer.hpp"
 #include "GamePad.hpp"
 #include "MenuState.hpp"
@@ -28,7 +29,7 @@ void MenuState::update() {
 	}
 }
 
-void MenuState::draw(RenderTarget &target, RenderStates states) const {
+void MenuState::draw(gk::RenderTarget &target, gk::RenderStates states) const {
 	target.draw(m_statsBar, states);
 
 	target.draw(m_menu, states);

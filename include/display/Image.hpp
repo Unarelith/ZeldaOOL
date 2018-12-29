@@ -14,46 +14,46 @@
 #ifndef IMAGE_HPP_
 #define IMAGE_HPP_
 
-#include "Color.hpp"
-#include "IDrawable.hpp"
-#include "Rect.hpp"
-#include "Texture.hpp"
-#include "Transformable.hpp"
-#include "VertexBuffer.hpp"
+#include <gk/core/Color.hpp>
+#include <gk/core/Rect.hpp>
+#include <gk/gl/IDrawable.hpp>
+#include <gk/gl/Texture.hpp>
+#include <gk/gl/Transformable.hpp>
+#include <gk/gl/VertexBuffer.hpp>
 
-class Image : public IDrawable, public Transformable {
+class Image : public gk::IDrawable, public gk::Transformable {
 	public:
 		Image() = default;
 		Image(const std::string &textureName);
-		Image(const Texture &texture);
+		Image(const gk::Texture &texture);
 
 		void load(const std::string &textureName);
-		void load(const Texture &texture);
+		void load(const gk::Texture &texture);
 
-		const FloatRect &clipRect() const { return m_clipRect; }
+		const gk::FloatRect &clipRect() const { return m_clipRect; }
 		void setClipRect(float x, float y, u16 width, u16 height);
 
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 
-		void setColor(const Color &color) { m_color = color; updateVertexBuffer(); }
+		void setColor(const gk::Color &color) { m_color = color; updateVertexBuffer(); }
 		void setPaletteID(u8 paletteID) { m_paletteID = paletteID; }
 
 	private:
 		void updateVertexBuffer() const;
 
-		void draw(RenderTarget &target, RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
-		const Texture *m_texture = nullptr;
+		const gk::Texture *m_texture = nullptr;
 
 		u16 m_width = 0;
 		u16 m_height = 0;
 
-		FloatRect m_clipRect;
+		gk::FloatRect m_clipRect;
 
-		VertexBuffer m_vbo;
+		gk::VertexBuffer m_vbo;
 
-		Color m_color = Color::white;
+		gk::Color m_color = gk::Color::white;
 		u8 m_paletteID = 0;
 };
 

@@ -11,16 +11,17 @@
  *
  * =====================================================================================
  */
+#include <gk/core/XMLFile.hpp>
+
 #include "Translator.hpp"
-#include "XMLFile.hpp"
 
 void Translator::setLocale(const std::string &name) {
 	dictionary().clear();
 
-	XMLFile doc("resources/locale/" + name + ".xml");
+	gk::XMLFile doc("resources/locale/" + name + ".xml");
 
 	/* INTERFACE */
-	XMLElement *textElement = doc.FirstChildElement("language").FirstChildElement("text").ToElement();
+	tinyxml2::XMLElement *textElement = doc.FirstChildElement("language").FirstChildElement("text").ToElement();
 	while(textElement) {
 		std::string id = textElement->Attribute("id");
 		std::string text = textElement->Attribute("text");

@@ -74,7 +74,7 @@ void StatsBar::updateHearts() {
 	m_hearts.setText(text);
 }
 
-void StatsBar::draw(RenderTarget &target, RenderStates states) const {
+void StatsBar::draw(gk::RenderTarget &target, gk::RenderStates states) const {
 	target.draw(m_background, states);
 
 	target.draw(m_hearts, states);
@@ -84,6 +84,9 @@ void StatsBar::draw(RenderTarget &target, RenderStates states) const {
 
 	Weapon *weaponA = playerInventory.getWeaponA();
 	Weapon *weaponB = playerInventory.getWeaponB();
+
+	if (!weaponA)
+		DEBUG("wtf");
 
 	if(weaponA) target.draw(weaponA->icon(), states);
 	if(weaponB) target.draw(weaponB->icon(), states);

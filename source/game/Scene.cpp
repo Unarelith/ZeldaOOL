@@ -61,7 +61,7 @@ void Scene::update() {
 	}
 }
 
-void Scene::draw(RenderTarget &target, RenderStates states) const {
+void Scene::draw(gk::RenderTarget &target, gk::RenderStates states) const {
 	for (auto &view : m_viewList) {
 		view->draw(m_objects, target, states);
 

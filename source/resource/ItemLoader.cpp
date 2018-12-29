@@ -11,14 +11,16 @@
  *
  * =====================================================================================
  */
+#include <gk/core/XMLFile.hpp>
+#include <gk/resource/ResourceHandler.hpp>
+
 #include "InventoryComponent.hpp"
 #include "ItemLoader.hpp"
-#include "XMLFile.hpp"
 
-void ItemLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
-	XMLFile doc(xmlFilename);
+void ItemLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
+	gk::XMLFile doc(xmlFilename);
 
-	XMLElement *itemElement = doc.FirstChildElement("items").FirstChildElement().ToElement();
+	tinyxml2::XMLElement *itemElement = doc.FirstChildElement("items").FirstChildElement().ToElement();
 	while(itemElement) {
 		std::string name = itemElement->Attribute("name");
 

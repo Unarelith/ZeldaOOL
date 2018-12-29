@@ -11,9 +11,10 @@
  *
  * =====================================================================================
  */
-#include "ResourceHandler.hpp"
+#include <gk/gl/Texture.hpp>
+#include <gk/resource/ResourceHandler.hpp>
+
 #include "Text.hpp"
-#include "Texture.hpp"
 
 Text::Text(const std::string &textureName, u8 charWidth, u8 charHeight) {
 	m_textureName = textureName;
@@ -21,8 +22,8 @@ Text::Text(const std::string &textureName, u8 charWidth, u8 charHeight) {
 	m_charHeight = charHeight;
 }
 
-void Text::draw(RenderTarget &target, RenderStates states) const {
-	applyTransform(states);
+void Text::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+	states.transform *= getTransform();
 
 	for(const Sprite &sprite : m_textSprites) {
 		target.draw(sprite, states);

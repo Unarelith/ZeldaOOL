@@ -11,9 +11,10 @@
  *
  * =====================================================================================
  */
+#include <gk/resource/ResourceHandler.hpp>
+
 #include "MapLoader.hpp"
 #include "PlayerFactory.hpp"
-#include "ResourceHandler.hpp"
 #include "World.hpp"
 
 World *World::s_instance = nullptr;
@@ -28,8 +29,8 @@ void World::update() {
 	m_currentMap->update();
 }
 
-void World::draw(RenderTarget &target, RenderStates states) const {
-	applyTransform(states);
+void World::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+	states.transform *= getTransform();
 
 	if (m_currentMap)
 		target.draw(*m_currentMap, states);
@@ -40,10 +41,10 @@ Map &World::getSideMap(s8 dx, s8 dy) {
 }
 
 Map &World::getMap(u16 area, u16 mapX, u16 mapY) {
-	return ResourceHandler::getInstance().get<Map>(MapLoader::makeName(area, mapX, mapY));
+	return gk::ResourceHandler::getInstance().get<Map>(MapLoader::makeName(area, mapX, mapY));
 }
 
 bool World::mapExists(u16 area, u16 mapX, u16 mapY) {
-	return ResourceHandler::getInstance().has(MapLoader::makeName(area, mapX, mapY));
+	return gk::ResourceHandler::getInstance().has(MapLoader::makeName(area, mapX, mapY));
 }
 

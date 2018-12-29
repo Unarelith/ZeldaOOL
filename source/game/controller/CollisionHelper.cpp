@@ -42,8 +42,8 @@ bool CollisionHelper::inCollision(SceneObject &object1, SceneObject &object2) {
 			auto &position1 = object1.get<PositionComponent>();
 			auto &position2 = object2.get<PositionComponent>();
 
-			FloatRect rect1 = *hitbox1.currentHitbox();
-			FloatRect rect2 = *hitbox2.currentHitbox();
+			gk::FloatRect rect1 = *hitbox1.currentHitbox();
+			gk::FloatRect rect2 = *hitbox2.currentHitbox();
 
 			rect1 += position1.position();
 			rect2 += position2.position();

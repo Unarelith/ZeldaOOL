@@ -14,15 +14,25 @@
 #ifndef APPLICATION_HPP_
 #define APPLICATION_HPP_
 
-#include "CoreApplication.hpp"
+#include <gk/core/CoreApplication.hpp>
+#include <gk/gl/Shader.hpp>
 
-class Application : public CoreApplication {
+#include "KeyboardHandler.hpp"
+
+class Application : public gk::CoreApplication {
 	public:
-		Application(int argc, char **argv) : CoreApplication(argc, argv) {}
+		Application(int argc, char **argv);
 
 		void init() override;
 
 		void initOpenGL();
+
+	private:
+		void onEvent(const SDL_Event &event) override;
+
+		KeyboardHandler m_keyboardHandler;
+
+		gk::Shader m_shader;
 };
 
 #endif // APPLICATION_HPP_

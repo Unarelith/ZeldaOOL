@@ -11,7 +11,8 @@
  *
  * =====================================================================================
  */
-#include "ApplicationStateStack.hpp"
+#include <gk/core/ApplicationStateStack.hpp>
+
 #include "PlayerMapCollision.hpp"
 #include "ScrollingTransition.hpp"
 #include "TilesInfos.hpp"
@@ -115,19 +116,19 @@ void PlayerMapCollision::update(SceneObject &player) {
 	effects.enableIf("lowWater", onTile(TilesInfos::TileType::LowWaterTile));
 
 	if(position.x < -3) {
-		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
+		auto &state = gk::ApplicationStateStack::getInstance().push<TransitionState>(&gk::ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingLeft);
 	}
 	else if(position.x + 13 > World::getInstance().currentMap()->width() * 16) {
-		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
+		auto &state = gk::ApplicationStateStack::getInstance().push<TransitionState>(&gk::ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingRight);
 	}
 	else if(position.y < -1) {
-		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
+		auto &state = gk::ApplicationStateStack::getInstance().push<TransitionState>(&gk::ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingUp);
 	}
 	else if(position.y + 15 > World::getInstance().currentMap()->height() * 16) {
-		auto &state = ApplicationStateStack::getInstance().push<TransitionState>(&ApplicationStateStack::getInstance().top());
+		auto &state = gk::ApplicationStateStack::getInstance().push<TransitionState>(&gk::ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingDown);
 	}
 }

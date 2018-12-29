@@ -15,14 +15,14 @@
 #include "ButtonFactory.hpp"
 #include "ButtonLoader.hpp"
 
-void ButtonLoader::load(XMLElement *buttonElement, Scene &scene) {
+void ButtonLoader::load(tinyxml2::XMLElement *buttonElement, Scene &scene) {
 	u16 tileX = buttonElement->IntAttribute("tileX");
 	u16 tileY = buttonElement->IntAttribute("tileY");
 
 	SceneObject &button = scene.addObject(ButtonFactory::create(tileX, tileY));
 	auto &buttonComponent = button.get<ButtonComponent>();
 
-	XMLElement *tileChangeElement = buttonElement->FirstChildElement("tileChange");
+	tinyxml2::XMLElement *tileChangeElement = buttonElement->FirstChildElement("tileChange");
 	while(tileChangeElement) {
 		u16 tileX = tileChangeElement->IntAttribute("tileX");
 		u16 tileY = tileChangeElement->IntAttribute("tileY");

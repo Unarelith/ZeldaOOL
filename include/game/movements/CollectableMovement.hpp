@@ -14,8 +14,9 @@
 #ifndef COLLECTABLEMOVEMENT_HPP_
 #define COLLECTABLEMOVEMENT_HPP_
 
+#include <gk/core/Timer.hpp>
+
 #include "Movement.hpp"
-#include "Timer.hpp"
 
 class CollectableMovement : public Movement {
 	public:

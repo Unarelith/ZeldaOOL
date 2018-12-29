@@ -11,7 +11,8 @@
  *
  * =====================================================================================
  */
-#include "Exception.hpp"
+#include <gk/system/Exception.hpp>
+
 #include "SoundEffect.hpp"
 
 SoundEffect::SoundEffect(const std::string &filename) {

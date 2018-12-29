@@ -14,7 +14,7 @@
 #include "OctorokFactory.hpp"
 #include "OctorokLoader.hpp"
 
-void OctorokLoader::load(XMLElement *octorokElement, Scene &scene) {
+void OctorokLoader::load(tinyxml2::XMLElement *octorokElement, Scene &scene) {
 	u16 tileX = octorokElement->IntAttribute("tileX");
 	u16 tileY = octorokElement->IntAttribute("tileY");
 

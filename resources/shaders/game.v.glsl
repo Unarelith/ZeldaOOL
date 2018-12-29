@@ -1,6 +1,6 @@
 #version 120
 
-attribute vec4 coord2d;
+attribute vec4 coord3d;
 attribute vec2 texCoord;
 attribute vec4 color;
 
@@ -16,7 +16,7 @@ void main() {
 	v_texCoord = texCoord;
 	v_color = color;
 
-	vec4 coord = u_modelMatrix * vec4(coord2d.xy + u_viewPosition, 0.0, 1.0);
+	vec4 coord = u_modelMatrix * vec4(coord3d.xy + u_viewPosition, 0.0, 1.0);
 
 	gl_Position = u_projectionMatrix * u_viewMatrix * coord;
 }

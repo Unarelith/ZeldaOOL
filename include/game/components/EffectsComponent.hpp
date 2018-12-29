@@ -21,16 +21,16 @@
 
 class Effect : public Sprite {
 	public:
-		Effect(const std::string &textureName, u16 frameWidth, u16 frameHeight, Vector2f _offset = {0, 0})
+		Effect(const std::string &textureName, u16 frameWidth, u16 frameHeight, gk::Vector2f _offset = {0, 0})
 			: Sprite(textureName, frameWidth, frameHeight), offset(_offset) {}
 
-		Vector2i offset;
+		gk::Vector2i offset;
 		bool isEnabled = false;
 };
 
 class EffectsComponent {
 	public:
-		Effect &addEffect(const std::string &name, const std::string &textureName, u16 frameWidth, u16 frameHeight, Vector2f offset = {0, 0}) {
+		Effect &addEffect(const std::string &name, const std::string &textureName, u16 frameWidth, u16 frameHeight, gk::Vector2f offset = {0, 0}) {
 			m_effects.emplace(name, Effect{textureName, frameWidth, frameHeight, offset});
 			return m_effects.at(name);
 		}

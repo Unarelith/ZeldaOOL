@@ -11,9 +11,10 @@
  *
  * =====================================================================================
  */
+#include <gk/core/XMLFile.hpp>
+
 #include "Filesystem.hpp"
 #include "SceneObjectLoader.hpp"
-#include "XMLFile.hpp"
 
 #include "ButtonLoader.hpp"
 #include "ChestLoader.hpp"
@@ -23,9 +24,9 @@
 
 void SceneObjectLoader::load(const std::string &mapName, Scene &scene) {
 	if(Filesystem::fileExists("resources/config/maps/" + mapName + ".xml")) {
-		XMLFile doc("resources/config/maps/" + mapName + ".xml");
+		gk::XMLFile doc("resources/config/maps/" + mapName + ".xml");
 
-		XMLElement *objectElement = doc.FirstChildElement("map").FirstChildElement().ToElement();
+		tinyxml2::XMLElement *objectElement = doc.FirstChildElement("map").FirstChildElement().ToElement();
 		while(objectElement) {
 			std::string objectName = objectElement->Name();
 

@@ -16,13 +16,14 @@
 
 #include <memory>
 
-#include "ApplicationState.hpp"
+#include <gk/core/ApplicationState.hpp>
+
 #include "StatsBar.hpp"
 #include "Transition.hpp"
 
-class TransitionState : public ApplicationState {
+class TransitionState : public gk::ApplicationState {
 	public:
-		TransitionState(ApplicationState *parent);
+		TransitionState(gk::ApplicationState *parent);
 
 		void update() override;
 
@@ -33,7 +34,7 @@ class TransitionState : public ApplicationState {
 		}
 
 	private:
-		void draw(RenderTarget &target, RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		StatsBar m_statsBar;
 

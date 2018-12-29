@@ -11,15 +11,17 @@
  *
  * =====================================================================================
  */
+#include <gk/core/XMLFile.hpp>
+#include <gk/resource/ResourceHandler.hpp>
+
 #include "Filesystem.hpp"
 #include "SpriteComponent.hpp"
 #include "SpriteLoader.hpp"
-#include "XMLFile.hpp"
 
-void SpriteLoader::load(const std::string &xmlFilename, ResourceHandler &handler) {
-	XMLFile doc(xmlFilename);
+void SpriteLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
+	gk::XMLFile doc(xmlFilename);
 
-	XMLElement *spriteElement = doc.FirstChildElement("sprites").FirstChildElement("sprite").ToElement();
+	tinyxml2::XMLElement *spriteElement = doc.FirstChildElement("sprites").FirstChildElement("sprite").ToElement();
 	while(spriteElement) {
 		std::string name = spriteElement->Attribute("name");
 		std::string filename = "resources/config/sprites/" + name + ".xml";
@@ -30,9 +32,9 @@ void SpriteLoader::load(const std::string &xmlFilename, ResourceHandler &handler
 	}
 }
 
-void SpriteLoader::loadSprite(const std::string &textureName, ResourceHandler &handler) {
+void SpriteLoader::loadSprite(const std::string &textureName, gk::ResourceHandler &handler) {
 	if (Filesystem::fileExists("resources/config/sprites/" + textureName + ".xml")) {
-		XMLFile doc("resources/config/sprites/" + textureName + ".xml");
+		gk::XMLFile doc("resources/config/sprites/" + textureName + ".xml");
 
 		tinyxml2::XMLElement *spriteElement = doc.FirstChildElement("sprite").ToElement();
 		std::string name = spriteElement->Attribute("name");
@@ -40,7 +42,7 @@ void SpriteLoader::loadSprite(const std::string &textureName, ResourceHandler &h
 		u16 frameWidth = spriteElement->IntAttribute("width");
 		u16 frameHeight = spriteElement->IntAttribute("height");
 
-		SpriteComponent sprite{texture, frameWidth, frameHeight};
+		SpriteComponent &sprite = handler.add<SpriteComponent>("sprite-" + textureName, texture, frameWidth, frameHeight);
 
 		tinyxml2::XMLElement *stateElement = spriteElement->FirstChildElement("states")->FirstChildElement("state");
 		while (stateElement) {
@@ -78,8 +80,6 @@ void SpriteLoader::loadSprite(const std::string &textureName, ResourceHandler &h
 
 			animationElement = animationElement->NextSiblingElement("animation");
 		}
-
-		handler.add<SpriteComponent>("sprite-" + textureName, sprite);
 	}
 }
 

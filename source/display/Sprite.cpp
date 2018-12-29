@@ -11,12 +11,23 @@
  *
  * =====================================================================================
  */
-#include "Exception.hpp"
+#include <gk/system/Exception.hpp>
 #include "Sprite.hpp"
 
 bool Sprite::pause = false;
 
 Sprite::Sprite(const std::string &textureName, u16 frameWidth, u16 frameHeight, bool isAnimated) : Image(textureName) {
+	m_frameWidth = frameWidth;
+	m_frameHeight = frameHeight;
+
+	setCurrentFrame(0);
+
+	m_isAnimated = isAnimated;
+}
+
+void Sprite::load(const std::string &textureName, u16 frameWidth, u16 frameHeight, bool isAnimated) {
+	Image::load(textureName);
+
 	m_frameWidth = frameWidth;
 	m_frameHeight = frameHeight;
 

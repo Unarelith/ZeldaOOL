@@ -13,11 +13,12 @@
  */
 #include <algorithm>
 
+#include <gk/resource/ResourceHandler.hpp>
+
 #include "Config.hpp"
 #include "Map.hpp"
 #include "MapLoader.hpp"
 #include "PositionComponent.hpp"
-#include "ResourceHandler.hpp"
 #include "TilesInfos.hpp"
 #include "World.hpp"
 
@@ -79,8 +80,8 @@ void Map::update() {
 	setPosition(std::clamp<int>(x, SCREEN_WIDTH - m_width * 16, 0), std::clamp<int>(y, SCREEN_HEIGHT - m_height * 16, 16));
 }
 
-void Map::draw(RenderTarget &target, RenderStates states) const {
-	applyTransform(states);
+void Map::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+	states.transform *= getTransform();
 
 	target.draw(m_renderer, states);
 

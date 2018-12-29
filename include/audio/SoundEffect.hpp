@@ -17,8 +17,8 @@
 #include <memory>
 #include <string>
 
-#include "SDLHeaders.hpp"
-#include "Timer.hpp"
+#include <gk/core/SDLHeaders.hpp>
+#include <gk/core/Timer.hpp>
 
 class SoundEffect {
 	public:
@@ -36,7 +36,7 @@ class SoundEffect {
 
 		Mix_ChunkPtr m_sfx{nullptr, Mix_FreeChunk};
 
-		Timer m_timer;
+		gk::Timer m_timer;
 };
 
 #endif // SOUNDEFFECT_HPP_

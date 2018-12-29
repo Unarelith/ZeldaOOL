@@ -17,8 +17,9 @@
 #include <map>
 #include <memory>
 
+#include <gk/core/IntTypes.hpp>
+
 #include "InputHandler.hpp"
-#include "IntTypes.hpp"
 
 class GamePad {
 	public:

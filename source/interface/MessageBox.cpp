@@ -16,7 +16,7 @@
 #include "MessageBox.hpp"
 
 MessageBox::MessageBox(const std::string &text, Position position) : m_textBox(text, 144, 40) {
-	Transformable::setPosition(8, position);
+	gk::Transformable::setPosition(8, position);
 
 	m_dialogArrow.setPosition(m_rectangle.width() - 8, m_rectangle.height() - 7);
 }
@@ -36,8 +36,8 @@ void MessageBox::update() {
 	m_textBox.updateTextSprites();
 }
 
-void MessageBox::draw(RenderTarget &target, RenderStates states) const {
-	applyTransform(states);
+void MessageBox::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+	states.transform *= getTransform();
 
 	target.draw(m_rectangle, states);
 

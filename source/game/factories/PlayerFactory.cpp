@@ -11,9 +11,10 @@
  *
  * =====================================================================================
  */
+#include <gk/resource/ResourceHandler.hpp>
+
 #include "GamePadMovement.hpp"
 #include "PlayerFactory.hpp"
-#include "ResourceHandler.hpp"
 #include "SceneObjectList.hpp"
 #include "World.hpp"
 
@@ -32,7 +33,7 @@
 
 SceneObject PlayerFactory::create(float x, float y) {
 	SceneObject player{"Link", "Player"};
-	player.set<SpriteComponent>(ResourceHandler::getInstance().get<SpriteComponent>("sprite-characters-link"));
+	player.set<SpriteComponent>("sprite-characters-link");
 	player.set<HealthComponent>(13 * 4, 11 * 4);
 	player.set<MovementComponent>(new GamePadMovement);
 	player.set<SceneObjectList>();

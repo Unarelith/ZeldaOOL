@@ -11,7 +11,23 @@
  *
  * =====================================================================================
  */
+#include <gk/resource/ResourceHandler.hpp>
+
 #include "SpriteComponent.hpp"
+
+SpriteComponent::SpriteComponent(const std::string &resourceName) {
+	const SpriteComponent &res = gk::ResourceHandler::getInstance().get<SpriteComponent>(resourceName);
+	m_sprite.load(res.m_textureName, res.m_sprite.frameWidth(), res.m_sprite.frameHeight());
+	m_sprite.setAnimations(res.m_sprite.animations());
+	m_sprite.setAnimated(res.m_sprite.isAnimated());
+
+	m_currentState = res.m_currentState;
+
+	m_states = res.m_states;
+
+	m_isEnabled = res.m_isEnabled;
+	m_isAnimated = res.m_isAnimated;
+}
 
 void SpriteComponent::addState(const std::string &name, bool handleDirection, bool isAnimated, u16 animationID, u16 frameID) {
 	m_states.emplace(name, SpriteState{handleDirection, isAnimated, animationID, frameID});

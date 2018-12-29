@@ -14,7 +14,8 @@
 #ifndef CHESTFACTORY_HPP_
 #define CHESTFACTORY_HPP_
 
-#include "IntTypes.hpp"
+#include <gk/core/IntTypes.hpp>
+
 #include "SceneObject.hpp"
 
 class ChestFactory {

@@ -14,7 +14,7 @@
 #include <functional>
 
 #include "AudioPlayer.hpp"
-#include "Exception.hpp"
+#include <gk/system/Exception.hpp>
 #include "TextBox.hpp"
 
 TextBox::TextBox(const std::string &text, u16 width, u16 height) {
@@ -37,7 +37,7 @@ void TextBox::updateTextSprites() {
 
 	m_charsToDisplay = m_charPerLine * 2;
 
-	m_currentColor = Color::text;
+	m_currentColor = getTextColor();
 
 	m_textSprites.clear();
 
@@ -113,13 +113,13 @@ void TextBox::setText(const std::string &text) {
 	// and add their informations to m_colorChanges
 	size_t nextColorTag = m_string.find_first_of('[');
 	while(nextColorTag != std::string::npos) {
-		Color color;
+		gk::Color color;
 
 		// Find the color
 		switch(m_string[nextColorTag + 1]) {
-			case '0': color = Color::text; break;
-			case '1': color = Color::blue; break;
-			case '2': color = Color::red;  break;
+			case '0': color = getTextColor(); break;
+			case '1': color = gk::Color::blue; break;
+			case '2': color = gk::Color::red;  break;
 			default: throw EXCEPTION("MessageBox parsing error at string index", std::to_string(nextColorTag + 1) + ":", "Unrecognized color tag");
 		}
 
@@ -139,8 +139,8 @@ void TextBox::setText(const std::string &text) {
 	updateTextSprites();
 }
 
-void TextBox::draw(RenderTarget &target, RenderStates states) const {
-	applyTransform(states);
+void TextBox::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+	states.transform *= getTransform();
 
 	for(const Sprite &sprite : m_textSprites) {
 		target.draw(sprite, states);

@@ -16,8 +16,9 @@
 
 #include <map>
 
+#include <gk/core/SDLHeaders.hpp>
+
 #include "InputHandler.hpp"
-#include "SDLHeaders.hpp"
 
 class KeyboardHandler : public InputHandler {
 	public:

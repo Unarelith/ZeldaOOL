@@ -14,18 +14,19 @@
 #ifndef GAMESTATE_HPP_
 #define GAMESTATE_HPP_
 
-#include "ApplicationState.hpp"
+#include <gk/core/ApplicationState.hpp>
+
 #include "StatsBar.hpp"
 #include "World.hpp"
 
-class GameState : public ApplicationState {
+class GameState : public gk::ApplicationState {
 	public:
 		GameState();
 
 		void update() override;
 
 	private:
-		void draw(RenderTarget &target, RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		StatsBar m_statsBar;
 

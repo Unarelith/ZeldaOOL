@@ -14,8 +14,9 @@
 #ifndef SWORDBEHAVIOUR_HPP_
 #define SWORDBEHAVIOUR_HPP_
 
+#include <gk/core/Timer.hpp>
+
 #include "Behaviour.hpp"
-#include "Timer.hpp"
 
 class SwordBehaviour : public Behaviour {
 	public:
@@ -29,9 +30,9 @@ class SwordBehaviour : public Behaviour {
 	private:
 		bool m_keyReleased = false;
 
-		Timer m_loadingTimer;
+		gk::Timer m_loadingTimer;
 
-		Timer m_spinTimer;
+		gk::Timer m_spinTimer;
 		u16 m_spinCurrentFrame = 0;
 		u16 m_spinFrameCounter = 0;
 };

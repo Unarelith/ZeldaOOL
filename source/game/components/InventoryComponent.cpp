@@ -11,13 +11,15 @@
  *
  * =====================================================================================
  */
+#include <gk/resource/ResourceHandler.hpp>
+
 #include "InventoryComponent.hpp"
 
 Weapon *InventoryComponent::addWeapon(const std::string &name) {
 	for(u8 x = 0 ; x < 4 ; x++) {
 		for(u8 y = 0 ; y < 4 ; y++) {
 			if(!m_weapons[x][y]) {
-				m_weapons[x][y] = &ResourceHandler::getInstance().get<Weapon>("weapon-" + name);
+				m_weapons[x][y] = &gk::ResourceHandler::getInstance().get<Weapon>("weapon-" + name);
 				return m_weapons[x][y];
 			}
 		}

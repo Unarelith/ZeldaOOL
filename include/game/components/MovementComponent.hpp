@@ -17,8 +17,9 @@
 #include <memory>
 #include <stack>
 
+#include <gk/core/Vector2.hpp>
+
 #include "Movement.hpp"
-#include "Vector2.hpp"
 
 class MovementStack {
 	public:
@@ -48,7 +49,7 @@ class MovementComponent {
 			movements.push(_movement);
 		}
 
-		Vector2f v{0, 0};
+		gk::Vector2f v{0, 0};
 
 		float speed = 0.4f;
 

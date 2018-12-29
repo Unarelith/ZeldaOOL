@@ -18,11 +18,12 @@
 #include <functional>
 #include <string>
 
+#include <gk/gui/RectangleShape.hpp>
+
 #include "Image.hpp"
-#include "RectangleShape.hpp"
 #include "TextBox.hpp"
 
-class MessageBox : public IDrawable, public Transformable {
+class MessageBox : public gk::IDrawable, public gk::Transformable {
 	public:
 		enum Position : u8 {
 			Top    = 24,
@@ -36,11 +37,11 @@ class MessageBox : public IDrawable, public Transformable {
 		bool finished() const { return m_finished; }
 
 	private:
-		void draw(RenderTarget &target, RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		Image m_dialogArrow{"interface-dialogArrow"};
 
-		RectangleShape m_rectangle{144, 40};
+		gk::RectangleShape m_rectangle{144, 40};
 
 		TextBox m_textBox;
 

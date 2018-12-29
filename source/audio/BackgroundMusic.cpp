@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include "Exception.hpp"
+#include <gk/system/Exception.hpp>
 #include "BackgroundMusic.hpp"
 
 BackgroundMusic::BackgroundMusic(const std::string &filename) {

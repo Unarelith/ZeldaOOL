@@ -16,7 +16,7 @@
 
 #include <vector>
 
-#include "Texture.hpp"
+#include <gk/gl/Texture.hpp>
 
 class Tile {
 	public:
@@ -39,7 +39,7 @@ class Tile {
 		u16 m_type = 0;
 };
 
-class Tileset : public Texture {
+class Tileset : public gk::Texture {
 	public:
 		Tileset() = default;
 		Tileset(const Tileset &) = delete;

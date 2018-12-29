@@ -81,7 +81,7 @@ void ScrollingTransition::update() {
 	}
 }
 
-void ScrollingTransition::draw(RenderTarget &target, RenderStates states) const {
+void ScrollingTransition::draw(gk::RenderTarget &target, gk::RenderStates states) const {
 	target.draw(*m_nextMap, states);
 
 	target.draw(*World::getInstance().currentMap(), states);

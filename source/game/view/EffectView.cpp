@@ -18,12 +18,10 @@
 #include "EffectView.hpp"
 #include "PositionComponent.hpp"
 
-void EffectView::draw(const SceneObject &object, RenderTarget &target, RenderStates states) {
+void EffectView::draw(const SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) {
 	if (object.has<EffectsComponent>()) {
-		glm::mat4 modelMatrix;
 		if (object.has<PositionComponent>()) {
-			modelMatrix = glm::translate((states.modelMatrix) ? *states.modelMatrix : glm::mat4{1}, glm::vec3{object.get<PositionComponent>().x, object.get<PositionComponent>().y, 0});
-			states.modelMatrix = &modelMatrix;
+			states.transform.translate(object.get<PositionComponent>().x, object.get<PositionComponent>().y);
 		}
 
 		auto &effects = object.get<EffectsComponent>().effects();

@@ -14,11 +14,11 @@
 #ifndef ITEMLOADER_HPP_
 #define ITEMLOADER_HPP_
 
-#include "ResourceLoader.hpp"
+#include <gk/resource/IResourceLoader.hpp>
 
-class ItemLoader : public ResourceLoader {
+class ItemLoader : public gk::IResourceLoader {
 	public:
-		void load(const std::string &xmlFilename, ResourceHandler &handler);
+		void load(const char *xmlFilename, gk::ResourceHandler &handler) override;
 };
 
 #endif // ITEMLOADER_HPP_

@@ -41,7 +41,7 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	spriteComponent.setEnabled(false);
 
 	if(lowGrass) {
-		spriteComponent.sprite().setColor(Color{255, 255, 255, 127});
+		spriteComponent.sprite().setColor(gk::Color{255, 255, 255, 127});
 	}
 
 	object.set<BehaviourComponent>(new EasyBehaviour([](SceneObject &object) {

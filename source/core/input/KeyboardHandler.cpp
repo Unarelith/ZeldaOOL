@@ -11,19 +11,20 @@
  *
  * =====================================================================================
  */
-#include "Debug.hpp"
-#include "IntTypes.hpp"
+#include <gk/core/IntTypes.hpp>
+#include <gk/core/XMLFile.hpp>
+#include <gk/system/Debug.hpp>
+
 #include "KeyboardHandler.hpp"
-#include "XMLFile.hpp"
 
 KeyboardHandler::KeyboardHandler() {
-	XMLFile doc("resources/config/keys.xml");
+	gk::XMLFile doc("resources/config/keys.xml");
 
-	XMLElement *keys = doc.FirstChildElement("keys").ToElement();
+	tinyxml2::XMLElement *keys = doc.FirstChildElement("keys").ToElement();
 
 	// Reading keys from names as defined here: https://wiki.libsdl.org/SDL_Keycode
 	auto addKey = [&](GameKey key, const char *name) {
-		XMLElement *keyElement = keys->FirstChildElement(name);
+		tinyxml2::XMLElement *keyElement = keys->FirstChildElement(name);
 		m_keys[key] = SDL_GetKeyFromName(keyElement->Attribute("key"));
 
 		if(m_keys[key] == SDLK_UNKNOWN) {

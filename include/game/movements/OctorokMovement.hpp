@@ -14,9 +14,10 @@
 #ifndef OCTOROKMOVEMENT_HPP_
 #define OCTOROKMOVEMENT_HPP_
 
+#include <gk/core/Timer.hpp>
+#include <gk/core/Vector2.hpp>
+
 #include "Movement.hpp"
-#include "Timer.hpp"
-#include "Vector2.hpp"
 
 class OctorokMovement : public Movement {
 	public:
@@ -32,9 +33,9 @@ class OctorokMovement : public Movement {
 	private:
 		State m_state = State::Standing;
 
-		Timer m_timer;
+		gk::Timer m_timer;
 
-		Vector2f m_v = {0.0f, 0.0f};
+		gk::Vector2f m_v = {0.0f, 0.0f};
 
 		float m_movementCounter = 0;
 

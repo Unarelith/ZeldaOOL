@@ -13,18 +13,19 @@
  */
 #include <sstream>
 
-#include "Exception.hpp"
+#include <gk/core/XMLFile.hpp>
+#include <gk/system/Exception.hpp>
+
 #include "Tileset.hpp"
-#include "XMLFile.hpp"
 
 Tileset::Tileset(const std::string &filename, const std::string &configFile) {
 	load(filename, configFile);
 }
 
 void Tileset::load(const std::string &filename, const std::string &configFile) {
-	Texture::load(filename);
+	gk::Texture::loadFromFile(filename);
 
-	XMLFile doc(configFile);
+	gk::XMLFile doc(configFile);
 
 	tinyxml2::XMLElement *tilesetElement = doc.FirstChildElement("tileset").ToElement();
 	if (!tilesetElement)

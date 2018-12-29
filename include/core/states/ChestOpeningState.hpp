@@ -14,12 +14,13 @@
 #ifndef CHESTOPENINGSTATE_HPP_
 #define CHESTOPENINGSTATE_HPP_
 
-#include "ApplicationState.hpp"
+#include <gk/core/ApplicationState.hpp>
+
 #include "SceneObject.hpp"
 
-class ChestOpeningState : public ApplicationState {
+class ChestOpeningState : public gk::ApplicationState {
 	public:
-		ChestOpeningState(SceneObject &chest, ApplicationState *parent);
+		ChestOpeningState(SceneObject &chest, gk::ApplicationState *parent);
 
 		void update() override;
 
@@ -30,7 +31,7 @@ class ChestOpeningState : public ApplicationState {
 		};
 
 	private:
-		void draw(RenderTarget &target, RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		State m_state = State::Opening;
 

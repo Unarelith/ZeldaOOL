@@ -11,7 +11,8 @@
  *
  * =====================================================================================
  */
-#include "ApplicationStateStack.hpp"
+#include <gk/core/ApplicationStateStack.hpp>
+
 #include "AudioPlayer.hpp"
 #include "CollectableFactory.hpp"
 #include "ChestOpeningState.hpp"
@@ -23,7 +24,7 @@
 #include "Sprite.hpp"
 #include "World.hpp"
 
-ChestOpeningState::ChestOpeningState(SceneObject &chest, ApplicationState *parent) : ApplicationState(parent) {
+ChestOpeningState::ChestOpeningState(SceneObject &chest, gk::ApplicationState *parent) : gk::ApplicationState(parent) {
 	m_item = &World::getInstance().currentMap()->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
 	m_item->set<LifetimeComponent>();
 
@@ -49,7 +50,7 @@ void ChestOpeningState::update() {
 	else if(m_state == State::Opened) {
 		AudioPlayer::playEffect("itemNew");
 
-		ApplicationStateStack::getInstance().push<MessageBoxState>("Vous obtenez [2]30 Rubis[0]!\nC'est bien.", this);
+		gk::ApplicationStateStack::getInstance().push<MessageBoxState>("Vous obtenez [2]30 Rubis[0]!\nC'est bien.", this);
 
 		m_state = State::Finished;
 	}
@@ -58,11 +59,11 @@ void ChestOpeningState::update() {
 
 		m_item->get<LifetimeComponent>().kill();
 
-		ApplicationStateStack::getInstance().pop();
+		gk::ApplicationStateStack::getInstance().pop();
 	}
 }
 
-void ChestOpeningState::draw(RenderTarget &target, RenderStates states) const {
+void ChestOpeningState::draw(gk::RenderTarget &target, gk::RenderStates states) const {
 	target.draw(*m_parent, states);
 }
 

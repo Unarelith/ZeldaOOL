@@ -14,9 +14,9 @@
 #ifndef HURTMOVEMENT_HPP_
 #define HURTMOVEMENT_HPP_
 
-#include "IntTypes.hpp"
+#include <gk/core/IntTypes.hpp>
+
 #include "Movement.hpp"
-#include "Vector2.hpp"
 
 class HurtMovement : public Movement {
 	public:

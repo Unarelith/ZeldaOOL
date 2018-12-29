@@ -16,8 +16,8 @@
 
 #include <vector>
 
-#include "Exception.hpp"
-#include "Rect.hpp"
+#include <gk/core/Rect.hpp>
+#include <gk/system/Exception.hpp>
 
 class HitboxComponent {
 	public:
@@ -28,7 +28,7 @@ class HitboxComponent {
 			m_hitboxes.emplace_back(x, y, width, height);
 		}
 
-		const IntRect *currentHitbox() const {
+		const gk::IntRect *currentHitbox() const {
 			if(m_currentHitboxID >= 0 && m_currentHitboxID < (s16)m_hitboxes.size()) {
 				return &m_hitboxes[m_currentHitboxID];
 			} else {
@@ -49,7 +49,7 @@ class HitboxComponent {
 	private:
 		s8 m_currentHitboxID = -1;
 
-		std::vector<IntRect> m_hitboxes;
+		std::vector<gk::IntRect> m_hitboxes;
 };
 
 #endif // HITBOXCOMPONENT_HPP_
