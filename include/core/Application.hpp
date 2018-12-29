@@ -25,9 +25,9 @@ class Application : public gk::CoreApplication {
 
 		void init() override;
 
+	private:
 		void initOpenGL();
 
-	private:
 		void onEvent(const SDL_Event &event) override;
 
 		KeyboardHandler m_keyboardHandler;
