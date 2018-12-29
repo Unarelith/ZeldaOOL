@@ -11,99 +11,19 @@
  *
  * =====================================================================================
  */
-#define GLM_FORCE_RADIANS
-#include <glm/gtc/matrix_transform.hpp>
-
 #include <gk/gl/Shader.hpp>
-#include <gk/gl/Vertex.hpp>
 #include <gk/resource/ResourceHandler.hpp>
 
 #include "Config.hpp"
 #include "Image.hpp"
 
-Image::Image(const std::string &textureName) {
-	load(gk::ResourceHandler::getInstance().get<gk::Texture>(textureName));
-}
-
-Image::Image(const gk::Texture &texture) {
-	load(texture);
-}
-
-void Image::load(const std::string &textureName) {
-	load(gk::ResourceHandler::getInstance().get<gk::Texture>(textureName));
-}
-
-void Image::load(const gk::Texture &texture) {
-	m_texture = &texture;
-
-	m_width = m_texture->width();
-	m_height = m_texture->height();
-
-	setClipRect(0, 0, m_width, m_height);
-}
-
-void Image::setClipRect(float x, float y, u16 width, u16 height) {
-	m_clipRect.reset(x, y, width, height);
-
-	updateVertexBuffer();
-}
-
-void Image::updateVertexBuffer() const {
-	gk::Vertex vertices[4] = {
-		{{m_clipRect.width, 0,                 0, -1}},
-		{{0,                0,                 0, -1}},
-		{{0,                m_clipRect.height, 0, -1}},
-		{{m_clipRect.width, m_clipRect.height, 0, -1}},
-	};
-
-	gk::FloatRect texRect{
-		m_clipRect.x / float(m_width),
-		m_clipRect.y / float(m_height),
-		m_clipRect.width / float(m_width),
-		m_clipRect.height / float(m_height)
-	};
-
-	vertices[0].texCoord[0] = texRect.x + texRect.width;
-	vertices[0].texCoord[1] = texRect.y;
-	vertices[1].texCoord[0] = texRect.x;
-	vertices[1].texCoord[1] = texRect.y;
-	vertices[2].texCoord[0] = texRect.x;
-	vertices[2].texCoord[1] = texRect.y + texRect.height;
-	vertices[3].texCoord[0] = texRect.x + texRect.width;
-	vertices[3].texCoord[1] = texRect.y + texRect.height;
-
-	for (u8 i = 0 ; i < 4 ; ++i) {
-		vertices[i].color[0] = m_color.r;
-		vertices[i].color[1] = m_color.g;
-		vertices[i].color[2] = m_color.b;
-		vertices[i].color[3] = m_color.a;
-	}
-
-	// GLubyte indices[] = {
-	// 	0, 1, 3,
-	// 	3, 1, 2
-	// };
-
-	gk::VertexBuffer::bind(&m_vbo);
-	m_vbo.setData(sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
-	gk::VertexBuffer::bind(nullptr);
-}
-
 void Image::draw(gk::RenderTarget &target, gk::RenderStates states) const {
-	states.transform *= getTransform();
-
-	states.texture = m_texture;
-
 	if (states.shader) {
 		gk::Shader::bind(states.shader);
 		states.shader->setUniform("u_paletteID", m_paletteID);
 		gk::Shader::bind(nullptr);
 	}
 
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_DEPTH_TEST);
-
-	// glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
-	target.draw(m_vbo, GL_QUADS, 0, 4, states);
+	gk::Image::draw(target, states);
 }
 
