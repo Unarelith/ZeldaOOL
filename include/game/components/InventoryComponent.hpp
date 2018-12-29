@@ -20,23 +20,20 @@
 #include <gk/core/input/InputHandler.hpp>
 
 #include "Image.hpp"
-#include "Translator.hpp"
 
 class Item {
 	public:
 		Item(const std::string &name)
-			: m_icon("icons-" + name), m_name(_t(name)), m_description(_t(name + "_description")) {}
+			: m_icon("icons-" + name), m_name(name) {}
 
 		Image &icon() { return m_icon; }
 
 		std::string name() const { return m_name; }
-		std::string description() const { return m_description; }
 
 	private:
 		Image m_icon;
 
 		std::string m_name;
-		std::string m_description;
 };
 
 class Weapon : public Item {
