@@ -47,7 +47,7 @@ class Text : public gk::IDrawable, public gk::Transformable {
 
 		gk::Vector2i m_size;
 
-		gk::Color m_color = gk::Color::white;
+		gk::Color m_color = gk::Color::White;
 };
 
 #endif // TEXT_HPP_

@@ -33,7 +33,7 @@ void collectableAction(SceneObject &collectable, SceneObject &object, bool inCol
 SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType) {
 	SceneObject object(name, "Collectable");
 	object.set<MovementComponent>(new CollectableMovement(movementType));
-	object.set<CollectableComponent>(soundEffectName);
+	object.set<CollectableComponent>("sfx-" + soundEffectName);
 	object.set<LifetimeComponent>(6000);
 
 	auto &image = object.set<Image>("collectables-" + name);
@@ -74,7 +74,7 @@ void collectableAction(SceneObject &collectable, SceneObject &object, bool inCol
 	auto &lifetimeComponent = collectable.get<LifetimeComponent>();
 
 	if(Scene::isPlayer(object) && inCollision) {
-		gk::AudioPlayer::playEffect(collectableComponent.soundEffectName());
+		gk::AudioPlayer::playSound(collectableComponent.soundEffectName());
 
 		collectableComponent.action(object);
 

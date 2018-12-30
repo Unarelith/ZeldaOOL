@@ -15,13 +15,13 @@
 
 #include "Application.hpp"
 #include "BehaviourController.hpp"
+#include "Color.hpp"
 #include "Config.hpp"
 #include "Map.hpp"
 #include "PositionComponent.hpp"
 #include "Scene.hpp"
 #include "SpriteComponent.hpp"
 #include "TeleporterTransition.hpp"
-#include "TextBox.hpp"
 #include "World.hpp"
 
 TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 playerX, u16 playerY, Direction playerDirection) {
@@ -29,7 +29,7 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 	m_nextMap->reset();
 	m_nextMap->updateTiles();
 
-	m_color = TextBox::getTextColor();
+	m_color = Color::Text;
 
 	auto &positionComponent = World::getInstance().player().get<PositionComponent>();
 	positionComponent.direction = playerDirection;
@@ -48,12 +48,12 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 
 	// FIXME: Each map should have a string member with it's bgm name
 	if(m_nextMap->area() == 0) {
-		gk::AudioPlayer::playMusic("plain");
+		gk::AudioPlayer::playMusic("bgm-plain");
 	}
 	else if(m_nextMap->area() == 1) {
-		gk::AudioPlayer::playMusic("indoor");
+		gk::AudioPlayer::playMusic("bgm-indoor");
 	} else {
-		gk::AudioPlayer::playMusic("underground");
+		gk::AudioPlayer::playMusic("bgm-underground");
 	}
 
 	BehaviourController controller;

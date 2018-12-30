@@ -38,7 +38,7 @@ void TextBox::updateTextSprites() {
 
 	m_charsToDisplay = m_charPerLine * 2;
 
-	m_currentColor = getTextColor();
+	m_currentColor = Color::Text;
 
 	m_textSprites.clear();
 
@@ -58,7 +58,7 @@ void TextBox::updateTextSprites() {
 
 		// Letter by letter text display
 		if(isTimeToDisplayLetter(i)) {
-			gk::AudioPlayer::repeatEffect("textLetter", m_delay);
+			gk::AudioPlayer::repeatSound("sfx-textLetter", m_delay);
 			break;
 		}
 
@@ -118,9 +118,9 @@ void TextBox::setText(const std::string &text) {
 
 		// Find the color
 		switch(m_string[nextColorTag + 1]) {
-			case '0': color = getTextColor(); break;
-			case '1': color = gk::Color::blue; break;
-			case '2': color = gk::Color::red;  break;
+			case '0': color = Color::Text; break;
+			case '1': color = Color::Blue; break;
+			case '2': color = Color::Red;  break;
 			default: throw EXCEPTION("MessageBox parsing error at string index", std::to_string(nextColorTag + 1) + ":", "Unrecognized color tag");
 		}
 

@@ -11,8 +11,8 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/BackgroundMusic.hpp>
-#include <gk/audio/SoundEffect.hpp>
+#include <gk/audio/Music.hpp>
+#include <gk/audio/Sound.hpp>
 #include <gk/core/XMLFile.hpp>
 #include <gk/resource/ResourceHandler.hpp>
 
@@ -26,7 +26,7 @@ void AudioLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
 		std::string name = musicElement->Attribute("name");
 		std::string filename = "resources/audio/music/" + name + ".ogg";
 
-		handler.add<gk::BackgroundMusic>("bgm-" + name, filename);
+		handler.add<gk::Music>("bgm-" + name, filename).setVolume(MIX_MAX_VOLUME / 2);
 
 		musicElement = musicElement->NextSiblingElement("music");
 	}
@@ -34,9 +34,10 @@ void AudioLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
 	tinyxml2::XMLElement *soundEffectElement = doc.FirstChildElement("audio").FirstChildElement("soundeffect").ToElement();
 	while(soundEffectElement) {
 		std::string name = soundEffectElement->Attribute("name");
+		int channel = soundEffectElement->IntAttribute("channel");
 		std::string filename = "resources/audio/effects/" + name + ".wav";
 
-		handler.add<gk::SoundEffect>("sfx-" + name, filename);
+		handler.add<gk::Sound>("sfx-" + name, filename).setChannel(channel);
 
 		soundEffectElement = soundEffectElement->NextSiblingElement("soundeffect");
 	}

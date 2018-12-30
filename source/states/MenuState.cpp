@@ -24,7 +24,7 @@ void MenuState::update() {
 	m_menu.update();
 
 	if(gk::GamePad::isKeyPressedOnce(GameKey::Start)) {
-		gk::AudioPlayer::playEffect("menuClose");
+		gk::AudioPlayer::playSound("sfx-menuClose");
 
 		m_stateStack->pop();
 	}

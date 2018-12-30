@@ -48,7 +48,7 @@ void teleporterAction(SceneObject &teleporter, SceneObject &object, bool inColli
 	if(Scene::isPlayer(object)) {
 		if(inCollision) {
 			if(!playerOnDoor) {
-				gk::AudioPlayer::playEffect("mapStairs");
+				gk::AudioPlayer::playSound("sfx-mapStairs");
 
 				auto &state = gk::ApplicationStateStack::getInstance().push<TransitionState>(&gk::ApplicationStateStack::getInstance().top());
 				state.setTransition<TeleporterTransition>(teleporterComponent.area(),

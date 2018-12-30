@@ -4,17 +4,17 @@
 	<music name="underground"/>
 
 	<soundeffect name="chest"/>
-	<soundeffect name="dialogContinue"/>
+	<soundeffect name="dialogContinue" channel="-1"/>
 	<soundeffect name="enemyDie"/>
-	<soundeffect name="enemyHit"/>
+	<soundeffect name="enemyHit" channel="0"/>
 	<soundeffect name="enemyJump"/>
 	<soundeffect name="enemySpit"/>
-	<soundeffect name="getHeart"/>
-	<soundeffect name="getRupee"/>
-	<soundeffect name="getRupees5"/>
-	<soundeffect name="grassDestroy"/>
-	<soundeffect name="itemNew"/>
-	<soundeffect name="linkHurt"/>
+	<soundeffect name="getHeart" channel="-1"/>
+	<soundeffect name="getRupee" channel="-1"/>
+	<soundeffect name="getRupees5" channel="-1"/>
+	<soundeffect name="grassDestroy" channel="-1"/>
+	<soundeffect name="itemNew" channel="-1"/>
+	<soundeffect name="linkHurt" channel="0"/>
 	<soundeffect name="mapStairs"/>
 	<soundeffect name="menuClose"/>
 	<soundeffect name="menuCursor"/>
@@ -22,7 +22,7 @@
 	<soundeffect name="menuSelect"/>
 	<soundeffect name="swordCharge"/>
 	<soundeffect name="swordSlash1"/>
-	<soundeffect name="swordSpin"/>
+	<soundeffect name="swordSpin" channel="-1"/>
 	<soundeffect name="swordTap"/>
-	<soundeffect name="textLetter"/>
+	<soundeffect name="textLetter" channel="-1"/>
 </audio>

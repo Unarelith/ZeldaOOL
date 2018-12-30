@@ -27,7 +27,7 @@ void MessageBox::update() {
 	if(gk::GamePad::isKeyPressedOnce(GameKey::A)
 	|| gk::GamePad::isKeyPressedOnce(GameKey::B)) {
 		if(m_textBox.textDisplayFinished()) {
-			gk::AudioPlayer::playEffect("dialogContinue");
+			gk::AudioPlayer::playSound("sfx-dialogContinue");
 
 			m_finished = m_textBox.scrollDown();
 		} else {

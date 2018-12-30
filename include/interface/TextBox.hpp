@@ -17,6 +17,7 @@
 #include <map>
 #include <vector>
 
+#include "Color.hpp"
 #include "Sprite.hpp"
 
 class TextBox : public gk::IDrawable, public gk::Transformable {
@@ -40,8 +41,6 @@ class TextBox : public gk::IDrawable, public gk::Transformable {
 
 		u8 page() const { return m_page; }
 
-		static gk::Color getTextColor() { return {248, 208, 136}; }
-
 	private:
 		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
@@ -61,7 +60,7 @@ class TextBox : public gk::IDrawable, public gk::Transformable {
 
 		u8 m_page = 0;
 
-		gk::Color m_currentColor = getTextColor();
+		gk::Color m_currentColor = Color::Text;
 		std::map<u16, gk::Color> m_colorChanges;
 
 		u16 m_width = 0;

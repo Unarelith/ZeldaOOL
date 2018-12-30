@@ -23,7 +23,7 @@ void ButtonComponent::addTileChange(u16 tileX, u16 tileY, u16 newID) {
 void ButtonComponent::pressedAction(u16 buttonTileX, u16 buttonTileY) {
 	if(m_pressed) return;
 
-	gk::AudioPlayer::playEffect("chest");
+	gk::AudioPlayer::playSound("sfx-chest");
 
 	World::getInstance().currentMap()->setTile(buttonTileX, buttonTileY, 8);
 

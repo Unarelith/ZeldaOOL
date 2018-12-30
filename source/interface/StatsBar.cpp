@@ -85,9 +85,6 @@ void StatsBar::draw(gk::RenderTarget &target, gk::RenderStates states) const {
 	Weapon *weaponA = playerInventory.getWeaponA();
 	Weapon *weaponB = playerInventory.getWeaponB();
 
-	if (!weaponA)
-		DEBUG("wtf");
-
 	if(weaponA) target.draw(weaponA->icon(), states);
 	if(weaponB) target.draw(weaponB->icon(), states);
 }

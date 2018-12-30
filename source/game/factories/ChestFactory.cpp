@@ -52,7 +52,7 @@ void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
 		if(playerPosition.direction == Direction::Up
 		&& playerPosition.y > chestPosition.y
 		&& gk::GamePad::isKeyPressedOnce(GameKey::A)) {
-			gk::AudioPlayer::playEffect("chest");
+			gk::AudioPlayer::playSound("sfx-chest");
 
 			World::getInstance().currentMap()->setTile(chestPosition.x / 16,
 			                                           chestPosition.y / 16, 240, true, true);

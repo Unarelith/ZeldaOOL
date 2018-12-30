@@ -89,7 +89,7 @@ void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
 			 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() > 2
 			 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() < swordSprite.getAnimation((s8)playerDirection).size())
 			|| object.get<BehaviourComponent>().behaviour->state() == "SpinAttack") {
-				gk::AudioPlayer::playEffect("grassDestroy");
+				gk::AudioPlayer::playSound("sfx-grassDestroy");
 
 				grass.get<LootComponent>().dropItem(grassPosition.x + 8, grassPosition.y + 8);
 

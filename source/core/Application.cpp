@@ -34,8 +34,6 @@ void Application::init() {
 
 	createWindow(SCREEN_WIDTH * 4, SCREEN_HEIGHT * 4, APP_NAME);
 
-	initOpenGL();
-
 	m_shader.loadFromFile("resources/shaders/game.v.glsl", "resources/shaders/game.f.glsl");
 	m_renderStates.shader = &m_shader;
 
@@ -53,14 +51,9 @@ void Application::init() {
 	m_stateStack.push<GameState>();
 }
 
-void Application::initOpenGL() {
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glEnable(GL_TEXTURE_2D);
-}
-
 void Application::onEvent(const SDL_Event &event) {
+	gk::CoreApplication::onEvent(event);
+
 	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
 		m_window.close();
 	}

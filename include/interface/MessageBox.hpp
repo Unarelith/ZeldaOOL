@@ -41,7 +41,7 @@ class MessageBox : public gk::IDrawable, public gk::Transformable {
 
 		Image m_dialogArrow{"interface-dialogArrow"};
 
-		gk::RectangleShape m_rectangle{144, 40};
+		gk::RectangleShape m_rectangle{144, 40, gk::Color::Black};
 
 		TextBox m_textBox;
 

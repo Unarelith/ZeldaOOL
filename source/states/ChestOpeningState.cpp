@@ -48,7 +48,7 @@ void ChestOpeningState::update() {
 		}
 	}
 	else if(m_state == State::Opened) {
-		gk::AudioPlayer::playEffect("itemNew");
+		gk::AudioPlayer::playSound("sfx-itemNew");
 
 		gk::ApplicationStateStack::getInstance().push<MessageBoxState>("Vous obtenez [2]30 Rubis[0]!\nC'est bien.", this);
 

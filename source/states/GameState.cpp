@@ -22,7 +22,7 @@
 GameState::GameState() {
 	World::setInstance(&m_world);
 
-	gk::AudioPlayer::playMusic("plain");
+	gk::AudioPlayer::playMusic("bgm-plain");
 }
 
 void GameState::update() {
@@ -31,7 +31,7 @@ void GameState::update() {
 	m_statsBar.update();
 
 	if(gk::GamePad::isKeyPressedOnce(GameKey::Start)) {
-		gk::AudioPlayer::playEffect("menuOpen");
+		gk::AudioPlayer::playSound("sfx-menuOpen");
 
 		m_stateStack->push<MenuState>();
 	}

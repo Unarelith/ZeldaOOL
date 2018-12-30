@@ -49,7 +49,7 @@ void BattleController::update(SceneObject &object) {
 
 				object.get<EffectsComponent>().enable("destroy");
 
-				gk::AudioPlayer::playEffect("enemyDie");
+				gk::AudioPlayer::playSound("sfx-enemyDie");
 			}
 		}
 	}
