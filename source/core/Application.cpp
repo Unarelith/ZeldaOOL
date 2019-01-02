@@ -33,6 +33,7 @@ void Application::init() {
 	gk::GamePad::init(m_keyboardHandler);
 
 	createWindow(SCREEN_WIDTH * 4, SCREEN_HEIGHT * 4, APP_NAME);
+	m_window.disableView();
 
 	m_shader.loadFromFile("resources/shaders/game.v.glsl", "resources/shaders/game.f.glsl");
 	m_renderStates.shader = &m_shader;

@@ -30,7 +30,7 @@ add_executable(${CMAKE_PROJECT_NAME}
 #------------------------------------------------------------------------------
 # Compiler flags
 #------------------------------------------------------------------------------
-# target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -g -O3 -ffast-math -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
+# target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -O3 -ffast-math)
 target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -g -Wall -Wextra -Wfatal-errors -Wno-variadic-macros)
 target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -DDEBUG_ENABLED -DDEBUG_COLOR)
 target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_17)
