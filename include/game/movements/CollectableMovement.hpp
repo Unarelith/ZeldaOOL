@@ -15,10 +15,9 @@
 #define COLLECTABLEMOVEMENT_HPP_
 
 #include <gk/core/Timer.hpp>
+#include <gk/scene/movement/Movement.hpp>
 
-#include "Movement.hpp"
-
-class CollectableMovement : public Movement {
+class CollectableMovement : public gk::Movement {
 	public:
 		enum class Type {
 			Dropped,
@@ -27,7 +26,7 @@ class CollectableMovement : public Movement {
 
 		CollectableMovement(Type type) : m_type(type) {}
 
-		void process(SceneObject &object) override;
+		void process(gk::SceneObject &object) override;
 
 	private:
 		Type m_type;

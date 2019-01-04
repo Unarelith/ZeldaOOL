@@ -14,21 +14,21 @@
 #include <cmath>
 
 #include <gk/audio/AudioPlayer.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
+#include <gk/scene/component/MovementComponent.hpp>
 
 #include "BattleController.hpp"
 #include "HurtMovement.hpp"
 
 #include "EffectsComponent.hpp"
 #include "HealthComponent.hpp"
-#include "HitboxComponent.hpp"
-#include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
-void BattleController::update(SceneObject &object) {
-	if(object.has<HealthComponent>() && object.has<MovementComponent>()) {
+void BattleController::update(gk::SceneObject &object) {
+	if(object.has<HealthComponent>() && object.has<gk::MovementComponent>()) {
 		auto &health = object.get<HealthComponent>();
-		auto &movements = object.get<MovementComponent>().movements;
+		auto &movements = object.get<gk::MovementComponent>().movements;
 
 		if(health.isHurt && movements.size() != 0 && movements.top() && movements.top()->isFinished()) {
 			health.isHurt = false;
@@ -39,8 +39,8 @@ void BattleController::update(SceneObject &object) {
 			else if(object.type() == "Monster") {
 				health.isDead = true;
 
-				if(object.has<HitboxComponent>()) {
-					object.get<HitboxComponent>().resetCurrentHitbox();
+				if(object.has<gk::HitboxComponent>()) {
+					object.get<gk::HitboxComponent>().resetCurrentHitbox();
 				}
 
 				if(object.has<SpriteComponent>()) {
@@ -55,13 +55,13 @@ void BattleController::update(SceneObject &object) {
 	}
 }
 
-void BattleController::hurt(SceneObject &attacker, SceneObject &receiver) {
+void BattleController::hurt(gk::SceneObject &attacker, gk::SceneObject &receiver) {
 	if(!attacker.has<HealthComponent>() || !attacker.get<HealthComponent>().isDead) {
 		if(receiver.has<HealthComponent>()) {
 			auto &receiverHealth = receiver.get<HealthComponent>();
 
 			if(!receiverHealth.isHurt && !receiverHealth.isDead) {
-				if(receiver.has<MovementComponent>()) {
+				if(receiver.has<gk::MovementComponent>()) {
 					auto &attackerPosition = attacker.get<PositionComponent>();
 					auto &receiverPosition = receiver.get<PositionComponent>();
 
@@ -70,7 +70,7 @@ void BattleController::hurt(SceneObject &attacker, SceneObject &receiver) {
 					if(v.x != 0) v.x /= fabs(v.x);
 					if(v.y != 0) v.y /= fabs(v.y);
 
-					receiver.get<MovementComponent>().movements.push(new HurtMovement(v.x, v.y));
+					receiver.get<gk::MovementComponent>().movements.push(new HurtMovement(v.x, v.y));
 				}
 
 				receiverHealth.isHurt = true;

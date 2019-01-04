@@ -16,14 +16,14 @@
 
 #include <gk/core/IntTypes.hpp>
 
-#include "Movement.hpp"
+#include <gk/scene/movement/Movement.hpp>
 
-class HurtMovement : public Movement {
+class HurtMovement : public gk::Movement {
 	public:
 		HurtMovement(float vx, float vy)
 			: m_vx(vx), m_vy(vy) {}
 
-		void process(SceneObject &object) override;
+		void process(gk::SceneObject &object) override;
 
 	private:
 		float m_vx;

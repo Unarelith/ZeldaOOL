@@ -14,11 +14,14 @@
 #ifndef TELEPORTERFACTORY_HPP_
 #define TELEPORTERFACTORY_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class TeleporterFactory {
 	public:
-		static SceneObject create(float tileX, float tileY);
+		static gk::SceneObject create(float tileX, float tileY);
+
+	private:
+		static void teleporterAction(gk::SceneObject &teleporter, gk::SceneObject &object, bool inCollision);
 };
 
 #endif // TELEPORTERFACTORY_HPP_

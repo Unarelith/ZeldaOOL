@@ -14,13 +14,11 @@
 #ifndef HITBOXVIEW_HPP_
 #define HITBOXVIEW_HPP_
 
-#include "AbstractView.hpp"
+#include <gk/scene/view/AbstractView.hpp>
 
-class HitboxView : public AbstractView {
+class HitboxView : public gk::AbstractView {
 	public:
-		void draw(const SceneObject &object, gk::RenderTarget &target, gk::RenderStates states);
+		void draw(const gk::SceneObject &object, gk::RenderTarget &target, gk::RenderStates states);
 };
 
 #endif // HITBOXVIEW_HPP_
-
-

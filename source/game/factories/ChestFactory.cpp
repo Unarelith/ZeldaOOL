@@ -14,38 +14,36 @@
 #include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/input/GamePad.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
+#include <gk/scene/component/CollisionComponent.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
+#include <gk/scene/Scene.hpp>
 
 #include "ChestFactory.hpp"
 #include "ChestOpeningState.hpp"
 #include "GameKey.hpp"
-#include "Scene.hpp"
 #include "World.hpp"
 
 #include "ChestComponent.hpp"
-#include "CollisionComponent.hpp"
-#include "HitboxComponent.hpp"
 #include "PositionComponent.hpp"
 
-void chestAction(SceneObject &chest, SceneObject &object, bool inCollision);
-
-SceneObject ChestFactory::create(u16 tileX, u16 tileY) {
-	SceneObject object{"Chest", "Tile"};
+gk::SceneObject ChestFactory::create(u16 tileX, u16 tileY) {
+	gk::SceneObject object{"Chest", "Tile"};
 	object.set<ChestComponent>();
 	object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 
-	auto &collisionComponent = object.set<CollisionComponent>();
-	collisionComponent.addAction(&chestAction);
+	auto &collisionComponent = object.set<gk::CollisionComponent>();
+	collisionComponent.addAction(&ChestFactory::chestAction);
 
-	auto &hitboxComponent = object.set<HitboxComponent>();
+	auto &hitboxComponent = object.set<gk::HitboxComponent>();
 	hitboxComponent.addHitbox(0, 0, 16, 16);
 
 	return object;
 }
 
-void chestAction(SceneObject &chest, SceneObject &object, bool inCollision) {
+void ChestFactory::chestAction(gk::SceneObject &chest, gk::SceneObject &object, bool inCollision) {
 	auto &chestPosition = chest.get<PositionComponent>();
 
-	if(inCollision && Scene::isPlayer(object) && !chest.get<ChestComponent>().opened) {
+	if(inCollision && object.type() == "Player" && !chest.get<ChestComponent>().opened) {
 		auto &playerPosition = object.get<PositionComponent>();
 
 		// FIXME: Find a better way to find if the player is facing the chest

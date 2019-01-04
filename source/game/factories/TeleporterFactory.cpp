@@ -13,39 +13,36 @@
  */
 #include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
+#include <gk/scene/component/CollisionComponent.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
+#include <gk/scene/Scene.hpp>
 
+#include "PositionComponent.hpp"
+#include "TeleporterComponent.hpp"
 #include "TeleporterTransition.hpp"
-#include "Scene.hpp"
 #include "TeleporterFactory.hpp"
 #include "TransitionState.hpp"
 
-#include "CollisionComponent.hpp"
-#include "HitboxComponent.hpp"
-#include "PositionComponent.hpp"
-#include "TeleporterComponent.hpp"
-
-void teleporterAction(SceneObject &teleporter, SceneObject &object, bool inCollision);
-
-SceneObject TeleporterFactory::create(float tileX, float tileY) {
-	SceneObject object{"Teleporter", "Tile"};
+gk::SceneObject TeleporterFactory::create(float tileX, float tileY) {
+	gk::SceneObject object{"Teleporter", "Tile"};
 	object.set<TeleporterComponent>();
 	object.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16);
 
-	auto &hitboxComponent = object.set<HitboxComponent>();
+	auto &hitboxComponent = object.set<gk::HitboxComponent>();
 	hitboxComponent.addHitbox(4, 4, 8, 6);
 
-	auto &collisionComponent = object.set<CollisionComponent>();
-	collisionComponent.addAction(&teleporterAction);
+	auto &collisionComponent = object.set<gk::CollisionComponent>();
+	collisionComponent.addAction(&TeleporterFactory::teleporterAction);
 
 	return object;
 }
 
-void teleporterAction(SceneObject &teleporter, SceneObject &object, bool inCollision) {
+void TeleporterFactory::teleporterAction(gk::SceneObject &teleporter, gk::SceneObject &object, bool inCollision) {
 	auto &teleporterComponent = teleporter.get<TeleporterComponent>();
 
 	static bool playerOnDoor = false;
 
-	if(Scene::isPlayer(object)) {
+	if(object.type() == "Player") {
 		if(inCollision) {
 			if(!playerOnDoor) {
 				gk::AudioPlayer::playSound("sfx-mapStairs");

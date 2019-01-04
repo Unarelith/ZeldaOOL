@@ -12,19 +12,18 @@
  * =====================================================================================
  */
 #include <gk/resource/ResourceHandler.hpp>
+#include <gk/scene/component/CollisionComponent.hpp>
+#include <gk/scene/component/MovementComponent.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
+#include <gk/scene/SceneObjectList.hpp>
 
 #include "GameKey.hpp"
 #include "GamePadMovement.hpp"
 #include "PlayerFactory.hpp"
-#include "SceneObjectList.hpp"
 #include "World.hpp"
-
-#include "CollisionComponent.hpp"
 #include "EffectsComponent.hpp"
 #include "HealthComponent.hpp"
-#include "HitboxComponent.hpp"
 #include "InventoryComponent.hpp"
-#include "MovementComponent.hpp"
 #include "PlayerMapCollision.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
@@ -32,12 +31,12 @@
 #include "PlayerStandingState.hpp"
 #include "StateComponent.hpp"
 
-SceneObject PlayerFactory::create(float x, float y) {
-	SceneObject player{"Link", "Player"};
+gk::SceneObject PlayerFactory::create(float x, float y) {
+	gk::SceneObject player{"Link", "Player"};
 	player.set<SpriteComponent>("sprite-characters-link");
 	player.set<HealthComponent>(13 * 4, 11 * 4);
-	player.set<MovementComponent>(new GamePadMovement);
-	player.set<SceneObjectList>();
+	player.set<gk::MovementComponent>(new GamePadMovement).speed = 0.4f;
+	player.set<gk::SceneObjectList>();
 
 	auto &stateComponent = player.set<StateComponent>();
 	stateComponent.setState<PlayerStandingState>(player);
@@ -45,12 +44,12 @@ SceneObject PlayerFactory::create(float x, float y) {
 	auto &positionComponent = player.set<PositionComponent>(x, y, 16, 16);
 	positionComponent.direction = Direction::Down;
 
-	auto &hitboxComponent = player.set<HitboxComponent>();
+	auto &hitboxComponent = player.set<gk::HitboxComponent>();
 	hitboxComponent.addHitbox(4, 5, 8, 10);
 
-	auto &collisionComponent = player.set<CollisionComponent>();
+	auto &collisionComponent = player.set<gk::CollisionComponent>();
 	collisionComponent.addChecker(&PlayerMapCollision::update);
-	collisionComponent.addChecker([](SceneObject &player) {
+	collisionComponent.addChecker([](gk::SceneObject &player) {
 		World::getInstance().currentMap()->scene().checkCollisionsFor(player);
 	});
 

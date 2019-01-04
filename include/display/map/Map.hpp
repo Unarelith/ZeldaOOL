@@ -15,10 +15,10 @@
 #define MAP_HPP_
 
 #include <gk/gl/Transformable.hpp>
+#include <gk/scene/Scene.hpp>
 
 #include "MapAnimator.hpp"
 #include "MapRenderer.hpp"
-#include "Scene.hpp"
 #include "Tileset.hpp"
 
 class Map : public gk::IDrawable, public gk::Transformable {
@@ -45,7 +45,7 @@ class Map : public gk::IDrawable, public gk::Transformable {
 		u16 width() const { return m_width; }
 		u16 height() const { return m_height; }
 
-		Scene &scene() { return m_scene; }
+		gk::Scene &scene() { return m_scene; }
 
 		Tileset &tileset() { return m_tileset; }
 
@@ -76,7 +76,7 @@ class Map : public gk::IDrawable, public gk::Transformable {
 		MapAnimator m_animator;
 		MapRenderer m_renderer;
 
-		Scene m_scene;
+		gk::Scene m_scene;
 };
 
 #endif // TILEMAP_HPP_

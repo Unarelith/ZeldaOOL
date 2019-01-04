@@ -22,10 +22,10 @@ class SwordBehaviour : public Behaviour {
 	public:
 		SwordBehaviour();
 
-		void action(SceneObject &sword) override;
+		void update(gk::SceneObject &sword) override;
 
-		void updateHitboxes(SceneObject &sword);
-		void updateSprite(SceneObject &sword);
+		void updateHitboxes(gk::SceneObject &sword);
+		void updateSprite(gk::SceneObject &sword);
 
 	private:
 		bool m_keyReleased = false;

@@ -14,13 +14,11 @@
 #ifndef COLLISIONHELPER_HPP_
 #define COLLISIONHELPER_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/CollisionHelper.hpp>
 
-class CollisionHelper {
+class CollisionHelper : public gk::CollisionHelper {
 	public:
-		static void checkCollision(SceneObject &object1, SceneObject &object2);
-
-		static bool inCollision(SceneObject &object1, SceneObject &object2);
+		bool inCollision(gk::SceneObject &object1, gk::SceneObject &object2) override;
 };
 
 #endif // COLLISIONHELPER_HPP_

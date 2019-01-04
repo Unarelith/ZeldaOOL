@@ -14,11 +14,11 @@
 #ifndef PLAYERFACTORY_HPP_
 #define PLAYERFACTORY_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class PlayerFactory {
 	public:
-		static SceneObject create(float x, float y);
+		static gk::SceneObject create(float x, float y);
 };
 
 #endif // PLAYERFACTORY_HPP_

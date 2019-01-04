@@ -26,14 +26,20 @@ World::World() {
 }
 
 void World::update() {
+	m_currentMap->scene().update(m_player);
 	m_currentMap->update();
 }
 
 void World::draw(gk::RenderTarget &target, gk::RenderStates states) const {
 	states.transform *= getTransform();
 
-	if (m_currentMap)
+	if (m_currentMap) {
 		target.draw(*m_currentMap, states);
+
+		Map *currentMap = World::getInstance().currentMap();
+		states.transform.translate(currentMap->getPosition());
+		currentMap->scene().draw(World::getInstance().player(), target, states);
+	}
 }
 
 Map &World::getSideMap(s8 dx, s8 dy) {

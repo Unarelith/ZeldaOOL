@@ -12,13 +12,13 @@
  * =====================================================================================
  */
 #include <gk/core/input/GamePad.hpp>
+#include <gk/scene/SceneObjectList.hpp>
 
 #include "GameKey.hpp"
 #include "GamePadMovement.hpp"
 #include "PlayerState.hpp"
 #include "PlayerGrabState.hpp"
 #include "PlayerSwordState.hpp"
-#include "SceneObjectList.hpp"
 #include "TilesInfos.hpp"
 #include "WeaponFactory.hpp"
 #include "World.hpp"
@@ -28,22 +28,22 @@
 #include "StateComponent.hpp"
 #include "WeaponComponent.hpp"
 
-void PlayerState::update(SceneObject &player) {
+void PlayerState::update(gk::SceneObject &player) {
 	weaponAction(player);
 	updateSprite(player);
 }
 
-void PlayerState::updateSprite(SceneObject &player) {
+void PlayerState::updateSprite(gk::SceneObject &player) {
 	auto &sprite = player.get<SpriteComponent>();
 	sprite.setState(m_state, player);
 }
 
-void PlayerState::weaponAction(SceneObject &player) {
+void PlayerState::weaponAction(gk::SceneObject &player) {
 	auto &health = player.get<HealthComponent>();
 
 	if(!health.isHurt) {
 		auto &position = player.get<PositionComponent>();
-		auto &objects = player.get<SceneObjectList>();
+		auto &objects = player.get<gk::SceneObjectList>();
 
 		Weapon *weapon = nullptr;
 		gk::GameKey key;
@@ -57,7 +57,7 @@ void PlayerState::weaponAction(SceneObject &player) {
 		}
 
 		if(weapon) {
-			SceneObject *weaponObject = &objects.addObject(WeaponFactory::create(*weapon, position.x, position.y, key, player));
+			gk::SceneObject *weaponObject = &objects.addObject(WeaponFactory::create(*weapon, position.x, position.y, key, player));
 
 			auto &stateComponent = player.get<StateComponent>();
 			std::string state = weaponObject->get<WeaponComponent>().playerState;

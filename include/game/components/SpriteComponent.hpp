@@ -17,9 +17,10 @@
 #include <functional>
 #include <map>
 
+#include <gk/scene/SceneObject.hpp>
+
 #include "PositionComponent.hpp"
 #include "Sprite.hpp"
-#include "SceneObject.hpp"
 
 struct SpriteState {
 	SpriteState(bool _handleDirection, bool _isAnimated, u16 _animationID, u16 _frameID)
@@ -39,7 +40,7 @@ class SpriteComponent {
 			: m_textureName(textureName), m_sprite(textureName, frameWidth, frameHeight) {}
 
 		void addState(const std::string &name, bool handleDirection, bool isAnimated, u16 animationID, u16 frameID = 0);
-		void setState(const std::string &name, SceneObject &object, u16 frameOffset = 0);
+		void setState(const std::string &name, gk::SceneObject &object, u16 frameOffset = 0);
 		const SpriteState &getState(const std::string &name) const;
 		const SpriteState &getCurrentState() const { return getState(m_currentState); }
 		bool hasCurrentState() const { return m_currentState != "NULL"; }

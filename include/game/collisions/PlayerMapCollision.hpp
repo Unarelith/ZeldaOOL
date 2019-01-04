@@ -14,11 +14,11 @@
 #ifndef PLAYERMAPCOLLISION_HPP_
 #define PLAYERMAPCOLLISION_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class PlayerMapCollision {
 	public:
-		static void update(SceneObject &player);
+		static void update(gk::SceneObject &player);
 };
 
 #endif // PLAYERMAPCOLLISION_HPP_

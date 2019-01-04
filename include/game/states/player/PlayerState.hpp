@@ -18,11 +18,11 @@
 
 class PlayerState : public IState {
 	public:
-		void update(SceneObject &object) override;
+		void update(gk::SceneObject &object) override;
 
 	protected:
-		void weaponAction(SceneObject &player);
-		virtual void updateSprite(SceneObject &player);
+		void weaponAction(gk::SceneObject &player);
+		virtual void updateSprite(gk::SceneObject &player);
 
 		std::string m_state = "Standing";
 };

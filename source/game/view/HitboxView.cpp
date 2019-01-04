@@ -15,14 +15,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <gk/gui/RectangleShape.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
 
-#include "HitboxComponent.hpp"
 #include "HitboxView.hpp"
 #include "LifetimeComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
-void HitboxView::draw(const SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) {
+void HitboxView::draw(const gk::SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) {
 	if (object.has<LifetimeComponent>() && object.get<LifetimeComponent>().dead(object))
 		return;
 
@@ -30,8 +30,8 @@ void HitboxView::draw(const SceneObject &object, gk::RenderTarget &target, gk::R
 		states.transform.translate(object.get<PositionComponent>().x, object.get<PositionComponent>().y);
 	}
 
-	if (object.has<HitboxComponent>()) {
-		const gk::IntRect *hitbox = object.get<HitboxComponent>().currentHitbox();
+	if (object.has<gk::HitboxComponent>()) {
+		const gk::FloatRect *hitbox = object.get<gk::HitboxComponent>().currentHitbox();
 		if(hitbox) {
 			gk::RectangleShape rect;
 			rect.setPosition(hitbox->x, hitbox->y);

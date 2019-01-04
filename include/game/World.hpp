@@ -22,7 +22,7 @@ class World : public gk::IDrawable, public gk::Transformable {
 
 		void update();
 
-		SceneObject &player() { return m_player; }
+		gk::SceneObject &player() { return m_player; }
 
 		Map *currentMap() const { return m_currentMap; }
 		void setCurrentMap(Map *currentMap) { m_currentMap = currentMap; }
@@ -40,7 +40,7 @@ class World : public gk::IDrawable, public gk::Transformable {
 
 		static World *s_instance;
 
-		SceneObject m_player;
+		gk::SceneObject m_player;
 
 		Map *m_currentMap = nullptr;
 };

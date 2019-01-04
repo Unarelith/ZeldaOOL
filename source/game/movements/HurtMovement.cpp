@@ -11,11 +11,12 @@
  *
  * =====================================================================================
  */
-#include "HurtMovement.hpp"
-#include "MovementComponent.hpp"
+#include <gk/scene/component/MovementComponent.hpp>
 
-void HurtMovement::process(SceneObject &object) {
-	auto &movement = object.get<MovementComponent>();
+#include "HurtMovement.hpp"
+
+void HurtMovement::process(gk::SceneObject &object) {
+	auto &movement = object.get<gk::MovementComponent>();
 
 	if(m_movementCounter < 16) {
 		movement.v = {m_vx, m_vy};

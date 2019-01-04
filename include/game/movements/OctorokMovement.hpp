@@ -17,18 +17,18 @@
 #include <gk/core/Timer.hpp>
 #include <gk/core/Vector2.hpp>
 
-#include "Movement.hpp"
+#include <gk/scene/movement/Movement.hpp>
 
-class OctorokMovement : public Movement {
+class OctorokMovement : public gk::Movement {
 	public:
 		enum class State {
 			Standing,
 			Moving
 		};
 
-		void reset(SceneObject &object);
+		void reset(gk::SceneObject &object);
 
-		void process(SceneObject &object) override;
+		void process(gk::SceneObject &object) override;
 
 	private:
 		State m_state = State::Standing;

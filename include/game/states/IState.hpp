@@ -14,14 +14,14 @@
 #ifndef ISTATE_HPP_
 #define ISTATE_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class IState {
 	public:
-		virtual void onBegin(SceneObject &) {}
-		virtual void onEnd(SceneObject &) {}
+		virtual void onBegin(gk::SceneObject &) {}
+		virtual void onEnd(gk::SceneObject &) {}
 
-		virtual void update(SceneObject &object) = 0;
+		virtual void update(gk::SceneObject &object) = 0;
 };
 
 #endif // ISTATE_HPP_

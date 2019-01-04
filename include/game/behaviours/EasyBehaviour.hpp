@@ -19,7 +19,7 @@
 #include "Behaviour.hpp"
 
 class EasyBehaviour : public Behaviour {
-	using Action = std::function<void(SceneObject&)>;
+	using Action = std::function<void(gk::SceneObject&)>;
 
 	public:
 		enum class FunctionType {
@@ -36,11 +36,11 @@ class EasyBehaviour : public Behaviour {
 			}
 		}
 
-		void reset(SceneObject &object) override {
+		void reset(gk::SceneObject &object) override {
 			if(m_reset) m_reset(object);
 		}
 
-		void action(SceneObject &object) override {
+		void update(gk::SceneObject &object) override {
 			if(m_action) m_action(object);
 		}
 

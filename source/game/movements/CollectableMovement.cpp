@@ -13,11 +13,12 @@
  */
 #include <cmath>
 
-#include "CollectableMovement.hpp"
-#include "MovementComponent.hpp"
+#include <gk/scene/component/MovementComponent.hpp>
 
-void CollectableMovement::process(SceneObject &object) {
-	auto &movementComponent = object.get<MovementComponent>();
+#include "CollectableMovement.hpp"
+
+void CollectableMovement::process(gk::SceneObject &object) {
+	auto &movementComponent = object.get<gk::MovementComponent>();
 
 	if(m_type == Type::Dropped) {
 		if(m_movementCounter < 24) {

@@ -11,20 +11,21 @@
  *
  * =====================================================================================
  */
+#include <gk/scene/component/CollisionComponent.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
+
 #include "SwordBehaviour.hpp"
 #include "SwordFactory.hpp"
 #include "World.hpp"
 
 #include "BehaviourComponent.hpp"
-#include "CollisionComponent.hpp"
-#include "HitboxComponent.hpp"
 #include "LifetimeComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 #include "WeaponComponent.hpp"
 
-SceneObject SwordFactory::create(float x, float y, gk::GameKey key, SceneObject &owner, Weapon &weaponInfos) {
-	SceneObject object("Sword", "Weapon");
+gk::SceneObject SwordFactory::create(float x, float y, gk::GameKey key, gk::SceneObject &owner, Weapon &weaponInfos) {
+	gk::SceneObject object("Sword", "Weapon");
 	object.set<BehaviourComponent>(new SwordBehaviour);
 	object.set<LifetimeComponent>();
 	object.set<WeaponComponent>(owner, weaponInfos, key, "Sword");
@@ -32,7 +33,7 @@ SceneObject SwordFactory::create(float x, float y, gk::GameKey key, SceneObject 
 	auto &positionComponent = object.set<PositionComponent>(x, y, 16, 16);
 	positionComponent.direction = owner.get<PositionComponent>().direction;
 
-	auto &hitboxComponent = object.set<HitboxComponent>();
+	auto &hitboxComponent = object.set<gk::HitboxComponent>();
 	hitboxComponent.addHitbox( 0,  7, 15,  6); // swordLeftLHand
 	hitboxComponent.addHitbox(10,  0,  6, 15); // swordUpRhand
 	hitboxComponent.addHitbox( 1,  0,  6, 15); // swordUpLHand
@@ -50,8 +51,8 @@ SceneObject SwordFactory::create(float x, float y, gk::GameKey key, SceneObject 
 	hitboxComponent.addHitbox( 2,  9, 13,  4); // swordLeftRHand
 	hitboxComponent.addHitbox( 2,  1,  4, 13); // swordUpLHand
 
-	auto &collisionComponent = object.set<CollisionComponent>();
-	collisionComponent.addChecker([](SceneObject &sword) {
+	auto &collisionComponent = object.set<gk::CollisionComponent>();
+	collisionComponent.addChecker([](gk::SceneObject &sword) {
 		World::getInstance().currentMap()->scene().checkCollisionsFor(sword);
 	});
 

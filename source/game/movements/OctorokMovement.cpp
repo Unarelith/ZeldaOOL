@@ -13,12 +13,13 @@
  */
 #include <cstdlib>
 
-#include "CollisionComponent.hpp"
-#include "MovementComponent.hpp"
+#include <gk/scene/component/CollisionComponent.hpp>
+#include <gk/scene/component/MovementComponent.hpp>
+
 #include "OctorokMovement.hpp"
 #include "PositionComponent.hpp"
 
-void OctorokMovement::reset(SceneObject &) {
+void OctorokMovement::reset(gk::SceneObject &) {
 	m_state = State::Standing;
 
 	m_timer.reset();
@@ -29,8 +30,8 @@ void OctorokMovement::reset(SceneObject &) {
 	m_randomMaxMovement = 16 + (rand() % 5) * 8;
 }
 
-void OctorokMovement::process(SceneObject &object) {
-	auto &movementComponent = object.get<MovementComponent>();
+void OctorokMovement::process(gk::SceneObject &object) {
+	auto &movementComponent = object.get<gk::MovementComponent>();
 	auto &positionComponent = object.get<PositionComponent>();
 
 	movementComponent.speed = 0.3f;
@@ -51,19 +52,19 @@ void OctorokMovement::process(SceneObject &object) {
 
 			movementComponent.v = m_v;
 
-			if(object.has<CollisionComponent>()) {
-				object.get<CollisionComponent>().checkCollisions(object);
+			if(object.has<gk::CollisionComponent>()) {
+				object.get<gk::CollisionComponent>().checkCollisions(object);
 			}
 
 			positionComponent.updateDirection(m_v);
 
-			if(!movementComponent.isBlocked) {
+			if(!movementComponent.isBlocked.x || !movementComponent.isBlocked.y) {
 				m_state = State::Moving;
 			}
 		}
 	}
 	else if(m_state == State::Moving) {
-		if(movementComponent.isBlocked) {
+		if(movementComponent.isBlocked.x || movementComponent.isBlocked.y) {
 			if(m_v.x != 0) {
 				m_v.y = m_v.x;
 				m_v.x = 0;

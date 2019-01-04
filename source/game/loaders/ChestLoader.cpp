@@ -14,7 +14,7 @@
 #include "ChestFactory.hpp"
 #include "ChestLoader.hpp"
 
-void ChestLoader::load(tinyxml2::XMLElement *chestElement, Scene &scene) {
+void ChestLoader::load(tinyxml2::XMLElement *chestElement, gk::Scene &scene) {
 	u16 tileX = chestElement->IntAttribute("tileX");
 	u16 tileY = chestElement->IntAttribute("tileY");
 

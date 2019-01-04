@@ -14,11 +14,11 @@
 #ifndef EFFECTVIEW_HPP_
 #define EFFECTVIEW_HPP_
 
-#include "AbstractView.hpp"
+#include <gk/scene/view/AbstractView.hpp>
 
-class EffectView : public AbstractView {
+class EffectView : public gk::AbstractView {
 	public:
-		void draw(const SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) override;
+		void draw(const gk::SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) override;
 };
 
 #endif // EFFECTVIEW_HPP_

@@ -14,7 +14,7 @@
 #include "NPCFactory.hpp"
 #include "NPCLoader.hpp"
 
-void NPCLoader::load(tinyxml2::XMLElement *npcElement, Scene &scene) {
+void NPCLoader::load(tinyxml2::XMLElement *npcElement, gk::Scene &scene) {
 	u16 tileX = npcElement->IntAttribute("tileX");
 	u16 tileY = npcElement->IntAttribute("tileY");
 

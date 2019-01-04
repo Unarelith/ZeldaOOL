@@ -15,12 +15,11 @@
 #define NPCLOADER_HPP_
 
 #include <gk/core/XMLFile.hpp>
-
-#include "Scene.hpp"
+#include <gk/scene/Scene.hpp>
 
 class NPCLoader {
 	public:
-		static void load(tinyxml2::XMLElement *npcElement, Scene &scene);
+		static void load(tinyxml2::XMLElement *npcElement, gk::Scene &scene);
 };
 
 #endif // NPCLOADER_HPP_

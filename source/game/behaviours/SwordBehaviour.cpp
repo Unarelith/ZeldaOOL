@@ -13,11 +13,11 @@
  */
 #include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/input/GamePad.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
 
 #include "GameKey.hpp"
 #include "SwordBehaviour.hpp"
 
-#include "HitboxComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 #include "WeaponComponent.hpp"
@@ -26,13 +26,13 @@ SwordBehaviour::SwordBehaviour() : Behaviour("Swinging") {
 	gk::AudioPlayer::playSound("sfx-swordSlash1");
 }
 
-void SwordBehaviour::action(SceneObject &sword) {
+void SwordBehaviour::update(gk::SceneObject &sword) {
 	auto &swordPosition = sword.get<PositionComponent>();
 	auto &weaponComponent = sword.get<WeaponComponent>();
 	auto &spriteComponent = sword.get<SpriteComponent>();
 	Sprite &sprite = spriteComponent.sprite();
 
-	SceneObject &owner = weaponComponent.owner;
+	gk::SceneObject &owner = weaponComponent.owner;
 	auto &ownerPosition = owner.get<PositionComponent>();
 
 	auto &ownerSpriteComponent = owner.get<SpriteComponent>();
@@ -139,9 +139,9 @@ void SwordBehaviour::action(SceneObject &sword) {
 	updateHitboxes(sword);
 }
 
-void SwordBehaviour::updateHitboxes(SceneObject &sword) {
+void SwordBehaviour::updateHitboxes(gk::SceneObject &sword) {
 	auto &spriteComponent = sword.get<SpriteComponent>();
-	auto &hitboxComponent = sword.get<HitboxComponent>();
+	auto &hitboxComponent = sword.get<gk::HitboxComponent>();
 
 	u16 frame = spriteComponent.sprite().currentAnimation().currentFrame();
 	if(frame < 12) {
@@ -152,7 +152,7 @@ void SwordBehaviour::updateHitboxes(SceneObject &sword) {
 	}
 }
 
-void SwordBehaviour::updateSprite(SceneObject &sword) {
+void SwordBehaviour::updateSprite(gk::SceneObject &sword) {
 	auto &sprite = sword.get<SpriteComponent>();
 
 	if (m_state == "Finished") {

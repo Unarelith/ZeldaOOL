@@ -18,17 +18,17 @@
 
 class PlayerGrabState : public PlayerState {
 	public:
-		PlayerGrabState(SceneObject *weapon) { m_weapon = weapon; }
+		PlayerGrabState(gk::SceneObject *weapon) { m_weapon = weapon; }
 
-		void onBegin(SceneObject &object) override;
-		void onEnd(SceneObject &object) override;
+		void onBegin(gk::SceneObject &object) override;
+		void onEnd(gk::SceneObject &object) override;
 
-		void update(SceneObject &object) override;
+		void update(gk::SceneObject &object) override;
 
 	private:
-		void updateSprite(SceneObject &object) override;
+		void updateSprite(gk::SceneObject &object) override;
 
-		SceneObject *m_weapon = nullptr;
+		gk::SceneObject *m_weapon = nullptr;
 };
 
 #endif // PLAYERGRABSTATE_HPP_

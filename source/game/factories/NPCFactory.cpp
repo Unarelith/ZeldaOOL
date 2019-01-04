@@ -13,29 +13,27 @@
  */
 #include <gk/core/input/GamePad.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
+#include <gk/scene/component/CollisionComponent.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
+#include <gk/scene/component/MovementComponent.hpp>
+#include <gk/scene/Scene.hpp>
 
 #include "GameKey.hpp"
 #include "MessageBoxState.hpp"
 #include "NPCFactory.hpp"
-#include "Scene.hpp"
-
-#include "CollisionComponent.hpp"
-#include "HitboxComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
-void npcAction(SceneObject &npc, SceneObject &object, bool inCollision);
-
-SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
-	SceneObject npc{"NPC", "NPC"};
+gk::SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
+	gk::SceneObject npc{"NPC", "NPC"};
 	npc.set<PositionComponent>(tileX * 16, tileY * 16, 16, 16).direction = Direction::Down;
 
-	auto &hitboxComponent = npc.set<HitboxComponent>();
+	auto &hitboxComponent = npc.set<gk::HitboxComponent>();
 	//hitboxComponent.addHitbox(0, 6, 16, 10);
 	hitboxComponent.addHitbox(0, 0, 16, 16);
 
-	auto &collisionComponent = npc.set<CollisionComponent>();
-	collisionComponent.addAction(&npcAction);
+	auto &collisionComponent = npc.set<gk::CollisionComponent>();
+	collisionComponent.addAction(&NPCFactory::npcAction);
 
 	auto &spriteComponent = npc.set<SpriteComponent>("characters-blueBoy", 16, 16);
 	spriteComponent.sprite().addAnimation({{0, 4}, 250});
@@ -49,12 +47,10 @@ SceneObject NPCFactory::create(u16 tileX, u16 tileY) {
 	return npc;
 }
 
-#include "MovementComponent.hpp"
-
-void npcAction(SceneObject &npc, SceneObject &object, bool inCollision) {
-	if(Scene::isPlayer(object) && inCollision) {
+void NPCFactory::npcAction(gk::SceneObject &npc, gk::SceneObject &object, bool inCollision) {
+	if(object.type() == "Player" && inCollision) {
 		auto &playerPosition = object.get<PositionComponent>();
-		auto &playerMovement = object.get<MovementComponent>();
+		auto &playerMovement = object.get<gk::MovementComponent>();
 
 		auto &npcPosition = npc.get<PositionComponent>();
 

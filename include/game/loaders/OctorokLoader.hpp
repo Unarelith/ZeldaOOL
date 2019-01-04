@@ -15,12 +15,11 @@
 #define OCTOROKLOADER_HPP_
 
 #include <gk/core/XMLFile.hpp>
-
-#include "Scene.hpp"
+#include <gk/scene/Scene.hpp>
 
 class OctorokLoader {
 	public:
-		static void load(tinyxml2::XMLElement *octorokElement, Scene &scene);
+		static void load(tinyxml2::XMLElement *octorokElement, gk::Scene &scene);
 };
 
 #endif // OCTOROKLOADER_HPP_

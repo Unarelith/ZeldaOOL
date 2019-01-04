@@ -22,15 +22,15 @@ class StateComponent {
 	using StatePtr = std::shared_ptr<IState>;
 
 	public:
-		void update(SceneObject &object);
+		void update(gk::SceneObject &object);
 
 		template<typename T, typename... Args>
-		auto setState(SceneObject &object, Args &&...args) -> typename std::enable_if<std::is_base_of<IState, T>::value, void>::type {
+		auto setState(gk::SceneObject &object, Args &&...args) -> typename std::enable_if<std::is_base_of<IState, T>::value, void>::type {
 			setState(object, std::make_shared<T>(std::forward<Args>(args)...));
 		}
 
 	private:
-		void setState(SceneObject &object, StatePtr state);
+		void setState(gk::SceneObject &object, StatePtr state);
 
 		StatePtr m_state;
 };

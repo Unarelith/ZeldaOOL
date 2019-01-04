@@ -11,10 +11,11 @@
  *
  * =====================================================================================
  */
+#include <gk/scene/Scene.hpp>
+
 #include "Application.hpp"
 #include "Config.hpp"
 #include "PositionComponent.hpp"
-#include "Scene.hpp"
 #include "ScrollingTransition.hpp"
 #include "Sprite.hpp"
 #include "World.hpp"
@@ -45,7 +46,9 @@ ScrollingTransition::ScrollingTransition(Mode mode) {
 }
 
 void ScrollingTransition::update() {
-	PositionComponent &positionComponent = World::getInstance().player().get<PositionComponent>();
+	gk::SceneObject &player = World::getInstance().player();
+
+	PositionComponent &positionComponent = player.get<PositionComponent>();
 	positionComponent.move(m_vx * 0.15f, m_vy * 0.21f);
 
 	World::getInstance().currentMap()->move(-m_vx * 1.6f, -m_vy * 1.5f);
@@ -71,7 +74,7 @@ void ScrollingTransition::update() {
 		m_atEnd = true;
 	}
 
-	auto &objectList = World::getInstance().player().get<SceneObjectList>();
+	auto &objectList = player.get<gk::SceneObjectList>();
 	for(auto &object : objectList) {
 		if (object.has<PositionComponent>()) {
 			auto &position = object.get<PositionComponent>();
@@ -85,5 +88,9 @@ void ScrollingTransition::draw(gk::RenderTarget &target, gk::RenderStates states
 	target.draw(*m_nextMap, states);
 
 	target.draw(*World::getInstance().currentMap(), states);
+
+	Map *currentMap = World::getInstance().currentMap();
+	states.transform.translate(currentMap->getPosition());
+	currentMap->scene().draw(World::getInstance().player(), target, states);
 }
 

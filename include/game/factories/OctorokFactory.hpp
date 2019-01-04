@@ -14,11 +14,14 @@
 #ifndef OCTOROKFACTORY_HPP_
 #define OCTOROKFACTORY_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class OctorokFactory {
 	public:
-		static SceneObject create(float x, float y);
+		static gk::SceneObject create(float x, float y);
+
+	private:
+		static void octorokAction(gk::SceneObject &octorok, gk::SceneObject &object, bool inCollision);
 };
 
 #endif // OCTOROKFACTORY_HPP_

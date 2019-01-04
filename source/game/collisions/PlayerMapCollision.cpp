@@ -12,6 +12,7 @@
  * =====================================================================================
  */
 #include <gk/core/ApplicationStateStack.hpp>
+#include <gk/scene/component/MovementComponent.hpp>
 
 #include "PlayerMapCollision.hpp"
 #include "ScrollingTransition.hpp"
@@ -20,11 +21,10 @@
 #include "World.hpp"
 
 #include "EffectsComponent.hpp"
-#include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 
-void PlayerMapCollision::update(SceneObject &player) {
-	auto &movement = player.get<MovementComponent>();
+void PlayerMapCollision::update(gk::SceneObject &player) {
+	auto &movement = player.get<gk::MovementComponent>();
 	auto &position = player.get<PositionComponent>();
 	auto &effects = player.get<EffectsComponent>();
 

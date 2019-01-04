@@ -11,28 +11,27 @@
  *
  * =====================================================================================
  */
+#include <gk/scene/component/CollisionComponent.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
+
 #include "EasyBehaviour.hpp"
 #include "GrassFactory.hpp"
 #include "Map.hpp"
 
 #include "BehaviourComponent.hpp"
-#include "CollisionComponent.hpp"
-#include "HitboxComponent.hpp"
 #include "LootComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
-void grassAction(SceneObject &grass, SceneObject &object, bool inCollision);
-
-SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
-	SceneObject object{"Grass", "Tile"};
+gk::SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
+	gk::SceneObject object{"Grass", "Tile"};
 	object.set<PositionComponent>(tileX * 16 - 8, tileY * 16 - 8, 16, 16);
 
-	auto &hitboxComponent = object.set<HitboxComponent>();
+	auto &hitboxComponent = object.set<gk::HitboxComponent>();
 	hitboxComponent.addHitbox(14, 14, 4, 4);
 
-	auto &collisionComponent = object.set<CollisionComponent>();
-	collisionComponent.addAction(&grassAction);
+	auto &collisionComponent = object.set<gk::CollisionComponent>();
+	collisionComponent.addAction(&GrassFactory::grassAction);
 
 	auto &spriteComponent = object.set<SpriteComponent>("animations-grassDestroy", 32, 32);
 	spriteComponent.sprite().addAnimation({{0, 1, 2, 3, 4, 5}, 50});
@@ -44,7 +43,7 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 		spriteComponent.sprite().setColor(gk::Color{255, 255, 255, 127});
 	}
 
-	object.set<BehaviourComponent>(new EasyBehaviour([](SceneObject &object) {
+	object.set<BehaviourComponent>(new EasyBehaviour([](gk::SceneObject &object) {
 		auto &spriteComponent = object.get<SpriteComponent>();
 
 		if(spriteComponent.sprite().currentAnimation().isFinished()) {
@@ -52,8 +51,8 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 			spriteComponent.setEnabled(false);
 		}
 	},
-	[](SceneObject &object) {
-		object.get<HitboxComponent>().setCurrentHitbox(0);
+	[](gk::SceneObject &object) {
+		object.get<gk::HitboxComponent>().setCurrentHitbox(0);
 	}));
 
 	auto &lootComponent = object.set<LootComponent>();
@@ -70,14 +69,14 @@ SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 #include "WeaponComponent.hpp"
 #include "World.hpp"
 
-void grassAction(SceneObject &grass, SceneObject &object, bool inCollision) {
+void GrassFactory::grassAction(gk::SceneObject &grass, gk::SceneObject &object, bool inCollision) {
 	if(inCollision && object.has<WeaponComponent>()) {
-		auto &grassHitboxComponent = grass.get<HitboxComponent>();
+		auto &grassHitboxComponent = grass.get<gk::HitboxComponent>();
 		auto &grassSpriteComponent = grass.get<SpriteComponent>();
 
 		auto &weaponOwner = object.get<WeaponComponent>().owner;
 
-		if(Scene::isPlayer(weaponOwner)
+		if(weaponOwner.type() == "Player"
 		&& object.name() == "Sword"
 		&& !grassSpriteComponent.isEnabled()
 		&& grassHitboxComponent.currentHitbox()) {

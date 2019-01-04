@@ -11,15 +11,15 @@
  *
  * =====================================================================================
  */
-#include "MovementController.hpp"
+#include <gk/scene/component/CollisionComponent.hpp>
+#include <gk/scene/component/MovementComponent.hpp>
 
-#include "CollisionComponent.hpp"
-#include "MovementComponent.hpp"
+#include "MovementController.hpp"
 #include "PositionComponent.hpp"
 
-void MovementController::update(SceneObject &object) {
-	if(object.has<MovementComponent>()) {
-		auto &movement = object.get<MovementComponent>();
+void MovementController::update(gk::SceneObject &object) {
+	if(object.has<gk::MovementComponent>()) {
+		auto &movement = object.get<gk::MovementComponent>();
 
 		if(movement.movements.size() != 0 && movement.movements.top()) {
 			movement.movements.top()->process(object);
@@ -28,13 +28,13 @@ void MovementController::update(SceneObject &object) {
 		movement.isBlocked = false;
 	}
 
-	if(object.has<CollisionComponent>()) {
-		object.get<CollisionComponent>().checkCollisions(object);
+	if(object.has<gk::CollisionComponent>()) {
+		object.get<gk::CollisionComponent>().checkCollisions(object);
 	}
 
-	if(object.has<PositionComponent>() && object.has<MovementComponent>()) {
+	if(object.has<PositionComponent>() && object.has<gk::MovementComponent>()) {
 		auto &position = object.get<PositionComponent>();
-		auto &movement = object.get<MovementComponent>();
+		auto &movement = object.get<gk::MovementComponent>();
 
 		movement.isMoving = (movement.v.x || movement.v.y) ? true : false;
 

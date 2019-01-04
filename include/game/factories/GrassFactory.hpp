@@ -14,11 +14,14 @@
 #ifndef GRASSFACTORY_HPP_
 #define GRASSFACTORY_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class GrassFactory {
 	public:
-		static SceneObject create(u16 tileX, u16 tileY, bool lowGrass = false);
+		static gk::SceneObject create(u16 tileX, u16 tileY, bool lowGrass = false);
+
+	private:
+		static void grassAction(gk::SceneObject &grass, gk::SceneObject &object, bool inCollision);
 };
 
 #endif // GRASSFACTORY_HPP_

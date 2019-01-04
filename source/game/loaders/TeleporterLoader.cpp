@@ -16,7 +16,7 @@
 #include "TeleporterFactory.hpp"
 #include "TeleporterLoader.hpp"
 
-void TeleporterLoader::load(tinyxml2::XMLElement *teleporterElement, Scene &scene) {
+void TeleporterLoader::load(tinyxml2::XMLElement *teleporterElement, gk::Scene &scene) {
 	float tileX = teleporterElement->FloatAttribute("tileX");
 	float tileY = teleporterElement->FloatAttribute("tileY");
 
@@ -46,7 +46,7 @@ void TeleporterLoader::load(tinyxml2::XMLElement *teleporterElement, Scene &scen
 		playerDirection = Direction::Down;
 	}
 
-	SceneObject &teleporter = scene.addObject(TeleporterFactory::create(tileX, tileY));
+	gk::SceneObject &teleporter = scene.addObject(TeleporterFactory::create(tileX, tileY));
 
 	auto &teleporterComponent = teleporter.get<TeleporterComponent>();
 	teleporterComponent.setDestination(area, mapX, mapY, playerX, playerY, playerDirection);

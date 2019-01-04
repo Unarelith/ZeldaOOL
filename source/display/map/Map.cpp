@@ -15,6 +15,7 @@
 
 #include <gk/resource/ResourceHandler.hpp>
 
+#include "CollisionHelper.hpp"
 #include "Config.hpp"
 #include "Map.hpp"
 #include "MapLoader.hpp"
@@ -50,7 +51,8 @@ Map::Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const 
 	updateTiles();
 
 	// FIXME: Move this to MapState
-	if (m_scene.isInactive()) {
+	if (!m_scene.isActive()) {
+		m_scene.setCollisionHelper<CollisionHelper>();
 		m_scene.addController<MovementController>();
 		m_scene.addController<BattleController>();
 		m_scene.addController<BehaviourController>();

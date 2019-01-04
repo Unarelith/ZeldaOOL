@@ -1,5 +1,9 @@
 Notes
 
+# GameKit
+
+• TODO: Use views instead of scrolling maps
+
 # Bugs
 
 • FIXME: When the player release the sword key before loading begins, his animations gets frozen

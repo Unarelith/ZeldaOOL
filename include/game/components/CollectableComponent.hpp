@@ -17,16 +17,16 @@
 #include <functional>
 #include <string>
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class CollectableComponent {
-		using CollectableAction = std::function<void(SceneObject&)>;
+		using CollectableAction = std::function<void(gk::SceneObject&)>;
 
 	public:
 		CollectableComponent(const std::string &soundEffectName)
 			: m_soundEffectName(soundEffectName) {}
 
-		void action(SceneObject &player) { if(m_action) m_action(player); }
+		void action(gk::SceneObject &player) { if(m_action) m_action(player); }
 
 		void setAction(CollectableAction action) { m_action = action; }
 

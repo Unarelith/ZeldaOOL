@@ -13,12 +13,12 @@
  */
 #include "StateComponent.hpp"
 
-void StateComponent::update(SceneObject &object) {
+void StateComponent::update(gk::SceneObject &object) {
 	if (m_state)
 		m_state->update(object);
 }
 
-void StateComponent::setState(SceneObject &object, StatePtr state) {
+void StateComponent::setState(gk::SceneObject &object, StatePtr state) {
 	if (m_state)
 		m_state->onEnd(object);
 

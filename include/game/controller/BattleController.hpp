@@ -14,14 +14,14 @@
 #ifndef BATTLECONTROLLER_HPP_
 #define BATTLECONTROLLER_HPP_
 
-#include "AbstractController.hpp"
-#include "SceneObject.hpp"
+#include <gk/scene/controller/AbstractController.hpp>
+#include <gk/scene/SceneObject.hpp>
 
-class BattleController : public AbstractController {
+class BattleController : public gk::AbstractController {
 	public:
-		void update(SceneObject &object) override;
+		void update(gk::SceneObject &object) override;
 
-		static void hurt(SceneObject &attacker, SceneObject &receiver);
+		static void hurt(gk::SceneObject &attacker, gk::SceneObject &receiver);
 };
 
 #endif // BATTLECONTROLLER_HPP_

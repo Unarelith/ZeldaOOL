@@ -18,7 +18,7 @@
 #include "EffectView.hpp"
 #include "PositionComponent.hpp"
 
-void EffectView::draw(const SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) {
+void EffectView::draw(const gk::SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) {
 	if (object.has<EffectsComponent>()) {
 		if (object.has<PositionComponent>()) {
 			states.transform.translate(object.get<PositionComponent>().x, object.get<PositionComponent>().y);

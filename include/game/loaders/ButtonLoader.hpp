@@ -15,12 +15,11 @@
 #define BUTTONLOADER_HPP_
 
 #include <gk/core/XMLFile.hpp>
-
-#include "Scene.hpp"
+#include <gk/scene/Scene.hpp>
 
 class ButtonLoader {
 	public:
-		static void load(tinyxml2::XMLElement *buttonElement, Scene &scene);
+		static void load(tinyxml2::XMLElement *buttonElement, gk::Scene &scene);
 };
 
 #endif // BUTTONLOADER_HPP_

@@ -14,13 +14,11 @@
 #ifndef SPRITEVIEW_HPP_
 #define SPRITEVIEW_HPP_
 
-#include "AbstractView.hpp"
+#include <gk/scene/view/AbstractView.hpp>
 
-class SpriteView : public AbstractView {
+class SpriteView : public gk::AbstractView {
 	public:
-		void draw(const SceneObject &object, gk::RenderTarget &target, gk::RenderStates states);
-
-		// void drawHitbox(const SceneObject &object, gk::RenderTarget &target, gk::RenderStates states);
+		void draw(const gk::SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) override;
 };
 
 #endif // SPRITEVIEW_HPP_

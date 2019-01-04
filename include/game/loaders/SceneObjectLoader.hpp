@@ -14,11 +14,11 @@
 #ifndef SCENEOBJECTLOADER_HPP_
 #define SCENEOBJECTLOADER_HPP_
 
-#include "Scene.hpp"
+#include <gk/scene/Scene.hpp>
 
 class SceneObjectLoader {
 	public:
-		static void load(const std::string &mapName, Scene &scene);
+		static void load(const std::string &mapName, gk::Scene &scene);
 };
 
 #endif // SCENEOBJECTLOADER_HPP_

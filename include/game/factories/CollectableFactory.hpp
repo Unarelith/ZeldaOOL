@@ -14,8 +14,9 @@
 #ifndef COLLECTABLEFACTORY_HPP_
 #define COLLECTABLEFACTORY_HPP_
 
+#include <gk/scene/SceneObject.hpp>
+
 #include "CollectableMovement.hpp"
-#include "SceneObject.hpp"
 
 enum RupeesAmount : u8 {
 	One     = 1,
@@ -31,10 +32,13 @@ enum CollectableType {
 
 class CollectableFactory {
 	public:
-		static SceneObject create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType);
+		static gk::SceneObject create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType);
 
-		static SceneObject createHeart(u16 x, u16 y, CollectableMovement::Type movementType);
-		static SceneObject createRupees(u16 x, u16 y, RupeesAmount amount, CollectableMovement::Type movementType);
+		static gk::SceneObject createHeart(u16 x, u16 y, CollectableMovement::Type movementType);
+		static gk::SceneObject createRupees(u16 x, u16 y, RupeesAmount amount, CollectableMovement::Type movementType);
+
+	private:
+		static void collectableAction(gk::SceneObject &collectable, gk::SceneObject &object, bool inCollision);
 };
 
 #endif // COLLECTABLEFACTORY_HPP_

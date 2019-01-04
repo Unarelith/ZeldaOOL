@@ -18,10 +18,10 @@
 
 class PlayerMovingState : public PlayerState {
 	public:
-		void onBegin(SceneObject &object) override;
-		void onEnd(SceneObject &object) override;
+		void onBegin(gk::SceneObject &object) override;
+		void onEnd(gk::SceneObject &object) override;
 
-		void update(SceneObject &object) override;
+		void update(gk::SceneObject &object) override;
 };
 
 #endif // PLAYERMOVINGSTATE_HPP_

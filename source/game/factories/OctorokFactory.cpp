@@ -11,6 +11,10 @@
  *
  * =====================================================================================
  */
+#include <gk/scene/component/CollisionComponent.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
+#include <gk/scene/component/MovementComponent.hpp>
+
 #include "EasyBehaviour.hpp"
 #include "Map.hpp"
 #include "OctorokFactory.hpp"
@@ -20,32 +24,27 @@
 #include "World.hpp"
 
 #include "BehaviourComponent.hpp"
-#include "CollisionComponent.hpp"
 #include "EffectsComponent.hpp"
 #include "HealthComponent.hpp"
-#include "HitboxComponent.hpp"
-#include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 #include "LootComponent.hpp"
 
-void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision);
-
-SceneObject OctorokFactory::create(float x, float y) {
-	SceneObject octorok("Octorok", "Monster");
+gk::SceneObject OctorokFactory::create(float x, float y) {
+	gk::SceneObject octorok("Octorok", "Monster");
 	octorok.set<HealthComponent>(2);
-	octorok.set<MovementComponent>(new OctorokMovement);
+	octorok.set<gk::MovementComponent>(new OctorokMovement);
 	octorok.set<PositionComponent>(x, y, 16, 16, Direction::Down);
 
-	auto &collisionComponent = octorok.set<CollisionComponent>();
+	auto &collisionComponent = octorok.set<gk::CollisionComponent>();
 	collisionComponent.addChecker(&PlayerMapCollision::update);
-	collisionComponent.addChecker([](SceneObject &octorok) {
+	collisionComponent.addChecker([](gk::SceneObject &octorok) {
 		World::getInstance().currentMap()->scene().checkCollisionsFor(octorok);
 	});
 
-	collisionComponent.addAction(&octorokAction);
+	collisionComponent.addAction(&OctorokFactory::octorokAction);
 
-	auto &hitboxComponent = octorok.set<HitboxComponent>();
+	auto &hitboxComponent = octorok.set<gk::HitboxComponent>();
 	hitboxComponent.addHitbox(0, 0, 16, 16);
 
 	auto &effectsComponent = octorok.set<EffectsComponent>();
@@ -56,8 +55,8 @@ SceneObject OctorokFactory::create(float x, float y) {
 	auto &destroyEffect = effectsComponent.addEffect("destroy", "animations-monsterDestroy", 32, 32, {-8, -8});
 	destroyEffect.addAnimation({{0, 1, 0, 1, 0, 2, 3, 3, 2, 2, 3, 3, 2, 4, 4, 5, 5, 4, 6, 7}, 10, false});
 
-	octorok.set<BehaviourComponent>(new EasyBehaviour([](SceneObject &) {},
-	[x, y](SceneObject &octorok) {
+	octorok.set<BehaviourComponent>(new EasyBehaviour([](gk::SceneObject &) {},
+	[x, y](gk::SceneObject &octorok) {
 		octorok = create(x, y);
 	}));
 
@@ -77,9 +76,9 @@ SceneObject OctorokFactory::create(float x, float y) {
 #include "BattleController.hpp"
 #include "WeaponComponent.hpp"
 
-void octorokAction(SceneObject &octorok, SceneObject &object, bool inCollision) {
+void OctorokFactory::octorokAction(gk::SceneObject &octorok, gk::SceneObject &object, bool inCollision) {
 	if(inCollision) {
-		if(Scene::isPlayer(object)) {
+		if(object.type() == "Player") {
 			gk::AudioPlayer::playSound("sfx-linkHurt");
 			BattleController::hurt(octorok, object);
 		}

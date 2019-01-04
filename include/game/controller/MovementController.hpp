@@ -14,12 +14,11 @@
 #ifndef MOVEMENTCONTROLLER_HPP_
 #define MOVEMENTCONTROLLER_HPP_
 
-#include "AbstractController.hpp"
-#include "SceneObject.hpp"
+#include <gk/scene/controller/AbstractController.hpp>
 
-class MovementController : public AbstractController {
+class MovementController : public gk::AbstractController {
 	public:
-		void update(SceneObject &object) override;
+		void update(gk::SceneObject &object) override;
 };
 
 #endif // MOVEMENTCONTROLLER_HPP_

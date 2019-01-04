@@ -22,7 +22,7 @@
 #include "OctorokLoader.hpp"
 #include "TeleporterLoader.hpp"
 
-void SceneObjectLoader::load(const std::string &mapName, Scene &scene) {
+void SceneObjectLoader::load(const std::string &mapName, gk::Scene &scene) {
 	if(Filesystem::fileExists("resources/config/maps/" + mapName + ".xml")) {
 		gk::XMLFile doc("resources/config/maps/" + mapName + ".xml");
 

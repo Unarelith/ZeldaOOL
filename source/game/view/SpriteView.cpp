@@ -14,17 +14,17 @@
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 
+#include <gk/scene/component/MovementComponent.hpp>
 #include <gk/system/GameClock.hpp>
 
 #include "HealthComponent.hpp"
 #include "Image.hpp"
 #include "LifetimeComponent.hpp"
-#include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 #include "SpriteView.hpp"
 
-void SpriteView::draw(const SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) {
+void SpriteView::draw(const gk::SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) {
 	// if (object.has<LifetimeComponent>() && object.get<LifetimeComponent>().dead(object))
 	// 	return;
 
@@ -51,8 +51,8 @@ void SpriteView::draw(const SceneObject &object, gk::RenderTarget &target, gk::R
 			bool animated = false;
 			u16 animID = 0;
 
-			if(object.has<MovementComponent>()) {
-				animated = object.get<MovementComponent>().isMoving;
+			if(object.has<gk::MovementComponent>()) {
+				animated = object.get<gk::MovementComponent>().isMoving;
 			}
 
 			if(object.get<PositionComponent>().direction != Direction::None) {
@@ -98,28 +98,4 @@ void SpriteView::draw(const SceneObject &object, gk::RenderTarget &target, gk::R
 		}
 	}
 }
-
-// void DrawingSystem::drawHitbox(SceneObject &object, float x, float y) {
-// 	auto &hitboxComponent = object.get<HitboxComponent>();
-//
-// 	static RectangleShape rect;
-//
-// 	const IntRect *hitbox = hitboxComponent.currentHitbox();
-// 	if(hitbox) {
-// 		rect.setPosition(x + hitbox->x, y + hitbox->y);
-// 		rect.resize(hitbox->width, hitbox->height);
-//
-// 		if(object.has<SpriteComponent>()) {
-// 			u16 animID = object.get<SpriteComponent>().animID;
-// 				rect.move(object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition().x,
-// 						  object.get<SpriteComponent>().sprite.getAnimation(animID).currentPosition().y);
-// 		}
-//
-// 		if(object.has<std::string>() && object.get<std::string>() == "Sword") {
-// 			rect.draw(Color::red, true);
-// 		} else {
-// 			rect.draw(Color::white, true);
-// 		}
-// 	}
-// }
 

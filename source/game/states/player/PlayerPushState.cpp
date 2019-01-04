@@ -11,22 +11,23 @@
  *
  * =====================================================================================
  */
-#include "MovementComponent.hpp"
+#include <gk/scene/component/MovementComponent.hpp>
+
 #include "StateComponent.hpp"
 #include "PlayerPushState.hpp"
 #include "PlayerStandingState.hpp"
 
-void PlayerPushState::onBegin(SceneObject &) {
+void PlayerPushState::onBegin(gk::SceneObject &) {
 	m_state = "Push";
 }
 
-void PlayerPushState::onEnd(SceneObject &) {
+void PlayerPushState::onEnd(gk::SceneObject &) {
 }
 
-void PlayerPushState::update(SceneObject &object) {
-	auto &movement = object.get<MovementComponent>();
+void PlayerPushState::update(gk::SceneObject &object) {
+	auto &movement = object.get<gk::MovementComponent>();
 	auto &state = object.get<StateComponent>();
-	if(!movement.isBlocked)
+	if(!movement.isBlocked.x && !movement.isBlocked.y)
 		state.setState<PlayerStandingState>(object);
 	else
 		PlayerState::update(object);

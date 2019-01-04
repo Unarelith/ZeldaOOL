@@ -15,12 +15,11 @@
 #define CHESTOPENINGSTATE_HPP_
 
 #include <gk/core/ApplicationState.hpp>
-
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class ChestOpeningState : public gk::ApplicationState {
 	public:
-		ChestOpeningState(SceneObject &chest, gk::ApplicationState *parent);
+		ChestOpeningState(gk::SceneObject &chest, gk::ApplicationState *parent);
 
 		void update() override;
 
@@ -35,7 +34,7 @@ class ChestOpeningState : public gk::ApplicationState {
 
 		State m_state = State::Opening;
 
-		SceneObject *m_item = nullptr;
+		gk::SceneObject *m_item = nullptr;
 };
 
 #endif // CHESTOPENINGSTATE_HPP_

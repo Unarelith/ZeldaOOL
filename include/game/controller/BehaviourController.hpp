@@ -14,14 +14,14 @@
 #ifndef BEHAVIOURCONTROLLER_HPP_
 #define BEHAVIOURCONTROLLER_HPP_
 
-#include "AbstractController.hpp"
-#include "SceneObject.hpp"
+#include <gk/scene/controller/AbstractController.hpp>
+#include <gk/scene/SceneObject.hpp>
 
-class BehaviourController : public AbstractController {
+class BehaviourController : public gk::AbstractController {
 	public:
-		void reset(SceneObject &object) override;
+		void reset(gk::SceneObject &object) override;
 
-		void update(SceneObject &object) override;
+		void update(gk::SceneObject &object) override;
 };
 
 #endif // BEHAVIOURCONTROLLER_HPP_

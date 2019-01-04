@@ -14,11 +14,14 @@
 #ifndef BUTTONFACTORY_HPP_
 #define BUTTONFACTORY_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class ButtonFactory {
 	public:
-		static SceneObject create(u16 tileX, u16 tileY);
+		static gk::SceneObject create(u16 tileX, u16 tileY);
+
+	private:
+		static void buttonAction(gk::SceneObject &button, gk::SceneObject &object, bool inCollision);
 };
 
 #endif // BUTTONFACTORY_HPP_

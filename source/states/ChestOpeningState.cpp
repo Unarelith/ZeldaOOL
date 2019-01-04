@@ -13,18 +13,18 @@
  */
 #include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
+#include <gk/scene/component/MovementComponent.hpp>
+#include <gk/scene/controller/MovementController.hpp>
 
 #include "CollectableFactory.hpp"
 #include "ChestOpeningState.hpp"
 #include "LifetimeComponent.hpp"
 #include "MessageBoxState.hpp"
-#include "MovementComponent.hpp"
-#include "MovementController.hpp"
 #include "PositionComponent.hpp"
 #include "Sprite.hpp"
 #include "World.hpp"
 
-ChestOpeningState::ChestOpeningState(SceneObject &chest, gk::ApplicationState *parent) : gk::ApplicationState(parent) {
+ChestOpeningState::ChestOpeningState(gk::SceneObject &chest, gk::ApplicationState *parent) : gk::ApplicationState(parent) {
 	m_item = &World::getInstance().currentMap()->scene().addObject(CollectableFactory::createRupees(0, 0, RupeesAmount::Thirty, CollectableMovement::Type::Chest));
 	m_item->set<LifetimeComponent>();
 
@@ -39,10 +39,10 @@ ChestOpeningState::ChestOpeningState(SceneObject &chest, gk::ApplicationState *p
 
 void ChestOpeningState::update() {
 	if(m_state == State::Opening) {
-		MovementController movementController;
+		gk::MovementController movementController;
 		movementController.update(*m_item);
 
-		auto &movementComponent = m_item->get<MovementComponent>();
+		auto &movementComponent = m_item->get<gk::MovementComponent>();
 		if(movementComponent.movements.top()->isFinished()) {
 			m_state = State::Opened;
 		}

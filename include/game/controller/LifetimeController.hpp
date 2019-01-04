@@ -14,14 +14,14 @@
 #ifndef LIFETIMECONTROLLER_HPP_
 #define LIFETIMECONTROLLER_HPP_
 
-#include "AbstractController.hpp"
-#include "SceneObject.hpp"
-#include "SceneObjectList.hpp"
+#include <gk/scene/controller/AbstractController.hpp>
+#include <gk/scene/SceneObject.hpp>
+#include <gk/scene/SceneObjectList.hpp>
 
-class LifetimeController : public AbstractController {
+class LifetimeController : public gk::AbstractController {
 	public:
-		void update(SceneObject &) override {}
-		void update(SceneObjectList &objects) override;
+		void update(gk::SceneObject &) override {}
+		void update(gk::SceneObjectList &objects) override;
 
 		bool isGlobal() const override { return true; }
 };

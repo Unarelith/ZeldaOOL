@@ -15,15 +15,15 @@
 #include "BehaviourController.hpp"
 #include "StateComponent.hpp"
 
-void BehaviourController::reset(SceneObject &object) {
+void BehaviourController::reset(gk::SceneObject &object) {
 	if(object.has<BehaviourComponent>()) {
 		object.get<BehaviourComponent>().behaviour->reset(object);
 	}
 }
 
-void BehaviourController::update(SceneObject &object) {
+void BehaviourController::update(gk::SceneObject &object) {
 	if(object.has<BehaviourComponent>()) {
-		object.get<BehaviourComponent>().behaviour->action(object);
+		object.get<BehaviourComponent>().behaviour->update(object);
 	}
 
 	// FIXME

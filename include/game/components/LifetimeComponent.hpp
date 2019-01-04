@@ -17,11 +17,10 @@
 #include <functional>
 
 #include <gk/core/Timer.hpp>
-
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class LifetimeComponent {
-	using DeathChecker = std::function<bool(const SceneObject &)>;
+	using DeathChecker = std::function<bool(const gk::SceneObject &)>;
 
 	public:
 		LifetimeComponent() = default;
@@ -32,7 +31,7 @@ class LifetimeComponent {
 
 		bool almostDead() { return m_lifetime != 0 && m_timer.time() > m_lifetime / 4 * 3; }
 
-		bool dead(const SceneObject &object) {
+		bool dead(const gk::SceneObject &object) {
 			return m_dead
 				|| (m_lifetime != 0 && m_timer.time() > m_lifetime)
 				|| (m_deathChecker && m_deathChecker(object));

@@ -12,6 +12,7 @@
  * =====================================================================================
  */
 #include <gk/audio/AudioPlayer.hpp>
+#include <gk/scene/Scene.hpp>
 
 #include "Application.hpp"
 #include "BehaviourController.hpp"
@@ -19,7 +20,6 @@
 #include "Config.hpp"
 #include "Map.hpp"
 #include "PositionComponent.hpp"
-#include "Scene.hpp"
 #include "SpriteComponent.hpp"
 #include "TeleporterTransition.hpp"
 #include "World.hpp"
@@ -91,6 +91,11 @@ void TeleporterTransition::update() {
 void TeleporterTransition::draw(gk::RenderTarget &target, gk::RenderStates states) const {
 	if(m_timer.time() > 250) {
 		target.draw(*m_nextMap, states);
+
+		Map *currentMap = World::getInstance().currentMap();
+		states.transform.translate(currentMap->getPosition());
+		currentMap->scene().draw(World::getInstance().player(), target, states);
+		states.transform.translate(-currentMap->getPosition());
 
 		target.draw(m_rect1, states);
 		target.draw(m_rect2, states);

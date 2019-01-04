@@ -14,16 +14,15 @@
 #ifndef BEHAVIOUR_HPP_
 #define BEHAVIOUR_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
+#include <gk/scene/behaviour/Behaviour.hpp>
 
-class Behaviour {
+class Behaviour : public gk::Behaviour {
 	public:
 		Behaviour(const std::string &state = "") : m_state(state) {}
 		virtual ~Behaviour() = default;
 
-		virtual void reset(SceneObject &) {}
-
-		virtual void action(SceneObject &object) = 0;
+		virtual void reset(gk::SceneObject &) {}
 
 		const std::string &state() const { return m_state; }
 

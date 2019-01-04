@@ -33,7 +33,7 @@ void SpriteComponent::addState(const std::string &name, bool handleDirection, bo
 	m_states.emplace(name, SpriteState{handleDirection, isAnimated, animationID, frameID});
 }
 
-void SpriteComponent::setState(const std::string &name, SceneObject &object, u16 frameOffset) {
+void SpriteComponent::setState(const std::string &name, gk::SceneObject &object, u16 frameOffset) {
 	auto it = m_states.find(name);
 	if (it == m_states.end())
 		throw EXCEPTION("Unable to set current state to an unexistant state:", name, "|", object.name());

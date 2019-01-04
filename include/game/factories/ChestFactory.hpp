@@ -15,12 +15,14 @@
 #define CHESTFACTORY_HPP_
 
 #include <gk/core/IntTypes.hpp>
-
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class ChestFactory {
 	public:
-		static SceneObject create(u16 tileX, u16 tileY);
+		static gk::SceneObject create(u16 tileX, u16 tileY);
+
+	private:
+		static void chestAction(gk::SceneObject &chest, gk::SceneObject &object, bool inCollision);
 };
 
 #endif // CHESTFACTORY_HPP_

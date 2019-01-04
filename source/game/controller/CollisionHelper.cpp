@@ -11,32 +11,20 @@
  *
  * =====================================================================================
  */
+#include <gk/scene/component/HitboxComponent.hpp>
+#include <gk/scene/component/MovementComponent.hpp>
+
 #include "CollisionHelper.hpp"
 #include "Sprite.hpp"
 
-#include "CollisionComponent.hpp"
-#include "HitboxComponent.hpp"
-#include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 #include "SpriteComponent.hpp"
 
-void CollisionHelper::checkCollision(SceneObject &object1, SceneObject &object2) {
-	bool inCollision = CollisionHelper::inCollision(object1, object2);
-
-	if(object1.has<CollisionComponent>()) {
-		object1.get<CollisionComponent>().collisionActions(object1, object2, inCollision);
-	}
-
-	if(object2.has<CollisionComponent>()) {
-		object2.get<CollisionComponent>().collisionActions(object2, object1, inCollision);
-	}
-}
-
-bool CollisionHelper::inCollision(SceneObject &object1, SceneObject &object2) {
-	if(object1.has<PositionComponent>() && object1.has<HitboxComponent>()
-	&& object2.has<PositionComponent>() && object2.has<HitboxComponent>()) {
-		auto &hitbox1 = object1.get<HitboxComponent>();
-		auto &hitbox2 = object2.get<HitboxComponent>();
+bool CollisionHelper::inCollision(gk::SceneObject &object1, gk::SceneObject &object2) {
+	if(object1.has<PositionComponent>() && object1.has<gk::HitboxComponent>()
+	&& object2.has<PositionComponent>() && object2.has<gk::HitboxComponent>()) {
+		auto &hitbox1 = object1.get<gk::HitboxComponent>();
+		auto &hitbox2 = object2.get<gk::HitboxComponent>();
 
 		if(hitbox1.currentHitbox() && hitbox2.currentHitbox()) {
 			auto &position1 = object1.get<PositionComponent>();
@@ -48,12 +36,12 @@ bool CollisionHelper::inCollision(SceneObject &object1, SceneObject &object2) {
 			rect1 += position1.position();
 			rect2 += position2.position();
 
-			if(object1.has<MovementComponent>()) {
-				rect1 += object1.get<MovementComponent>().v;
+			if(object1.has<gk::MovementComponent>()) {
+				rect1 += object1.get<gk::MovementComponent>().v;
 			}
 
-			if(object2.has<MovementComponent>()) {
-				rect2 += object2.get<MovementComponent>().v;
+			if(object2.has<gk::MovementComponent>()) {
+				rect2 += object2.get<gk::MovementComponent>().v;
 			}
 
 			if(object1.has<SpriteComponent>()) {

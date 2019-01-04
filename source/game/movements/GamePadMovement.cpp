@@ -14,15 +14,15 @@
 #include <cmath>
 
 #include <gk/core/input/GamePad.hpp>
+#include <gk/scene/component/MovementComponent.hpp>
 
 #include "GameKey.hpp"
 #include "GamePadMovement.hpp"
 
-#include "MovementComponent.hpp"
 #include "PositionComponent.hpp"
 
-void GamePadMovement::process(SceneObject &object) {
-	auto &movementComponent = object.get<MovementComponent>();
+void GamePadMovement::process(gk::SceneObject &object) {
+	auto &movementComponent = object.get<gk::MovementComponent>();
 	auto &positionComponent = object.get<PositionComponent>();
 
 	if(gk::GamePad::isKeyPressed(GameKey::Left)) {

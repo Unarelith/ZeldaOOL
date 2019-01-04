@@ -11,26 +11,27 @@
  *
  * =====================================================================================
  */
+#include <gk/scene/component/MovementComponent.hpp>
+
 #include "BehaviourComponent.hpp"
 #include "GamePadMovement.hpp"
 #include "LifetimeComponent.hpp"
-#include "MovementComponent.hpp"
 #include "PlayerStandingState.hpp"
 #include "PlayerSwordState.hpp"
 #include "SpriteComponent.hpp"
 #include "StateComponent.hpp"
 
-void PlayerSwordState::onBegin(SceneObject &) {
+void PlayerSwordState::onBegin(gk::SceneObject &) {
 	m_state = "Sword";
 }
 
-void PlayerSwordState::onEnd(SceneObject &) {
+void PlayerSwordState::onEnd(gk::SceneObject &) {
 }
 
-void PlayerSwordState::update(SceneObject &object) {
+void PlayerSwordState::update(gk::SceneObject &object) {
 	static std::string oldSwordState;
 
-	auto &movement = object.get<MovementComponent>();
+	auto &movement = object.get<gk::MovementComponent>();
 	auto &state = object.get<StateComponent>();
 
 	std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
@@ -68,9 +69,9 @@ void PlayerSwordState::update(SceneObject &object) {
 		updateSprite(object);
 }
 
-void PlayerSwordState::updateSprite(SceneObject &object) {
+void PlayerSwordState::updateSprite(gk::SceneObject &object) {
 	auto &sprite = object.get<SpriteComponent>();
-	auto &movement = object.get<MovementComponent>();
+	auto &movement = object.get<gk::MovementComponent>();
 
 	std::string swordState = m_weapon->get<BehaviourComponent>().behaviour->state();
 	if (swordState == "Loading" || swordState == "Loaded")

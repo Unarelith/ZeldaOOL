@@ -14,11 +14,14 @@
 #ifndef NPCFACTORY_HPP_
 #define NPCFACTORY_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class NPCFactory {
 	public:
-		static SceneObject create(u16 tileX, u16 tileY);
+		static gk::SceneObject create(u16 tileX, u16 tileY);
+
+	private:
+		static void npcAction(gk::SceneObject &npc, gk::SceneObject &object, bool inCollision);
 };
 
 #endif // NPCFACTORY_HPP_
