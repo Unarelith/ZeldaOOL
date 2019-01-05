@@ -12,7 +12,7 @@
  * =====================================================================================
  */
 #include <gk/core/ApplicationStateStack.hpp>
-#include <gk/system/Debug.hpp>
+#include <gk/core/Debug.hpp>
 
 #include "TransitionState.hpp"
 

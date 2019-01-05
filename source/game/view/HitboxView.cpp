@@ -14,7 +14,7 @@
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <gk/gui/RectangleShape.hpp>
+#include <gk/graphics/RectangleShape.hpp>
 #include <gk/scene/component/HitboxComponent.hpp>
 
 #include "HitboxView.hpp"

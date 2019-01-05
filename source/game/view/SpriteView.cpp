@@ -15,7 +15,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <gk/scene/component/MovementComponent.hpp>
-#include <gk/system/GameClock.hpp>
+#include <gk/core/GameClock.hpp>
 
 #include "HealthComponent.hpp"
 #include "Image.hpp"

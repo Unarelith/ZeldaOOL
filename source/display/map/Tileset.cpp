@@ -14,7 +14,7 @@
 #include <sstream>
 
 #include <gk/core/XMLFile.hpp>
-#include <gk/system/Exception.hpp>
+#include <gk/core/Exception.hpp>
 
 #include "Tileset.hpp"
 

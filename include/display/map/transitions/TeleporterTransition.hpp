@@ -14,7 +14,7 @@
 #ifndef TELEPORTERTRANSITION_HPP_
 #define TELEPORTERTRANSITION_HPP_
 
-#include <gk/gui/RectangleShape.hpp>
+#include <gk/graphics/RectangleShape.hpp>
 
 #include "Direction.hpp"
 #include "Map.hpp"

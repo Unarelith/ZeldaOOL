@@ -18,7 +18,7 @@
 #include <functional>
 #include <string>
 
-#include <gk/gui/RectangleShape.hpp>
+#include <gk/graphics/RectangleShape.hpp>
 
 #include "Image.hpp"
 #include "TextBox.hpp"

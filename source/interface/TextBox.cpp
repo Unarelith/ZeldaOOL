@@ -14,7 +14,7 @@
 #include <functional>
 
 #include <gk/audio/AudioPlayer.hpp>
-#include <gk/system/Exception.hpp>
+#include <gk/core/Exception.hpp>
 
 #include "TextBox.hpp"
 

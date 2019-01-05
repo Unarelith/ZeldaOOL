@@ -14,7 +14,7 @@
 #ifndef IMAGE_HPP_
 #define IMAGE_HPP_
 
-#include <gk/gui/Image.hpp>
+#include <gk/graphics/Image.hpp>
 
 class Image : public gk::Image {
 	public:
