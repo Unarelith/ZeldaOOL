@@ -14,12 +14,12 @@
 #include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
 #include <gk/scene/component/MovementComponent.hpp>
-#include <gk/scene/controller/MovementController.hpp>
 
 #include "CollectableFactory.hpp"
 #include "ChestOpeningState.hpp"
 #include "LifetimeComponent.hpp"
 #include "MessageBoxState.hpp"
+#include "MovementController.hpp"
 #include "PositionComponent.hpp"
 #include "Sprite.hpp"
 #include "World.hpp"
@@ -39,7 +39,7 @@ ChestOpeningState::ChestOpeningState(gk::SceneObject &chest, gk::ApplicationStat
 
 void ChestOpeningState::update() {
 	if(m_state == State::Opening) {
-		gk::MovementController movementController;
+		MovementController movementController;
 		movementController.update(*m_item);
 
 		auto &movementComponent = m_item->get<gk::MovementComponent>();

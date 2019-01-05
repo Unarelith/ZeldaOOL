@@ -30,7 +30,7 @@
 
 gk::SceneObject CollectableFactory::create(u16 x, u16 y, const std::string &name, const std::string &soundEffectName, CollectableMovement::Type movementType) {
 	gk::SceneObject object(name, "Collectable");
-	object.set<gk::MovementComponent>(new CollectableMovement(movementType));
+	object.set<gk::MovementComponent>(new CollectableMovement(movementType)).speed = 0.4f;
 	object.set<CollectableComponent>("sfx-" + soundEffectName);
 	object.set<LifetimeComponent>(6000);
 
