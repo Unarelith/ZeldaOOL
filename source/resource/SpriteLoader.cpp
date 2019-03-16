@@ -11,10 +11,10 @@
  *
  * =====================================================================================
  */
+#include <gk/core/Filesystem.hpp>
 #include <gk/core/XMLFile.hpp>
 #include <gk/resource/ResourceHandler.hpp>
 
-#include "Filesystem.hpp"
 #include "SpriteComponent.hpp"
 #include "SpriteLoader.hpp"
 
@@ -33,7 +33,7 @@ void SpriteLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
 }
 
 void SpriteLoader::loadSprite(const std::string &textureName, gk::ResourceHandler &handler) {
-	if (Filesystem::fileExists("resources/config/sprites/" + textureName + ".xml")) {
+	if (gk::Filesystem::fileExists("resources/config/sprites/" + textureName + ".xml")) {
 		gk::XMLFile doc("resources/config/sprites/" + textureName + ".xml");
 
 		tinyxml2::XMLElement *spriteElement = doc.FirstChildElement("sprite").ToElement();

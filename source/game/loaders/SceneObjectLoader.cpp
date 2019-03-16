@@ -12,8 +12,8 @@
  * =====================================================================================
  */
 #include <gk/core/XMLFile.hpp>
+#include <gk/core/Filesystem.hpp>
 
-#include "Filesystem.hpp"
 #include "SceneObjectLoader.hpp"
 
 #include "ButtonLoader.hpp"
@@ -23,7 +23,7 @@
 #include "TeleporterLoader.hpp"
 
 void SceneObjectLoader::load(const std::string &mapName, gk::Scene &scene) {
-	if(Filesystem::fileExists("resources/config/maps/" + mapName + ".xml")) {
+	if(gk::Filesystem::fileExists("resources/config/maps/" + mapName + ".xml")) {
 		gk::XMLFile doc("resources/config/maps/" + mapName + ".xml");
 
 		tinyxml2::XMLElement *objectElement = doc.FirstChildElement("map").FirstChildElement().ToElement();
