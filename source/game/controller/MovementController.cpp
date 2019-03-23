@@ -38,7 +38,8 @@ void MovementController::update(gk::SceneObject &object) {
 
 		movement.isMoving = (movement.v.x || movement.v.y) ? true : false;
 
-		position.move(movement.v * movement.speed);
+		position.x += movement.v.x * movement.speed;
+		position.y += movement.v.y * movement.speed;
 
 		movement.v = 0;
 	}
