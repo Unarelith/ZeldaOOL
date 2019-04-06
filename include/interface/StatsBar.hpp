@@ -17,7 +17,7 @@
 #include "Sprite.hpp"
 #include "Text.hpp"
 
-class StatsBar : public gk::IDrawable {
+class StatsBar : public sf::Drawable {
 	public:
 		StatsBar();
 
@@ -26,7 +26,7 @@ class StatsBar : public gk::IDrawable {
 		void updateHearts();
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		Image m_background{"interface-stats"};
 

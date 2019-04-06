@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 #include <gk/scene/Scene.hpp>
 
 #include "Application.hpp"
@@ -33,15 +33,16 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 
 	auto &positionComponent = World::getInstance().player().get<PositionComponent>();
 	positionComponent.direction = playerDirection;
-	positionComponent.x = playerX;
-	positionComponent.y = playerY;
+	positionComponent.left = playerX;
+	positionComponent.top = playerY;
 
 	m_timer.start();
 
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	// FIXME: SFML
+	// glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-	m_rect1.setSize(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 16);
-	m_rect2.setSize(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 16);
+	m_rect1.setSize({SCREEN_WIDTH / 2, SCREEN_HEIGHT - 16});
+	m_rect2.setSize({SCREEN_WIDTH / 2, SCREEN_HEIGHT - 16});
 
 	m_rect1.setPosition(0, 16);
 	m_rect2.setPosition(SCREEN_WIDTH / 2, 16);
@@ -61,25 +62,27 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 
 	m_drawStatsBar = false;
 
-	m_rect1.setColor(m_color);
-	m_rect2.setColor(m_color);
+	m_rect1.setFillColor(m_color);
+	m_rect2.setFillColor(m_color);
 
 	Sprite::pause = true;
 }
 
 void TeleporterTransition::update() {
-	if(m_rect1.getPosition().x + m_rect1.width() < 0) {
+	if(m_rect1.getPosition().x + m_rect1.getSize().x < 0) {
 		World::getInstance().setCurrentMap(m_nextMap);
 
 		m_atEnd = true;
 
 		Sprite::pause = false;
 
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		// FIXME: SFML
+		// glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	}
 
 	if(m_timer.time() > 250) {
-		glClearColor(m_color.r, m_color.g, m_color.b, m_color.a);
+		// FIXME: SFML
+		// glClearColor(m_color.r, m_color.g, m_color.b, m_color.a);
 
 		m_drawStatsBar = true;
 
@@ -88,12 +91,12 @@ void TeleporterTransition::update() {
 	}
 }
 
-void TeleporterTransition::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void TeleporterTransition::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	if(m_timer.time() > 250) {
 		target.draw(*m_nextMap, states);
 
 		Map *currentMap = World::getInstance().currentMap();
-		states.transform.translate(currentMap->getPosition());
+		states.transform.translate(currentMap->getPosition().x, currentMap->getPosition().y);
 		currentMap->scene().draw(World::getInstance().player(), target, states);
 		states.transform.translate(-currentMap->getPosition());
 

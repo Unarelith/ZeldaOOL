@@ -14,14 +14,15 @@
 #ifndef MAP_HPP_
 #define MAP_HPP_
 
-#include <gk/gl/Transformable.hpp>
+#include <SFML/Graphics/Transformable.hpp>
+
 #include <gk/scene/Scene.hpp>
 
 #include "MapAnimator.hpp"
 #include "MapRenderer.hpp"
 #include "Tileset.hpp"
 
-class Map : public gk::IDrawable, public gk::Transformable {
+class Map : public sf::Drawable, public sf::Transformable {
 	public:
 		Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data);
 
@@ -57,7 +58,7 @@ class Map : public gk::IDrawable, public gk::Transformable {
 		};
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		u16 m_area = 0;
 		u16 m_x = 0;

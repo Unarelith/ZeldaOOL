@@ -30,7 +30,7 @@ void World::update() {
 	m_currentMap->update();
 }
 
-void World::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void World::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 
 	if (m_currentMap) {

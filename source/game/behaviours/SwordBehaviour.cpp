@@ -11,8 +11,8 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/input/GamePad.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 #include <gk/scene/component/HitboxComponent.hpp>
 
 #include "GameKey.hpp"

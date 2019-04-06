@@ -1,18 +1,19 @@
 /*
  * =====================================================================================
  *
- *       Filename:  MapRenderer.cpp
+ *       Filename:  TilemapRenderer.cpp
  *
  *    Description:
  *
- *        Created:  30/04/2015 19:47:26
+ *        Created:  15/02/2019 19:21:11
  *
  *         Author:  Quentin Bazin, <quent42340@gmail.com>
  *
  * =====================================================================================
  */
-#include <gk/gl/Shader.hpp>
-#include <gk/gl/Vertex.hpp>
+#include <SFML/OpenGL.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Vertex.hpp>
 
 #include "Map.hpp"
 #include "MapRenderer.hpp"
@@ -20,13 +21,13 @@
 void MapRenderer::init(Map *map, u16 mapWidth, u16 mapHeight) {
 	m_map = map;
 
-	gk::VertexBuffer::bind(&m_vbo);
-	m_vbo.setData(sizeof(gk::Vertex) * mapWidth * mapHeight * 6, nullptr, GL_DYNAMIC_DRAW);
-	gk::VertexBuffer::bind(nullptr);
+	m_vbo.setPrimitiveType(sf::PrimitiveType::Triangles);
+	m_vbo.create(mapWidth * mapHeight * 6);
+	m_vbo.setUsage(sf::VertexBuffer::Dynamic);
 }
 
 void MapRenderer::updateTile(u16 tileX, u16 tileY, u16 id, Map &map) {
-	gk::VertexBuffer::bind(&m_vbo);
+	if (id == 0) return;
 
 	float tileWidth  = map.tileset().tileWidth();
 	float tileHeight = map.tileset().tileHeight();
@@ -34,34 +35,31 @@ void MapRenderer::updateTile(u16 tileX, u16 tileY, u16 id, Map &map) {
 	float x = tileX * tileWidth;
 	float y = tileY * tileHeight;
 
-	float texTileX = id % u16(map.tileset().width() / tileWidth) * tileWidth  / map.tileset().width();
-	float texTileY = id / u16(map.tileset().width() / tileWidth) * tileHeight / map.tileset().height();
+	float texTileX = id % u16(map.tileset().getSize().x / tileWidth) * tileWidth;
+	float texTileY = id / u16(map.tileset().getSize().x / tileWidth) * tileHeight;
 
-	float texTileWidth  = tileWidth  / map.tileset().width();
-	float texTileHeight = tileHeight / map.tileset().height();
+	float texTileWidth  = tileWidth;
+	float texTileHeight = tileHeight;
 
-	gk::Vertex vertices[] = {
-		{{x            , y             , 0, 1}, {texTileX               , texTileY                }, {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x + tileWidth, y             , 0, 1}, {texTileX + texTileWidth, texTileY                }, {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x + tileWidth, y + tileHeight, 0, 1}, {texTileX + texTileWidth, texTileY + texTileHeight}, {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x            , y             , 0, 1}, {texTileX               , texTileY                }, {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x + tileWidth, y + tileHeight, 0, 1}, {texTileX + texTileWidth, texTileY + texTileHeight}, {1.0f, 1.0f, 1.0f, 1.0f}},
-		{{x            , y + tileHeight, 0, 1}, {texTileX               , texTileY + texTileHeight}, {1.0f, 1.0f, 1.0f, 1.0f}}
+	sf::Vertex vertices[6] = {
+		{{x            , y             }, sf::Color::White, {texTileX               , texTileY                }},
+		{{x + tileWidth, y             }, sf::Color::White, {texTileX + texTileWidth, texTileY                }},
+		{{x + tileWidth, y + tileHeight}, sf::Color::White, {texTileX + texTileWidth, texTileY + texTileHeight}},
+		{{x            , y             }, sf::Color::White, {texTileX               , texTileY                }},
+		{{x + tileWidth, y + tileHeight}, sf::Color::White, {texTileX + texTileWidth, texTileY + texTileHeight}},
+		{{x            , y + tileHeight}, sf::Color::White, {texTileX               , texTileY + texTileHeight}}
 	};
 
-	m_vbo.updateData(sizeof(vertices) * (tileX + tileY * map.width()), sizeof(vertices), vertices);
-
-	gk::VertexBuffer::bind(nullptr);
+	m_vbo.update(vertices, 6, 6 * (tileX + tileY * map.width()));
 }
 
-void MapRenderer::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void MapRenderer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	if (!m_map) return;
 
 	states.texture = &m_map->tileset();
 
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_DEPTH_TEST);
-
-	target.draw(m_vbo, GL_TRIANGLES, 0, 6 * m_map->width() * m_map->height(), states);
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	target.draw(m_vbo, 0, 6 * m_map->width() * m_map->height(), states);
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 

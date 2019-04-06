@@ -11,8 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
-#include <gk/gl/Texture.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 #include <gk/resource/ResourceHandler.hpp>
 #include <gk/scene/component/CollisionComponent.hpp>
 #include <gk/scene/component/HitboxComponent.hpp>

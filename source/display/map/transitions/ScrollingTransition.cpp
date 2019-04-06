@@ -49,8 +49,8 @@ void ScrollingTransition::update() {
 	gk::SceneObject &player = World::getInstance().player();
 
 	PositionComponent &positionComponent = player.get<PositionComponent>();
-	positionComponent.x += m_vx * 0.15f;
-	positionComponent.y += m_vy * 0.21f;
+	positionComponent.left += m_vx * 0.15f;
+	positionComponent.top += m_vy * 0.21f;
 
 	World::getInstance().currentMap()->move(-m_vx * 1.6f, -m_vy * 1.5f);
 	m_nextMap->move(-m_vx * 1.6f, -m_vy * 1.5f);
@@ -60,10 +60,10 @@ void ScrollingTransition::update() {
 
 	if((m_scrolled >= SCREEN_WIDTH       && m_vx != 0)
 	|| (m_scrolled >= SCREEN_HEIGHT - 16 && m_vy != 0)) {
-		if(m_vx < 0)      positionComponent.x += m_nextMap->width() * 16;
-		else if(m_vx > 0) positionComponent.x += -World::getInstance().currentMap()->width() * 16;
-		else if(m_vy < 0) positionComponent.y += m_nextMap->height() * 16;
-		else if(m_vy > 0) positionComponent.y += -World::getInstance().currentMap()->height() * 16;
+		if(m_vx < 0)      positionComponent.left += m_nextMap->width() * 16;
+		else if(m_vx > 0) positionComponent.left += -World::getInstance().currentMap()->width() * 16;
+		else if(m_vy < 0) positionComponent.top += m_nextMap->height() * 16;
+		else if(m_vy > 0) positionComponent.top += -World::getInstance().currentMap()->height() * 16;
 
 		World::getInstance().setCurrentMap(m_nextMap);
 		World::getInstance().currentMap()->setPosition(0, 16);
@@ -79,13 +79,13 @@ void ScrollingTransition::update() {
 	for(auto &object : objectList) {
 		if (object.has<PositionComponent>()) {
 			auto &position = object.get<PositionComponent>();
-			position.x = positionComponent.x;
-			position.y = positionComponent.y;
+			position.left = positionComponent.left;
+			position.top = positionComponent.top;
 		}
 	}
 }
 
-void ScrollingTransition::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void ScrollingTransition::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	target.draw(*m_nextMap, states);
 
 	target.draw(*World::getInstance().currentMap(), states);

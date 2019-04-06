@@ -18,7 +18,7 @@
 
 class SpriteView : public gk::AbstractView {
 	public:
-		void draw(const gk::SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) override;
+		void draw(const gk::SceneObject &object, sf::RenderTarget &target, sf::RenderStates states) override;
 };
 
 #endif // SPRITEVIEW_HPP_

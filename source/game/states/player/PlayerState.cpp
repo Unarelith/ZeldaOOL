@@ -57,7 +57,7 @@ void PlayerState::weaponAction(gk::SceneObject &player) {
 		}
 
 		if(weapon) {
-			gk::SceneObject *weaponObject = &objects.addObject(WeaponFactory::create(*weapon, position.x, position.y, key, player));
+			gk::SceneObject *weaponObject = &objects.addObject(WeaponFactory::create(*weapon, position.left, position.top, key, player));
 
 			auto &stateComponent = player.get<StateComponent>();
 			std::string state = weaponObject->get<WeaponComponent>().playerState;

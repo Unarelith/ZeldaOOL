@@ -1,4 +1,4 @@
-<!-- Key names are defined here: https://wiki.libsdl.org/SDL_Keycode -->
+<!-- Key names are defined here: https://www.sfml-dev.org/documentation/2.5.1-fr/classsf_1_1Keyboard.php#acb4cacd7cc5802dec45724cf3314a142 -->
 <keys>
 	<Left  key="Left"/>
 	<Right key="Right"/>
@@ -9,5 +9,5 @@
 	<B key="W"/>
 
 	<Start  key="Return"/>
-	<Select key="Backspace"/>
+	<Select key="BackSpace"/>
 </keys>

@@ -13,7 +13,7 @@
  */
 #include <cmath>
 
-#include <gk/audio/AudioPlayer.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 #include <gk/scene/component/HitboxComponent.hpp>
 #include <gk/scene/component/MovementComponent.hpp>
 
@@ -65,10 +65,10 @@ void BattleController::hurt(gk::SceneObject &attacker, gk::SceneObject &receiver
 					auto &attackerPosition = attacker.get<PositionComponent>();
 					auto &receiverPosition = receiver.get<PositionComponent>();
 
-					gk::Vector2f pos1{receiverPosition.x, receiverPosition.y};
-					gk::Vector2f pos2{attackerPosition.x, attackerPosition.y};
+					sf::Vector2f pos1{receiverPosition.left, receiverPosition.top};
+					sf::Vector2f pos2{attackerPosition.left, attackerPosition.top};
 
-					gk::Vector2f v = pos1 - pos2;
+					sf::Vector2f v = pos1 - pos2;
 
 					if(v.x != 0) v.x /= fabs(v.x);
 					if(v.y != 0) v.y /= fabs(v.y);

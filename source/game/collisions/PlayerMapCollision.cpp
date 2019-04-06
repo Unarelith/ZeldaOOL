@@ -61,15 +61,18 @@ void PlayerMapCollision::update(gk::SceneObject &player) {
 			directionTest = position.direction == Direction::Down;
 		}
 
-		bool firstPosPassable  = World::getInstance().currentMap()->passable(position.x + collisionMatrix[i][0], position.y + collisionMatrix[i][1]);
-		bool secondPosPassable = World::getInstance().currentMap()->passable(position.x + collisionMatrix[i][2], position.y + collisionMatrix[i][3]);
+		bool firstPosPassable  = World::getInstance().currentMap()->passable(position.left + collisionMatrix[i][0], position.top + collisionMatrix[i][1]);
+		bool secondPosPassable = World::getInstance().currentMap()->passable(position.left + collisionMatrix[i][2], position.top + collisionMatrix[i][3]);
 
 		if(velocityTest && (!firstPosPassable || !secondPosPassable)) {
 			if(i < 2)	movement.v.x = 0;
 			else		movement.v.y = 0;
 
 			// If the player is looking at the wall, block it
-			if(directionTest) movement.isBlocked = true;
+			if(directionTest) {
+				movement.isBlocked.x = true;
+				movement.isBlocked.y = true;
+			}
 
 			// Test collisions with tile borders in order to shift the player
 			if(!firstPosPassable && secondPosPassable) {
@@ -80,7 +83,8 @@ void PlayerMapCollision::update(gk::SceneObject &player) {
 					movement.v.x = 1;
 				}
 
-				movement.isBlocked = false;
+				movement.isBlocked.x = false;
+				movement.isBlocked.y = false;
 			}
 
 			if(firstPosPassable && !secondPosPassable) {
@@ -91,43 +95,48 @@ void PlayerMapCollision::update(gk::SceneObject &player) {
 					movement.v.x = -1;
 				}
 
-				movement.isBlocked = false;
+				movement.isBlocked.x = false;
+				movement.isBlocked.y = false;
 			}
 		}
 	}
 
 	auto onTile = [position](u16 tile) {
-		return (World::getInstance().currentMap()->isTile(position.x + 6, position.y + 11, tile)
-			&&  World::getInstance().currentMap()->isTile(position.x + 7, position.y + 11, tile)
-			&&  World::getInstance().currentMap()->isTile(position.x + 6, position.y + 12, tile)
-			&&  World::getInstance().currentMap()->isTile(position.x + 7, position.y + 12, tile));
+		return (World::getInstance().currentMap()->isTile(position.left + 6, position.top + 11, tile)
+			&&  World::getInstance().currentMap()->isTile(position.left + 7, position.top + 11, tile)
+			&&  World::getInstance().currentMap()->isTile(position.left + 6, position.top + 12, tile)
+			&&  World::getInstance().currentMap()->isTile(position.left + 7, position.top + 12, tile));
 	};
 
 	if(onTile(TilesInfos::TileType::SlowingTile)) {
-		movement.v /= 2;
+		movement.v.x /= 2;
+		movement.v.y /= 2;
 	}
 
 	if(onTile(TilesInfos::TileType::LowGrassTile)) {
-		movement.v /= 4;
-		movement.v *= 3;
+		movement.v.x /= 4;
+		movement.v.y /= 4;
+
+		movement.v.x *= 3;
+		movement.v.y *= 3;
 	}
 
 	effects.enableIf("grass",    onTile(TilesInfos::TileType::LowGrassTile));
 	effects.enableIf("lowWater", onTile(TilesInfos::TileType::LowWaterTile));
 
-	if(position.x < -3) {
+	if(position.left < -3) {
 		auto &state = gk::ApplicationStateStack::getInstance().push<TransitionState>(&gk::ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingLeft);
 	}
-	else if(position.x + 13 > World::getInstance().currentMap()->width() * 16) {
+	else if(position.left + 13 > World::getInstance().currentMap()->width() * 16) {
 		auto &state = gk::ApplicationStateStack::getInstance().push<TransitionState>(&gk::ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingRight);
 	}
-	else if(position.y < -1) {
+	else if(position.top < -1) {
 		auto &state = gk::ApplicationStateStack::getInstance().push<TransitionState>(&gk::ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingUp);
 	}
-	else if(position.y + 15 > World::getInstance().currentMap()->height() * 16) {
+	else if(position.top + 15 > World::getInstance().currentMap()->height() * 16) {
 		auto &state = gk::ApplicationStateStack::getInstance().push<TransitionState>(&gk::ApplicationStateStack::getInstance().top());
 		state.setTransition<ScrollingTransition>(ScrollingTransition::Mode::ScrollingDown);
 	}

@@ -54,11 +54,12 @@ void NPCFactory::npcAction(gk::SceneObject &npc, gk::SceneObject &object, bool i
 
 		auto &npcPosition = npc.get<PositionComponent>();
 
-		if(playerPosition.intersectionDirection(npcPosition) == 1) {
-			playerMovement.v.x = 0;
-		} else {
-			playerMovement.v.y = 0;
-		}
+		// FIXME: SFML
+		// if(playerPosition.intersectionDirection(npcPosition) == 1) {
+		// 	playerMovement.v.x = 0;
+		// } else {
+		// 	playerMovement.v.y = 0;
+		// }
 
 		// FIXME: Fix priorities with weaponA
 		if(gk::GamePad::isKeyPressedOnce(GameKey::A)) {

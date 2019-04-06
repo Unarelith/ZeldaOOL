@@ -18,12 +18,12 @@
 #include <functional>
 #include <string>
 
-#include <gk/graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 #include "Image.hpp"
 #include "TextBox.hpp"
 
-class MessageBox : public gk::IDrawable, public gk::Transformable {
+class MessageBox : public sf::Drawable, public sf::Transformable {
 	public:
 		enum Position : u8 {
 			Top    = 24,
@@ -37,11 +37,11 @@ class MessageBox : public gk::IDrawable, public gk::Transformable {
 		bool finished() const { return m_finished; }
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		Image m_dialogArrow{"interface-dialogArrow"};
 
-		gk::RectangleShape m_rectangle{144, 40, gk::Color::Black};
+		sf::RectangleShape m_rectangle;
 
 		TextBox m_textBox;
 

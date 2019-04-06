@@ -11,8 +11,8 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 #include <gk/scene/component/MovementComponent.hpp>
 
 #include "CollectableFactory.hpp"
@@ -31,8 +31,8 @@ ChestOpeningState::ChestOpeningState(gk::SceneObject &chest, gk::ApplicationStat
 	auto &chestPosition = chest.get<PositionComponent>();
 	auto &itemPosition = m_item->get<PositionComponent>();
 
-	itemPosition.x = chestPosition.x + 8 - itemPosition.width / 2;
-	itemPosition.y = chestPosition.y - 8;
+	itemPosition.left = chestPosition.left + 8 - itemPosition.width / 2;
+	itemPosition.top = chestPosition.top - 8;
 
 	Sprite::pause = true;
 }
@@ -63,7 +63,7 @@ void ChestOpeningState::update() {
 	}
 }
 
-void ChestOpeningState::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void ChestOpeningState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	target.draw(*m_parent, states);
 }
 

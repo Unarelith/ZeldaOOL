@@ -39,11 +39,11 @@ void ButtonFactory::buttonAction(gk::SceneObject &button, gk::SceneObject &objec
 		auto &buttonComponent = button.get<ButtonComponent>();
 
 		if(inCollision) {
-			buttonComponent.pressedAction(positionComponent.x / 16,
-			                              positionComponent.y / 16);
+			buttonComponent.pressedAction(positionComponent.left / 16,
+			                              positionComponent.top / 16);
 		} else {
-			buttonComponent.releasedAction(positionComponent.x / 16,
-			                               positionComponent.y / 16);
+			buttonComponent.releasedAction(positionComponent.left / 16,
+			                               positionComponent.top / 16);
 		}
 	}
 }

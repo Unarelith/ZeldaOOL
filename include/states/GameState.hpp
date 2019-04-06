@@ -26,7 +26,7 @@ class GameState : public gk::ApplicationState {
 		void update() override;
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		StatsBar m_statsBar;
 

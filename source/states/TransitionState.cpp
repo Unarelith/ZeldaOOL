@@ -32,7 +32,7 @@ void TransitionState::update() {
 	}
 }
 
-void TransitionState::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void TransitionState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	if (m_transition)
 		target.draw(*m_transition, states);
 

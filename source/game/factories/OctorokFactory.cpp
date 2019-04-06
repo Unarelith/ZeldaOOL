@@ -72,7 +72,7 @@ gk::SceneObject OctorokFactory::create(float x, float y) {
 	return octorok;
 }
 
-#include <gk/audio/AudioPlayer.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 #include "BattleController.hpp"
 #include "WeaponComponent.hpp"
 
@@ -92,7 +92,7 @@ void OctorokFactory::octorokAction(gk::SceneObject &octorok, gk::SceneObject &ob
 
 				// FIXME: Items drop too soon
 				if(octorok.get<HealthComponent>().life() == 0)
-					octorok.get<LootComponent>().dropItem(positionComponent.x, positionComponent.y);
+					octorok.get<LootComponent>().dropItem(positionComponent.left, positionComponent.top);
 			// }
 		}
 	}

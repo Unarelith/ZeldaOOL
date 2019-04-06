@@ -23,7 +23,7 @@ Tileset::Tileset(const std::string &filename, const std::string &configFile) {
 }
 
 void Tileset::load(const std::string &filename, const std::string &configFile) {
-	gk::Texture::loadFromFile(filename);
+	sf::Texture::loadFromFile(filename);
 
 	gk::XMLFile doc(configFile);
 

@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 
 #include "ButtonComponent.hpp"
 #include "World.hpp"

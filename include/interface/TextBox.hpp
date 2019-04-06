@@ -20,7 +20,7 @@
 #include "Color.hpp"
 #include "Sprite.hpp"
 
-class TextBox : public gk::IDrawable, public gk::Transformable {
+class TextBox : public sf::Drawable, public sf::Transformable {
 	public:
 		TextBox(const std::string &text, u16 width, u16 height);
 
@@ -42,7 +42,7 @@ class TextBox : public gk::IDrawable, public gk::Transformable {
 		u8 page() const { return m_page; }
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		bool isTimeToDisplayLetter(u16 letterIndex) const;
 
@@ -60,8 +60,8 @@ class TextBox : public gk::IDrawable, public gk::Transformable {
 
 		u8 m_page = 0;
 
-		gk::Color m_currentColor = Color::Text;
-		std::map<u16, gk::Color> m_colorChanges;
+		sf::Color m_currentColor = Color::Text;
+		std::map<u16, sf::Color> m_colorChanges;
 
 		u16 m_width = 0;
 		u16 m_height = 0;

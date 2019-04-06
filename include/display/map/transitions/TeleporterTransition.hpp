@@ -14,7 +14,7 @@
 #ifndef TELEPORTERTRANSITION_HPP_
 #define TELEPORTERTRANSITION_HPP_
 
-#include <gk/graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 #include "Direction.hpp"
 #include "Map.hpp"
@@ -27,16 +27,16 @@ class TeleporterTransition : public Transition {
 		void update() override;
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		Map *m_nextMap;
 
 		gk::Timer m_timer;
 
-		gk::RectangleShape m_rect1;
-		gk::RectangleShape m_rect2;
+		sf::RectangleShape m_rect1;
+		sf::RectangleShape m_rect2;
 
-		gk::Color m_color;
+		sf::Color m_color;
 };
 
 #endif // TELEPORTERTRANSITION_HPP_

@@ -11,9 +11,9 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/input/GamePad.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 #include <gk/scene/component/CollisionComponent.hpp>
 #include <gk/scene/component/HitboxComponent.hpp>
 #include <gk/scene/Scene.hpp>
@@ -48,12 +48,12 @@ void ChestFactory::chestAction(gk::SceneObject &chest, gk::SceneObject &object, 
 
 		// FIXME: Find a better way to find if the player is facing the chest
 		if(playerPosition.direction == Direction::Up
-		&& playerPosition.y > chestPosition.y
+		&& playerPosition.top > chestPosition.top
 		&& gk::GamePad::isKeyPressedOnce(GameKey::A)) {
 			gk::AudioPlayer::playSound("sfx-chest");
 
-			World::getInstance().currentMap()->setTile(chestPosition.x / 16,
-			                                           chestPosition.y / 16, 240, true, true);
+			World::getInstance().currentMap()->setTile(chestPosition.left / 16,
+			                                           chestPosition.top / 16, 240, true, true);
 
 			gk::ApplicationStateStack::getInstance().push<ChestOpeningState>(chest, &gk::ApplicationStateStack::getInstance().top());
 

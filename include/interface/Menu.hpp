@@ -16,14 +16,14 @@
 
 #include "Image.hpp"
 
-class Menu : public gk::IDrawable {
+class Menu : public sf::Drawable {
 	public:
 		Menu();
 
 		void update();
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		Image m_background{"interface-menuBackground"};
 		Image m_cursor{"interface-menuCursor"};

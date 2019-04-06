@@ -18,21 +18,21 @@
 
 #include "Sprite.hpp"
 
-class Text : public gk::IDrawable, public gk::Transformable {
+class Text : public sf::Drawable, public sf::Transformable {
 	public:
 		Text(const std::string &textureName, u8 charWidth, u8 charHeight);
 
 		const std::string &text() const { return m_text; }
 		void setText(const std::string &text) { m_text = text; updateTextSprites(); }
 
-		void setColor(const gk::Color &color) { m_color = color; }
+		void setColor(const sf::Color &color) { m_color = color; }
 
 		void setCharSpacing(s8 charSpacingX, s8 charSpacingY) { m_charSpacingX = charSpacingX; m_charSpacingY = charSpacingY; }
 
-		const gk::Vector2i &getSize() const { return m_size; }
+		const sf::Vector2i &getSize() const { return m_size; }
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		void updateTextSprites();
 
@@ -45,9 +45,9 @@ class Text : public gk::IDrawable, public gk::Transformable {
 		s8 m_charSpacingX = 1;
 		s8 m_charSpacingY = 1;
 
-		gk::Vector2i m_size;
+		sf::Vector2i m_size;
 
-		gk::Color m_color = gk::Color::White;
+		sf::Color m_color = sf::Color::White;
 };
 
 #endif // TEXT_HPP_

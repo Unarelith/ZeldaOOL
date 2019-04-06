@@ -11,7 +11,8 @@
  *
  * =====================================================================================
  */
-#include <gk/gl/Texture.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+
 #include <gk/resource/ResourceHandler.hpp>
 
 #include "Text.hpp"
@@ -22,7 +23,7 @@ Text::Text(const std::string &textureName, u8 charWidth, u8 charHeight) {
 	m_charHeight = charHeight;
 }
 
-void Text::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void Text::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 
 	for(const Sprite &sprite : m_textSprites) {
@@ -47,7 +48,7 @@ void Text::updateTextSprites() {
 
 		Sprite sprite{m_textureName, m_charWidth, m_charHeight};
 		sprite.setCurrentFrame(c);
-		sprite.setPosition(x, y, 0);
+		sprite.setPosition(x, y);
 		sprite.setColor(m_color);
 		m_textSprites.emplace_back(std::move(sprite));
 		x += m_charWidth + m_charSpacingX;

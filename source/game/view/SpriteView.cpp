@@ -24,7 +24,7 @@
 #include "SpriteComponent.hpp"
 #include "SpriteView.hpp"
 
-void SpriteView::draw(const gk::SceneObject &object, gk::RenderTarget &target, gk::RenderStates states) {
+void SpriteView::draw(const gk::SceneObject &object, sf::RenderTarget &target, sf::RenderStates states) {
 	// if (object.has<LifetimeComponent>() && object.get<LifetimeComponent>().dead(object))
 	// 	return;
 
@@ -34,7 +34,7 @@ void SpriteView::draw(const gk::SceneObject &object, gk::RenderTarget &target, g
 	}
 
 	if (object.has<PositionComponent>()) {
-		states.transform.translate(object.get<PositionComponent>().x, object.get<PositionComponent>().y);
+		states.transform.translate(object.get<PositionComponent>().left, object.get<PositionComponent>().top);
 	}
 
 	if(object.has<Image>()) {

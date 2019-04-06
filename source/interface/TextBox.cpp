@@ -13,8 +13,10 @@
  */
 #include <functional>
 
-#include <gk/audio/AudioPlayer.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+
 #include <gk/core/Exception.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 
 #include "TextBox.hpp"
 
@@ -114,7 +116,7 @@ void TextBox::setText(const std::string &text) {
 	// and add their informations to m_colorChanges
 	size_t nextColorTag = m_string.find_first_of('[');
 	while(nextColorTag != std::string::npos) {
-		gk::Color color;
+		sf::Color color;
 
 		// Find the color
 		switch(m_string[nextColorTag + 1]) {
@@ -140,7 +142,7 @@ void TextBox::setText(const std::string &text) {
 	updateTextSprites();
 }
 
-void TextBox::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void TextBox::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 
 	for(const Sprite &sprite : m_textSprites) {

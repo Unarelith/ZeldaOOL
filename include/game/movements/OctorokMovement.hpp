@@ -14,9 +14,9 @@
 #ifndef OCTOROKMOVEMENT_HPP_
 #define OCTOROKMOVEMENT_HPP_
 
-#include <gk/core/Timer.hpp>
-#include <gk/core/Vector2.hpp>
+#include <SFML/System/Vector2.hpp>
 
+#include <gk/core/Timer.hpp>
 #include <gk/scene/movement/Movement.hpp>
 
 class OctorokMovement : public gk::Movement {
@@ -35,7 +35,7 @@ class OctorokMovement : public gk::Movement {
 
 		gk::Timer m_timer;
 
-		gk::Vector2f m_v = {0.0f, 0.0f};
+		sf::Vector2f m_v = {0.0f, 0.0f};
 
 		float m_movementCounter = 0;
 

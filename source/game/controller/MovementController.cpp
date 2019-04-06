@@ -25,7 +25,8 @@ void MovementController::update(gk::SceneObject &object) {
 			movement.movements.top()->process(object);
 		}
 
-		movement.isBlocked = false;
+		movement.isBlocked.x = false;
+		movement.isBlocked.y = false;
 	}
 
 	if(object.has<gk::CollisionComponent>()) {
@@ -38,10 +39,11 @@ void MovementController::update(gk::SceneObject &object) {
 
 		movement.isMoving = (movement.v.x || movement.v.y) ? true : false;
 
-		position.x += movement.v.x * movement.speed;
-		position.y += movement.v.y * movement.speed;
+		position.left += movement.v.x * movement.speed;
+		position.top += movement.v.y * movement.speed;
 
-		movement.v = 0;
+		movement.v.x = 0;
+		movement.v.y = 0;
 	}
 }
 

@@ -40,7 +40,7 @@ gk::SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	spriteComponent.setEnabled(false);
 
 	if(lowGrass) {
-		spriteComponent.sprite().setColor(gk::Color{255, 255, 255, 127});
+		spriteComponent.sprite().setColor(sf::Color{255, 255, 255, 127});
 	}
 
 	object.set<BehaviourComponent>(new EasyBehaviour([](gk::SceneObject &object) {
@@ -65,7 +65,7 @@ gk::SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	return object;
 }
 
-#include <gk/audio/AudioPlayer.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 #include "WeaponComponent.hpp"
 #include "World.hpp"
 
@@ -90,10 +90,10 @@ void GrassFactory::grassAction(gk::SceneObject &grass, gk::SceneObject &object, 
 			|| object.get<BehaviourComponent>().behaviour->state() == "SpinAttack") {
 				gk::AudioPlayer::playSound("sfx-grassDestroy");
 
-				grass.get<LootComponent>().dropItem(grassPosition.x + 8, grassPosition.y + 8);
+				grass.get<LootComponent>().dropItem(grassPosition.left + 8, grassPosition.top + 8);
 
-				World::getInstance().currentMap()->setTile((grassPosition.x + 8) / 16,
-				                                           (grassPosition.y + 8) / 16, 36);
+				World::getInstance().currentMap()->setTile((grassPosition.left + 8) / 16,
+				                                           (grassPosition.top + 8) / 16, 36);
 
 				grassSpriteComponent.setEnabled(true);
 				grassHitboxComponent.resetCurrentHitbox();

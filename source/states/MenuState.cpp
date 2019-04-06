@@ -11,9 +11,9 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/input/GamePad.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 
 #include "GameKey.hpp"
 #include "MenuState.hpp"
@@ -30,7 +30,7 @@ void MenuState::update() {
 	}
 }
 
-void MenuState::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void MenuState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	target.draw(m_statsBar, states);
 
 	target.draw(m_menu, states);

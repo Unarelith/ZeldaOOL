@@ -20,12 +20,12 @@ class Image : public gk::Image {
 	public:
 		Image() = default;
 		Image(const std::string &textureName) : gk::Image(textureName) {}
-		Image(const gk::Texture &texture) : gk::Image(texture) {}
+		Image(const sf::Texture &texture) : gk::Image(texture) {}
 
 		void setPaletteID(u8 paletteID) { m_paletteID = paletteID; }
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		u8 m_paletteID = 0;
 };

@@ -74,7 +74,7 @@ void StatsBar::updateHearts() {
 	m_hearts.setText(text);
 }
 
-void StatsBar::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void StatsBar::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	target.draw(m_background, states);
 
 	target.draw(m_hearts, states);

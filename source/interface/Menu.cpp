@@ -11,8 +11,8 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
 #include <gk/core/input/GamePad.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 
 #include "GameKey.hpp"
 #include "InventoryComponent.hpp"
@@ -86,7 +86,7 @@ void Menu::update() {
 	}
 }
 
-void Menu::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void Menu::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	target.draw(m_background, states);
 
 	target.draw(m_cursor, states);

@@ -14,12 +14,12 @@
 #ifndef COLOR_HPP_
 #define COLOR_HPP_
 
-#include <gk/graphics/Color.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 namespace Color {
-	const gk::Color Text{248, 208, 126};
-	const gk::Color Blue{32, 168, 248};
-	const gk::Color Red{232, 8, 24};
+	const sf::Color Text{248, 208, 126};
+	const sf::Color Blue{32, 168, 248};
+	const sf::Color Red{232, 8, 24};
 }
 
 #endif // COLOR_HPP_

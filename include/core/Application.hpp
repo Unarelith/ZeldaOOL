@@ -14,10 +14,10 @@
 #ifndef APPLICATION_HPP_
 #define APPLICATION_HPP_
 
-#include <gk/core/CoreApplication.hpp>
-#include <gk/gl/Shader.hpp>
+#include <SFML/Graphics/Shader.hpp>
 
-#include "KeyboardHandler.hpp"
+#include <gk/core/input/KeyboardHandler.hpp>
+#include <gk/core/CoreApplication.hpp>
 
 class Application : public gk::CoreApplication {
 	public:
@@ -26,11 +26,12 @@ class Application : public gk::CoreApplication {
 		void init() override;
 
 	private:
-		void onEvent(const SDL_Event &event) override;
+		void onEvent(const sf::Event &event) override;
 
-		KeyboardHandler m_keyboardHandler;
+		sf::Shader m_shader;
+		sf::View m_view;
 
-		gk::Shader m_shader;
+		gk::KeyboardHandler m_keyboardHandler;
 };
 
 #endif // APPLICATION_HPP_

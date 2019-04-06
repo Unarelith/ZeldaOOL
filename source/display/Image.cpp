@@ -11,17 +11,19 @@
  *
  * =====================================================================================
  */
-#include <gk/gl/Shader.hpp>
+#include <SFML/Graphics/Shader.hpp>
+
 #include <gk/resource/ResourceHandler.hpp>
 
 #include "Config.hpp"
 #include "Image.hpp"
 
-void Image::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void Image::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	if (states.shader) {
-		gk::Shader::bind(states.shader);
-		states.shader->setUniform("u_paletteID", m_paletteID);
-		gk::Shader::bind(nullptr);
+		sf::Shader::bind(states.shader);
+		// FIXME
+		// states.shader->setUniform("u_paletteID", m_paletteID);
+		sf::Shader::bind(nullptr);
 	}
 
 	gk::Image::draw(target, states);

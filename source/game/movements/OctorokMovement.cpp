@@ -40,7 +40,9 @@ void OctorokMovement::process(gk::SceneObject &object) {
 		m_timer.start();
 
 		if(m_timer.time() > m_randomMinTimeToWait) {
-			m_v = rand() % 3 - 1;
+			int r = rand() % 3 - 1;
+			m_v.x = r;
+			m_v.y = r;
 
 			if(m_v.x != 0 && m_v.y != 0) {
 				if(rand() % 2 == 0) {

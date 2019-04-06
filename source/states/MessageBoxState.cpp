@@ -18,7 +18,7 @@
 #include "World.hpp"
 
 MessageBoxState::MessageBoxState(const std::string &text, gk::ApplicationState *parent) : gk::ApplicationState(parent), m_messageBox(text) {
-	if(World::getInstance().player().get<PositionComponent>().y + 32 < MessageBox::Position::Bottom) {
+	if(World::getInstance().player().get<PositionComponent>().top + 32 < MessageBox::Position::Bottom) {
 		m_messageBox.setPosition(8, MessageBox::Position::Bottom);
 	}
 }
@@ -31,7 +31,7 @@ void MessageBoxState::update() {
 	}
 }
 
-void MessageBoxState::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void MessageBoxState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	target.draw(*m_parent, states);
 
 	target.draw(m_messageBox, states);

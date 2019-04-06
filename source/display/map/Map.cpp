@@ -77,12 +77,12 @@ void Map::update() {
 
 	auto &positionComponent = World::getInstance().player().get<PositionComponent>();
 
-	int x = SCREEN_WIDTH / 2 - positionComponent.x + 8;
-	int y = SCREEN_HEIGHT / 2 - positionComponent.y + 8;
+	int x = SCREEN_WIDTH / 2 - positionComponent.left + 8;
+	int y = SCREEN_HEIGHT / 2 - positionComponent.top + 8;
 	setPosition(std::clamp<int>(x, SCREEN_WIDTH - m_width * 16, 0), std::clamp<int>(y, SCREEN_HEIGHT - m_height * 16, 16));
 }
 
-void Map::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 
 	target.draw(m_renderer, states);

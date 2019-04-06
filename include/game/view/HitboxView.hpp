@@ -18,7 +18,7 @@
 
 class HitboxView : public gk::AbstractView {
 	public:
-		void draw(const gk::SceneObject &object, gk::RenderTarget &target, gk::RenderStates states);
+		void draw(const gk::SceneObject &object, sf::RenderTarget &target, sf::RenderStates states);
 };
 
 #endif // HITBOXVIEW_HPP_

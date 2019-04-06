@@ -30,37 +30,37 @@ bool CollisionHelper::inCollision(gk::SceneObject &object1, gk::SceneObject &obj
 			auto &position1 = object1.get<PositionComponent>();
 			auto &position2 = object2.get<PositionComponent>();
 
-			gk::FloatRect rect1 = *hitbox1.currentHitbox();
-			gk::FloatRect rect2 = *hitbox2.currentHitbox();
+			sf::FloatRect rect1 = *hitbox1.currentHitbox();
+			sf::FloatRect rect2 = *hitbox2.currentHitbox();
 
-			rect1.x += position1.x;
-			rect1.y += position1.y;
+			rect1.left += position1.left;
+			rect1.top += position1.top;
 
-			rect2.x += position2.x;
-			rect2.y += position2.y;
+			rect2.left += position2.left;
+			rect2.top += position2.top;
 
 			if(object1.has<gk::MovementComponent>()) {
 				auto &movement = object1.get<gk::MovementComponent>();
-				rect1.x += movement.v.x;
-				rect1.y += movement.v.y;
+				rect1.left += movement.v.x;
+				rect1.top += movement.v.y;
 			}
 
 			if(object2.has<gk::MovementComponent>()) {
 				auto &movement = object2.get<gk::MovementComponent>();
-				rect2.x += movement.v.x;
-				rect2.y += movement.v.y;
+				rect2.left += movement.v.x;
+				rect2.top += movement.v.y;
 			}
 
 			if(object1.has<SpriteComponent>()) {
 				auto &pos = object1.get<SpriteComponent>().sprite().currentAnimation().currentPosition();
-				rect1.x += pos.x;
-				rect1.y += pos.y;
+				rect1.left += pos.x;
+				rect1.top += pos.y;
 			}
 
 			if(object2.has<SpriteComponent>()) {
 				auto &pos = object2.get<SpriteComponent>().sprite().currentAnimation().currentPosition();
-				rect2.x += pos.x;
-				rect2.y += pos.y;
+				rect2.left += pos.x;
+				rect2.top += pos.y;
 			}
 
 			if(rect1.intersects(rect2)) {

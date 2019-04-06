@@ -16,17 +16,18 @@
 
 #include <vector>
 
+#include <SFML/System/Vector2.hpp>
+
 #include <gk/core/Timer.hpp>
-#include <gk/core/Vector2.hpp>
 
 class SpriteAnimation {
 	public:
 		SpriteAnimation(u16 delay, bool isRepeated = true)
 			: m_delay(delay), m_isRepeated(isRepeated) {}
 		// FIXME: To remove
-		SpriteAnimation(std::vector<u16> frames, u16 delay, bool isRepeated = true)
+		SpriteAnimation(const std::vector<u16> &frames, u16 delay, bool isRepeated = true)
 			: m_frames(frames), m_positions(frames.size(), {0, 0}), m_delay(delay), m_isRepeated(isRepeated) {}
-		SpriteAnimation(std::vector<u16> frames, std::vector<gk::Vector2i> positions, u16 delay, bool isRepeated = true)
+		SpriteAnimation(const std::vector<u16> &frames, const std::vector<sf::Vector2i> &positions, u16 delay, bool isRepeated = true)
 			: m_frames(frames), m_positions(positions), m_delay(delay), m_isRepeated(isRepeated) {}
 
 		void reset(u16 frameID = 0);
@@ -36,13 +37,13 @@ class SpriteAnimation {
 
 		void play();
 
-		void addFrame(u16 frameID, gk::Vector2i position = {0, 0}) { m_frames.emplace_back(frameID); m_positions.emplace_back(position); }
+		void addFrame(u16 frameID, const sf::Vector2i &position = {0, 0}) { m_frames.emplace_back(frameID); m_positions.emplace_back(position); }
 		u16 getFrame(u16 frameID) const;
 		u16 currentFrame() const;
 		u16 displayedFramesAmount() const;
 
-		const gk::Vector2i &getFramePosition(u16 frameID) const;
-		const gk::Vector2i &currentPosition() const;
+		const sf::Vector2i &getFramePosition(u16 frameID) const;
+		const sf::Vector2i &currentPosition() const;
 
 		bool isPlaying() const { return m_timer.isStarted() && !m_isPaused; }
 		bool isFinished() const { return displayedFramesAmount() >= m_frames.size(); }
@@ -55,7 +56,7 @@ class SpriteAnimation {
 
 	private:
 		std::vector<u16> m_frames;
-		std::vector<gk::Vector2i> m_positions;
+		std::vector<sf::Vector2i> m_positions;
 
 		gk::Timer m_timer;
 

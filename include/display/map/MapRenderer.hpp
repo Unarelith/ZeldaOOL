@@ -14,23 +14,23 @@
 #ifndef MAPRENDERER_HPP_
 #define MAPRENDERER_HPP_
 
-#include <gk/gl/IDrawable.hpp>
-#include <gk/gl/VertexBuffer.hpp>
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/VertexBuffer.hpp>
 
 #include "Tileset.hpp"
 
 class Map;
 
-class MapRenderer : public gk::IDrawable {
+class MapRenderer : public sf::Drawable {
 	public:
 		void init(Map *map, u16 mapWidth, u16 mapHeight);
 
 		void updateTile(u16 tileX, u16 tileY, u16 id, Map &map);
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
-		gk::VertexBuffer m_vbo;
+		sf::VertexBuffer m_vbo;
 
 		Map *m_map = nullptr;
 };

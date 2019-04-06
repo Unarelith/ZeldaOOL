@@ -16,7 +16,7 @@
 
 #include "Map.hpp"
 
-class World : public gk::IDrawable, public gk::Transformable {
+class World : public sf::Drawable, public sf::Transformable {
 	public:
 		World();
 
@@ -36,7 +36,7 @@ class World : public gk::IDrawable, public gk::Transformable {
 		static World &getInstance() { return *s_instance; }
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		static World *s_instance;
 

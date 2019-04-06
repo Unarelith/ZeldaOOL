@@ -67,11 +67,11 @@ u16 SpriteAnimation::displayedFramesAmount() const {
 	return m_timer.time() / m_delay;
 }
 
-const gk::Vector2i &SpriteAnimation::getFramePosition(u16 frameID) const {
+const sf::Vector2i &SpriteAnimation::getFramePosition(u16 frameID) const {
 	return m_positions.at(frameID);
 }
 
-const gk::Vector2i &SpriteAnimation::currentPosition() const {
+const sf::Vector2i &SpriteAnimation::currentPosition() const {
 	if(!isFinished()) {
 		return getFramePosition(displayedFramesAmount());
 	} else {

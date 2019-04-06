@@ -11,16 +11,21 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+
 #include <gk/core/input/GamePad.hpp>
+#include <gk/resource/AudioPlayer.hpp>
 
 #include "GameKey.hpp"
 #include "MessageBox.hpp"
 
 MessageBox::MessageBox(const std::string &text, Position position) : m_textBox(text, 144, 40) {
-	gk::Transformable::setPosition(8, position);
+	sf::Transformable::setPosition(8, position);
 
-	m_dialogArrow.setPosition(m_rectangle.width() - 8, m_rectangle.height() - 7);
+	m_dialogArrow.setPosition(m_rectangle.getSize().x - 8, m_rectangle.getSize().y - 7);
+
+	m_rectangle.setSize({144, 40});
+	m_rectangle.setFillColor(sf::Color::Black);
 }
 
 void MessageBox::update() {
@@ -38,7 +43,7 @@ void MessageBox::update() {
 	m_textBox.updateTextSprites();
 }
 
-void MessageBox::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void MessageBox::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 
 	target.draw(m_rectangle, states);
