@@ -30,8 +30,6 @@
 void Application::init() {
 	gk::CoreApplication::init();
 
-	gk::GamePad::init(m_keyboardHandler);
-
 	createWindow(SCREEN_WIDTH * 4, SCREEN_HEIGHT * 4, APP_NAME);
 	m_window.disableView();
 
@@ -41,6 +39,9 @@ void Application::init() {
 	m_renderStates.vertexAttributes = gk::VertexAttribute::Only2d;
 	m_renderStates.projectionMatrix = glm::ortho(0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f);
 	// m_renderStates.projectionMatrix = glm::ortho((float)-SCREEN_WIDTH, (float)SCREEN_WIDTH * 2, (float)SCREEN_HEIGHT * 2, (float)-SCREEN_HEIGHT);
+
+	m_keyboardHandler.loadKeysFromFile("resources/config/keys.xml");
+	gk::GamePad::init(m_keyboardHandler);
 
 	m_resourceHandler.loadConfigFile<AudioLoader>("resources/config/audio.xml");
 	m_resourceHandler.loadConfigFile<TextureLoader>("resources/config/textures.xml");
