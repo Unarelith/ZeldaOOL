@@ -61,8 +61,8 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 
 	m_drawStatsBar = false;
 
-	m_rect1.setColor(m_color);
-	m_rect2.setColor(m_color);
+	m_rect1.setFillColor(m_color);
+	m_rect2.setFillColor(m_color);
 
 	Sprite::pause = true;
 }

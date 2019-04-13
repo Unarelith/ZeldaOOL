@@ -18,7 +18,7 @@
 
 #include "Sprite.hpp"
 
-class Text : public gk::IDrawable, public gk::Transformable {
+class Text : public gk::Drawable, public gk::Transformable {
 	public:
 		Text(const std::string &textureName, u8 charWidth, u8 charHeight);
 

@@ -20,7 +20,7 @@
 #include "Color.hpp"
 #include "Sprite.hpp"
 
-class TextBox : public gk::IDrawable, public gk::Transformable {
+class TextBox : public gk::Drawable, public gk::Transformable {
 	public:
 		TextBox(const std::string &text, u16 width, u16 height);
 

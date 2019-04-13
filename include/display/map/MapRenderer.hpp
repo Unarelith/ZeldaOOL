@@ -14,14 +14,14 @@
 #ifndef MAPRENDERER_HPP_
 #define MAPRENDERER_HPP_
 
-#include <gk/gl/IDrawable.hpp>
+#include <gk/gl/Drawable.hpp>
 #include <gk/gl/VertexBuffer.hpp>
 
 #include "Tileset.hpp"
 
 class Map;
 
-class MapRenderer : public gk::IDrawable {
+class MapRenderer : public gk::Drawable {
 	public:
 		void init(Map *map, u16 mapWidth, u16 mapHeight);
 

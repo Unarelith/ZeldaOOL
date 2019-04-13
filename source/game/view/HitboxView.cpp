@@ -37,7 +37,7 @@ void HitboxView::draw(const gk::SceneObject &object, gk::RenderTarget &target, g
 			rect.setPosition(hitbox->x, hitbox->y);
 			rect.setSize(hitbox->width, hitbox->height);
 			rect.setWireframeMode(true);
-			rect.setColor(gk::Color::White);
+			rect.setFillColor(gk::Color::White);
 
 			if(object.has<SpriteComponent>() && object.get<SpriteComponent>().hasCurrentState()) {
 				auto pos = object.get<SpriteComponent>().sprite().currentAnimation().currentPosition();

@@ -16,7 +16,7 @@
 
 #include "Image.hpp"
 
-class Menu : public gk::IDrawable {
+class Menu : public gk::Drawable {
 	public:
 		Menu();
 

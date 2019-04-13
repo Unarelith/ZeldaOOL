@@ -23,7 +23,7 @@
 #include "Image.hpp"
 #include "TextBox.hpp"
 
-class MessageBox : public gk::IDrawable, public gk::Transformable {
+class MessageBox : public gk::Drawable, public gk::Transformable {
 	public:
 		enum Position : u8 {
 			Top    = 24,

@@ -17,7 +17,7 @@
 #include "Sprite.hpp"
 #include "Text.hpp"
 
-class StatsBar : public gk::IDrawable {
+class StatsBar : public gk::Drawable {
 	public:
 		StatsBar();
 

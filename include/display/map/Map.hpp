@@ -21,7 +21,7 @@
 #include "MapRenderer.hpp"
 #include "Tileset.hpp"
 
-class Map : public gk::IDrawable, public gk::Transformable {
+class Map : public gk::Drawable, public gk::Transformable {
 	public:
 		Map(u16 area, u16 x, u16 y, u16 width, u16 height, Tileset &tileset, const std::vector<u16> &data);
 

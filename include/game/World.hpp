@@ -16,7 +16,7 @@
 
 #include "Map.hpp"
 
-class World : public gk::IDrawable, public gk::Transformable {
+class World : public gk::Drawable, public gk::Transformable {
 	public:
 		World();
 
