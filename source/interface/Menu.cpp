@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include <gk/core/input/GamePad.hpp>
 
 #include "GameKey.hpp"
@@ -25,25 +25,25 @@ Menu::Menu() {
 
 void Menu::update() {
 	if(gk::GamePad::isKeyPressedWithDelay(GameKey::Left, 250)) {
-		gk::AudioPlayer::playSound("sfx-menuCursor");
+		// gk::AudioPlayer::playSound("sfx-menuCursor"); // FIXME: GAMEKIT
 
 		m_cursorX--;
 	}
 
 	if(gk::GamePad::isKeyPressedWithDelay(GameKey::Right, 250)) {
-		gk::AudioPlayer::playSound("sfx-menuCursor");
+		// gk::AudioPlayer::playSound("sfx-menuCursor"); // FIXME: GAMEKIT
 
 		m_cursorX++;
 	}
 
 	if(gk::GamePad::isKeyPressedWithDelay(GameKey::Up, 250)) {
-		gk::AudioPlayer::playSound("sfx-menuCursor");
+		// gk::AudioPlayer::playSound("sfx-menuCursor"); // FIXME: GAMEKIT
 
 		m_cursorY--;
 	}
 
 	if(gk::GamePad::isKeyPressedWithDelay(GameKey::Down, 250)) {
-		gk::AudioPlayer::playSound("sfx-menuCursor");
+		// gk::AudioPlayer::playSound("sfx-menuCursor"); // FIXME: GAMEKIT
 
 		m_cursorY++;
 	}
@@ -64,13 +64,13 @@ void Menu::update() {
 	auto &playerInventory = World::getInstance().player().get<InventoryComponent>();
 
 	if(gk::GamePad::isKeyPressedOnce(GameKey::A)) {
-		gk::AudioPlayer::playSound("sfx-menuSelect");
+		// gk::AudioPlayer::playSound("sfx-menuSelect"); // FIXME: GAMEKIT
 
 		playerInventory.equipWeapon(m_cursorX, m_cursorY, GameKey::A);
 	}
 
 	if(gk::GamePad::isKeyPressedOnce(GameKey::B)) {
-		gk::AudioPlayer::playSound("sfx-menuSelect");
+		// gk::AudioPlayer::playSound("sfx-menuSelect"); // FIXME: GAMEKIT
 
 		playerInventory.equipWeapon(m_cursorX, m_cursorY, GameKey::B);
 	}

@@ -13,7 +13,7 @@
  */
 #include <functional>
 
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include <gk/core/Exception.hpp>
 
 #include "TextBox.hpp"
@@ -58,7 +58,7 @@ void TextBox::updateTextSprites() {
 
 		// Letter by letter text display
 		if(isTimeToDisplayLetter(i)) {
-			gk::AudioPlayer::repeatSound("sfx-textLetter", m_delay);
+			// gk::AudioPlayer::repeatSound("sfx-textLetter", m_delay); // FIXME: GAMEKIT
 			break;
 		}
 

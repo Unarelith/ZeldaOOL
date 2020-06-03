@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include <gk/core/ApplicationStateStack.hpp>
 #include <gk/scene/component/CollisionComponent.hpp>
 #include <gk/scene/component/HitboxComponent.hpp>
@@ -45,7 +45,7 @@ void TeleporterFactory::teleporterAction(gk::SceneObject &teleporter, gk::SceneO
 	if(object.type() == "Player") {
 		if(inCollision) {
 			if(!playerOnDoor) {
-				gk::AudioPlayer::playSound("sfx-mapStairs");
+				// gk::AudioPlayer::playSound("sfx-mapStairs"); // FIXME: GAMEKIT
 
 				auto &state = gk::ApplicationStateStack::getInstance().push<TransitionState>(&gk::ApplicationStateStack::getInstance().top());
 				state.setTransition<TeleporterTransition>(teleporterComponent.area(),

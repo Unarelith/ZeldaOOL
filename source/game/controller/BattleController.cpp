@@ -13,7 +13,7 @@
  */
 #include <cmath>
 
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include <gk/scene/component/HitboxComponent.hpp>
 #include <gk/scene/component/MovementComponent.hpp>
 
@@ -49,7 +49,7 @@ void BattleController::update(gk::SceneObject &object) {
 
 				object.get<EffectsComponent>().enable("destroy");
 
-				gk::AudioPlayer::playSound("sfx-enemyDie");
+				// gk::AudioPlayer::playSound("sfx-enemyDie"); // FIXME: GAMEKIT
 			}
 		}
 	}

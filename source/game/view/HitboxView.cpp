@@ -35,7 +35,7 @@ void HitboxView::draw(const gk::SceneObject &object, gk::RenderTarget &target, g
 		if(hitbox) {
 			gk::RectangleShape rect;
 			rect.setPosition(hitbox->x, hitbox->y);
-			rect.setSize(hitbox->width, hitbox->height);
+			rect.setSize(hitbox->sizeX, hitbox->sizeY);
 			rect.setWireframeMode(true);
 			rect.setFillColor(gk::Color::White);
 

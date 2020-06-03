@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include <gk/scene/Scene.hpp>
 
 #include "Application.hpp"
@@ -48,12 +48,12 @@ TeleporterTransition::TeleporterTransition(u16 area, u16 mapX, u16 mapY, u16 pla
 
 	// FIXME: Each map should have a string member with it's bgm name
 	if(m_nextMap->area() == 0) {
-		gk::AudioPlayer::playMusic("bgm-plain");
+		// gk::AudioPlayer::playMusic("bgm-plain"); // FIXME: GAMEKIT
 	}
 	else if(m_nextMap->area() == 1) {
-		gk::AudioPlayer::playMusic("bgm-indoor");
+		// gk::AudioPlayer::playMusic("bgm-indoor"); // FIXME: GAMEKIT
 	} else {
-		gk::AudioPlayer::playMusic("bgm-underground");
+		// gk::AudioPlayer::playMusic("bgm-underground"); // FIXME: GAMEKIT
 	}
 
 	BehaviourController controller;

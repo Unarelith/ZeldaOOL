@@ -27,16 +27,22 @@
 #include "TextureLoader.hpp"
 #include "TilesetLoader.hpp"
 
+// #include <gk/gl/Vertex.hpp>
+
 void Application::init() {
 	gk::CoreApplication::init();
 
-	createWindow(SCREEN_WIDTH * 4, SCREEN_HEIGHT * 4, APP_NAME);
+	// m_window.addVertexAttribute(gk::VertexAttribute::Coord3d, "coord3d", 4, GL_FLOAT, GL_FALSE, sizeof(gk::Vertex), reinterpret_cast<GLvoid *>(offsetof(gk::Vertex, coord3d)));
+	// m_window.addVertexAttribute(gk::VertexAttribute::TexCoord, "texCoord", 2, GL_FLOAT, GL_FALSE, sizeof(gk::Vertex), reinterpret_cast<GLvoid *>(offsetof(gk::Vertex, texCoord)));
+	// m_window.addVertexAttribute(VertexAttribute::Color, "color", 4, GL_FLOAT, GL_FALSE, sizeof(gk::Vertex), reinterpret_cast<GLvoid *>(offsetof(gk::Vertex, color)));
+
+	createWindow(sf::VideoMode{SCREEN_WIDTH * 4, SCREEN_HEIGHT * 4}, APP_NAME, sf::Style::Titlebar | sf::Style::Close);
+
 	m_window.disableView();
 
 	m_shader.loadFromFile("resources/shaders/game.v.glsl", "resources/shaders/game.f.glsl");
 	m_renderStates.shader = &m_shader;
 
-	m_renderStates.vertexAttributes = gk::VertexAttribute::Only2d;
 	m_renderStates.projectionMatrix = glm::ortho(0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.0f);
 	// m_renderStates.projectionMatrix = glm::ortho((float)-SCREEN_WIDTH, (float)SCREEN_WIDTH * 2, (float)SCREEN_HEIGHT * 2, (float)-SCREEN_HEIGHT);
 
@@ -53,11 +59,11 @@ void Application::init() {
 	m_stateStack.push<GameState>();
 }
 
-void Application::onEvent(const SDL_Event &event) {
+void Application::onEvent(const sf::Event &event) {
 	gk::CoreApplication::onEvent(event);
 
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
-		m_window.close();
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+		m_window.window().close();
 	}
 }
 

@@ -1,13 +1,13 @@
 <!-- Key names are defined here: https://wiki.libsdl.org/SDL_Keycode -->
 <keys>
-	<key name="Left"   key="Left"/>
-	<key name="Right"  key="Right"/>
-	<key name="Up"     key="Up"/>
-	<key name="Down"   key="Down"/>
+	<key name="Left"   keycode="Left"/>
+	<key name="Right"  keycode="Right"/>
+	<key name="Up"     keycode="Up"/>
+	<key name="Down"   keycode="Down"/>
 
-	<key name="A"      key="X"/>
-	<key name="B"      key="Z"/>
+	<key name="A"      keycode="X"/>
+	<key name="B"      keycode="Z"/>
 
-	<key name="Start"  key="Return"/>
-	<key name="Select" key="Backspace"/>
+	<key name="Start"  keycode="Return"/>
+	<key name="Select" keycode="Backspace"/>
 </keys>

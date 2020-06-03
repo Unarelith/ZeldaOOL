@@ -24,7 +24,7 @@ void TransitionState::update() {
 	m_statsBar.update();
 
 	if(!m_transition || m_transition->atEnd()) {
-		if(!m_transition) DEBUG("Empty TransitionState created, I'll pop it");
+		if(!m_transition) gkDebug() << "Empty TransitionState created, I'll pop it";
 
 		m_stateStack->pop();
 	} else {

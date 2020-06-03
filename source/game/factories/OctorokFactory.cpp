@@ -72,20 +72,20 @@ gk::SceneObject OctorokFactory::create(float x, float y) {
 	return octorok;
 }
 
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include "BattleController.hpp"
 #include "WeaponComponent.hpp"
 
 void OctorokFactory::octorokAction(gk::SceneObject &octorok, gk::SceneObject &object, bool inCollision) {
 	if(inCollision) {
 		if(object.type() == "Player") {
-			gk::AudioPlayer::playSound("sfx-linkHurt");
+			// gk::AudioPlayer::playSound("sfx-linkHurt"); // FIXME: GAMEKIT
 			BattleController::hurt(octorok, object);
 		}
 		else if(object.has<WeaponComponent>()) {
 			// auto &weaponComponent = object.get<WeaponComponent>();
 			// if(weaponComponent.weaponInfos.strength()) {
-				gk::AudioPlayer::playSound("sfx-enemyHit");
+				// gk::AudioPlayer::playSound("sfx-enemyHit"); // FIXME: GAMEKIT
 				BattleController::hurt(object, octorok);
 
 				auto &positionComponent = octorok.get<PositionComponent>();

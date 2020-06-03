@@ -65,7 +65,7 @@ gk::SceneObject GrassFactory::create(u16 tileX, u16 tileY, bool lowGrass) {
 	return object;
 }
 
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include "WeaponComponent.hpp"
 #include "World.hpp"
 
@@ -88,7 +88,7 @@ void GrassFactory::grassAction(gk::SceneObject &grass, gk::SceneObject &object, 
 			 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() > 2
 			 && swordSprite.getAnimation((s8)playerDirection).displayedFramesAmount() < swordSprite.getAnimation((s8)playerDirection).size())
 			|| object.get<BehaviourComponent>().behaviour->state() == "SpinAttack") {
-				gk::AudioPlayer::playSound("sfx-grassDestroy");
+				// gk::AudioPlayer::playSound("sfx-grassDestroy"); // FIXME: GAMEKIT
 
 				grass.get<LootComponent>().dropItem(grassPosition.x + 8, grassPosition.y + 8);
 

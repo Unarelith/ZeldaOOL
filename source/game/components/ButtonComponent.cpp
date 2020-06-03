@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GameKit
 
 #include "ButtonComponent.hpp"
 #include "World.hpp"
@@ -23,7 +23,7 @@ void ButtonComponent::addTileChange(u16 tileX, u16 tileY, u16 newID) {
 void ButtonComponent::pressedAction(u16 buttonTileX, u16 buttonTileY) {
 	if(m_pressed) return;
 
-	gk::AudioPlayer::playSound("sfx-chest");
+	// gk::AudioPlayer::playSound("sfx-chest"); // FIXME: GameKit
 
 	World::getInstance().currentMap()->setTile(buttonTileX, buttonTileY, 8);
 

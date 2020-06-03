@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include <gk/core/input/GamePad.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
 
@@ -24,7 +24,7 @@ void MenuState::update() {
 	m_menu.update();
 
 	if(gk::GamePad::isKeyPressedOnce(GameKey::Start)) {
-		gk::AudioPlayer::playSound("sfx-menuClose");
+		// gk::AudioPlayer::playSound("sfx-menuClose"); // FIXME: GAMEKIT
 
 		m_stateStack->pop();
 	}

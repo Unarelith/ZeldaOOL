@@ -65,7 +65,7 @@ void SpriteView::draw(const gk::SceneObject &object, gk::RenderTarget &target, g
 
 			if(object.has<HealthComponent>()
 			&& object.get<HealthComponent>().isHurt
-			&& gk::GameClock::getTicks() % 100 < 50) {
+			&& gk::GameClock::getInstance().getTicks() % 100 < 50) {
 				sprite.setPaletteID(1);
 			}
 
@@ -84,7 +84,7 @@ void SpriteView::draw(const gk::SceneObject &object, gk::RenderTarget &target, g
 		if (spriteComponent.isEnabled()) {
 			if(object.has<HealthComponent>()
 			&& object.get<HealthComponent>().isHurt
-			&& gk::GameClock::getTicks() % 100 < 50) {
+			&& gk::GameClock::getInstance().getTicks() % 100 < 50) {
 				spriteComponent.sprite().setPaletteID(1);
 			}
 

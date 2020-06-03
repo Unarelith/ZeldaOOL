@@ -11,7 +11,6 @@
  *
  * =====================================================================================
  */
-#include <gk/gl/Texture.hpp>
 #include <gk/resource/ResourceHandler.hpp>
 
 #include "Text.hpp"

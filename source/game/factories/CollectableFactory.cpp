@@ -11,8 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
-#include <gk/gl/Texture.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include <gk/resource/ResourceHandler.hpp>
 #include <gk/scene/component/CollisionComponent.hpp>
 #include <gk/scene/component/HitboxComponent.hpp>
@@ -72,7 +71,7 @@ void CollectableFactory::collectableAction(gk::SceneObject &collectable, gk::Sce
 	auto &lifetimeComponent = collectable.get<LifetimeComponent>();
 
 	if(object.type() == "Player" && inCollision) {
-		gk::AudioPlayer::playSound(collectableComponent.soundEffectName());
+		// gk::AudioPlayer::playSound(collectableComponent.soundEffectName()); // FIXME: GAMEKIT
 
 		collectableComponent.action(object);
 

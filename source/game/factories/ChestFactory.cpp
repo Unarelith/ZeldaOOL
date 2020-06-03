@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GameKit
 #include <gk/core/input/GamePad.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
 #include <gk/scene/component/CollisionComponent.hpp>
@@ -50,7 +50,7 @@ void ChestFactory::chestAction(gk::SceneObject &chest, gk::SceneObject &object, 
 		if(playerPosition.direction == Direction::Up
 		&& playerPosition.y > chestPosition.y
 		&& gk::GamePad::isKeyPressedOnce(GameKey::A)) {
-			gk::AudioPlayer::playSound("sfx-chest");
+			// gk::AudioPlayer::playSound("sfx-chest"); // FIXME: GAMEKIT
 
 			World::getInstance().currentMap()->setTile(chestPosition.x / 16,
 			                                           chestPosition.y / 16, 240, true, true);

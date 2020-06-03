@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include <gk/core/input/GamePad.hpp>
 #include <gk/core/ApplicationStateStack.hpp>
 
@@ -22,7 +22,7 @@
 GameState::GameState() {
 	World::setInstance(&m_world);
 
-	gk::AudioPlayer::playMusic("bgm-plain");
+	// gk::AudioPlayer::playMusic("bgm-plain"); // FIXME: GAMEKIT
 }
 
 void GameState::update() {
@@ -31,7 +31,7 @@ void GameState::update() {
 	m_statsBar.update();
 
 	if(gk::GamePad::isKeyPressedOnce(GameKey::Start)) {
-		gk::AudioPlayer::playSound("sfx-menuOpen");
+		// gk::AudioPlayer::playSound("sfx-menuOpen"); // FIXME: GAMEKIT
 
 		m_stateStack->push<MenuState>();
 	}

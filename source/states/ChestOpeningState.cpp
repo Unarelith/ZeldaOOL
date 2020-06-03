@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include <gk/core/ApplicationStateStack.hpp>
 #include <gk/scene/component/MovementComponent.hpp>
 
@@ -31,7 +31,7 @@ ChestOpeningState::ChestOpeningState(gk::SceneObject &chest, gk::ApplicationStat
 	auto &chestPosition = chest.get<PositionComponent>();
 	auto &itemPosition = m_item->get<PositionComponent>();
 
-	itemPosition.x = chestPosition.x + 8 - itemPosition.width / 2;
+	itemPosition.x = chestPosition.x + 8 - itemPosition.sizeX / 2;
 	itemPosition.y = chestPosition.y - 8;
 
 	Sprite::pause = true;
@@ -48,7 +48,7 @@ void ChestOpeningState::update() {
 		}
 	}
 	else if(m_state == State::Opened) {
-		gk::AudioPlayer::playSound("sfx-itemNew");
+		// gk::AudioPlayer::playSound("sfx-itemNew"); // FIXME: GAMEKIT
 
 		gk::ApplicationStateStack::getInstance().push<MessageBoxState>("Vous obtenez [2]30 Rubis[0]!\nC'est bien.", this);
 

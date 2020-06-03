@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include <gk/core/input/GamePad.hpp>
 
 #include "GameKey.hpp"
@@ -27,7 +27,7 @@ void MessageBox::update() {
 	if(gk::GamePad::isKeyPressedOnce(GameKey::A)
 	|| gk::GamePad::isKeyPressedOnce(GameKey::B)) {
 		if(m_textBox.textDisplayFinished()) {
-			gk::AudioPlayer::playSound("sfx-dialogContinue");
+			// gk::AudioPlayer::playSound("sfx-dialogContinue"); // FIXME: GAMEKIT
 
 			m_finished = m_textBox.scrollDown();
 		} else {

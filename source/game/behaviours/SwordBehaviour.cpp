@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include <gk/audio/AudioPlayer.hpp>
+// #include <gk/audio/AudioPlayer.hpp> // FIXME: GAMEKIT
 #include <gk/core/input/GamePad.hpp>
 #include <gk/scene/component/HitboxComponent.hpp>
 
@@ -23,7 +23,7 @@
 #include "WeaponComponent.hpp"
 
 SwordBehaviour::SwordBehaviour() : Behaviour("Swinging") {
-	gk::AudioPlayer::playSound("sfx-swordSlash1");
+	// gk::AudioPlayer::playSound("sfx-swordSlash1"); // FIXME: GAMEKIT
 }
 
 void SwordBehaviour::update(gk::SceneObject &sword) {
@@ -74,7 +74,7 @@ void SwordBehaviour::update(gk::SceneObject &sword) {
 
 			m_keyReleased = false;
 
-			gk::AudioPlayer::playSound("sfx-swordSlash1");
+			// gk::AudioPlayer::playSound("sfx-swordSlash1"); // FIXME: GameKit
 
 			ownerSprite.getAnimation((s8)ownerPosition.direction + 8).reset();
 			sprite.getAnimation((s8)ownerPosition.direction).reset();
@@ -84,7 +84,7 @@ void SwordBehaviour::update(gk::SceneObject &sword) {
 		if(m_loadingTimer.time() > 650) {
 			m_state = "Loaded";
 
-			gk::AudioPlayer::playSound("sfx-swordCharge");
+			// gk::AudioPlayer::playSound("sfx-swordCharge"); // FIXME: GameKit
 		}
 
 		if(!gk::GamePad::isKeyPressed(weaponComponent.key)) {
@@ -93,7 +93,7 @@ void SwordBehaviour::update(gk::SceneObject &sword) {
 	}
 	else if(m_state == "Loaded") {
 		if(!gk::GamePad::isKeyPressed(weaponComponent.key)) {
-			gk::AudioPlayer::playSound("sfx-swordSpin");
+			// gk::AudioPlayer::playSound("sfx-swordSpin"); // FIXME: GameKit
 
 			m_state = "SpinAttack";
 
