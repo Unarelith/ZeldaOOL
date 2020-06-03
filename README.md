@@ -1,6 +1,6 @@
 # The Legend of Zelda: Oracle of Light
 
-### By gnidmoo
+### By Unarelith
 
 - This game is a Zelda fangame, based on the *Oracle of* series on GBC
 
